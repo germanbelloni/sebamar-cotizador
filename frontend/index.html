@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sebamar App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
+
+    <h1 class="text-2xl font-bold text-center mb-4">
+      Cotizador Sebamar
+    </h1>
+
+    <!-- PRODUCTO -->
+    <select id="producto" class="w-full border rounded p-2 mb-4" onchange="cambiarProducto()">
+      <option value="herrero">Herrero</option>
+      <option value="modena">Modena</option>
+    </select>
+
+    <!-- BUSCADOR -->
+    <div class="relative mb-4">
+      <input type="text" id="buscador" placeholder="Buscar medida..." class="w-full border rounded p-2"
+        oninput="filtrarMedidas()" onclick="mostrarDropdown()" />
+
+      <div id="dropdownMedidas"
+        class="absolute w-full bg-white border rounded shadow max-h-40 overflow-y-auto hidden z-10">
+      </div>
+    </div>
+
+    <!-- COLORES -->
+    <div id="coloresContainer" class="grid grid-cols-2 gap-2 mb-4"></div>
+
+    <!-- VIDRIO -->
+    <select id="vidrio" class="w-full border rounded p-2 mb-4">
+      <option value="3mm">3mm</option>
+      <option value="4mm">4mm</option>
+      <option value="5mm">5mm</option>
+      <option value="3+3">3+3 Laminado</option>
+      <option value="dvh">DVH</option>
+    </select>
+
+    <!-- OPCIONES -->
+    <label><input type="checkbox" id="guia"> Incluir guía</label><br>
+    <label><input type="checkbox" id="mosq"> Incluir mosquitero</label>
+
+    <br><br>
+
+    <button id="btnCalcular"
+      onclick="calcularFull()"
+      class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+      Calcular
+    </button>
+
+    <div id="resultado" class="mt-6"></div>
+
+  </div>
+
+  <script>
+
+    const API = "http://localhost:3000";
+
+    let medidas = [];
+    let medidaSeleccionada = null;
+    let colorSeleccionado = 0;
+
+    function colorHex(nombre) {
+      nombre = nombre.toLowerCase();
+
+      if (nombre.includes("blanco")) return "#ffffff";
+      if (nombre.includes("negro")) return "#000000";
+      if (nombre.includes("bronce")) return "#8b5a2b";
+      if (nombre.includes("madera")) return "#a0522d";
+
+      return "#ccc";
+    }
+
+    // 🔹 cargar medidas
+    function cargarMedidas() {
+      const producto = document.getElementById("producto").value;
+
+      fetch(`${API}/api/medidas/${producto}`)
+        .then(res => res.json())
+        .then(data => {
+          medidas = data;
+        });
+    }
+
+    function cambiarProducto() {
+      medidaSeleccionada = null;
+      document.getElementById("buscador").value = "";
+      cargarMedidas();
+    }
+
+    // 🔹 dropdown
+    function mostrarDropdown() {
+      renderMedidas(medidas);
+      document.getElementById("dropdownMedidas").classList.remove("hidden");
+    }
+
+    function renderMedidas(lista) {
+      const container = document.getElementById("dropdownMedidas");
+      container.innerHTML = "";
+
+      lista.forEach(m => {
+        const div = document.createElement("div");
+        div.innerText = m;
+        div.className = "p-2 hover:bg-blue-100 cursor-pointer";
+
+        div.onclick = () => {
+          medidaSeleccionada = m;
+          document.getElementById("buscador").value = m;
+          container.classList.add("hidden");
+        };
+
+        container.appendChild(div);
+      });
+    }
+
+    function filtrarMedidas() {
+      mostrarDropdown();
+
+      const texto = document.getElementById("buscador").value.toLowerCase();
+
+      const filtradas = medidas.filter(m =>
+        m.toLowerCase().includes(texto)
+      );
+
+      renderMedidas(filtradas);
+    }
+
+    // 🔹 colores
+    function cargarColores() {
+      fetch(`${API}/api/colores`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("coloresContainer");
+          container.innerHTML = "";
+
+          data.forEach(c => {
+            const div = document.createElement("div");
+
+            div.className = "flex items-center gap-2 border rounded p-2 cursor-pointer hover:bg-blue-100";
+
+            div.innerHTML = `
+              <div style="width:16px;height:16px;background:${colorHex(c.nombre)};border:1px solid #000;"></div>
+              <span>${c.nombre}</span>
+            `;
+
+            div.onclick = () => {
+              colorSeleccionado = c.valor;
+
+              // glow botón 🔥
+              document.getElementById("btnCalcular").style.boxShadow =
+                `0 0 12px ${colorHex(c.nombre)}`;
+
+              document.querySelectorAll("#coloresContainer div")
+                .forEach(el => el.classList.remove("bg-blue-200"));
+
+              div.classList.add("bg-blue-200");
+            };
+
+            container.appendChild(div);
+          });
+        });
+    }
+
+    function formatear(n) {
+      return Math.round(n).toString();
+    }
+
+    // 🔥 calcular
+    function calcularFull() {
+
+      if (!medidaSeleccionada) {
+        alert("Seleccioná una medida");
+        return;
+      }
+
+      const btn = document.getElementById("btnCalcular");
+      btn.innerText = "Calculando...";
+      btn.disabled = true;
+
+      const producto = document.getElementById("producto").value;
+
+      fetch(`${API}/api/calcular/${producto}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          medida: medidaSeleccionada,
+          color: colorSeleccionado,
+          incluirGuia: document.getElementById("guia").checked,
+          incluirMosquitero: document.getElementById("mosq").checked,
+          tipoVidrio: document.getElementById("vidrio").value
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+
+          let html = `<div>Ventana: $${formatear(data.ventana)}</div>`;
+
+          if (data.guia !== null) html += `<div>Guía: $${formatear(data.guia)}</div>`;
+          if (data.mosquitero !== null) html += `<div>Mosquitero: $${formatear(data.mosquitero)}</div>`;
+
+          html += `<hr>`;
+          html += `<div><b>TOTAL: $${formatear(data.total)}</b></div>`;
+
+          document.getElementById("resultado").innerHTML = html;
+
+          btn.innerText = "Calcular";
+          btn.disabled = false;
+        });
+    }
+
+    // INIT
+    cargarColores();
+    cargarMedidas();
+
+  </script>
+
+</body>
+
+</html>
