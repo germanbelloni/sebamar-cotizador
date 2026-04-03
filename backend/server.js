@@ -38,7 +38,7 @@ app.get("/api/medidas/:producto", (req, res) => {
 // 🔹 COLORES
 app.get("/api/colores", (req, res) => {
   const colores = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../data/colores.json"), "utf-8")
+    fs.readFileSync(path.join(__dirname, "../data/colores.json"), "utf-8"),
   );
   res.json(colores);
 });
@@ -52,7 +52,8 @@ function redondear5(valor) {
 app.post("/api/calcular/:producto", (req, res) => {
   try {
     const { producto } = req.params;
-    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } = req.body;
+    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } =
+      req.body;
 
     const productoData = obtenerProducto(producto);
     const datos = productoData.medidas[medida];
@@ -61,9 +62,9 @@ app.post("/api/calcular/:producto", (req, res) => {
       return res.json({ error: "Medida no encontrada" });
     }
 
-    const descuento = producto === "modena" ? 0.07 : 0.10;
+    const descuento = producto === "modena" ? 0.07 : 0.1;
     const flete = 0.06;
-    const ganancia = 0.30;
+    const ganancia = 0.3;
 
     const base = datos.base || 0;
     const guia = datos.guia || 0;
@@ -88,8 +89,8 @@ app.post("/api/calcular/:producto", (req, res) => {
 
     // 💥 precio
     let precio = costo;
-    precio *= (1 + flete);
-    precio *= (1 + ganancia);
+    precio *= 1 + flete;
+    precio *= 1 + ganancia;
     precio = redondear5(precio);
 
     // 🔹 guía
@@ -97,8 +98,8 @@ app.post("/api/calcular/:producto", (req, res) => {
 
     if (incluirGuia) {
       let g = guiaColor * (1 - descuento);
-      g *= (1 + flete);
-      g *= (1 + ganancia);
+      g *= 1 + flete;
+      g *= 1 + ganancia;
       precioGuia = redondear5(g);
     }
 
@@ -107,9 +108,9 @@ app.post("/api/calcular/:producto", (req, res) => {
 
     if (incluirMosquitero) {
       let m = mosq * (1 + (color || 0));
-      m *= (1 - descuento);
-      m *= (1 + flete);
-      m *= (1 + ganancia);
+      m *= 1 - descuento;
+      m *= 1 + flete;
+      m *= 1 + ganancia;
       precioMosq = redondear5(m);
     }
 
@@ -117,15 +118,16 @@ app.post("/api/calcular/:producto", (req, res) => {
       ventana: precio,
       guia: precioGuia,
       mosquitero: incluirMosquitero ? precioMosq : null,
-      total: precio + (precioGuia || 0) + precioMosq
+      total: precio + (precioGuia || 0) + precioMosq,
     });
-
   } catch (e) {
     console.log("ERROR CALCULO:", e.message);
     res.status(500).json({ error: e.message });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Servidor en http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT);
 });
