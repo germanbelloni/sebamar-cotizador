@@ -13,11 +13,6 @@ function obtenerProducto(nombre) {
 module.exports = async (req, res) => {
   const { url, method } = req;
 
-  // 🔹 TEST
-  if (url === "/api") {
-    return res.status(200).send("Servidor OK");
-  }
-
   // 🔹 MEDIDAS
   if (url.startsWith("/api/medidas/")) {
     const producto = url.split("/").pop();
