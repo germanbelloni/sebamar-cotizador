@@ -1,0 +1,16 @@
+{
+  "name": "sebamarapp",
+  "version": "1.0.0",
+  "description": "Cotizador Sebamar",
+  "main": "dev-server.js",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

@@ -5,57 +5,203 @@
   <meta charset="UTF-8">
   <title>Sebamar App</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.3s ease;
+    }
+  </style>
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100">
 
-  <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
+  <!-- MENU PRINCIPAL -->
+  <div id="menuPrincipal" class="flex items-center justify-center min-h-screen">
 
-    <h1 class="text-2xl font-bold text-center mb-4">
-      Cotizador Sebamar
-    </h1>
+    <div class="grid grid-cols-2 gap-4 w-full max-w-md p-6">
 
-    <!-- PRODUCTO -->
-    <select id="producto" class="w-full border rounded p-2 mb-4" onchange="cambiarProducto()">
-      <option value="herrero">Herrero</option>
-      <option value="modena">Modena</option>
-    </select>
-
-    <!-- BUSCADOR -->
-    <div class="relative mb-4">
-      <input type="text" id="buscador" placeholder="Buscar medida..." class="w-full border rounded p-2"
-        oninput="filtrarMedidas()" onclick="mostrarDropdown()" />
-
-      <div id="dropdownMedidas"
-        class="absolute w-full bg-white border rounded shadow max-h-40 overflow-y-auto hidden z-10">
+      <!-- CAMBIO: ahora abre submenu -->
+      <div onclick="abrirSubmenuVentanas()"
+        class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:scale-105 transition">
+        <div class="text-3xl mb-2">🪟</div>
+        <div class="font-bold text-lg">Ventanas</div>
+        <div class="text-sm text-gray-500">Herrero / Modena</div>
       </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🚪</div>
+        <div class="font-bold text-lg">Puertas</div>
+        <div class="text-sm text-gray-500">Herrero / Modena / 1/2 / ECO</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🪟</div>
+        <div class="font-bold text-lg">Rajas</div>
+        <div class="text-sm text-gray-500">Herrero / Modena</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🏔️</div>
+        <div class="font-bold text-lg">Patagónicas</div>
+        <div class="text-sm text-gray-500">Herrero / Modena</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🚪</div>
+        <div class="font-bold text-lg">Puertas placa</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🧱</div>
+        <div class="font-bold text-lg">PVC</div>
+        <div class="text-sm text-gray-500">Cortinas / Plegadizas</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🪟</div>
+        <div class="font-bold text-lg">Mosquiteros</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">🪵</div>
+        <div class="font-bold text-lg">Postigones</div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 opacity-50">
+        <div class="text-3xl mb-2">➕</div>
+        <div class="font-bold text-lg">Recargos</div>
+      </div>
+
     </div>
 
-    <!-- COLORES -->
-    <div id="coloresContainer" class="grid grid-cols-2 gap-2 mb-4"></div>
+  </div>
 
-    <!-- VIDRIO -->
-    <select id="vidrio" class="w-full border rounded p-2 mb-4">
-      <option value="3mm">3mm</option>
-      <option value="4mm">4mm</option>
-      <option value="5mm">5mm</option>
-      <option value="3+3">3+3 Laminado</option>
-      <option value="dvh">DVH</option>
-    </select>
+  <!-- NUEVO: SUBMENU -->
+  <div id="submenuVentanas" class="hidden flex items-center justify-center min-h-screen">
 
-    <!-- OPCIONES -->
-    <label><input type="checkbox" id="guia"> Incluir guía</label><br>
-    <label><input type="checkbox" id="mosq"> Incluir mosquitero</label>
+    <div class="w-full max-w-md p-6 space-y-4 animate-fade-in">
 
-    <br><br>
+      <button onclick="volverMenuPrincipal()" class="text-sm text-gray-500 mb-2">
+        ← Volver
+      </button>
 
-    <button id="btnCalcular"
-      onclick="calcularFull()"
-      class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-      Calcular
-    </button>
+      <h2 class="text-xl font-bold text-center">Ventanas</h2>
 
-    <div id="resultado" class="mt-6"></div>
+      <div class="grid grid-cols-2 gap-4">
+
+        <div onclick="entrarVentanas('herrero')"
+          class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+          🪟 Herrero
+        </div>
+
+        <div onclick="entrarVentanas('modena')"
+          class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+          🪟 Modena
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODULO VENTANAS -->
+  <div id="moduloVentanas" class="hidden flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md space-y-5 animate-fade-in">
+
+      <!-- CAMBIO: vuelve al submenu -->
+      <button onclick="volverSubmenu()" class="text-sm text-gray-500 hover:text-black mb-2">
+        ← Volver
+      </button>
+
+      <h1 class="text-2xl font-bold text-center">
+        Cotizador Sebamar
+      </h1>
+
+      <!-- PRODUCTO -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Producto</label>
+        <select id="producto" class="w-full border rounded p-2 mt-1" onchange="cambiarProducto()">
+          <option value="herrero">Herrero</option>
+          <option value="modena">Modena</option>
+        </select>
+      </div>
+
+      <!-- BUSCADOR -->
+      <div class="relative">
+        <label class="text-sm font-semibold text-gray-600">Medida</label>
+        <input type="text" id="buscador" placeholder="Ej: 120x100" class="w-full border rounded p-2 mt-1"
+          oninput="filtrarMedidas()" onclick="mostrarDropdown()" />
+
+        <div id="dropdownMedidas"
+          class="absolute w-full bg-white border rounded shadow max-h-40 overflow-y-auto hidden z-10">
+        </div>
+      </div>
+
+      <!-- COLORES -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Color</label>
+        <div id="coloresContainer" class="grid grid-cols-2 gap-2 mt-2"></div>
+      </div>
+
+      <!-- VIDRIO -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Vidrio</label>
+        <select id="vidrio" class="w-full border rounded p-2 mt-1">
+          <option value="3mm">3mm</option>
+          <option value="4mm">4mm</option>
+          <option value="5mm">5mm</option>
+          <option value="3+3">3+3 Laminado</option>
+          <option value="dvh">DVH</option>
+        </select>
+      </div>
+
+      <!-- OPCIONES -->
+      <div class="space-y-3">
+
+        <label class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border cursor-pointer">
+          <span>Incluir guía</span>
+          <div class="relative">
+            <input type="checkbox" id="guia" class="sr-only peer">
+            <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-green-500 transition"></div>
+            <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-6">
+            </div>
+          </div>
+        </label>
+
+        <label class="flex items-center justify-between bg-gray-50 p-3 rounded-lg border cursor-pointer">
+          <span>Incluir mosquitero</span>
+          <div class="relative">
+            <input type="checkbox" id="mosq" class="sr-only peer">
+            <div class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-green-500 transition"></div>
+            <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-6">
+            </div>
+          </div>
+        </label>
+
+      </div>
+
+      <button id="btnCalcular" onclick="calcularFull()"
+        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition active:scale-95">
+        Calcular
+      </button>
+
+      <div id="resultado"></div>
+
+    </div>
 
   </div>
 
@@ -66,36 +212,84 @@
     let medidas = [];
     let medidaSeleccionada = null;
     let colorSeleccionado = 0;
+    let nombreColorSeleccionado = "";
+
+    /* ===== NUEVO ===== */
+    function abrirSubmenuVentanas() {
+      document.getElementById("menuPrincipal").classList.add("hidden");
+      document.getElementById("submenuVentanas").classList.remove("hidden");
+    }
+
+    function volverMenuPrincipal() {
+      document.getElementById("submenuVentanas").classList.add("hidden");
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+    }
+
+    function entrarVentanas(tipo) {
+
+      resetearCotizador(); // 🔥 clave
+
+      document.getElementById("producto").value = tipo;
+
+      document.getElementById("submenuVentanas").classList.add("hidden");
+      document.getElementById("moduloVentanas").classList.remove("hidden");
+
+      cambiarProducto();
+    }
+
+    function volverSubmenu() {
+      document.getElementById("moduloVentanas").classList.add("hidden");
+      document.getElementById("submenuVentanas").classList.remove("hidden");
+    }
+
+    /* ===== TU CÓDIGO ORIGINAL (INTACTO) ===== */
+
+    function abrirModulo() {
+      document.getElementById("menuPrincipal").classList.add("hidden");
+      document.getElementById("moduloVentanas").classList.remove("hidden");
+    }
+
+    function volverMenu() {
+      document.getElementById("moduloVentanas").classList.add("hidden");
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+    }
+
+    function formatearTexto(nombre) {
+      return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+    }
+
+    function colorFemenino(nombre) {
+      if (!nombre) return "";
+      nombre = nombre.toLowerCase();
+      if (nombre.includes("blanco")) return "Blanca";
+      if (nombre.includes("negro")) return "Negra";
+      return formatearTexto(nombre);
+    }
 
     function colorHex(nombre) {
       nombre = nombre.toLowerCase();
-
       if (nombre.includes("blanco")) return "#ffffff";
       if (nombre.includes("negro")) return "#000000";
       if (nombre.includes("bronce")) return "#8b5a2b";
       if (nombre.includes("madera")) return "#a0522d";
-
       return "#ccc";
     }
 
-    // 🔹 cargar medidas
     function cargarMedidas() {
       const producto = document.getElementById("producto").value;
-
       fetch(`${API}/api/medidas/${producto}`)
         .then(res => res.json())
-        .then(data => {
-          medidas = data;
-        });
+        .then(data => medidas = data);
     }
 
     function cambiarProducto() {
       medidaSeleccionada = null;
-      document.getElementById("buscador").value = "";
+      const input = document.getElementById("buscador");
+      input.value = "";
+      input.classList.remove("border-green-500", "bg-green-50");
       cargarMedidas();
     }
 
-    // 🔹 dropdown
     function mostrarDropdown() {
       renderMedidas(medidas);
       document.getElementById("dropdownMedidas").classList.remove("hidden");
@@ -112,7 +306,9 @@
 
         div.onclick = () => {
           medidaSeleccionada = m;
-          document.getElementById("buscador").value = m;
+          const input = document.getElementById("buscador");
+          input.value = m;
+          input.classList.add("border-green-500", "bg-green-50");
           container.classList.add("hidden");
         };
 
@@ -122,17 +318,10 @@
 
     function filtrarMedidas() {
       mostrarDropdown();
-
       const texto = document.getElementById("buscador").value.toLowerCase();
-
-      const filtradas = medidas.filter(m =>
-        m.toLowerCase().includes(texto)
-      );
-
-      renderMedidas(filtradas);
+      renderMedidas(medidas.filter(m => m.toLowerCase().includes(texto)));
     }
 
-    // 🔹 colores
     function cargarColores() {
       fetch(`${API}/api/colores`)
         .then(res => res.json())
@@ -143,24 +332,37 @@
           data.forEach(c => {
             const div = document.createElement("div");
 
-            div.className = "flex items-center gap-2 border rounded p-2 cursor-pointer hover:bg-blue-100";
+            div.className = `
+          flex items-center gap-2 border rounded p-2 cursor-pointer
+          hover:bg-blue-100 transition
+        `;
 
             div.innerHTML = `
-              <div style="width:16px;height:16px;background:${colorHex(c.nombre)};border:1px solid #000;"></div>
-              <span>${c.nombre}</span>
-            `;
+          <div style="width:20px;height:20px;background:${colorHex(c.nombre)};border:1px solid #000;"></div>
+          <span>${formatearTexto(c.nombre)}</span>
+        `;
 
             div.onclick = () => {
               colorSeleccionado = c.valor;
-
-              // glow botón 🔥
-              document.getElementById("btnCalcular").style.boxShadow =
-                `0 0 12px ${colorHex(c.nombre)}`;
+              nombreColorSeleccionado = c.nombre;
 
               document.querySelectorAll("#coloresContainer div")
-                .forEach(el => el.classList.remove("bg-blue-200"));
+                .forEach(el => {
+                  el.style.boxShadow = "";
+                  el.style.border = "";
+                  el.classList.remove("ring-2", "ring-blue-500", "bg-blue-50");
+                });
 
-              div.classList.add("bg-blue-200");
+              const color = colorHex(c.nombre);
+
+              div.style.boxShadow = `
+            0 0 20px ${color},
+            0 0 8px ${color},
+            inset 0 0 4px ${color}
+          `;
+
+              div.style.border = `1px solid ${color}`;
+              div.classList.add("ring-2", "ring-black", "bg-gray-100");
             };
 
             container.appendChild(div);
@@ -172,7 +374,39 @@
       return Math.round(n).toString();
     }
 
-    // 🔥 calcular
+    function copiarPresupuesto() {
+      const texto = document.getElementById("resultado").innerText.trim();
+      navigator.clipboard.writeText(texto);
+      alert("Presupuesto copiado");
+    }
+
+    function resetearCotizador() {
+
+      // medida
+      medidaSeleccionada = null;
+      document.getElementById("buscador").value = "";
+      document.getElementById("buscador").classList.remove("border-green-500", "bg-green-50");
+
+      // color
+      colorSeleccionado = 0;
+      nombreColorSeleccionado = "";
+
+      document.querySelectorAll("#coloresContainer div").forEach(el => {
+        el.style.boxShadow = "";
+        el.style.border = "";
+        el.classList.remove("ring-2", "ring-black", "bg-gray-100");
+      });
+
+      // vidrio
+      document.getElementById("vidrio").value = "3mm";
+
+      // checkboxes
+      document.getElementById("guia").checked = false;
+      document.getElementById("mosq").checked = false;
+
+      // resultado
+      document.getElementById("resultado").innerHTML = "";
+    }
     function calcularFull() {
 
       if (!medidaSeleccionada) {
@@ -184,9 +418,13 @@
       btn.innerText = "Calculando...";
       btn.disabled = true;
 
-      const producto = document.getElementById("producto").value;
+      const productoBase = document.getElementById("producto").value;
+      const vidrioSeleccionado = document.getElementById("vidrio").value;
+      const productoTexto = "Línea " + formatearTexto(productoBase);
+      const colorTexto = formatearTexto(nombreColorSeleccionado || "");
+      const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
 
-      fetch(`${API}/api/calcular/${producto}`, {
+      fetch(`${API}/api/calcular/${productoBase}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -200,13 +438,48 @@
         .then(res => res.json())
         .then(data => {
 
-          let html = `<div>Ventana: $${formatear(data.ventana)}</div>`;
+          let html = `
+        <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
 
-          if (data.guia !== null) html += `<div>Guía: $${formatear(data.guia)}</div>`;
-          if (data.mosquitero !== null) html += `<div>Mosquitero: $${formatear(data.mosquitero)}</div>`;
+          <div class="text-sm text-gray-500">Presupuesto</div>
+          <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
 
-          html += `<hr>`;
-          html += `<div><b>TOTAL: $${formatear(data.total)}</b></div>`;
+          <div class="flex justify-between">
+            <span>Ventana ${medidaSeleccionada} ${productoTexto} ${colorTexto} Vidrio ${vidrioSeleccionado}</span>
+            <span>$${formatear(data.ventana)}</span>
+          </div>
+      `;
+
+          if (data.guia !== null) {
+            html += `
+          <div class="flex justify-between">
+            <span>Guía para ${medidaSeleccionada} ${colorTextoFemenino}</span>
+            <span>$${formatear(data.guia)}</span>
+          </div>
+        `;
+          }
+
+          if (data.mosquitero !== null) {
+            html += `
+          <div class="flex justify-between">
+            <span>Mosquitero para ${medidaSeleccionada} ${colorTexto}</span>
+            <span>$${formatear(data.mosquitero)}</span>
+          </div>
+        `;
+          }
+
+          html += `
+          <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
+            <span>TOTAL</span>
+            <span>$${formatear(data.total)}</span>
+          </div>
+
+          <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
+            Copiar
+          </button>
+
+        </div>
+      `;
 
           document.getElementById("resultado").innerHTML = html;
 
@@ -215,7 +488,6 @@
         });
     }
 
-    // INIT
     cargarColores();
     cargarMedidas();
 

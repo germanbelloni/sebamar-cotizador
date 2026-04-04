@@ -4,7 +4,8 @@
   "description": "API cotizador Sebamar",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "dev": "node dev-server.js",
+    "old": "node server.js"
   },
   "author": "",
   "license": "ISC",

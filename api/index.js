@@ -13,14 +13,12 @@ function obtenerProducto(nombre) {
 module.exports = async (req, res) => {
   const { url, method } = req;
 
-  // 🔹 MEDIDAS
   if (url.startsWith("/api/medidas/")) {
     const producto = url.split("/").pop();
     const data = obtenerProducto(producto);
     return res.json(Object.keys(data.medidas));
   }
 
-  // 🔹 COLORES
   if (url === "/api/colores") {
     const colores = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "data/colores.json"), "utf-8")
@@ -28,20 +26,14 @@ module.exports = async (req, res) => {
     return res.json(colores);
   }
 
-  // 🔥 CALCULO
   if (url.startsWith("/api/calcular/") && method === "POST") {
     const producto = url.split("/").pop();
-
-    let body = "";
-    await new Promise(resolve => {
-      req.on("data", chunk => body += chunk);
-      req.on("end", resolve);
-    });
-
-    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } = JSON.parse(body);
+    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } = req.body;
 
     const productoData = obtenerProducto(producto);
     const datos = productoData.medidas[medida];
+
+    if (!datos) return res.json({ error: "Medida no encontrada" });
 
     const descuento = producto === "modena" ? 0.07 : 0.10;
     const flete = 0.06;
