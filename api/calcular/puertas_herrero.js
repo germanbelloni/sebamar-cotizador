@@ -12,28 +12,31 @@ export default function handler(req, res) {
       adicionales
     } = req.body;
 
+    if (!modelo) {
+      return res.status(400).json({ error: "Falta modelo" });
+    }
+
     const producto = data.modelos[modelo.toLowerCase()];
 
     if (!producto) {
-      return res.status(400).json({ error: "Modelo no encontrado" });
+      return res.status(400).json({
+        error: "Modelo no encontrado",
+        modeloRecibido: modelo,
+        modelosDisponibles: Object.keys(data.modelos)
+      });
     }
 
-    // BASE
     let total = producto.base;
 
-    // VIDRIO
     if (!producto.sinVidrio && tipoVidrio) {
       total += producto.vidrios[tipoVidrio] || 0;
     }
 
-    // COLOR (multiplicador)
     total = total * (1 + color);
 
-    // TAMAÑO
     const ajuste = data.ajustes[tamano] || 0;
     total = total * (1 + ajuste);
 
-    // ADICIONALES
     if (adicionales && adicionales.length) {
       adicionales.forEach(a => {
         total += data.adicionales[a] || 0;
