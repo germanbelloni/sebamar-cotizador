@@ -1,8 +1,12 @@
-import data from "../../data/productos/puertas_herrero.json";
+import fs from "fs";
+import path from "path";
 
 export default function handler(req, res) {
 
   try {
+
+    const filePath = path.join(process.cwd(), "data/productos/puertas_herrero.json");
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
     const {
       modelo,
@@ -12,17 +16,12 @@ export default function handler(req, res) {
       adicionales
     } = req.body;
 
-    if (!modelo) {
-      return res.status(400).json({ error: "Falta modelo" });
-    }
-
     const producto = data.modelos[modelo.toLowerCase()];
 
     if (!producto) {
       return res.status(400).json({
         error: "Modelo no encontrado",
-        modeloRecibido: modelo,
-        modelosDisponibles: Object.keys(data.modelos)
+        modelo
       });
     }
 
@@ -48,6 +47,9 @@ export default function handler(req, res) {
     });
 
   } catch (error) {
+
+    console.log(error);
+
     return res.status(500).json({
       error: "Error en cálculo",
       detalle: error.message
