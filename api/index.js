@@ -13,12 +13,18 @@ function obtenerProducto(nombre) {
 module.exports = async (req, res) => {
   const { url, method } = req;
 
+  // =========================
+  // 📏 MEDIDAS (VENTANAS)
+  // =========================
   if (url.startsWith("/api/medidas/")) {
     const producto = url.split("/").pop();
     const data = obtenerProducto(producto);
     return res.json(Object.keys(data.medidas));
   }
 
+  // =========================
+  // 🎨 COLORES
+  // =========================
   if (url === "/api/colores") {
     const colores = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "data/colores.json"), "utf-8")
@@ -26,8 +32,77 @@ module.exports = async (req, res) => {
     return res.json(colores);
   }
 
+  // =========================
+  // 💰 CALCULAR
+  // =========================
   if (url.startsWith("/api/calcular/") && method === "POST") {
     const producto = url.split("/").pop();
+
+    // =========================
+    // 🚪 PUERTAS HERRERO
+    // =========================
+    if (producto === "puertas_herrero") {
+      const { modelo, color, tipoVidrio, tamano, adicionales = [] } = req.body;
+
+      const data = obtenerProducto(producto);
+
+      const modeloData = data.modelos.find(m => m.nombre === modelo);
+      if (!modeloData) {
+        return res.json({ error: "Modelo no encontrado" });
+      }
+
+      // base
+      let subtotal = modeloData.precio_base;
+
+      // color (igual que ventanas)
+      subtotal *= (1 + (color || 0));
+
+      // vidrio (solo si aplica)
+      if (modeloData.usa_vidrio) {
+        const vidrioData = data.vidrios.find(v => v.nombre === tipoVidrio);
+        if (vidrioData) {
+          subtotal += vidrioData.precio;
+        }
+      }
+
+      // tamaño (factor)
+      const tam = data.tamanos.find(t => t.nombre === tamano);
+      const factor = tam ? tam.factor : 1;
+
+      subtotal *= factor;
+
+      const { descuento, flete, ganancia } = data.config;
+
+      // cálculo principal
+      let precio = subtotal * (1 - descuento);
+      precio *= (1 + flete);
+      precio *= (1 + ganancia);
+
+      // adicionales (SIN descuento, CON ganancia)
+      let totalAdicionales = 0;
+
+      adicionales.forEach(nombre => {
+        const ad = data.adicionales.find(a => a.nombre === nombre);
+        if (ad) {
+          let val = ad.precio;
+          val *= (1 + ganancia);
+          totalAdicionales += val;
+        }
+      });
+
+      precio += totalAdicionales;
+
+      precio = redondear5(precio);
+
+      return res.json({
+        total: precio
+      });
+    }
+
+    // =========================
+    // 🪟 VENTANAS (ORIGINAL)
+    // =========================
+
     const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } = req.body;
 
     const productoData = obtenerProducto(producto);
@@ -82,5 +157,8 @@ module.exports = async (req, res) => {
     });
   }
 
+  // =========================
+  // ❌ NOT FOUND
+  // =========================
   return res.status(404).send("Not found");
 };

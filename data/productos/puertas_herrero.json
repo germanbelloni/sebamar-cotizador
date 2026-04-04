@@ -1,0 +1,53 @@
+{
+  "linea": "herrero",
+  "tipo": "puertas",
+
+  "config": {
+    "descuento": 0.10,
+    "flete": 0.06,
+    "ganancia": 0.30,
+    "redondeo": 5
+  },
+
+  "aperturas": [
+    { "tipo": "simple", "nombre": "Puerta", "hojas": 1 }
+  ],
+
+  "tamanos": [
+    { "nombre": "70x200", "factor": 0.93 },
+    { "nombre": "80x200", "factor": 1 },
+    { "nombre": "90x200", "factor": 1.10 }
+  ],
+
+  "vidrios": [
+    { "nombre": "3mm", "precio": 9410 },
+    { "nombre": "4mm", "precio": 11408 },
+    { "nombre": "5mm", "precio": 15018 },
+    { "nombre": "Fantasia", "precio": 12552 },
+    { "nombre": "Esmerilado", "precio": 32503 },
+    { "nombre": "3+3", "precio": 41517 }
+  ],
+
+  "modelos": [
+    {
+      "nombre": "Modelo 1",
+      "precio_base": 122701,
+      "usa_vidrio": true
+    },
+    {
+      "nombre": "Modelo 5",
+      "precio_base": 206271,
+      "usa_vidrio": false
+    },
+    {
+      "nombre": "Modelo Panel",
+      "precio_base": 283039,
+      "usa_vidrio": false
+    }
+  ],
+
+  "adicionales": [
+    { "nombre": "Barral curvo", "precio": 18000 },
+    { "nombre": "Barral recto", "precio": 18000 }
+  ]
+}
