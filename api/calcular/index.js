@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
 
       const data = obtenerProducto(producto);
 
-      const modeloData = data.modelos.find(m => m.nombre === modelo);
+      const producto = data.modelos[modelo.toLowerCase()];
       if (!modeloData) {
         return res.json({ error: "Modelo no encontrado" });
       }
