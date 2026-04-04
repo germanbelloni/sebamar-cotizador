@@ -1,53 +1,233 @@
 {
-  "linea": "herrero",
-  "tipo": "puertas",
-
-  "config": {
-    "descuento": 0.10,
-    "flete": 0.06,
-    "ganancia": 0.30,
-    "redondeo": 5
-  },
-
-  "aperturas": [
-    { "tipo": "simple", "nombre": "Puerta", "hojas": 1 }
-  ],
-
-  "tamanos": [
-    { "nombre": "70x200", "factor": 0.93 },
-    { "nombre": "80x200", "factor": 1 },
-    { "nombre": "90x200", "factor": 1.10 }
-  ],
-
-  "vidrios": [
-    { "nombre": "3mm", "precio": 9410 },
-    { "nombre": "4mm", "precio": 11408 },
-    { "nombre": "5mm", "precio": 15018 },
-    { "nombre": "Fantasia", "precio": 12552 },
-    { "nombre": "Esmerilado", "precio": 32503 },
-    { "nombre": "3+3", "precio": 41517 }
-  ],
-
-  "modelos": [
-    {
-      "nombre": "Modelo 1",
-      "precio_base": 122701,
-      "usa_vidrio": true
+  "modelos": {
+    "modelo 1": {
+      "base": 122701,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 24077,
+        "5mm": 31709,
+        "fantasia": 26500,
+        "esmerilado": 68616,
+        "3+3": 102678
+      }
     },
-    {
-      "nombre": "Modelo 5",
-      "precio_base": 206271,
-      "usa_vidrio": false
+    "modelo 1 vr": {
+      "base": 162622,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 24077,
+        "5mm": 0,
+        "fantasia": 26500,
+        "esmerilado": 68616,
+        "3+3": 0
+      }
     },
-    {
-      "nombre": "Modelo Panel",
-      "precio_base": 283039,
-      "usa_vidrio": false
+    "modelo 2": {
+      "base": 129329,
+      "vidrios": {
+        "3mm": 18819,
+        "4mm": 22817,
+        "5mm": 30037,
+        "fantasia": 25104,
+        "esmerilado": 65006,
+        "3+3": 83034
+      }
+    },
+    "modelo 3": {
+      "base": 171098,
+      "vidrios": {
+        "3mm": 9410,
+        "4mm": 11408,
+        "5mm": 15018,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 41517
+      }
+    },
+    "modelo 3 vr": {
+      "base": 195833,
+      "vidrios": {
+        "3mm": 9410,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 0
+      }
+    },
+    "modelo 4 ": {
+      "base": 191983,
+      "vidrios": {
+        "3mm": 5258,
+        "4mm": 6335,
+        "5mm": 8346,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 23064
+      }
+    },
+    "modelo 4 vr ": {
+      "base": 208415,
+      "vidrios": {
+        "3mm": 5258,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 0
+      }
+    },
+    "modelo 5": {
+      "base": 206271,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      }
+    },
+    "modelo 6": {
+      "base": 190883,
+      "vidrios": {
+        "3mm": 9410,
+        "4mm": 11408,
+        "5mm": 15018,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 41517
+      }
+    },
+    "modelo 7": {
+      "base": 201875,
+      "vidrios": {
+        "3mm": 5258,
+        "4mm": 6335,
+        "5mm": 8346,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 23064
+      }
+    },
+    "modelo 8": {
+      "base": 144718,
+      "vidrios": {
+        "3mm": 21033,
+        "4mm": 25338,
+        "5mm": 33382,
+        "fantasia": 27896,
+        "esmerilado": 72226,
+        "3+3": 92257
+      }
+    },
+    "modelo 9": {
+      "base": 195280,
+      "vidrios": {
+        "3mm": 6624,
+        "4mm": 8026,
+        "5mm": 10572,
+        "fantasia": 8856,
+        "esmerilado": 22878,
+        "3+3": 29219
+      }
+    },
+    "modelo 10": {
+      "base": 207370,
+      "vidrios": {
+        "3mm": 3659,
+        "4mm": 5068,
+        "5mm": 6673,
+        "fantasia": 5578,
+        "esmerilado": 14446,
+        "3+3": 18446
+      }
+    },
+    "modelo 10 vr": {
+      "base": 223579,
+      "vidrios": {
+        "3mm": 3659,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 5578,
+        "esmerilado": 14446,
+        "3+3": 0
+      }
+    },
+    "modelo 11": {
+      "base": 180990,
+      "vidrios": {
+        "3mm": 14643,
+        "4mm": 19004,
+        "5mm": 25031,
+        "fantasia": 20922,
+        "esmerilado": 54175,
+        "3+3": 69199
+      }
+    },
+    "modelo 12": {
+      "base": 150213,
+      "vidrios": {
+        "3mm": 14643,
+        "4mm": 19004,
+        "5mm": 25031,
+        "fantasia": 20922,
+        "esmerilado": 54175,
+        "3+3": 69199
+      }
+    },
+    "modelo panel": {
+      "base": 283039,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      }
+    },
+    "ADICIONALES": {
+      "base": 0,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      }
+    },
+    "Barral curvo": {
+      "base": 18000,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": "puerta de 90 + 10%",
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      }
+    },
+    "barral recto": {
+      "base": 18000,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": "puerta de 70 -7%",
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      }
     }
-  ],
-
-  "adicionales": [
-    { "nombre": "Barral curvo", "precio": 18000 },
-    { "nombre": "Barral recto", "precio": 18000 }
-  ]
+  },
+  "ajustes": {
+    "70x200": -0.07,
+    "80x200": 0,
+    "90x200": 0.1
+  },
+  "adicionales": {
+    "Barral curvo": 15000,
+    "Barral recto": 12000
+  }
 }

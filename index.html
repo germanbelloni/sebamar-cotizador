@@ -204,6 +204,10 @@
       </div>
 
       <!-- MODELOS PUERTAS -->
+      <!-- SOLO TE MUESTRO LA PARTE CORREGIDA PARA NO ROMPER NADA -->
+      <!-- REEMPLAZÁ DESDE "MODELOS PUERTAS" HASTA ANTES DE COLORES -->
+
+      <!-- MODELOS PUERTAS -->
       <div id="bloqueModelosPuertas" class="hidden">
 
         <label class="text-sm font-semibold text-gray-600">Modelo</label>
@@ -216,30 +220,14 @@
           <option value="Modelo Panel">Modelo Panel</option>
         </select>
 
+        <!-- 🔥 IMAGEN FIJA -->
         <div class="mt-3 flex justify-center">
-          <div id="galeriaModelosPuertas" class="mt-3 grid grid-cols-3 gap-2">
-
-            <img src="/img/puertas/modelo1.jpg" data-modelo="Modelo 1"
-              class="modelo-img h-24 object-contain border rounded p-1 bg-white">
-
-            <img src="/img/puertas/modelo2.jpg" data-modelo="Modelo 2"
-              class="modelo-img h-24 object-contain border rounded p-1 bg-white">
-
-            <img src="/img/puertas/modelo3.jpg" data-modelo="Modelo 3"
-              class="modelo-img h-24 object-contain border rounded p-1 bg-white">
-
-            <img src="/img/puertas/modelo5.jpg" data-modelo="Modelo 5"
-              class="modelo-img h-24 object-contain border rounded p-1 bg-white">
-
-            <img src="/img/puertas/panel.jpg" data-modelo="Modelo Panel"
-              class="modelo-img h-24 object-contain border rounded p-1 bg-white">
-
-          </div>
+          <img src="/img/puertas/modelos.jpg" class="w-full h-80 object-contain border rounded p-2 bg-white">
         </div>
 
       </div>
 
-      <!-- COLORES -->
+      <!-- COLORES (ESTO TIENE QUE QUEDAR AFUERA DEL BLOQUE) -->
       <div>
         <label class="text-sm font-semibold text-gray-600">Color</label>
         <div id="coloresContainer" class="grid grid-cols-2 gap-2 mt-2"></div>
@@ -421,18 +409,8 @@
 
           modeloSeleccionado = modelo;
 
-          // 🔥 resaltar imagen
-          document.querySelectorAll(".modelo-img").forEach(img => {
-            img.classList.remove("ring-2", "ring-blue-500");
-          });
 
-          const seleccionada = document.querySelector(`.modelo-img[data-modelo="${modelo}"]`);
-
-          if (seleccionada) {
-            seleccionada.classList.add("ring-2", "ring-blue-500");
-          }
-
-          // 🔥 LOGICA VIDRIO
+          // lógica vidrio (esto queda igual)
           const bloqueVidrio = document.getElementById("bloqueVidrio");
 
           if (modelo === "Modelo 5" || modelo === "Modelo Panel") {
@@ -620,7 +598,7 @@
           const colorTexto = formatearTexto(nombreColorSeleccionado || "");
           const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
 
-          // 🔥 ADICIONALES (UNA SOLA VEZ, BIEN)
+          // 🔥 ADICIONALES (BIEN HECHO)
           let totalAdicionales = 0;
 
           const preciosAdicionales = {
@@ -643,7 +621,7 @@
           if (modoActual === "puertas") {
 
             body = {
-              modelo: modeloSeleccionado,
+              modelo: modeloSeleccionado.toLowerCase(),
               tipoVidrio: (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
                 ? null
                 : document.getElementById("vidrio").value,
@@ -690,7 +668,7 @@
                   : "Vidrio " + vidrioSeleccionado
                 }
             </span>
-            <span>$${formatear(data.total + totalAdicionales)}</span>
+            <span>$${formatear(data.total || 0) + totalAdicionales}</span>
           </div>
       `;
 
@@ -712,7 +690,7 @@
         `;
               }
 
-              // 🔥 MOSTRAR ADICIONALES
+              // 🔥 ADICIONALES VISUALES
               if (modoActual === "puertas") {
                 adicionalesSeleccionados.forEach(a => {
                   html += `
@@ -727,7 +705,7 @@
               html += `
         <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
           <span>TOTAL</span>
-          <span>$${formatear(data.total + totalAdicionales)}</span>
+          <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
         </div>
 
         <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
@@ -742,9 +720,7 @@
               btn.innerText = "Calcular";
               btn.disabled = false;
             });
-        }
-
-        document.addEventListener("change", function (e) {
+        } document.addEventListener("change", function (e) {
 
           if (!e.target.classList.contains("adicionalPuerta")) return;
 
