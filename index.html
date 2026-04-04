@@ -596,15 +596,14 @@
 
           let medidaFinal = null;
 
-          if (modoActual === "puertas") {
-            medidaFinal = document.getElementById("tamanoPuerta").value;
-          } else {
-            if (!medidaSeleccionada) {
-              alert("Seleccioná una medida");
-              return;
-            }
-            medidaFinal = medidaSeleccionada;
-          }
+          const adicionalesSeleccionados = [];
+
+          document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
+            const nombre = el.value;
+            adicionalesSeleccionados.push(nombre);
+
+            totalAdicionales += preciosAdicionales[nombre] || 0;
+          });
 
           const btn = document.getElementById("btnCalcular");
           btn.innerText = "Calculando...";
@@ -623,6 +622,11 @@
           const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
 
           let body;
+          let totalAdicionales = 0;
+          const preciosAdicionales = {
+            "Barral curvo": 15000,
+            "Barral recto": 12000
+          };
 
           if (modoActual === "puertas") {
 
