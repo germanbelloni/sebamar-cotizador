@@ -55,7 +55,7 @@
         "3+3": 0
       }
     },
-    "modelo 4 ": {
+    "modelo 4": {
       "base": 191983,
       "vidrios": {
         "3mm": 5258,
@@ -66,7 +66,7 @@
         "3+3": 23064
       }
     },
-    "modelo 4 vr ": {
+    "modelo 4 vr": {
       "base": 208415,
       "vidrios": {
         "3mm": 5258,
@@ -86,7 +86,8 @@
         "fantasia": 0,
         "esmerilado": 0,
         "3+3": 0
-      }
+      },
+      "sinVidrio": true
     },
     "modelo 6": {
       "base": 190883,
@@ -185,9 +186,10 @@
         "fantasia": 0,
         "esmerilado": 0,
         "3+3": 0
-      }
+      },
+      "sinVidrio": true
     },
-    "ADICIONALES": {
+    "adicionales": {
       "base": 0,
       "vidrios": {
         "3mm": 0,
@@ -198,11 +200,11 @@
         "3+3": 0
       }
     },
-    "Barral curvo": {
+    "barral curvo": {
       "base": 18000,
       "vidrios": {
         "3mm": 0,
-        "4mm": "puerta de 90 + 10%",
+        "4mm": 0,
         "5mm": 0,
         "fantasia": 0,
         "esmerilado": 0,
@@ -213,7 +215,7 @@
       "base": 18000,
       "vidrios": {
         "3mm": 0,
-        "4mm": "puerta de 70 -7%",
+        "4mm": 0,
         "5mm": 0,
         "fantasia": 0,
         "esmerilado": 0,
@@ -227,7 +229,7 @@
     "90x200": 0.1
   },
   "adicionales": {
-    "Barral curvo": 15000,
-    "Barral recto": 12000
+    "barral_curvo": 15000,
+    "barral_recto": 12000
   }
 }

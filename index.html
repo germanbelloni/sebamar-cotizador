@@ -170,10 +170,9 @@
       <!-- PRODUCTO -->
       <div>
         <label class="text-sm font-semibold text-gray-600">Producto</label>
-        <select id="producto" class="w-full border rounded p-2 mt-1" onchange="cambiarProducto()">
-          <option value="herrero">Herrero</option>
-          <option value="modena">Modena</option>
-          <option value="puertas_herrero">Puertas Herrero</option>
+        <select id="producto" ...>
+          <option value="herrero">Puertas Herrero</option>
+          <option value="modena">Puertas Modena</option>
         </select>
       </div>
 
@@ -359,7 +358,7 @@
           document.getElementById("submenuPuertas").classList.add("hidden");
           document.getElementById("moduloVentanas").classList.remove("hidden");
 
-          document.getElementById("producto").value = "puertas_herrero";
+          document.getElementById("producto").value = "herrero";
 
           // MEDIDAS
           document.getElementById("medidasVentanas").classList.add("hidden");
@@ -684,14 +683,14 @@
 
           const productoBase = document.getElementById("producto").value;
           const vidrioSeleccionado = document.getElementById("vidrio").value;
-          let productoTexto = modoActual === "puertas"
-            ? "Línea Herrero"
-            : "Línea " + formatearTexto(productoBase);
 
+          let productoTexto = modoActual === "puertas"
+            ? (productoBase === "modena" ? "Puertas Modena" : "Puertas Herrero")
+            : "Línea " + formatearTexto(productoBase);
           const colorTexto = formatearTexto(nombreColorSeleccionado || "");
           const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
 
-          // 🔥 ADICIONALES (BIEN HECHO)
+          // 🔥 ADICIONALES
           let totalAdicionales = 0;
 
           const preciosAdicionales = {
@@ -704,7 +703,7 @@
           if (modoActual === "puertas") {
             document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
               const nombre = el.value;
-              adicionalesSeleccionados.push(nombre);
+              adicionalesSeleccionados.push(nombre.toLowerCase().replace(" ", "_"));
               totalAdicionales += preciosAdicionales[nombre] || 0;
             });
           }
@@ -713,15 +712,29 @@
 
           if (modoActual === "puertas") {
 
-            body = {
-              modelo: modeloSeleccionado.toLowerCase(),
-              tipoVidrio: (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
-                ? null
-                : document.getElementById("vidrio").value,
-              color: colorSeleccionado,
-              tamano: medidaFinal,
-              adicionales: adicionalesSeleccionados
-            };
+            if (productoBase === "modena") {
+
+              body = {
+                modelo: modeloSeleccionado.toLowerCase(),
+                vidrio: document.getElementById("vidrio").value,
+                color: colorSeleccionado,
+                ancho: parseInt(medidaFinal),
+                adicionales: adicionalesSeleccionados
+              };
+
+            } else {
+
+              body = {
+                modelo: modeloSeleccionado.toLowerCase(),
+                tipoVidrio: (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
+                  ? null
+                  : document.getElementById("vidrio").value,
+                color: colorSeleccionado,
+                tamano: medidaFinal,
+                adicionales: adicionalesSeleccionados
+              };
+
+            }
 
           } else {
 
@@ -735,7 +748,16 @@
 
           }
 
-          fetch(`${API}/api/calcular/${productoBase}`, {
+          // 🔥 MAPEO
+          const mapProductos = {
+            "herrero": "puertas_herrero",
+            "modena": "puertas_modena",
+            "puertas_herrero": "puertas_herrero"
+          };
+
+          const endpoint = mapProductos[productoBase] || productoBase;
+
+          fetch(`${API}/api/calcular/${endpoint}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -744,68 +766,67 @@
             .then(data => {
 
               let html = `
-        <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
+      <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
 
-          <div class="text-sm text-gray-500">Presupuesto</div>
-          <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
+        <div class="text-sm text-gray-500">Presupuesto</div>
+        <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
 
-          <div class="flex justify-between">
-            <span>
-              ${modoActual === "puertas" ? "Puerta" : "Ventana"} 
-              ${medidaFinal}
-              ${modoActual === "puertas" ? modeloSeleccionado : ""}
-              ${productoTexto}
-              ${colorTexto}
-              ${modoActual === "puertas" && (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
+        <div class="flex justify-between">
+          <span>
+            ${modoActual === "puertas" ? "Puerta" : "Ventana"} 
+            ${medidaFinal}
+            ${modoActual === "puertas" ? modeloSeleccionado : ""}
+            ${productoTexto}
+            ${colorTexto}
+            ${modoActual === "puertas" && (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
                   ? ""
                   : "Vidrio " + vidrioSeleccionado
                 }
-            </span>
-            <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
-          </div>
+          </span>
+          <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
+        </div>
       `;
 
               if (modoActual !== "puertas" && data.guia !== null) {
                 html += `
-          <div class="flex justify-between">
-            <span>Guía para ${medidaSeleccionada} ${colorTextoFemenino}</span>
-            <span>$${formatear(data.guia)}</span>
-          </div>
+        <div class="flex justify-between">
+          <span>Guía para ${medidaSeleccionada} ${colorTextoFemenino}</span>
+          <span>$${formatear(data.guia)}</span>
+        </div>
         `;
               }
 
               if (modoActual !== "puertas" && data.mosquitero !== null) {
                 html += `
-          <div class="flex justify-between">
-            <span>Mosquitero para ${medidaSeleccionada} ${colorTexto}</span>
-            <span>$${formatear(data.mosquitero)}</span>
-          </div>
+        <div class="flex justify-between">
+          <span>Mosquitero para ${medidaSeleccionada} ${colorTexto}</span>
+          <span>$${formatear(data.mosquitero)}</span>
+        </div>
         `;
               }
 
-              // 🔥 ADICIONALES VISUALES
               if (modoActual === "puertas") {
                 adicionalesSeleccionados.forEach(a => {
                   html += `
-            <div class="flex justify-between">
-              <span>${a}</span>
-              <span>$${formatear(preciosAdicionales[a] || 0)}</span>
-            </div>
+          <div class="flex justify-between">
+            <span>${a}</span>
+            <span>$${formatear(preciosAdicionales[a] || 0)}</span>
+          </div>
           `;
                 });
               }
 
               html += `
-        <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
-          <span>TOTAL</span>
-          <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
-        </div>
+      <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
+        <span>TOTAL</span>
+        <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
+      </div>
 
-        <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
-          Copiar
-        </button>
+      <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
+        Copiar
+      </button>
 
-        </div>
+      </div>
       `;
 
               document.getElementById("resultado").innerHTML = html;
@@ -813,24 +834,7 @@
               btn.innerText = "Calcular";
               btn.disabled = false;
             });
-        } document.addEventListener("change", function (e) {
-
-          if (!e.target.classList.contains("adicionalPuerta")) return;
-
-          const checkboxes = document.querySelectorAll(".adicionalPuerta");
-
-          // si activó uno
-          if (e.target.checked) {
-            checkboxes.forEach(cb => {
-              if (cb !== e.target) cb.checked = false;
-            });
-          }
-
-        });
-
-        cargarColores();
-        cargarMedidas();
-
+        }
       </script>
 
 </body>
