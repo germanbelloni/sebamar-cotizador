@@ -213,11 +213,6 @@
         <label class="text-sm font-semibold text-gray-600">Modelo</label>
 
         <select id="modeloPuerta" class="w-full border rounded p-2 mt-1" onchange="cambiarModeloPuerta()">
-          <option value="Modelo 1">Modelo 1</option>
-          <option value="Modelo 2">Modelo 2</option>
-          <option value="Modelo 3">Modelo 3</option>
-          <option value="Modelo 5">Modelo 5</option>
-          <option value="Modelo Panel">Modelo Panel</option>
         </select>
 
         <!-- 🔥 IMAGEN FIJA -->
@@ -234,16 +229,7 @@
       </div>
 
       <!-- VIDRIO -->
-      <div id="bloqueVidrio">
-        <label class="text-sm font-semibold text-gray-600">Vidrio</label>
-        <select id="vidrio" class="w-full border rounded p-2 mt-1">
-          <option value="3mm">3mm</option>
-          <option value="4mm">4mm</option>
-          <option value="5mm">5mm</option>
-          <option value="3+3">3+3 Laminado</option>
-          <option value="dvh">DVH</option>
-        </select>
-      </div>
+      <select id="vidrio" class="w-full border rounded p-2 mt-1"></select>
 
       <!-- OPCIONES -->
       <!-- OPCIONES VENTANAS -->
@@ -310,6 +296,7 @@
 
         const API = "";
         let modoActual = "ventanas"; // "ventanas" o "puertas"
+        let dataPuertas = null;
         let medidas = [];
         let medidaSeleccionada = null;
         let colorSeleccionado = 0;
@@ -329,6 +316,42 @@
         }
         function entrarPuertasTipo(tipo) {
 
+          cargarModelosPuertas();
+
+          function cargarVidriosPuerta() {
+
+            if (!dataPuertas) return;
+
+            const modelo = modeloSeleccionado.toLowerCase().trim();
+            const select = document.getElementById("vidrio");
+
+            select.innerHTML = "";
+
+            // 🔥 buscar bien el modelo (evita errores por espacios)
+            const modeloKey = Object.keys(dataPuertas.modelos).find(
+              k => k.toLowerCase().trim() === modelo
+            );
+
+            const modeloData = dataPuertas.modelos[modeloKey];
+
+            if (!modeloData) return;
+
+            // 🔥 ESTE ES EL BLOQUE QUE ME PASASTE
+            Object.keys(modeloData.vidrios).forEach(v => {
+
+              const valor = modeloData.vidrios[v];
+
+              // ❌ ignorar inválidos (texto o 0)
+              if (!valor || typeof valor !== "number") return;
+
+              const option = document.createElement("option");
+              option.value = v;
+              option.textContent = v;
+
+              select.appendChild(option);
+            });
+
+          }
           modoActual = "puertas";
 
           resetearCotizador();
@@ -410,14 +433,15 @@
           modeloSeleccionado = modelo;
 
 
-          // lógica vidrio (esto queda igual)
           const bloqueVidrio = document.getElementById("bloqueVidrio");
+          if (!bloqueVidrio) return;
 
           if (modelo === "Modelo 5" || modelo === "Modelo Panel") {
             bloqueVidrio.classList.add("hidden");
           } else {
             bloqueVidrio.classList.remove("hidden");
           }
+          cargarVidriosPuerta();
         }
 
 
@@ -533,6 +557,43 @@
             });
         }
 
+        function cargarModelosPuertas() {
+          fetch("/data/productos/puertas_herrero.json")
+            .then(res => res.json())
+            .then(data => {
+
+              // 🔥 GUARDAR GLOBAL
+              dataPuertas = data;
+
+              const select = document.getElementById("modeloPuerta");
+              select.innerHTML = "";
+
+              Object.keys(data.modelos).forEach(nombre => {
+
+                const nombreLower = nombre.toLowerCase();
+
+                // 🔥 FILTRO LIMPIO
+                if (
+                  nombreLower.includes("adicional") ||
+                  nombreLower.includes("barral")
+                ) return;
+
+                const option = document.createElement("option");
+                option.value = nombre;
+                option.textContent = formatearTexto(nombre);
+
+                select.appendChild(option);
+              });
+
+              // 🔥 seleccionar primero
+              modeloSeleccionado = select.value;
+
+              // 🔥 cargar vidrios automáticamente
+              cargarVidriosPuerta();
+
+            });
+        }
+
         function formatear(n) {
           return Math.round(n).toString();
         }
@@ -570,6 +631,39 @@
           // resultado
           document.getElementById("resultado").innerHTML = "";
         }
+        function cargarVidriosPuerta() {
+
+          if (!dataPuertas) return;
+
+          const modelo = modeloSeleccionado.toLowerCase().trim();
+          const select = document.getElementById("vidrio");
+
+          if (!select) return;
+
+          select.innerHTML = "";
+
+          const modeloKey = Object.keys(dataPuertas.modelos).find(
+            k => k.toLowerCase().trim() === modelo
+          );
+
+          const modeloData = dataPuertas.modelos[modeloKey];
+
+          if (!modeloData) return;
+
+          Object.keys(modeloData.vidrios).forEach(v => {
+
+            const valor = modeloData.vidrios[v];
+
+            if (!valor || typeof valor !== "number") return;
+
+            const option = document.createElement("option");
+            option.value = v;
+            option.textContent = v;
+
+            select.appendChild(option);
+          });
+
+        }
         function calcularFull() {
 
           let medidaFinal = null;
@@ -590,9 +684,8 @@
 
           const productoBase = document.getElementById("producto").value;
           const vidrioSeleccionado = document.getElementById("vidrio").value;
-
           let productoTexto = modoActual === "puertas"
-            ? "Puertas Herrero"
+            ? "Línea Herrero"
             : "Línea " + formatearTexto(productoBase);
 
           const colorTexto = formatearTexto(nombreColorSeleccionado || "");
@@ -668,7 +761,7 @@
                   : "Vidrio " + vidrioSeleccionado
                 }
             </span>
-            <span>$${formatear(data.total || 0) + totalAdicionales}</span>
+            <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
           </div>
       `;
 

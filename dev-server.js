@@ -7,7 +7,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const apiHandler = require("./api/index");
+const apiHandler = require("./api/calcular/index");
 
 // 🔹 API (compatible Express 5)
 app.all(/^\/api\/.*$/, async (req, res) => {

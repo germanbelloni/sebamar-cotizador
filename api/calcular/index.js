@@ -14,12 +14,12 @@ module.exports = async (req, res) => {
   const { url, method } = req;
 
   // =========================
-  // 📏 MEDIDAS (VENTANAS)
+  // 📏 MEDIDAS
   // =========================
   if (url.startsWith("/api/medidas/")) {
     const producto = url.split("/").pop();
     const data = obtenerProducto(producto);
-    return res.json(Object.keys(data.medidas));
+    return res.json(Object.keys(data.medidas || {}));
   }
 
   // =========================
@@ -45,68 +45,60 @@ module.exports = async (req, res) => {
       const { modelo, color, tipoVidrio, tamano, adicionales = [] } = req.body;
 
       const data = obtenerProducto(producto);
+      const modeloData = data.modelos[modelo.toLowerCase()];
 
-      const producto = data.modelos[modelo.toLowerCase()];
       if (!modeloData) {
         return res.json({ error: "Modelo no encontrado" });
       }
 
-      // base
-      let subtotal = modeloData.precio_base;
+      // 🔹 BASE
+      let total = modeloData.base || 0;
 
-      // color (igual que ventanas)
-      subtotal *= (1 + (color || 0));
+      // 🔹 COLOR (PRIMERO)
+      total *= (1 + (color || 0));
 
-      // vidrio (solo si aplica)
-      if (modeloData.usa_vidrio) {
-        const vidrioData = data.vidrios.find(v => v.nombre === tipoVidrio);
-        if (vidrioData) {
-          subtotal += vidrioData.precio;
+      // 🔹 VIDRIO (DESPUÉS)
+      if (tipoVidrio && modeloData.vidrios) {
+        const vidrioValor = modeloData.vidrios[tipoVidrio];
+        if (typeof vidrioValor === "number") {
+          total += vidrioValor;
         }
       }
 
-      // tamaño (factor)
-      const tam = data.tamanos.find(t => t.nombre === tamano);
-      const factor = tam ? tam.factor : 1;
+      // 🔹 DESCUENTO
+      const descuento = 0.10;
+      total *= (1 - descuento);
 
-      subtotal *= factor;
+      // 🔹 FLETE
+      const flete = 0.06;
+      total *= (1 + flete);
 
-      const { descuento, flete, ganancia } = data.config;
+      // 🔹 GANANCIA
+      const ganancia = 0.30;
+      total *= (1 + ganancia);
 
-      // cálculo principal
-      let precio = subtotal * (1 - descuento);
-      precio *= (1 + flete);
-      precio *= (1 + ganancia);
+      // 🔹 TAMAÑO
+      const ajuste = data.ajustes[tamano] || 0;
+      total *= (1 + ajuste);
 
-      // adicionales (SIN descuento, CON ganancia)
-      let totalAdicionales = 0;
-
-      adicionales.forEach(nombre => {
-        const ad = data.adicionales.find(a => a.nombre === nombre);
-        if (ad) {
-          let val = ad.precio;
-          val *= (1 + ganancia);
-          totalAdicionales += val;
-        }
+      // 🔹 ADICIONALES
+      adicionales.forEach(a => {
+        total += data.adicionales[a] || 0;
       });
 
-      precio += totalAdicionales;
+      // 🔹 REDONDEO
+      total = redondear5(total);
 
-      precio = redondear5(precio);
-
-      return res.json({
-        total: precio
-      });
+      return res.json({ total });
     }
 
     // =========================
-    // 🪟 VENTANAS (ORIGINAL)
+    // 🪟 VENTANAS (NO TOCAR)
     // =========================
-
     const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } = req.body;
 
     const productoData = obtenerProducto(producto);
-    const datos = productoData.medidas[medida];
+    const datos = productoData.medidas?.[medida];
 
     if (!datos) return res.json({ error: "Medida no encontrada" });
 
@@ -157,8 +149,5 @@ module.exports = async (req, res) => {
     });
   }
 
-  // =========================
-  // ❌ NOT FOUND
-  // =========================
   return res.status(404).send("Not found");
 };
