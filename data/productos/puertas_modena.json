@@ -4,13 +4,13 @@
     "modelo 1": {
       "base": 262845,
       "vidrios": {
-        "3": 377485,
-        "4": 367700,
-        "5": 377485,
-        "fantasia": 370805,
-        "esmerilado": 424780,
-        "3+3": 468430,
-        "dvhdvh": 488985
+        "3mm": 0,
+        "4mm": 24077,
+        "5mm": 31709,
+        "fantasia": 26500,
+        "esmerilado": 68616,
+        "3+3": 102678,
+        "camaradvh": 70560
       },
       "dvh": {
         "camara": 0
@@ -19,13 +19,13 @@
     "modelo 1 vr": {
       "base": 290723,
       "vidrios": {
-        "3": 372575,
-        "4": 403430,
-        "5": 372575,
-        "fantasia": 406535,
-        "esmerilado": 460505,
-        "3+3": 372575,
-        "dvhdvh": 434285
+        "3mm": 0,
+        "4mm": 24077,
+        "5mm": 0,
+        "fantasia": 26500,
+        "esmerilado": 68616,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0
@@ -34,13 +34,13 @@
     "modelo 2": {
       "base": 272881,
       "vidrios": {
-        "3": 388200,
-        "4": 378950,
-        "5": 388200,
-        "fantasia": 381880,
-        "esmerilado": 433015,
-        "3+3": 474360,
-        "dvhdvh": 524450
+        "3mm": 18819,
+        "4mm": 22817,
+        "5mm": 30037,
+        "fantasia": 25104,
+        "esmerilado": 65006,
+        "3+3": 97268,
+        "camaradvh": 90720
       },
       "dvh": {
         "camara": 0
@@ -49,13 +49,13 @@
     "modelo 3": {
       "base": 323060,
       "vidrios": {
-        "3": 433260,
-        "4": 428635,
-        "5": 433260,
-        "fantasia": 430100,
-        "esmerilado": 455670,
-        "3+3": 476340,
-        "dvhdvh": 501385
+        "3mm": 9410,
+        "4mm": 11408,
+        "5mm": 15018,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 48634,
+        "camaradvh": 45360
       },
       "dvh": {
         "camara": 0
@@ -64,13 +64,13 @@
     "modelo 3 vr": {
       "base": 338672,
       "vidrios": {
-        "3": 434020,
-        "4": 434020,
-        "5": 434020,
-        "fantasia": 450110,
-        "esmerilado": 475675,
-        "3+3": 434020,
-        "dvhdvh": 434020
+        "3mm": 9410,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0
@@ -79,13 +79,13 @@
     "modelo 4": {
       "base": 339787,
       "vidrios": {
-        "3": 446145,
-        "4": 443570,
-        "5": 446145,
-        "fantasia": 444390,
-        "esmerilado": 458590,
-        "3+3": 470075,
-        "dvhdvh": 493670
+        "3mm": 5258,
+        "4mm": 6335,
+        "5mm": 8346,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 27018,
+        "camaradvh": 32760
       },
       "dvh": {
         "camara": 0
@@ -94,13 +94,13 @@
     "modelo 4 vr": {
       "base": 348708,
       "vidrios": {
-        "3": 446885,
-        "4": 446885,
-        "5": 446885,
-        "fantasia": 455820,
-        "esmerilado": 470025,
-        "3+3": 446885,
-        "dvhdvh": 446885
+        "3mm": 5258,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0
@@ -109,13 +109,13 @@
     "modelo 5": {
       "base": 363204,
       "vidrios": {
-        "3": 465460,
-        "4": 465460,
-        "5": 465460,
-        "fantasia": 465460,
-        "esmerilado": 465460,
-        "3+3": 465460,
-        "dvhdvh": 465460
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0
@@ -124,13 +124,13 @@
     "modelo 6": {
       "base": 348708,
       "vidrios": {
-        "3": 466130,
-        "4": 461505,
-        "5": 466130,
-        "fantasia": 462970,
-        "esmerilado": 488535,
-        "3+3": 509210,
-        "dvhdvh": 598845
+        "3mm": 9410,
+        "4mm": 11408,
+        "5mm": 15018,
+        "fantasia": 12552,
+        "esmerilado": 32503,
+        "3+3": 48634,
+        "camaradvh": 95760
       },
       "dvh": {
         "camara": 0
@@ -139,13 +139,13 @@
     "modelo 7": {
       "base": 349823,
       "vidrios": {
-        "3": 459010,
-        "4": 456430,
-        "5": 459010,
-        "fantasia": 457250,
-        "esmerilado": 471450,
-        "3+3": 482935,
-        "dvhdvh": 538825
+        "3mm": 5258,
+        "4mm": 6335,
+        "5mm": 8346,
+        "fantasia": 6974,
+        "esmerilado": 18056,
+        "3+3": 27018,
+        "camaradvh": 57960
       },
       "dvh": {
         "camara": 0
@@ -154,13 +154,13 @@
     "modelo 8": {
       "base": 292953,
       "vidrios": {
-        "3": 418210,
-        "4": 407905,
-        "5": 418210,
-        "fantasia": 411180,
-        "esmerilado": 467990,
-        "3+3": 513930,
-        "dvhdvh": 608305
+        "3mm": 21033,
+        "4mm": 25338,
+        "5mm": 33382,
+        "fantasia": 27896,
+        "esmerilado": 72226,
+        "3+3": 108073,
+        "camaradvh": 131040
       },
       "dvh": {
         "camara": 0
@@ -169,13 +169,13 @@
     "modelo 9": {
       "base": 357629,
       "vidrios": {
-        "3": 471865,
-        "4": 468600,
-        "5": 471865,
-        "fantasia": 469665,
-        "esmerilado": 487635,
-        "3+3": 502180,
-        "dvhdvh": 554780
+        "3mm": 6624,
+        "4mm": 8026,
+        "5mm": 10572,
+        "fantasia": 8856,
+        "esmerilado": 22878,
+        "3+3": 34228,
+        "camaradvh": 59220
       },
       "dvh": {
         "camara": 0
@@ -184,13 +184,13 @@
     "modelo 10": {
       "base": 365210,
       "vidrios": {
-        "3": 476585,
-        "4": 474525,
-        "5": 476585,
-        "fantasia": 475180,
-        "esmerilado": 486545,
-        "3+3": 495725,
-        "dvhdvh": 524620
+        "3mm": 3659,
+        "4mm": 5068,
+        "5mm": 6673,
+        "fantasia": 5578,
+        "esmerilado": 14446,
+        "3+3": 21609,
+        "camaradvh": 34020
       },
       "dvh": {
         "camara": 0
@@ -199,13 +199,13 @@
     "modelo 10 vr": {
       "base": 416021,
       "vidrios": {
-        "3": 533150,
-        "4": 533150,
-        "5": 533150,
-        "fantasia": 540295,
-        "esmerilado": 551660,
-        "3+3": 533150,
-        "dvhdvh": 533150
+        "3mm": 3659,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 5578,
+        "esmerilado": 14446,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0
@@ -214,13 +214,13 @@
     "modelo 11": {
       "base": 335002,
       "vidrios": {
-        "3": 461395,
-        "4": 453675,
-        "5": 461395,
-        "fantasia": 456130,
-        "esmerilado": 498745,
-        "3+3": 533205,
-        "dvhdvh": 649190
+        "3mm": 14643,
+        "4mm": 19004,
+        "5mm": 25031,
+        "fantasia": 20922,
+        "esmerilado": 54175,
+        "3+3": 81062,
+        "camaradvh": 133560
       },
       "dvh": {
         "camara": 0
@@ -229,13 +229,13 @@
     "modelo 12": {
       "base": 301874,
       "vidrios": {
-        "3": 418940,
-        "4": 411220,
-        "5": 418940,
-        "fantasia": 413675,
-        "esmerilado": 456290,
-        "3+3": 490750,
-        "dvhdvh": 509850
+        "3mm": 14643,
+        "4mm": 19004,
+        "5mm": 25031,
+        "fantasia": 20922,
+        "esmerilado": 54175,
+        "3+3": 81062,
+        "camaradvh": 57960
       },
       "dvh": {
         "camara": 0
@@ -244,13 +244,13 @@
     "modelo c/panel": {
       "base": 391082,
       "vidrios": {
-        "3": 501185,
-        "4": 501185,
-        "5": 501185,
-        "fantasia": 501185,
-        "esmerilado": 501185,
-        "3+3": 501185,
-        "dvhdvh": 501185
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0,
+        "camaradvh": 0
       },
       "dvh": {
         "camara": 0

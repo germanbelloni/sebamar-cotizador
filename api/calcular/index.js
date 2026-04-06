@@ -31,7 +31,7 @@ function calcularModena(data, producto) {
   let precio = modelo.base;
 
   // COLOR
-  precio += calcularColor(precio, data.color);
+  precio += calcularColor(modelo.base, data.color);
 
   // VIDRIO
   if (data.vidrio === "dvh") {
@@ -39,17 +39,6 @@ function calcularModena(data, producto) {
     precio += modelo.dvh.camara || 0;
   } else {
     precio += modelo.vidrios[data.vidrio] || 0;
-  }
-
-  // TAMAÑO
-  if (data.ancho === 90) precio *= 1.1;
-  if (data.ancho === 70) precio *= 0.93;
-
-  // ADICIONALES
-  if (data.adicionales) {
-    data.adicionales.forEach((a) => {
-      precio += producto.adicionales[a] || 0;
-    });
   }
 
   return precio;
@@ -60,10 +49,7 @@ function calcularModena(data, producto) {
 // =========================
 function aplicarPerfil(precio, perfil) {
   return (
-    precio *
-    (1 - perfil.descuento) *
-    (1 + perfil.flete) *
-    (1 + perfil.ganancia)
+    precio * (1 - perfil.descuento) * (1 + perfil.flete) * (1 + perfil.ganancia)
   );
 }
 
@@ -84,7 +70,7 @@ module.exports = async (req, res) => {
   // =========================
   if (url === "/api/colores") {
     const colores = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "data/colores.json"), "utf-8")
+      fs.readFileSync(path.join(process.cwd(), "data/colores.json"), "utf-8"),
     );
     return res.json(colores);
   }
@@ -127,20 +113,23 @@ module.exports = async (req, res) => {
       }
 
       // 👉 SACAMOS hardcode y usamos perfil
-      const perfilData = perfiles[perfil] || perfiles["amarilla"];
+      const perfilData =
+        perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
 
       total = aplicarPerfil(total, perfilData);
 
       const ajuste = producto.ajustes[tamano] || 0;
       total *= 1 + ajuste;
 
+      const adicionalesDetalle = {};
+
       adicionales.forEach((a) => {
-        total += producto.adicionales[a] || 0;
+        adicionalesDetalle[a] = producto.adicionales[a] || 0;
       });
 
       total = redondear5(total);
 
-      return res.json({ total });
+      return res.json({ total, adicionalesDetalle });
     }
 
     // =========================
@@ -156,15 +145,40 @@ module.exports = async (req, res) => {
         perfil = "amarilla",
       } = req.body;
 
-      const perfilData = perfiles[perfil] || perfiles["amarilla"];
+      const perfilData =
+        perfiles[perfil]?.modena || perfiles["amarilla"].modena;
+
+      const adicionalesDetalle = {};
+
+      if (adicionales && adicionales.length) {
+        adicionales.forEach((a) => {
+          adicionalesDetalle[a] = producto.adicionales[a] || 0;
+        });
+      }
 
       let precioBase = calcularModena(
         { modelo, color, vidrio, ancho, adicionales },
-        producto
+        producto,
       );
 
       let precioFinal = aplicarPerfil(precioBase, perfilData);
+      precioFinal = redondear5(precioFinal);
 
+      return res.json({
+        total: precioFinal,
+        adicionalesDetalle,
+      });
+
+      // 🔥 tamaño DESPUÉS del perfil
+      if (ancho === 90) precioFinal *= 1.1;
+      if (ancho === 70) precioFinal *= 0.93;
+
+      // 🔥 adicionales DESPUÉS
+      adicionales.forEach((a) => {
+        precioFinal += producto.adicionales[a] || 0;
+      });
+
+      // 🔥 redondeo final
       precioFinal = redondear5(precioFinal);
 
       return res.json({ total: precioFinal });

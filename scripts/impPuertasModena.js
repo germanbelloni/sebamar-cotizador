@@ -10,40 +10,43 @@ const normalizarTexto = (txt) =>
   txt.toLowerCase().trim().replace(/\s+/g, " ");
 
 const normalizarVidrio = (txt) => {
+  if (!txt) return "";
+
   return txt
     .toLowerCase()
+    .trim()
     .replace("v/", "")
-    .replace("mm", "")
-    .replace(" ", "")
-    .replace("+", "+")
-    .replace("camara", "dvh")
-    .replace("s/vidrio", "sin_vidrio");
+    .replace(/\s+/g, "")
+    .replace("s/vidrio", "sin_vidrio")
+    .replace("camara dvh", "dvh");
 };
 
 // LEER EXCEL
 const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
+if (!sheet) {
+  console.log("❌ No se encontró la hoja:", hojaNombre);
+  process.exit(1);
+}
+
 // Leer como array
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-// Encabezados en fila 6 (index 5)
-const headers = data[5];
-
-// Mapear columnas
+// Encabezados fila 6 (index 5) → SOLO A–I
+const headers = data[5].slice(0, 9);
 const columnas = headers.map((h) => normalizarVidrio(h));
 
-// Datos desde fila 7
+// MODELOS
 const modelos = {};
 
 for (let i = 6; i < data.length; i++) {
-  const row = data[i];
+  const row = data[i].slice(0, 9);
 
   if (!row[0]) continue;
 
   const nombreModelo = normalizarTexto(row[0]);
 
-  // cortar cuando llega a ADICIONALES
   if (nombreModelo.includes("adicionales")) break;
 
   const modeloData = {
@@ -53,9 +56,9 @@ for (let i = 6; i < data.length; i++) {
   };
 
   columnas.forEach((col, index) => {
-    const valor = Number(row[index]) || 0;
-
     if (index === 0) return;
+
+    const valor = Number(row[index]) || 0;
 
     if (col === "sin_vidrio") {
       modeloData.base = valor;
@@ -69,7 +72,7 @@ for (let i = 6; i < data.length; i++) {
   modelos[nombreModelo] = modeloData;
 }
 
-// ADICIONALES (buscamos abajo)
+// ADICIONALES
 const adicionales = {};
 
 for (let i = 0; i < data.length; i++) {
@@ -91,14 +94,13 @@ for (let i = 0; i < data.length; i++) {
   }
 }
 
-// OUTPUT FINAL
+// OUTPUT
 const resultado = {
   linea: "modena",
   modelos,
   adicionales
 };
 
-// GUARDAR
 fs.writeFileSync(
   "data/productos/puertas_modena.json",
   JSON.stringify(resultado, null, 2)

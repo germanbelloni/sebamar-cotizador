@@ -170,10 +170,20 @@
       <!-- PRODUCTO -->
       <div>
         <label class="text-sm font-semibold text-gray-600">Producto</label>
-        <select id="producto" ...>
-          <option value="herrero">Puertas Herrero</option>
-          <option value="modena">Puertas Modena</option>
-        </select>
+
+        <div id="productoContainer" class="grid grid-cols-2 gap-2 mt-2">
+
+          <div onclick="seleccionarProducto('herrero', this)"
+            class="productoBtn border rounded-xl p-4 font-semibold text-center cursor-pointer hover:bg-blue-100 transition">
+            🚪 Herrero
+          </div>
+
+          <div onclick="seleccionarProducto('modena', this)"
+            class="productoBtn border rounded-xl p-4 font-semibold text-center cursor-pointer hover:bg-blue-100 transition">
+            🚪 Modena
+          </div>
+          <input type="hidden" id="producto" value="herrero">
+        </div>
       </div>
 
       <!-- BUSCADOR -->
@@ -203,10 +213,6 @@
       </div>
 
       <!-- MODELOS PUERTAS -->
-      <!-- SOLO TE MUESTRO LA PARTE CORREGIDA PARA NO ROMPER NADA -->
-      <!-- REEMPLAZÁ DESDE "MODELOS PUERTAS" HASTA ANTES DE COLORES -->
-
-      <!-- MODELOS PUERTAS -->
       <div id="bloqueModelosPuertas" class="hidden">
 
         <label class="text-sm font-semibold text-gray-600">Modelo</label>
@@ -216,7 +222,8 @@
 
         <!-- 🔥 IMAGEN FIJA -->
         <div class="mt-3 flex justify-center">
-          <img src="/img/puertas/modelos.jpg" class="w-full h-80 object-contain border rounded p-2 bg-white">
+          <img src="/img/puertas/modelos.jpg"
+            class="w-full h-[420px] object-contain border rounded p-3 bg-white shadow">
         </div>
 
       </div>
@@ -341,7 +348,7 @@
               const valor = modeloData.vidrios[v];
 
               // ❌ ignorar inválidos (texto o 0)
-              if (!valor || typeof valor !== "number") return;
+              if (typeof valor !== "number") return;
 
               const option = document.createElement("option");
               option.value = v;
@@ -556,6 +563,21 @@
             });
         }
 
+        function seleccionarProducto(tipo, element) {
+
+          // marcar visual
+          document.querySelectorAll(".productoBtn").forEach(el => {
+            el.classList.remove("ring-2", "ring-blue-500", "bg-blue-50");
+          });
+
+          element.classList.add("ring-2", "ring-blue-500", "bg-blue-50");
+
+          // setear producto
+          document.getElementById("producto").value = tipo;
+
+          cambiarProducto();
+        }
+
         function cargarModelosPuertas() {
           fetch("/data/productos/puertas_herrero.json")
             .then(res => res.json())
@@ -653,7 +675,7 @@
 
             const valor = modeloData.vidrios[v];
 
-            if (!valor || typeof valor !== "number") return;
+            if (typeof valor !== "number") return;
 
             const option = document.createElement("option");
             option.value = v;
@@ -691,20 +713,12 @@
           const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
 
           // 🔥 ADICIONALES
-          let totalAdicionales = 0;
-
-          const preciosAdicionales = {
-            "Barral curvo": 15000,
-            "Barral recto": 12000
-          };
-
           const adicionalesSeleccionados = [];
 
           if (modoActual === "puertas") {
             document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
               const nombre = el.value;
-              adicionalesSeleccionados.push(nombre.toLowerCase().replace(" ", "_"));
-              totalAdicionales += preciosAdicionales[nombre] || 0;
+              adicionalesSeleccionados.push(nombre.toLowerCase().replace(/\s+/g, "_"));
             });
           }
 
@@ -764,7 +778,7 @@
           })
             .then(res => res.json())
             .then(data => {
-
+              console.log("RESPUESTA BACK:", data);
               let html = `
       <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
 
@@ -783,7 +797,7 @@
                   : "Vidrio " + vidrioSeleccionado
                 }
           </span>
-          <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
+          <span>$${formatear(data.total || 0)}</span>
         </div>
       `;
 
@@ -806,20 +820,28 @@
               }
 
               if (modoActual === "puertas") {
-                adicionalesSeleccionados.forEach(a => {
-                  html += `
-          <div class="flex justify-between">
-            <span>${a}</span>
-            <span>$${formatear(preciosAdicionales[a] || 0)}</span>
-          </div>
-          `;
-                });
+
+                const nombresBonitos = {
+                  barral_curvo: "Barral curvo",
+                  barral_recto: "Barral recto"
+                };
+
+                if (data.adicionalesDetalle) {
+                  Object.keys(data.adicionalesDetalle).forEach(a => {
+                    html += `
+        <div class="flex justify-between">
+          <span>${nombresBonitos[a] || a}</span>
+          <span>$${formatear(data.adicionalesDetalle[a])}</span>
+        </div>
+      `;
+                  });
+                }
               }
 
               html += `
       <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
         <span>TOTAL</span>
-        <span>$${formatear((data.total || 0) + totalAdicionales)}</span>
+        <span>$${formatear(data.total || 0)}</span>
       </div>
 
       <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
@@ -835,6 +857,29 @@
               btn.disabled = false;
             });
         }
+        // 🔒 SOLO UN ADICIONAL (tipo radio)
+        document.querySelectorAll(".adicionalPuerta").forEach(cb => {
+          cb.addEventListener("change", function () {
+
+            if (this.checked) {
+              document.querySelectorAll(".adicionalPuerta").forEach(other => {
+                if (other !== this) other.checked = false;
+              });
+            }
+
+          });
+        });
+        window.onload = () => {
+          document.querySelectorAll(".adicionalPuerta").forEach(cb => {
+            cb.addEventListener("change", function () {
+              if (this.checked) {
+                document.querySelectorAll(".adicionalPuerta").forEach(other => {
+                  if (other !== this) other.checked = false;
+                });
+              }
+            });
+          });
+        };
       </script>
 
 </body>
