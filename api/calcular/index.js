@@ -9,6 +9,9 @@ function redondear5(valor) {
 function obtenerProducto(nombre) {
   const ruta = path.join(process.cwd(), "data/productos", `${nombre}.json`);
   return JSON.parse(fs.readFileSync(ruta, "utf-8"));
+  console.log("CWD:", process.cwd());
+  console.log("producto:", nombre);
+  console.log("ruta:", ruta);
 }
 
 // =========================
