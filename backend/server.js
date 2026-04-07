@@ -25,10 +25,23 @@ app.get("/", (req, res) => {
 });
 
 // 🔹 MEDIDAS
-app.get("/api/medidas/:producto", (req, res) => {
+app.get("/api/medidas", (req, res) => {
   try {
-    const data = obtenerProducto(req.params.producto);
-    res.json(Object.keys(data.medidas));
+    const producto = req.query.producto;
+
+    console.log("PRODUCTO:", producto); // debug
+
+    const filePath = path.join(
+      process.cwd(),
+      "data/productos",
+      `${producto}.json`,
+    );
+
+    console.log("RUTA:", filePath); // debug
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    res.json(Object.keys(data.medidas || {}));
   } catch (e) {
     console.log("ERROR MEDIDAS:", e.message);
     res.status(404).json({ error: e.message });
@@ -49,7 +62,7 @@ function redondear5(valor) {
 }
 
 // 🔥 CALCULO
-app.post("/api/calcular/:producto", (req, res) => {
+app.post("/api/:producto", (req, res) => {
   try {
     const { producto } = req.params;
     const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } =

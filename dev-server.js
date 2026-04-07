@@ -7,18 +7,266 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const apiHandler = require("./api/calcular/index");
+const fs = require("fs");
 
-// 🔹 API (compatible Express 5)
-app.all(/^\/api\/.*$/, async (req, res) => {
+// MEDIDAS
+app.get("/api/medidas", (req, res) => {
   try {
-    await apiHandler(req, res);
-  } catch (err) {
-    console.error("ERROR API:", err);
-    res.status(500).json({ error: "Error interno" });
+    const producto = req.query.producto;
+
+    const filePath = path.join(__dirname, "data/productos", `${producto}.json`);
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    res.json(Object.keys(data.medidas || {}));
+  } catch (e) {
+    console.log("ERROR MEDIDAS:", e.message);
+    res.status(404).json({ error: e.message });
   }
 });
 
+// COLORES
+app.get("/api/colores", (req, res) => {
+  try {
+    const filePath = path.join(__dirname, "data/colores.json");
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    res.json(data);
+  } catch (e) {
+    res.status(500).json({ error: "Error colores" });
+  }
+});
+app.post("/api/puertas_herrero", (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "data/productos/puertas_herrero.json",
+    );
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    const { modelo, tipoVidrio, color, tamano, adicionales = [] } = req.body;
+
+    const producto = data.modelos[modelo.toLowerCase()];
+
+    if (!producto) {
+      return res.status(400).json({ error: "Modelo no encontrado" });
+    }
+
+    let total = producto.base;
+
+    if (!producto.sinVidrio && tipoVidrio) {
+      total += producto.vidrios[tipoVidrio] || 0;
+    }
+
+    total = total * (1 + (color || 0));
+
+    const ajuste = data.ajustes[tamano] || 0;
+    total = total * (1 + ajuste);
+
+    adicionales.forEach((a) => {
+      total += data.adicionales[a] || 0;
+    });
+
+    total = Math.round(total);
+
+    res.json({ total });
+  } catch (e) {
+    console.log("ERROR PUERTAS:", e.message);
+    res.status(500).json({ error: "Error cálculo" });
+  }
+});
+
+app.post("/api/ventanas_herrero", (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "data/productos/ventanas_herrero.json",
+    );
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } =
+      req.body;
+
+    const datos = data.medidas?.[medida];
+
+    if (!datos) {
+      return res.status(400).json({ error: "Medida no encontrada" });
+    }
+
+    const descuento = 0.1;
+    const flete = 0.06;
+    const ganancia = 0.3;
+
+    const base = datos.base || 0;
+    const guia = datos.guia || 0;
+    const mosq = datos.mosquitero || 0;
+
+    let vidrio = datos.vidrio || 0;
+
+    // COLOR
+    const baseColor = base * (1 + (color || 0));
+    const guiaColor = incluirGuia ? guia * (1 + (color || 0)) : 0;
+
+    const subtotal = baseColor + vidrio;
+    const costo = subtotal * (1 - descuento);
+
+    let precio = costo * (1 + flete) * (1 + ganancia);
+    precio = Math.round(precio);
+
+    let precioGuia = null;
+    if (incluirGuia) {
+      let g = guiaColor * (1 - descuento);
+      g *= 1 + flete;
+      g *= 1 + ganancia;
+      precioGuia = Math.round(g);
+    }
+
+    let precioMosq = 0;
+    if (incluirMosquitero) {
+      let m = mosq * (1 + (color || 0));
+      m *= 1 - descuento;
+      m *= 1 + flete;
+      m *= 1 + ganancia;
+      precioMosq = Math.round(m);
+    }
+
+    return res.json({
+      ventana: precio,
+      guia: precioGuia,
+      mosquitero: incluirMosquitero ? precioMosq : null,
+      total: precio + (precioGuia || 0) + precioMosq,
+    });
+  } catch (e) {
+    console.log("ERROR VENTANAS:", e.message);
+    res.status(500).json({ error: "Error cálculo ventanas" });
+  }
+});
+
+app.post("/api/ventanas_modena", (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "data/productos/ventanas_modena.json",
+    );
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } =
+      req.body;
+
+    const datos = data.medidas?.[medida];
+
+    if (!datos) {
+      return res.status(400).json({ error: "Medida no encontrada" });
+    }
+
+    const descuento = 0.07;
+    const flete = 0.06;
+    const ganancia = 0.3;
+
+    const base = datos.base || 0;
+    const guia = datos.guia || 0;
+    const mosq = datos.mosquitero || 0;
+
+    let vidrio = 0;
+
+    if (datos.vidrios) {
+      if (tipoVidrio === "dvh") {
+        vidrio = (datos.vidrios["4mm"] || 0) * 2 + (datos.camara || 0);
+      } else {
+        vidrio = datos.vidrios[tipoVidrio] || 0;
+      }
+    }
+
+    const baseColor = base * (1 + (color || 0));
+    const guiaColor = incluirGuia ? guia * (1 + (color || 0)) : 0;
+
+    const subtotal = baseColor + vidrio;
+    const costo = subtotal * (1 - descuento);
+
+    let precio = costo * (1 + flete) * (1 + ganancia);
+    precio = Math.round(precio);
+
+    let precioGuia = null;
+    if (incluirGuia) {
+      let g = guiaColor * (1 - descuento);
+      g *= 1 + flete;
+      g *= 1 + ganancia;
+      precioGuia = Math.round(g);
+    }
+
+    let precioMosq = 0;
+    if (incluirMosquitero) {
+      let m = mosq * (1 + (color || 0));
+      m *= 1 - descuento;
+      m *= 1 + flete;
+      m *= 1 + ganancia;
+      precioMosq = Math.round(m);
+    }
+
+    return res.json({
+      ventana: precio,
+      guia: precioGuia,
+      mosquitero: incluirMosquitero ? precioMosq : null,
+      total: precio + (precioGuia || 0) + precioMosq,
+    });
+  } catch (e) {
+    console.log("ERROR MODENA:", e.message);
+    res.status(500).json({ error: "Error cálculo modena" });
+  }
+});
+
+app.post("/api/puertas_modena", (req, res) => {
+  try {
+    const filePath = path.join(__dirname, "data/productos/puertas_modena.json");
+
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+    const { modelo, color, vidrio, ancho, adicionales = [] } = req.body;
+
+    const modeloData = data.modelos[modelo];
+
+    if (!modeloData) {
+      return res.status(400).json({ error: "Modelo no encontrado" });
+    }
+
+    let precio = modeloData.base;
+
+    // COLOR
+    precio += modeloData.base * (color || 0);
+
+    // VIDRIO
+    if (vidrio === "dvh") {
+      precio += (modeloData.vidrios["4mm"] || 0) * 2;
+      precio += modeloData.dvh?.camara || 0;
+    } else {
+      precio += modeloData.vidrios[vidrio] || 0;
+    }
+
+    // ADICIONALES
+    const adicionalesDetalle = {};
+
+    adicionales.forEach((a) => {
+      const valor = data.adicionales[a] || 0;
+      adicionalesDetalle[a] = valor;
+      precio += valor; // 🔥 suma al total
+    });
+
+    // PERFIL simple
+    precio = precio * 0.93 * 1.06 * 1.3;
+
+    precio = Math.round(precio);
+
+    res.json({
+      total: precio,
+      adicionalesDetalle,
+    });
+  } catch (e) {
+    console.log("ERROR MODENA:", e.message);
+    res.status(500).json({ error: "Error cálculo modena" });
+  }
+});
 // 🔹 fallback (SPA)
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));

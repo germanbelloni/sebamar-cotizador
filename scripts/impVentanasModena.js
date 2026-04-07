@@ -8,7 +8,7 @@ const workbook = xlsx.readFile("../excel/calculadora.xlsx");
 
 const CONFIG = {
   hoja: "ventanas modena",
-  salida: "../data/productos/modena.json",
+  salida: "../data/productos/ventanas_modena.json",
 
   detectarHeaderPor: ["medidas"],
 
