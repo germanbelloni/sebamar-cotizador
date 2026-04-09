@@ -1,5 +1,11 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
+const { calcularPuertaHerrero } = require("./calculosPuertas");
+const {
+  calcularPuertaModena,
+  calcularFinalModena,
+} = require("./calculosPuertas");
 
 const app = express();
 const PORT = 3000;
@@ -7,15 +13,14 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const fs = require("fs");
-
-// MEDIDAS
+/* =========================
+   📏 MEDIDAS
+========================= */
 app.get("/api/medidas", (req, res) => {
   try {
     const producto = req.query.producto;
 
     const filePath = path.join(__dirname, "data/productos", `${producto}.json`);
-
     const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
     res.json(Object.keys(data.medidas || {}));
@@ -25,7 +30,9 @@ app.get("/api/medidas", (req, res) => {
   }
 });
 
-// COLORES
+/* =========================
+   🎨 COLORES
+========================= */
 app.get("/api/colores", (req, res) => {
   try {
     const filePath = path.join(__dirname, "data/colores.json");
@@ -35,6 +42,10 @@ app.get("/api/colores", (req, res) => {
     res.status(500).json({ error: "Error colores" });
   }
 });
+
+/* =========================
+   🚪 PUERTAS HERRERO (FIX)
+========================= */
 app.post("/api/puertas_herrero", (req, res) => {
   try {
     const filePath = path.join(
@@ -42,40 +53,27 @@ app.post("/api/puertas_herrero", (req, res) => {
       "data/productos/puertas_herrero.json",
     );
 
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    const producto = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    const { modelo, tipoVidrio, color, tamano, adicionales = [] } = req.body;
+    const resultadoBase = calcularPuertaHerrero(req.body, producto);
 
-    const producto = data.modelos[modelo.toLowerCase()];
+    const multiplicador = req.body.multiplicador || 1;
 
-    if (!producto) {
-      return res.status(400).json({ error: "Modelo no encontrado" });
-    }
+    const resultadoFinal = {
+      total: Math.round(resultadoBase.total * multiplicador),
+      adicionalesDetalle: resultadoBase.adicionalesDetalle,
+    };
 
-    let total = producto.base;
-
-    if (!producto.sinVidrio && tipoVidrio) {
-      total += producto.vidrios[tipoVidrio] || 0;
-    }
-
-    total = total * (1 + (color || 0));
-
-    const ajuste = data.ajustes[tamano] || 0;
-    total = total * (1 + ajuste);
-
-    adicionales.forEach((a) => {
-      total += data.adicionales[a] || 0;
-    });
-
-    total = Math.round(total);
-
-    res.json({ total });
+    res.json(resultadoFinal);
   } catch (e) {
     console.log("ERROR PUERTAS:", e.message);
     res.status(500).json({ error: "Error cálculo" });
   }
 });
 
+/* =========================
+   🪟 VENTANAS HERRERO
+========================= */
 app.post("/api/ventanas_herrero", (req, res) => {
   try {
     const filePath = path.join(
@@ -85,8 +83,7 @@ app.post("/api/ventanas_herrero", (req, res) => {
 
     const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    const { medida, color, incluirGuia, incluirMosquitero, tipoVidrio } =
-      req.body;
+    const { medida, color, incluirGuia, incluirMosquitero } = req.body;
 
     const datos = data.medidas?.[medida];
 
@@ -101,10 +98,8 @@ app.post("/api/ventanas_herrero", (req, res) => {
     const base = datos.base || 0;
     const guia = datos.guia || 0;
     const mosq = datos.mosquitero || 0;
+    const vidrio = datos.vidrio || 0;
 
-    let vidrio = datos.vidrio || 0;
-
-    // COLOR
     const baseColor = base * (1 + (color || 0));
     const guiaColor = incluirGuia ? guia * (1 + (color || 0)) : 0;
 
@@ -143,6 +138,9 @@ app.post("/api/ventanas_herrero", (req, res) => {
   }
 });
 
+/* =========================
+   🪟 VENTANAS MODENA
+========================= */
 app.post("/api/ventanas_modena", (req, res) => {
   try {
     const filePath = path.join(
@@ -217,58 +215,56 @@ app.post("/api/ventanas_modena", (req, res) => {
   }
 });
 
+/* =========================
+   🚪 PUERTAS MODENA
+========================= */
 app.post("/api/puertas_modena", (req, res) => {
   try {
     const filePath = path.join(__dirname, "data/productos/puertas_modena.json");
 
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    const producto = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    const { modelo, color, vidrio, ancho, adicionales = [] } = req.body;
+    const perfiles = require("./config/perfiles");
 
-    const modeloData = data.modelos[modelo];
+    const {
+      modelo,
+      color,
+      vidrio,
+      ancho,
+      adicionales = [],
+      perfil = "amarilla",
+      multiplicador,
+    } = req.body;
 
-    if (!modeloData) {
-      return res.status(400).json({ error: "Modelo no encontrado" });
-    }
+    const perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
 
-    let precio = modeloData.base;
+    const precioBase = calcularPuertaModena(
+      { modelo, color, vidrio, ancho, adicionales },
+      producto,
+    );
 
-    // COLOR
-    precio += modeloData.base * (color || 0);
+    let total = calcularFinalModena(
+      precioBase,
+      { modelo, color, vidrio, ancho, adicionales },
+      producto,
+      perfilData,
+    );
 
-    // VIDRIO
-    if (vidrio === "dvh") {
-      precio += (modeloData.vidrios["4mm"] || 0) * 2;
-      precio += modeloData.dvh?.camara || 0;
-    } else {
-      precio += modeloData.vidrios[vidrio] || 0;
-    }
+    // 👇 MULTIPLICADOR
+    const mult = multiplicador || 1;
+    total = Math.round(total * mult);
 
-    // ADICIONALES
-    const adicionalesDetalle = {};
-
-    adicionales.forEach((a) => {
-      const valor = data.adicionales[a] || 0;
-      adicionalesDetalle[a] = valor;
-      precio += valor; // 🔥 suma al total
-    });
-
-    // PERFIL simple
-    precio = precio * 0.93 * 1.06 * 1.3;
-
-    precio = Math.round(precio);
-
-    res.json({
-      total: precio,
-      adicionalesDetalle,
-    });
+    res.json({ total });
   } catch (e) {
     console.log("ERROR MODENA:", e.message);
     res.status(500).json({ error: "Error cálculo modena" });
   }
 });
-// 🔹 fallback (SPA)
-app.get(/.*/, (req, res) => {
+
+/* =========================
+   🧠 FIX CLAVE SPA (IMPORTANTE)
+========================= */
+app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 

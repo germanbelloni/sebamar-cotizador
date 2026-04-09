@@ -1,0 +1,76 @@
+{
+  "medias": {
+    "v/entero": {
+      "base": 99635,
+      "vidrios": {
+        "4mm": 16182,
+        "3+3": 69207,
+        "fantasia": 17813,
+        "esmerilado": 46122
+      }
+    },
+    "v/repartido": {
+      "base": 114030,
+      "vidrios": {
+        "4mm": 16182,
+        "3+3": 0,
+        "fantasia": 17813,
+        "esmerilado": 46122
+      }
+    },
+    "3/4 v entero": {
+      "base": 123971,
+      "vidrios": {
+        "4mm": 12772,
+        "3+3": 54639,
+        "fantasia": 14062,
+        "esmerilado": 36413
+      }
+    },
+    "3/4 v repartido": {
+      "base": 138474,
+      "vidrios": {
+        "4mm": 12772,
+        "3+3": 0,
+        "fantasia": 14062,
+        "esmerilado": 36413
+      }
+    },
+    "1/2 v entero": {
+      "base": 150387,
+      "vidrios": {
+        "4mm": 8519,
+        "3+3": 36426,
+        "fantasia": 9374,
+        "esmerilado": 24273
+      }
+    },
+    "1/2 v repartido": {
+      "base": 158256,
+      "vidrios": {
+        "4mm": 8519,
+        "3+3": 0,
+        "fantasia": 9374,
+        "esmerilado": 24273
+      }
+    },
+    "4 travezaños": {
+      "base": 119776,
+      "vidrios": {
+        "4mm": 21291,
+        "3+3": 91066,
+        "fantasia": 23436,
+        "esmerilado": 60686
+      }
+    },
+    "1 travesaño": {
+      "base": 110000,
+      "vidrios": {
+        "4mm": 18000,
+        "3+3": 60000,
+        "fantasia": 17000,
+        "esmerilado": 46000
+      }
+    }
+  }
+}

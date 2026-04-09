@@ -135,7 +135,14 @@
           <div class="text-xs text-gray-500">70 / 80 / 90</div>
         </div>
 
-        <div class="bg-white p-6 rounded-xl shadow opacity-50 text-center">
+        <div onclick="entrarPuertasTipo('media')"
+          class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+          🚪 Puertas y media
+          <div class="text-xs text-gray-500">110 / 120 / 130</div>
+        </div>
+
+        <div onclick="entrarPuertasTipo('doble')"
+          class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
           🚪 Dobles
         </div>
 
@@ -143,7 +150,8 @@
           🚪 ECO
         </div>
 
-        <div class="bg-white p-6 rounded-xl shadow opacity-50 text-center">
+        <div onclick="entrarPuertasTipo('porton')"
+          class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
           🚪 Portones
         </div>
 
@@ -213,20 +221,29 @@
       </div>
 
       <!-- MODELOS PUERTAS -->
-      <div id="bloqueModelosPuertas" class="hidden">
+      <div id="bloqueModelosPuertas">
 
-        <label class="text-sm font-semibold text-gray-600">Modelo</label>
+        <label class="text-sm font-semibold text-gray-600">Modelo puerta</label>
 
         <select id="modeloPuerta" class="w-full border rounded p-2 mt-1" onchange="cambiarModeloPuerta()">
         </select>
 
-        <!-- 🔥 IMAGEN FIJA -->
-        <div class="mt-3 flex justify-center">
-          <img src="/img/puertas/modelos.jpg"
-            class="w-full h-[420px] object-contain border rounded p-3 bg-white shadow">
-        </div>
+      </div>
+      <div id="bloqueMediaPuerta" class="hidden">
+
+        <label class="text-sm font-semibold text-gray-600">Media puerta</label>
+
+        <select id="modeloMedia" class="w-full border rounded p-2 mt-1">
+        </select>
 
       </div>
+
+      <!-- 🔥 IMAGEN FIJA -->
+      <div class="mt-3 flex justify-center">
+        <img src="/img/puertas/modelos.jpg" class="w-full h-[420px] object-contain border rounded p-3 bg-white shadow">
+      </div>
+
+
 
       <!-- COLORES (ESTO TIENE QUE QUEDAR AFUERA DEL BLOQUE) -->
       <div>
@@ -297,89 +314,462 @@
       </button>
 
       <div id="resultado"></div>
+    </div> <!-- FIN CARD BLANCA -->
+  </div> <!-- FIN MODULO -->
 
-      <script>
+  <script>
+    window.tipoPuerta = "simple";
+    console.log("TIPO:", window.tipoPuerta);
 
-        const API = "http://localhost:3000";
-        let modoActual = "ventanas"; // "ventanas" o "puertas"
-        let dataPuertas = null;
-        let medidas = [];
-        let medidaSeleccionada = null;
-        let colorSeleccionado = 0;
-        let nombreColorSeleccionado = "";
-        let modeloSeleccionado = "Modelo 1"; // temporal
+    const API = "http://localhost:3000";
+    let modoActual = "ventanas"; // "ventanas" o "puertas"
+    let dataPuertas = null;
+    let medidas = [];
+    let medidaSeleccionada = null;
+    let colorSeleccionado = 0;
+    let nombreColorSeleccionado = "";
+    let modeloSeleccionado = "Modelo 1"; // temporal
 
-        /* ===== NUEVO ===== */
-        function abrirSubmenuVentanas() {
-          document.getElementById("menuPrincipal").classList.add("hidden");
-          document.getElementById("submenuVentanas").classList.remove("hidden");
-        }
+    /* ===== NUEVO ===== */
+    function abrirSubmenuVentanas() {
+      document.getElementById("menuPrincipal").classList.add("hidden");
+      document.getElementById("submenuVentanas").classList.remove("hidden");
+    }
 
-        function entrarPuertas() {
+    function entrarPuertas() {
 
-          document.getElementById("menuPrincipal").classList.add("hidden");
-          document.getElementById("submenuPuertas").classList.remove("hidden");
-        }
-        function entrarPuertasTipo(tipo) {
+      document.getElementById("menuPrincipal").classList.add("hidden");
+      document.getElementById("submenuPuertas").classList.remove("hidden");
+    }
+    function entrarPuertasTipo(tipo) {
 
-          cargarModelosPuertas();
+      // ✅ definir tipo SIEMPRE primero
+      window.tipoPuerta = tipo;
 
-          modoActual = "puertas";
+      // ✅ limpiar TODO
+      resetearCotizador();
 
-          resetearCotizador();
+      modoActual = "puertas";
 
-          document.getElementById("submenuPuertas").classList.add("hidden");
-          document.getElementById("moduloVentanas").classList.remove("hidden");
+      Puertas.init();
 
-          document.getElementById("producto").value = "herrero";
+      const bloqueMedia = document.getElementById("bloqueMediaPuerta");
 
-          document.getElementById("medidasVentanas").classList.add("hidden");
-          document.getElementById("medidasPuertas").classList.remove("hidden");
+      if (tipo === "media") {
 
-          document.getElementById("bloqueModelosPuertas").classList.remove("hidden");
+        bloqueMedia.classList.remove("hidden");
 
-          document.getElementById("opcionesVentanas").classList.add("hidden");
-          document.getElementById("opcionesPuertas").classList.remove("hidden");
+        cargarModelosMedia();     // media
+        Puertas.cargarModelos();  // 🔥 ESTO FALTABA
 
-          cargarColores();
+      } else {
+        bloqueMedia.classList.add("hidden");
+      }
 
-          modeloSeleccionado = "Modelo 1";
-          cambiarModeloPuerta(); // 🔥 ESTE ya llama cargarVidriosPuerta
-        }
-        function volverMenuPrincipal() {
-          document.getElementById("submenuVentanas").classList.add("hidden");
-          document.getElementById("menuPrincipal").classList.remove("hidden");
-        }
-        function volverMenuPrincipalDesdePuertas() {
-          document.getElementById("submenuPuertas").classList.add("hidden");
-          document.getElementById("menuPrincipal").classList.remove("hidden");
-        }
-        function cargarVidriosPuerta() {
+      document.getElementById("submenuPuertas").classList.add("hidden");
+      document.getElementById("moduloVentanas").classList.remove("hidden");
 
-          if (!dataPuertas) return;
+      document.getElementById("producto").value = "herrero";
 
-          const modelo = modeloSeleccionado.toLowerCase().trim();
-          const producto = document.getElementById("producto").value;
-          const select = document.getElementById("vidrio");
+      document.getElementById("medidasVentanas").classList.add("hidden");
+      document.getElementById("medidasPuertas").classList.remove("hidden");
 
-          if (!select) return;
+      document.getElementById("bloqueModelosPuertas").classList.remove("hidden");
 
+      document.getElementById("opcionesVentanas").classList.add("hidden");
+      document.getElementById("opcionesPuertas").classList.remove("hidden");
+
+      // 🔥 ACTUALIZAR MEDIDAS SEGÚN TIPO
+      const select = document.getElementById("tamanoPuerta");
+      select.innerHTML = "";
+
+      // 🔥 CASO MEDIA (igual lógica que los otros, pero especial)
+      if (tipo === "media") {
+
+        const mapa = {
+          110: 70,
+          120: 80,
+          130: 90
+        };
+
+        [110, 120, 130].forEach(m => {
+          const option = document.createElement("option");
+
+          option.value = mapa[m]; // 👈 backend sigue usando 70/80/90
+          option.textContent = `${m}x200`; // 👈 usuario ve 110/120/130
+
+          select.appendChild(option);
+        });
+
+      } else {
+
+        const medidasBase = [70, 80, 90];
+
+        let factor = 1;
+        if (tipo === "doble") factor = 2;
+        if (tipo === "porton") factor = 3;
+
+        medidasBase.forEach(m => {
+          const option = document.createElement("option");
+
+          option.value = m;
+          option.textContent = `${m * factor}x200`;
+
+          select.appendChild(option);
+        });
+
+      }
+
+      console.log("TIPO PUERTA:", tipo);
+      cargarColores();
+
+      modeloSeleccionado = "Modelo 1";
+      cambiarModeloPuerta();
+    }
+
+    function volverMenuPrincipal() {
+      document.getElementById("submenuVentanas").classList.add("hidden");
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+    }
+    function volverMenuPrincipalDesdePuertas() {
+      window.tipoPuerta = "simple";
+      document.getElementById("submenuPuertas").classList.add("hidden");
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+    }
+
+    function entrarVentanas(tipo) {
+
+      modoActual = "ventanas";
+
+      resetearCotizador();
+
+      document.getElementById("producto").value = tipo;
+
+      // 🔥 OCULTAR MENU PRINCIPAL (esto faltaba)
+      document.getElementById("menuPrincipal").classList.add("hidden");
+
+      // 🔥 MOSTRAR MODULO
+      document.getElementById("moduloVentanas").classList.remove("hidden");
+
+      // UI correcta
+      document.getElementById("medidasVentanas").classList.remove("hidden");
+      document.getElementById("medidasPuertas").classList.add("hidden");
+
+      document.getElementById("bloqueModelosPuertas").classList.add("hidden");
+      document.getElementById("opcionesVentanas").classList.remove("hidden");
+      document.getElementById("opcionesPuertas").classList.add("hidden");
+
+      cargarColores();
+      cargarVidriosVentana();
+      cambiarProducto();
+    }
+
+    function volverSubmenu() {
+
+      window.tipoPuerta = "simple";
+
+      // ocultar módulo
+      document.getElementById("moduloVentanas").classList.add("hidden");
+
+      // mostrar menú principal
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+
+      // 🔥 limpiar estado
+      resetearCotizador();
+    }
+
+    /* ===== TU CÓDIGO ORIGINAL (INTACTO) ===== */
+
+    function abrirModulo() {
+      document.getElementById("menuPrincipal").classList.add("hidden");
+      document.getElementById("moduloVentanas").classList.remove("hidden");
+    }
+
+    function volverMenu() {
+      document.getElementById("moduloVentanas").classList.add("hidden");
+      document.getElementById("menuPrincipal").classList.remove("hidden");
+    }
+
+    function formatearTexto(nombre) {
+      return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+    }
+
+    function cambiarModeloPuerta() {
+      Puertas.cambiarModelo();
+    }
+
+
+    function colorFemenino(nombre) {
+      if (!nombre) return "";
+      nombre = nombre.toLowerCase();
+      if (nombre.includes("blanco")) return "Blanca";
+      if (nombre.includes("negro")) return "Negra";
+      return formatearTexto(nombre);
+    }
+
+    function colorHex(nombre) {
+      nombre = nombre.toLowerCase();
+      if (nombre.includes("blanco")) return "#ffffff";
+      if (nombre.includes("negro")) return "#000000";
+      if (nombre.includes("bronce")) return "#8b5a2b";
+      if (nombre.includes("madera")) return "#a0522d";
+      return "#ccc";
+    }
+
+    function cargarMedidas() {
+      const producto = document.getElementById("producto").value;
+      fetch(`/api/medidas?producto=ventanas_${producto}`)
+        .then(res => res.json())
+        .then(data => medidas = data);
+    }
+
+    function cambiarProducto() {
+      medidaSeleccionada = null;
+      const input = document.getElementById("buscador");
+      input.value = "";
+      input.classList.remove("border-green-500", "bg-green-50");
+      cargarMedidas();
+      if (modoActual === "ventanas") {
+        cargarVidriosVentana();
+      }
+    }
+
+    function mostrarDropdown() {
+      renderMedidas(medidas);
+      document.getElementById("dropdownMedidas").classList.remove("hidden");
+    }
+
+    function renderMedidas(lista) {
+      const container = document.getElementById("dropdownMedidas");
+      container.innerHTML = "";
+
+      lista.forEach(m => {
+        const div = document.createElement("div");
+        div.innerText = m;
+        div.className = "p-2 hover:bg-blue-100 cursor-pointer";
+
+        div.onclick = () => {
+          medidaSeleccionada = m;
+          const input = document.getElementById("buscador");
+          input.value = m;
+          input.classList.add("border-green-500", "bg-green-50");
+          container.classList.add("hidden");
+        };
+
+        container.appendChild(div);
+      });
+    }
+
+    function filtrarMedidas() {
+      mostrarDropdown();
+      const texto = document.getElementById("buscador").value.toLowerCase();
+      renderMedidas(medidas.filter(m => m.toLowerCase().includes(texto)));
+    }
+
+    function cargarModelosMedia() {
+
+      const producto = document.getElementById("producto").value;
+
+      fetch(`/data/productos/puertas_media_${producto}.json`)
+        .then(res => res.json())
+        .then(data => {
+
+          console.log("MEDIA JSON:", data);
+          const select = document.getElementById("modeloMedia");
           select.innerHTML = "";
 
-          const modeloKey = Object.keys(dataPuertas.modelos).find(
-            k => k.toLowerCase().trim() === modelo
-          );
+          Object.keys(data.medias).forEach(nombre => {
 
-          const modeloData = dataPuertas.modelos[modeloKey];
+            const option = document.createElement("option");
 
-          if (!modeloData) return;
+            option.value = nombre;
+            option.textContent = formatearTexto(nombre);
 
-          // 🔥 VIDRIOS NORMALES
-          Object.keys(modeloData.vidrios).forEach(v => {
+            select.appendChild(option);
+          });
 
-            const valor = modeloData.vidrios[v];
+        });
+    }
 
-            if (typeof valor !== "number") return;
+    function cargarColores() {
+      fetch(`${API}/api/colores`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("coloresContainer");
+          container.innerHTML = "";
+
+          data.forEach(c => {
+            const div = document.createElement("div");
+
+            div.className = `
+          flex items-center gap-2 border rounded p-2 cursor-pointer
+          hover:bg-green-100 transition
+        `;
+
+            let color = colorHex(c.nombre);
+
+            // 🔥 si es blanco → usar gris para sombra
+            let colorSombra = color === "#ffffff" ? "#999999" : color;
+
+            div.style.background = color + "20"; // fondo suave SIEMPRE
+
+            div.innerHTML = `
+  <div style="width:20px;height:20px;background:${color};border:1px solid #000;"></div>
+  <span>${formatearTexto(c.nombre)}</span>
+`;
+
+            div.onclick = () => {
+              colorSeleccionado = c.valor;
+              nombreColorSeleccionado = c.nombre;
+
+              document.querySelectorAll("#coloresContainer div")
+                .forEach(el => {
+                  el.style.boxShadow = "";
+                  el.style.border = "";
+                  el.classList.remove("ring-2", "ring-green-500");
+                });
+
+              let color = colorHex(c.nombre);
+
+              // 🔥 si es blanco → usar gris para sombra
+              let colorSombra = color === "#ffffff" ? "#999999" : color;
+
+              div.style.boxShadow = `
+  0 0 20px ${colorSombra},
+  0 0 8px ${colorSombra},
+  inset 0 0 4px ${colorSombra}
+`;
+
+              div.style.border = `1px solid ${colorSombra}`;
+              div.classList.add("ring-2", "ring-green-500");
+            };
+
+            container.appendChild(div);
+          });
+        });
+    }
+
+    function seleccionarProducto(tipo, element) {
+
+      // ❌ NO resetear todo si estamos en puertas media
+      if (window.tipoPuerta !== "media") {
+        resetearCotizador();
+      }
+
+      document.querySelectorAll(".productoBtn").forEach(el => {
+        el.classList.remove("ring-2", "ring-green-500", "bg-green-50");
+      });
+
+      element.classList.add("ring-2", "ring-green-500", "bg-green-50");
+
+      document.getElementById("producto").value = tipo;
+
+      cambiarProducto();
+
+      if (modoActual === "puertas") {
+        Puertas.cargarVidrios();
+      }
+    }
+
+    function formatear(n) {
+      return Math.round(n).toString();
+    }
+
+    function copiarPresupuesto() {
+      const texto = document.getElementById("resultado").innerText.trim();
+      navigator.clipboard.writeText(texto);
+      alert("Presupuesto copiado");
+    }
+
+    function resetearCotizador() {
+
+      // 🔥 limpiar selección herrero/modena
+      document.querySelectorAll(".productoBtn").forEach(el => {
+        el.classList.remove("ring-2", "ring-green-500", "bg-green-50");
+      });
+      document.getElementById("producto").value = "herrero";
+
+      // medida ventanas
+      medidaSeleccionada = null;
+      document.getElementById("buscador").value = "";
+      document.getElementById("buscador").classList.remove("border-green-500", "bg-green-50");
+
+      // 🔥 medida puertas
+      const selectPuerta = document.getElementById("tamanoPuerta");
+      if (selectPuerta) selectPuerta.selectedIndex = 0;
+
+      // 🔥 modelo puerta
+      const modeloSelect = document.getElementById("modeloPuerta");
+      if (modeloSelect) modeloSelect.selectedIndex = 0;
+
+      // color
+      colorSeleccionado = 0;
+      nombreColorSeleccionado = "";
+
+      document.querySelectorAll("#coloresContainer div").forEach(el => {
+        el.style.boxShadow = "";
+        el.style.border = "";
+        el.classList.remove("ring-2", "ring-black", "bg-gray-100");
+      });
+
+      // vidrio
+      const vidrio = document.getElementById("vidrio");
+      if (vidrio) vidrio.selectedIndex = 0;
+
+      // checkboxes ventanas
+      const guia = document.getElementById("guia");
+      const mosq = document.getElementById("mosq");
+      if (guia) guia.checked = false;
+      if (mosq) mosq.checked = false;
+
+      // 🔥 adicionales puertas
+      document.querySelectorAll(".adicionalPuerta").forEach(cb => {
+        cb.checked = false;
+      });
+
+      // resultado
+      document.getElementById("resultado").innerHTML = "";
+
+      const bloqueMedia = document.getElementById("bloqueMediaPuerta");
+      if (bloqueMedia) bloqueMedia.classList.add("hidden");
+    }
+
+    function cargarVidriosVentana() {
+
+      const producto = document.getElementById("producto").value;
+      const select = document.getElementById("vidrio");
+
+      select.innerHTML = "";
+
+      // 🔥 HERRERO
+      if (producto === "herrero") {
+
+        const option = document.createElement("option");
+        option.value = "3mm";
+        option.textContent = "3mm";
+
+        select.appendChild(option);
+
+        select.value = "3mm";
+        select.disabled = true;
+
+        return;
+      }
+
+      // 🔥 MODENA
+      fetch("/data/productos/ventanas_modena.json")
+        .then(res => res.json())
+        .then(data => {
+
+          const primera = Object.values(data.medidas)[0];
+
+          if (!primera || !primera.vidrios) return;
+
+          select.disabled = false;
+
+          Object.keys(primera.vidrios).forEach(v => {
+
+            if (v.toLowerCase() === "dvh") return;
 
             const option = document.createElement("option");
             option.value = v;
@@ -388,571 +778,211 @@
             select.appendChild(option);
           });
 
-          // 🔥 SOLO MODENA TIENE DVH
-          if (producto === "modena") {
-            const dvh = document.createElement("option");
-            dvh.value = "dvh";
-            dvh.textContent = "DVH";
-            select.appendChild(dvh);
-          }
-        }
-        function entrarVentanas(tipo) {
-
-          modoActual = "ventanas";
-
-          resetearCotizador();
-
-          document.getElementById("producto").value = tipo;
-
-          // 🔥 OCULTAR MENU PRINCIPAL (esto faltaba)
-          document.getElementById("menuPrincipal").classList.add("hidden");
-
-          // 🔥 MOSTRAR MODULO
-          document.getElementById("moduloVentanas").classList.remove("hidden");
-
-          // UI correcta
-          document.getElementById("medidasVentanas").classList.remove("hidden");
-          document.getElementById("medidasPuertas").classList.add("hidden");
-
-          document.getElementById("bloqueModelosPuertas").classList.add("hidden");
-          document.getElementById("opcionesVentanas").classList.remove("hidden");
-          document.getElementById("opcionesPuertas").classList.add("hidden");
-
-          cargarColores();
-          cargarVidriosVentana();
-          cambiarProducto();
-        }
-
-        function volverSubmenu() {
-
-          // ocultar módulo
-          document.getElementById("moduloVentanas").classList.add("hidden");
-
-          // mostrar menú principal
-          document.getElementById("menuPrincipal").classList.remove("hidden");
-
-          // 🔥 limpiar estado
-          resetearCotizador();
-        }
-
-        /* ===== TU CÓDIGO ORIGINAL (INTACTO) ===== */
-
-        function abrirModulo() {
-          document.getElementById("menuPrincipal").classList.add("hidden");
-          document.getElementById("moduloVentanas").classList.remove("hidden");
-        }
-
-        function volverMenu() {
-          document.getElementById("moduloVentanas").classList.add("hidden");
-          document.getElementById("menuPrincipal").classList.remove("hidden");
-        }
-
-        function formatearTexto(nombre) {
-          return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
-        }
-
-        function cambiarModeloPuerta() {
-
-          const select = document.getElementById("modeloPuerta");
-          const modelo = select.value;
-
-          modeloSeleccionado = modelo;
-
-
-          const bloqueVidrio = document.getElementById("bloqueVidrio");
-          if (!bloqueVidrio) return;
-
-          if (modelo === "Modelo 5" || modelo === "Modelo Panel") {
-            bloqueVidrio.classList.add("hidden");
-          } else {
-            bloqueVidrio.classList.remove("hidden");
-          }
-          cargarVidriosPuerta();
-        }
-
-
-        function colorFemenino(nombre) {
-          if (!nombre) return "";
-          nombre = nombre.toLowerCase();
-          if (nombre.includes("blanco")) return "Blanca";
-          if (nombre.includes("negro")) return "Negra";
-          return formatearTexto(nombre);
-        }
-
-        function colorHex(nombre) {
-          nombre = nombre.toLowerCase();
-          if (nombre.includes("blanco")) return "#ffffff";
-          if (nombre.includes("negro")) return "#000000";
-          if (nombre.includes("bronce")) return "#8b5a2b";
-          if (nombre.includes("madera")) return "#a0522d";
-          return "#ccc";
-        }
-
-        function cargarMedidas() {
-          const producto = document.getElementById("producto").value;
-          fetch(`/api/medidas?producto=ventanas_${producto}`)
-            .then(res => res.json())
-            .then(data => medidas = data);
-        }
-
-        function cambiarProducto() {
-          medidaSeleccionada = null;
-          const input = document.getElementById("buscador");
-          input.value = "";
-          input.classList.remove("border-green-500", "bg-green-50");
-          cargarMedidas();
-          if (modoActual === "ventanas") {
-            cargarVidriosVentana();
-          }
-        }
-
-        function mostrarDropdown() {
-          renderMedidas(medidas);
-          document.getElementById("dropdownMedidas").classList.remove("hidden");
-        }
-
-        function renderMedidas(lista) {
-          const container = document.getElementById("dropdownMedidas");
-          container.innerHTML = "";
-
-          lista.forEach(m => {
-            const div = document.createElement("div");
-            div.innerText = m;
-            div.className = "p-2 hover:bg-blue-100 cursor-pointer";
-
-            div.onclick = () => {
-              medidaSeleccionada = m;
-              const input = document.getElementById("buscador");
-              input.value = m;
-              input.classList.add("border-green-500", "bg-green-50");
-              container.classList.add("hidden");
-            };
-
-            container.appendChild(div);
-          });
-        }
-
-        function filtrarMedidas() {
-          mostrarDropdown();
-          const texto = document.getElementById("buscador").value.toLowerCase();
-          renderMedidas(medidas.filter(m => m.toLowerCase().includes(texto)));
-        }
-
-        function cargarColores() {
-          fetch(`${API}/api/colores`)
-            .then(res => res.json())
-            .then(data => {
-              const container = document.getElementById("coloresContainer");
-              container.innerHTML = "";
-
-              data.forEach(c => {
-                const div = document.createElement("div");
-
-                div.className = `
-          flex items-center gap-2 border rounded p-2 cursor-pointer
-          hover:bg-green-100 transition
-        `;
-
-                let color = colorHex(c.nombre);
-
-                // 🔥 si es blanco → usar gris para sombra
-                let colorSombra = color === "#ffffff" ? "#999999" : color;
-
-                div.style.background = color + "20"; // fondo suave SIEMPRE
-
-                div.innerHTML = `
-  <div style="width:20px;height:20px;background:${color};border:1px solid #000;"></div>
-  <span>${formatearTexto(c.nombre)}</span>
-`;
-
-                div.onclick = () => {
-                  colorSeleccionado = c.valor;
-                  nombreColorSeleccionado = c.nombre;
-
-                  document.querySelectorAll("#coloresContainer div")
-                    .forEach(el => {
-                      el.style.boxShadow = "";
-                      el.style.border = "";
-                      el.classList.remove("ring-2", "ring-green-500");
-                    });
-
-                  let color = colorHex(c.nombre);
-
-                  // 🔥 si es blanco → usar gris para sombra
-                  let colorSombra = color === "#ffffff" ? "#999999" : color;
-
-                  div.style.boxShadow = `
-  0 0 20px ${colorSombra},
-  0 0 8px ${colorSombra},
-  inset 0 0 4px ${colorSombra}
-`;
-
-                  div.style.border = `1px solid ${colorSombra}`;
-                  div.classList.add("ring-2", "ring-green-500");
-                };
-
-                container.appendChild(div);
-              });
-            });
-        }
-
-        function seleccionarProducto(tipo, element) {
-
-          resetearCotizador();
-
-          document.querySelectorAll(".productoBtn").forEach(el => {
-            el.classList.remove("ring-2", "ring-green-500", "bg-green-50");
-          });
-
-          element.classList.add("ring-2", "ring-green-500", "bg-green-50");
-
-          document.getElementById("producto").value = tipo;
-
-          cambiarProducto();
-
-          // 🔥 ESTO FALTABA
-          if (modoActual === "puertas") {
-            cargarVidriosPuerta();
-          }
-        }
-
-        function cargarModelosPuertas() {
-          fetch("/data/productos/puertas_herrero.json")
-            .then(res => res.json())
-            .then(data => {
-
-              // 🔥 GUARDAR GLOBAL
-              dataPuertas = data;
-
-              const select = document.getElementById("modeloPuerta");
-              select.innerHTML = "";
-
-              Object.keys(data.modelos).forEach(nombre => {
-
-                const nombreLower = nombre.toLowerCase();
-
-                // 🔥 FILTRO LIMPIO
-                if (
-                  nombreLower.includes("adicional") ||
-                  nombreLower.includes("barral")
-                ) return;
-
-                const option = document.createElement("option");
-                option.value = nombre;
-                option.textContent = formatearTexto(nombre);
-
-                select.appendChild(option);
-              });
-
-              // 🔥 seleccionar primero
-              modeloSeleccionado = select.value;
-
-              // 🔥 cargar vidrios automáticamente
-              cargarVidriosPuerta();
-
-            });
-        }
-
-        function formatear(n) {
-          return Math.round(n).toString();
-        }
-
-        function copiarPresupuesto() {
-          const texto = document.getElementById("resultado").innerText.trim();
-          navigator.clipboard.writeText(texto);
-          alert("Presupuesto copiado");
-        }
-
-        function resetearCotizador() {
-
-          // medida
-          medidaSeleccionada = null;
-          document.getElementById("buscador").value = "";
-          document.getElementById("buscador").classList.remove("border-green-500", "bg-green-50");
-
-          // color
-          colorSeleccionado = 0;
-          nombreColorSeleccionado = "";
-
-          document.querySelectorAll("#coloresContainer div").forEach(el => {
-            el.style.boxShadow = "";
-            el.style.border = "";
-            el.classList.remove("ring-2", "ring-black", "bg-gray-100");
-          });
-
-          // vidrio
-          document.getElementById("vidrio").value = "3mm";
-
-          // checkboxes
-          document.getElementById("guia").checked = false;
-          document.getElementById("mosq").checked = false;
-
-          // resultado
-          document.getElementById("resultado").innerHTML = "";
-        }
-
-        document.querySelectorAll(".adicionalPuerta").forEach(cb => {
-          cb.addEventListener("change", function () {
-
-            if (this.checked) {
-              document.querySelectorAll(".adicionalPuerta").forEach(other => {
-                if (other !== this) other.checked = false;
-              });
-            }
-
-          });
+          // DVH
+          const dvh = document.createElement("option");
+          dvh.value = "dvh";
+          dvh.textContent = "DVH";
+
+          select.appendChild(dvh);
         });
+    }
 
-        function cargarVidriosVentana() {
+    function calcularFull() {
 
-          const producto = document.getElementById("producto").value;
-          const select = document.getElementById("vidrio");
+      let medidaFinal = null;
 
-          select.innerHTML = "";
-
-          // 🔥 HERRERO
-          if (producto === "herrero") {
-
-            const option = document.createElement("option");
-            option.value = "3mm";
-            option.textContent = "3mm";
-
-            select.appendChild(option);
-
-            select.value = "3mm";
-            select.disabled = true;
-
-            return;
-          }
-
-          // 🔥 MODENA
-          fetch("/data/productos/ventanas_modena.json")
-            .then(res => res.json())
-            .then(data => {
-
-              const primera = Object.values(data.medidas)[0];
-
-              if (!primera || !primera.vidrios) return;
-
-              select.disabled = false;
-
-              Object.keys(primera.vidrios).forEach(v => {
-
-                if (v.toLowerCase() === "dvh") return;
-
-                const option = document.createElement("option");
-                option.value = v;
-                option.textContent = v;
-
-                select.appendChild(option);
-              });
-
-              // DVH
-              const dvh = document.createElement("option");
-              dvh.value = "dvh";
-              dvh.textContent = "DVH";
-
-              select.appendChild(dvh);
-            });
+      if (modoActual === "puertas") {
+        medidaFinal = document.getElementById("tamanoPuerta").value;
+      } else {
+        if (!medidaSeleccionada) {
+          alert("Seleccioná una medida");
+          return;
         }
+        medidaFinal = medidaSeleccionada;
+      }
+      let medidaTexto = medidaFinal;
 
-        function calcularFull() {
+      if (modoActual === "puertas") {
 
-          let medidaFinal = null;
+        // 🔥 CASO PUERTA Y MEDIA
+        if (window.tipoPuerta === "media") {
 
-          if (modoActual === "puertas") {
-            medidaFinal = document.getElementById("tamanoPuerta").value;
-          } else {
-            if (!medidaSeleccionada) {
-              alert("Seleccioná una medida");
-              return;
-            }
-            medidaFinal = medidaSeleccionada;
-          }
-
-          const btn = document.getElementById("btnCalcular");
-          btn.innerText = "Calculando...";
-          btn.disabled = true;
-
-          const productoBase = document.getElementById("producto").value;
-          const vidrioSeleccionado = document.getElementById("vidrio").value;
-
-          let productoTexto = modoActual === "puertas"
-            ? (productoBase === "modena" ? "Puertas Modena" : "Puertas Herrero")
-            : "Línea " + formatearTexto(productoBase);
-          const colorTexto = formatearTexto(nombreColorSeleccionado || "");
-          const colorTextoFemenino = colorFemenino(nombreColorSeleccionado || "");
-
-          // 🔥 ADICIONALES
-          const adicionalesSeleccionados = [];
-
-          if (modoActual === "puertas") {
-            document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
-              const nombre = el.value;
-              adicionalesSeleccionados.push(nombre.toLowerCase().replace(/\s+/g, "_"));
-            });
-          }
-
-          let body;
-
-          if (modoActual === "puertas") {
-
-            if (productoBase === "modena") {
-
-              body = {
-                modelo: modeloSeleccionado.toLowerCase(),
-                vidrio: document.getElementById("vidrio").value,
-                color: colorSeleccionado,
-                ancho: parseInt(medidaFinal),
-                adicionales: adicionalesSeleccionados
-              };
-
-            } else {
-
-              body = {
-                modelo: modeloSeleccionado.toLowerCase(),
-                tipoVidrio: (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
-                  ? null
-                  : document.getElementById("vidrio").value,
-                color: colorSeleccionado,
-                tamano: medidaFinal,
-                adicionales: adicionalesSeleccionados
-              };
-
-            }
-
-          } else {
-
-            body = {
-              medida: medidaFinal,
-              color: colorSeleccionado,
-              incluirGuia: document.getElementById("guia").checked,
-              incluirMosquitero: document.getElementById("mosq").checked,
-              tipoVidrio: document.getElementById("vidrio").value
-            };
-
-          }
-
-          // 🔥 MAPEO
-          const mapProductos = {
-            "herrero": modoActual === "puertas" ? "puertas_herrero" : "ventanas_herrero",
-            "modena": modoActual === "puertas" ? "puertas_modena" : "ventanas_modena",
+          const mapaInverso = {
+            70: 110,
+            80: 120,
+            90: 130
           };
 
-          const endpoint = mapProductos[productoBase] || productoBase;
+          medidaTexto = `${mapaInverso[medidaFinal]}x200`;
 
-          fetch(`${API}/api/${endpoint}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body)
-          })
-            .then(res => res.json())
-            .then(data => {
-              console.log("RESPUESTA BACK:", data);
-              let html = `
-      <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
+        } else {
 
-        <div class="text-sm text-gray-500">Presupuesto</div>
-        <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
+          let ancho = parseInt(medidaFinal);
 
-        <div class="flex justify-between">
-          <span>
-            ${modoActual === "puertas" ? "Puerta" : "Ventana"} 
-            ${medidaFinal}
-            ${modoActual === "puertas" ? modeloSeleccionado : ""}
-            ${productoTexto}
-            ${colorTexto}
-            ${modoActual === "puertas" && (modeloSeleccionado === "Modelo 5" || modeloSeleccionado === "Modelo Panel")
-                  ? ""
-                  : "Vidrio " + vidrioSeleccionado
-                }
-          </span>
-          <span>$${formatear(data.total || 0)}</span>
-        </div>
-      `;
+          if (window.tipoPuerta === "doble") ancho *= 2;
+          else if (window.tipoPuerta === "porton") ancho *= 3;
 
-              if (modoActual !== "puertas" && data.guia !== null) {
-                html += `
-        <div class="flex justify-between">
-          <span>Guía para ${medidaSeleccionada} ${colorTextoFemenino}</span>
-          <span>$${formatear(data.guia)}</span>
-        </div>
-        `;
-              }
-
-              if (modoActual !== "puertas" && data.mosquitero !== null) {
-                html += `
-        <div class="flex justify-between">
-          <span>Mosquitero para ${medidaSeleccionada} ${colorTexto}</span>
-          <span>$${formatear(data.mosquitero)}</span>
-        </div>
-        `;
-              }
-
-              if (modoActual === "puertas") {
-
-                const nombresBonitos = {
-                  barral_curvo: "Barral curvo",
-                  barral_recto: "Barral recto"
-                };
-
-                if (data.adicionalesDetalle) {
-                  Object.keys(data.adicionalesDetalle).forEach(a => {
-                    html += `
-        <div class="flex justify-between">
-          <span>${nombresBonitos[a] || a}</span>
-          <span>$${formatear(data.adicionalesDetalle[a])}</span>
-        </div>
-      `;
-                  });
-
-                }
-              }
-
-              html += `
-      <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
-        <span>TOTAL</span>
-        <span>$${formatear(data.total || 0)}</span>
-      </div>
-
-      <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
-        Copiar
-      </button>
-
-      </div>
-      `;
-
-              document.getElementById("resultado").innerHTML = html;
-
-              btn.innerText = "Calcular";
-              btn.disabled = false;
-            });
+          medidaTexto = `${ancho}x200`;
         }
-        // 🔒 SOLO UN ADICIONAL (tipo radio)
-        document.querySelectorAll(".adicionalPuerta").forEach(cb => {
-          cb.addEventListener("change", function () {
+      }
 
-            if (this.checked) {
-              document.querySelectorAll(".adicionalPuerta").forEach(other => {
-                if (other !== this) other.checked = false;
+      let multiplicador = 1;
+      if (window.tipoPuerta === "doble") multiplicador = 2;
+      else if (window.tipoPuerta === "porton") multiplicador = 3;
+
+
+      const btn = document.getElementById("btnCalcular");
+      btn.innerText = "Calculando...";
+      btn.disabled = true;
+
+      const productoBase = document.getElementById("producto").value;
+      const vidrioSeleccionado = document.getElementById("vidrio").value;
+
+      let productoTexto = modoActual === "puertas"
+        ? (productoBase === "modena" ? "Puertas Modena" : "Puertas Herrero")
+        : "Línea " + formatearTexto(productoBase);
+
+      const colorTexto = formatearTexto(nombreColorSeleccionado || "");
+
+      const adicionalesSeleccionados = [];
+
+      if (modoActual === "puertas") {
+        document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
+          adicionalesSeleccionados.push(el.value.toLowerCase().replace(/\s+/g, "_"));
+        });
+      }
+
+      let body;
+
+      if (modoActual === "puertas") {
+
+        if (productoBase === "modena") {
+          body = {
+            modelo: modeloSeleccionado,
+            vidrio: vidrioSeleccionado,
+            color: colorSeleccionado,
+            ancho: parseInt(medidaFinal),
+            adicionales: adicionalesSeleccionados,
+            modeloMedia: document.getElementById("modeloMedia")?.value || null,
+            multiplicador
+
+          };
+        } else {
+          body = {
+            modelo: modeloSeleccionado,
+            tipoVidrio: vidrioSeleccionado,
+            color: colorSeleccionado,
+            tamano: medidaFinal,
+            adicionales: adicionalesSeleccionados,
+            modeloMedia: document.getElementById("modeloMedia")?.value || null,
+            multiplicador
+          };
+        }
+
+      } else {
+        body = {
+          medida: medidaFinal,
+          color: colorSeleccionado,
+          incluirGuia: document.getElementById("guia").checked,
+          incluirMosquitero: document.getElementById("mosq").checked,
+          tipoVidrio: vidrioSeleccionado
+        };
+      }
+
+      const endpoint = {
+        herrero: modoActual === "puertas" ? "puertas_herrero" : "ventanas_herrero",
+        modena: modoActual === "puertas" ? "puertas_modena" : "ventanas_modena"
+      }[productoBase];
+
+      fetch(`${API}/api/${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+        .then(res => res.json())
+        .then(data => {
+
+          console.log("BACK:", data);
+
+          let tipoTexto = "Puerta";
+
+          if (modoActual === "puertas") {
+            if (window.tipoPuerta === "doble") tipoTexto = "Puerta doble";
+            else if (window.tipoPuerta === "porton") tipoTexto = "Portón";
+            else if (window.tipoPuerta === "media") tipoTexto = "Puerta y media";
+          }
+
+          let detalleModelo = modeloSeleccionado;
+
+          if (window.tipoPuerta === "media") {
+            const modeloMedia = document.getElementById("modeloMedia")?.value;
+
+            if (modeloMedia) {
+              detalleModelo = `${modeloSeleccionado} + 1/2 ${modeloMedia}`;
+            }
+          }
+
+          let html = `
+          <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
+
+            <div class="text-sm text-gray-500">Presupuesto</div>
+            <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
+
+            <div class="flex justify-between">
+              <span>
+                ${modoActual === "puertas" ? tipoTexto : "Ventana"}
+                ${medidaTexto}
+                ${detalleModelo}
+                ${productoTexto}
+                ${colorTexto}
+                Vidrio ${vidrioSeleccionado}
+              </span>
+              <span>$${formatear(data.total || 0)}</span>
+            </div>
+            `;
+
+          // 🔥 ADICIONALES
+          if (modoActual === "puertas") {
+            const nombresBonitos = {
+              barral_curvo: "Barral curvo",
+              barral_recto: "Barral recto"
+            };
+
+            if (data.adicionalesDetalle) {
+              Object.entries(data.adicionalesDetalle).forEach(([key, valor]) => {
+                html += `
+            <div class="flex justify-between">
+              <span>${nombresBonitos[key] || key}</span>
+              <span>$${formatear(valor)}</span>
+            </div>
+          `;
               });
             }
+          }
 
-          });
+          html += `
+            <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
+              <span>TOTAL</span>
+              <span>$${formatear(data.total || 0)}</span>
+            </div>
+
+            <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
+              Copiar
+            </button>
+
+          </div>
+    `;
+
+          document.getElementById("resultado").innerHTML = html;
+
+          btn.innerText = "Calcular";
+          btn.disabled = false;
         });
-        window.onload = () => {
-          document.querySelectorAll(".adicionalPuerta").forEach(cb => {
-            cb.addEventListener("change", function () {
-              if (this.checked) {
-                document.querySelectorAll(".adicionalPuerta").forEach(other => {
-                  if (other !== this) other.checked = false;
-                });
-              }
-            });
-          });
-        };
-      </script>
+    }
+    
+  </script>
 
+  <script src="/js/puertas.js"></script>
 </body>
 
 </html>
