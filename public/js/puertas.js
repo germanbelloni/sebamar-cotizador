@@ -6,7 +6,9 @@ window.Puertas = {
   },
 
   cargarModelos() {
-    fetch("/data/productos/puertas_herrero.json")
+    const producto = document.getElementById("producto").value;
+
+    fetch(`/data/productos/puertas_${producto}.json`)
       .then((res) => res.json())
       .then((data) => {
         window.dataPuertas = data;
@@ -72,32 +74,46 @@ window.Puertas = {
     });
 
     // 🔥 SOLO MODENA
+    // 🔥 MODENA: agregar DVH SOLO si tiene vidrio
     if (producto === "modena") {
-      const dvh = document.createElement("option");
-      dvh.value = "dvh";
-      dvh.textContent = "DVH";
-      select.appendChild(dvh);
+      const tieneVidrio = Object.values(modeloData.vidrios).some((v) => v > 0);
+
+      if (tieneVidrio) {
+        const dvh = document.createElement("option");
+        dvh.value = "dvh";
+        dvh.textContent = "DVH";
+        select.appendChild(dvh);
+      }
     }
   },
 
   cambiarModelo() {
-    const select = document.getElementById("modeloPuerta");
-    const modelo = select.value;
 
-    window.modeloSeleccionado = modelo;
+  // 🔥 PROTECCIÓN (CLAVE)
+  if (!window.dataPuertas || !window.dataPuertas.modelos) {
+    console.warn("⏳ dataPuertas todavía no cargó");
+    return;
+  }
 
-    const vidrioSelect = document.getElementById("vidrio");
+  const select = document.getElementById("modeloPuerta");
+  const modelo = select.value;
 
-    // 🔥 ocultar vidrio en modelos sin vidrio
-    if (
-      modelo.toLowerCase().includes("modelo 5") ||
-      modelo.toLowerCase().includes("panel")
-    ) {
-      vidrioSelect.style.display = "none";
-    } else {
-      vidrioSelect.style.display = "block";
-    }
+  window.modeloSeleccionado = modelo;
 
-    this.cargarVidrios();
-  },
+  const vidrioSelect = document.getElementById("vidrio");
+
+  const modeloData = window.dataPuertas.modelos[modelo];
+
+  const sinVidrio =
+    !modeloData ||
+    Object.values(modeloData.vidrios).every(v => v === 0);
+
+  if (sinVidrio) {
+    vidrioSelect.style.display = "none";
+  } else {
+    vidrioSelect.style.display = "block";
+  }
+
+  this.cargarVidrios();
+}
 };

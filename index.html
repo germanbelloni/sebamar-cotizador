@@ -424,7 +424,8 @@
       cargarColores();
 
       modeloSeleccionado = "Modelo 1";
-      cambiarModeloPuerta();
+    
+      Puertas.cargarVidrios();
     }
 
     function volverMenuPrincipal() {
@@ -525,12 +526,21 @@
 
     function cambiarProducto() {
       medidaSeleccionada = null;
+
       const input = document.getElementById("buscador");
-      input.value = "";
-      input.classList.remove("border-green-500", "bg-green-50");
+      if (input) {
+        input.value = "";
+        input.classList.remove("border-green-500", "bg-green-50");
+      }
+
       cargarMedidas();
+
       if (modoActual === "ventanas") {
         cargarVidriosVentana();
+      }
+
+      if (modoActual === "puertas") {
+        Puertas.cargarVidrios(); // 👈 SOLO ACÁ
       }
     }
 
@@ -651,7 +661,6 @@
 
     function seleccionarProducto(tipo, element) {
 
-      // ❌ NO resetear todo si estamos en puertas media
       if (window.tipoPuerta !== "media") {
         resetearCotizador();
       }
@@ -664,11 +673,7 @@
 
       document.getElementById("producto").value = tipo;
 
-      cambiarProducto();
-
-      if (modoActual === "puertas") {
-        Puertas.cargarVidrios();
-      }
+      cambiarProducto(); // 👈 único punto de control
     }
 
     function formatear(n) {
@@ -787,112 +792,99 @@
         });
     }
 
-    function calcularFull() {
+    function getFormData() {
+      return {
+        producto: document.getElementById("producto").value,
+        modelo: document.getElementById("modeloPuerta")?.value,
+        modeloMedia: document.getElementById("modeloMedia")?.value,
+        vidrio: document.getElementById("vidrio")?.value || "3mm",
+        color: colorSeleccionado,
+        ancho: parseInt(document.getElementById("tamanoPuerta")?.value.split("x")[0]),
+        tipo: window.tipoPuerta
+      };
+    }
 
-      let medidaFinal = null;
 
-      if (modoActual === "puertas") {
-        medidaFinal = document.getElementById("tamanoPuerta").value;
-      } else {
-        if (!medidaSeleccionada) {
-          alert("Seleccioná una medida");
-          return;
-        }
-        medidaFinal = medidaSeleccionada;
-      }
-      let medidaTexto = medidaFinal;
+    function normalizeData(raw) {
 
-      if (modoActual === "puertas") {
+      let anchoFinal = raw.ancho;
 
-        // 🔥 CASO PUERTA Y MEDIA
-        if (window.tipoPuerta === "media") {
-
-          const mapaInverso = {
-            70: 110,
-            80: 120,
-            90: 130
-          };
-
-          medidaTexto = `${mapaInverso[medidaFinal]}x200`;
-
-        } else {
-
-          let ancho = parseInt(medidaFinal);
-
-          if (window.tipoPuerta === "doble") ancho *= 2;
-          else if (window.tipoPuerta === "porton") ancho *= 3;
-
-          medidaTexto = `${ancho}x200`;
-        }
+      if (raw.tipo === "media") {
+        const mapa = { 70: 110, 80: 120, 90: 130 };
+        anchoFinal = mapa[raw.ancho] || raw.ancho;
       }
 
-      let multiplicador = 1;
-      if (window.tipoPuerta === "doble") multiplicador = 2;
-      else if (window.tipoPuerta === "porton") multiplicador = 3;
+      if (raw.tipo === "doble") anchoFinal = raw.ancho * 2;
+      if (raw.tipo === "porton") anchoFinal = raw.ancho * 3;
 
+      return {
+        ...raw,
+        anchoVisual: anchoFinal,
+        esMedia: raw.tipo === "media"
+      };
+    }
+    function buildRequestBody(data) {
 
-      const btn = document.getElementById("btnCalcular");
-      btn.innerText = "Calculando...";
-      btn.disabled = true;
+      if (data.producto === "modena") {
 
-      const productoBase = document.getElementById("producto").value;
-      const vidrioSeleccionado = document.getElementById("vidrio").value;
-
-      let productoTexto = modoActual === "puertas"
-        ? (productoBase === "modena" ? "Puertas Modena" : "Puertas Herrero")
-        : "Línea " + formatearTexto(productoBase);
-
-      const colorTexto = formatearTexto(nombreColorSeleccionado || "");
-
-      const adicionalesSeleccionados = [];
-
-      if (modoActual === "puertas") {
-        document.querySelectorAll(".adicionalPuerta:checked").forEach(el => {
-          adicionalesSeleccionados.push(el.value.toLowerCase().replace(/\s+/g, "_"));
-        });
-      }
-
-      let body;
-
-      if (modoActual === "puertas") {
-
-        if (productoBase === "modena") {
-          body = {
-            modelo: modeloSeleccionado,
-            vidrio: vidrioSeleccionado,
-            color: colorSeleccionado,
-            ancho: parseInt(medidaFinal),
-            adicionales: adicionalesSeleccionados,
-            modeloMedia: document.getElementById("modeloMedia")?.value || null,
-            multiplicador
-
-          };
-        } else {
-          body = {
-            modelo: modeloSeleccionado,
-            tipoVidrio: vidrioSeleccionado,
-            color: colorSeleccionado,
-            tamano: medidaFinal,
-            adicionales: adicionalesSeleccionados,
-            modeloMedia: document.getElementById("modeloMedia")?.value || null,
-            multiplicador
+        if (data.tipo === "media") {
+          return {
+            tipo: "puerta_y_media",
+            modeloPuerta: data.modelo,
+            modeloMedia: data.modeloMedia,
+            vidrio: data.vidrio,
+            color: data.color,
+            ancho: data.ancho
           };
         }
 
-      } else {
-        body = {
-          medida: medidaFinal,
-          color: colorSeleccionado,
-          incluirGuia: document.getElementById("guia").checked,
-          incluirMosquitero: document.getElementById("mosq").checked,
-          tipoVidrio: vidrioSeleccionado
+        return {
+          modelo: data.modelo,
+          vidrio: data.vidrio,
+          color: data.color,
+          ancho: data.ancho
         };
       }
 
-      const endpoint = {
-        herrero: modoActual === "puertas" ? "puertas_herrero" : "ventanas_herrero",
-        modena: modoActual === "puertas" ? "puertas_modena" : "ventanas_modena"
-      }[productoBase];
+      if (data.producto === "herrero") {
+        return {
+          modelo: data.modelo,
+          tipoVidrio: data.vidrio,
+          color: data.color,
+          tamano: data.ancho
+        };
+      }
+
+      if (data.producto === "eco") {
+        return {
+          modelo: data.modelo,
+          vidrio: data.vidrio,
+          color: data.color
+        };
+      }
+
+    }
+
+    function getEndpoint(producto) {
+      return {
+        herrero: "puertas_herrero",
+        modena: "puertas_modena",
+        eco: "puertas_eco"
+      }[producto];
+    }
+
+    function calcularFull() {
+
+      const raw = getFormData();
+      const data = normalizeData(raw);
+
+      console.log("DATA:", data);
+
+      const body = buildRequestBody(data);
+
+      console.log("BODY:", body);
+
+      const endpoint = getEndpoint(data.producto);
 
       fetch(`${API}/api/${endpoint}`, {
         method: "POST",
@@ -900,86 +892,32 @@
         body: JSON.stringify(body)
       })
         .then(res => res.json())
-        .then(data => {
+        .then(res => {
 
-          console.log("BACK:", data);
+          console.log("BACK:", res);
 
-          let tipoTexto = "Puerta";
+          // ✅ ACÁ data existe porque está en el mismo scope
+          renderResultado(res, data);
 
-          if (modoActual === "puertas") {
-            if (window.tipoPuerta === "doble") tipoTexto = "Puerta doble";
-            else if (window.tipoPuerta === "porton") tipoTexto = "Portón";
-            else if (window.tipoPuerta === "media") tipoTexto = "Puerta y media";
-          }
-
-          let detalleModelo = modeloSeleccionado;
-
-          if (window.tipoPuerta === "media") {
-            const modeloMedia = document.getElementById("modeloMedia")?.value;
-
-            if (modeloMedia) {
-              detalleModelo = `${modeloSeleccionado} + 1/2 ${modeloMedia}`;
-            }
-          }
-
-          let html = `
-          <div class="bg-white border rounded-xl shadow p-4 space-y-2 animate-fade-in">
-
-            <div class="text-sm text-gray-500">Presupuesto</div>
-            <div class="text-xs text-gray-400">${new Date().toLocaleDateString()}</div>
-
-            <div class="flex justify-between">
-              <span>
-                ${modoActual === "puertas" ? tipoTexto : "Ventana"}
-                ${medidaTexto}
-                ${detalleModelo}
-                ${productoTexto}
-                ${colorTexto}
-                Vidrio ${vidrioSeleccionado}
-              </span>
-              <span>$${formatear(data.total || 0)}</span>
-            </div>
-            `;
-
-          // 🔥 ADICIONALES
-          if (modoActual === "puertas") {
-            const nombresBonitos = {
-              barral_curvo: "Barral curvo",
-              barral_recto: "Barral recto"
-            };
-
-            if (data.adicionalesDetalle) {
-              Object.entries(data.adicionalesDetalle).forEach(([key, valor]) => {
-                html += `
-            <div class="flex justify-between">
-              <span>${nombresBonitos[key] || key}</span>
-              <span>$${formatear(valor)}</span>
-            </div>
-          `;
-              });
-            }
-          }
-
-          html += `
-            <div class="border-t pt-2 mt-2 flex justify-between text-lg font-bold text-green-700">
-              <span>TOTAL</span>
-              <span>$${formatear(data.total || 0)}</span>
-            </div>
-
-            <button onclick="copiarPresupuesto()" class="w-full bg-gray-800 text-white py-2 rounded-lg mt-2">
-              Copiar
-            </button>
-
-          </div>
-    `;
-
-          document.getElementById("resultado").innerHTML = html;
-
-          btn.innerText = "Calcular";
-          btn.disabled = false;
         });
     }
-    
+    function renderResultado(res, data) {
+
+      let tipoTexto = "Puerta";
+
+      if (data.tipo === "media") tipoTexto = "Puerta y media";
+      if (data.tipo === "doble") tipoTexto = "Puerta doble";
+      if (data.tipo === "porton") tipoTexto = "Portón";
+
+      const html = `
+    <div class="bg-white p-4 rounded shadow">
+      <div>${tipoTexto} ${data.anchoVisual}x200</div>
+      <div>$${res.total || 0}</div>
+    </div>
+  `;
+
+      document.getElementById("resultado").innerHTML = html;
+    }
   </script>
 
   <script src="/js/puertas.js"></script>

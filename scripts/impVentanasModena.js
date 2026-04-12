@@ -68,7 +68,7 @@ function get(row, posiblesNombres) {
 
 let resultado = {
   medidas: {},
-};
+};  
 
 filas.forEach((row) => {
   const medida = get(row, CONFIG.columnas.medida);

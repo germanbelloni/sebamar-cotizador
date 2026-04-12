@@ -1,0 +1,61 @@
+{
+  "linea": "eco",
+  "modelos": {
+    "modelo 1 vr": {
+      "base": 116380,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 24077,
+        "fantasia": 26500
+      }
+    },
+    "modelo 2": {
+      "base": 105289,
+      "vidrios": {
+        "3mm": 18819,
+        "4mm": 22817,
+        "fantasia": 25104
+      }
+    },
+    "modelo 3": {
+      "base": 140475,
+      "vidrios": {
+        "3mm": 9410,
+        "4mm": 11408,
+        "fantasia": 12552
+      }
+    },
+    "modelo 3vr": {
+      "base": 168040,
+      "vidrios": {
+        "3mm": 9410,
+        "4mm": 0,
+        "fantasia": 12552
+      }
+    },
+    "modelo 4": {
+      "base": 157887,
+      "vidrios": {
+        "3mm": 5258,
+        "4mm": 6335,
+        "fantasia": 6974
+      }
+    },
+    "modelo 4 vr": {
+      "base": 171861,
+      "vidrios": {
+        "3mm": 5258,
+        "4mm": 0,
+        "fantasia": 6974
+      }
+    },
+    "modelo 5": {
+      "base": 172979,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "fantasia": 0
+      }
+    }
+  }
+}
