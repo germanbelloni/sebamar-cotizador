@@ -3,237 +3,237 @@
     "100x60": {
       "corredizo": 62242,
       "de_abrir": 69409,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x60": {
       "corredizo": 75677,
       "de_abrir": 83607,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x60": {
       "corredizo": 93409,
       "de_abrir": 104104,
-      "hojas": 0
+      "hojas": "2o3"
     },
     "180x60": {
       "corredizo": 112034,
       "de_abrir": 124490,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x60": {
       "corredizo": 124490,
       "de_abrir": 138799,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x90": {
       "corredizo": 93409,
       "de_abrir": 104104,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x90": {
       "corredizo": 112034,
       "de_abrir": 155651,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x90": {
       "corredizo": 147597,
       "de_abrir": 163438,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x90": {
       "corredizo": 176514,
       "de_abrir": 196174,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x90": {
       "corredizo": 205456,
       "de_abrir": 218606,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x90": {
       "corredizo": 219871,
       "de_abrir": 240008,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x90": {
       "corredizo": 224180,
       "de_abrir": 261528,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x100": {
       "corredizo": 104104,
       "de_abrir": 115667,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x100": {
       "corredizo": 125469,
       "de_abrir": 138818,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x100": {
       "corredizo": 151299,
       "de_abrir": 160964,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x100": {
       "corredizo": 173501,
       "de_abrir": 201723,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x100": {
       "corredizo": 192126,
       "de_abrir": 224180,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x100": {
       "corredizo": 211730,
       "de_abrir": 246599,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x100": {
       "corredizo": 231334,
       "de_abrir": 269043,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x110": {
       "corredizo": 105865,
       "de_abrir": 117422,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x110": {
       "corredizo": 126350,
       "de_abrir": 140560,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x110": {
       "corredizo": 158305,
       "de_abrir": 184958,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x110": {
       "corredizo": 189472,
       "de_abrir": 221383,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x110": {
       "corredizo": 211730,
       "de_abrir": 246599,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x110": {
       "corredizo": 232209,
       "de_abrir": 270884,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x110": {
       "corredizo": 252594,
       "de_abrir": 294252,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x120": {
       "corredizo": 125469,
       "de_abrir": 138799,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x120": {
       "corredizo": 134980,
       "de_abrir": 153016,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x120": {
       "corredizo": 173501,
       "de_abrir": 201723,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x120": {
       "corredizo": 207316,
       "de_abrir": 241967,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x120": {
       "corredizo": 209808,
       "de_abrir": 269043,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x120": {
       "corredizo": 253487,
       "de_abrir": 295188,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x120": {
       "corredizo": 267139,
       "de_abrir": 322245,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x150": {
       "corredizo": 149482,
       "de_abrir": 166352,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x150": {
       "corredizo": 180563,
       "de_abrir": 200167,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x150": {
       "corredizo": 209076,
       "de_abrir": 248254,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x150": {
       "corredizo": 221204,
       "de_abrir": 261528,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x150": {
       "corredizo": 243325,
       "de_abrir": 280259,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x150": {
       "corredizo": 267666,
       "de_abrir": 308252,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x150": {
       "corredizo": 288288,
       "de_abrir": 336245,
-      "hojas": 3
+      "hojas": "3"
     },
     "100x200": {
       "corredizo": 192126,
       "de_abrir": 224167,
-      "hojas": 2
+      "hojas": "2"
     },
     "120x200": {
       "corredizo": 230355,
       "de_abrir": 231334,
-      "hojas": 2
+      "hojas": "2"
     },
     "150x200": {
       "corredizo": 259371,
       "de_abrir": 307328,
-      "hojas": 3
+      "hojas": "3"
     },
     "180x200": {
       "corredizo": 276625,
       "de_abrir": 320304,
-      "hojas": 3
+      "hojas": "3"
     },
     "200x200": {
       "corredizo": 292305,
       "de_abrir": 340988,
-      "hojas": 3
+      "hojas": "3"
     },
     "220x200": {
       "corredizo": 320242,
       "de_abrir": 373538,
-      "hojas": 3
+      "hojas": "3"
     },
     "240x200": {
       "corredizo": 336319,
       "de_abrir": 392348,
-      "hojas": 0
+      "hojas": "3o4"
     }
   }
 }

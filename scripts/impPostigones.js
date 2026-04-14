@@ -36,7 +36,10 @@ for (let i = 7; i < data.length; i++) {
 
   const corredizo = Math.round(Number(row[1]) || 0);
   const deAbrir = Math.round(Number(row[2]) || 0);
-  const hojas = Number(row[3]) || 0;
+  let hojas = row[3]?.toString().trim() || "";
+
+  // 🔥 limpieza visual
+  hojas = hojas.replace("ó", "o");
 
   medidas[medida] = {
     corredizo,

@@ -44,6 +44,8 @@ app.get("/api/colores", (req, res) => {
 app.use("/api/ventanas", require("../api/ventanas"));
 app.use("/api/puertas", require("../api/puertas"));
 app.use("/api/rajas", require("../api/rajas"));
+app.use("/api/postigones", require("../api/postigones"));
+app.use("/api/patagonicas", require("../api/patagonicas"));
 
 const PORT = process.env.PORT || 3000;
 
