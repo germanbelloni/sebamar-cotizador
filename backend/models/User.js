@@ -2,8 +2,15 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    nombre: String,
-    password: String,
+    nombre: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
     contadorPresupuestos: {
       type: Number,
       default: 0,

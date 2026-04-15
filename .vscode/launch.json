@@ -4,9 +4,15 @@
     {
       "type": "node",
       "request": "launch",
+<<<<<<< HEAD
       "name": "Debug Backend",
       "program": "${workspaceFolder}/backend/server.js",
       "skipFiles": ["<node_internals>/**"]
+=======
+      "name": "Run Backend",
+      "program": "${workspaceFolder}/app.js",
+      "envFile": "${workspaceFolder}/.env"
+>>>>>>> feature/presupuestos
     }
   ]
 }
