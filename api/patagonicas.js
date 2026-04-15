@@ -17,13 +17,11 @@ module.exports = function handler(req, res) {
 
     if (linea === "herrero") {
       resultado = calcularPatagonicaHerrero(req.body);
-    }
-
-    if (linea === "modena") {
+    } else if (linea === "modena") {
       resultado = calcularPatagonicaModena(req.body);
+    } else {
+      return res.status(400).json({ error: "Linea inválida" });
     }
-
-    // 🔜 después agregamos herrero acá
 
     return res.status(200).json(resultado);
   } catch (error) {

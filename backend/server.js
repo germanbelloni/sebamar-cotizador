@@ -14,7 +14,7 @@ app.use(express.json());
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("🟢 MongoDB conectado");
   })
@@ -203,7 +203,7 @@ app.get("/api/presupuestos", auth, async (req, res) => {
   }
 });
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 app.post("/api/auth/register", async (req, res) => {
   try {
@@ -287,6 +287,7 @@ app.use("/api/puertas", require("../api/puertas"));
 app.use("/api/rajas", require("../api/rajas"));
 app.use("/api/postigones", require("../api/postigones"));
 app.use("/api/patagonicas", require("../api/patagonicas"));
+app.use("/api/placas", require("../api/placas"));
 
 const PORT = process.env.PORT || 3000;
 

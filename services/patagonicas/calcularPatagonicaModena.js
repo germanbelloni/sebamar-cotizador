@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const colores = require("../../data/colores.json");
+const perfiles = require("../../config/perfiles");
 
 function getColorValor(color) {
   const c = colores.find(
@@ -9,8 +10,23 @@ function getColorValor(color) {
   return c ? c.valor : 0;
 }
 
+function normalizarMedida(medida) {
+  if (!medida) return null;
+
+  if (medida.includes("x")) {
+    const [a, b] = medida.split("x").map(Number);
+
+    if (a > 1000 || b > 1000) {
+      return `${a / 10}x${b / 10}`;
+    }
+  }
+
+  return medida.trim().toLowerCase();
+}
 function calcularPatagonicaModena(dataInput) {
-  const { tipo, medida, color, tipoVidrio } = dataInput;
+  const { tipo, medida, color, tipoVidrio, perfil = "amarilla" } = dataInput;
+
+  const perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
 
   const filePath = path.join(
     process.cwd(),
@@ -19,7 +35,9 @@ function calcularPatagonicaModena(dataInput) {
 
   const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-  const datos = data.tipos?.[tipo]?.medidas?.[medida];
+  const medidaKey = normalizarMedida(medida);
+
+  const datos = data.tipos?.[tipo]?.medidas?.[medidaKey];
 
   if (!datos) {
     throw new Error("Medida no encontrada");
@@ -27,33 +45,24 @@ function calcularPatagonicaModena(dataInput) {
 
   const base = datos.base || 0;
 
-  // 🎨 COLOR
   const colorValor = getColorValor(color);
   const baseColor = base * (1 + colorValor);
 
-  // 🪟 VIDRIO
   let vidrio = 0;
 
   if (tipoVidrio === "dvh") {
     const vidrio4 = datos.vidrios["4mm"] || 0;
     const camara = datos.camara || 0;
-
     vidrio = vidrio4 * 2 + camara;
   } else {
     vidrio = datos.vidrios?.[tipoVidrio] || 0;
   }
 
-  // 💰 SUBTOTAL
   let total = baseColor + vidrio;
 
-  // 📉 REGLAS MODENA
-  const descuento = 0.07;
-  const flete = 0.06;
-  const ganancia = 0.3;
-
-  total *= 1 - descuento;
-  total *= 1 + flete;
-  total *= 1 + ganancia;
+  total *= 1 - perfilData.descuento;
+  total *= 1 + perfilData.flete;
+  total *= 1 + perfilData.ganancia;
 
   return {
     total: Math.round(total),

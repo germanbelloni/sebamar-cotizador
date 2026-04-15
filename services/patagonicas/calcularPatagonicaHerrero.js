@@ -1,12 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const colores = require("../../data/colores.json");
+const perfiles = require("../../config/perfiles");
 
-// 🔥 PRECIOS REALES
 const PRECIO_ACOPLE = 5905;
 const PRECIO_PANO = 10685;
 
-// 🔹 COLOR
 function getColorValor(color) {
   const c = colores.find(
     (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
@@ -14,13 +13,11 @@ function getColorValor(color) {
   return c ? c.valor : 0;
 }
 
-// 🔹 PARSE "200x150"
 function parseMedida(medida) {
   const [ancho, alto] = medida.split("x").map(Number);
   return { ancho, alto };
 }
 
-// 🔹 RAJA
 function getRajaPrecio({ medida, tipoVidrio, color }) {
   const data = JSON.parse(
     fs.readFileSync(
@@ -43,7 +40,9 @@ function getRajaPrecio({ medida, tipoVidrio, color }) {
 }
 
 function calcularPatagonicaHerrero(dataInput) {
-  const { medidaTotal, tipo, raja, color } = dataInput;
+  const { medidaTotal, tipo, raja, color, perfil = "amarilla" } = dataInput;
+
+  const perfilData = perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
 
   const { ancho: anchoTotal, alto } = parseMedida(medidaTotal);
 
@@ -52,17 +51,14 @@ function calcularPatagonicaHerrero(dataInput) {
 
   const totalRajasAncho = anchoRaja * cantidadRajas;
 
-  // 🔥 VALIDACIÓN
   const anchoPano = anchoTotal - totalRajasAncho;
 
   if (anchoPano <= 0) {
     throw new Error("Configuración inválida");
   }
 
-  // 🔹 MEDIDA RAJA
   const medidaRaja = `${anchoRaja}x${alto}`;
 
-  // 🔹 TOTAL RAJAS
   let totalRajas = 0;
 
   for (let i = 0; i < cantidadRajas; i++) {
@@ -73,20 +69,14 @@ function calcularPatagonicaHerrero(dataInput) {
     });
   }
 
-  // 🔹 COLOR GLOBAL
   const colorValor = getColorValor(color);
 
-  // 🔹 ACOPLE (CON COLOR ✔)
-  const altoMetros = alto / 100;
-  let precioAcople = altoMetros * PRECIO_ACOPLE;
+  let precioAcople = (alto / 100) * PRECIO_ACOPLE;
   precioAcople *= 1 + colorValor;
 
-  // 🔹 PAÑO FIJO - ESTRUCTURA (CON COLOR ✔)
-  const perimetro = (anchoPano * 2 + alto * 2) / 100;
-  let precioPanoEstructura = perimetro * PRECIO_PANO;
+  let precioPanoEstructura = ((anchoPano * 2 + alto * 2) / 100) * PRECIO_PANO;
   precioPanoEstructura *= 1 + colorValor;
 
-  // 🔹 VIDRIO PAÑO
   const areaM2 = (anchoPano * alto) / 10000;
 
   const rajaData = JSON.parse(
@@ -113,17 +103,11 @@ function calcularPatagonicaHerrero(dataInput) {
 
   const totalPano = precioPanoEstructura + precioVidrio;
 
-  // 🔥 TOTAL GENERAL
   let total = totalRajas + precioAcople + totalPano;
 
-  // 🔹 REGLAS (por ahora fijas)
-  const descuento = 0.1;
-  const flete = 0.06;
-  const ganancia = 0.3;
-
-  total *= 1 - descuento;
-  total *= 1 + flete;
-  total *= 1 + ganancia;
+  total *= 1 - perfilData.descuento;
+  total *= 1 + perfilData.flete;
+  total *= 1 + perfilData.ganancia;
 
   return {
     total: Math.round(total),

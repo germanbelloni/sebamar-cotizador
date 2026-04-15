@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const colores = require("../../data/colores.json");
+const perfiles = require("../../config/perfiles");
 
 function getColorValor(color) {
   const c = colores.find(
@@ -10,7 +11,7 @@ function getColorValor(color) {
 }
 
 function calcularPuerta(dataInput) {
-  const { linea, tipo = "simple" } = dataInput;
+  const { linea, tipo = "simple", perfil = "amarilla" } = dataInput;
 
   let filePath;
 
@@ -97,16 +98,20 @@ function calcularPuerta(dataInput) {
   });
 
   // =========================
-  // 💰 REGLAS
+  // 💰 REGLAS (CON PERFILES 🔥)
   // =========================
 
-  const descuento = linea === "modena" ? 0.07 : 0.1;
-  const flete = 0.06;
-  const ganancia = 0.3;
+  let perfilData;
 
-  total *= 1 - descuento;
-  total *= 1 + flete;
-  total *= 1 + ganancia;
+  if (linea === "modena") {
+    perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
+  } else {
+    perfilData = perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
+  }
+
+  total *= 1 - perfilData.descuento;
+  total *= 1 + perfilData.flete;
+  total *= 1 + perfilData.ganancia;
 
   total = Math.round(total);
 
