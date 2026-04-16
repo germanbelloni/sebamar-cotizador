@@ -1,4 +1,7 @@
 // js/puertas.js
+function formatearTexto(texto) {
+  return texto.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+}
 
 window.Puertas = {
   init() {
@@ -8,7 +11,7 @@ window.Puertas = {
   cargarModelos() {
     const producto = document.getElementById("producto").value;
 
-    fetch(`/data/productos/puertas_${producto}.json`)
+    fetch(`/frontend/data/productos/puertas_${producto}.json`)
       .then((res) => res.json())
       .then((data) => {
         window.dataPuertas = data;
@@ -19,7 +22,6 @@ window.Puertas = {
         Object.keys(data.modelos).forEach((nombre) => {
           const nombreLower = nombre.toLowerCase();
 
-          // filtrar basura
           if (
             nombreLower.includes("adicional") ||
             nombreLower.includes("barral")
@@ -27,18 +29,13 @@ window.Puertas = {
             return;
 
           const option = document.createElement("option");
-
-          // ✅ CLAVE REAL
           option.value = nombre;
-
-          // ✅ TEXTO LINDO
           option.textContent = formatearTexto(nombre);
 
           select.appendChild(option);
         });
 
-        // ✅ guardar selección correcta
-        modeloSeleccionado = select.value;
+        window.modeloSeleccionado = select.value;
 
         this.cargarVidrios();
       });
@@ -73,8 +70,6 @@ window.Puertas = {
       select.appendChild(option);
     });
 
-    // 🔥 SOLO MODENA
-    // 🔥 MODENA: agregar DVH SOLO si tiene vidrio
     if (producto === "modena") {
       const tieneVidrio = Object.values(modeloData.vidrios).some((v) => v > 0);
 
@@ -88,32 +83,66 @@ window.Puertas = {
   },
 
   cambiarModelo() {
+    if (!window.dataPuertas || !window.dataPuertas.modelos) {
+      console.warn("⏳ dataPuertas todavía no cargó");
+      return;
+    }
 
-  // 🔥 PROTECCIÓN (CLAVE)
-  if (!window.dataPuertas || !window.dataPuertas.modelos) {
-    console.warn("⏳ dataPuertas todavía no cargó");
-    return;
-  }
+    const select = document.getElementById("modeloPuerta");
+    const modelo = select.value;
 
-  const select = document.getElementById("modeloPuerta");
-  const modelo = select.value;
+    window.modeloSeleccionado = modelo;
 
-  window.modeloSeleccionado = modelo;
+    const vidrioSelect = document.getElementById("vidrio");
 
-  const vidrioSelect = document.getElementById("vidrio");
+    const modeloData = window.dataPuertas.modelos[modelo];
 
-  const modeloData = window.dataPuertas.modelos[modelo];
+    const sinVidrio =
+      !modeloData || Object.values(modeloData.vidrios).every((v) => v === 0);
 
-  const sinVidrio =
-    !modeloData ||
-    Object.values(modeloData.vidrios).every(v => v === 0);
+    if (sinVidrio) {
+      vidrioSelect.style.display = "none";
+    } else {
+      vidrioSelect.style.display = "block";
+    }
 
-  if (sinVidrio) {
-    vidrioSelect.style.display = "none";
-  } else {
-    vidrioSelect.style.display = "block";
-  }
+    this.cargarVidrios();
+  },
 
-  this.cargarVidrios();
-}
+  calcular() {
+    const modelo = window.modeloSeleccionado;
+    const medida = window.medidaSeleccionada;
+    const vidrio = document.getElementById("vidrio").value;
+
+    const modeloData = window.dataPuertas.modelos[modelo];
+
+    if (!modeloData) {
+      alert("Modelo inválido");
+      return;
+    }
+
+    // 🔥 PRECIO BASE (DE TU JSON)
+    let precioBase = modeloData.base || 0;
+
+    // 🔥 PRECIO VIDRIO
+    let precioVidrio = modeloData.vidrios?.[vidrio] || 0;
+
+    // 🔥 TOTAL
+    let total = precioBase + precioVidrio;
+
+
+    const res = {
+      total,
+    };
+
+    // 🔥 guardar resultado
+    window.ultimoResultado = res;
+
+    // 🔥 render UI
+    window.UI.renderResultado(res);
+    console.log("MODELO:", modelo);
+    console.log("MEDIDA:", medida);
+    console.log("DATA MODELO:", modeloData);
+    console.log("PRECIOS:", modeloData.precios);
+  },
 };

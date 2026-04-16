@@ -5,7 +5,7 @@ function getToken() {
 }
 
 async function request(endpoint, options = {}) {
-  const url = `${CONFIG.API_URL}/${endpoint}`;
+  const url = `${CONFIG.API_URL}/api/${endpoint}`;
 
   const headers = {
     "Content-Type": "application/json",

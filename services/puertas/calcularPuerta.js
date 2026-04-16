@@ -1,131 +1,111 @@
-const fs = require("fs");
-const path = require("path");
-const colores = require("../../data/colores.json");
-const perfiles = require("../../config/perfiles");
+<!DOCTYPE html>
+<html lang="es">
 
-function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-  return c ? c.valor : 0;
-}
+<head>
+    <meta charset="UTF-8" />
+    <title>Puertas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
-function calcularPuerta(dataInput) {
-  const { linea, tipo = "simple", perfil = "amarilla" } = dataInput;
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-  let filePath;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  if (linea === "herrero") {
-    filePath = "data/productos/puertas_herrero.json";
-  }
+        .animate-fade-in {
+            animation: fade-in 0.3s ease;
+        }
+    </style>
+</head>
 
-  if (linea === "modena") {
-    filePath = "data/productos/puertas_modena.json";
-  }
+<body class="bg-gray-100">
 
-  if (linea === "eco") {
-    filePath = "data/productos/puertas_eco.json";
-  }
+    <div class="min-h-screen flex flex-col">
 
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), filePath), "utf-8"),
-  );
+        <!-- HEADER -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <button onclick="volver()" class="text-sm text-gray-500 hover:text-black">
+                ← Volver
+            </button>
 
-  let total = 0;
+            <h1 class="font-bold">Puertas</h1>
 
-  // =========================
-  // 🧱 BASE
-  // =========================
+            <div></div>
+        </header>
 
-  const modeloKey = Object.keys(data.modelos).find(
-    (k) => k.toLowerCase().trim() === dataInput.modelo.toLowerCase().trim(),
-  );
+        <!-- CONTENIDO -->
+        <div class="flex-1 flex items-center justify-center">
 
-  const producto = data.modelos[modeloKey];
+            <div class="w-full max-w-md p-6 space-y-4 animate-fade-in">
 
-  if (!producto) throw new Error("Modelo no encontrado");
+                <div class="grid grid-cols-2 gap-4">
 
-  total = producto.base || 0;
+                    <!-- SIMPLE -->
+                    <div onclick="seleccionar('simple')"
+                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+                        🚪 Puertas
+                        <div class="text-xs text-gray-500">70 / 80 / 90</div>
+                    </div>
 
-  // =========================
-  // 🎨 COLOR (SOLO BASE)
-  // =========================
+                    <!-- MEDIA -->
+                    <div onclick="seleccionar('media')"
+                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+                        🚪 Puertas y media
+                        <div class="text-xs text-gray-500">110 / 120 / 130</div>
+                    </div>
 
-  const colorValor = getColorValor(dataInput.color);
-  total = total * (1 + colorValor);
+                    <!-- DOBLE -->
+                    <div onclick="seleccionar('doble')"
+                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+                        🚪 Dobles
+                        <div class="text-xs text-gray-500">140 / 160 / 180</div>
+                    </div>
 
-  // =========================
-  // 🪟 VIDRIO
-  // =========================
+                    <!-- PORTON -->
+                    <div onclick="seleccionar('porton')"
+                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
+                        🚪 Portones
+                        <div class="text-xs text-gray-500">210 / 240 / 270</div>
+                    </div>
 
-  if (linea === "herrero") {
-    if (!producto.sinVidrio && dataInput.tipoVidrio) {
-      total += producto.vidrios[dataInput.tipoVidrio] || 0;
-    }
-  }
+                    <!-- ECO (placeholder) -->
+                    <div class="bg-white p-6 rounded-xl shadow opacity-40 text-center">
+                        🚪 ECO
+                    </div>
 
-  if (linea === "modena") {
-    if (dataInput.vidrio === "dvh") {
-      total += (producto.vidrios["4mm"] || 0) * 2;
-      total += producto.dvh?.camara || 0;
-    } else {
-      total += producto.vidrios[dataInput.vidrio] || 0;
-    }
-  }
+                </div>
 
-  if (linea === "eco") {
-    total += producto.vidrios[dataInput.vidrio] || 0;
-  }
+            </div>
 
-  // =========================
-  // 📏 TAMAÑO (solo herrero)
-  // =========================
+        </div>
 
-  if (linea === "herrero") {
-    const ajuste = data.ajustes[dataInput.tamano] || 0;
-    total = total * (1 + ajuste);
-  }
+    </div>
 
-  // =========================
-  // ➕ ADICIONALES
-  // =========================
+    <script type="module">
+        import { Auth } from "../js/core/auth.js";
 
-  const adicionales = dataInput.adicionales || [];
+        Auth.requireAuth();
 
-  adicionales.forEach((a) => {
-    const key = a.toLowerCase().replace(/\s+/g, "_");
-    total += data.adicionales?.[key] || 0;
-  });
+        // 🔙 volver
+        window.volver = () => {
+            window.location.href = "./dashboard.html";
+        };
 
-  // =========================
-  // 💰 REGLAS (CON PERFILES 🔥)
-  // =========================
+        // 🔥 seleccionar tipo de puerta
+        window.seleccionar = (tipo) => {
+            localStorage.setItem("tipoPuerta", tipo);
+            window.location.href = "./nuevo.html";
+        };
+    </script>
 
-  let perfilData;
+</body>
 
-  if (linea === "modena") {
-    perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
-  } else {
-    perfilData = perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
-  }
-
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.flete;
-  total *= 1 + perfilData.ganancia;
-
-  total = Math.round(total);
-
-  // =========================
-  // 🔁 MULTIPLICADOR
-  // =========================
-
-  if (tipo === "doble") total *= 2;
-  if (tipo === "porton") total *= 3;
-
-  return {
-    total: Math.round(total),
-    adicionalesDetalle: {},
-  };
-}
-
-module.exports = calcularPuerta;
+</html>

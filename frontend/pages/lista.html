@@ -17,11 +17,17 @@
         <div id="lista" class="space-y-4"></div>
 
     </div>
+    <script>
+        console.log("SCRIPT FUNCIONANDO");
 
+        document.getElementById("lista").innerHTML = "OK";
+    </script>
     <script type="module">
+
         import { Auth } from "../js/core/auth.js";
         import { Api } from "../js/core/api.js";
 
+        console.log("LISTA CARGANDO");
         Auth.requireAuth();
 
         const container = document.getElementById("lista");
@@ -42,31 +48,37 @@
                 container.innerHTML = "<p>No hay presupuestos</p>";
                 return;
             }
+            console.log("RESPUESTA COMPLETA:", res);
+            console.log("DATA:", res.data);
 
             container.innerHTML = presupuestos.map(p => `
-    <div class="bg-white p-4 rounded-xl shadow cursor-pointer hover:bg-gray-50"
-         onclick="verDetalle('${p.id}')">
+  <div class="bg-white p-4 rounded-xl shadow cursor-pointer hover:bg-gray-50"
+       onclick="verDetalle('${p.id}')">
 
-      <div class="flex justify-between">
-        <span class="font-semibold">${p.cliente}</span>
-        <span>#${p.numero}</span>
-      </div>
-
-      <div class="text-sm text-gray-500">
-        ${new Date(p.fecha).toLocaleDateString()}
-      </div>
-
-      <div class="mt-2 font-bold text-green-600">
-        $${p.total}
-      </div>
-
+    <div class="text-sm text-gray-400">
+      #${p.numero}
     </div>
-  `).join("");
+
+    <div class="font-semibold">
+      ${p.items?.[0]?.descripcion || "Presupuesto sin detalle"}
+    </div>
+
+    <div class="text-sm text-gray-500">
+      ${p.cliente}
+    </div>
+
+    <div class="mt-2 font-bold text-green-600">
+      $${p.total}
+    </div>
+
+  </div>
+`).join("");
         }
 
         window.verDetalle = function (id) {
             window.location.href = `./detalle.html?id=${id}`;
         };
+
 
         cargar();
     </script>

@@ -2,67 +2,111 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Detalle</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <title>Detalle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100">
 
-    <div class="max-w-2xl mx-auto p-6">
+  <div class="max-w-2xl mx-auto p-6 space-y-4">
 
-        <h1 class="text-2xl font-bold mb-4">Detalle del Presupuesto</h1>
+    <!-- HEADER -->
+    <div class="flex justify-between items-center">
+      <button onclick="volver()" class="text-sm text-gray-500 hover:text-black">
+        ← Volver
+      </button>
 
-        <div id="detalle" class="bg-white p-4 rounded-xl shadow"></div>
+      <h1 class="text-xl font-bold">Detalle</h1>
 
+      <div></div>
     </div>
 
-    <script type="module">
-        import { Auth } from "../js/core/auth.js";
-        import { Api } from "../js/core/api.js";
+    <!-- CARD -->
+    <div id="detalle" class="bg-white p-5 rounded-xl shadow"></div>
 
-        Auth.requireAuth();
+  </div>
 
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
+  <script type="module">
+    import { Auth } from "../js/core/auth.js";
+    import { Api } from "../js/core/api.js";
 
-        const container = document.getElementById("detalle");
+    Auth.requireAuth();
 
-        async function cargar() {
-            const res = await Api.get(`presupuestos/${id}`);
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-            if (!res.ok) {
-                container.innerHTML = "<p class='text-red-500'>Error</p>";
-                return;
-            }
+    const container = document.getElementById("detalle");
 
-            const p = res.data;
+    let pGlobal = null;
 
-            container.innerHTML = `
-        <p><strong>Cliente:</strong> ${p.cliente}</p>
-        <p><strong>Número:</strong> ${p.numero}</p>
-        <p><strong>Fecha:</strong> ${new Date(p.fecha).toLocaleDateString()}</p>
+    async function cargar() {
+      const res = await Api.get(`presupuestos/${id}`);
 
-        <hr class="my-3"/>
+      if (!res.ok) {
+        container.innerHTML = "<p class='text-red-500'>Error</p>";
+        return;
+      }
 
-        ${p.items.map(i => `
-          <div class="flex justify-between">
-            <span>${i.descripcion}</span>
-            <span>$${i.precio}</span>
+      const p = res.data;
+      pGlobal = p;
+
+      container.innerHTML = `
+        <div class="space-y-3">
+
+          <div class="text-sm text-gray-400">
+            Presupuesto #${p.numero}
           </div>
-        `).join("")}
 
-        <hr class="my-3"/>
+          <div class="font-semibold text-lg">
+            ${p.items[0]?.descripcion || ""}
+          </div>
 
-        <p class="font-bold text-green-600 text-right">
-          TOTAL: $${p.total}
-        </p>
+          <div class="text-sm text-gray-500">
+            Cliente: ${p.cliente}
+          </div>
+
+          <div class="text-sm text-gray-500">
+            ${new Date(p.fecha).toLocaleDateString()}
+          </div>
+
+          <hr/>
+
+          <div class="font-bold text-green-600 text-xl text-right">
+            TOTAL: $${p.total}
+          </div>
+
+          <button onclick="copiar()"
+            class="w-full bg-gray-800 text-white py-2 rounded">
+            Copiar texto
+          </button>
+
+        </div>
       `;
-        }
+    }
 
-        cargar();
-    </script>
+    // 📋 COPIAR
+    window.copiar = () => {
+      if (!pGlobal) return;
+
+      const texto = `
+${pGlobal.items[0]?.descripcion}
+Cliente: ${pGlobal.cliente}
+Total: $${pGlobal.total}
+`;
+
+      navigator.clipboard.writeText(texto.trim());
+      alert("Copiado");
+    };
+
+    // 🔙 VOLVER
+    window.volver = () => {
+      window.location.href = "./lista.html";
+    };
+
+    cargar();
+  </script>
 
 </body>
 

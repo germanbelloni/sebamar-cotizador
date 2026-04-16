@@ -48,28 +48,35 @@
 
                 <div class="grid grid-cols-2 gap-4">
 
+                    <!-- SIMPLE -->
                     <div onclick="seleccionar('simple')"
                         class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
                         🚪 Puertas
                         <div class="text-xs text-gray-500">70 / 80 / 90</div>
                     </div>
 
+                    <!-- MEDIA -->
                     <div onclick="seleccionar('media')"
                         class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
                         🚪 Puertas y media
                         <div class="text-xs text-gray-500">110 / 120 / 130</div>
                     </div>
 
+                    <!-- DOBLE -->
                     <div onclick="seleccionar('doble')"
                         class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
                         🚪 Dobles
+                        <div class="text-xs text-gray-500">140 / 160 / 180</div>
                     </div>
 
+                    <!-- PORTON -->
                     <div onclick="seleccionar('porton')"
                         class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
                         🚪 Portones
+                        <div class="text-xs text-gray-500">210 / 240 / 270</div>
                     </div>
 
+                    <!-- ECO (placeholder) -->
                     <div class="bg-white p-6 rounded-xl shadow opacity-40 text-center">
                         🚪 ECO
                     </div>
@@ -87,15 +94,14 @@
 
         Auth.requireAuth();
 
+        // 🔙 volver
         window.volver = () => {
             window.location.href = "./dashboard.html";
         };
 
+        // 🔥 seleccionar tipo de puerta
         window.seleccionar = (tipo) => {
-            // 🔥 guardamos tipo para usar después
             localStorage.setItem("tipoPuerta", tipo);
-
-            // 👉 vamos al configurador
             window.location.href = "./nuevo.html";
         };
     </script>
