@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Presupuestos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="max-w-3xl mx-auto p-6">
+
+        <h1 class="text-2xl font-bold mb-6">Presupuestos</h1>
+
+        <div id="lista" class="space-y-4"></div>
+
+    </div>
+
+    <script type="module">
+        import { Auth } from "../js/core/auth.js";
+        import { Api } from "../js/core/api.js";
+
+        Auth.requireAuth();
+
+        const container = document.getElementById("lista");
+
+        async function cargar() {
+            const res = await Api.get("presupuestos");
+
+            if (!res.ok) {
+                container.innerHTML = "<p class='text-red-500'>Error al cargar</p>";
+                return;
+            }
+
+            const presupuestos = res.data;
+
+            console.log(presupuestos); // 👈 ACÁ
+
+            if (presupuestos.length === 0) {
+                container.innerHTML = "<p>No hay presupuestos</p>";
+                return;
+            }
+
+            container.innerHTML = presupuestos.map(p => `
+    <div class="bg-white p-4 rounded-xl shadow cursor-pointer hover:bg-gray-50"
+         onclick="verDetalle('${p.id}')">
+
+      <div class="flex justify-between">
+        <span class="font-semibold">${p.cliente}</span>
+        <span>#${p.numero}</span>
+      </div>
+
+      <div class="text-sm text-gray-500">
+        ${new Date(p.fecha).toLocaleDateString()}
+      </div>
+
+      <div class="mt-2 font-bold text-green-600">
+        $${p.total}
+      </div>
+
+    </div>
+  `).join("");
+        }
+
+        window.verDetalle = function (id) {
+            window.location.href = `./detalle.html?id=${id}`;
+        };
+
+        cargar();
+    </script>
+
+
+</body>
+
+</html>

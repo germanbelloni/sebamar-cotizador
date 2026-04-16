@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Sebamar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- HEADER -->
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-lg font-bold">Sebamar</h1>
+
+        <button id="logoutBtn" class="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+            Cerrar sesión
+        </button>
+    </header>
+
+    <!-- MENU PRINCIPAL -->
+    <div class="flex items-center justify-center min-h-[calc(100vh-70px)]">
+
+        <div class="grid grid-cols-2 gap-4 w-full max-w-md p-6 animate-fade-in">
+
+            <!-- VENTANAS -->
+            <div onclick="irVentanas()"
+                class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:scale-105 transition">
+
+                <div class="text-3xl mb-2">🪟</div>
+                <div class="font-bold text-lg">Ventanas</div>
+                <div class="text-sm text-gray-500">Herrero / Modena</div>
+
+            </div>
+
+            <!-- PUERTAS -->
+            <div onclick="irPuertas()"
+                class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:scale-105 transition">
+
+                <div class="text-3xl mb-2">🚪</div>
+                <div class="font-bold text-lg">Puertas</div>
+                <div class="text-sm text-gray-500">
+                    Herrero / Modena / Media / Portón
+                </div>
+
+            </div>
+
+            <!-- LISTA -->
+            <div onclick="irLista()"
+                class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:scale-105 transition">
+
+                <div class="text-3xl mb-2">📄</div>
+                <div class="font-bold text-lg">Presupuestos</div>
+                <div class="text-sm text-gray-500">Ver y gestionar</div>
+
+            </div>
+
+            <!-- FUTURO -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 opacity-40">
+                <div class="text-3xl mb-2">➕</div>
+                <div class="font-bold text-lg">Más módulos</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { Auth } from "../js/core/auth.js";
+
+        Auth.requireAuth();
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            Auth.logout();
+        });
+
+        // NAVEGACIÓN
+        window.irPuertas = () => {
+            window.location.href = "./puertas.html";
+        };
+
+        window.irVentanas = () => {
+            alert("Ventanas próximamente");
+        };
+
+        window.irLista = () => {
+            window.location.href = "./lista.html";
+        };
+    </script>
+
+</body>
+
+</html>

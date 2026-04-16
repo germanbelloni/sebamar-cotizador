@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Nuevo Presupuesto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="min-h-screen flex flex-col">
+
+        <!-- HEADER -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <button onclick="volver()" class="text-sm text-gray-500">
+                ← Volver
+            </button>
+
+            <h1 class="font-bold">Nuevo Presupuesto</h1>
+
+            <div></div>
+        </header>
+
+        <!-- CONTENIDO -->
+        <div class="max-w-xl mx-auto p-6 space-y-4">
+
+            <!-- CLIENTE -->
+            <input id="cliente" placeholder="Cliente" class="w-full border p-2 rounded" />
+
+            <!-- PRODUCTO -->
+            <select id="producto" class="w-full border p-2 rounded">
+                <option value="herrero">Herrero</option>
+                <option value="modena">Modena</option>
+            </select>
+
+            <!-- MODELO -->
+            <select id="modeloPuerta" class="w-full border p-2 rounded"></select>
+
+            <!-- VIDRIO -->
+            <select id="vidrio" class="w-full border p-2 rounded"></select>
+
+            <!-- MEDIDAS -->
+            <select id="medidaPuerta" class="w-full border p-2 rounded"></select>
+
+            <!-- BOTÓN CALCULAR -->
+            <button id="calcular" class="bg-blue-600 text-white p-3 rounded w-full">
+                Calcular
+            </button>
+
+            <!-- RESULTADO -->
+            <div id="resultado"></div>
+
+            <!-- GUARDAR -->
+            <button id="guardar" class="bg-green-600 text-white p-3 rounded w-full">
+                Guardar Presupuesto
+            </button>
+
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { Auth } from "../js/core/auth.js";
+        import { Api } from "../js/core/api.js";
+
+        Auth.requireAuth();
+
+        // 🔥 IMPORTAR TU LÓGICA
+        import "../js/modules/puertas.js";
+        import "../js/modules/ui.js";
+
+        // 🔥 OBTENER TIPO DESDE SUBMENU
+        const tipoPuerta = localStorage.getItem("tipoPuerta") || "simple";
+        window.tipoPuerta = tipoPuerta;
+
+        console.log("TIPO PUERTA:", tipoPuerta);
+
+        // 🔥 INIT
+        window.Puertas.init();
+
+        document.getElementById("producto").addEventListener("change", () => {
+            window.Puertas.cargarModelos();
+        });
+
+        document.getElementById("modeloPuerta").addEventListener("change", () => {
+            window.Puertas.cambiarModelo();
+        });
+
+        // 🔥 CALCULAR
+        document.getElementById("calcular").addEventListener("click", () => {
+            window.medidaSeleccionada = document.getElementById("medidaPuerta").value;
+            window.medidaSeleccionada = document.getElementById("medidaPuerta").value;
+
+            window.Puertas.calcular();
+
+            // 🔥 generar descripción
+            const desc = generarDescripcion();
+            document.getElementById("descripcion").innerText = desc;
+
+            // guardar para después
+            window.descripcionActual = desc;
+        });
+
+        // 🔥 GUARDAR
+        document.getElementById("guardar").addEventListener("click", async () => {
+
+            const cliente = document.getElementById("cliente").value;
+
+            if (!cliente) {
+                alert("Ingresá cliente");
+                return;
+            }
+
+            const total = window.ultimoResultado?.total || 0;
+
+            const body = {
+                cliente,
+                items: [
+                    {
+                        tipo: "puerta",
+                        subtipo: tipoPuerta,
+                        descripcion: window.descripcionActual,
+                        producto: document.getElementById("producto").value,
+                        modelo: document.getElementById("modeloPuerta").value,
+                        ancho: document.getElementById("medidaPuerta").value,
+                        alto: 200,
+                        vidrio: document.getElementById("vidrio").value,
+                        precio: total
+                    }
+                ],
+                total
+            };
+
+            const res = await Api.post("presupuestos", body);
+
+            if (!res.ok) {
+                alert(res.error);
+                return;
+            }
+
+            alert("Presupuesto guardado");
+        });
+
+        function cargarMedidas() {
+            const tipo = window.tipoPuerta;
+            const select = document.getElementById("medidaPuerta");
+
+            select.innerHTML = "";
+
+            const base = [70, 80, 90];
+
+            if (tipo === "media") {
+                const mapa = { 110: 70, 120: 80, 130: 90 };
+
+                Object.entries(mapa).forEach(([visible, real]) => {
+                    const option = document.createElement("option");
+                    option.value = real;
+                    option.textContent = `${visible}x200`;
+                    select.appendChild(option);
+                });
+
+                return;
+            }
+
+            let factor = 1;
+            if (tipo === "doble") factor = 2;
+            if (tipo === "porton") factor = 3;
+
+            base.forEach(m => {
+                const option = document.createElement("option");
+                option.value = m;
+                option.textContent = `${m * factor}x200`;
+                select.appendChild(option);
+            });
+        }
+
+        function generarDescripcion() {
+            const tipo = window.tipoPuerta;
+
+            const producto = document.getElementById("producto").value;
+            const modelo = document.getElementById("modeloPuerta").value;
+            const vidrio = document.getElementById("vidrio").value;
+            const medida = document.getElementById("medidaPuerta").selectedOptions[0].text;
+
+            const productoTexto = producto === "modena"
+                ? "Modena"
+                : "Herrero";
+
+            let tipoTexto = "Puerta";
+
+            if (tipo === "media") tipoTexto = "Puerta y media";
+            if (tipo === "doble") tipoTexto = "Puerta doble";
+            if (tipo === "porton") tipoTexto = "Portón";
+
+            return `${tipoTexto} ${productoTexto} ${modelo} ${medida} ${vidrio}`;
+        }
+        cargarMedidas();
+
+        // 🔙 VOLVER
+        window.volver = () => {
+            window.location.href = "./puertas.html";
+        };
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="max-w-2xl mx-auto p-6">
+
+        <h1 class="text-2xl font-bold mb-4">Detalle del Presupuesto</h1>
+
+        <div id="detalle" class="bg-white p-4 rounded-xl shadow"></div>
+
+    </div>
+
+    <script type="module">
+        import { Auth } from "../js/core/auth.js";
+        import { Api } from "../js/core/api.js";
+
+        Auth.requireAuth();
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        const container = document.getElementById("detalle");
+
+        async function cargar() {
+            const res = await Api.get(`presupuestos/${id}`);
+
+            if (!res.ok) {
+                container.innerHTML = "<p class='text-red-500'>Error</p>";
+                return;
+            }
+
+            const p = res.data;
+
+            container.innerHTML = `
+        <p><strong>Cliente:</strong> ${p.cliente}</p>
+        <p><strong>Número:</strong> ${p.numero}</p>
+        <p><strong>Fecha:</strong> ${new Date(p.fecha).toLocaleDateString()}</p>
+
+        <hr class="my-3"/>
+
+        ${p.items.map(i => `
+          <div class="flex justify-between">
+            <span>${i.descripcion}</span>
+            <span>$${i.precio}</span>
+          </div>
+        `).join("")}
+
+        <hr class="my-3"/>
+
+        <p class="font-bold text-green-600 text-right">
+          TOTAL: $${p.total}
+        </p>
+      `;
+        }
+
+        cargar();
+    </script>
+
+</body>
+
+</html>
