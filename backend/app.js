@@ -1,10 +1,18 @@
-require("dotenv").config({ path: __dirname + "/.env" });
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const User = require("./models/User");
 const Presupuesto = require("./models/Presupuesto");
 const auth = require("./middleware/auth");
+
+// 🔹 NUEVO: importar mosquiteros
+const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
 
 const app = express();
 
@@ -19,7 +27,8 @@ if (process.env.NODE_ENV !== "test") {
     .then(() => console.log("🟢 MongoDB conectado"))
     .catch((err) => console.error("🔴 Error conectando MongoDB:", err));
 }
-// 🔹 TEST ENDPOINT
+
+// 🔹 TEST
 app.get("/", (req, res) => {
   res.send("Servidor OK");
 });
@@ -27,9 +36,6 @@ app.get("/", (req, res) => {
 // =========================
 // 🔐 AUTH
 // =========================
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const User = require("./models/User");
 
 app.post("/api/auth/register", async (req, res) => {
   try {
@@ -56,15 +62,12 @@ app.post("/api/auth/register", async (req, res) => {
       return res.status(400).json({ error: "Usuario ya existe" });
     }
 
-    console.error(error);
     res.status(500).json({ error: "Error registrando usuario" });
   }
 });
 
 app.post("/api/auth/login", async (req, res) => {
   try {
-    console.log("JWT_SECRET LOGIN:", process.env.JWT_SECRET); // 👈 ACÁ
-
     const { nombre, password } = req.body;
 
     const user = await User.findOne({ nombre });
@@ -85,7 +88,6 @@ app.post("/api/auth/login", async (req, res) => {
 
     res.json({ token });
   } catch (error) {
-    console.error("ERROR LOGIN:", error);
     res.status(500).json({ error: "Error en login" });
   }
 });
@@ -94,11 +96,9 @@ app.post("/api/auth/login", async (req, res) => {
 // 📦 PRESUPUESTOS
 // =========================
 
-// NUEVO NUMERO
+// 🔹 NUEVO NUMERO
 app.post("/api/presupuestos/nuevo", auth, async (req, res) => {
-  const userId = req.user.userId;
-
-  const user = await User.findById(userId);
+  const user = await User.findById(req.user.userId);
 
   user.contadorPresupuestos += 1;
   await user.save();
@@ -106,41 +106,76 @@ app.post("/api/presupuestos/nuevo", auth, async (req, res) => {
   res.json({ numero: user.contadorPresupuestos });
 });
 
-// CREAR
+// 🔹 CREAR PRESUPUESTO (CON MOSQUITEROS)
 app.post("/api/presupuestos", auth, async (req, res) => {
-  const userId = req.user.userId;
-  if (!req.body.cliente || !req.body.items || req.body.items.length === 0) {
-    return res.status(400).json({ error: "Datos inválidos" });
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+
+    let total = 0;
+    console.log("ITEMS ENTRADA:", req.body.items);
+    const itemsProcesados = req.body.items.map((item) => {
+      // 🔹 MOSQUITERO
+
+      if (item.tipo === "mosquitero") {
+        const resultado = calcularMosquitero({
+          medida: item.medida,
+          color: item.color,
+        });
+        console.log("ITEM:", item);
+        const precio = resultado.total;
+        const cantidad = item.cantidad || 1;
+        const subtotal = precio * cantidad;
+
+        total += subtotal;
+
+        return {
+          ...item,
+          precio,
+          cantidad,
+          subtotal,
+        };
+      }
+
+      // 🔹 ITEM NORMAL
+      const precio = item.precio || 0;
+      const cantidad = item.cantidad || 1;
+      const subtotal = precio * cantidad;
+
+      total += subtotal;
+
+      return {
+        ...item,
+        subtotal,
+      };
+    });
+
+    console.log("ITEMS PROCESADOS:", itemsProcesados);
+    console.log("TOTAL FINAL:", total);
+
+    const presupuesto = new Presupuesto({
+      userId,
+      numero: user.contadorPresupuestos,
+      cliente: req.body.cliente,
+      fecha: req.body.fecha,
+      items: itemsProcesados,
+      total: total,
+    });
+
+    await presupuesto.save();
+
+    res.json(presupuesto);
+  } catch (error) {
+    console.error("ERROR PRESUPUESTO:", error);
+    res.status(500).json({ error: "Error creando presupuesto" });
   }
-
-  if (req.body.total < 0) {
-    return res.status(400).json({ error: "Total inválido" });
-  }
-
-  const user = await User.findById(userId);
-
-  const presupuesto = new Presupuesto({
-    userId,
-    numero: user.contadorPresupuestos,
-    cliente: req.body.cliente,
-    fecha: req.body.fecha,
-    items: req.body.items,
-    total: req.body.total,
-  });
-
-  await presupuesto.save();
-
-  res.json(presupuesto);
 });
 
-// LISTAR
+// 🔹 LISTAR
 app.get("/api/presupuestos", auth, async (req, res) => {
-  const userId = req.user.userId;
-
-  const presupuestos = await Presupuesto.find({ userId }).populate(
-    "userId",
-    "nombre",
-  );
+  const presupuestos = await Presupuesto.find({
+    userId: req.user.userId,
+  }).populate("userId", "nombre");
 
   const resultado = presupuestos.map((p) => ({
     id: p._id,
@@ -154,6 +189,7 @@ app.get("/api/presupuestos", auth, async (req, res) => {
   res.json(resultado);
 });
 
+// 🔹 PDF (con seguridad)
 app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
   try {
     const presupuesto = await Presupuesto.findById(req.params.id);
@@ -162,40 +198,13 @@ app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
       return res.status(404).json({ error: "No encontrado" });
     }
 
-    // 🔴 VALIDACIÓN CLAVE
     if (presupuesto.userId.toString() !== req.user.userId) {
       return res.status(403).json({ error: "No autorizado" });
     }
 
-    // Por ahora devolvemos JSON (después PDF real)
     res.json({ msg: "PDF generado", presupuesto });
   } catch (error) {
     res.status(500).json({ error: "Error generando PDF" });
-  }
-});
-
-app.get("/api/presupuestos/:id", auth, async (req, res) => {
-  try {
-    const presupuesto = await Presupuesto.findById(req.params.id);
-
-    if (!presupuesto) {
-      return res.status(404).json({ error: "No encontrado" });
-    }
-
-    if (presupuesto.userId.toString() !== req.user.userId) {
-      return res.status(403).json({ error: "No autorizado" });
-    }
-
-    res.json({
-      id: presupuesto._id,
-      cliente: presupuesto.cliente,
-      numero: presupuesto.numero,
-      fecha: presupuesto.fecha,
-      items: presupuesto.items,
-      total: presupuesto.total,
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Error del servidor" });
   }
 });
 
