@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const express = require("express");
 const cors = require("cors");
@@ -171,6 +171,31 @@ app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
     res.json({ msg: "PDF generado", presupuesto });
   } catch (error) {
     res.status(500).json({ error: "Error generando PDF" });
+  }
+});
+
+app.get("/api/presupuestos/:id", auth, async (req, res) => {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
+
+    if (!presupuesto) {
+      return res.status(404).json({ error: "No encontrado" });
+    }
+
+    if (presupuesto.userId.toString() !== req.user.userId) {
+      return res.status(403).json({ error: "No autorizado" });
+    }
+
+    res.json({
+      id: presupuesto._id,
+      cliente: presupuesto.cliente,
+      numero: presupuesto.numero,
+      fecha: presupuesto.fecha,
+      items: presupuesto.items,
+      total: presupuesto.total,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Error del servidor" });
   }
 });
 
