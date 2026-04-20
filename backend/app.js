@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
-
+const calcularPuerta = require("../services/puertas/calcularPuerta");
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
@@ -27,6 +27,30 @@ app.use(express.json());
 const path = require("path");
 
 app.use("/img", express.static(path.join(__dirname, "../img")));
+
+app.post("/api/puertas", auth, (req, res) => {
+  try {
+    const { linea, tipo } = req.body;
+
+    if (!linea) {
+      return res.status(400).json({ error: "Falta linea" });
+    }
+
+    const resultado = calcularPuerta({
+      ...req.body,
+      tipo: tipo || "simple",
+    });
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PUERTAS:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
 
 // 🔌 CONEXIÓN A MONGO
 if (process.env.NODE_ENV !== "test") {
@@ -131,11 +155,30 @@ app.post("/api/presupuestos", auth, async (req, res) => {
 
     let total = 0;
 
-    // 🔧 procesar items (GENÉRICO)
     const itemsProcesados = req.body.items.map((item) => {
-      const descripcion = item.descripcion || item.tipo || "Producto";
       const cantidad = item.cantidad || 1;
-      const precio = item.precio || 0;
+
+      let precio = item.precio || 0;
+      let descripcion = item.descripcion || item.tipo || "Producto";
+
+      // 🚪 PUERTAS
+      if (item.tipo === "puerta") {
+        const result = calcularPuerta(item);
+
+        precio = result.total;
+
+        descripcion = `Puerta ${item.linea} - ${item.modelo} - ${item.medida}`;
+      }
+
+      // 🪟 MOSQUITEROS (si querés mantenerlo consistente)
+      if (item.tipo === "mosquitero") {
+        const result = calcularMosquitero(item);
+
+        precio = result.total;
+
+        descripcion = `Mosquitero ${item.medida}`;
+      }
+
       const subtotal = precio * cantidad;
 
       total += subtotal;
@@ -169,7 +212,7 @@ app.post("/api/presupuestos", auth, async (req, res) => {
     console.error("ERROR PRESUPUESTO:", error);
     res.status(500).json({ error: "Error creando presupuesto" });
   }
-}); 
+});
 // 🔹 LISTAR
 app.get("/api/presupuestos", auth, async (req, res) => {
   const presupuestos = await Presupuesto.find({

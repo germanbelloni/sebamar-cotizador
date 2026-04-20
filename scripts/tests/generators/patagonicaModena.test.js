@@ -5,29 +5,27 @@ const path = require("path");
 const { fromRoot } = require("../../../utils/path");
 
 // 🧠 SERVICE
-const calcularPatagonicaHerrero = require(
-  fromRoot("services/patagonicas/calcularPatagonicaHerrero.js"),
+const calcularPatagonicaModena = require(
+  fromRoot("services/patagonicas/calcularPatagonicaModena.js"),
 );
 
-// 🎯 CONFIG
+// 📦 DATA
+const data = require(
+  fromRoot("frontend/data/productos/patagonicas_modena.json"),
+);
+
+// 🎯 VARIABLES
+const colores = ["blanco", "negro", "bronce", "simil madera"];
 const perfil = "amarilla";
 
-// 🎯 ESCENARIOS
-const medidas = ["120x100", "150x100", "200x100"];
 const tipos = ["1_raja", "2_rajas"];
-
-const rajas = [
-  { ancho: 40, tipoVidrio: "4mm" },
-  { ancho: 50, tipoVidrio: "4mm" },
-];
-
-const colores = ["blanco", "negro"];
+const vidrios = ["4mm", "dvh", "3+3"];
 
 // 📦 RESULTADO FINAL
 let resultados = [];
 
 // 📁 ASEGURAR OUTPUT
-const outputDir = fromRoot("scripts/tests/outputs/patagonicas_herrero");
+const outputDir = fromRoot("scripts/tests/outputs/patagonicas_modena");
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
@@ -35,46 +33,48 @@ if (!fs.existsSync(outputDir)) {
 
 // 🔁 GENERACIÓN
 tipos.forEach((tipo) => {
-  medidas.forEach((medidaTotal) => {
+  const medidas = data.tipos?.[tipo]?.medidas || {};
+
+  Object.keys(medidas).forEach((medida) => {
     colores.forEach((color) => {
-      rajas.forEach((raja) => {
+      vidrios.forEach((tipoVidrio) => {
         try {
-          const result = calcularPatagonicaHerrero({
-            medidaTotal,
+          const result = calcularPatagonicaModena({
             tipo,
-            raja,
+            medida,
             color,
+            tipoVidrio,
             perfil,
           });
 
           resultados.push({
             input: {
-              medidaTotal,
               tipo,
-              raja,
+              medida,
               color,
+              tipoVidrio,
               perfil,
             },
             output: result,
           });
 
           console.log(
-            `✔ ${medidaTotal} ${tipo} raja:${raja.ancho} vidrio:${raja.tipoVidrio} ${color} → ${result.total}`,
+            `✔ ${tipo} ${medida} (${color}) vidrio:${tipoVidrio} → ${result.total}`,
           );
         } catch (error) {
           resultados.push({
             input: {
-              medidaTotal,
               tipo,
-              raja,
+              medida,
               color,
+              tipoVidrio,
               perfil,
             },
             error: error.message,
           });
 
           console.log(
-            `❌ ERROR → ${medidaTotal} ${tipo} raja:${raja.ancho} ${color}`,
+            `❌ ERROR → ${tipo} ${medida} (${color}) vidrio:${tipoVidrio}`,
           );
           console.log("   👉", error.message);
         }
@@ -84,7 +84,7 @@ tipos.forEach((tipo) => {
 });
 
 // 💾 GUARDAR JSON
-const nombreArchivo = `output_patagonica_herrero_${Date.now()}.json`;
+const nombreArchivo = `output_patagonica_modena_${Date.now()}.json`;
 
 fs.writeFileSync(
   path.join(outputDir, nombreArchivo),

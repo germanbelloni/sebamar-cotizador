@@ -1,111 +1,107 @@
-<!DOCTYPE html>
-<html lang="es">
+const { fromRoot } = require("../../utils/path");
 
-<head>
-    <meta charset="UTF-8" />
-    <title>Puertas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+const calcularHoja = require("./calcularHoja");
 
-    <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+function parseMedida(medida) {
+  const [ancho, alto] = medida.split("x").map(Number);
+  return { ancho, alto };
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+function getCantidadHojas(tipo) {
+  if (tipo === "doble") return 2;
+  if (tipo === "porton") return 3;
+  return 1;
+}
 
-        .animate-fade-in {
-            animation: fade-in 0.3s ease;
-        }
-    </style>
-</head>
+function calcularPuerta(dataInput) {
+  const {
+    tipo = "simple",
+    linea,
+    modelo,
+    medida,
+    color,
+    tipoVidrio,
+    adicionales = [],
+    perfil = "amarilla",
+  } = dataInput;
 
-<body class="bg-gray-100">
+  const data = require(
+    fromRoot(`frontend/data/productos/puertas_${linea}.json`),
+  );
 
-    <div class="min-h-screen flex flex-col">
+  const { ancho, alto } = parseMedida(medida);
 
-        <!-- HEADER -->
-        <header class="bg-white shadow p-4 flex justify-between items-center">
-            <button onclick="volver()" class="text-sm text-gray-500 hover:text-black">
-                ← Volver
-            </button>
+  const cantidadHojas = getCantidadHojas(tipo);
 
-            <h1 class="font-bold">Puertas</h1>
+  const anchoHoja = ancho / cantidadHojas;
 
-            <div></div>
-        </header>
+  const medidaHoja = `${anchoHoja}x${alto}`;
 
-        <!-- CONTENIDO -->
-        <div class="flex-1 flex items-center justify-center">
+  const ajuste = data.ajustes?.[medidaHoja] || 0;
 
-            <div class="w-full max-w-md p-6 space-y-4 animate-fade-in">
+  const producto = data.modelos?.[modelo];
 
-                <div class="grid grid-cols-2 gap-4">
+  if (!producto) {
+    throw new Error("Modelo no encontrado");
+  }
 
-                    <!-- SIMPLE -->
-                    <div onclick="seleccionar('simple')"
-                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
-                        🚪 Puertas
-                        <div class="text-xs text-gray-500">70 / 80 / 90</div>
-                    </div>
+  let total = 0;
 
-                    <!-- MEDIA -->
-                    <div onclick="seleccionar('media')"
-                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
-                        🚪 Puertas y media
-                        <div class="text-xs text-gray-500">110 / 120 / 130</div>
-                    </div>
+  for (let i = 0; i < cantidadHojas; i++) {
+    const hoja = calcularHoja({
+      producto,
+      linea,
+      dataInput: {
+        color,
+        tipoVidrio,
+        vidrio: tipoVidrio,
+        ajuste,
+        adicionales,
+      },
+      perfil,
+    });
 
-                    <!-- DOBLE -->
-                    <div onclick="seleccionar('doble')"
-                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
-                        🚪 Dobles
-                        <div class="text-xs text-gray-500">140 / 160 / 180</div>
-                    </div>
+    total += hoja;
+  }
 
-                    <!-- PORTON -->
-                    <div onclick="seleccionar('porton')"
-                        class="bg-white p-6 rounded-xl shadow cursor-pointer hover:scale-105 transition text-center">
-                        🚪 Portones
-                        <div class="text-xs text-gray-500">210 / 240 / 270</div>
-                    </div>
+  if (tipo === "media") {
+  const hojas = dataInput.hojas; // [80, 30]
 
-                    <!-- ECO (placeholder) -->
-                    <div class="bg-white p-6 rounded-xl shadow opacity-40 text-center">
-                        🚪 ECO
-                    </div>
+  let total = 0;
 
-                </div>
+  hojas.forEach((anchoHoja) => {
+    const medidaHoja = `${anchoHoja}x${alto}`;
 
-            </div>
+    const ajuste = data.ajustes?.[medidaHoja] || 0;
 
-        </div>
+    const hoja = calcularHoja({
+      producto,
+      linea,
+      dataInput: {
+        color,
+        tipoVidrio,
+        vidrio: tipoVidrio,
+        ajuste,
+        adicionales,
+      },
+      perfil,
+    });
 
-    </div>
+    total += hoja;
+  });
 
-    <script type="module">
-        import { Auth } from "../js/core/auth.js";
+  return {
+    total: Math.round(total),
+    cantidadHojas: hojas.length,
+    tipo: "media",
+  };
+}
 
-        Auth.requireAuth();
+  return {
+    total: Math.round(total),
+    cantidadHojas,
+    medidaHoja,
+  };
+}
 
-        // 🔙 volver
-        window.volver = () => {
-            window.location.href = "./dashboard.html";
-        };
-
-        // 🔥 seleccionar tipo de puerta
-        window.seleccionar = (tipo) => {
-            localStorage.setItem("tipoPuerta", tipo);
-            window.location.href = "./nuevo.html";
-        };
-    </script>
-
-</body>
-
-</html>
+module.exports = calcularPuerta;

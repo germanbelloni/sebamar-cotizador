@@ -1,5 +1,7 @@
-const colores = require("../../data/colores.json");
-const perfiles = require("../../config/perfiles");
+const { fromRoot } = require("../../utils/path");
+
+const colores = require(fromRoot("frontend/data/colores.json"));
+const perfiles = require(fromRoot("config/perfiles"));
 
 function getColorValor(color) {
   const c = colores.find(

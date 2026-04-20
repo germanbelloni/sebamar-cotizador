@@ -1,0 +1,506 @@
+[
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 76290
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 81081
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 76290
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 81081
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 81081
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "finger_pino",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 86118
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 138473
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 143956
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 138473
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 143956
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 143182
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "pino_cedro",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 150246
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 226409
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 251226
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 226409
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 251226
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 238478
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "cedro_cedro",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 256234
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_pino",
+      "medida": "060x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 79054
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_pino",
+      "medida": "070x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 79054
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_pino",
+      "medida": "080x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 82629
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_cedro",
+      "medida": "060x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 163483
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_cedro",
+      "medida": "070x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 164465
+    }
+  },
+  {
+    "input": {
+      "tipo": "placa",
+      "modelo": "aluminio_cedro",
+      "medida": "080x200",
+      "marco": "aluminio",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 179070
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 214189
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 214189
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 214189
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 214189
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 228870
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_pino",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 228870
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 253969
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 253969
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 253969
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 253969
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 255878
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "finger_cedro",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 255878
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "060x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 332930
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "060x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 332930
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "070x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 332930
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "070x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 332930
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "080x200",
+      "marco": "marco_10",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 351575
+    }
+  },
+  {
+    "input": {
+      "tipo": "embutir",
+      "modelo": "cedro_cedro",
+      "medida": "080x200",
+      "marco": "marco_15",
+      "perfil": "amarilla"
+    },
+    "output": {
+      "total": 351575
+    }
+  }
+]
