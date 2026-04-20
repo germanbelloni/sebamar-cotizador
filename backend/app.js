@@ -3,9 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const puppeteer = require("puppeteer");
 
 const bcrypt = require("bcrypt");
+
 const jwt = require("jsonwebtoken");
+
+const generarHTML = require("./services/pdf/generarPDF");
 
 const User = require("./models/User");
 const Presupuesto = require("./models/Presupuesto");
@@ -19,6 +23,10 @@ const app = express();
 // 🔧 MIDDLEWARES
 app.use(cors());
 app.use(express.json());
+
+const path = require("path");
+
+app.use("/img", express.static(path.join(__dirname, "../img")));
 
 // 🔌 CONEXIÓN A MONGO
 if (process.env.NODE_ENV !== "test") {
@@ -58,6 +66,7 @@ app.post("/api/auth/register", async (req, res) => {
 
     res.status(201).json({ msg: "Usuario creado" });
   } catch (error) {
+    console.log(error);
     if (error.code === 11000) {
       return res.status(400).json({ error: "Usuario ya existe" });
     }
@@ -106,60 +115,51 @@ app.post("/api/presupuestos/nuevo", auth, async (req, res) => {
   res.json({ numero: user.contadorPresupuestos });
 });
 
-// 🔹 CREAR PRESUPUESTO (CON MOSQUITEROS)
 app.post("/api/presupuestos", auth, async (req, res) => {
   try {
+    const User = require("./models/User");
+    const Presupuesto = require("./models/Presupuesto");
+
     const userId = req.user.userId;
+
+    // 🔎 buscar usuario
     const user = await User.findById(userId);
 
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
     let total = 0;
-    console.log("ITEMS ENTRADA:", req.body.items);
+
+    // 🔧 procesar items (GENÉRICO)
     const itemsProcesados = req.body.items.map((item) => {
-      // 🔹 MOSQUITERO
-
-      if (item.tipo === "mosquitero") {
-        const resultado = calcularMosquitero({
-          medida: item.medida,
-          color: item.color,
-        });
-        console.log("ITEM:", item);
-        const precio = resultado.total;
-        const cantidad = item.cantidad || 1;
-        const subtotal = precio * cantidad;
-
-        total += subtotal;
-
-        return {
-          ...item,
-          precio,
-          cantidad,
-          subtotal,
-        };
-      }
-
-      // 🔹 ITEM NORMAL
-      const precio = item.precio || 0;
+      const descripcion = item.descripcion || item.tipo || "Producto";
       const cantidad = item.cantidad || 1;
+      const precio = item.precio || 0;
       const subtotal = precio * cantidad;
 
       total += subtotal;
 
       return {
-        ...item,
+        descripcion,
+        cantidad,
+        precio,
         subtotal,
       };
     });
 
-    console.log("ITEMS PROCESADOS:", itemsProcesados);
-    console.log("TOTAL FINAL:", total);
+    // 🔢 numeración (ACÁ VA)
+    user.contadorPresupuestos += 1;
+    await user.save();
 
+    // 📄 crear presupuesto
     const presupuesto = new Presupuesto({
       userId,
       numero: user.contadorPresupuestos,
       cliente: req.body.cliente,
       fecha: req.body.fecha,
       items: itemsProcesados,
-      total: total,
+      total,
     });
 
     await presupuesto.save();
@@ -169,8 +169,7 @@ app.post("/api/presupuestos", auth, async (req, res) => {
     console.error("ERROR PRESUPUESTO:", error);
     res.status(500).json({ error: "Error creando presupuesto" });
   }
-});
-
+}); 
 // 🔹 LISTAR
 app.get("/api/presupuestos", auth, async (req, res) => {
   const presupuestos = await Presupuesto.find({
@@ -190,6 +189,7 @@ app.get("/api/presupuestos", auth, async (req, res) => {
 });
 
 // 🔹 PDF (con seguridad)
+// 🔹 PDF (con seguridad)
 app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
   try {
     const presupuesto = await Presupuesto.findById(req.params.id);
@@ -202,12 +202,38 @@ app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
       return res.status(403).json({ error: "No autorizado" });
     }
 
-    res.json({ msg: "PDF generado", presupuesto });
+    // 👉 Generar HTML
+    const html = generarHTML(presupuesto);
+
+    // 👉 Puppeteer
+    const browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "networkidle0" });
+
+    const pdf = await page.pdf({
+      format: "A4",
+      printBackground: true,
+    });
+
+    await browser.close();
+
+    // 👉 Respuesta PDF
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "inline; filename=presupuesto.pdf",
+    });
+
+    res.send(pdf);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error generando PDF" });
   }
 });
-
 // =========================
+const format = (n) => new Intl.NumberFormat("es-AR").format(n);
 
 module.exports = app;
