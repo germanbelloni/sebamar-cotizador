@@ -1,0 +1,27 @@
+TIPO: 1_raja
+120x100;1_raja;40;4mm;blanco;127064
+120x100;1_raja;50;4mm;blanco;131829
+120x100;1_raja;40;4mm;negro;159565
+120x100;1_raja;50;4mm;negro;164314
+150x100;1_raja;40;4mm;blanco;138136
+150x100;1_raja;50;4mm;blanco;143935
+150x100;1_raja;40;4mm;negro;173022
+150x100;1_raja;50;4mm;negro;178805
+200x100;1_raja;40;4mm;blanco;156589
+200x100;1_raja;50;4mm;blanco;164112
+200x100;1_raja;40;4mm;negro;195451
+200x100;1_raja;50;4mm;negro;202958
+
+TIPO: 2_rajas
+120x100;2_rajas;40;4mm;blanco;176012
+120x100;2_rajas;50;4mm;blanco;181407
+120x100;2_rajas;40;4mm;negro;221325
+120x100;2_rajas;50;4mm;negro;226688
+150x100;2_rajas;40;4mm;blanco;187085
+150x100;2_rajas;50;4mm;blanco;193513
+150x100;2_rajas;40;4mm;negro;234783
+150x100;2_rajas;50;4mm;negro;241179
+200x100;2_rajas;40;4mm;blanco;205538
+200x100;2_rajas;50;4mm;blanco;213690
+200x100;2_rajas;40;4mm;negro;257212
+200x100;2_rajas;50;4mm;negro;265332

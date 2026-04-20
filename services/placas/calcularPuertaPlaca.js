@@ -1,6 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+const { fromRoot } = require("../../utils/path");
 const perfiles = require("../../config/perfiles");
+
+// 📦 DATA (unificada desde frontend)
+const data = require(fromRoot("frontend/data/productos/puertas_placas.json"));
 
 function calcularPuertaPlaca(dataInput) {
   const {
@@ -12,13 +14,6 @@ function calcularPuertaPlaca(dataInput) {
   } = dataInput;
 
   const perfilData = perfiles[perfil]?.placa || perfiles["amarilla"].placa;
-
-  const filePath = path.join(
-    process.cwd(),
-    "data/productos/puertas_placas.json",
-  );
-
-  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
   const modeloData = data?.[tipo]?.[modelo];
 

@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const colores = require("../../data/colores.json");
+const { fromRoot } = require("../../utils/path");
+
+const colores = require(fromRoot("frontend/data/colores.json"));
 const perfiles = require("../../config/perfiles");
 
 function getColorValor(color) {
@@ -28,10 +30,7 @@ function calcularPatagonicaModena(dataInput) {
 
   const perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
 
-  const filePath = path.join(
-    process.cwd(),
-    "data/productos/patagonicas_modena.json",
-  );
+  const filePath = fromRoot("frontend/data/productos/patagonicas_modena.json");
 
   const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 

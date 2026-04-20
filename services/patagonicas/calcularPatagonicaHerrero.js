@@ -1,7 +1,11 @@
-const fs = require("fs");
-const path = require("path");
-const colores = require("../../data/colores.json");
+const { fromRoot } = require("../../utils/path");
+const colores = require(fromRoot("frontend/data/colores.json"));
 const perfiles = require("../../config/perfiles");
+
+// 📦 DATA (una sola vez)
+const rajaData = require(
+  fromRoot("frontend/data/productos/rajas_herrero.json"),
+);
 
 const PRECIO_ACOPLE = 5905;
 const PRECIO_PANO = 10685;
@@ -19,14 +23,7 @@ function parseMedida(medida) {
 }
 
 function getRajaPrecio({ medida, tipoVidrio, color }) {
-  const data = JSON.parse(
-    fs.readFileSync(
-      path.join(process.cwd(), "data/productos/rajas_herrero.json"),
-      "utf-8",
-    ),
-  );
-
-  const datos = data.medidas?.[medida];
+  const datos = rajaData.medidas?.[medida];
 
   if (!datos) throw new Error("Raja no encontrada");
 
@@ -50,7 +47,6 @@ function calcularPatagonicaHerrero(dataInput) {
   const anchoRaja = raja.ancho;
 
   const totalRajasAncho = anchoRaja * cantidadRajas;
-
   const anchoPano = anchoTotal - totalRajasAncho;
 
   if (anchoPano <= 0) {
@@ -59,6 +55,7 @@ function calcularPatagonicaHerrero(dataInput) {
 
   const medidaRaja = `${anchoRaja}x${alto}`;
 
+  // 🔹 RAJAS
   let totalRajas = 0;
 
   for (let i = 0; i < cantidadRajas; i++) {
@@ -71,20 +68,17 @@ function calcularPatagonicaHerrero(dataInput) {
 
   const colorValor = getColorValor(color);
 
+  // 🔹 ACOPLE
   let precioAcople = (alto / 100) * PRECIO_ACOPLE;
   precioAcople *= 1 + colorValor;
 
+  // 🔹 ESTRUCTURA PAÑO
   let precioPanoEstructura = ((anchoPano * 2 + alto * 2) / 100) * PRECIO_PANO;
+
   precioPanoEstructura *= 1 + colorValor;
 
+  // 🔹 VIDRIO PAÑO
   const areaM2 = (anchoPano * alto) / 10000;
-
-  const rajaData = JSON.parse(
-    fs.readFileSync(
-      path.join(process.cwd(), "data/productos/rajas_herrero.json"),
-      "utf-8",
-    ),
-  );
 
   const muestra = rajaData.medidas[medidaRaja];
 
@@ -103,6 +97,7 @@ function calcularPatagonicaHerrero(dataInput) {
 
   const totalPano = precioPanoEstructura + precioVidrio;
 
+  // 🔹 TOTAL
   let total = totalRajas + precioAcople + totalPano;
 
   total *= 1 - perfilData.descuento;
