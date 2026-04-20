@@ -1,34 +1,26 @@
 const fs = require("fs");
-const path = require("path");
 
-// 📦 DATA
+// 🔧 PATH HELPER
 const { fromRoot } = require("../../../utils/path");
 
+// 📦 DATA
 const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
 
 // 🧠 SERVICE
-const calcularRaja = require(
-  path.join(process.cwd(), "services/rajas/calcularRaja.js"),
-);
+const calcularRaja = require(fromRoot("services/rajas/calcularRaja.js"));
 
 // 🎯 VARIABLES
 const colores = ["blanco", "negro", "bronce", "simil madera"];
 const vidrios = ["3mm", "4mm", "5mm", "esmerilado", "fantasia", "3+3"];
 const perfil = "amarilla";
 
-// 📄 CSV
-let filas = [];
+// 📦 RESULTADO FINAL
+let resultados = [];
 
 colores.forEach((color) => {
-  console.log(`\n🎨 COLOR: ${color.toUpperCase()}\n`);
-
-  // 🔹 TITULO
-  filas.push(`COLOR: ${color.toUpperCase()}`);
-  filas.push("medida;3mm;4mm;5mm;esmerilado;fantasia;3+3");
-
   Object.keys(data.medidas).forEach((medida) => {
     try {
-      let resultados = [];
+      let resultadoVidrios = {};
 
       vidrios.forEach((vidrio) => {
         const r = calcularRaja({
@@ -38,38 +30,52 @@ colores.forEach((color) => {
           perfil,
         });
 
-        resultados.push(r.total);
+        resultadoVidrios[vidrio] = r.total;
       });
 
-      filas.push(`${medida};${resultados.join(";")}`);
+      resultados.push({
+        input: {
+          medida,
+          color,
+          perfil,
+          linea: "herrero",
+        },
+        output: {
+          vidrios: resultadoVidrios,
+        },
+      });
 
-      console.log(`✔ ${medida} → OK`);
+      console.log(`✔ ${medida} (${color}) → OK`);
     } catch (error) {
-      filas.push(`${medida};ERROR;ERROR;ERROR;ERROR;ERROR;ERROR`);
+      resultados.push({
+        input: {
+          medida,
+          color,
+          perfil,
+          linea: "herrero",
+        },
+        error: error.message,
+      });
 
       console.log(`❌ ERROR → medida:${medida} color:${color}`);
       console.log("   👉", error.message);
     }
   });
-
-  // 🔹 ESPACIO ENTRE BLOQUES
-  filas.push("");
-  filas.push("");
 });
 
-// 💾 OUTPUT
-const nombreArchivo = `rajas_herrero_${Date.now()}.csv`;
+// 💾 GUARDAR JSON
+const nombreArchivo = `rajas_herrero_${Date.now()}.json`;
 
-const outputDir = path.join(
-  process.cwd(),
-  "scripts/tests/outputs/rajas_herrero",
-);
+const outputDir = fromRoot("scripts/tests/outputs/rajas_herrero");
 
 // crear carpeta si no existe
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-fs.writeFileSync(path.join(outputDir, nombreArchivo), filas.join("\n"));
+fs.writeFileSync(
+  fromRoot("scripts/tests/outputs/rajas_herrero", nombreArchivo),
+  JSON.stringify(resultados, null, 2),
+);
 
-console.log(`\n✅ CSV generado: ${nombreArchivo}`);
+console.log(`\n✅ JSON generado: ${nombreArchivo}`);

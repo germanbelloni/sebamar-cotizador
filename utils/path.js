@@ -1,6 +1,7 @@
 const path = require("path");
 
-const root = process.cwd();
+// 🔥 ROOT REAL DEL PROYECTO (ajustá si hace falta)
+const root = path.resolve(__dirname, "..");
 
 module.exports = {
   root,

@@ -1,84 +1,96 @@
 const fs = require("fs");
-const path = require("path");
+
+// 🔧 PATH HELPER
+const { fromRoot } = require("../../../utils/path");
 
 // 📦 DATA
-const data = require(
-  path.join(process.cwd(), "frontend/data/productos/ventanas_herrero.json"),
-);
+const data = require(fromRoot("frontend/data/productos/ventanas_herrero.json"));
 
 // 🧠 SERVICE
 const calcularVentana = require(
-  path.join(process.cwd(), "services/ventanas/calcularventana.js"),
+  fromRoot("services/ventanas/calcularventana.js"),
 );
 
 // 🎯 VARIABLES
 const colores = ["blanco", "negro", "bronce", "simil madera"];
-const guias = [false, true];
 
-// 📄 CSV
-let filas = [];
+// 📦 RESULTADO FINAL
+let resultados = [];
 
 colores.forEach((color) => {
-  console.log(`\n🎨 COLOR: ${color.toUpperCase()}\n`);
-
-  // 🔹 TÍTULO DE BLOQUE
-  filas.push(`COLOR: ${color.toUpperCase()}`);
-  filas.push("medida;vidrio_entero;guia;mosquitero");
-
   Object.keys(data.medidas).forEach((medida) => {
     try {
-      const base = calcularVentana({
+      const baseResult = calcularVentana({
         medida,
         color,
         incluirGuia: false,
         incluirMosquitero: false,
-      }).total;
+        linea: "herrero",
+      });
 
-      const totalConGuia = calcularVentana({
+      const guiaResult = calcularVentana({
         medida,
         color,
         incluirGuia: true,
         incluirMosquitero: false,
-      }).total;
+        linea: "herrero",
+      });
 
-      const totalConMosq = calcularVentana({
+      const mosqResult = calcularVentana({
         medida,
         color,
         incluirGuia: false,
         incluirMosquitero: true,
-      }).total;
+        linea: "herrero",
+      });
 
-      // 🔥 VALORES PUROS
+      const base = baseResult.total;
+      const totalConGuia = guiaResult.total;
+      const totalConMosq = mosqResult.total;
+
       const guia = totalConGuia - base;
       const mosq = totalConMosq - base;
 
-      filas.push(`${medida};${base};${guia};${mosq}`);
+      resultados.push({
+        input: {
+          medida,
+          color,
+          linea: "herrero",
+        },
+        output: {
+          base,
+          guia,
+          mosquitero: mosq,
+          totalConGuia,
+          totalConMosq,
+        },
+      });
 
-      console.log(`✔ ${medida} → base:${base} guia:${guia} mosq:${mosq}`);
+      console.log(
+        `✔ ${medida} (${color}) → base:${base} guia:${guia} mosq:${mosq}`,
+      );
     } catch (error) {
-      filas.push(`${medida};ERROR;ERROR;ERROR`);
+      resultados.push({
+        input: {
+          medida,
+          color,
+          linea: "herrero",
+        },
+        error: error.message,
+      });
 
       console.log(`❌ ERROR → medida:${medida} color:${color}`);
-
       console.log("   👉", error.message);
     }
   });
-
-  // 🔹 ESPACIO ENTRE COLORES
-  filas.push("");
-  filas.push("");
 });
 
-// 💾 GUARDAR CSV
-const nombreArchivo = `output_ventana_herrero_${Date.now()}.csv`;
+// 💾 GUARDAR JSON
+const nombreArchivo = `output_ventana_herrero_${Date.now()}.json`;
 
 fs.writeFileSync(
-  path.join(
-    process.cwd(),
-    "scripts/tests/outputs/ventana_herrero",
-    nombreArchivo,
-  ),
-  filas.join("\n"),
+  fromRoot("scripts/tests/outputs/ventana_herrero", nombreArchivo),
+  JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ CSV generado: ${nombreArchivo}`);
+console.log(`\n✅ JSON generado: ${nombreArchivo}`);

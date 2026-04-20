@@ -1,30 +1,29 @@
 const fs = require("fs");
-const path = require("path");
+
+// 🔧 PATH HELPER
+const { fromRoot } = require("../../../utils/path");
 
 // 🧠 SERVICE
 const calcularVentana = require(
-  path.join(process.cwd(), "services/ventanas/calcularventana.js"),
+  fromRoot("services/ventanas/calcularventana.js"),
 );
 
 // 📦 DATA
-const data = require(
-  path.join(process.cwd(), "frontend/data/productos/ventanas_modena.json"),
-);
+const data = require(fromRoot("frontend/data/productos/ventanas_modena.json"));
 
 const medidas = Object.keys(data.medidas);
 
-// 📄 CSV
-let filas = [];
-
-// encabezado
-filas.push("medida;3mm;4mm;5mm;3+3;guia;mosq;dvh");
+// 📦 RESULTADO FINAL
+let resultados = [];
 
 medidas.forEach((medida) => {
   try {
-    // 🔹 VIDRIOS
+    const color = "blanco"; // fijamos para consistencia
+
+    // 🔹 VIDRIOS (BASES)
     const v3 = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "3mm",
       incluirGuia: false,
       incluirMosquitero: false,
@@ -33,7 +32,7 @@ medidas.forEach((medida) => {
 
     const v4 = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "4mm",
       incluirGuia: false,
       incluirMosquitero: false,
@@ -42,7 +41,7 @@ medidas.forEach((medida) => {
 
     const v5 = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "5mm",
       incluirGuia: false,
       incluirMosquitero: false,
@@ -51,20 +50,20 @@ medidas.forEach((medida) => {
 
     const v33 = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "3+3",
       incluirGuia: false,
       incluirMosquitero: false,
       linea: "modena",
     }).total;
 
-    // 🔹 BASE PARA RESTAR
+    // 🔹 BASE REFERENCIA (IMPORTANTE)
     const base = v3;
 
-    // 🔹 GUIA (solo valor)
+    // 🔹 GUIA (aislada correctamente)
     const totalConGuia = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "3mm",
       incluirGuia: true,
       incluirMosquitero: false,
@@ -73,10 +72,10 @@ medidas.forEach((medida) => {
 
     const guia = totalConGuia - base;
 
-    // 🔹 MOSQUITER0 (solo valor)
+    // 🔹 MOSQUITER0 (aislado correctamente)
     const totalConMosq = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "3mm",
       incluirGuia: false,
       incluirMosquitero: true,
@@ -88,32 +87,56 @@ medidas.forEach((medida) => {
     // 🔹 DVH
     const dvh = calcularVentana({
       medida,
-      color: "blanco",
+      color,
       tipoVidrio: "dvh",
       incluirGuia: false,
       incluirMosquitero: false,
       linea: "modena",
     }).total;
 
-    filas.push(`${medida};${v3};${v4};${v5};${v33};${guia};${mosq};${dvh}`);
+    resultados.push({
+      input: {
+        medida,
+        color,
+        linea: "modena",
+      },
+      output: {
+        vidrios: {
+          "3mm": v3,
+          "4mm": v4,
+          "5mm": v5,
+          "3+3": v33,
+          dvh,
+        },
+        adicionales: {
+          guia,
+          mosquitero: mosq,
+        },
+      },
+    });
 
-    console.log(`✔ ${medida}`);
+    console.log(`✔ ${medida} → 3mm:${v3} guia:${guia} mosq:${mosq} dvh:${dvh}`);
   } catch (err) {
-    filas.push(`${medida};ERROR;ERROR;ERROR;ERROR;ERROR;ERROR;ERROR`);
+    resultados.push({
+      input: {
+        medida,
+        color: "blanco",
+        linea: "modena",
+      },
+      error: err.message,
+    });
+
     console.log(`❌ ERROR ${medida}`);
+    console.log("   👉", err.message);
   }
 });
 
-// 💾 GUARDAR
-const nombreArchivo = `output_modena_${Date.now()}.csv`;
+// 💾 GUARDAR JSON
+const nombreArchivo = `output_modena_${Date.now()}.json`;
 
 fs.writeFileSync(
-  path.join(
-    process.cwd(),
-    "scripts/tests/outputs/ventana_modena",
-    nombreArchivo,
-  ),
-  filas.join("\n"),
+  fromRoot("scripts/tests/outputs/ventana_modena", nombreArchivo),
+  JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ CSV generado: ${nombreArchivo}`);
+console.log(`\n✅ JSON generado: ${nombreArchivo}`);

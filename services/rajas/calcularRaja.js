@@ -1,8 +1,8 @@
 const fs = require("fs");
-const path = require("path");
 const { fromRoot } = require("../../utils/path");
+
 const colores = require(fromRoot("frontend/data/colores.json"));
-const perfiles = require("../../config/perfiles");
+const perfiles = require(fromRoot("config/perfiles"));
 
 function getColorValor(color) {
   const c = colores.find(
@@ -24,7 +24,6 @@ function calcularRaja(dataInput) {
   const perfilData = perfiles[perfil]?.[linea] || perfiles["amarilla"][linea];
 
   const filePath = fromRoot(`frontend/data/productos/rajas_${linea}.json`);
-
   const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
   const datos = data.medidas?.[medida];
@@ -36,13 +35,8 @@ function calcularRaja(dataInput) {
   const base = datos.base || 0;
   let vidrio = datos.vidrios?.[tipoVidrio] || 0;
 
-  // 👉 soporte DVH
+  // ✅ DVH / extras (UNA sola vez)
   vidrio += extraVidrio;
-
-  // 👉 para DVH
-  if (dataInput.extraVidrio) {
-    vidrio += dataInput.extraVidrio;
-  }
 
   const colorValor = getColorValor(color);
   const baseColor = base * (1 + colorValor);

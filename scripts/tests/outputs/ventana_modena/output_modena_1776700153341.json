@@ -1,0 +1,1082 @@
+[
+  {
+    "input": {
+      "medida": "60x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 104221,
+        "4mm": 104827,
+        "5mm": 105924,
+        "3+3": 115645,
+        "dvh": 154579
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 15840
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "80x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 115057,
+        "4mm": 115904,
+        "5mm": 117445,
+        "3+3": 131057,
+        "dvh": 173654
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 18560
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 127398,
+        "4mm": 128495,
+        "5mm": 130466,
+        "3+3": 147968,
+        "dvh": 194249
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 21280
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 139761,
+        "4mm": 141087,
+        "5mm": 143502,
+        "3+3": 164885,
+        "dvh": 214841
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 24000
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 160535,
+        "4mm": 162230,
+        "5mm": 165305,
+        "3+3": 192526,
+        "dvh": 247975
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 28080
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 181985,
+        "4mm": 184037,
+        "5mm": 187771,
+        "3+3": 220831,
+        "dvh": 281779
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 32160
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x40",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 202768,
+        "4mm": 205069,
+        "5mm": 209233,
+        "3+3": 246192,
+        "dvh": 310817
+      },
+      "adicionales": {
+        "guia": 6146,
+        "mosquitero": 34880
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "60x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 119068,
+        "4mm": 120071,
+        "5mm": 121908,
+        "3+3": 138110,
+        "dvh": 185356
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 20880
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "80x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 130703,
+        "4mm": 132117,
+        "5mm": 134680,
+        "3+3": 157362,
+        "dvh": 206328
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 24000
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 143940,
+        "4mm": 145750,
+        "5mm": 149047,
+        "3+3": 178217,
+        "dvh": 228880
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 27120
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 157058,
+        "4mm": 159277,
+        "5mm": 163302,
+        "3+3": 198953,
+        "dvh": 251334
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 30240
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 178994,
+        "4mm": 181813,
+        "5mm": 186933,
+        "3+3": 232314,
+        "dvh": 287255
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 34920
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 200934,
+        "4mm": 204358,
+        "5mm": 210581,
+        "3+3": 265676,
+        "dvh": 323184
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 39600
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 223125,
+        "4mm": 226954,
+        "5mm": 233911,
+        "3+3": 295492,
+        "dvh": 354700
+      },
+      "adicionales": {
+        "guia": 9219,
+        "mosquitero": 42720
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x80",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 160476,
+        "4mm": 163012,
+        "5mm": 167627,
+        "3+3": 208468,
+        "dvh": 263526
+      },
+      "adicionales": {
+        "guia": 12293,
+        "mosquitero": 32960
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x80",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 174352,
+        "4mm": 177454,
+        "5mm": 183092,
+        "3+3": 233004,
+        "dvh": 287816
+      },
+      "adicionales": {
+        "guia": 12293,
+        "mosquitero": 36480
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x80",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 197434,
+        "4mm": 201382,
+        "5mm": 208562,
+        "3+3": 272085,
+        "dvh": 326513
+      },
+      "adicionales": {
+        "guia": 12293,
+        "mosquitero": 41760
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x80",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 220515,
+        "4mm": 225305,
+        "5mm": 234025,
+        "3+3": 311159,
+        "dvh": 365207
+      },
+      "adicionales": {
+        "guia": 12293,
+        "mosquitero": 47040
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x80",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 243644,
+        "4mm": 249006,
+        "5mm": 258742,
+        "3+3": 344955,
+        "dvh": 398756
+      },
+      "adicionales": {
+        "guia": 12293,
+        "mosquitero": 50560
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 175536,
+        "4mm": 178807,
+        "5mm": 184734,
+        "3+3": 237245,
+        "dvh": 296711
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 38800
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 189187,
+        "4mm": 193177,
+        "5mm": 200423,
+        "3+3": 264596,
+        "dvh": 321850
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 42720
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 213405,
+        "4mm": 218485,
+        "5mm": 227709,
+        "3+3": 309383,
+        "dvh": 363314
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 48600
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 237614,
+        "4mm": 243785,
+        "5mm": 252248,
+        "3+3": 354161,
+        "dvh": 404769
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 54480
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 259650,
+        "4mm": 266540,
+        "5mm": 277319,
+        "3+3": 389906,
+        "dvh": 438294
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 58400
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 277300,
+        "4mm": 284916,
+        "5mm": 298755,
+        "3+3": 421270,
+        "dvh": 467442
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 62320
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 295781,
+        "4mm": 304124,
+        "5mm": 319282,
+        "3+3": 453460,
+        "dvh": 497418
+      },
+      "adicionales": {
+        "guia": 15365,
+        "mosquitero": 66240
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 180983,
+        "4mm": 184610,
+        "5mm": 191197,
+        "3+3": 249539,
+        "dvh": 311204
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 41720
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 197287,
+        "4mm": 201720,
+        "5mm": 209774,
+        "3+3": 281076,
+        "dvh": 339541
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 45840
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 225342,
+        "4mm": 230987,
+        "5mm": 241235,
+        "3+3": 331988,
+        "dvh": 385664
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 52021
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 245598,
+        "4mm": 252448,
+        "5mm": 264888,
+        "3+3": 375082,
+        "dvh": 423974
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 58200
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 293132,
+        "4mm": 301596,
+        "5mm": 316970,
+        "3+3": 453096,
+        "dvh": 495584
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 66440
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 315770,
+        "4mm": 325042,
+        "5mm": 341882,
+        "3+3": 490970,
+        "dvh": 530265
+      },
+      "adicionales": {
+        "guia": 16901,
+        "mosquitero": 70560
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 192071,
+        "4mm": 196060,
+        "5mm": 203306,
+        "3+3": 267479,
+        "dvh": 331346
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 44640
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 207460,
+        "4mm": 212337,
+        "5mm": 217848,
+        "3+3": 299632,
+        "dvh": 359316
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 48960
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 234350,
+        "4mm": 240553,
+        "5mm": 251829,
+        "3+3": 351653,
+        "dvh": 405072
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 55440
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 258197,
+        "4mm": 265740,
+        "5mm": 279424,
+        "3+3": 400640,
+        "dvh": 447809
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 61920
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 282691,
+        "4mm": 291115,
+        "5mm": 306415,
+        "3+3": 441892,
+        "dvh": 484873
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 66240
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 307714,
+        "4mm": 317026,
+        "5mm": 333935,
+        "3+3": 483671,
+        "dvh": 522484
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 70560
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 328669,
+        "4mm": 338862,
+        "5mm": 357384,
+        "3+3": 521383,
+        "dvh": 556013
+      },
+      "adicionales": {
+        "guia": 18438,
+        "mosquitero": 74880
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 210817,
+        "4mm": 215897,
+        "5mm": 225122,
+        "3+3": 306796,
+        "dvh": 377257
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 53400
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 227366,
+        "4mm": 233568,
+        "5mm": 244845,
+        "3+3": 344669,
+        "dvh": 408006
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 58320
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 257470,
+        "4mm": 265376,
+        "5mm": 279720,
+        "3+3": 406775,
+        "dvh": 459441
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 65701
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 281526,
+        "4mm": 291113,
+        "5mm": 308540,
+        "3+3": 462815,
+        "dvh": 504792
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 73080
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 307165,
+        "4mm": 311155,
+        "5mm": 337360,
+        "3+3": 509797,
+        "dvh": 531192
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 78000
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 335416,
+        "4mm": 347270,
+        "5mm": 368794,
+        "3+3": 559364,
+        "dvh": 587118
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 82920
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 355013,
+        "4mm": 367985,
+        "5mm": 391560,
+        "3+3": 600290,
+        "dvh": 620911
+      },
+      "adicionales": {
+        "guia": 23048,
+        "mosquitero": 87840
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 280275,
+        "4mm": 287165,
+        "5mm": 299686,
+        "3+3": 410523,
+        "dvh": 491982
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 68000
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 306929,
+        "4mm": 315352,
+        "5mm": 330653,
+        "3+3": 466129,
+        "dvh": 535561
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 73920
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 342893,
+        "4mm": 350939,
+        "5mm": 370416,
+        "3+3": 542845,
+        "dvh": 594235
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 82800
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 373671,
+        "4mm": 383447,
+        "5mm": 407090,
+        "3+3": 616468,
+        "dvh": 649833
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 91680
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 408045,
+        "4mm": 418971,
+        "5mm": 445399,
+        "3+3": 679402,
+        "dvh": 700750
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 97600
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 432559,
+        "4mm": 444637,
+        "5mm": 473843,
+        "3+3": 732476,
+        "dvh": 741809
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 103520
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 462239,
+        "4mm": 475467,
+        "5mm": 507451,
+        "3+3": 790724,
+        "dvh": 788030
+      },
+      "adicionales": {
+        "guia": 30730,
+        "mosquitero": 109440
+      }
+    }
+  },
+  {
+    "input": {
+      "medida": "240x205",
+      "color": "blanco",
+      "linea": "modena"
+    },
+    "output": {
+      "vidrios": {
+        "3mm": 485351,
+        "4mm": 499240,
+        "5mm": 532824,
+        "3+3": 830260,
+        "dvh": 827432
+      },
+      "adicionales": {
+        "guia": 32266,
+        "mosquitero": 114912
+      }
+    }
+  }
+]
