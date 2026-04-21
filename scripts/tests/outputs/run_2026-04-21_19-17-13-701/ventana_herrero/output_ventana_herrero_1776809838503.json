@@ -1,0 +1,3026 @@
+[
+  {
+    "input": {
+      "medida": "60x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 32473,
+      "guia": 8111,
+      "mosquitero": 13431,
+      "totalConGuia": 40584,
+      "totalConMosq": 45904
+    }
+  },
+  {
+    "input": {
+      "medida": "80x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 40352,
+      "guia": 8111,
+      "mosquitero": 15072,
+      "totalConGuia": 48463,
+      "totalConMosq": 55424
+    }
+  },
+  {
+    "input": {
+      "medida": "100x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 44291,
+      "guia": 8111,
+      "mosquitero": 17281,
+      "totalConGuia": 52402,
+      "totalConMosq": 61572
+    }
+  },
+  {
+    "input": {
+      "medida": "120x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 49557,
+      "guia": 8111,
+      "mosquitero": 19489,
+      "totalConGuia": 57668,
+      "totalConMosq": 69046
+    }
+  },
+  {
+    "input": {
+      "medida": "150x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 58080,
+      "guia": 8111,
+      "mosquitero": 22803,
+      "totalConGuia": 66191,
+      "totalConMosq": 80883
+    }
+  },
+  {
+    "input": {
+      "medida": "180x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 65309,
+      "guia": 8111,
+      "mosquitero": 26115,
+      "totalConGuia": 73420,
+      "totalConMosq": 91424
+    }
+  },
+  {
+    "input": {
+      "medida": "200x40",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 72531,
+      "guia": 8111,
+      "mosquitero": 28323,
+      "totalConGuia": 80642,
+      "totalConMosq": 100854
+    }
+  },
+  {
+    "input": {
+      "medida": "60x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 40078,
+      "guia": 12165,
+      "mosquitero": 16956,
+      "totalConGuia": 52243,
+      "totalConMosq": 57034
+    }
+  },
+  {
+    "input": {
+      "medida": "80x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 49379,
+      "guia": 12165,
+      "mosquitero": 19489,
+      "totalConGuia": 61544,
+      "totalConMosq": 68868
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 54909,
+      "guia": 12165,
+      "mosquitero": 22023,
+      "totalConGuia": 67074,
+      "totalConMosq": 76932
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 60766,
+      "guia": 12165,
+      "mosquitero": 24557,
+      "totalConGuia": 72931,
+      "totalConMosq": 85323
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 70459,
+      "guia": 12166,
+      "mosquitero": 28356,
+      "totalConGuia": 82625,
+      "totalConMosq": 98815
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 78835,
+      "guia": 12165,
+      "mosquitero": 32156,
+      "totalConGuia": 91000,
+      "totalConMosq": 110991
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 89741,
+      "guia": 12165,
+      "mosquitero": 34690,
+      "totalConGuia": 101906,
+      "totalConMosq": 124431
+    }
+  },
+  {
+    "input": {
+      "medida": "100x80",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 67827,
+      "guia": 16220,
+      "mosquitero": 26765,
+      "totalConGuia": 84047,
+      "totalConMosq": 94592
+    }
+  },
+  {
+    "input": {
+      "medida": "120x80",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 73963,
+      "guia": 16221,
+      "mosquitero": 29623,
+      "totalConGuia": 90184,
+      "totalConMosq": 103586
+    }
+  },
+  {
+    "input": {
+      "medida": "150x80",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 84801,
+      "guia": 16221,
+      "mosquitero": 33911,
+      "totalConGuia": 101022,
+      "totalConMosq": 118712
+    }
+  },
+  {
+    "input": {
+      "medida": "180x80",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 93677,
+      "guia": 16221,
+      "mosquitero": 38198,
+      "totalConGuia": 109898,
+      "totalConMosq": 131875
+    }
+  },
+  {
+    "input": {
+      "medida": "200x80",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 105716,
+      "guia": 16220,
+      "mosquitero": 41057,
+      "totalConGuia": 121936,
+      "totalConMosq": 146773
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 78267,
+      "guia": 20274,
+      "mosquitero": 31507,
+      "totalConGuia": 98541,
+      "totalConMosq": 109774
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 84908,
+      "guia": 20275,
+      "mosquitero": 34690,
+      "totalConGuia": 105183,
+      "totalConMosq": 119598
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 97162,
+      "guia": 20275,
+      "mosquitero": 39465,
+      "totalConGuia": 117437,
+      "totalConMosq": 136627
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 107179,
+      "guia": 20275,
+      "mosquitero": 44240,
+      "totalConGuia": 127454,
+      "totalConMosq": 151419
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 119998,
+      "guia": 20275,
+      "mosquitero": 47424,
+      "totalConGuia": 140273,
+      "totalConMosq": 167422
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 126241,
+      "guia": 20275,
+      "mosquitero": 50606,
+      "totalConGuia": 146516,
+      "totalConMosq": 176847
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 133794,
+      "guia": 20275,
+      "mosquitero": 53790,
+      "totalConGuia": 154069,
+      "totalConMosq": 187584
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 84165,
+      "guia": 22302,
+      "mosquitero": 33878,
+      "totalConGuia": 106467,
+      "totalConMosq": 118043
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 92098,
+      "guia": 22303,
+      "mosquitero": 37225,
+      "totalConGuia": 114401,
+      "totalConMosq": 129323
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 104732,
+      "guia": 22303,
+      "mosquitero": 42244,
+      "totalConGuia": 127035,
+      "totalConMosq": 146976
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 115991,
+      "guia": 22302,
+      "mosquitero": 47260,
+      "totalConGuia": 138293,
+      "totalConMosq": 163251
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 135979,
+      "guia": 22303,
+      "mosquitero": 57298,
+      "totalConGuia": 158282,
+      "totalConMosq": 193277
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 139819,
+      "guia": 22302,
+      "mosquitero": 57298,
+      "totalConGuia": 162121,
+      "totalConMosq": 197117
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 88795,
+      "guia": 24330,
+      "mosquitero": 36249,
+      "totalConGuia": 113125,
+      "totalConMosq": 125044
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 97116,
+      "guia": 24331,
+      "mosquitero": 39758,
+      "totalConGuia": 121447,
+      "totalConMosq": 136874
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 110262,
+      "guia": 24331,
+      "mosquitero": 45020,
+      "totalConGuia": 134593,
+      "totalConMosq": 155282
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 122089,
+      "guia": 24330,
+      "mosquitero": 50281,
+      "totalConGuia": 146419,
+      "totalConMosq": 172370
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 134302,
+      "guia": 24331,
+      "mosquitero": 53791,
+      "totalConGuia": 158633,
+      "totalConMosq": 188093
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 142686,
+      "guia": 24330,
+      "mosquitero": 57298,
+      "totalConGuia": 167016,
+      "totalConMosq": 199984
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 149363,
+      "guia": 24331,
+      "mosquitero": 60806,
+      "totalConGuia": 173694,
+      "totalConMosq": 210169
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 103750,
+      "guia": 30414,
+      "mosquitero": 43364,
+      "totalConGuia": 134164,
+      "totalConMosq": 147114
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 113228,
+      "guia": 30413,
+      "mosquitero": 47358,
+      "totalConGuia": 143641,
+      "totalConMosq": 160586
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 128097,
+      "guia": 30413,
+      "mosquitero": 53350,
+      "totalConGuia": 158510,
+      "totalConMosq": 181447
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 140344,
+      "guia": 30413,
+      "mosquitero": 59344,
+      "totalConGuia": 170757,
+      "totalConMosq": 199688
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 154677,
+      "guia": 30413,
+      "mosquitero": 63339,
+      "totalConGuia": 185090,
+      "totalConMosq": 218016
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 163235,
+      "guia": 30414,
+      "mosquitero": 67334,
+      "totalConGuia": 193649,
+      "totalConMosq": 230569
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 172719,
+      "guia": 30413,
+      "mosquitero": 71330,
+      "totalConGuia": 203132,
+      "totalConMosq": 244049
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 135174,
+      "guia": 40551,
+      "mosquitero": 55219,
+      "totalConGuia": 175725,
+      "totalConMosq": 190393
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 149710,
+      "guia": 40550,
+      "mosquitero": 60025,
+      "totalConGuia": 190260,
+      "totalConMosq": 209735
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 173826,
+      "guia": 40551,
+      "mosquitero": 67238,
+      "totalConGuia": 214377,
+      "totalConMosq": 241064
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 194059,
+      "guia": 40551,
+      "mosquitero": 74449,
+      "totalConGuia": 234610,
+      "totalConMosq": 268508
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 210058,
+      "guia": 40550,
+      "mosquitero": 79255,
+      "totalConGuia": 250608,
+      "totalConMosq": 289313
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 225973,
+      "guia": 40551,
+      "mosquitero": 84064,
+      "totalConGuia": 266524,
+      "totalConMosq": 310037
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 239311,
+      "guia": 40551,
+      "mosquitero": 88871,
+      "totalConGuia": 279862,
+      "totalConMosq": 328182
+    }
+  },
+  {
+    "input": {
+      "medida": "240x205",
+      "color": "blanco",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 251277,
+      "guia": 42578,
+      "mosquitero": 93313,
+      "totalConGuia": 293855,
+      "totalConMosq": 344590
+    }
+  },
+  {
+    "input": {
+      "medida": "60x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 42215,
+      "guia": 10545,
+      "mosquitero": 17460,
+      "totalConGuia": 52760,
+      "totalConMosq": 59675
+    }
+  },
+  {
+    "input": {
+      "medida": "80x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 52458,
+      "guia": 10544,
+      "mosquitero": 19593,
+      "totalConGuia": 63002,
+      "totalConMosq": 72051
+    }
+  },
+  {
+    "input": {
+      "medida": "100x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 57579,
+      "guia": 10544,
+      "mosquitero": 22464,
+      "totalConGuia": 68123,
+      "totalConMosq": 80043
+    }
+  },
+  {
+    "input": {
+      "medida": "120x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 64424,
+      "guia": 10544,
+      "mosquitero": 25336,
+      "totalConGuia": 74968,
+      "totalConMosq": 89760
+    }
+  },
+  {
+    "input": {
+      "medida": "150x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 75504,
+      "guia": 10544,
+      "mosquitero": 29644,
+      "totalConGuia": 86048,
+      "totalConMosq": 105148
+    }
+  },
+  {
+    "input": {
+      "medida": "180x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 84902,
+      "guia": 10544,
+      "mosquitero": 33949,
+      "totalConGuia": 95446,
+      "totalConMosq": 118851
+    }
+  },
+  {
+    "input": {
+      "medida": "200x40",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 94290,
+      "guia": 10544,
+      "mosquitero": 36821,
+      "totalConGuia": 104834,
+      "totalConMosq": 131111
+    }
+  },
+  {
+    "input": {
+      "medida": "60x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 52102,
+      "guia": 15814,
+      "mosquitero": 22042,
+      "totalConGuia": 67916,
+      "totalConMosq": 74144
+    }
+  },
+  {
+    "input": {
+      "medida": "80x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 64192,
+      "guia": 15815,
+      "mosquitero": 25336,
+      "totalConGuia": 80007,
+      "totalConMosq": 89528
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 71381,
+      "guia": 15815,
+      "mosquitero": 28630,
+      "totalConGuia": 87196,
+      "totalConMosq": 100011
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 78996,
+      "guia": 15815,
+      "mosquitero": 31924,
+      "totalConGuia": 94811,
+      "totalConMosq": 110920
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 91597,
+      "guia": 15815,
+      "mosquitero": 36863,
+      "totalConGuia": 107412,
+      "totalConMosq": 128460
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 102485,
+      "guia": 15815,
+      "mosquitero": 41804,
+      "totalConGuia": 118300,
+      "totalConMosq": 144289
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 116663,
+      "guia": 15815,
+      "mosquitero": 45098,
+      "totalConGuia": 132478,
+      "totalConMosq": 161761
+    }
+  },
+  {
+    "input": {
+      "medida": "100x80",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 88174,
+      "guia": 21087,
+      "mosquitero": 34796,
+      "totalConGuia": 109261,
+      "totalConMosq": 122970
+    }
+  },
+  {
+    "input": {
+      "medida": "120x80",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 96152,
+      "guia": 21087,
+      "mosquitero": 38510,
+      "totalConGuia": 117239,
+      "totalConMosq": 134662
+    }
+  },
+  {
+    "input": {
+      "medida": "150x80",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 110242,
+      "guia": 21086,
+      "mosquitero": 44083,
+      "totalConGuia": 131328,
+      "totalConMosq": 154325
+    }
+  },
+  {
+    "input": {
+      "medida": "180x80",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 121780,
+      "guia": 21087,
+      "mosquitero": 49658,
+      "totalConGuia": 142867,
+      "totalConMosq": 171438
+    }
+  },
+  {
+    "input": {
+      "medida": "200x80",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 137431,
+      "guia": 21086,
+      "mosquitero": 53374,
+      "totalConGuia": 158517,
+      "totalConMosq": 190805
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 101747,
+      "guia": 26357,
+      "mosquitero": 40960,
+      "totalConGuia": 128104,
+      "totalConMosq": 142707
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 110380,
+      "guia": 26357,
+      "mosquitero": 45098,
+      "totalConGuia": 136737,
+      "totalConMosq": 155478
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 126311,
+      "guia": 26357,
+      "mosquitero": 51304,
+      "totalConGuia": 152668,
+      "totalConMosq": 177615
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 139333,
+      "guia": 26357,
+      "mosquitero": 57512,
+      "totalConGuia": 165690,
+      "totalConMosq": 196845
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 155997,
+      "guia": 26358,
+      "mosquitero": 61651,
+      "totalConGuia": 182355,
+      "totalConMosq": 217648
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 164114,
+      "guia": 26357,
+      "mosquitero": 65788,
+      "totalConGuia": 190471,
+      "totalConMosq": 229902
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 173932,
+      "guia": 26357,
+      "mosquitero": 69928,
+      "totalConGuia": 200289,
+      "totalConMosq": 243860
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 109414,
+      "guia": 28994,
+      "mosquitero": 44042,
+      "totalConGuia": 138408,
+      "totalConMosq": 153456
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 119728,
+      "guia": 28993,
+      "mosquitero": 48392,
+      "totalConGuia": 148721,
+      "totalConMosq": 168120
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 136152,
+      "guia": 28993,
+      "mosquitero": 54916,
+      "totalConGuia": 165145,
+      "totalConMosq": 191068
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 150788,
+      "guia": 28994,
+      "mosquitero": 61439,
+      "totalConGuia": 179782,
+      "totalConMosq": 212227
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 176773,
+      "guia": 28993,
+      "mosquitero": 74487,
+      "totalConGuia": 205766,
+      "totalConMosq": 251260
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 181765,
+      "guia": 28993,
+      "mosquitero": 74487,
+      "totalConGuia": 210758,
+      "totalConMosq": 256252
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 115433,
+      "guia": 31629,
+      "mosquitero": 47124,
+      "totalConGuia": 147062,
+      "totalConMosq": 162557
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 126251,
+      "guia": 31630,
+      "mosquitero": 51686,
+      "totalConGuia": 157881,
+      "totalConMosq": 177937
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 143341,
+      "guia": 31630,
+      "mosquitero": 58526,
+      "totalConGuia": 174971,
+      "totalConMosq": 201867
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 158716,
+      "guia": 31629,
+      "mosquitero": 65365,
+      "totalConGuia": 190345,
+      "totalConMosq": 224081
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 174593,
+      "guia": 31630,
+      "mosquitero": 69928,
+      "totalConGuia": 206223,
+      "totalConMosq": 244521
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 185492,
+      "guia": 31629,
+      "mosquitero": 74488,
+      "totalConGuia": 217121,
+      "totalConMosq": 259980
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 194173,
+      "guia": 31629,
+      "mosquitero": 79047,
+      "totalConGuia": 225802,
+      "totalConMosq": 273220
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 134875,
+      "guia": 39538,
+      "mosquitero": 56373,
+      "totalConGuia": 174413,
+      "totalConMosq": 191248
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 147196,
+      "guia": 39538,
+      "mosquitero": 61566,
+      "totalConGuia": 186734,
+      "totalConMosq": 208762
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 166525,
+      "guia": 39538,
+      "mosquitero": 69356,
+      "totalConGuia": 206063,
+      "totalConMosq": 235881
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 182447,
+      "guia": 39537,
+      "mosquitero": 77148,
+      "totalConGuia": 221984,
+      "totalConMosq": 259595
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 201079,
+      "guia": 39538,
+      "mosquitero": 82342,
+      "totalConGuia": 240617,
+      "totalConMosq": 283421
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 212206,
+      "guia": 39537,
+      "mosquitero": 87534,
+      "totalConGuia": 251743,
+      "totalConMosq": 299740
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 224535,
+      "guia": 39537,
+      "mosquitero": 92729,
+      "totalConGuia": 264072,
+      "totalConMosq": 317264
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 175727,
+      "guia": 52716,
+      "mosquitero": 71784,
+      "totalConGuia": 228443,
+      "totalConMosq": 247511
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 194622,
+      "guia": 52716,
+      "mosquitero": 78034,
+      "totalConGuia": 247338,
+      "totalConMosq": 272656
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 225974,
+      "guia": 52716,
+      "mosquitero": 87410,
+      "totalConGuia": 278690,
+      "totalConMosq": 313384
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 252277,
+      "guia": 52716,
+      "mosquitero": 96783,
+      "totalConGuia": 304993,
+      "totalConMosq": 349060
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 273075,
+      "guia": 52716,
+      "mosquitero": 103032,
+      "totalConGuia": 325791,
+      "totalConMosq": 376107
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 293765,
+      "guia": 52716,
+      "mosquitero": 109283,
+      "totalConGuia": 346481,
+      "totalConMosq": 403048
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 311105,
+      "guia": 52716,
+      "mosquitero": 115531,
+      "totalConGuia": 363821,
+      "totalConMosq": 426636
+    }
+  },
+  {
+    "input": {
+      "medida": "240x205",
+      "color": "negro",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 326660,
+      "guia": 55352,
+      "mosquitero": 121307,
+      "totalConGuia": 382012,
+      "totalConMosq": 447967
+    }
+  },
+  {
+    "input": {
+      "medida": "60x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 47086,
+      "guia": 11761,
+      "mosquitero": 19475,
+      "totalConGuia": 58847,
+      "totalConMosq": 66561
+    }
+  },
+  {
+    "input": {
+      "medida": "80x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 58511,
+      "guia": 11761,
+      "mosquitero": 21854,
+      "totalConGuia": 70272,
+      "totalConMosq": 80365
+    }
+  },
+  {
+    "input": {
+      "medida": "100x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 64222,
+      "guia": 11761,
+      "mosquitero": 25057,
+      "totalConGuia": 75983,
+      "totalConMosq": 89279
+    }
+  },
+  {
+    "input": {
+      "medida": "120x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 71858,
+      "guia": 11761,
+      "mosquitero": 28259,
+      "totalConGuia": 83619,
+      "totalConMosq": 100117
+    }
+  },
+  {
+    "input": {
+      "medida": "150x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 84216,
+      "guia": 11761,
+      "mosquitero": 33064,
+      "totalConGuia": 95977,
+      "totalConMosq": 117280
+    }
+  },
+  {
+    "input": {
+      "medida": "180x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 94698,
+      "guia": 11761,
+      "mosquitero": 37867,
+      "totalConGuia": 106459,
+      "totalConMosq": 132565
+    }
+  },
+  {
+    "input": {
+      "medida": "200x40",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 105169,
+      "guia": 11761,
+      "mosquitero": 41070,
+      "totalConGuia": 116930,
+      "totalConMosq": 146239
+    }
+  },
+  {
+    "input": {
+      "medida": "60x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 58114,
+      "guia": 17639,
+      "mosquitero": 24585,
+      "totalConGuia": 75753,
+      "totalConMosq": 82699
+    }
+  },
+  {
+    "input": {
+      "medida": "80x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 71599,
+      "guia": 17639,
+      "mosquitero": 28259,
+      "totalConGuia": 89238,
+      "totalConMosq": 99858
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 79617,
+      "guia": 17640,
+      "mosquitero": 31934,
+      "totalConGuia": 97257,
+      "totalConMosq": 111551
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 88111,
+      "guia": 17639,
+      "mosquitero": 35607,
+      "totalConGuia": 105750,
+      "totalConMosq": 123718
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 102166,
+      "guia": 17640,
+      "mosquitero": 41116,
+      "totalConGuia": 119806,
+      "totalConMosq": 143282
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 114310,
+      "guia": 17640,
+      "mosquitero": 46627,
+      "totalConGuia": 131950,
+      "totalConMosq": 160937
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 130124,
+      "guia": 17640,
+      "mosquitero": 50301,
+      "totalConGuia": 147764,
+      "totalConMosq": 180425
+    }
+  },
+  {
+    "input": {
+      "medida": "100x80",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 98348,
+      "guia": 23520,
+      "mosquitero": 38810,
+      "totalConGuia": 121868,
+      "totalConMosq": 137158
+    }
+  },
+  {
+    "input": {
+      "medida": "120x80",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 107246,
+      "guia": 23520,
+      "mosquitero": 42954,
+      "totalConGuia": 130766,
+      "totalConMosq": 150200
+    }
+  },
+  {
+    "input": {
+      "medida": "150x80",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 122962,
+      "guia": 23520,
+      "mosquitero": 49170,
+      "totalConGuia": 146482,
+      "totalConMosq": 172132
+    }
+  },
+  {
+    "input": {
+      "medida": "180x80",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 135832,
+      "guia": 23520,
+      "mosquitero": 55387,
+      "totalConGuia": 159352,
+      "totalConMosq": 191219
+    }
+  },
+  {
+    "input": {
+      "medida": "200x80",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 153288,
+      "guia": 23520,
+      "mosquitero": 59533,
+      "totalConGuia": 176808,
+      "totalConMosq": 212821
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 113486,
+      "guia": 29399,
+      "mosquitero": 45687,
+      "totalConGuia": 142885,
+      "totalConMosq": 159173
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 123116,
+      "guia": 29399,
+      "mosquitero": 50302,
+      "totalConGuia": 152515,
+      "totalConMosq": 173418
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 140885,
+      "guia": 29399,
+      "mosquitero": 57225,
+      "totalConGuia": 170284,
+      "totalConMosq": 198110
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 155410,
+      "guia": 29398,
+      "mosquitero": 64148,
+      "totalConGuia": 184808,
+      "totalConMosq": 219558
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 173997,
+      "guia": 29399,
+      "mosquitero": 68765,
+      "totalConGuia": 203396,
+      "totalConMosq": 242762
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 183050,
+      "guia": 29398,
+      "mosquitero": 73379,
+      "totalConGuia": 212448,
+      "totalConMosq": 256429
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 194001,
+      "guia": 29399,
+      "mosquitero": 77996,
+      "totalConGuia": 223400,
+      "totalConMosq": 271997
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 122039,
+      "guia": 32339,
+      "mosquitero": 49124,
+      "totalConGuia": 154378,
+      "totalConMosq": 171163
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 133543,
+      "guia": 32338,
+      "mosquitero": 53975,
+      "totalConGuia": 165881,
+      "totalConMosq": 187518
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 151862,
+      "guia": 32339,
+      "mosquitero": 61253,
+      "totalConGuia": 184201,
+      "totalConMosq": 213115
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 168187,
+      "guia": 32339,
+      "mosquitero": 68527,
+      "totalConGuia": 200526,
+      "totalConMosq": 236714
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 197170,
+      "guia": 32339,
+      "mosquitero": 83082,
+      "totalConGuia": 229509,
+      "totalConMosq": 280252
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 202737,
+      "guia": 32339,
+      "mosquitero": 83083,
+      "totalConGuia": 235076,
+      "totalConMosq": 285820
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 128752,
+      "guia": 35279,
+      "mosquitero": 52561,
+      "totalConGuia": 164031,
+      "totalConMosq": 181313
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 140819,
+      "guia": 35279,
+      "mosquitero": 57649,
+      "totalConGuia": 176098,
+      "totalConMosq": 198468
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 159881,
+      "guia": 35278,
+      "mosquitero": 65278,
+      "totalConGuia": 195159,
+      "totalConMosq": 225159
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 177029,
+      "guia": 35279,
+      "mosquitero": 72908,
+      "totalConGuia": 212308,
+      "totalConMosq": 249937
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 194739,
+      "guia": 35278,
+      "mosquitero": 77996,
+      "totalConGuia": 230017,
+      "totalConMosq": 272735
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 206895,
+      "guia": 35279,
+      "mosquitero": 83082,
+      "totalConGuia": 242174,
+      "totalConMosq": 289977
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 216577,
+      "guia": 35279,
+      "mosquitero": 88168,
+      "totalConGuia": 251856,
+      "totalConMosq": 304745
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 150438,
+      "guia": 44099,
+      "mosquitero": 62877,
+      "totalConGuia": 194537,
+      "totalConMosq": 213315
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 164180,
+      "guia": 44100,
+      "mosquitero": 68670,
+      "totalConGuia": 208280,
+      "totalConMosq": 232850
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 185740,
+      "guia": 44099,
+      "mosquitero": 77359,
+      "totalConGuia": 229839,
+      "totalConMosq": 263099
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 203498,
+      "guia": 44100,
+      "mosquitero": 86050,
+      "totalConGuia": 247598,
+      "totalConMosq": 289548
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 224281,
+      "guia": 44099,
+      "mosquitero": 91842,
+      "totalConGuia": 268380,
+      "totalConMosq": 316123
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 236691,
+      "guia": 44099,
+      "mosquitero": 97634,
+      "totalConGuia": 280790,
+      "totalConMosq": 334325
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 250442,
+      "guia": 44100,
+      "mosquitero": 103429,
+      "totalConGuia": 294542,
+      "totalConMosq": 353871
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 196003,
+      "guia": 58799,
+      "mosquitero": 80067,
+      "totalConGuia": 254802,
+      "totalConMosq": 276070
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 217079,
+      "guia": 58798,
+      "mosquitero": 87037,
+      "totalConGuia": 275877,
+      "totalConMosq": 304116
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 252048,
+      "guia": 58799,
+      "mosquitero": 97495,
+      "totalConGuia": 310847,
+      "totalConMosq": 349543
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 281386,
+      "guia": 58798,
+      "mosquitero": 107950,
+      "totalConGuia": 340184,
+      "totalConMosq": 389336
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 304584,
+      "guia": 58798,
+      "mosquitero": 114920,
+      "totalConGuia": 363382,
+      "totalConMosq": 419504
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 327661,
+      "guia": 58799,
+      "mosquitero": 121892,
+      "totalConGuia": 386460,
+      "totalConMosq": 449553
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 347002,
+      "guia": 58798,
+      "mosquitero": 128861,
+      "totalConGuia": 405800,
+      "totalConMosq": 475863
+    }
+  },
+  {
+    "input": {
+      "medida": "240x205",
+      "color": "bronce",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 364352,
+      "guia": 61738,
+      "mosquitero": 135304,
+      "totalConGuia": 426090,
+      "totalConMosq": 499656
+    }
+  },
+  {
+    "input": {
+      "medida": "60x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 123399,
+      "guia": 30821,
+      "mosquitero": 51037,
+      "totalConGuia": 154220,
+      "totalConMosq": 174436
+    }
+  },
+  {
+    "input": {
+      "medida": "80x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 153339,
+      "guia": 30822,
+      "mosquitero": 57272,
+      "totalConGuia": 184161,
+      "totalConMosq": 210611
+    }
+  },
+  {
+    "input": {
+      "medida": "100x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 168307,
+      "guia": 30821,
+      "mosquitero": 65665,
+      "totalConGuia": 199128,
+      "totalConMosq": 233972
+    }
+  },
+  {
+    "input": {
+      "medida": "120x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 188317,
+      "guia": 30822,
+      "mosquitero": 74059,
+      "totalConGuia": 219139,
+      "totalConMosq": 262376
+    }
+  },
+  {
+    "input": {
+      "medida": "150x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 220703,
+      "guia": 30822,
+      "mosquitero": 86651,
+      "totalConGuia": 251525,
+      "totalConMosq": 307354
+    }
+  },
+  {
+    "input": {
+      "medida": "180x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 248174,
+      "guia": 30821,
+      "mosquitero": 99238,
+      "totalConGuia": 278995,
+      "totalConMosq": 347412
+    }
+  },
+  {
+    "input": {
+      "medida": "200x40",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 275616,
+      "guia": 30822,
+      "mosquitero": 107631,
+      "totalConGuia": 306438,
+      "totalConMosq": 383247
+    }
+  },
+  {
+    "input": {
+      "medida": "60x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 152298,
+      "guia": 46227,
+      "mosquitero": 64430,
+      "totalConGuia": 198525,
+      "totalConMosq": 216728
+    }
+  },
+  {
+    "input": {
+      "medida": "80x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 187639,
+      "guia": 46227,
+      "mosquitero": 74058,
+      "totalConGuia": 233866,
+      "totalConMosq": 261697
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 208653,
+      "guia": 46227,
+      "mosquitero": 83687,
+      "totalConGuia": 254880,
+      "totalConMosq": 292340
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 230911,
+      "guia": 46228,
+      "mosquitero": 93316,
+      "totalConGuia": 277139,
+      "totalConMosq": 324227
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 267746,
+      "guia": 46227,
+      "mosquitero": 107753,
+      "totalConGuia": 313973,
+      "totalConMosq": 375499
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 299571,
+      "guia": 46228,
+      "mosquitero": 122196,
+      "totalConGuia": 345799,
+      "totalConMosq": 421767
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 341015,
+      "guia": 46228,
+      "mosquitero": 131824,
+      "totalConGuia": 387243,
+      "totalConMosq": 472839
+    }
+  },
+  {
+    "input": {
+      "medida": "100x80",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 257741,
+      "guia": 61638,
+      "mosquitero": 101708,
+      "totalConGuia": 319379,
+      "totalConMosq": 359449
+    }
+  },
+  {
+    "input": {
+      "medida": "120x80",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 281060,
+      "guia": 61638,
+      "mosquitero": 112566,
+      "totalConGuia": 342698,
+      "totalConMosq": 393626
+    }
+  },
+  {
+    "input": {
+      "medida": "150x80",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 322244,
+      "guia": 61639,
+      "mosquitero": 128860,
+      "totalConGuia": 383883,
+      "totalConMosq": 451104
+    }
+  },
+  {
+    "input": {
+      "medida": "180x80",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 355974,
+      "guia": 61638,
+      "mosquitero": 145153,
+      "totalConGuia": 417612,
+      "totalConMosq": 501127
+    }
+  },
+  {
+    "input": {
+      "medida": "200x80",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 401720,
+      "guia": 61639,
+      "mosquitero": 156017,
+      "totalConGuia": 463359,
+      "totalConMosq": 557737
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 297413,
+      "guia": 77044,
+      "mosquitero": 119730,
+      "totalConGuia": 374457,
+      "totalConMosq": 417143
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 322650,
+      "guia": 77044,
+      "mosquitero": 131824,
+      "totalConGuia": 399694,
+      "totalConMosq": 454474
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 369216,
+      "guia": 77045,
+      "mosquitero": 149968,
+      "totalConGuia": 446261,
+      "totalConMosq": 519184
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 407281,
+      "guia": 77045,
+      "mosquitero": 168111,
+      "totalConGuia": 484326,
+      "totalConMosq": 575392
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 455993,
+      "guia": 77044,
+      "mosquitero": 180210,
+      "totalConGuia": 533037,
+      "totalConMosq": 636203
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 479717,
+      "guia": 77044,
+      "mosquitero": 192303,
+      "totalConGuia": 556761,
+      "totalConMosq": 672020
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 508417,
+      "guia": 77044,
+      "mosquitero": 204404,
+      "totalConGuia": 585461,
+      "totalConMosq": 712821
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 319827,
+      "guia": 84749,
+      "mosquitero": 128738,
+      "totalConGuia": 404576,
+      "totalConMosq": 448565
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 349974,
+      "guia": 84750,
+      "mosquitero": 141453,
+      "totalConGuia": 434724,
+      "totalConMosq": 491427
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 397983,
+      "guia": 84750,
+      "mosquitero": 160524,
+      "totalConGuia": 482733,
+      "totalConMosq": 558507
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 440766,
+      "guia": 84749,
+      "mosquitero": 179589,
+      "totalConGuia": 525515,
+      "totalConMosq": 620355
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 516721,
+      "guia": 84750,
+      "mosquitero": 217733,
+      "totalConGuia": 601471,
+      "totalConMosq": 734454
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 531312,
+      "guia": 84749,
+      "mosquitero": 217732,
+      "totalConGuia": 616061,
+      "totalConMosq": 749044
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 337419,
+      "guia": 92455,
+      "mosquitero": 137746,
+      "totalConGuia": 429874,
+      "totalConMosq": 475165
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 369042,
+      "guia": 92455,
+      "mosquitero": 151081,
+      "totalConGuia": 461497,
+      "totalConMosq": 520123
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 418997,
+      "guia": 92455,
+      "mosquitero": 171075,
+      "totalConGuia": 511452,
+      "totalConMosq": 590072
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 463938,
+      "guia": 92455,
+      "mosquitero": 191069,
+      "totalConGuia": 556393,
+      "totalConMosq": 655007
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 510349,
+      "guia": 92455,
+      "mosquitero": 204404,
+      "totalConGuia": 602804,
+      "totalConMosq": 714753
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 542208,
+      "guia": 92455,
+      "mosquitero": 217732,
+      "totalConGuia": 634663,
+      "totalConMosq": 759940
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 567581,
+      "guia": 92455,
+      "mosquitero": 231062,
+      "totalConGuia": 660036,
+      "totalConMosq": 798643
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 394251,
+      "guia": 115571,
+      "mosquitero": 164781,
+      "totalConGuia": 509822,
+      "totalConMosq": 559032
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 430266,
+      "guia": 115571,
+      "mosquitero": 179960,
+      "totalConGuia": 545837,
+      "totalConMosq": 610226
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 486767,
+      "guia": 115571,
+      "mosquitero": 202733,
+      "totalConGuia": 602338,
+      "totalConMosq": 689500
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 533305,
+      "guia": 115571,
+      "mosquitero": 225511,
+      "totalConGuia": 648876,
+      "totalConMosq": 758816
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 587771,
+      "guia": 115571,
+      "mosquitero": 240690,
+      "totalConGuia": 703342,
+      "totalConMosq": 828461
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 620293,
+      "guia": 115571,
+      "mosquitero": 255870,
+      "totalConGuia": 735864,
+      "totalConMosq": 876163
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 656332,
+      "guia": 115571,
+      "mosquitero": 271055,
+      "totalConGuia": 771903,
+      "totalConMosq": 927387
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 513663,
+      "guia": 154093,
+      "mosquitero": 209832,
+      "totalConGuia": 667756,
+      "totalConMosq": 723495
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 568896,
+      "guia": 154093,
+      "mosquitero": 228098,
+      "totalConGuia": 722989,
+      "totalConMosq": 796994
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 660540,
+      "guia": 154094,
+      "mosquitero": 255505,
+      "totalConGuia": 814634,
+      "totalConMosq": 916045
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 737424,
+      "guia": 154094,
+      "mosquitero": 282905,
+      "totalConGuia": 891518,
+      "totalConMosq": 1020329
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 798219,
+      "guia": 154093,
+      "mosquitero": 301170,
+      "totalConGuia": 952312,
+      "totalConMosq": 1099389
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 858698,
+      "guia": 154093,
+      "mosquitero": 319441,
+      "totalConGuia": 1012791,
+      "totalConMosq": 1178139
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 909384,
+      "guia": 154093,
+      "mosquitero": 337706,
+      "totalConGuia": 1063477,
+      "totalConMosq": 1247090
+    }
+  },
+  {
+    "input": {
+      "medida": "240x205",
+      "color": "simil madera",
+      "linea": "herrero"
+    },
+    "output": {
+      "base": 954852,
+      "guia": 161799,
+      "mosquitero": 354591,
+      "totalConGuia": 1116651,
+      "totalConMosq": 1309443
+    }
+  }
+]

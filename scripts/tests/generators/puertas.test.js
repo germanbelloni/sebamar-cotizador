@@ -8,75 +8,97 @@ const { fromRoot } = require("../../../utils/path");
 const calcularPuerta = require(fromRoot("services/puertas/calcularPuerta.js"));
 
 // 📦 DATA
-const dataHerrero = require(
-  fromRoot("frontend/data/productos/puertas_herrero.json"),
-);
-
-const dataModena = require(
-  fromRoot("frontend/data/productos/puertas_modena.json"),
-);
-
-const dataEco = require(fromRoot("frontend/data/productos/puertas_eco.json"));
+const dataMap = {
+  herrero: require(fromRoot("frontend/data/productos/puertas_herrero.json")),
+  modena: require(fromRoot("frontend/data/productos/puertas_modena.json")),
+  eco: require(fromRoot("frontend/data/productos/puertas_eco.json")),
+};
 
 // 🎯 CONFIG
-const colores = ["blanco", "negro", "bronce", "simil madera"];
-const perfil = "amarilla";
-
-// 📏 MEDIDAS
-const medidas = {
-  simple: ["70x200", "80x200", "90x200"],
-  doble: ["140x200", "160x200", "180x200"],
-  porton: ["210x200", "240x200", "270x200"],
-};
-
-// 🪟 VIDRIOS POR LINEA
-const vidriosPorLinea = {
-  herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
-  modena: ["4mm", "3+3", "dvh"],
-  eco: ["3mm", "4mm", "fantasia"],
-};
-
-// 📦 DATA MAP
-const dataMap = {
-  herrero: dataHerrero,
-  modena: dataModena,
-  eco: dataEco,
+const CONFIG = {
+  colores: ["blanco", "negro", "bronce", "simil madera"],
+  perfil: "amarilla",
+  medidas: {
+    simple: ["70x200", "80x200", "90x200"],
+    doble: ["140x200", "160x200", "180x200"],
+    porton: ["210x200", "240x200", "270x200"],
+  },
+  vidriosPorLinea: {
+    herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
+    modena: ["4mm", "3+3", "dvh"],
+    eco: ["3mm", "4mm", "fantasia"],
+  },
 };
 
 // 📦 RESULTADOS
 let resultados = [];
 
 // 📁 OUTPUT
-const outputDir = fromRoot("scripts/tests/outputs/puertas");
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/puertas`);
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
+// 🔍 VALIDADORES
+function isObject(val) {
+  return val && typeof val === "object" && !Array.isArray(val);
+}
+
+function isValidMedida(medida) {
+  return typeof medida === "string" && medida.includes("x");
+}
+
+function getModelos(data) {
+  if (!isObject(data?.modelos)) {
+    throw new Error("JSON inválido: 'modelos' no existe");
+  }
+
+  return Object.keys(data.modelos).filter((m) => {
+    return (
+      !m.toLowerCase().includes("barral") &&
+      !m.toLowerCase().includes("adicional")
+    );
+  });
+}
+
 // 🔁 GENERADOR
-Object.keys(dataMap).forEach((linea) => {
-  const data = dataMap[linea];
+function generar() {
+  const { colores, perfil, medidas, vidriosPorLinea } = CONFIG;
 
-  const modelos = Object.keys(data.modelos || {}).filter(
-    (m) => !m.includes("barral") && !m.includes("adicionales"),
-  );
+  Object.keys(dataMap).forEach((linea) => {
+    const data = dataMap[linea];
 
-  modelos.forEach((modelo) => {
-    const producto = data.modelos[modelo];
+    let modelos;
+    try {
+      modelos = getModelos(data);
+    } catch (err) {
+      console.log(`❌ ${linea}: ${err.message}`);
+      return;
+    }
 
     const vidrios = vidriosPorLinea[linea];
 
-    Object.keys(medidas).forEach((tipo) => {
-      medidas[tipo].forEach((medida) => {
-        colores.forEach((color) => {
-          vidrios.forEach((tipoVidrio) => {
-            try {
-              // 🚫 evitar vidrios inválidos
-              if (producto.sinVidrio && tipoVidrio !== "3mm") {
-                return;
-              }
+    if (!Array.isArray(vidrios)) {
+      console.log(`❌ vidrios no definidos para linea: ${linea}`);
+      return;
+    }
 
-              const result = calcularPuerta({
+    modelos.forEach((modelo) => {
+      const producto = data.modelos[modelo];
+      if (!producto) return;
+
+      Object.keys(medidas).forEach((tipo) => {
+        medidas[tipo].forEach((medida) => {
+          if (!isValidMedida(medida)) return;
+
+          colores.forEach((color) => {
+            vidrios.forEach((tipoVidrio) => {
+              // 🚫 regla sin vidrio
+              if (producto.sinVidrio && tipoVidrio !== "3mm") return;
+
+              const input = {
                 tipo,
                 linea,
                 modelo,
@@ -84,49 +106,34 @@ Object.keys(dataMap).forEach((linea) => {
                 color,
                 tipoVidrio,
                 perfil,
-              });
+              };
 
-              resultados.push({
-                input: {
-                  tipo,
-                  linea,
-                  modelo,
-                  medida,
-                  color,
-                  tipoVidrio,
-                  perfil,
-                },
-                output: result,
-              });
+              try {
+                const result = calcularPuerta(input);
 
-              console.log(
-                `✔ ${linea} | ${tipo} | ${modelo} | ${medida} | ${color} | ${tipoVidrio} → ${result.total}`,
-              );
-            } catch (error) {
-              resultados.push({
-                input: {
-                  tipo,
-                  linea,
-                  modelo,
-                  medida,
-                  color,
-                  tipoVidrio,
-                  perfil,
-                },
-                error: error.message,
-              });
+                resultados.push({ input, output: result });
 
-              console.log(`❌ ERROR → ${linea} ${modelo} ${medida}`);
-              console.log("   👉", error.message);
-            }
+                console.log(
+                  `✔ ${linea} | ${tipo} | ${modelo} | ${medida} | ${color} | ${tipoVidrio} → ${result?.total ?? "sin_total"}`,
+                );
+              } catch (error) {
+                resultados.push({ input, error: error.message });
+
+                console.log(`❌ ERROR → ${linea} ${modelo} ${medida}`);
+                console.log("   👉", error.message);
+              }
+            });
           });
         });
       });
     });
   });
-});
+}
 
-// 💾 GUARDAR
+// 🚀 RUN
+generar();
+
+// 💾 SAVE
 const nombreArchivo = `output_puertas_${Date.now()}.json`;
 
 fs.writeFileSync(

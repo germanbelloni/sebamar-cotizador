@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../../utils/path");
@@ -11,107 +12,133 @@ const calcularPostigon = require(
   fromRoot("services/postigones/calcularPostigon.js"),
 );
 
-// 🎯 VARIABLES
-const colores = ["blanco", "negro", "bronce", "simil madera"];
-const tipos = ["corredizo", "abrir"];
+// 🎯 CONFIG
+const CONFIG = {
+  colores: ["blanco", "negro", "bronce", "simil madera"],
+  tipos: ["corredizo", "abrir"],
+};
 
-// 📦 RESULTADO FINAL
+// 📦 RESULTADOS
 let resultados = [];
 
-Object.keys(data.medidas).forEach((medida) => {
-  const info = data.medidas[medida];
+// 📁 OUTPUT
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/postigones`);
 
-  colores.forEach((color) => {
-    tipos.forEach((tipo) => {
-      // 🔹 CASO CORREDIZO (sin marco)
-      if (tipo === "corredizo") {
-        try {
-          const result = calcularPostigon({
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// 🔍 VALIDADORES
+function getMedidas() {
+  if (!data?.medidas || typeof data.medidas !== "object") {
+    throw new Error("JSON inválido: no existe 'medidas'");
+  }
+
+  return Object.keys(data.medidas);
+}
+
+function isValidMedida(medida) {
+  return typeof medida === "string" && medida.includes("x");
+}
+
+// 🔁 GENERADOR
+function generar() {
+  const { colores, tipos } = CONFIG;
+
+  let medidas;
+
+  try {
+    medidas = getMedidas();
+  } catch (err) {
+    console.log(`❌ ${err.message}`);
+    return;
+  }
+
+  medidas.forEach((medida) => {
+    if (!isValidMedida(medida)) return;
+
+    colores.forEach((color) => {
+      tipos.forEach((tipo) => {
+        // 🔹 CORREDIZO
+        if (tipo === "corredizo") {
+          const input = {
             medida,
             tipo: "corredizo",
             color,
-          });
+          };
 
-          resultados.push({
-            input: {
-              medida,
-              tipo: "corredizo",
-              color,
-            },
-            output: result,
-          });
-
-          console.log(
-            `✔ ${medida} (${color}) tipo:corredizo → ${result.total}`,
-          );
-        } catch (error) {
-          resultados.push({
-            input: {
-              medida,
-              tipo: "corredizo",
-              color,
-            },
-            error: error.message,
-          });
-
-          console.log(`❌ ERROR → ${medida} (${color}) corredizo`);
-          console.log("   👉", error.message);
-        }
-      }
-
-      // 🔹 CASO ABRIR (2 variantes: sin marco y marco ancho)
-      if (tipo === "abrir") {
-        ["normal", "ancho"].forEach((marcoTipo) => {
           try {
+            const result = calcularPostigon(input);
+
+            resultados.push({ input, output: result });
+
+            console.log(
+              `✔ ${medida} (${color}) tipo:corredizo → ${result?.total ?? "sin_total"}`,
+            );
+          } catch (error) {
+            resultados.push({ input, error: error.message });
+
+            console.log(`❌ ERROR → ${medida} (${color}) corredizo`);
+            console.log("   👉", error.message);
+          }
+        }
+
+        // 🔹 ABRIR (normal + ancho)
+        if (tipo === "abrir") {
+          ["normal", "ancho"].forEach((marcoTipo) => {
             const marco = marcoTipo === "ancho" ? "ancho" : undefined;
 
-            const result = calcularPostigon({
+            const input = {
               medida,
               tipo: "abrir",
               color,
               marco,
-            });
+            };
 
-            resultados.push({
-              input: {
-                medida,
-                tipo: "abrir",
-                color,
-                marco: marco || "normal",
-              },
-              output: result,
-            });
+            try {
+              const result = calcularPostigon(input);
 
-            console.log(
-              `✔ ${medida} (${color}) tipo:abrir marco:${marcoTipo} → ${result.total}`,
-            );
-          } catch (error) {
-            resultados.push({
-              input: {
-                medida,
-                tipo: "abrir",
-                color,
-                marco: marcoTipo,
-              },
-              error: error.message,
-            });
+              resultados.push({
+                input: {
+                  ...input,
+                  marco: marco || "normal",
+                },
+                output: result,
+              });
 
-            console.log(
-              `❌ ERROR → ${medida} (${color}) abrir marco:${marcoTipo}`,
-            );
-            console.log("   👉", error.message);
-          }
-        });
-      }
+              console.log(
+                `✔ ${medida} (${color}) tipo:abrir marco:${marcoTipo} → ${result?.total ?? "sin_total"}`,
+              );
+            } catch (error) {
+              resultados.push({
+                input: {
+                  ...input,
+                  marco: marco || "normal",
+                },
+                error: error.message,
+              });
+
+              console.log(
+                `❌ ERROR → ${medida} (${color}) abrir marco:${marcoTipo}`,
+              );
+              console.log("   👉", error.message);
+            }
+          });
+        }
+      });
     });
   });
-});
+}
 
-// 💾 GUARDAR JSON
+// 🚀 RUN
+generar();
+
+// 💾 SAVE
 const nombreArchivo = `output_postigon_${Date.now()}.json`;
 
 fs.writeFileSync(
-  fromRoot("scripts/tests/outputs/postigones", nombreArchivo),
+  path.join(outputDir, nombreArchivo),
   JSON.stringify(resultados, null, 2),
 );
 

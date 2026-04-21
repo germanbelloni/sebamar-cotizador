@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../../utils/path");
@@ -9,28 +10,80 @@ const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
 // 🧠 SERVICE
 const calcularRaja = require(fromRoot("services/rajas/calcularRaja.js"));
 
-// 🎯 VARIABLES
-const colores = ["blanco", "negro", "bronce", "simil madera"];
-const vidrios = ["3mm", "4mm", "5mm", "esmerilado", "fantasia", "3+3"];
-const perfil = "amarilla";
+// 🎯 CONFIG
+const CONFIG = {
+  colores: ["blanco", "negro", "bronce", "simil madera"],
+  vidrios: ["3mm", "4mm", "5mm", "esmerilado", "fantasia", "3+3"],
+  perfil: "amarilla",
+  linea: "herrero",
+};
 
-// 📦 RESULTADO FINAL
+// 📦 RESULTADOS
 let resultados = [];
 
-colores.forEach((color) => {
-  Object.keys(data.medidas).forEach((medida) => {
-    try {
+// 📁 OUTPUT
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/rajas_herrero`);
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// 🔍 VALIDADORES
+function isObject(val) {
+  return val && typeof val === "object" && !Array.isArray(val);
+}
+
+function isValidMedida(medida) {
+  return typeof medida === "string" && medida.includes("x");
+}
+
+function getMedidas() {
+  if (!isObject(data?.medidas)) {
+    throw new Error("JSON inválido: 'medidas' no existe");
+  }
+
+  return Object.keys(data.medidas);
+}
+
+// 🔁 GENERADOR
+function generar() {
+  const { colores, vidrios, perfil, linea } = CONFIG;
+
+  let medidas;
+
+  try {
+    medidas = getMedidas();
+  } catch (err) {
+    console.log(`❌ ${err.message}`);
+    return;
+  }
+
+  colores.forEach((color) => {
+    medidas.forEach((medida) => {
+      if (!isValidMedida(medida)) return;
+
       let resultadoVidrios = {};
 
       vidrios.forEach((vidrio) => {
-        const r = calcularRaja({
+        const input = {
           medida,
           tipoVidrio: vidrio,
           color,
           perfil,
-        });
+        };
 
-        resultadoVidrios[vidrio] = r.total;
+        try {
+          const r = calcularRaja(input);
+
+          resultadoVidrios[vidrio] = r?.total ?? null;
+        } catch (error) {
+          resultadoVidrios[vidrio] = {
+            error: error.message,
+          };
+
+          console.log(`❌ ERROR vidrio → ${medida} ${color} ${vidrio}`);
+        }
       });
 
       resultados.push({
@@ -38,43 +91,26 @@ colores.forEach((color) => {
           medida,
           color,
           perfil,
-          linea: "herrero",
+          linea,
         },
         output: {
           vidrios: resultadoVidrios,
         },
       });
 
-      console.log(`✔ ${medida} (${color}) → OK`);
-    } catch (error) {
-      resultados.push({
-        input: {
-          medida,
-          color,
-          perfil,
-          linea: "herrero",
-        },
-        error: error.message,
-      });
-
-      console.log(`❌ ERROR → medida:${medida} color:${color}`);
-      console.log("   👉", error.message);
-    }
+      console.log(`✔ ${medida} (${color}) procesado`);
+    });
   });
-});
-
-// 💾 GUARDAR JSON
-const nombreArchivo = `rajas_herrero_${Date.now()}.json`;
-
-const outputDir = fromRoot("scripts/tests/outputs/rajas_herrero");
-
-// crear carpeta si no existe
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
 }
 
+// 🚀 RUN
+generar();
+
+// 💾 SAVE
+const nombreArchivo = `rajas_herrero_${Date.now()}.json`;
+
 fs.writeFileSync(
-  fromRoot("scripts/tests/outputs/rajas_herrero", nombreArchivo),
+  path.join(outputDir, nombreArchivo),
   JSON.stringify(resultados, null, 2),
 );
 

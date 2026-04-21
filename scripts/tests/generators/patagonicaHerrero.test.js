@@ -9,81 +9,95 @@ const calcularPatagonicaHerrero = require(
   fromRoot("services/patagonicas/calcularPatagonicaHerrero.js"),
 );
 
-// 🎯 CONFIG
-const perfil = "amarilla";
+// 📁 OUTPUT
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/patagonicas_herrero`);
 
-// 🎯 ESCENARIOS
-const medidas = ["120x100", "150x100", "200x100"];
-const tipos = ["1_raja", "2_rajas"];
+// 🎯 CONFIG BASE
+const CONFIG = {
+  perfil: "amarilla",
+  medidas: ["120x100", "150x100", "200x100"],
+  tipos: ["1_raja", "2_rajas"],
+  rajas: [
+    { ancho: 40, tipoVidrio: "4mm" },
+    { ancho: 50, tipoVidrio: "4mm" },
+  ],
+  colores: ["blanco", "negro"],
+};
 
-const rajas = [
-  { ancho: 40, tipoVidrio: "4mm" },
-  { ancho: 50, tipoVidrio: "4mm" },
-];
-
-const colores = ["blanco", "negro"];
-
-// 📦 RESULTADO FINAL
+// 📦 RESULTADOS
 let resultados = [];
 
-// 📁 ASEGURAR OUTPUT
-const outputDir = fromRoot("scripts/tests/outputs/patagonicas_herrero");
-
+// 📁 ASEGURAR OUTPUT DIR
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// 🔁 GENERACIÓN
-tipos.forEach((tipo) => {
-  medidas.forEach((medidaTotal) => {
-    colores.forEach((color) => {
-      rajas.forEach((raja) => {
-        try {
-          const result = calcularPatagonicaHerrero({
+// 🔍 VALIDADORES
+function isValidMedida(medida) {
+  return typeof medida === "string" && medida.includes("x");
+}
+
+function isValidRaja(raja) {
+  return (
+    raja &&
+    typeof raja.ancho === "number" &&
+    typeof raja.tipoVidrio === "string"
+  );
+}
+
+// 🔁 GENERADOR
+function generarEscenarios() {
+  const { perfil, medidas, tipos, rajas, colores } = CONFIG;
+
+  tipos.forEach((tipo) => {
+    medidas.forEach((medidaTotal) => {
+      if (!isValidMedida(medidaTotal)) return;
+
+      colores.forEach((color) => {
+        rajas.forEach((raja) => {
+          if (!isValidRaja(raja)) return;
+
+          const input = {
             medidaTotal,
             tipo,
             raja,
             color,
             perfil,
-          });
+          };
 
-          resultados.push({
-            input: {
-              medidaTotal,
-              tipo,
-              raja,
-              color,
-              perfil,
-            },
-            output: result,
-          });
+          try {
+            const result = calcularPatagonicaHerrero(input);
 
-          console.log(
-            `✔ ${medidaTotal} ${tipo} raja:${raja.ancho} vidrio:${raja.tipoVidrio} ${color} → ${result.total}`,
-          );
-        } catch (error) {
-          resultados.push({
-            input: {
-              medidaTotal,
-              tipo,
-              raja,
-              color,
-              perfil,
-            },
-            error: error.message,
-          });
+            resultados.push({
+              input,
+              output: result,
+            });
 
-          console.log(
-            `❌ ERROR → ${medidaTotal} ${tipo} raja:${raja.ancho} ${color}`,
-          );
-          console.log("   👉", error.message);
-        }
+            console.log(
+              `✔ ${medidaTotal} ${tipo} raja:${raja.ancho} vidrio:${raja.tipoVidrio} ${color} → ${result?.total ?? "sin_total"}`,
+            );
+          } catch (error) {
+            resultados.push({
+              input,
+              error: error.message,
+            });
+
+            console.log(
+              `❌ ERROR → ${medidaTotal} ${tipo} raja:${raja.ancho} ${color}`,
+            );
+            console.log("   👉", error.message);
+          }
+        });
       });
     });
   });
-});
+}
 
-// 💾 GUARDAR JSON
+// 🚀 RUN
+generarEscenarios();
+
+// 💾 SAVE
 const nombreArchivo = `output_patagonica_herrero_${Date.now()}.json`;
 
 fs.writeFileSync(

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../../utils/path");
@@ -6,76 +7,120 @@ const { fromRoot } = require("../../../utils/path");
 // 📦 DATA
 const data = require(fromRoot("frontend/data/productos/rajas_modena.json"));
 
-// 🧠 SERVICE (EL TUYO REAL)
-const calcularRaja = require(
-  fromRoot("services/rajas/calcularRaja.js"),
-);
+// 🧠 SERVICE
+const calcularRaja = require(fromRoot("services/rajas/calcularRaja.js"));
 
-// 🎯 VARIABLES
-const colores = ["blanco", "negro", "bronce", "simil madera"];
+// 🎯 CONFIG
+const CONFIG = {
+  colores: ["blanco", "negro", "bronce", "simil madera"],
+  linea: "modena",
+};
 
-// 📦 RESULTADO FINAL
+// 📦 RESULTADOS
 let resultados = [];
 
-Object.keys(data.medidas).forEach((medida) => {
-  const info = data.medidas[medida];
+// 📁 OUTPUT
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/rajas_modena`);
 
-  const vidrios = Object.keys(info.vidrios || {});
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
 
-  colores.forEach((color) => {
-    vidrios.forEach((tipoVidrio) => {
-      [false, true].forEach((conCamara) => {
-        try {
-          // 🧠 EXTRA POR CÁMARA (DVH)
+// 🔍 VALIDADORES
+function isObject(val) {
+  return val && typeof val === "object" && !Array.isArray(val);
+}
+
+function isValidMedida(medida) {
+  return typeof medida === "string" && medida.includes("x");
+}
+
+function getMedidas() {
+  if (!isObject(data?.medidas)) {
+    throw new Error("JSON inválido: 'medidas' no existe");
+  }
+
+  return Object.keys(data.medidas);
+}
+
+// 🔁 GENERADOR
+function generar() {
+  const { colores, linea } = CONFIG;
+
+  let medidas;
+
+  try {
+    medidas = getMedidas();
+  } catch (err) {
+    console.log(`❌ ${err.message}`);
+    return;
+  }
+
+  medidas.forEach((medida) => {
+    if (!isValidMedida(medida)) return;
+
+    const info = data.medidas[medida];
+    if (!isObject(info)) return;
+
+    const vidrios = Object.keys(info.vidrios || {});
+    if (!vidrios.length) return;
+
+    colores.forEach((color) => {
+      vidrios.forEach((tipoVidrio) => {
+        [false, true].forEach((conCamara) => {
           const extraVidrio = conCamara ? info.camara || 0 : 0;
 
-          const result = calcularRaja({
+          const input = {
             medida,
             tipoVidrio,
             color,
-            linea: "modena",
+            linea,
             extraVidrio,
-          });
+          };
 
-          resultados.push({
-            input: {
-              medida,
-              color,
-              tipoVidrio,
-              conCamara,
-            },
-            output: result,
-          });
+          try {
+            const result = calcularRaja(input);
 
-          console.log(
-            `✔ ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara} → ${result.total}`,
-          );
-        } catch (error) {
-          resultados.push({
-            input: {
-              medida,
-              color,
-              tipoVidrio,
-              conCamara,
-            },
-            error: error.message,
-          });
+            resultados.push({
+              input: {
+                ...input,
+                conCamara,
+              },
+              output: result,
+            });
 
-          console.log(
-            `❌ ERROR → ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara}`,
-          );
-          console.log("   👉", error.message);
-        }
+            console.log(
+              `✔ ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara} → ${result?.total ?? "sin_total"}`,
+            );
+          } catch (error) {
+            resultados.push({
+              input: {
+                ...input,
+                conCamara,
+              },
+              error: error.message,
+            });
+
+            console.log(
+              `❌ ERROR → ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara}`,
+            );
+            console.log("   👉", error.message);
+          }
+        });
       });
     });
   });
-});
+}
 
-// 💾 GUARDAR JSON
+// 🚀 RUN
+generar();
+
+// 💾 SAVE
 const nombreArchivo = `output_rajas_modena_${Date.now()}.json`;
 
 fs.writeFileSync(
-  fromRoot("scripts/tests/outputs/rajas_modena", nombreArchivo),
+  path.join(outputDir, nombreArchivo),
   JSON.stringify(resultados, null, 2),
 );
 

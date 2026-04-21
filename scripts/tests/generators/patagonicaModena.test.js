@@ -25,7 +25,8 @@ const vidrios = ["4mm", "dvh", "3+3"];
 let resultados = [];
 
 // 📁 ASEGURAR OUTPUT
-const outputDir = fromRoot("scripts/tests/outputs/patagonicas_modena");
+const baseOutput = process.env.OUTPUT_DIR || "scripts/tests/outputs";
+const outputDir = fromRoot(`${baseOutput}/patagonicas_modena`);
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });

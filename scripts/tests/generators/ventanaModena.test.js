@@ -1,142 +1,64 @@
 const fs = require("fs");
+const path = require("path");
+const { execSync } = require("child_process");
 
-// 🔧 PATH HELPER
-const { fromRoot } = require("../../../utils/path");
+// 🔧 PATH BASE
+const BASE_TESTS_DIR = path.resolve(__dirname, "..");
 
-// 🧠 SERVICE
-const calcularVentana = require(
-  fromRoot("services/ventanas/calcularventana.js"),
-);
+// 📁 GENERATORS
+const GENERATORS_DIR = path.join(BASE_TESTS_DIR, "generators");
 
-// 📦 DATA
-const data = require(fromRoot("frontend/data/productos/ventanas_modena.json"));
+// 📁 OUTPUTS ROOT
+const OUTPUTS_DIR = path.join(BASE_TESTS_DIR, "outputs");
 
-const medidas = Object.keys(data.medidas);
+// 🕒 CREAR NOMBRE DE RUN
+function getTimestamp() {
+  const now = new Date();
 
-// 📦 RESULTADO FINAL
-let resultados = [];
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const hh = String(now.getHours()).padStart(2, "0");
+  const min = String(now.getMinutes()).padStart(2, "0");
+  const ss = String(now.getSeconds()).padStart(2, "0");
 
-medidas.forEach((medida) => {
-  try {
-    const color = "blanco"; // fijamos para consistencia
+  return `run_${yyyy}-${mm}-${dd}_${hh}-${min}-${ss}`;
+}
 
-    // 🔹 VIDRIOS (BASES)
-    const v3 = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "3mm",
-      incluirGuia: false,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+// 📁 CREAR RUN
+const runName = getTimestamp();
+const runDir = path.join(OUTPUTS_DIR, runName);
 
-    const v4 = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "4mm",
-      incluirGuia: false,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+fs.mkdirSync(runDir, { recursive: true });
 
-    const v5 = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "5mm",
-      incluirGuia: false,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+console.log(`\n📦 RUN: ${runName}\n`);
 
-    const v33 = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "3+3",
-      incluirGuia: false,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+// 🔍 BUSCAR GENERATORS
+function getAllGenerators(dir) {
+  let results = [];
 
-    // 🔹 BASE REFERENCIA (IMPORTANTE)
-    const base = v3;
+  const list = fs.readdirSync(dir);
 
-    // 🔹 GUIA (aislada correctamente)
-    const totalConGuia = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "3mm",
-      incluirGuia: true,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+  list.forEach((file) => {
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
 
-    const guia = totalConGuia - base;
+    if (stat.isDirectory()) {
+      results = results.concat(getAllGenerators(fullPath));
+    } else {
+      if (file.endsWith(".test.js")) {
+        results.push(fullPath);
+      }
+    }
+  });
 
-    // 🔹 MOSQUITER0 (aislado correctamente)
-    const totalConMosq = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "3mm",
-      incluirGuia: false,
-      incluirMosquitero: true,
-      linea: "modena",
-    }).total;
+  return results;
+}
 
-    const mosq = totalConMosq - base;
+const generators = getAllGenerators(GENERATORS_DIR);
 
-    // 🔹 DVH
-    const dvh = calcularVentana({
-      medida,
-      color,
-      tipoVidrio: "dvh",
-      incluirGuia: false,
-      incluirMosquitero: false,
-      linea: "modena",
-    }).total;
+console.log(`🔧 Generators encontrados: ${generators.length}\n`);
 
-    resultados.push({
-      input: {
-        medida,
-        color,
-        linea: "modena",
-      },
-      output: {
-        vidrios: {
-          "3mm": v3,
-          "4mm": v4,
-          "5mm": v5,
-          "3+3": v33,
-          dvh,
-        },
-        adicionales: {
-          guia,
-          mosquitero: mosq,
-        },
-      },
-    });
+// 🚀 EJECUTAR
 
-    console.log(`✔ ${medida} → 3mm:${v3} guia:${guia} mosq:${mosq} dvh:${dvh}`);
-  } catch (err) {
-    resultados.push({
-      input: {
-        medida,
-        color: "blanco",
-        linea: "modena",
-      },
-      error: err.message,
-    });
-
-    console.log(`❌ ERROR ${medida}`);
-    console.log("   👉", err.message);
-  }
-});
-
-// 💾 GUARDAR JSON
-const nombreArchivo = `output_modena_${Date.now()}.json`;
-
-fs.writeFileSync(
-  fromRoot("scripts/tests/outputs/ventana_modena", nombreArchivo),
-  JSON.stringify(resultados, null, 2),
-);
-
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
+console.log(`\n✅ RUN COMPLETO: ${runName}`);

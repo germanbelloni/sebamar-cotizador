@@ -1,0 +1,6582 @@
+[
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 77193,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 86081,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 90385,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 100350,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 111905,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 117501,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 111929,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 124818,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 131058,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 293332,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 327108,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 343463,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 93855,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 103689,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 108874,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 122011,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 134796,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 141536,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 136089,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 150350,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 157867,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 356648,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 394020,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 413721,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 115846,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 129110,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 135565,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 150600,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 167843,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 176235,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 167976,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 187209,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 196570,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 440214,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 490617,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 515148,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 138945,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 154392,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 162112,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 180628,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 200710,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 210746,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 201470,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 223869,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 235063,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 527989,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 586691,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 616026,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 154392,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 172139,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 180745,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 200710,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 223780,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 234969,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 223869,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 249601,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 262081,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 586691,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 654126,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x60",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 686833,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 115846,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 129110,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 135565,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 150600,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 167843,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 176235,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 167976,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 187209,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 196570,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 440214,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 490617,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 515148,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 138945,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 193038,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 202690,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 180628,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 250950,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 263497,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 201470,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 279906,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 293901,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 527989,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 733546,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 770223,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 183050,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 202696,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 212831,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 237965,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 263505,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 276680,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 265422,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 293909,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 308604,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 695589,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 770244,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 808756,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 218913,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 243295,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 255460,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 284586,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 316283,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 332098,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 317423,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 352778,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 370417,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 831868,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 924521,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 970747,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 254807,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 271115,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 284671,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 331248,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 352450,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 370072,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 369469,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 393117,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 412773,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 968265,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1030238,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1081749,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 272684,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 297658,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 312541,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 354489,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 386955,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 406303,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 395392,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 431604,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 453184,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1036199,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1131100,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1187655,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 278028,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 324347,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 340564,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 361436,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 421651,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 442734,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 403141,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 470303,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 493818,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1056507,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1232519,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x90",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1294145,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 129110,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 143450,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 150623,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 167843,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 186485,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 195810,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 187209,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 208003,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 218403,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 490617,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 545111,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 572366,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 155607,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 172162,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 180770,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 202289,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 223811,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 235001,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 225630,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 249635,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 262117,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 591305,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 654216,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 686927,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 187641,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 199628,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 209609,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 243933,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 259516,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 272492,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 272079,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 289460,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 303933,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 713036,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 758585,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 796514,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 215176,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 250177,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 262686,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 279729,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 325230,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 341491,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 312005,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 362756,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 380894,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 817669,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 950672,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 998206,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 238275,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 278028,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 291929,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 309757,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 361436,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 379508,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 345498,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 403141,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 423298,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 905444,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1056507,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1109332,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 262588,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 305832,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 321124,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 341364,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 397582,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 417461,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 380752,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 443457,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 465629,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 997833,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1162162,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1220270,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 286900,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 333667,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 350350,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 372971,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 433767,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 455456,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 416006,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 483817,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 508008,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1090222,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1267935,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x100",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1331332,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 131294,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 145627,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 152908,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 170682,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 189315,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 198781,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 190376,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 211159,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 221717,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 498916,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 553382,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 581051,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 156699,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 174323,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 183039,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 203709,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 226619,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 237950,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 227214,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 252768,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 265406,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 595457,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 662426,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 695547,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 196330,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 229385,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 240854,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 255229,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 298200,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 313110,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 284678,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 332608,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 349239,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 746053,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 871663,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 915246,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 234983,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 274559,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 288287,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 305478,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 356927,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 374773,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 340726,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 398111,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 418016,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 892936,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1043325,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1095491,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 262588,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 305832,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 321124,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 341364,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 397582,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 417461,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 380752,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 443457,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 465629,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 997833,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1162162,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1220270,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 287986,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 335950,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 352748,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 374381,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 436735,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 458572,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 417579,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 487128,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 511484,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1094345,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1276611,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1340442,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 313267,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 364931,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 383178,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 407247,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 474411,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 498131,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 454237,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 529150,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 555608,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1190415,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1386739,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x110",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1456076,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 155607,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 172139,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 180745,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 202289,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 223780,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 234969,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 225630,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 249601,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 262081,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 591305,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 654126,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 686833,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 167402,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 189770,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 199259,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 217623,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 246702,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 259037,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 242733,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 275167,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 288925,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 636128,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 721128,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 757184,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 215176,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 250177,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 262686,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 279729,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 325230,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 341491,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 312005,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 362756,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 380894,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 817669,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 950672,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 998206,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 257113,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 300087,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 315092,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 334247,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 390114,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 409619,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 372814,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 435127,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 456883,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 977031,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1140332,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1197349,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 260204,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 333667,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 350350,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 338265,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 433767,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 455456,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 377296,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 483817,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 508008,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 988775,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1267935,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1331332,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 314375,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 366092,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 384397,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 408687,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 475920,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 499716,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 455843,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 530834,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 557375,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1194623,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1391150,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1460708,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 331306,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 399648,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 419631,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 430698,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 519543,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 545520,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 480393,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 579490,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 608464,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1258962,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1518663,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x120",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1594597,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 185388,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 206310,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 216625,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 241004,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 268203,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 281613,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 268812,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 299149,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 314107,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 704473,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 783977,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 823176,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 223934,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 248247,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 260659,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 291115,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 322721,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 338857,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 324705,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 359958,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 377956,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 850950,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 943339,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 990506,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 259296,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 307885,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 323279,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 337085,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 400250,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 420262,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 375979,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 446433,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 468754,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 985325,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1169962,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1228460,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 274337,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 324347,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 340564,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 356638,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 421651,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 442734,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 397789,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 470303,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 493818,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1042481,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1232519,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1294145,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 301772,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 347577,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 364956,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 392303,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 451850,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 474443,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 437569,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 503987,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 529186,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1146732,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1320793,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1386833,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 331959,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 382294,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 401409,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 431547,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 496982,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 521831,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 481341,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 554326,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 582043,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1261446,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1452718,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1525354,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 357535,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 417011,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 437862,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 464795,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 542114,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 569220,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 518425,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 604666,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 634899,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1358632,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1584642,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x150",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1663874,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 238275,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 278012,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 291913,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 309757,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 361415,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 379486,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 345498,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 403117,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 423273,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 905444,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1056445,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "100x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1109268,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 285686,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 286900,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 301245,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 371392,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 372971,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 391619,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 414245,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 416006,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 436806,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1085608,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1090222,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "120x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1144733,
+      "hojas": 2
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 321672,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 381148,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 400206,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 418173,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 495493,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 520267,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 466424,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 552665,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 580298,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1222353,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1448363,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "150x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1520781,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 343070,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 397241,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 417103,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 445991,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 516413,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 542234,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 497452,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 575999,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 604799,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1303667,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1509516,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "180x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1584992,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 362517,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 422893,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 444038,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 471272,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 549761,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 577249,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 525649,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 613195,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 643855,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1377563,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1606995,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "200x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1687344,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 397164,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 463262,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 486425,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 516313,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 602240,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 632352,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 575888,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 671730,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 705316,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1509224,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1760395,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "220x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1848415,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "corredizo",
+      "color": "blanco"
+    },
+    "output": {
+      "total": 417103,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 486590,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "blanco",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 510919,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "corredizo",
+      "color": "negro"
+    },
+    "output": {
+      "total": 542234,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 632567,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "negro",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 664195,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "corredizo",
+      "color": "bronce"
+    },
+    "output": {
+      "total": 604799,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 705555,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "bronce",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 740833,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "corredizo",
+      "color": "simil madera"
+    },
+    "output": {
+      "total": 1584991,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "normal"
+    },
+    "output": {
+      "total": 1849042,
+      "hojas": 3
+    }
+  },
+  {
+    "input": {
+      "medida": "240x200",
+      "tipo": "abrir",
+      "color": "simil madera",
+      "marco": "ancho"
+    },
+    "output": {
+      "total": 1941494,
+      "hojas": 3
+    }
+  }
+]

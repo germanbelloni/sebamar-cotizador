@@ -1,8 +1,8 @@
 const { fromRoot } = require("../../utils/path");
-const perfiles = require("../../config/perfiles");
+const perfiles = require(fromRoot("config/perfiles"));
 
 // 📦 DATA (unificada desde frontend)
-const data = require(fromRoot("frontend/data/productos/puertas_placas.json"));
+const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
 function calcularPuertaPlaca(dataInput) {
   const {
