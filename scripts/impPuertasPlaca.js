@@ -1,12 +1,13 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = "excel/calculadora.xlsx";
+const archivo = fromRoot("excel/calculadora.xlsx");
 const hojaNombre = "placas";
 
 // HELPERS
-const limpiar = (txt) => txt?.toLowerCase().trim();
+const limpiar = (txt) => txt?.toString().toLowerCase().trim();
 
 const normalizarModelo = (marco, hoja) => {
   const m = limpiar(marco).replace("marco", "").trim();
@@ -14,13 +15,17 @@ const normalizarModelo = (marco, hoja) => {
   return `${m}_${h}`.replace(/\s+/g, "_");
 };
 
+const toNumber = (v) => {
+  const n = Number(v);
+  return isNaN(n) ? 0 : n;
+};
+
 // LEER EXCEL
 const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
 if (!sheet) {
-  console.log("❌ No se encontró la hoja:", hojaNombre);
-  process.exit(1);
+  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
 }
 
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
@@ -37,23 +42,24 @@ let modeloActual = null;
 
 // RECORRER
 for (let i = 0; i < data.length; i++) {
-  const row = data[i];
+  const row = data[i] || [];
 
   const colA = row[0];
   const colB = row[1];
   const colC = row[2];
   const colD = row[3];
 
-  // 🔥 CAMBIO A EMBUTIR
+  // CAMBIO A EMBUTIR
   if (
     typeof colA === "string" &&
     colA.toLowerCase().includes("puertas embutir")
   ) {
     tipoActual = "embutir";
+    modeloActual = null;
     continue;
   }
 
-  // 🔥 DETECTAR MODELO (MARCO + HOJA)
+  // DETECTAR MODELO
   if (typeof colA === "string" && colA.toLowerCase().includes("marco")) {
     const marco = colA;
     const hoja = data[i + 2]?.[0];
@@ -69,7 +75,7 @@ for (let i = 0; i < data.length; i++) {
     continue;
   }
 
-  // 🔥 MEDIDAS
+  // MEDIDAS
   if (typeof colB === "string" && colB.includes("x")) {
     if (!modeloActual) continue;
 
@@ -79,22 +85,16 @@ for (let i = 0; i < data.length; i++) {
       resultado[tipoActual][modeloActual][medida] = {};
     }
 
-    // 🔹 CASO ALUMINIO (sin marco 10/15)
     if (colD === undefined || colD === "") {
-      resultado[tipoActual][modeloActual][medida]["aluminio"] =
-        Number(colC) || 0;
+      resultado[tipoActual][modeloActual][medida]["aluminio"] = toNumber(colC);
     } else {
-      // 🔹 CASO NORMAL
-      resultado[tipoActual][modeloActual][medida]["marco_10"] =
-        Number(colC) || 0;
+      resultado[tipoActual][modeloActual][medida]["marco_10"] = toNumber(colC);
 
-      resultado[tipoActual][modeloActual][medida]["marco_15"] =
-        Number(colD) || 0;
+      resultado[tipoActual][modeloActual][medida]["marco_15"] = toNumber(colD);
     }
 
-    // 🔥 EMBUTIR → mismo valor para ambos
     if (tipoActual === "embutir") {
-      const val = Number(colD) || 0;
+      const val = toNumber(colD);
 
       resultado[tipoActual][modeloActual][medida]["marco_10"] = val;
       resultado[tipoActual][modeloActual][medida]["marco_15"] = val;
@@ -104,8 +104,10 @@ for (let i = 0; i < data.length; i++) {
 
 // GUARDAR
 fs.writeFileSync(
-  "data/productos/puertas_placas.json",
+  fromRoot("frontend/data/productos/puertas_placa.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ JSON PUERTAS PLACA generado correctamente");
+console.log("📊 Modelos placa:", Object.keys(resultado.placa).length);
+console.log("📊 Modelos embutir:", Object.keys(resultado.embutir).length);

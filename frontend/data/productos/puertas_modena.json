@@ -9,11 +9,10 @@
         "5mm": 31709,
         "fantasia": 26500,
         "esmerilado": 68616,
-        "3+3": 102678,
-        "camaradvh": 70560
+        "3+3": 102678
       },
       "dvh": {
-        "camara": 0
+        "camara": 70560
       }
     },
     "modelo 1 vr": {
@@ -24,8 +23,7 @@
         "5mm": 0,
         "fantasia": 26500,
         "esmerilado": 68616,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0
@@ -39,11 +37,10 @@
         "5mm": 30037,
         "fantasia": 25104,
         "esmerilado": 65006,
-        "3+3": 97268,
-        "camaradvh": 90720
+        "3+3": 97268
       },
       "dvh": {
-        "camara": 0
+        "camara": 90720
       }
     },
     "modelo 3": {
@@ -54,11 +51,10 @@
         "5mm": 15018,
         "fantasia": 12552,
         "esmerilado": 32503,
-        "3+3": 48634,
-        "camaradvh": 45360
+        "3+3": 48634
       },
       "dvh": {
-        "camara": 0
+        "camara": 45360
       }
     },
     "modelo 3 vr": {
@@ -69,8 +65,7 @@
         "5mm": 0,
         "fantasia": 12552,
         "esmerilado": 32503,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0
@@ -84,11 +79,10 @@
         "5mm": 8346,
         "fantasia": 6974,
         "esmerilado": 18056,
-        "3+3": 27018,
-        "camaradvh": 32760
+        "3+3": 27018
       },
       "dvh": {
-        "camara": 0
+        "camara": 32760
       }
     },
     "modelo 4 vr": {
@@ -99,8 +93,7 @@
         "5mm": 0,
         "fantasia": 6974,
         "esmerilado": 18056,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0
@@ -114,8 +107,7 @@
         "5mm": 0,
         "fantasia": 0,
         "esmerilado": 0,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0
@@ -129,11 +121,10 @@
         "5mm": 15018,
         "fantasia": 12552,
         "esmerilado": 32503,
-        "3+3": 48634,
-        "camaradvh": 95760
+        "3+3": 48634
       },
       "dvh": {
-        "camara": 0
+        "camara": 95760
       }
     },
     "modelo 7": {
@@ -144,11 +135,10 @@
         "5mm": 8346,
         "fantasia": 6974,
         "esmerilado": 18056,
-        "3+3": 27018,
-        "camaradvh": 57960
+        "3+3": 27018
       },
       "dvh": {
-        "camara": 0
+        "camara": 57960
       }
     },
     "modelo 8": {
@@ -159,11 +149,10 @@
         "5mm": 33382,
         "fantasia": 27896,
         "esmerilado": 72226,
-        "3+3": 108073,
-        "camaradvh": 131040
+        "3+3": 108073
       },
       "dvh": {
-        "camara": 0
+        "camara": 131040
       }
     },
     "modelo 9": {
@@ -174,11 +163,10 @@
         "5mm": 10572,
         "fantasia": 8856,
         "esmerilado": 22878,
-        "3+3": 34228,
-        "camaradvh": 59220
+        "3+3": 34228
       },
       "dvh": {
-        "camara": 0
+        "camara": 59220
       }
     },
     "modelo 10": {
@@ -189,11 +177,10 @@
         "5mm": 6673,
         "fantasia": 5578,
         "esmerilado": 14446,
-        "3+3": 21609,
-        "camaradvh": 34020
+        "3+3": 21609
       },
       "dvh": {
-        "camara": 0
+        "camara": 34020
       }
     },
     "modelo 10 vr": {
@@ -204,8 +191,7 @@
         "5mm": 0,
         "fantasia": 5578,
         "esmerilado": 14446,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0
@@ -219,11 +205,10 @@
         "5mm": 25031,
         "fantasia": 20922,
         "esmerilado": 54175,
-        "3+3": 81062,
-        "camaradvh": 133560
+        "3+3": 81062
       },
       "dvh": {
-        "camara": 0
+        "camara": 133560
       }
     },
     "modelo 12": {
@@ -234,11 +219,10 @@
         "5mm": 25031,
         "fantasia": 20922,
         "esmerilado": 54175,
-        "3+3": 81062,
-        "camaradvh": 57960
+        "3+3": 81062
       },
       "dvh": {
-        "camara": 0
+        "camara": 57960
       }
     },
     "modelo c/panel": {
@@ -249,8 +233,7 @@
         "5mm": 0,
         "fantasia": 0,
         "esmerilado": 0,
-        "3+3": 0,
-        "camaradvh": 0
+        "3+3": 0
       },
       "dvh": {
         "camara": 0

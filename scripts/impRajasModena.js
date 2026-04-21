@@ -1,71 +1,65 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = "excel/calculadora.xlsx";
+const archivo = fromRoot("excel/calculadora.xlsx");
 const hojaNombre = "rajas modena";
 
 // HELPERS
-const normalizar = (txt) =>
-  txt?.toString().toLowerCase().trim().replace(/\s+/g, "_");
+const norm = (txt) => txt?.toString().toLowerCase().trim().replace(/\s+/g, " ");
+
+const toNumber = (v) => {
+  if (typeof v === "string") v = v.replace(",", ".");
+  const n = Number(v);
+  return isNaN(n) ? 0 : Math.round(n);
+};
 
 // LEER EXCEL
 const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
 if (!sheet) {
-  console.log("❌ No se encontró la hoja:", hojaNombre);
-  process.exit(1);
+  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
 }
 
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-// 🔥 HEADERS (fila 6)
-const headers = data[5].slice(0, 9).map(normalizar);
+// 🔍 HEADER REAL (tabla izquierda)
+const headerIndex = data.findIndex(
+  (row) =>
+    row[0]?.toString().toLowerCase().includes("medidas") &&
+    row[1]?.toString().toLowerCase().includes("vidrio"),
+);
+
+if (headerIndex === -1) {
+  throw new Error("No se encontró encabezado de rajas modena");
+}
 
 // RESULTADO
 const medidas = {};
 
-// 🔥 DATOS (fila 7)
-for (let i = 6; i < data.length; i++) {
-  const row = data[i].slice(0, 9);
+for (let i = headerIndex + 1; i < data.length; i++) {
+  const row = data[i];
 
-  if (!row[0]) continue;
+  if (!row || !row[0]) continue;
 
   const medida = row[0].toString().trim();
 
-  let base = 0;
-  let camara = 0;
-  const vidrios = {};
-
-  headers.forEach((hOriginal, index) => {
-    if (index === 0) return;
-
-    let h = hOriginal;
-    const valor = Math.round(Number(row[index]) || 0);
-
-    // 🔥 BASE
-    if (h === "s/vidrio" || h === "sin_vidrio") {
-      base = valor;
-      return;
-    }
-
-    // 🔥 CAMARA DVH
-    if (h.includes("camara")) {
-      camara = valor;
-      return;
-    }
-
-    // 🔥 NORMALIZACIONES
-    h = h.replace("vid/", "").replace("v/", "");
-
-    vidrios[h] = valor;
-  });
+  // cortar si empieza cualquier bloque raro
+  if (!medida.includes("x")) continue;
 
   medidas[medida] = {
-    base,
-    vidrios,
-    camara,
+    base: toNumber(row[1]),
+    vidrios: {
+      "3mm": toNumber(row[2]),
+      "4mm": toNumber(row[3]),
+      "5mm": toNumber(row[4]),
+      esmerilado: toNumber(row[5]),
+      fantasia: toNumber(row[6]),
+      "3+3": toNumber(row[7]),
+    },
+    camara: toNumber(row[8]),
   };
 }
 
@@ -75,8 +69,9 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  "data/productos/rajas_modena.json",
+  fromRoot("frontend/data/productos/rajas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ rajas_modena.json generado correctamente");
+console.log("📊 Medidas:", Object.keys(medidas).length);

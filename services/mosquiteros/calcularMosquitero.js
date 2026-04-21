@@ -1,44 +1,47 @@
-const fs = require("fs");
-const path = require("path");
+const { fromRoot } = require("../../utils/path");
 
-const colores = require(
-  path.join(process.cwd(), "../frontend/data/colores.json"),
+// 📦 DATA (cacheada)
+const colores = require(fromRoot("frontend/data/colores.json"));
+const mosquiteros = require(
+  fromRoot("frontend/data/productos/mosquiteros.json"),
 );
 
+// 🔧 HELPERS
+function normalizar(txt) {
+  return txt?.toString().toLowerCase().trim();
+}
+
 function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
+  const c = colores.find((x) => normalizar(x.nombre) === normalizar(color));
 
   return c ? c.valor : 0;
 }
 
+// 🧠 SERVICE
 function calcularMosquitero(dataInput) {
   const { medida, color } = dataInput;
 
-  const filePath = path.join(
-    process.cwd(),
-    "../frontend/data/productos/mosquiteros.json",
-  );
-
-  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-
-  const datos = data.medidas?.[medida];
+  const datos = mosquiteros.medidas?.[medida];
 
   if (!datos) {
-    throw new Error("Medida no encontrada");
+    throw new Error(`Medida no encontrada: ${medida}`);
   }
 
-  const base = datos.base || 0;
+  // 🔥 OJO: depende de cómo definiste el JSON
+  const base = datos.precio || datos.base || 0;
 
+  // 🎨 COLOR
   const colorValor = getColorValor(color);
-  const baseColor = base * (1 + colorValor);
+  let total = base * (1 + colorValor);
 
-  let total = baseColor;
+  // 💰 FACTORES (explicados)
+  const DESCUENTO = 0.08;
+  const FLETE = 0.15;
+  const GANANCIA = 0.6;
 
-  total *= 1.08;
-  total *= 1.15;
-  total *= 1.6;
+  total *= 1 - DESCUENTO;
+  total *= 1 + FLETE;
+  total *= 1 + GANANCIA;
 
   return {
     total: Math.round(total),

@@ -1,44 +1,59 @@
 const xlsx = require("xlsx");
 const fs = require("fs");
 
-// 📂 leer excel
-const workbook = xlsx.readFile("../excel/calculadora.xlsx");
+const { fromRoot } = require("../utils/path");
+
+// 📂 Excel
+const workbook = xlsx.readFile(fromRoot("excel/calculadora.xlsx"));
 
 // 📄 hoja CONFIG
 const sheet = workbook.Sheets["CONFIG"];
 
-// 🔥 leer SOLO A9:B13
+if (!sheet) {
+  throw new Error("Hoja CONFIG no encontrada en el Excel");
+}
+
+// 🔧 helpers
+const normalizar = (txt) => txt?.toString().toLowerCase().trim();
+
+const toNumber = (v) => {
+  if (typeof v === "string") {
+    v = v.replace(",", ".");
+  }
+  const n = Number(v);
+  return isNaN(n) ? 0 : n;
+};
+
+// 🔥 rango
 const rango = xlsx.utils.sheet_to_json(sheet, {
   range: "A10:B13",
-  header: ["COLOR", "VALOR"]
+  header: ["COLOR", "VALOR"],
+  defval: null,
 });
 
-let colores = [];
+// 🔧 evitar duplicados
+const mapa = {};
 
-rango.forEach(row => {
+rango.forEach((row) => {
+  const nombreRaw = row["COLOR"];
+  if (!nombreRaw) return;
 
-  let nombre = row["COLOR"];
-  let valor = row["VALOR"];
+  const nombre = normalizar(nombreRaw);
+  const valor = toNumber(row["VALOR"]);
 
-  if (!nombre) return;
-
-  // convertir coma a punto
-  if (typeof valor === "string") {
-    valor = valor.replace(",", ".");
-    valor = parseFloat(valor);
-  }
-
-  colores.push({
-    nombre: nombre.trim(),
-    valor: valor || 0
-  });
-
+  mapa[nombre] = {
+    nombre,
+    valor,
+  };
 });
 
-// 💾 guardar JSON
-fs.writeFileSync(
-  "../data/colores.json",
-  JSON.stringify(colores, null, 2)
-);
+// 👉 convertir a array
+const colores = Object.values(mapa);
 
-console.log("✅ colores limpios generados");
+// 💾 guardar
+const outputPath = fromRoot("frontend/data/colores.json");
+
+fs.writeFileSync(outputPath, JSON.stringify(colores, null, 2));
+
+console.log("✅ colores generados correctamente");
+console.log("🎨 Colores:", colores.length);

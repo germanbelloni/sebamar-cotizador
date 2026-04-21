@@ -18,6 +18,8 @@ function calcularPuerta(dataInput) {
     tipo = "simple",
     linea,
     modelo,
+    modeloPuerta,
+    modeloMedia,
     medida,
     color,
     tipoVidrio,
@@ -28,6 +30,68 @@ function calcularPuerta(dataInput) {
   const data = require(
     fromRoot(`frontend/data/productos/puertas_${linea}.json`),
   );
+
+  // 🔥 PUERTA + MEDIA
+  if (tipo === "puerta_y_media") {
+    let productoPuerta;
+    let productoMedia;
+
+    if (linea === "herrero") {
+      productoPuerta = data.modelos?.[modeloPuerta];
+      productoMedia = data.medias?.[modeloMedia];
+    }
+
+    if (linea === "modena") {
+      productoPuerta = data.modelos?.[modeloPuerta];
+      productoMedia = data.modelos?.[modeloMedia];
+    }
+
+    if (!productoPuerta) {
+      throw new Error("Modelo de puerta no encontrado");
+    }
+
+    if (!productoMedia) {
+      throw new Error("Modelo de media no encontrado");
+    }
+
+    const puerta = calcularHoja({
+      producto: productoPuerta,
+      linea,
+      dataInput: {
+        color,
+        tipoVidrio,
+        vidrio: tipoVidrio,
+        adicionales,
+      },
+      perfil,
+    });
+
+    const media = calcularHoja({
+      producto: productoMedia,
+      linea,
+      dataInput: {
+        color,
+        tipoVidrio,
+        vidrio: tipoVidrio,
+        adicionales,
+      },
+      perfil,
+    });
+
+    return {
+      total: Math.round(puerta + media),
+      detalle: {
+        puerta,
+        media,
+      },
+      tipo: "puerta_y_media",
+      modeloPuerta,
+      modeloMedia,
+      linea,
+    };
+  }
+
+  // 🔹 CASO NORMAL
 
   const { ancho, alto } = parseMedida(medida);
 
@@ -64,43 +128,12 @@ function calcularPuerta(dataInput) {
     total += hoja;
   }
 
-  if (tipo === "media") {
-  const hojas = dataInput.hojas; // [80, 30]
-
-  let total = 0;
-
-  hojas.forEach((anchoHoja) => {
-    const medidaHoja = `${anchoHoja}x${alto}`;
-
-    const ajuste = data.ajustes?.[medidaHoja] || 0;
-
-    const hoja = calcularHoja({
-      producto,
-      linea,
-      dataInput: {
-        color,
-        tipoVidrio,
-        vidrio: tipoVidrio,
-        ajuste,
-        adicionales,
-      },
-      perfil,
-    });
-
-    total += hoja;
-  });
-
-  return {
-    total: Math.round(total),
-    cantidadHojas: hojas.length,
-    tipo: "media",
-  };
-}
-
   return {
     total: Math.round(total),
     cantidadHojas,
     medidaHoja,
+    tipo,
+    modelo,
   };
 }
 

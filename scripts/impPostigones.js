@@ -1,45 +1,59 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = "excel/calculadora.xlsx";
+const archivo = fromRoot("excel/calculadora.xlsx");
 const hojaNombre = "postigones";
 
 // HELPERS
-const normalizar = (txt) =>
-  txt?.toString().toLowerCase().trim().replace(/\s+/g, "_");
+const limpiarTexto = (txt) =>
+  txt
+    ?.toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const toNumber = (v) => {
+  const n = Number(v);
+  return isNaN(n) ? 0 : n;
+};
 
 // LEER EXCEL
 const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
 if (!sheet) {
-  console.log("❌ No se encontró la hoja:", hojaNombre);
-  process.exit(1);
+  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
 }
 
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-// 🔥 HEADERS (fila 7 → index 6)
-const headers = data[6].slice(0, 4).map(normalizar);
+// 🔍 HEADER MÁS SEGURO
+const headerIndex = data.findIndex(
+  (row) =>
+    row[0]?.toString().toLowerCase().includes("medida") && row[1] !== undefined,
+);
+
+if (headerIndex === -1) {
+  throw new Error("No se encontró encabezado");
+}
 
 // RESULTADO
 const medidas = {};
 
-// 🔥 DATOS (fila 8 → index 7)
-for (let i = 7; i < data.length; i++) {
-  const row = data[i].slice(0, 4);
+// 🔥 DATOS (bloque izquierdo)
+for (let i = headerIndex + 1; i < data.length; i++) {
+  const row = (data[i] || []).slice(0, 4);
 
   if (!row[0]) continue;
 
   const medida = row[0].toString().trim();
 
-  const corredizo = Math.round(Number(row[1]) || 0);
-  const deAbrir = Math.round(Number(row[2]) || 0);
-  let hojas = row[3]?.toString().trim() || "";
-
-  // 🔥 limpieza visual
-  hojas = hojas.replace("ó", "o");
+  const corredizo = Math.round(toNumber(row[1]));
+  const deAbrir = Math.round(toNumber(row[2]));
+  const hojas = parseInt(limpiarTexto(row[3])) || 0;
 
   medidas[medida] = {
     corredizo,
@@ -49,13 +63,12 @@ for (let i = 7; i < data.length; i++) {
 }
 
 // OUTPUT
-const resultado = {
-  medidas,
-};
+const resultado = { medidas };
 
 fs.writeFileSync(
-  "data/productos/postigones.json",
+  fromRoot("frontend/data/productos/postigones.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ postigones.json generado correctamente");
+console.log("📊 Medidas:", Object.keys(medidas).length);

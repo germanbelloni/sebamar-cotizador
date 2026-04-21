@@ -1,49 +1,57 @@
-const XLSX = require("xlsx");
+const xlsx = require("xlsx");
 const fs = require("fs");
-const path = require("path");
+const { fromRoot } = require("../utils/path");
 
-// 📂 RUTA EXCEL (desde /backend)
-const excelPath = path.join(process.cwd(), "../excel/calculadora.xlsx");
+// 📂 Excel
+const workbook = xlsx.readFile(fromRoot("excel/calculadora.xlsx"));
 
-// 📖 LEER ARCHIVO
-const workbook = XLSX.readFile(excelPath);
-
-// 📄 HOJA
-const sheet = workbook.Sheets["mosquiteros"];
-
-if (!sheet) {
-  throw new Error("❌ No existe la hoja 'mosquiteros'");
-}
-
-// 📊 DATOS (fila 6 en adelante)
-const data = XLSX.utils.sheet_to_json(sheet, {
-  range: 5,
-});
-
-// 🧠 PROCESAR
-const resultado = {};
-
-data.forEach((row) => {
-  const medida = row["Medidas"];
-  const base = Number(row["MOSQUITERO"]) || 0;
-
-  if (!medida) return;
-
-  resultado[medida] = {
-    base,
-  };
-});
-
-// 💾 RUTA OUTPUT (a frontend)
-const outputPath = path.join(
-  process.cwd(),
-  "../frontend/data/productos/mosquiteros.json",
+// 🔍 hoja dinámica
+const sheetName = workbook.SheetNames.find((n) =>
+  n.toLowerCase().includes("mosquiteros"),
 );
 
-// 📁 CREAR CARPETA SI NO EXISTE
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+if (!sheetName) {
+  throw new Error("Hoja mosquiteros no encontrada");
+}
 
-// 💾 GUARDAR JSON
-fs.writeFileSync(outputPath, JSON.stringify({ medidas: resultado }, null, 2));
+const sheet = workbook.Sheets[sheetName];
 
-console.log("✅ Mosquiteros importados correctamente");
+// 📊 leer crudo
+const raw = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+
+// 🔍 encontrar header (fila que tiene "Medidas")
+const headerIndex = raw.findIndex((row) =>
+  row.some((cell) => cell?.toString().toLowerCase().includes("medidas")),
+);
+
+if (headerIndex === -1) {
+  throw new Error("No se encontró encabezado");
+}
+
+// RESULTADO
+const resultado = {
+  medidas: {},
+};
+
+// 🔥 recorrer filas
+for (let i = headerIndex + 1; i < raw.length; i++) {
+  const row = raw[i];
+
+  const medida = row[0];
+  const precio = row[1];
+
+  if (!medida) continue;
+
+  resultado.medidas[medida.toString().trim()] = {
+    base: Math.round(Number(precio) || 0),
+  };
+}
+
+// 💾 guardar
+fs.writeFileSync(
+  fromRoot("frontend/data/productos/mosquiteros.json"),
+  JSON.stringify(resultado, null, 2),
+);
+
+console.log("✅ mosquiteros generados");
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);

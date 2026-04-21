@@ -1,22 +1,18 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = "excel/calculadora.xlsx";
+const archivo = fromRoot("excel/calculadora.xlsx");
 const hojaNombre = "puertas eco";
 
 // HELPERS
-const normalizarTexto = (txt) => txt?.toLowerCase().trim().replace(/\s+/g, " ");
+const norm = (txt) => txt?.toString().toLowerCase().trim().replace(/\s+/g, " ");
 
-const normalizarVidrio = (txt) => {
-  if (!txt) return "";
-
-  return txt
-    .toLowerCase()
-    .trim()
-    .replace("s/vidrio", "sin_vidrio")
-    .replace(/^v(?=\d)/, "") // ✅ solo v antes de número
-    .replace(/\s+/g, "");
+const toNumber = (v) => {
+  if (typeof v === "string") v = v.replace(",", ".");
+  const n = Number(v);
+  return isNaN(n) ? 0 : Math.round(n);
 };
 
 // LEER EXCEL
@@ -24,44 +20,45 @@ const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
 if (!sheet) {
-  console.log("❌ No se encontró la hoja:", hojaNombre);
-  process.exit(1);
+  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
 }
 
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-// FILA 7 → index 6
-const headers = data[6].slice(0, 5);
-const columnas = headers.map((h) => normalizarVidrio(h));
+// 🔍 HEADER (tabla izquierda)
+const headerIndex = data.findIndex(
+  (row) =>
+    row[1]?.toString().toLowerCase().includes("vidrio") &&
+    row[2]?.toString().toLowerCase().includes("3mm"),
+);
 
-// MODELOS
+if (headerIndex === -1) {
+  throw new Error("No se encontró encabezado de puertas eco");
+}
+
+// RESULTADO
 const modelos = {};
 
-for (let i = 7; i < data.length; i++) {
-  const row = data[i].slice(0, 5);
+for (let i = headerIndex + 1; i < data.length; i++) {
+  const row = data[i];
 
-  if (!row[0]) continue;
+  if (!row || !row[0]) continue;
 
-  const nombreModelo = normalizarTexto(row[0]);
+  const texto = norm(row[0]);
 
-  const modeloData = {
-    base: 0,
-    vidrios: {},
+  // cortar si aparece algo raro abajo
+  if (!texto.includes("modelo")) continue;
+
+  const modelo = texto;
+
+  modelos[modelo] = {
+    base: toNumber(row[1]),
+    vidrios: {
+      "3mm": toNumber(row[2]),
+      "4mm": toNumber(row[3]),
+      fantasia: toNumber(row[4]),
+    },
   };
-
-  columnas.forEach((col, index) => {
-    if (index === 0) return;
-
-    const valor = Number(row[index]) || 0;
-
-    if (col === "sin_vidrio") {
-      modeloData.base = valor;
-    } else {
-      modeloData.vidrios[col] = valor;
-    }
-  });
-
-  modelos[nombreModelo] = modeloData;
 }
 
 // OUTPUT
@@ -71,8 +68,9 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  "data/productos/puertas_eco.json",
+  fromRoot("frontend/data/productos/puertas_eco.json"),
   JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ JSON ECO generado correctamente");
+console.log("✅ puertas_eco.json generado correctamente");
+console.log("📊 Modelos:", Object.keys(modelos).length);

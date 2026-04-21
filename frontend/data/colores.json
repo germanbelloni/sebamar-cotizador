@@ -1,18 +1,18 @@
 [
   {
-    "nombre": "NEGRO",
+    "nombre": "negro",
     "valor": 0.3
   },
   {
-    "nombre": "BLANCO",
+    "nombre": "blanco",
     "valor": 0
   },
   {
-    "nombre": "BRONCE",
+    "nombre": "bronce",
     "valor": 0.45
   },
   {
-    "nombre": "SIMIL MADERA",
+    "nombre": "simil madera",
     "valor": 2.8
   }
 ]

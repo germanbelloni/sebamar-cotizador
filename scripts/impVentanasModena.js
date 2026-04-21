@@ -1,20 +1,18 @@
 const xlsx = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
-console.log("ARRANCÓ SCRIPT");
-
-// 📂 archivo
-const workbook = xlsx.readFile("../excel/calculadora.xlsx");
+const archivo = fromRoot("excel/calculadora.xlsx");
+const workbook = xlsx.readFile(archivo);
 
 const CONFIG = {
   hoja: "ventanas modena",
-  salida: "../data/productos/ventanas_modena.json",
 
-  detectarHeaderPor: ["medidas"],
+  detectarHeaderPor: ["medida"],
 
   columnas: {
-    medida: ["medidas", "medida"],
-    base: ["sin vidrio"],
+    medida: ["medida", "medidas"],
+    base: ["sin vidrio", "s/vidrio"],
     guia: ["guia"],
     mosq: ["mosq", "mosquitero"],
   },
@@ -30,51 +28,62 @@ const CONFIG = {
 
 const sheet = workbook.Sheets[CONFIG.hoja];
 
-// 👉 leer TODA la hoja como matriz
+if (!sheet) {
+  throw new Error(`Hoja "${CONFIG.hoja}" no encontrada`);
+}
+
 const raw = xlsx.utils.sheet_to_json(sheet, { header: 1 });
 
-let headerIndex = raw.findIndex((row) =>
-  row.some((cell) => {
-    if (!cell) return false;
-    const texto = cell.toString().toLowerCase();
-
-    return CONFIG.detectarHeaderPor.some((palabra) => texto.includes(palabra));
-  }),
+// HEADER
+const headerIndex = raw.findIndex((row) =>
+  row.some((cell) =>
+    CONFIG.detectarHeaderPor.some((p) =>
+      cell?.toString().toLowerCase().includes(p),
+    ),
+  ),
 );
 
 if (headerIndex === -1) {
-  console.log("❌ No se encontró encabezado");
-  process.exit();
+  throw new Error("No se encontró encabezado");
 }
 
-console.log("Header encontrado en fila:", headerIndex);
-
-// 👉 headers reales
 const headers = raw[headerIndex].map((h) =>
   h ? h.toString().toLowerCase().trim() : "",
 );
 
-// 👉 datos
+// DATA
 const filas = raw.slice(headerIndex + 1);
 
-// 🔧 helper flexible
-function get(row, posiblesNombres) {
-  for (let nombre of posiblesNombres) {
+// HELPERS
+function get(row, posibles) {
+  for (let nombre of posibles) {
     const idx = headers.findIndex((h) => h.includes(nombre));
-    if (idx !== -1) return row[idx] || 0;
+    if (idx !== -1) {
+      const v = Number(row[idx]);
+      return isNaN(v) ? 0 : Math.round(v);
+    }
   }
   return 0;
 }
 
-let resultado = {
-  medidas: {},
-};  
+// RESULTADO
+const resultado = { medidas: {} };
 
 filas.forEach((row) => {
-  const medida = get(row, CONFIG.columnas.medida);
+  function getText(row, posibles) {
+    for (let nombre of posibles) {
+      const idx = headers.findIndex((h) => h.includes(nombre));
+      if (idx !== -1) return (row[idx] || "").toString().trim();
+    }
+    return "";
+  }
+
+  const medida = getText(row, CONFIG.columnas.medida);
   if (!medida) return;
 
-  resultado.medidas[medida.toString().trim()] = {
+  const key = medida.toString().trim();
+
+  resultado.medidas[key] = {
     base: get(row, CONFIG.columnas.base),
     guia: get(row, CONFIG.columnas.guia),
     mosquitero: get(row, CONFIG.columnas.mosq),
@@ -89,7 +98,11 @@ filas.forEach((row) => {
   };
 });
 
-// 💾 guardar
-fs.writeFileSync(CONFIG.salida, JSON.stringify(resultado, null, 2));
+// OUTPUT
+fs.writeFileSync(
+  fromRoot("frontend/data/productos/ventanas_modena.json"),
+  JSON.stringify(resultado, null, 2),
+);
 
-console.log("✅ JSON generado correctamente");
+console.log("✅ ventanas_modena.json generado correctamente");
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);

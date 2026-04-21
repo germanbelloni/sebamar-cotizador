@@ -1,109 +1,95 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = "excel/calculadora.xlsx";
+const archivo = fromRoot("excel/calculadora.xlsx");
 const hojaNombre = "puertas modena";
 
 // HELPERS
-const normalizarTexto = (txt) =>
-  txt.toLowerCase().trim().replace(/\s+/g, " ");
-
-const normalizarVidrio = (txt) => {
-  if (!txt) return "";
-
-  return txt
-    .toLowerCase()
-    .trim()
-    .replace("v/", "")
-    .replace(/\s+/g, "")
-    .replace("s/vidrio", "sin_vidrio")
-    .replace("camara dvh", "dvh");
+const norm = (t) => t?.toString().toLowerCase().trim();
+const num = (v) => {
+  if (typeof v === "string") v = v.replace(",", ".");
+  const n = Number(v);
+  return isNaN(n) ? 0 : Math.round(n);
 };
 
-// LEER EXCEL
+// LEER
 const workbook = XLSX.readFile(archivo);
 const sheet = workbook.Sheets[hojaNombre];
 
-if (!sheet) {
-  console.log("❌ No se encontró la hoja:", hojaNombre);
-  process.exit(1);
-}
+if (!sheet) throw new Error("Hoja no encontrada");
 
-// Leer como array
 const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-// Encabezados fila 6 (index 5) → SOLO A–I
-const headers = data[5].slice(0, 9);
-const columnas = headers.map((h) => normalizarVidrio(h));
+// 🔥 BUSCAR INICIO TABLA IZQUIERDA
+const start = data.findIndex((row) =>
+  row[0]?.toString().toLowerCase().includes("modelo 1"),
+);
 
-// MODELOS
+if (start === -1) {
+  throw new Error("No se encontró tabla de modelos");
+}
+
+// RESULTADO
 const modelos = {};
 
-for (let i = 6; i < data.length; i++) {
-  const row = data[i].slice(0, 9);
+// 🔥 RECORRER FILAS
+for (let i = start; i < data.length; i++) {
+  const row = data[i];
 
-  if (!row[0]) continue;
+  if (!row || !row[0]) continue;
 
-  const nombreModelo = normalizarTexto(row[0]);
+  const nombre = norm(row[0]);
 
-  if (nombreModelo.includes("adicionales")) break;
+  // cortar cuando termina tabla
+  if (nombre.includes("adicionales")) break;
+  if (!nombre.includes("modelo")) continue;
 
-  const modeloData = {
-    base: 0,
-    vidrios: {},
-    dvh: { camara: 0 }
+  modelos[nombre] = {
+    base: num(row[1]),
+    vidrios: {
+      "3mm": num(row[2]),
+      "4mm": num(row[3]),
+      "5mm": num(row[4]),
+      fantasia: num(row[5]),
+      esmerilado: num(row[6]),
+      "3+3": num(row[7]),
+    },
+    dvh: {
+      camara: num(row[8]),
+    },
   };
-
-  columnas.forEach((col, index) => {
-    if (index === 0) return;
-
-    const valor = Number(row[index]) || 0;
-
-    if (col === "sin_vidrio") {
-      modeloData.base = valor;
-    } else if (col === "dvh") {
-      modeloData.dvh.camara = valor;
-    } else {
-      modeloData.vidrios[col] = valor;
-    }
-  });
-
-  modelos[nombreModelo] = modeloData;
 }
 
-// ADICIONALES
+// 🔥 ADICIONALES
 const adicionales = {};
 
-for (let i = 0; i < data.length; i++) {
-  const row = data[i];
-  if (!row[0]) continue;
+data.forEach((row) => {
+  if (!row[0]) return;
 
-  const texto = normalizarTexto(row[0]);
+  const t = norm(row[0]);
 
-  if (texto === "barral curvo") {
-    adicionales["barral_curvo"] = Number(row[1]) || 0;
-  }
+  if (t.includes("barral") && t.includes("curvo"))
+    adicionales["barral_curvo"] = num(row[1]);
 
-  if (texto === "barral recto") {
-    adicionales["barral_recto"] = Number(row[1]) || 0;
-  }
+  if (t.includes("barral") && t.includes("recto"))
+    adicionales["barral_recto"] = num(row[1]);
 
-  if (texto === "manija metalica") {
-    adicionales["manija_metalica"] = Number(row[1]) || 0;
-  }
-}
+  if (t.includes("manija")) adicionales["manija_metalica"] = num(row[1]);
+});
 
 // OUTPUT
 const resultado = {
   linea: "modena",
   modelos,
-  adicionales
+  adicionales,
 };
 
 fs.writeFileSync(
-  "data/productos/puertas_modena.json",
-  JSON.stringify(resultado, null, 2)
+  fromRoot("frontend/data/productos/puertas_modena.json"),
+  JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ JSON de Modena generado correctamente");
+console.log("✅ PUERTAS MODENA OK");
+console.log("📊 Modelos:", Object.keys(modelos).length);
