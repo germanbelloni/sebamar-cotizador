@@ -15,7 +15,6 @@ function calcularPanoFijo(input) {
     perfil = "amarilla",
   } = input;
 
-  // 🧠 VALIDACIONES
   if (!ancho || !alto) {
     throw new Error("Faltan dimensiones");
   }
@@ -24,7 +23,6 @@ function calcularPanoFijo(input) {
     throw new Error("Falta linea (herrero/modena)");
   }
 
-  // 📦 DATOS
   const basePerfil = superficies?.superficies?.pano_fijo?.[linea];
   if (!basePerfil) {
     throw new Error("Base de paño fijo no encontrada");
@@ -39,31 +37,30 @@ function calcularPanoFijo(input) {
   const perfilData =
     perfiles[perfil]?.superficie || perfiles["amarilla"].superficie;
 
-  // 🧮 PERÍMETRO
+  // 🔹 PERÍMETRO
   const perimetro = ancho * 2 + alto * 2;
 
   let totalPerfil = perimetro * basePerfil;
 
-  // 🎨 COLOR
-  if (color !== "blanco") {
-    const multColor = recargos[color];
+  // 🔹 COLOR
+  if (color.toLowerCase() !== "blanco") {
+    const multColor = recargos[color.toLowerCase()];
     if (!multColor) {
       throw new Error("Color no válido");
     }
     totalPerfil *= multColor;
   }
 
-  // 🪟 VIDRIO
+  // 🔹 VIDRIO
   const m2 = (ancho * alto) / 10000;
   const totalVidrio = m2 * valorVidrio;
 
-  // 💰 TOTAL BASE
   let total = totalPerfil + totalVidrio;
 
-  // 📊 PERFIL COMERCIAL
-  total *= 1 - perfilData.descuento;
-  total += perfilData.flete;
-  total *= 1 + perfilData.ganancia;
+  // 🔹 PERFIL COMERCIAL (TODO multiplicador)
+  total *= 1 - (perfilData.descuento || 0);
+  total *= 1 + (perfilData.flete || 0);
+  total *= 1 + (perfilData.ganancia || 0);
 
   return {
     total: Math.round(total),
