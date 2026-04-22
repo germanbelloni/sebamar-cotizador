@@ -4,10 +4,12 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
-const calcularPuerta = require("../services/puertas/calcularPuerta");
 const bcrypt = require("bcrypt");
-
 const jwt = require("jsonwebtoken");
+const path = require("path");
+
+const calcularPuerta = require("../services/puertas/calcularPuerta");
+const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
 
 const generarHTML = require("./services/pdf/generarPDF");
 
@@ -15,19 +17,16 @@ const User = require("./models/User");
 const Presupuesto = require("./models/Presupuesto");
 const auth = require("./middleware/auth");
 
-// 🔹 NUEVO: importar mosquiteros
-const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
-
 const app = express();
 
 // 🔧 MIDDLEWARES
 app.use(cors());
 app.use(express.json());
-
-const path = require("path");
-
 app.use("/img", express.static(path.join(__dirname, "../img")));
 
+// =========================
+// 🚪 PUERTAS
+// =========================
 app.post("/api/puertas", auth, (req, res) => {
   try {
     const { linea, tipo } = req.body;
@@ -52,7 +51,9 @@ app.post("/api/puertas", auth, (req, res) => {
   }
 });
 
-// 🔌 CONEXIÓN A MONGO
+// =========================
+// 🔌 MONGO
+// =========================
 if (process.env.NODE_ENV !== "test") {
   mongoose
     .connect(process.env.MONGODB_URI)
@@ -60,7 +61,6 @@ if (process.env.NODE_ENV !== "test") {
     .catch((err) => console.error("🔴 Error conectando MongoDB:", err));
 }
 
-// 🔹 TEST
 app.get("/", (req, res) => {
   res.send("Servidor OK");
 });
@@ -90,7 +90,6 @@ app.post("/api/auth/register", async (req, res) => {
 
     res.status(201).json({ msg: "Usuario creado" });
   } catch (error) {
-    console.log(error);
     if (error.code === 11000) {
       return res.status(400).json({ error: "Usuario ya existe" });
     }
@@ -115,9 +114,11 @@ app.post("/api/auth/login", async (req, res) => {
       return res.status(400).json({ error: "Credenciales inválidas" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      { id: user._id }, // ✅ UNIFICADO
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" },
+    );
 
     res.json({ token });
   } catch (error) {
@@ -131,7 +132,7 @@ app.post("/api/auth/login", async (req, res) => {
 
 // 🔹 NUEVO NUMERO
 app.post("/api/presupuestos/nuevo", auth, async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user.id); // ✅ FIX
 
   user.contadorPresupuestos += 1;
   await user.save();
@@ -139,14 +140,11 @@ app.post("/api/presupuestos/nuevo", auth, async (req, res) => {
   res.json({ numero: user.contadorPresupuestos });
 });
 
+// 🔹 CREAR
 app.post("/api/presupuestos", auth, async (req, res) => {
   try {
-    const User = require("./models/User");
-    const Presupuesto = require("./models/Presupuesto");
+    const userId = req.user.id; // ✅ FIX
 
-    const userId = req.user.userId;
-
-    // 🔎 buscar usuario
     const user = await User.findById(userId);
 
     if (!user) {
@@ -161,26 +159,19 @@ app.post("/api/presupuestos", auth, async (req, res) => {
       let precio = item.precio || 0;
       let descripcion = item.descripcion || item.tipo || "Producto";
 
-      // 🚪 PUERTAS
       if (item.tipo === "puerta") {
         const result = calcularPuerta(item);
-
         precio = result.total;
-
         descripcion = `Puerta ${item.linea} - ${item.modelo} - ${item.medida}`;
       }
 
-      // 🪟 MOSQUITEROS (si querés mantenerlo consistente)
       if (item.tipo === "mosquitero") {
         const result = calcularMosquitero(item);
-
         precio = result.total;
-
         descripcion = `Mosquitero ${item.medida}`;
       }
 
       const subtotal = precio * cantidad;
-
       total += subtotal;
 
       return {
@@ -191,11 +182,9 @@ app.post("/api/presupuestos", auth, async (req, res) => {
       };
     });
 
-    // 🔢 numeración (ACÁ VA)
     user.contadorPresupuestos += 1;
     await user.save();
 
-    // 📄 crear presupuesto
     const presupuesto = new Presupuesto({
       userId,
       numero: user.contadorPresupuestos,
@@ -213,10 +202,11 @@ app.post("/api/presupuestos", auth, async (req, res) => {
     res.status(500).json({ error: "Error creando presupuesto" });
   }
 });
+
 // 🔹 LISTAR
 app.get("/api/presupuestos", auth, async (req, res) => {
   const presupuestos = await Presupuesto.find({
-    userId: req.user.userId,
+    userId: req.user.id, // ✅ FIX
   }).populate("userId", "nombre");
 
   const resultado = presupuestos.map((p) => ({
@@ -231,24 +221,26 @@ app.get("/api/presupuestos", auth, async (req, res) => {
   res.json(resultado);
 });
 
-// 🔹 PDF (con seguridad)
-// 🔹 PDF (con seguridad)
+// 🔹 PDF
 app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
   try {
+    if (!req.params.id) {
+      return res.status(400).json({ error: "ID inválido" });
+    }
+
     const presupuesto = await Presupuesto.findById(req.params.id);
 
     if (!presupuesto) {
       return res.status(404).json({ error: "No encontrado" });
     }
 
-    if (presupuesto.userId.toString() !== req.user.userId) {
+    // 🔐 SEGURIDAD
+    if (presupuesto.userId.toString() !== req.user.id) {
       return res.status(403).json({ error: "No autorizado" });
     }
 
-    // 👉 Generar HTML
     const html = generarHTML(presupuesto);
 
-    // 👉 Puppeteer
     const browser = await puppeteer.launch({
       headless: "new",
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -264,7 +256,6 @@ app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
 
     await browser.close();
 
-    // 👉 Respuesta PDF
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "inline; filename=presupuesto.pdf",
@@ -276,7 +267,5 @@ app.get("/api/presupuestos/:id/pdf", auth, async (req, res) => {
     res.status(500).json({ error: "Error generando PDF" });
   }
 });
-// =========================
-const format = (n) => new Intl.NumberFormat("es-AR").format(n);
 
 module.exports = app;

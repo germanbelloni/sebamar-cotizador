@@ -1,48 +1,39 @@
 const { fromRoot } = require("../../utils/path");
 
-const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
-);
 const perfiles = require(fromRoot("config/perfiles"));
+const data = require(fromRoot("frontend/data/productos/superficies.json"));
 
-function calcularContramarco(input) {
-  const { ancho, alto, color = "blanco", perfil = "amarilla" } = input;
-
+module.exports = function calcularContramarco({
+  ancho,
+  alto,
+  color = "blanco",
+  perfil = "amarilla",
+  linea = "herrero",
+}) {
   if (!ancho || !alto) {
     throw new Error("Faltan dimensiones");
   }
 
-  const base = superficies?.superficies?.contramarco;
-  if (!base) {
-    throw new Error("Base de contramarco no encontrada");
-  }
+  const base = data.superficies.contramarco;
 
-  const recargos = superficies.recargos || {};
-  const perfilData =
-    perfiles[perfil]?.superficie || perfiles["amarilla"].superficie;
-
-  // 🔹 PERÍMETRO
   const perimetro = ancho * 2 + alto * 2;
 
   let total = perimetro * base;
 
-  // 🔹 COLOR
-  if (color.toLowerCase() !== "blanco") {
-    const multColor = recargos[color.toLowerCase()];
-    if (!multColor) {
-      throw new Error("Color no válido");
-    }
-    total *= multColor;
+  const recargo = data.recargos[color] || 1;
+
+  total *= recargo;
+
+  // 🔹 PERFIL CORRECTO
+  const perfilData = perfiles[perfil]?.[linea];
+
+  if (!perfilData) {
+    throw new Error(`Perfil inválido: ${perfil} - ${linea}`);
   }
 
-  // 🔹 PERFIL COMERCIAL
   total *= 1 - (perfilData.descuento || 0);
   total *= 1 + (perfilData.flete || 0);
   total *= 1 + (perfilData.ganancia || 0);
 
-  return {
-    total: Math.round(total),
-  };
-}
-
-module.exports = calcularContramarco;
+  return { total };
+};

@@ -1,0 +1,194 @@
+[
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "herrero",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "herrero",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "modena",
+    "color": "blanco",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "3mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "linea": "modena",
+    "color": "negro",
+    "vidrio": "4mm",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  }
+]

@@ -3,10 +3,9 @@ require("dotenv").config();
 
 module.exports = (req, res, next) => {
   try {
-
     const authHeader = req.headers.authorization;
 
-    if (!authHeader) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ error: "No autorizado" });
     }
 
@@ -14,7 +13,11 @@ module.exports = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    if (!decoded.id) {
+      return res.status(401).json({ error: "Token inválido" });
+    }
+
+    req.user = { id: decoded.id };
 
     next();
   } catch (error) {

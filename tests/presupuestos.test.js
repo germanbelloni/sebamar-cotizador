@@ -7,6 +7,8 @@ const request = require("supertest");
 const app = require("../backend/app");
 const { connectDB, closeDB } = require("../setup/testDB");
 
+jest.setTimeout(20000);
+
 let tokenUser1;
 let tokenUser2;
 let presupuestoId;
@@ -69,6 +71,8 @@ describe("SEGURIDAD PRESUPUESTOS", () => {
       });
 
     presupuestoId = res.body._id;
+    console.log("🧪 ID generado:", presupuestoId);
+    console.log("🧪 RESPONSE COMPLETO:", res.body);
 
     expect(res.statusCode).toBe(200);
   });

@@ -1,0 +1,38 @@
+[
+  {
+    "ancho": 100,
+    "alto": 100,
+    "color": "blanco",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 100,
+    "alto": 100,
+    "color": "negro",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "color": "blanco",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "color": "negro",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "color": "blanco",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "color": "negro",
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  }
+]

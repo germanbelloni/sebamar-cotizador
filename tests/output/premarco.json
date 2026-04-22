@@ -1,0 +1,17 @@
+[
+  {
+    "ancho": 100,
+    "alto": 100,
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 150,
+    "alto": 120,
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  },
+  {
+    "ancho": 200,
+    "alto": 150,
+    "error": "Cannot read properties of undefined (reading 'descuento')"
+  }
+]

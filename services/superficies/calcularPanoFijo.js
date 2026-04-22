@@ -1,70 +1,62 @@
 const { fromRoot } = require("../../utils/path");
 
-const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
-);
 const perfiles = require(fromRoot("config/perfiles"));
+const data = require(fromRoot("frontend/data/productos/superficies.json"));
 
-function calcularPanoFijo(input) {
-  const {
-    ancho,
-    alto,
-    linea,
-    color = "blanco",
-    tipoVidrio,
-    perfil = "amarilla",
-  } = input;
-
-  if (!ancho || !alto) {
-    throw new Error("Faltan dimensiones");
+module.exports = function calcularPanoFijo({
+  ancho,
+  alto,
+  linea,
+  color = "blanco",
+  tipoVidrio,
+  perfil = "amarilla",
+}) {
+  if (!ancho || !alto || !linea || !tipoVidrio) {
+    throw new Error("Faltan datos para calcular paño fijo");
   }
 
-  if (!linea) {
-    throw new Error("Falta linea (herrero/modena)");
-  }
+  const base = data.superficies.pano_fijo[linea];
 
-  const basePerfil = superficies?.superficies?.pano_fijo?.[linea];
-  if (!basePerfil) {
-    throw new Error("Base de paño fijo no encontrada");
+  if (!base) {
+    throw new Error(`Linea inválida: ${linea}`);
   }
-
-  const valorVidrio = superficies?.vidrios?.[tipoVidrio];
-  if (!valorVidrio) {
-    throw new Error("Vidrio no encontrado");
-  }
-
-  const recargos = superficies.recargos || {};
-  const perfilData =
-    perfiles[perfil]?.superficie || perfiles["amarilla"].superficie;
 
   // 🔹 PERÍMETRO
   const perimetro = ancho * 2 + alto * 2;
 
-  let totalPerfil = perimetro * basePerfil;
+  let totalPerfil = perimetro * base;
 
   // 🔹 COLOR
-  if (color.toLowerCase() !== "blanco") {
-    const multColor = recargos[color.toLowerCase()];
-    if (!multColor) {
-      throw new Error("Color no válido");
+  if (color !== "blanco") {
+    const recargo = data.recargos[color];
+    if (!recargo) {
+      throw new Error(`Color inválido: ${color}`);
     }
-    totalPerfil *= multColor;
+    totalPerfil *= recargo;
   }
 
   // 🔹 VIDRIO
+  const vidrioPrecio = data.vidrios[tipoVidrio];
+
+  if (!vidrioPrecio) {
+    throw new Error(`Vidrio inválido: ${tipoVidrio}`);
+  }
+
   const m2 = (ancho * alto) / 10000;
-  const totalVidrio = m2 * valorVidrio;
+  const totalVidrio = m2 * vidrioPrecio;
 
   let total = totalPerfil + totalVidrio;
 
-  // 🔹 PERFIL COMERCIAL (TODO multiplicador)
+  // 🔹 PERFIL COMERCIAL
+  const perfilData = perfiles[perfil]?.[linea];
+
+  if (!perfilData) {
+    throw new Error(`Perfil inválido: ${perfil} - ${linea}`);
+  }
+
   total *= 1 - (perfilData.descuento || 0);
   total *= 1 + (perfilData.flete || 0);
   total *= 1 + (perfilData.ganancia || 0);
 
-  return {
-    total: Math.round(total),
-  };
-}
-
-module.exports = calcularPanoFijo;
+  return { total };
+};
