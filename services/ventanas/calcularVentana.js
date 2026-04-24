@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+const { fromRoot } = require("../../utils/path");
 
-const colores = require(path.join(process.cwd(), "frontend/data/colores.json"));
-const perfiles = require("../../config/perfiles");
+const colores = require(fromRoot("frontend/data/colores.json"));
+const perfiles = require(fromRoot("config/perfiles"));
 
+// 🎨 COLOR
 function getColorValor(color) {
   const c = colores.find(
     (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
@@ -11,6 +11,9 @@ function getColorValor(color) {
   return c ? c.valor : 0;
 }
 
+// =======================
+// 🧠 MAIN
+// =======================
 function calcularVentana(dataInput) {
   const { linea = "herrero" } = dataInput;
 
@@ -25,11 +28,9 @@ function calcularVentana(dataInput) {
   return calcularVentanaHerrero(dataInput);
 }
 
-//
 // =======================
 // 🟡 HERRERO
 // =======================
-//
 function calcularVentanaHerrero(dataInput) {
   const {
     medida,
@@ -42,11 +43,11 @@ function calcularVentanaHerrero(dataInput) {
   const perfilData = perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
 
   const data = require(
-    path.join(process.cwd(), "frontend/data/productos/ventanas_herrero.json"),
+    fromRoot("frontend/data/productos/ventanas_herrero.json"),
   );
 
   const datos = data.medidas?.[medida];
-  if (!datos) throw new Error("Medida no encontrada");
+  if (!datos) throw new Error(`Medida no encontrada: ${medida}`);
 
   const base = datos.base || 0;
   const guia = datos.guia || 0;
@@ -55,13 +56,13 @@ function calcularVentanaHerrero(dataInput) {
 
   const colorValor = getColorValor(color);
 
-  // 🔹 BASE
+  // 🔹 BASE + VIDRIO
   const baseColor = (base + vidrio) * (1 + colorValor);
 
   // 🔹 GUIA
   const guiaColor = incluirGuia ? guia * (1 + colorValor) : 0;
 
-  // 🔹 MOSQ (CON COLOR)
+  // 🔹 MOSQUITER0 (CON COLOR)
   const mosqColor = incluirMosquitero ? mosq * (1 + colorValor) : 0;
 
   function aplicarCostos(valor) {
@@ -74,7 +75,7 @@ function calcularVentanaHerrero(dataInput) {
   const baseFinal = aplicarCostos(baseColor);
   const guiaFinal = incluirGuia ? aplicarCostos(guiaColor) : 0;
 
-  // 👇 MOSQ SOLO GANANCIA
+  // 🧵 MOSQUITER0 (ganancia especial)
   let mosqFinal = 0;
 
   if (incluirMosquitero) {
@@ -83,7 +84,7 @@ function calcularVentanaHerrero(dataInput) {
     mosqFinal *= 1 - perfilData.descuento;
     mosqFinal *= 1 + perfilData.flete;
 
-    // 👇 ganancia especial
+    // ganancia especial
     mosqFinal *= 1 + 0.6;
   }
 
@@ -92,11 +93,9 @@ function calcularVentanaHerrero(dataInput) {
   };
 }
 
-//
 // =======================
 // 🔵 MODENA
 // =======================
-//
 function calcularVentanaModena(dataInput) {
   const {
     medida,
@@ -114,11 +113,11 @@ function calcularVentanaModena(dataInput) {
   const perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
 
   const data = require(
-    path.join(process.cwd(), "frontend/data/productos/ventanas_modena.json"),
+    fromRoot("frontend/data/productos/ventanas_modena.json"),
   );
 
   const datos = data.medidas?.[medida];
-  if (!datos) throw new Error("Medida no encontrada");
+  if (!datos) throw new Error(`Medida no encontrada: ${medida}`);
 
   const base = datos.base || 0;
   const guia = datos.guia || 0;
@@ -140,21 +139,20 @@ function calcularVentanaModena(dataInput) {
   // 🔹 BASE + VIDRIO
   let baseCalc = (base + vidrio) * (1 + colorValor);
 
-  // 🔹 COSTOS BASE
   baseCalc *= 1 - perfilData.descuento;
   baseCalc *= 1 + perfilData.flete;
   baseCalc *= 1 + perfilData.ganancia;
 
-  // 🔹 GUIA (⚠️ DISTINTO A HERRERO)
+  // 🔹 GUIA
   let guiaCalc = 0;
   if (incluirGuia) {
-    guiaCalc = incluirGuia ? guia : 0;
+    guiaCalc = guia; // sin color ni perfil (como ya definiste)
   }
 
-  // 🔹 MOSQ
+  // 🔹 MOSQUITER0
   let mosqCalc = 0;
   if (incluirMosquitero) {
-    mosqCalc = incluirMosquitero ? mosq * (1 + 0.6) : 0;
+    mosqCalc = mosq * (1 + 0.6);
   }
 
   return {

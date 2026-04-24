@@ -14,6 +14,13 @@ module.exports = {
       descuento: 0.09,
       ganancia: 0.35,
     },
+
+    // 🧵 NUEVO
+    mosquiteros_ventana: {
+      aumento_proveedor_1: 0.08,
+      aumento_proveedor_2: 0.15,
+      ganancia: 0.6,
+    },
   },
 
   azul: {
@@ -31,6 +38,13 @@ module.exports = {
       descuento: 0.09,
       ganancia: 0.35,
     },
+
+    // 🧵 NUEVO
+    mosquiteros_ventana: {
+      aumento_proveedor_1: 0.08,
+      aumento_proveedor_2: 0.15,
+      ganancia: 0.6,
+    },
   },
 
   verde: {
@@ -47,6 +61,13 @@ module.exports = {
     placa: {
       descuento: 0.09,
       ganancia: 0.35,
+    },
+
+    // 🧵 NUEVO
+    mosquiteros_ventana: {
+      aumento_proveedor_1: 0.08,
+      aumento_proveedor_2: 0.15,
+      ganancia: 0.6,
     },
   },
 };

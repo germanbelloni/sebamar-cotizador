@@ -11,9 +11,12 @@ const path = require("path");
 const calcularPuerta = require("../services/puertas/calcularPuerta");
 const calcularMosquiteroVentana = require("./wrappers/mosquiteros/calcularMosquiteroVentana");
 const calcularPuertaMosquitera = require("./wrappers/mosquiteros/calcularPuertaMosquitera");
-
+const calcularPuertaEco = require("./wrappers/puertas/calcularPuertaEco");
+const calcularPuertaPlaca = require("./wrappers/placas/calcularPuertaPlaca");
+const calcularPuertaMediaHerrero = require("./wrappers/puertas/calcularPuertaMediaHerrero");
 const calcularRajaModena = require("./wrappers/rajas/calcularRajaModena");
 const calcularVentanaHerrero = require("./wrappers/ventanas/calcularVentanaHerrero");
+const calcularPuertaMediaModena = require("./wrappers/puertas/calcularPuertaMediaModena");
 
 const generarHTML = require("./services/pdf/generarPDF");
 
@@ -104,6 +107,110 @@ app.post("/api/mosquiteros/puerta", (req, res) => {
     res.json(resultado);
   } catch (error) {
     console.log("ERROR PUERTA MOSQUITERA:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🚪 PUERTA Y MEDIA HERRERO
+// =========================
+app.post("/api/puertas/media", (req, res) => {
+  try {
+    const { modelo } = req.body;
+
+    if (!modelo) {
+      return res.status(400).json({
+        error: "Falta modelo",
+      });
+    }
+
+    const resultado = calcularPuertaMediaHerrero(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PUERTA MEDIA:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🚪 PUERTA Y MEDIA MODENA
+// =========================
+app.post("/api/puertas/media/modena", (req, res) => {
+  try {
+    const { modelo80, modelo70 } = req.body;
+
+    if (!modelo80 || !modelo70) {
+      return res.status(400).json({
+        error: "Faltan modelos (80 y 70)",
+      });
+    }
+
+    const resultado = calcularPuertaMediaModena(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PUERTA MEDIA MODENA:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🚪 PUERTAS PLACA (MADERA)
+// =========================
+app.post("/api/placas", (req, res) => {
+  try {
+    const { tipo, modelo, medida, marco } = req.body;
+
+    if (!tipo || !modelo || !medida || !marco) {
+      return res.status(400).json({
+        error: "Faltan datos obligatorios",
+      });
+    }
+
+    const resultado = calcularPuertaPlaca(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PLACAS:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🚪 PUERTAS ECO
+// =========================
+app.post("/api/puertas/eco", (req, res) => {
+  try {
+    const { modelo } = req.body;
+
+    if (!modelo) {
+      return res.status(400).json({
+        error: "Falta modelo",
+      });
+    }
+
+    const resultado = calcularPuertaEco(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PUERTAS ECO:", error.message);
 
     res.status(500).json({
       error: "Error en cálculo",

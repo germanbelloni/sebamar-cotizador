@@ -1,9 +1,10 @@
 const path = require("path");
 
-// 🔥 ROOT REAL DEL PROYECTO (ajustá si hace falta)
-const root = path.resolve(__dirname, "..");
+// 🔥 raíz real del proyecto (independiente de dónde ejecutes node)
+const ROOT = path.resolve(__dirname, "..");
 
-module.exports = {
-  root,
-  fromRoot: (...paths) => path.join(root, ...paths),
-};
+function fromRoot(p) {
+  return path.join(ROOT, p);
+}
+
+module.exports = { fromRoot };

@@ -1,10 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 
+// 📌 IMPORTANTE: evitar process.cwd para imports internos
 const calcularContramarco = require(
-  path.join(process.cwd(), "services", "superficies", "calcularContramarco"),
+  path.join(
+    __dirname,
+    "..",
+    "..",
+    "services",
+    "superficies",
+    "calcularContramarco",
+  ),
 );
 
+// =========================
+// 🧪 CASOS
+// =========================
 const casos = [
   { ancho: 100, alto: 100 },
   { ancho: 150, alto: 120 },
@@ -13,6 +24,9 @@ const casos = [
 
 const colores = ["blanco", "negro"];
 
+// =========================
+// 🔄 GENERAR
+// =========================
 const resultados = [];
 
 casos.forEach((c) => {
@@ -38,13 +52,18 @@ casos.forEach((c) => {
   });
 });
 
+// =========================
 // 📁 OUTPUT
+// =========================
+
+// ✔ acá sí process.cwd está perfecto (es script)
 const baseOutput =
   process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
 
 const folderName = path.basename(__filename).replace(".gen.js", "");
 const outputDir = path.join(baseOutput, folderName);
 
+// crear carpeta si no existe
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
@@ -53,4 +72,9 @@ const outputFile = path.join(outputDir, "contramarco.json");
 
 fs.writeFileSync(outputFile, JSON.stringify(resultados, null, 2));
 
-console.log("✅ contramarco generado:", resultados.length);
+// =========================
+// 📊 LOG
+// =========================
+console.log("📊 CONTRAMARCO");
+console.log("Casos generados:", resultados.length);
+console.log("Archivo:", outputFile);

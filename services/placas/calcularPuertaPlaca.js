@@ -1,7 +1,6 @@
 const { fromRoot } = require("../../utils/path");
-const perfiles = require(fromRoot("config/perfiles"));
 
-// 📦 DATA (unificada desde frontend)
+// 📦 DATA
 const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
 function calcularPuertaPlaca(dataInput) {
@@ -10,10 +9,7 @@ function calcularPuertaPlaca(dataInput) {
     modelo,
     medida,
     marco,
-    perfil = "amarilla",
   } = dataInput;
-
-  const perfilData = perfiles[perfil]?.placa || perfiles["amarilla"].placa;
 
   const modeloData = data?.[tipo]?.[modelo];
 
@@ -33,14 +29,9 @@ function calcularPuertaPlaca(dataInput) {
     throw new Error("Configuración inválida (marco)");
   }
 
-  let total = precioBase;
-
-  // 🔥 REGLAS PLACA
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.ganancia;
-
+  // 🔹 SOLO BASE (SIN PERFIL)
   return {
-    total: Math.round(total),
+    base: precioBase,
   };
 }
 
