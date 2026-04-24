@@ -9,7 +9,11 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 
 const calcularPuerta = require("../services/puertas/calcularPuerta");
-const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
+const calcularMosquiteroVentana = require("./wrappers/mosquiteros/calcularMosquiteroVentana");
+const calcularPuertaMosquitera = require("./wrappers/mosquiteros/calcularPuertaMosquitera");
+
+const calcularRajaModena = require("./wrappers/rajas/calcularRajaModena");
+const calcularVentanaHerrero = require("./wrappers/ventanas/calcularVentanaHerrero");
 
 const generarHTML = require("./services/pdf/generarPDF");
 
@@ -43,6 +47,99 @@ app.post("/api/puertas", auth, (req, res) => {
     res.json(resultado);
   } catch (error) {
     console.log("ERROR PUERTAS:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🧵 MOSQUITEROS (VENTANA COLOCADA)
+// =========================
+app.post("/api/mosquiteros", auth, (req, res) => {
+  try {
+    const { ancho, alto } = req.body;
+
+    if (!ancho || !alto) {
+      return res.status(400).json({
+        error: "Faltan ancho o alto",
+      });
+    }
+
+    const resultado = calcularMosquiteroVentana(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR MOSQUITEROS:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🚪 PUERTAS MOSQUITERAS
+// =========================
+
+app.post("/api/mosquiteros/puerta", (req, res) => {
+  try {
+    const { ancho, alto } = req.body;
+
+    if (!ancho || !alto) {
+      return res.status(400).json({
+        error: "Faltan ancho o alto",
+      });
+    }
+
+    const resultado = calcularPuertaMosquitera({
+      ancho: Number(ancho),
+      alto: Number(alto),
+      color: req.body.color,
+    });
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR PUERTA MOSQUITERA:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// RAJAS MODENA
+// =========================
+
+app.post("/api/rajas/modena", (req, res) => {
+  try {
+    const resultado = calcularRajaModena(req.body);
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR RAJAS MODENA:", error.message);
+
+    res.status(500).json({
+      error: "Error en cálculo",
+      detalle: error.message,
+    });
+  }
+});
+
+// =========================
+// 🪟 VENTANAS HERRERO
+// =========================
+app.post("/api/ventanas/herrero", (req, res) => {
+  try {
+    const resultado = calcularVentanaHerrero(req.body);
+
+    res.json(resultado);
+  } catch (error) {
+    console.log("ERROR VENTANAS HERRERO:", error.message);
 
     res.status(500).json({
       error: "Error en cálculo",
