@@ -1,4 +1,4 @@
-const { fromRoot } = require("../../../utils/path");
+const { fromRoot } = require("../../utils/path");
 
 const calcularBase = require(fromRoot("services/placas/calcularPuertaPlaca"));
 
