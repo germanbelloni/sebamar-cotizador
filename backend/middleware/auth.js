@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "No autorizado" });
+      return res.status(401).json({ error: "Token requerido" });
     }
 
     const token = authHeader.split(" ")[1];
@@ -16,10 +16,13 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ error: "Token inválido" });
     }
 
-    req.user = { id: decoded.id };
+    req.user = {
+      id: decoded.id,
+      role: decoded.role || "user",
+    };
 
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Token inválido" });
+    return res.status(401).json({ error: "Token inválido o expirado" });
   }
 };

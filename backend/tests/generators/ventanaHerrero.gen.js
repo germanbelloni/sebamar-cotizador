@@ -24,8 +24,7 @@ const CONFIG = {
 let resultados = [];
 
 // 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+const baseOutput = path.join(__dirname, "..", "output");
 
 const folderName = path.basename(__filename).replace(".gen.js", "");
 const outputDir = path.join(baseOutput, folderName);
@@ -68,69 +67,32 @@ function generar() {
     medidas.forEach((medida) => {
       if (!isValidMedida(medida)) return;
 
-      const inputBase = {
+      const input = {
         medida,
         color,
         linea,
+        incluirGuia: true,
+        incluirMosquitero: true,
       };
 
-      let base = null;
-      let totalConGuia = null;
-      let totalConMosq = null;
-
       try {
-        const r = calcularVentana({
-          ...inputBase,
-          incluirGuia: false,
-          incluirMosquitero: false,
+        const r = calcularVentana(input);
+
+        resultados.push({
+          input,
+          output: {
+            costoBase: Math.round(r.costoBase),
+            costoGuia: Math.round(r.costoGuia),
+            costoMosquitero: Math.round(r.costoMosquitero),
+          },
         });
-        base = r?.total ?? null;
+
+        console.log(
+          `✔ ${medida} (${color}) → base:${Math.round(r.costoBase)} guia:${Math.round(r.costoGuia)} mosq:${Math.round(r.costoMosquitero)}`,
+        );
       } catch (err) {
-        console.log(`❌ base error → ${medida} ${color}`);
+        console.log(`❌ error → ${medida} ${color}`);
       }
-
-      try {
-        const r = calcularVentana({
-          ...inputBase,
-          incluirGuia: true,
-          incluirMosquitero: false,
-        });
-        totalConGuia = r?.total ?? null;
-      } catch (err) {
-        console.log(`❌ guia error → ${medida} ${color}`);
-      }
-
-      try {
-        const r = calcularVentana({
-          ...inputBase,
-          incluirGuia: false,
-          incluirMosquitero: true,
-        });
-        totalConMosq = r?.total ?? null;
-      } catch (err) {
-        console.log(`❌ mosq error → ${medida} ${color}`);
-      }
-
-      const guia =
-        base !== null && totalConGuia !== null ? totalConGuia - base : null;
-
-      const mosq =
-        base !== null && totalConMosq !== null ? totalConMosq - base : null;
-
-      resultados.push({
-        input: inputBase,
-        output: {
-          base,
-          guia,
-          mosquitero: mosq,
-          totalConGuia,
-          totalConMosq,
-        },
-      });
-
-      console.log(
-        `✔ ${medida} (${color}) → base:${base ?? "-"} guia:${guia ?? "-"} mosq:${mosq ?? "-"}`,
-      );
     });
   });
 }
@@ -147,6 +109,3 @@ fs.writeFileSync(
 );
 
 console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
-

@@ -108,12 +108,16 @@ function puertasEco(req, res) {
 }
 
 function rajasModena(req, res) {
-  return runCalculation(res, "RAJAS MODENA", () => calcularRajaModena(req.body));
+  return runCalculation(res, "RAJAS MODENA", () =>
+    calcularRajaModena(req.body),
+  );
 }
 
 function ventanasHerrero(req, res) {
+  const debug = req.query.debug === "true";
+
   return runCalculation(res, "VENTANAS HERRERO", () =>
-    calcularVentanaHerrero(req.body),
+    calcularVentanaHerrero(req.body, { debug }),
   );
 }
 

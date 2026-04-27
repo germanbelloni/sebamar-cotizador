@@ -1,113 +1,84 @@
 const fs = require("fs");
 const path = require("path");
 
-// 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
 // 📦 DATA
-const data = require(
-  fromRoot("frontend", "data", "productos", "ventanas_modena.json"),
-);
+const data = require(fromRoot("frontend/data/productos/ventanas_modena.json"));
 
 // 🧠 SERVICE
 const calcularVentana = require(
-  fromRoot("services", "ventanas", "calcularVentana.js"),
+  fromRoot("backend/services/ventanas/calcularVentana"),
 );
 
 // 🎯 CONFIG
-const CONFIG = {
-  colores: ["blanco", "negro", "bronce", "simil madera"],
-  linea: "modena",
-};
+const COLORES = ["blanco", "negro", "bronce", "simil madera"];
+const VIDRIOS = ["3mm", "4mm", "5mm", "3+3", "dvh"];
 
 // 📦 RESULTADOS
 let resultados = [];
 
-// 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+// =========================
+// 📁 OUTPUT CONFIG
+// =========================
+const outputDir = path.join(
+  process.cwd(),
+  "backend",
+  "tests",
+  "output",
+  "ventanaModena",
+);
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
-
+// crear carpeta si no existe
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// 🔍 VALIDADORES
-function isObject(val) {
-  return val && typeof val === "object" && !Array.isArray(val);
-}
+// =========================
+// 🚀 GENERADOR
+// =========================
+console.log("\n🧪 GENERANDO TEST MASIVO MODENA...\n");
 
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
-}
-
-function getMedidas() {
-  if (!isObject(data?.medidas)) {
-    throw new Error("JSON inválido: 'medidas' no existe");
-  }
-
-  return Object.keys(data.medidas);
-}
-
-// 🔁 GENERADOR
-function generar() {
-  const { colores, linea } = CONFIG;
-
-  let medidas;
-
-  try {
-    medidas = getMedidas();
-  } catch (err) {
-    console.log(`❌ ${err.message}`);
-    return;
-  }
-
-  medidas.forEach((medida) => {
-    if (!isValidMedida(medida)) return;
-
-    colores.forEach((color) => {
+Object.keys(data.medidas).forEach((medida) => {
+  COLORES.forEach((color) => {
+    VIDRIOS.forEach((tipoVidrio) => {
       const input = {
         medida,
         color,
-        linea,
+        tipoVidrio,
+        linea: "modena",
       };
 
       try {
-        const result = calcularVentana(input);
+        const res = calcularVentana(input);
 
         resultados.push({
           input,
-          output: result,
+          output: res,
         });
 
-        console.log(`✔ ${medida} (${color}) → ${result?.total ?? "sin_total"}`);
-      } catch (error) {
+        console.log(`✔ ${medida} | ${color} | ${tipoVidrio}`);
+      } catch (e) {
         resultados.push({
           input,
-          error: error.message,
+          error: e.message,
         });
 
-        console.log(`❌ ERROR → ${medida} (${color})`);
-        console.log("   👉", error.message);
+        console.log(`❌ ${medida} | ${color} | ${tipoVidrio}`);
+        console.log("   👉", e.message);
       }
     });
   });
-}
+});
 
-// 🚀 RUN
-generar();
-
+// =========================
 // 💾 SAVE
-const nombreArchivo = `ventana_modena_${Date.now()}.json`;
+// =========================
+const fileName = `ventana_modena_${Date.now()}.json`;
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
+  path.join(outputDir, fileName),
   JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
-
+console.log(`\n✅ JSON generado en: ${outputDir}\\${fileName}\n`);
