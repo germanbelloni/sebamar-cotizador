@@ -1,4 +1,8 @@
-const calcularContramarco = require("../services/superficies/calcularContramarco");
+const { fromRoot } = require("../../utils/path");
+
+const superficies = require(
+  fromRoot("frontend/data/productos/superficies.json"),
+);
 
 describe("CONTRAMARCO", () => {
   it("calcula correctamente blanco", () => {
@@ -30,4 +34,3 @@ describe("CONTRAMARCO", () => {
     expect(negro.total).toBeGreaterThan(blanco.total);
   });
 });
-
