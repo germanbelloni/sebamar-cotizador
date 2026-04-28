@@ -1,137 +1,56 @@
 const fs = require("fs");
 const path = require("path");
 
-// 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
-// 📦 DATA
-const data = require(
-  fromRoot("frontend", "data", "productos", "rajas_modena.json"),
+const data = require(fromRoot("frontend/data/productos/rajas_modena.json"));
+
+const calcularRajaModena = require(
+  fromRoot("wrappers/rajas/calcularRajaModena"),
 );
 
-// 🧠 SERVICE
-const calcularRaja = require(fromRoot("services", "rajas", "calcularRaja.js"));
-
-// 🎯 CONFIG
 const CONFIG = {
   colores: ["blanco", "negro", "bronce", "simil madera"],
-  linea: "modena",
+  vidrios: ["4mm", "3+3", "4+4", "dvh_5_9_5"],
 };
 
-// 📦 RESULTADOS
 let resultados = [];
 
-// 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+const outputDir = path.join(process.cwd(), "backend/tests/output/rajaModena");
+if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
+Object.keys(data.medidas).forEach((medida) => {
+  const [ancho, alto] = medida.split("x").map(Number);
 
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
-
-// 🔍 VALIDADORES
-function isObject(val) {
-  return val && typeof val === "object" && !Array.isArray(val);
-}
-
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
-}
-
-function getMedidas() {
-  if (!isObject(data?.medidas)) {
-    throw new Error("JSON inválido: 'medidas' no existe");
-  }
-
-  return Object.keys(data.medidas);
-}
-
-// 🔁 GENERADOR
-function generar() {
-  const { colores, linea } = CONFIG;
-
-  let medidas;
-
-  try {
-    medidas = getMedidas();
-  } catch (err) {
-    console.log(`❌ ${err.message}`);
-    return;
-  }
-
-  medidas.forEach((medida) => {
-    if (!isValidMedida(medida)) return;
-
-    const info = data.medidas[medida];
-    if (!isObject(info)) return;
-
-    const vidrios = Object.keys(info.vidrios || {});
-    if (!vidrios.length) return;
-
-    colores.forEach((color) => {
-      vidrios.forEach((tipoVidrio) => {
-        [false, true].forEach((conCamara) => {
-          const extraVidrio = conCamara ? info.camara || 0 : 0;
-
-          const input = {
-            medida,
-            tipoVidrio,
-            color,
-            linea,
-            extraVidrio,
-          };
-
-          try {
-            const result = calcularRaja(input);
-
-            resultados.push({
-              input: {
-                ...input,
-                conCamara,
-              },
-              output: result,
-            });
-
-            console.log(
-              `✔ ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara} → ${
-                result?.total ?? "sin_total"
-              }`,
-            );
-          } catch (error) {
-            resultados.push({
-              input: {
-                ...input,
-                conCamara,
-              },
-              error: error.message,
-            });
-
-            console.log(
-              `❌ ERROR → ${medida} (${color}) vidrio:${tipoVidrio} camara:${conCamara}`,
-            );
-            console.log("   👉", error.message);
-          }
+  CONFIG.colores.forEach((color) => {
+    CONFIG.vidrios.forEach((vidrio) => {
+      try {
+        const res = calcularRajaModena({
+          ancho,
+          alto,
+          color,
+          vidrio,
         });
-      });
+
+        resultados.push({ input: { ancho, alto, color, vidrio }, output: res });
+
+        console.log(`✔ ${medida} ${color} ${vidrio}`);
+      } catch (e) {
+        resultados.push({
+          input: { ancho, alto, color, vidrio },
+          error: e.message,
+        });
+        console.log(`❌ ${medida} ${color} ${vidrio}`);
+      }
     });
   });
-}
+});
 
-// 🚀 RUN
-generar();
-
-// 💾 SAVE
-const nombreArchivo = `rajas_modena_${Date.now()}.json`;
+const file = `raja_modena_${Date.now()}.json`;
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
+  path.join(outputDir, file),
   JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
-
+console.log(`\n✅ JSON generado: ${file}`);

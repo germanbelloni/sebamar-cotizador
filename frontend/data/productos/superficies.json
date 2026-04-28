@@ -4,8 +4,10 @@
     "tres_hojas": 1.2,
     "natural": 1.7,
     "bronce": 1.45,
-    "negro": 1.3
+    "negro": 1.3,
+    "herraje_blanco": 1.05
   },
+
   "superficies": {
     "pano_fijo": {
       "herrero": 10685,
@@ -17,22 +19,43 @@
       "herrero": 13517,
       "modena": 20505
     },
-    "perfil_acople": 5905
+    "perfil_acople": 5905,
+
+    "mosquitero_fijo": 48364,
+    "cajon_block": 200000
   },
+
   "extras": {
-    "bipunto": 28000,
-    "oscilobatiente": 100000
+    "bipunto": 25000,
+    "bipunto_con_llave": 45000,
+    "oscilobatiente": 100000,
+    "cp8": 4000
   },
+
+  "herrajes": {
+    "corredizo": 550000,
+    "plegadizo": 400000,
+    "picaporte": {
+      "herrero": 4000,
+      "modena": 12000
+    }
+  },
+
+  "puertas_mosquitero": {
+    "80": 101970,
+    "90": 112167
+  },
+
   "vidrios": {
-    "dvh": 12600,
     "3mm": 51470,
     "4mm": 57902,
     "5mm": 25875,
     "6mm": 32754,
     "fantasia": 25725,
+    "esmerilado": 57902,
     "3+3": 62425,
     "4+4": 69735,
     "5+5": 84357,
-    "esmerilado": 57902
+    "dvh": 12600
   }
 }

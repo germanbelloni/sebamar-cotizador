@@ -1,4 +1,4 @@
-const { fromRoot } = require("../../utils/path");
+const { fromRoot } = require("../../backend/utils/path");
 
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),

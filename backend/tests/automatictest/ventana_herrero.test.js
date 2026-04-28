@@ -2,7 +2,7 @@ const { fromRoot } = require("../../utils/path");
 
 // ✅ WRAPPER (no service)
 const calcularVentanaHerrero = require(
-  fromRoot("backend/wrappers/ventanas/calcularVentanaHerrero"),
+  fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
 );
 
 // =========================
