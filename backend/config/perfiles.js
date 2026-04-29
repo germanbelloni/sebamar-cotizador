@@ -12,18 +12,24 @@ module.exports = {
       ganancia: 0.3,
     },
 
-    // 🪟 MOSQUITEROS (con ventana)
+    // 🪟 MOSQUITEROS
     mosquiteros: {
       descuento: 0.1,
       flete: 0.06,
       ganancia: 0.6,
     },
 
-    // 🔧 MOSCAS (solo mosquitero)
+    // 🔧 MOSCAS
     moscas: {
       aumento1: 0.08,
       aumento2: 0.15,
       ganancia: 0.6,
+    },
+
+    // 🚪 PLACAS
+    placa: {
+      descuento: 0.09,
+      ganancia: 0.3,
     },
   },
 
@@ -51,6 +57,12 @@ module.exports = {
       aumento2: 0.15,
       ganancia: 0.6,
     },
+
+    // 🚪 PLACAS
+    placa: {
+      descuento: 0.09,
+      ganancia: 0.3,
+    },
   },
 
   verde: {
@@ -76,6 +88,12 @@ module.exports = {
       aumento1: 0.08,
       aumento2: 0.15,
       ganancia: 0.6,
+    },
+
+    // 🚪 PLACAS
+    placa: {
+      descuento: 0.09,
+      ganancia: 0.3,
     },
   },
 };

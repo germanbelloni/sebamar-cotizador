@@ -4,32 +4,21 @@ const { fromRoot } = require("../../utils/path");
 const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
 function calcularPuertaPlaca(dataInput) {
-  const {
-    tipo, // placa | embutir
-    modelo,
-    medida,
-    marco,
-  } = dataInput;
+  const { tipo, modelo, medida, marco } = dataInput;
 
-  const modeloData = data?.[tipo]?.[modelo];
+  const tipoData = data?.[tipo];
+  if (!tipoData) throw new Error("Tipo inválido");
 
-  if (!modeloData) {
-    throw new Error("Modelo no encontrado");
-  }
+  const modeloData = tipoData?.[modelo];
+  if (!modeloData) throw new Error("Modelo no encontrado");
 
   const medidaData = modeloData?.[medida];
-
-  if (!medidaData) {
-    throw new Error("Medida no encontrada");
-  }
+  if (!medidaData) throw new Error("Medida no encontrada");
 
   const precioBase = medidaData?.[marco];
+  if (!precioBase) throw new Error("Configuración inválida (marco)");
 
-  if (!precioBase) {
-    throw new Error("Configuración inválida (marco)");
-  }
-
-  // 🔹 SOLO BASE (SIN PERFIL)
+  // 🔹 SOLO BASE
   return {
     base: precioBase,
   };

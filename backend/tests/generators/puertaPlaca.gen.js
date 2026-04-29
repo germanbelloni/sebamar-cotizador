@@ -1,118 +1,44 @@
 const fs = require("fs");
 const path = require("path");
 
-// 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
-// 🧠 SERVICE
-const calcularPuertaPlaca = require(
-  fromRoot("services", "placas", "calcularPuertaPlaca.js")
-);
+const calcular = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
 
-// 📦 DATA
-const data = require(
-  fromRoot("frontend", "data", "productos", "puertas_placa.json")
-);
+const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
-// 🎯 CONFIG
-const CONFIG = {
-  perfil: "amarilla",
-};
-
-// 📦 RESULTADOS
 let resultados = [];
 
-// 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+Object.keys(data).forEach((tipo) => {
+  Object.keys(data[tipo]).forEach((modelo) => {
+    Object.keys(data[tipo][modelo]).forEach((medida) => {
+      Object.keys(data[tipo][modelo][medida]).forEach((marco) => {
+        try {
+          const [ancho, alto] = medida.split("x").map(Number);
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
-
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
-
-// 🔍 VALIDADORES
-function isObject(val) {
-  return val && typeof val === "object" && !Array.isArray(val);
-}
-
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
-}
-
-// 🔁 GENERADOR
-function generar() {
-  const { perfil } = CONFIG;
-
-  if (!isObject(data)) {
-    console.log("❌ JSON inválido: data no es objeto");
-    return;
-  }
-
-  Object.keys(data).forEach((tipo) => {
-    const modelos = data[tipo];
-    if (!isObject(modelos)) return;
-
-    Object.keys(modelos).forEach((modelo) => {
-      const medidas = modelos[modelo];
-      if (!isObject(medidas)) return;
-
-      Object.keys(medidas).forEach((medida) => {
-        if (!isValidMedida(medida)) return;
-
-        const marcos = medidas[medida];
-        if (!isObject(marcos)) return;
-
-        Object.keys(marcos).forEach((marco) => {
-          const input = {
+          const result = calcular({
+            ancho,
+            alto,
             tipo,
             modelo,
-            medida,
             marco,
-            perfil,
-          };
+          });
 
-          try {
-            const result = calcularPuertaPlaca(input);
+          resultados.push({
+            input: { tipo, modelo, medida, marco },
+            output: result,
+          });
 
-            resultados.push({
-              input,
-              output: result,
-            });
-
-            console.log(
-              `✔ ${tipo} - ${modelo} - ${medida} - ${marco} → ${
-                result?.total ?? "sin_total"
-              }`
-            );
-          } catch (error) {
-            resultados.push({
-              input,
-              error: error.message,
-            });
-
-            console.log(`❌ ERROR → ${tipo} ${modelo} ${medida} ${marco}`);
-            console.log("   👉", error.message);
-          }
-        });
+          console.log(`✔ ${tipo} ${modelo} ${medida}`);
+        } catch (e) {
+          console.log(`❌ ${tipo} ${modelo} ${medida}`, e.message);
+        }
       });
     });
   });
-}
-
-// 🚀 RUN
-generar();
-
-// 💾 SAVE
-const nombreArchivo = `puertas_placa_${Date.now()}.json`;
+});
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
-  JSON.stringify(resultados, null, 2)
+  path.join(process.cwd(), "placas_test.json"),
+  JSON.stringify(resultados, null, 2),
 );
-
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
