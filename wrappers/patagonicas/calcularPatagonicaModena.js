@@ -141,15 +141,20 @@ function calcularWrapper(data) {
   total *= 1 + perfilData.flete;
   total *= 1 + perfilData.ganancia;
 
+  const detalle = {
+    tipo,
+    medidaValida,
+    ancho,
+    alto: altoOriginal,
+  };
+
+  if (cantidadRajas !== undefined) {
+    detalle.cantidadRajas = cantidadRajas;
+  }
+
   return {
     total: Math.round(total),
-    detalle: {
-      tipo,
-      medidaValida,
-      cantidadRajas,
-      ancho,
-      alto: altoOriginal,
-    },
+    detalle,
   };
 }
 

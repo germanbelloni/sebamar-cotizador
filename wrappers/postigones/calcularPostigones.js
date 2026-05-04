@@ -134,17 +134,20 @@ function calcularWrapper(data) {
   total *= 1 + perfilData.flete;
   total *= 1 + perfilData.ganancia;
 
+  const detalle = {
+    tipo,
+    hojas: hojasFinal,
+    medidaValida,
+    ancho,
+    alto: altoOriginal,
+  };
+
+  if (marco) detalle.marco = marco;
+  if (ladoApertura) detalle.ladoApertura = ladoApertura;
+
   return {
     total: Math.round(total),
-    detalle: {
-      tipo,
-      hojas: hojasFinal,
-      marco,
-      medidaValida,
-      ancho,
-      alto: altoOriginal,
-      ladoApertura,
-    },
+    detalle,
   };
 }
 

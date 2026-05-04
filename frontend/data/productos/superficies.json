@@ -22,7 +22,13 @@
     "perfil_acople": 5905,
 
     "mosquitero_fijo": 48364,
-    "cajon_block": 200000
+
+    "cajon_block": 200000,
+
+    "cortinas": {
+      "pvc": 18500,
+      "aluminio": 42000
+    }
   },
 
   "extras": {
@@ -32,12 +38,22 @@
     "cp8": 4000
   },
 
+  "barrales": {
+    "recto": 16500,
+    "curvo": 22000,
+    "manija": 12000
+  },
+
   "herrajes": {
     "corredizo": 550000,
     "plegadizo": 400000,
     "picaporte": {
       "herrero": 4000,
       "modena": 12000
+    },
+    "cerradura": {
+      "herrero": 0,
+      "modena": 0
     }
   },
 

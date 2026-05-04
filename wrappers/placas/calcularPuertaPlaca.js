@@ -6,16 +6,21 @@ const calcularBase = require(
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
+// ========================
 // 🔧 NORMALIZAR ANCHO
+// ========================
 function normalizarAncho(ancho) {
   if (ancho <= 70) return { lookup: 70, recargo: 1 };
   if (ancho <= 80) return { lookup: 80, recargo: 1 };
   if (ancho <= 90) return { lookup: 80, recargo: 1.1 };
   if (ancho <= 100) return { lookup: 80, recargo: 1.2 };
+
   throw new Error("Ancho fuera de rango");
 }
 
+// ========================
 // 🔧 NORMALIZAR ALTO
+// ========================
 function normalizarAlto(alto) {
   if (alto < 150 || alto > 210) {
     throw new Error("Alto fuera de rango");
@@ -26,7 +31,9 @@ function normalizarAlto(alto) {
   return { lookup: 200, recargo: 1.1 };
 }
 
-// 🔹 MAIN
+// ========================
+// 🧠 MAIN
+// ========================
 function calcularWrapper(dataInput) {
   let {
     medida,
@@ -40,23 +47,35 @@ function calcularWrapper(dataInput) {
     perfil = "amarilla",
   } = dataInput;
 
+  // ========================
   // 📏 PARSEO
+  // ========================
   if (medida && medida !== "fuera_medida") {
     [ancho, alto] = medida.split("x").map(Number);
   }
 
-  // VALIDACIONES
-  if (ancho < 60 || ancho > 100) {
-    throw new Error("Ancho fuera de rango");
+  if (!ancho || !alto) {
+    throw new Error("Faltan dimensiones");
   }
 
+  // ========================
+  // 🔒 VALIDACIONES
+  // ========================
+  if (ancho < 60 || ancho > 100) {
+    throw new Error("Ancho fuera de rango (60 - 100)");
+  }
+
+  // ========================
   // 🔧 NORMALIZACIÓN
+  // ========================
   const anchoNorm = normalizarAncho(ancho);
   const altoNorm = normalizarAlto(alto);
 
   const medidaBase = `${String(anchoNorm.lookup).padStart(3, "0")}x200`;
 
+  // ========================
   // 🧠 SERVICE
+  // ========================
   const resultadoBase = calcularBase({
     tipo,
     modelo,
@@ -64,36 +83,50 @@ function calcularWrapper(dataInput) {
     marco,
   });
 
-  let total = resultadoBase.base;
+  let total = resultadoBase.base || 0;
 
+  // ========================
   // 📐 RECARGOS
+  // ========================
   total *= anchoNorm.recargo;
   total *= altoNorm.recargo;
 
-  // ➕ EXTRAS (placeholder)
-  if (extras.picaporteBronce) {
-    // TODO futuro
+  // ========================
+  // ➕ EXTRAS (FUTURO)
+  // ========================
+  if (extras?.picaporteBronce) {
+    // placeholder
   }
 
+  // ========================
   // 💰 PERFIL
+  // ========================
   const perfilData = perfiles[perfil]?.placa || perfiles["amarilla"].placa;
 
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.ganancia;
+  total *= 1 - (perfilData.descuento || 0);
+  total *= 1 + (perfilData.ganancia || 0);
+
+  // ========================
+  // 🧾 DETALLE LIMPIO
+  // ========================
+  const detalle = {
+    tipo,
+    modelo,
+    medidaBase,
+    anchoOriginal: ancho,
+    altoOriginal: alto,
+    recargoAncho: anchoNorm.recargo,
+    recargoAlto: altoNorm.recargo,
+    marco,
+  };
+
+  if (mano) {
+    detalle.mano = mano;
+  }
 
   return {
     total: Math.round(total),
-    detalle: {
-      tipo,
-      modelo,
-      medidaBase,
-      anchoOriginal: ancho,
-      altoOriginal: alto,
-      recargoAncho: anchoNorm.recargo,
-      recargoAlto: altoNorm.recargo,
-      marco,
-      mano,
-    },
+    detalle,
   };
 }
 

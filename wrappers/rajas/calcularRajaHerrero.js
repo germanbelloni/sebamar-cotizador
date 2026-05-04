@@ -49,6 +49,7 @@ function calcularRajaHerrero(dataInput) {
     alto,
     color,
     vidrio,
+    tipoVidrio, // 👈 ahora acepta ambos
     mosquitero,
     modelo = "raja",
     desague,
@@ -70,14 +71,17 @@ function calcularRajaHerrero(dataInput) {
   const altoLookup = normalizarAlto(alto);
   const medida = buscarMedidaValida(ancho, altoLookup);
 
+  // 🔥 FIX CLAVE
+  const vidrioFinal = tipoVidrio || vidrio || "4mm";
+
   const base = calcularRaja({
     medida,
-    tipoVidrio: vidrio,
+    tipoVidrio: vidrioFinal,
     color,
     linea: "herrero",
   });
 
-  let totalCosto = base.total;
+  let totalCosto = base?.total || 0;
 
   const m2 = calcularM2(ancho, alto);
 
@@ -118,7 +122,7 @@ function calcularRajaHerrero(dataInput) {
     });
   }
 
-  // 📏 ALTURA (ANTES DEL PERFIL)
+  // 📏 ALTURA
   if (alto > 150) {
     totalCosto *= 1.3;
   }
@@ -131,7 +135,7 @@ function calcularRajaHerrero(dataInput) {
   // 🧾 DESCRIPCIÓN
   let descripcion = `Raja Herrero ${ancho}x${alto}`;
 
-  if (vidrio) descripcion += ` vidrio ${vidrio}`;
+  if (vidrioFinal) descripcion += ` vidrio ${vidrioFinal}`;
   if (mosquitero) descripcion += ` con mosquitero`;
   if (modelo !== "raja") descripcion += ` ${modelo}`;
   if (desague) descripcion += ` con desagüe`;
