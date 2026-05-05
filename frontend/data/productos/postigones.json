@@ -1,61 +1,61 @@
 {
   "medidas": {
-    "100x60": {
+    "100x0,60": {
       "corredizo": 62242,
       "de_abrir": 69409,
       "hojas": 2
     },
-    "120x60": {
+    "120x0,60": {
       "corredizo": 75677,
       "de_abrir": 83607,
       "hojas": 2
     },
-    "150x60": {
+    "150x0,60": {
       "corredizo": 93409,
       "de_abrir": 104104,
       "hojas": 2
     },
-    "180x60": {
+    "180x0,60": {
       "corredizo": 112034,
       "de_abrir": 124490,
       "hojas": 3
     },
-    "200x60": {
+    "200x0,60": {
       "corredizo": 124490,
       "de_abrir": 138799,
       "hojas": 3
     },
-    "100x90": {
+    "100x0,90": {
       "corredizo": 93409,
       "de_abrir": 104104,
       "hojas": 2
     },
-    "120x90": {
+    "120x0,90": {
       "corredizo": 112034,
       "de_abrir": 155651,
       "hojas": 2
     },
-    "150x90": {
+    "150x0,90": {
       "corredizo": 147597,
       "de_abrir": 163438,
       "hojas": 3
     },
-    "180x90": {
+    "180x0,90": {
       "corredizo": 176514,
       "de_abrir": 196174,
       "hojas": 3
     },
-    "200x90": {
+    "200x0,90": {
       "corredizo": 205456,
       "de_abrir": 218606,
       "hojas": 3
     },
-    "220x90": {
+    "220x0,90": {
       "corredizo": 219871,
       "de_abrir": 240008,
       "hojas": 3
     },
-    "240x90": {
+    "240x0,90": {
       "corredizo": 224180,
       "de_abrir": 261528,
       "hojas": 3

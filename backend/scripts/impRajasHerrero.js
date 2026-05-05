@@ -3,7 +3,7 @@ const fs = require("fs");
 const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = fromRoot("excel/calculadora.xlsx");
+const archivo = fromRoot("backend/excel/calculadora.xlsx");
 const hojaNombre = "rajas herrero";
 
 // HELPERS

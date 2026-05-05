@@ -3,7 +3,7 @@ const fs = require("fs");
 const { fromRoot } = require("../utils/path");
 
 // 📂 Excel
-const workbook = xlsx.readFile(fromRoot("excel/calculadora.xlsx"));
+const workbook = xlsx.readFile(fromRoot("backend/excel/calculadora.xlsx"));
 
 // 🔍 hoja dinámica
 const sheetName = workbook.SheetNames.find((n) =>

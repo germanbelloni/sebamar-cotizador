@@ -16,14 +16,31 @@ const superficies = require(
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
+// ========================
+// 🚀 WRAPPER
+// ========================
 function calcularPuertaWrapper(dataInput) {
   if (!dataInput.medida && dataInput.ancho && dataInput.alto) {
     dataInput.medida = `${dataInput.ancho}x${dataInput.alto}`;
   }
 
-  const { perfil = "amarilla", raja, ventana, extras = {}, color } = dataInput;
+  const {
+    perfil = "amarilla",
+    raja,
+    ventana,
+    extras = {},
+    color,
+    linea,
+  } = dataInput;
 
-  let { costo } = calcularPuertas(dataInput);
+  // ========================
+  // 🚪 BASE
+  // ========================
+  const base = calcularPuertas(dataInput);
+
+  let costo = base.costo || 0;
+
+  const items = [];
 
   // ========================
   // 🪟 RAJA
@@ -34,10 +51,17 @@ function calcularPuertaWrapper(dataInput) {
       color,
       tipoVidrio: raja.tipoVidrio || "3+3",
       modelo: "4",
-      linea: dataInput.linea,
+      linea,
     });
 
-    costo += r.total || r.costoBase || 0;
+    const costoRaja = r.costoBase || r.total || 0;
+
+    costo += costoRaja;
+
+    items.push({
+      tipo: "raja",
+      precio: Math.round(costoRaja),
+    });
   }
 
   // ========================
@@ -45,13 +69,20 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
   if (ventana) {
     const v = calcularVentana({
-      linea: dataInput.linea,
+      linea,
       medida: "60x40",
       color,
       tipoVidrio: "3mm",
     });
 
-    costo += v.costoBase || 0;
+    const costoVentana = v.costoBase || 0;
+
+    costo += costoVentana;
+
+    items.push({
+      tipo: "ventana",
+      precio: Math.round(costoVentana),
+    });
   }
 
   // ========================
@@ -59,28 +90,54 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
   if (extras.barralRecto) {
     const valor = superficies.herrajes?.barral_recto || 0;
-    costo += valor * extras.barralRecto;
+    const extra = valor * extras.barralRecto;
+
+    costo += extra;
+
+    items.push({
+      tipo: "barral_recto",
+      precio: Math.round(extra),
+    });
   }
 
   if (extras.barralCurvo) {
     const valor = superficies.herrajes?.barral_curvo || 0;
-    costo += valor * extras.barralCurvo;
+    const extra = valor * extras.barralCurvo;
+
+    costo += extra;
+
+    items.push({
+      tipo: "barral_curvo",
+      precio: Math.round(extra),
+    });
   }
 
   if (extras.manija) {
-    costo += superficies.herrajes?.manija_metalica || 0;
+    const extra = superficies.herrajes?.manija_metalica || 0;
+
+    costo += extra;
+
+    items.push({
+      tipo: "manija",
+      precio: Math.round(extra),
+    });
   }
 
   if (extras.picaporte) {
-    costo += superficies.herrajes?.picaporte?.[dataInput.linea] || 0;
+    const extra = superficies.herrajes?.picaporte?.[linea] || 0;
+
+    costo += extra;
+
+    items.push({
+      tipo: "picaporte",
+      precio: Math.round(extra),
+    });
   }
 
   // ========================
   // 💰 PERFIL
   // ========================
-  const perfilData =
-    perfiles[perfil]?.[dataInput.linea] ||
-    perfiles["amarilla"][dataInput.linea];
+  const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
 
   let total = costo;
 
@@ -92,8 +149,10 @@ function calcularPuertaWrapper(dataInput) {
     total: Math.round(total),
     costo: Math.round(costo),
     ganancia: Math.round(total - costo),
+    hojas: base.hojas || 1,
+    descripcion: `${linea} ${dataInput.tipo || "simple"}`,
+    items,
   };
 }
 
 module.exports = calcularPuertaWrapper;
-    

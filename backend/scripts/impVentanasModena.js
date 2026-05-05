@@ -2,7 +2,7 @@ const xlsx = require("xlsx");
 const fs = require("fs");
 const { fromRoot } = require("../utils/path");
 
-const archivo = fromRoot("excel/calculadora.xlsx");
+const archivo = fromRoot("backend/excel/calculadora.xlsx");
 const workbook = xlsx.readFile(archivo);
 
 const CONFIG = {

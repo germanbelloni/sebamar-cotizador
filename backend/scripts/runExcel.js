@@ -16,7 +16,7 @@ function run(name, cmd) {
 
 // 🔥 TODOS LOS IMPORTADORES
 run("Colores", `node "${path.join(scriptsDir, "impColores.js")}"`);
-run("Mosquiteros", `node "${path.join(scriptsDir, "impMosquiteros.js")}`);
+run("Mosquiteros", `node "${path.join(scriptsDir, "impMosquiteros.js")}"`);
 run(
   "Patagonicas Modena",
   `node "${path.join(scriptsDir, "impPatagonicasModena.js")}`,

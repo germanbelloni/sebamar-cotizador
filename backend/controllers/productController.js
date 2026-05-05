@@ -1,22 +1,52 @@
-const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
-const calcularPatagonicaHerrero = require("../services/patagonicas/calcularPatagonicaHerrero");
-const calcularPatagonicaModena = require("../services/patagonicas/calcularPatagonicaModena");
-const calcularPostigon = require("../services/postigones/calcularPostigon");
-const calcularPuerta = require("../services/puertas/calcularPuerta");
-const calcularRaja = require("../services/rajas/calcularRaja");
-const calcularVentana = require("../services/ventanas/calcularVentana");
-const calcularMosquiteroVentana = require("../wrappers/mosquiteros/calcularMosquiteroVentana");
-const calcularPuertaMosquitera = require("../wrappers/mosquiteros/calcularPuertaMosquitera");
-const calcularPuertaPlaca = require("../wrappers/placas/calcularPuertaPlaca");
-const calcularPuertaEco = require("../wrappers/puertas/calcularPuertaEco");
-const calcularPuertaMediaHerrero = require("../wrappers/puertas/calcularPuertaMediaHerrero");
-const calcularPuertaMediaModena = require("../wrappers/puertas/calcularPuertaMediaModena");
-const calcularRajaModena = require("../wrappers/rajas/calcularRajaModena");
-const calcularVentanaHerrero = require("../wrappers/ventanas/calcularVentanaHerrero");
+const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
+const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
 
-function runCalculation(res, label, calculate) {
+const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
+const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
+
+const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
+
+const calcularPorton = require("../../wrappers/portones/calcularporton");
+
+const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
+
+const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
+const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
+
+const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
+const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
+
+const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
+
+const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
+const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
+
+// 🔥 GANANCIA CLIENTE
+const aplicarGananciaCliente = require("../utils/aplicarGananciaCliente");
+
+// =========================
+// 🧠 CORE GLOBAL
+// =========================
+function runCalculation(req, res, label, calculate) {
   try {
-    return res.json(calculate());
+    const data = {
+      ...req.body,
+      perfil: req.user.perfil,
+    };
+
+    console.log("PERFIL USADO:", data.perfil);
+
+    const resultadoBase = calculate(data);
+
+    const resultadoFinal = aplicarGananciaCliente(resultadoBase, req.user);
+
+    if (req.user?.role === "user") {
+      delete resultadoFinal.costo;
+      delete resultadoFinal.ganancia;
+      delete resultadoFinal.gananciaCliente;
+    }
+
+    return res.json(resultadoFinal);
   } catch (error) {
     console.log(`ERROR ${label}:`, error.message);
 
@@ -27,158 +57,118 @@ function runCalculation(res, label, calculate) {
   }
 }
 
+// =========================
+// 🚪 PUERTAS
+// =========================
 function puertas(req, res) {
-  const { linea, tipo } = req.body;
+  return runCalculation(req, res, "PUERTAS", (data) => calcularPuerta(data));
+}
 
-  if (!linea) {
-    return res.status(400).json({ error: "Falta linea" });
-  }
-
-  return runCalculation(res, "PUERTAS", () =>
-    calcularPuerta({ ...req.body, tipo: tipo || "simple" }),
+function puertasEco(req, res) {
+  return runCalculation(req, res, "PUERTAS ECO", (data) =>
+    calcularPuertaEco(data),
   );
 }
 
+// =========================
+// 🪵 PLACAS
+// =========================
+function placas(req, res) {
+  return runCalculation(req, res, "PLACAS", (data) =>
+    calcularPuertaPlaca(data),
+  );
+}
+
+// =========================
+// 🧵 MOSQUITEROS
+// =========================
 function mosquiteros(req, res) {
-  const { ancho, alto } = req.body;
-
-  if (!ancho || !alto) {
-    return res.status(400).json({ error: "Faltan ancho o alto" });
-  }
-
-  return runCalculation(res, "MOSQUITEROS", () =>
-    calcularMosquiteroVentana(req.body),
+  return runCalculation(req, res, "MOSQUITEROS", (data) =>
+    calcularMosquiteroVentana(data),
   );
 }
 
 function puertaMosquitera(req, res) {
-  const { ancho, alto } = req.body;
-
-  if (!ancho || !alto) {
-    return res.status(400).json({ error: "Faltan ancho o alto" });
-  }
-
-  return runCalculation(res, "PUERTA MOSQUITERA", () =>
-    calcularPuertaMosquitera({
-      ancho: Number(ancho),
-      alto: Number(alto),
-      color: req.body.color,
-    }),
+  return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
+    calcularPuertaMosquitera(data),
   );
 }
 
-function puertaMediaHerrero(req, res) {
-  if (!req.body.modelo) {
-    return res.status(400).json({ error: "Falta modelo" });
-  }
-
-  return runCalculation(res, "PUERTA MEDIA", () =>
-    calcularPuertaMediaHerrero(req.body),
-  );
-}
-
-function puertaMediaModena(req, res) {
-  const { modelo80, modelo70 } = req.body;
-
-  if (!modelo80 || !modelo70) {
-    return res.status(400).json({ error: "Faltan modelos (80 y 70)" });
-  }
-
-  return runCalculation(res, "PUERTA MEDIA MODENA", () =>
-    calcularPuertaMediaModena(req.body),
-  );
-}
-
-function placas(req, res) {
-  const { tipo, modelo, medida, marco } = req.body;
-
-  if (!tipo || !modelo || !medida || !marco) {
-    return res.status(400).json({ error: "Faltan datos obligatorios" });
-  }
-
-  return runCalculation(res, "PLACAS", () => calcularPuertaPlaca(req.body));
-}
-
-function puertasEco(req, res) {
-  if (!req.body.modelo) {
-    return res.status(400).json({ error: "Falta modelo" });
-  }
-
-  return runCalculation(res, "PUERTAS ECO", () => calcularPuertaEco(req.body));
-}
-
-function rajasModena(req, res) {
-  return runCalculation(res, "RAJAS MODENA", () =>
-    calcularRajaModena(req.body),
-  );
-}
-
-function ventanasHerrero(req, res) {
-  const debug = req.query.debug === "true";
-
-  return runCalculation(res, "VENTANAS HERRERO", () =>
-    calcularVentanaHerrero(req.body, { debug }),
-  );
-}
-
+// =========================
+// 🪟 VENTANAS
+// =========================
 function ventanas(req, res) {
-  if (!req.body.linea) {
-    return res.status(400).json({ error: "Falta linea" });
+  const { linea } = req.body;
+
+  if (linea === "modena") {
+    return runCalculation(req, res, "VENTANAS MODENA", (data) =>
+      calcularVentanaModena(data),
+    );
   }
 
-  return runCalculation(res, "VENTANAS", () => calcularVentana(req.body));
+  return runCalculation(req, res, "VENTANAS HERRERO", (data) =>
+    calcularVentanaHerrero(data),
+  );
 }
 
+// =========================
+// 🔩 RAJAS
+// =========================
 function rajas(req, res) {
-  if (!req.body.linea) {
-    return res.status(400).json({ error: "Falta linea" });
+  const { linea } = req.body;
+
+  if (linea === "modena") {
+    return runCalculation(req, res, "RAJAS MODENA", (data) =>
+      calcularRajaModena(data),
+    );
   }
 
-  return runCalculation(res, "RAJAS", () => calcularRaja(req.body));
+  return runCalculation(req, res, "RAJAS HERRERO", (data) =>
+    calcularRajaHerrero(data),
+  );
 }
 
+// =========================
+// 🪵 OTROS
+// =========================
 function postigones(req, res) {
-  const { medida, tipo, color } = req.body;
-
-  if (!medida || !tipo || !color) {
-    return res.status(400).json({ error: "Faltan datos obligatorios" });
-  }
-
-  return runCalculation(res, "POSTIGONES", () => calcularPostigon(req.body));
+  return runCalculation(req, res, "POSTIGONES", (data) =>
+    calcularPostigones(data),
+  );
 }
 
+function portones(req, res) {
+  return runCalculation(req, res, "PORTONES", (data) => calcularPorton(data));
+}
+
+function superficies(req, res) {
+  return runCalculation(req, res, "SUPERFICIES", (data) =>
+    calcularSuperficies(data),
+  );
+}
+
+// =========================
+// 🏔 PATAGÓNICAS
+// =========================
 function patagonicas(req, res) {
+  const { linea } = req.body;
+
   const calculadora =
-    req.body.linea === "herrero"
-      ? calcularPatagonicaHerrero
-      : calcularPatagonicaModena;
+    linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
 
-  return runCalculation(res, "PATAGONICAS", () => calculadora(req.body));
-}
-
-function mosquiterosBase(req, res) {
-  const { ancho, alto } = req.body;
-
-  if (!ancho || !alto) {
-    return res.status(400).json({ error: "Faltan ancho o alto" });
-  }
-
-  return runCalculation(res, "MOSQUITEROS", () => calcularMosquitero(req.body));
+  return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
 }
 
 module.exports = {
   mosquiteros,
-  mosquiterosBase,
+  puertaMosquitera,
   patagonicas,
   placas,
   postigones,
-  puertaMediaHerrero,
-  puertaMediaModena,
-  puertaMosquitera,
+  portones,
   puertas,
   puertasEco,
   rajas,
-  rajasModena,
   ventanas,
-  ventanasHerrero,
+  superficies,
 };

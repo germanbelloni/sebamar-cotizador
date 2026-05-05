@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
 const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
-const calcularPuerta = require("../services/puertas/calcularPuerta");
+const calcularPuerta = require("../services/puertas/calcularPuertas");
 const generarHTML = require("../services/pdf/generarPDF");
 
 async function nuevoNumero(req, res) {

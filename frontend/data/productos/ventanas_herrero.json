@@ -1,328 +1,328 @@
 {
   "medidas": {
-    "60x40": {
-      "base": 23863,
-      "guia": 6540,
-      "mosquitero": 8799,
-      "vidrio": 2321
+    "60x0,40": {
+      "base": 25119,
+      "guia": 6884,
+      "mosquitero": 9262,
+      "vidrio": 2556
     },
-    "80x40": {
-      "base": 29288,
-      "guia": 6540,
-      "mosquitero": 9874,
-      "vidrio": 3249
+    "80x0,40": {
+      "base": 30829,
+      "guia": 6884,
+      "mosquitero": 10394,
+      "vidrio": 3570
     },
-    "100x40": {
-      "base": 31536,
-      "guia": 6540,
-      "mosquitero": 11321,
-      "vidrio": 4177
+    "100x0,40": {
+      "base": 33195,
+      "guia": 6884,
+      "mosquitero": 11917,
+      "vidrio": 4590
     },
-    "120x40": {
-      "base": 34843,
-      "guia": 6540,
-      "mosquitero": 12768,
-      "vidrio": 5116
+    "120x0,40": {
+      "base": 36677,
+      "guia": 6884,
+      "mosquitero": 13440,
+      "vidrio": 5622
     },
-    "150x40": {
-      "base": 40334,
-      "guia": 6540,
-      "mosquitero": 14939,
-      "vidrio": 6497
+    "150x0,40": {
+      "base": 42456,
+      "guia": 6884,
+      "mosquitero": 15725,
+      "vidrio": 7140
     },
-    "180x40": {
-      "base": 44765,
-      "guia": 6540,
-      "mosquitero": 17109,
-      "vidrio": 7895
+    "180x0,40": {
+      "base": 47121,
+      "guia": 6884,
+      "mosquitero": 18010,
+      "vidrio": 8676
     },
-    "200x40": {
-      "base": 49660,
-      "guia": 6540,
-      "mosquitero": 18556,
-      "vidrio": 8823
+    "200x0,40": {
+      "base": 52273,
+      "guia": 6884,
+      "mosquitero": 19533,
+      "vidrio": 9696
     },
-    "60x60": {
-      "base": 28445,
-      "guia": 9809,
-      "mosquitero": 11108,
-      "vidrio": 3871
+    "60x0,60": {
+      "base": 29942,
+      "guia": 10325,
+      "mosquitero": 11693,
+      "vidrio": 4254
     },
-    "80x60": {
-      "base": 34399,
-      "guia": 9809,
-      "mosquitero": 12768,
-      "vidrio": 5416
+    "80x0,60": {
+      "base": 36210,
+      "guia": 10325,
+      "mosquitero": 13440,
+      "vidrio": 5952
     },
-    "100x60": {
-      "base": 37307,
-      "guia": 9809,
-      "mosquitero": 14428,
-      "vidrio": 6967
+    "100x0,60": {
+      "base": 39270,
+      "guia": 10325,
+      "mosquitero": 15187,
+      "vidrio": 7656
     },
-    "120x60": {
-      "base": 40485,
-      "guia": 9809,
-      "mosquitero": 16088,
-      "vidrio": 8512
+    "120x0,60": {
+      "base": 42616,
+      "guia": 10325,
+      "mosquitero": 16934,
+      "vidrio": 9354
     },
-    "150x60": {
-      "base": 45975,
-      "guia": 9809,
-      "mosquitero": 18577,
-      "vidrio": 10838
+    "150x0,60": {
+      "base": 48395,
+      "guia": 10325,
+      "mosquitero": 19555,
+      "vidrio": 11910
     },
-    "180x60": {
-      "base": 50407,
-      "guia": 9809,
-      "mosquitero": 21067,
-      "vidrio": 13159
+    "180x0,60": {
+      "base": 53060,
+      "guia": 10325,
+      "mosquitero": 22176,
+      "vidrio": 14460
     },
-    "200x60": {
-      "base": 57656,
-      "guia": 9809,
-      "mosquitero": 22727,
-      "vidrio": 14704
+    "200x0,60": {
+      "base": 60690,
+      "guia": 10325,
+      "mosquitero": 23923,
+      "vidrio": 16158
     },
-    "100x80": {
-      "base": 44938,
-      "guia": 13079,
-      "mosquitero": 17535,
-      "vidrio": 9752
+    "100x0,80": {
+      "base": 47303,
+      "guia": 13768,
+      "mosquitero": 18458,
+      "vidrio": 10716
     },
-    "120x80": {
-      "base": 47719,
-      "guia": 13079,
-      "mosquitero": 19407,
-      "vidrio": 11919
+    "120x0,80": {
+      "base": 50231,
+      "guia": 13768,
+      "mosquitero": 20429,
+      "vidrio": 13098
     },
-    "150x80": {
-      "base": 53209,
-      "guia": 13079,
-      "mosquitero": 22216,
-      "vidrio": 15168
+    "150x0,80": {
+      "base": 56010,
+      "guia": 13768,
+      "mosquitero": 23386,
+      "vidrio": 16668
     },
-    "180x80": {
-      "base": 57112,
-      "guia": 13079,
-      "mosquitero": 25025,
-      "vidrio": 18422
+    "180x0,80": {
+      "base": 60117,
+      "guia": 13768,
+      "mosquitero": 26342,
+      "vidrio": 20244
     },
-    "200x80": {
-      "base": 64657,
-      "guia": 13079,
-      "mosquitero": 26898,
-      "vidrio": 20584
+    "200x0,80": {
+      "base": 68060,
+      "guia": 13768,
+      "mosquitero": 28314,
+      "vidrio": 22620
     },
     "100x100": {
-      "base": 50572,
-      "guia": 16348,
-      "mosquitero": 20642,
-      "vidrio": 12536
+      "base": 53234,
+      "guia": 17209,
+      "mosquitero": 21728,
+      "vidrio": 13776
     },
     "120x100": {
-      "base": 53137,
-      "guia": 16348,
-      "mosquitero": 22727,
-      "vidrio": 15326
+      "base": 55934,
+      "guia": 17209,
+      "mosquitero": 23923,
+      "vidrio": 16842
     },
     "150x100": {
-      "base": 58841,
-      "guia": 16348,
-      "mosquitero": 25855,
-      "vidrio": 19503
+      "base": 61937,
+      "guia": 17209,
+      "mosquitero": 27216,
+      "vidrio": 21432
     },
     "180x100": {
-      "base": 62741,
-      "guia": 16348,
-      "mosquitero": 28983,
-      "vidrio": 23680
+      "base": 66044,
+      "guia": 17209,
+      "mosquitero": 30509,
+      "vidrio": 26022
     },
     "200x100": {
-      "base": 70287,
-      "guia": 16348,
-      "mosquitero": 31069,
-      "vidrio": 26470
+      "base": 73986,
+      "guia": 17209,
+      "mosquitero": 32704,
+      "vidrio": 29088
     },
     "220x100": {
-      "base": 72536,
-      "guia": 16348,
-      "mosquitero": 33154,
-      "vidrio": 29255
+      "base": 76353,
+      "guia": 17209,
+      "mosquitero": 34899,
+      "vidrio": 32148
     },
     "240x100": {
-      "base": 75842,
-      "guia": 16348,
-      "mosquitero": 35240,
-      "vidrio": 32039
+      "base": 79834,
+      "guia": 17209,
+      "mosquitero": 37094,
+      "vidrio": 35208
     },
     "100x110": {
-      "base": 53930,
-      "guia": 17983,
-      "mosquitero": 22195,
-      "vidrio": 13934
+      "base": 56769,
+      "guia": 18929,
+      "mosquitero": 23363,
+      "vidrio": 15312
     },
     "120x110": {
-      "base": 57237,
-      "guia": 17983,
-      "mosquitero": 24387,
-      "vidrio": 17024
+      "base": 60249,
+      "guia": 18929,
+      "mosquitero": 25670,
+      "vidrio": 18708
     },
     "150x110": {
-      "base": 62777,
-      "guia": 17983,
-      "mosquitero": 27675,
-      "vidrio": 21671
+      "base": 66081,
+      "guia": 18929,
+      "mosquitero": 29131,
+      "vidrio": 23814
     },
     "180x110": {
-      "base": 67209,
-      "guia": 17983,
-      "mosquitero": 30962,
-      "vidrio": 26317
+      "base": 70746,
+      "guia": 18929,
+      "mosquitero": 32592,
+      "vidrio": 28920
     },
     "220x110": {
-      "base": 77140,
-      "guia": 17983,
-      "mosquitero": 37538,
-      "vidrio": 32503
+      "base": 81200,
+      "guia": 18929,
+      "mosquitero": 39514,
+      "vidrio": 35718
     },
     "240x110": {
-      "base": 77140,
-      "guia": 17983,
-      "mosquitero": 37538,
-      "vidrio": 35599
+      "base": 81200,
+      "guia": 18929,
+      "mosquitero": 39514,
+      "vidrio": 39120
     },
     "100x120": {
-      "base": 56271,
-      "guia": 19618,
-      "mosquitero": 23748,
-      "vidrio": 15326
+      "base": 59233,
+      "guia": 20650,
+      "mosquitero": 24998,
+      "vidrio": 16842
     },
     "120x120": {
-      "base": 59579,
-      "guia": 19618,
-      "mosquitero": 26047,
-      "vidrio": 18728
+      "base": 62714,
+      "guia": 20650,
+      "mosquitero": 27418,
+      "vidrio": 20580
     },
     "150x120": {
-      "base": 65069,
-      "guia": 19618,
-      "mosquitero": 29494,
-      "vidrio": 23838
+      "base": 68494,
+      "guia": 20650,
+      "mosquitero": 31046,
+      "vidrio": 26196
     },
     "180x120": {
-      "base": 69500,
-      "guia": 19618,
-      "mosquitero": 32941,
-      "vidrio": 28943
+      "base": 73158,
+      "guia": 20650,
+      "mosquitero": 34675,
+      "vidrio": 31806
     },
     "200x120": {
-      "base": 75940,
-      "guia": 19618,
-      "mosquitero": 35240,
-      "vidrio": 32351
+      "base": 79937,
+      "guia": 20650,
+      "mosquitero": 37094,
+      "vidrio": 35550
     },
     "220x120": {
-      "base": 79293,
-      "guia": 19618,
-      "mosquitero": 37538,
-      "vidrio": 35758
+      "base": 83467,
+      "guia": 20650,
+      "mosquitero": 39514,
+      "vidrio": 39294
     },
     "240x120": {
-      "base": 81270,
-      "guia": 19618,
-      "mosquitero": 39836,
-      "vidrio": 39165
+      "base": 85547,
+      "guia": 20650,
+      "mosquitero": 41933,
+      "vidrio": 43038
     },
     "100x150": {
-      "base": 64153,
-      "guia": 24523,
-      "mosquitero": 28409,
-      "vidrio": 19503
+      "base": 67529,
+      "guia": 25813,
+      "mosquitero": 29904,
+      "vidrio": 21432
     },
     "120x150": {
-      "base": 67460,
-      "guia": 24523,
-      "mosquitero": 31026,
-      "vidrio": 23838
+      "base": 71011,
+      "guia": 25813,
+      "mosquitero": 32659,
+      "vidrio": 26196
     },
     "150x150": {
-      "base": 72951,
-      "guia": 24523,
-      "mosquitero": 34952,
-      "vidrio": 30336
+      "base": 76790,
+      "guia": 25813,
+      "mosquitero": 36792,
+      "vidrio": 33336
     },
     "180x150": {
-      "base": 76323,
-      "guia": 24523,
-      "mosquitero": 38879,
-      "vidrio": 36839
+      "base": 80340,
+      "guia": 25813,
+      "mosquitero": 40925,
+      "vidrio": 40482
     },
     "200x150": {
-      "base": 83545,
-      "guia": 24523,
-      "mosquitero": 41496,
-      "vidrio": 41174
+      "base": 87942,
+      "guia": 25813,
+      "mosquitero": 43680,
+      "vidrio": 45246
     },
     "220x150": {
-      "base": 86116,
-      "guia": 24523,
-      "mosquitero": 44113,
-      "vidrio": 45504
+      "base": 90649,
+      "guia": 25813,
+      "mosquitero": 46435,
+      "vidrio": 50004
     },
     "240x150": {
-      "base": 89423,
-      "guia": 24523,
-      "mosquitero": 46731,
-      "vidrio": 49844
+      "base": 94129,
+      "guia": 25813,
+      "mosquitero": 49190,
+      "vidrio": 54774
     },
     "100x200": {
-      "base": 82524,
-      "guia": 32697,
-      "mosquitero": 36176,
-      "vidrio": 26470
+      "base": 86650,
+      "guia": 34418,
+      "mosquitero": 38080,
+      "vidrio": 29088
     },
     "120x200": {
-      "base": 88363,
-      "guia": 32697,
-      "mosquitero": 39325,
-      "vidrio": 32351
+      "base": 92782,
+      "guia": 34418,
+      "mosquitero": 41395,
+      "vidrio": 35550
     },
     "150x200": {
-      "base": 96819,
-      "guia": 32697,
-      "mosquitero": 44050,
-      "vidrio": 43341
+      "base": 101660,
+      "guia": 34418,
+      "mosquitero": 46368,
+      "vidrio": 47628
     },
     "180x200": {
-      "base": 103845,
-      "guia": 32697,
-      "mosquitero": 48774,
-      "vidrio": 52629
+      "base": 109037,
+      "guia": 34418,
+      "mosquitero": 51341,
+      "vidrio": 57834
     },
     "200x200": {
-      "base": 110553,
-      "guia": 32697,
-      "mosquitero": 51923,
-      "vidrio": 58821
+      "base": 116081,
+      "guia": 34418,
+      "mosquitero": 54656,
+      "vidrio": 64638
     },
     "220x200": {
-      "base": 117195,
-      "guia": 32697,
-      "mosquitero": 55073,
-      "vidrio": 65012
+      "base": 123055,
+      "guia": 34418,
+      "mosquitero": 57971,
+      "vidrio": 71442
     },
     "240x200": {
-      "base": 121758,
-      "guia": 32697,
-      "mosquitero": 58222,
-      "vidrio": 71204
+      "base": 127846,
+      "guia": 34418,
+      "mosquitero": 61286,
+      "vidrio": 78246
     },
     "240x205": {
-      "base": 127846,
-      "guia": 34332,
-      "mosquitero": 61133,
-      "vidrio": 74764
+      "base": 134238,
+      "guia": 36139,
+      "mosquitero": 64350,
+      "vidrio": 82158
     }
   }
 }

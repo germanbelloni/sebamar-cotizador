@@ -81,7 +81,7 @@ function calcularRajaHerrero(dataInput) {
     linea: "herrero",
   });
 
-  let totalCosto = base?.total || 0;
+  let totalCosto = base?.costoBase || 0;
 
   const m2 = calcularM2(ancho, alto);
 

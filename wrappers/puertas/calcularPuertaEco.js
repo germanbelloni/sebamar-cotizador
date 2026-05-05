@@ -1,4 +1,4 @@
-const { fromRoot } = require("../../utils/path");
+const { fromRoot } = require("../../backend/utils/path");
 
 const data = require(fromRoot("frontend/data/productos/puertas_eco.json"));
 

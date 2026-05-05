@@ -3,7 +3,7 @@ const fs = require("fs");
 const { fromRoot } = require("../utils/path");
 
 // CONFIG
-const archivo = fromRoot("excel/calculadora.xlsx");
+const archivo = fromRoot("backend/excel/calculadora.xlsx");
 const hojaNombre = "postigones";
 
 // HELPERS
@@ -46,7 +46,7 @@ const medidas = {};
 // 🔥 DATOS (bloque izquierdo)
 for (let i = headerIndex + 1; i < data.length; i++) {
   const row = (data[i] || []).slice(0, 4);
-
+  console.log(row);
   if (!row[0]) continue;
 
   const medida = row[0].toString().trim();
