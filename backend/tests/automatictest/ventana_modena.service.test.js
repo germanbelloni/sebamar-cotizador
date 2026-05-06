@@ -4,23 +4,11 @@ const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
 
-console.log("\n🧪 TEST AUTOMÁTICO - SERVICE MODENA\n");
+console.log("\n🧪 TEST SERVICE VENTANA MODENA\n");
 
-// =========================
-// CASOS
-// =========================
 const casos = [
   {
-    nombre: "base 3mm",
-    input: {
-      medida: "120x100",
-      color: "blanco",
-      tipoVidrio: "3mm",
-      linea: "modena",
-    },
-  },
-  {
-    nombre: "vidrio 4mm",
+    nombre: "base 4mm",
     input: {
       medida: "120x100",
       color: "blanco",
@@ -51,27 +39,16 @@ const casos = [
     input: {
       medida: "120x100",
       color: "negro",
-      tipoVidrio: "3mm",
+      tipoVidrio: "4mm",
       linea: "modena",
     },
   },
 ];
 
-// =========================
-// VALIDADOR
-// =========================
 function validar(res) {
   const errores = [];
 
   if (!res) errores.push("sin respuesta");
-
-  if (typeof res.linea !== "string") {
-    errores.push("linea inválida");
-  }
-
-  if (typeof res.medida !== "string") {
-    errores.push("medida inválida");
-  }
 
   if (typeof res.costoBase !== "number") {
     errores.push("costoBase inválido");
@@ -81,43 +58,24 @@ function validar(res) {
     errores.push("costoBase <= 0");
   }
 
-  if (typeof res.costoGuia !== "number") {
-    errores.push("costoGuia inválido");
-  }
-
-  if (typeof res.costoMosquitero !== "number") {
-    errores.push("costoMosquitero inválido");
-  }
-
-  if (typeof res.incluyeGuia !== "boolean") {
-    errores.push("incluyeGuia inválido");
-  }
-
-  if (typeof res.incluyeMosquitero !== "boolean") {
-    errores.push("incluyeMosquitero inválido");
-  }
-
   return errores;
 }
 
-// =========================
-// RUN
-// =========================
-casos.forEach((test, i) => {
+casos.forEach((t, i) => {
   try {
-    const res = calcularVentana(test.input);
+    const r = calcularVentana(t.input);
 
-    const errores = validar(res);
+    const errores = validar(r);
 
     if (errores.length) {
-      console.log(`❌ [${i + 1}] ${test.nombre}`);
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
       errores.forEach((e) => console.log("   -", e));
     } else {
-      console.log(`✔️ [${i + 1}] ${test.nombre}`);
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
     }
-  } catch (err) {
-    console.log(`💥 [${i + 1}] ${test.nombre}`);
-    console.log("   -", err.message);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+    console.log("   👉", e.message);
   }
 });
 

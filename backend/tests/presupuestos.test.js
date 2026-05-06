@@ -1,11 +1,9 @@
 process.env.NODE_ENV = "test";
 process.env.JWT_SECRET = "testsecret";
-process.env.MONGODB_URI =
-  "mongodb+srv://sebamar_test:1234test@cluster0.fqvtvdh.mongodb.net/test_db";
 
 const request = require("supertest");
 const app = require("../app");
-const { connectDB, closeDB } = require("../setup/testDB");
+const { connectDB, closeDB, clearDB } = require("../setup/testDB");
 
 jest.setTimeout(20000);
 
@@ -15,6 +13,10 @@ let presupuestoId;
 
 beforeAll(async () => {
   await connectDB();
+});
+
+beforeEach(async () => {
+  await clearDB();
 
   // USER 1
   const nombre1 = "user1_" + Date.now();
@@ -47,19 +49,18 @@ beforeAll(async () => {
   tokenUser2 = login2.body.token;
 });
 
-afterAll(async () => await closeDB());
+afterAll(async () => {
+  await closeDB();
+});
 
-describe("SEGURIDAD PRESUPUESTOS", () => {
-  it("no deberia acceder sin token", async () => {
+describe("📄 PRESUPUESTOS - SEGURIDAD", () => {
+  it("bloquea acceso sin token", async () => {
     const res = await request(app).get("/api/presupuestos");
+
     expect(res.statusCode).toBe(401);
   });
 
-  it("user1 crea presupuesto", async () => {
-    await request(app)
-      .post("/api/presupuestos/nuevo")
-      .set("Authorization", `Bearer ${tokenUser1}`);
-
+  it("user1 crea presupuesto correctamente", async () => {
     const res = await request(app)
       .post("/api/presupuestos")
       .set("Authorization", `Bearer ${tokenUser1}`)
@@ -70,27 +71,60 @@ describe("SEGURIDAD PRESUPUESTOS", () => {
         total: 100,
       });
 
-    presupuestoId = res.body._id;
-    console.log("🧪 ID generado:", presupuestoId);
-    console.log("🧪 RESPONSE COMPLETO:", res.body);
-
     expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("_id");
+
+    presupuestoId = res.body._id;
   });
 
-  it("user2 NO debe ver presupuestos de user1", async () => {
+  it("user2 NO ve presupuestos de user1", async () => {
+    await request(app)
+      .post("/api/presupuestos")
+      .set("Authorization", `Bearer ${tokenUser1}`)
+      .send({
+        cliente: "cliente test",
+        fecha: "2026-01-01",
+        items: [{ descripcion: "item", cantidad: 1, precio: 100 }],
+        total: 100,
+      });
+
     const res = await request(app)
       .get("/api/presupuestos")
       .set("Authorization", `Bearer ${tokenUser2}`);
 
+    expect(res.statusCode).toBe(200);
     expect(res.body.length).toBe(0);
   });
 
-  it("user2 NO debe acceder al PDF de user1 (403)", async () => {
+  it("user2 NO accede al PDF de user1", async () => {
+    const create = await request(app)
+      .post("/api/presupuestos")
+      .set("Authorization", `Bearer ${tokenUser1}`)
+      .send({
+        cliente: "cliente test",
+        fecha: "2026-01-01",
+        items: [{ descripcion: "item", cantidad: 1, precio: 100 }],
+        total: 100,
+      });
+
+    const id = create.body._id;
+
     const res = await request(app)
-      .get(`/api/presupuestos/${presupuestoId}/pdf`)
+      .get(`/api/presupuestos/${id}/pdf`)
       .set("Authorization", `Bearer ${tokenUser2}`);
 
     expect(res.statusCode).toBe(403);
   });
-});
 
+  it("no crea presupuesto inválido", async () => {
+    const res = await request(app)
+      .post("/api/presupuestos")
+      .set("Authorization", `Bearer ${tokenUser1}`)
+      .send({
+        cliente: "",
+        items: [],
+      });
+
+    expect(res.statusCode).toBeGreaterThanOrEqual(400);
+  });
+});

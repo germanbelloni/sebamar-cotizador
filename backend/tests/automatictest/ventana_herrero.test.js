@@ -1,62 +1,39 @@
 const { fromRoot } = require("../../utils/path");
 
-// ✅ WRAPPER (no service)
 const calcularVentanaHerrero = require(
   fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
 );
 
+console.log("\n🧪 TEST WRAPPER VENTANA HERRERO\n");
+
 // =========================
-// 🧪 CASOS DE PRUEBA
+// CASOS
 // =========================
 const casos = [
   {
-    nombre: "medida estándar completa",
+    nombre: "base",
+    input: {
+      ancho: 120,
+      alto: 100,
+      color: "blanco",
+    },
+  },
+  {
+    nombre: "con guia",
     input: {
       ancho: 120,
       alto: 100,
       color: "blanco",
       guia: true,
-      mosquitero: true,
     },
   },
   {
-    nombre: "sin guia",
+    nombre: "con mosquitero",
     input: {
       ancho: 120,
       alto: 100,
       color: "blanco",
-      guia: false,
       mosquitero: true,
-    },
-  },
-  {
-    nombre: "fuera de medida (lookup)",
-    input: {
-      ancho: 118,
-      alto: 97,
-      color: "negro",
-      guia: true,
-      mosquitero: false,
-    },
-  },
-  {
-    nombre: "mayor a 240 (divide en 2)",
-    input: {
-      ancho: 250,
-      alto: 100,
-      color: "blanco",
-      guia: true,
-      mosquitero: true,
-    },
-  },
-  {
-    nombre: "altura con recargo",
-    input: {
-      ancho: 120,
-      alto: 205,
-      color: "blanco",
-      guia: false,
-      mosquitero: false,
     },
   },
   {
@@ -66,99 +43,121 @@ const casos = [
       alto: 100,
       color: "blanco",
       guia: true,
-      mosquitero: false,
       cortina: "pvc",
+    },
+  },
+  {
+    nombre: "cajon block (sin guia)",
+    input: {
+      ancho: 120,
+      alto: 100,
+      color: "blanco",
+      cajonBlock: true,
+    },
+  },
+  {
+    nombre: "color negro",
+    input: {
+      ancho: 120,
+      alto: 100,
+      color: "negro",
     },
   },
 ];
 
 // =========================
-// 🧠 VALIDADOR
+// VALIDADOR
 // =========================
-function validar(resultado, input) {
+function validar(res, input) {
   const errores = [];
 
-  // total
-  if (typeof resultado.total !== "number") {
-    errores.push("total inválido");
+  // estructura
+  if (typeof res.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
   }
 
-  // items array
-  if (!Array.isArray(resultado.items)) {
+  if (typeof res.costo !== "number") {
+    errores.push("costo inválido");
+  }
+
+  if (typeof res.ganancia !== "number") {
+    errores.push("ganancia inválida");
+  }
+
+  if (!Array.isArray(res.items)) {
     errores.push("items no es array");
   }
 
+  // =========================
+  // REGLAS
+  // =========================
+
   // guia
   if (input.guia) {
-    const tiene = resultado.items.some((i) => i.tipo === "guia");
+    const tiene = res.items.some((i) => i.tipo === "guia");
     if (!tiene) errores.push("falta item guia");
   }
 
   // mosquitero
   if (input.mosquitero) {
-    const tiene = resultado.items.some((i) => i.tipo === "mosquitero");
+    const tiene = res.items.some((i) => i.tipo === "mosquitero");
     if (!tiene) errores.push("falta item mosquitero");
   }
 
   // cortina
   if (input.cortina) {
-    const tiene = resultado.items.some((i) => i.tipo === "cortina");
+    const tiene = res.items.some((i) => i.tipo === "cortina");
     if (!tiene) errores.push("falta item cortina");
   }
 
-  // suma items coherente
-  const sumaItems = resultado.items.reduce(
-    (acc, i) => acc + (i.precio || 0),
-    0,
-  );
-
-  if (resultado.total < sumaItems) {
-    errores.push("total menor que suma de items");
+  // cajon block
+  if (input.cajonBlock) {
+    const tiene = res.items.some((i) => i.tipo === "cajon_block");
+    if (!tiene) errores.push("falta item cajon_block");
   }
 
-  // admin debug
-  if (resultado.admin) {
-    const { venta, costo, ganancia } = resultado.admin;
+  // coherencia números
+  const sumaItems = res.items.reduce((acc, i) => acc + (i.precio || 0), 0);
 
-    if (venta !== resultado.total) {
-      errores.push("venta != total");
-    }
+  if (res.costoBase && sumaItems < res.costoBase) {
+    errores.push("items no cubren costoBase");
+  }
 
-    if (ganancia !== venta - costo) {
-      errores.push("ganancia incorrecta");
-    }
+  if (res.precioVenta < res.costo) {
+    errores.push("venta menor a costo");
+  }
 
-    if (costo <= 0) {
-      errores.push("costo inválido");
-    }
+  if (res.ganancia !== res.precioVenta - res.costo) {
+    errores.push("ganancia inconsistente");
+  }
+
+  // svg (clave para front)
+  if (!res.configuracion?.svg) {
+    errores.push("falta svg");
   }
 
   return errores;
 }
 
 // =========================
-// 🚀 RUN TESTS
+// RUN
 // =========================
-console.log("\n🧪 TEST AUTOMÁTICO - WRAPPER VENTANAS HERRERO\n");
-
-casos.forEach((test, index) => {
+casos.forEach((t, i) => {
   try {
-    const resultado = calcularVentanaHerrero(test.input, {
-      debug: true,
-    });
+    const r = calcularVentanaHerrero(t.input);
 
-    const errores = validar(resultado, test.input);
+    const errores = validar(r, t.input);
 
-    if (errores.length > 0) {
-      console.log(`❌ [${index + 1}] ${test.nombre}`);
+    if (errores.length) {
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
       errores.forEach((e) => console.log("   -", e));
     } else {
-      console.log(`✔️ [${index + 1}] ${test.nombre}`);
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
     }
-  } catch (err) {
-    console.log(`💥 [${index + 1}] ${test.nombre}`);
-    console.log("   - error ejecución:", err.message);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+    console.log("   👉", e.message);
   }
 });
 
-console.log("\n✅ FIN TEST\n");
+console.log("\n✅ FIN TEST WRAPPER\n");

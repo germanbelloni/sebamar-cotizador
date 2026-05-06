@@ -1,19 +1,6 @@
 const fs = require("fs");
 const { fromRoot } = require("../../utils/path");
 
-const colores = require(fromRoot("frontend/data/colores.json"));
-const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
-);
-
-// 🎨 COLOR
-function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-  return c ? c.valor : 0;
-}
-
 // 📏 HELPERS
 function toM2(ancho, alto) {
   return (ancho * alto) / 10000;
@@ -23,35 +10,36 @@ function toML(ancho, alto) {
   return ((ancho + alto) * 2) / 100;
 }
 
-// 🪟 VIDRIO
-function calcularVidrio(datos, ancho, alto, tipoVidrio) {
+// 🪟 VIDRIO (SOLO cálculo técnico)
+function calcularVidrio(datos, ancho, alto, tipoVidrio, superficies) {
   if (!tipoVidrio) return 0;
 
   if (tipoVidrio === "dvh") {
-    return (datos.vidrios?.["4mm"] || 0) * 2 + (datos.vidrios?.["dvh"] || 0);
+    return (datos.vidrios?.["4mm"] || 0) * 2 + (datos.camara || 0);
   }
 
   if (tipoVidrio === "dvh_5_9_5") {
     const m2 = toM2(ancho, alto);
-    const perimetro = toML(ancho, alto);
-
-    const vidrio5 = superficies.vidrios["5mm"] || 0;
-    const camara = superficies.vidrios["dvh"] || 0;
-
-    return m2 * vidrio5 * 2 + perimetro * camara;
+    const ml = toML(ancho, alto);
+    const v5 = superficies.vidrios["5mm"] || 0;
+    const cam = superficies.vidrios["dvh"] || 0;
+    return m2 * v5 * 2 + ml * cam;
   }
 
   if (tipoVidrio === "4+4") {
     const m2 = toM2(ancho, alto);
-    const valor = superficies.vidrios["4+4"] || 0;
-    return m2 * valor;
+    return m2 * (superficies.vidrios["4+4"] || 0);
   }
 
   return datos.vidrios?.[tipoVidrio] || 0;
 }
 
 function calcularRaja(dataInput) {
-  const { medida, tipoVidrio, color, linea = "herrero" } = dataInput;
+  const { medida, tipoVidrio, linea = "herrero" } = dataInput;
+
+  const superficies = require(
+    fromRoot("frontend/data/productos/superficies.json"),
+  );
 
   const filePath = fromRoot(`frontend/data/productos/rajas_${linea}.json`);
   const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -79,14 +67,14 @@ function calcularRaja(dataInput) {
   const [ancho, alto] = medida.split("x").map(Number);
 
   const base = datos.base || 0;
-  const vidrio = calcularVidrio(datos, ancho, alto, tipoVidrio);
-
-  const colorValor = getColorValor(color);
-
-  const costoBase = (base + vidrio) * (1 + colorValor);
+  const vidrio = calcularVidrio(datos, ancho, alto, tipoVidrio, superficies);
 
   return {
-    costoBase,
+    costoBase: base + vidrio,
+    items: [
+      { tipo: "base", precio: base, costo: base },
+      { tipo: "vidrio", descripcion: tipoVidrio, precio: vidrio },
+    ],
   };
 }
 

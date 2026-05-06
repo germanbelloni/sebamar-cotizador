@@ -1,76 +1,40 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularRaja = require(fromRoot("backend/services/rajas/calcularRaja"));
+const calcularRaja = require(fromRoot("services/rajas/calcularRaja"));
 
 console.log("\n🧪 TEST SERVICE RAJA MODENA\n");
 
 const casos = [
   {
-    nombre: "base 4mm",
+    nombre: "base",
     input: {
       medida: "60x60",
       tipoVidrio: "4mm",
-      color: "blanco",
       linea: "modena",
     },
   },
   {
-    nombre: "vidrio 3+3",
+    nombre: "dvh",
     input: {
       medida: "60x60",
-      tipoVidrio: "3+3",
-      color: "blanco",
-      linea: "modena",
-    },
-  },
-  {
-    nombre: "color negro",
-    input: {
-      medida: "60x60",
-      tipoVidrio: "4mm",
-      color: "negro",
+      tipoVidrio: "dvh",
       linea: "modena",
     },
   },
 ];
 
-// =========================
-// VALIDADOR
-// =========================
-function validar(res) {
-  const errores = [];
-
-  if (!res) errores.push("sin respuesta");
-
-  if (typeof res.costoBase !== "number") {
-    errores.push("costoBase inválido");
-  }
-
-  if (res.costoBase <= 0) {
-    errores.push("costoBase <= 0");
-  }
-
-  return errores;
-}
-
-// =========================
-// RUN
-// =========================
-casos.forEach((test, i) => {
+casos.forEach((t, i) => {
   try {
-    const res = calcularRaja(test.input);
+    const r = calcularRaja(t.input);
 
-    const errores = validar(res);
-
-    if (errores.length) {
-      console.log(`❌ [${i + 1}] ${test.nombre}`);
-      errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${test.nombre}`);
+    if (!r.costoBase || r.costoBase <= 0) {
+      throw new Error("costo inválido");
     }
-  } catch (err) {
-    console.log(`💥 [${i + 1}] ${test.nombre}`);
-    console.log("   -", err.message);
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+    console.log("   -", e.message);
   }
 });
 

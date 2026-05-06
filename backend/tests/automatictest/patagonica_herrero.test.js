@@ -1,17 +1,17 @@
 const { fromRoot } = require("../../utils/path");
 
 const calcular = require(
-  fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
+  fromRoot("wrappers/patagonicas/calcularPatagonicaHerrero"),
 );
 
-console.log("\n🧪 TEST WRAPPER MODENA\n");
+console.log("\n🧪 TEST WRAPPER HERRERO\n");
 
 const casos = [
   {
-    medida: "150x100",
-    cantidadRajas: 2,
-    tipoVidrio: "4mm",
-    color: "negro",
+    medidaTotal: "200x100",
+    tipo: "2_rajas",
+    raja: { ancho: 50, tipoVidrio: "4mm" },
+    color: "simil madera",
   },
 ];
 

@@ -1,8 +1,6 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularRajaHerrero = require(
-  fromRoot("wrappers/rajas/calcularRajaHerrero"),
-);
+const calcular = require(fromRoot("wrappers/rajas/calcularRajaHerrero"));
 
 console.log("\n🧪 TEST WRAPPER RAJA HERRERO\n");
 
@@ -13,7 +11,6 @@ const casos = [
       ancho: 60,
       alto: 60,
       color: "blanco",
-      vidrio: "4mm",
     },
   },
   {
@@ -21,36 +18,63 @@ const casos = [
     input: {
       ancho: 60,
       alto: 60,
-      color: "blanco",
-      vidrio: "4mm",
+      color: "negro",
       mosquitero: true,
     },
   },
   {
-    nombre: "modelo brazo",
+    nombre: "con premarco",
     input: {
       ancho: 60,
       alto: 60,
-      color: "blanco",
-      vidrio: "4mm",
-      modelo: "brazo",
+      color: "simil madera",
+      premarco: true,
     },
   },
   {
-    nombre: "altura >150",
+    nombre: "altura alta",
     input: {
       ancho: 60,
       alto: 160,
       color: "blanco",
-      vidrio: "4mm",
     },
   },
 ];
 
+function validar(res) {
+  const errores = [];
+
+  if (typeof res.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
+  }
+
+  if (typeof res.costo !== "number") {
+    errores.push("costo inválido");
+  }
+
+  if (!Array.isArray(res.items)) {
+    errores.push("items inválidos");
+  }
+
+  if (res.ganancia !== res.precioVenta - res.costo) {
+    errores.push("ganancia mal calculada");
+  }
+
+  return errores;
+}
+
 casos.forEach((t, i) => {
   try {
-    calcularRajaHerrero(t.input);
-    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+    const res = calcular(t.input);
+
+    const errores = validar(res);
+
+    if (errores.length) {
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+      errores.forEach((e) => console.log("   -", e));
+    } else {
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+    }
   } catch (e) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
     console.log("   -", e.message);

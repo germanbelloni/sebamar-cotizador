@@ -1,77 +1,46 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularRaja = require(fromRoot("backend/services/rajas/calcularRaja"));
+const calcular = require(fromRoot("wrappers/rajas/calcularRajaModena"));
 
-console.log("\n🧪 TEST SERVICE RAJA MODENA\n");
+console.log("\n🧪 TEST WRAPPER RAJA MODENA\n");
 
 const casos = [
   {
-    nombre: "base 4mm",
+    nombre: "base",
     input: {
-      medida: "60x60",
-      tipoVidrio: "4mm",
+      ancho: 60,
+      alto: 60,
       color: "blanco",
-      linea: "modena",
     },
   },
   {
-    nombre: "vidrio 3+3",
+    nombre: "con herraje blanco",
     input: {
-      medida: "60x60",
-      tipoVidrio: "3+3",
+      ancho: 60,
+      alto: 60,
       color: "blanco",
-      linea: "modena",
+      herrajesBlancos: true,
     },
   },
   {
-    nombre: "color negro",
+    nombre: "con contramarco",
     input: {
-      medida: "60x60",
-      tipoVidrio: "4mm",
+      ancho: 60,
+      alto: 60,
       color: "negro",
-      linea: "modena",
+      contramarco: true,
     },
   },
 ];
 
-// =========================
-// VALIDADOR
-// =========================
-function validar(res) {
-  const errores = [];
-
-  if (!res) errores.push("sin respuesta");
-
-  if (typeof res.costoBase !== "number") {
-    errores.push("costoBase inválido");
-  }
-
-  if (res.costoBase <= 0) {
-    errores.push("costoBase <= 0");
-  }
-
-  return errores;
-}
-
-// =========================
-// RUN
-// =========================
-casos.forEach((test, i) => {
+casos.forEach((t, i) => {
   try {
-    const res = calcularRaja(test.input);
-
-    const errores = validar(res);
-
-    if (errores.length) {
-      console.log(`❌ [${i + 1}] ${test.nombre}`);
-      errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${test.nombre}`);
-    }
-  } catch (err) {
-    console.log(`💥 [${i + 1}] ${test.nombre}`);
-    console.log("   -", err.message);
+    calcular(t.input);
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+    console.log("   -", e.message);
   }
 });
 
-console.log("\n✅ FIN TEST SERVICE\n");
+console.log("\n✅ FIN TEST\n");

@@ -1,16 +1,25 @@
 const { fromRoot } = require("../../backend/utils/path");
 
 const calcularPostigon = require(
-  fromRoot("backend/services/postigones/calcularPostigon"),
+  fromRoot("services/postigones/calcularPostigon"),
 );
 
+const perfiles = require(fromRoot("config/perfiles"));
+const colores = require(fromRoot("frontend/data/colores.json"));
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
 );
+const dataJson = require(fromRoot("frontend/data/productos/postigones.json"));
 
-const perfiles = require(fromRoot("backend/config/perfiles"));
+// 🎨 COLOR
+function getColorFactor(color) {
+  const c = colores.find(
+    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
+  );
+  return c ? c.valor : 0;
+}
 
-// 🔍 BUSCAR MEDIDA
+// 🔍 LOOKUP
 function buscarMedidaValida(medidas, ancho, alto) {
   const keys = Object.keys(medidas);
 
@@ -25,6 +34,46 @@ function buscarMedidaValida(medidas, ancho, alto) {
   return validas[0]?.key;
 }
 
+// 💰 PERFIL
+function aplicarPerfil(costo, p) {
+  const costoDesc = costo * (1 - p.descuento);
+  const proveedor = costoDesc * (1 + p.flete);
+  const venta = proveedor * (1 + p.ganancia);
+
+  return {
+    costo: costoDesc,
+    proveedor,
+    venta,
+  };
+}
+
+// 🎯 SVG BUILDER (🔥 IMPORTANTE)
+function buildSVG({ tipo, hojas, apertura }) {
+  return {
+    tipo: "postigon",
+    sistema: tipo, // abrir / corredizo
+    hojas,
+
+    // 👉 cómo abre visto desde adentro
+    apertura: apertura || (tipo === "abrir" ? "derecha" : "lateral"),
+
+    // 👉 keys para frontend
+    svgKey: `${tipo}_${hojas}_hojas`,
+
+    detalle:
+      tipo === "abrir"
+        ? {
+            orientacion: apertura || "derecha",
+          }
+        : {
+            direccion: apertura || "izq_der",
+          },
+  };
+}
+
+// =========================
+// 🚀 WRAPPER
+// =========================
 function calcularWrapper(data) {
   let {
     medida,
@@ -35,17 +84,17 @@ function calcularWrapper(data) {
     marco,
     color,
     extras = {},
-    ladoApertura,
+    apertura, // 🔥 NUEVO
     perfil = "amarilla",
     linea = "herrero",
   } = data;
-
-  const dataJson = require(fromRoot("frontend/data/productos/postigones.json"));
 
   // 📏 PARSEO
   if (medida && medida !== "fuera_medida") {
     [ancho, alto] = medida.split("x").map(Number);
   }
+
+  if (!ancho || !alto) throw new Error("Faltan medidas");
 
   // VALIDACIONES
   if (ancho < 60 || ancho > 240) {
@@ -58,96 +107,123 @@ function calcularWrapper(data) {
 
   const altoOriginal = alto;
 
-  // NORMALIZAR ALTURA PARA LOOKUP
   if (alto > 200) alto = 200;
 
   const medidaValida = buscarMedidaValida(dataJson.medidas, ancho, alto);
 
   if (!medidaValida) throw new Error("No hay medida válida");
 
+  // =========================
   // 🧠 SERVICE
-  const service = calcularPostigon({
+  // =========================
+  const base = calcularPostigon({
     medida: medidaValida,
     tipo,
-    marco,
-    color,
   });
 
-  let total = service.total;
+  let costoBase = base.costoBase;
+  let items = [...(base.items || [])];
 
   // =========================
-  // 🚪 HOJAS
+  // 🎨 COLOR (solo base)
   // =========================
+  const colorFactor = getColorFactor(color);
+  const costoColor = costoBase * colorFactor;
 
-  let hojasFinal = service.hojasBase;
-
-  if (tipo === "corredizo") {
-    if (ancho > 149 && hojas === 3) {
-      total *= 1.3;
-      hojasFinal = 3;
-    }
+  if (costoColor > 0) {
+    items.push({
+      tipo: "color",
+      descripcion: color,
+      precio: Math.round(costoColor),
+    });
   }
 
-  if (tipo === "abrir") {
-    if (ancho > 130) {
-      hojasFinal = 3;
-    }
-
-    if (ancho > 200 && hojas === 4) {
-      total *= 1.4;
-      hojasFinal = 4;
-    }
-  }
+  let costoConExtras = costoBase + costoColor;
 
   // =========================
   // 📏 ALTURA
   // =========================
-
   if (altoOriginal > 200 && altoOriginal <= 205) {
-    total *= 1.05;
+    costoConExtras *= 1.05;
   }
 
   if (altoOriginal > 205) {
-    total *= 1.1;
+    costoConExtras *= 1.1;
   }
 
   // =========================
   // ➕ EXTRAS
   // =========================
-
   if (extras.microperforado) {
-    total *= 1.05;
+    const extra = costoBase * 0.05;
+    costoConExtras += extra;
+
+    items.push({
+      tipo: "extra",
+      descripcion: "Microperforado",
+      precio: Math.round(extra),
+    });
   }
 
   if (extras.herrajeBlanco) {
-    const mult = superficies.recargos?.herraje_blanco || 1;
-    total *= mult;
+    const mult = superficies.recargos?.herraje_blanco || 1.05;
+    const extra = costoBase * (mult - 1);
+    costoConExtras += extra;
+
+    items.push({
+      tipo: "extra",
+      descripcion: "Herraje blanco",
+      precio: Math.round(extra),
+    });
   }
+
+  // =========================
+  // 🚪 HOJAS (solo informativo)
+  // =========================
+  const hojasFinal = hojas || base.configuracion?.hojasBase || 2;
 
   // =========================
   // 💰 PERFIL
   // =========================
-
   const perfilData = perfiles[perfil]?.[linea] || perfiles["amarilla"][linea];
 
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.flete;
-  total *= 1 + perfilData.ganancia;
+  const { costo, proveedor, venta } = aplicarPerfil(costoConExtras, perfilData);
 
-  const detalle = {
-    tipo,
-    hojas: hojasFinal,
-    medidaValida,
+  // =========================
+  // 🧠 CONFIG
+  // =========================
+  const configuracion = {
     ancho,
     alto: altoOriginal,
+    medidaUsada: medidaValida,
+    tipo,
+    hojas: hojasFinal,
+    hojasBase: base.configuracion?.hojasBase,
+    color,
+    marco,
+    extras,
+    apertura,
+
+    // 🔥 SVG
+    svg: buildSVG({
+      tipo,
+      hojas: hojasFinal,
+      apertura,
+    }),
   };
 
-  if (marco) detalle.marco = marco;
-  if (ladoApertura) detalle.ladoApertura = ladoApertura;
-
   return {
-    total: Math.round(total),
-    detalle,
+    costoBase: Math.round(costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+
+    items,
+
+    descripcion: `Postigón ${tipo} ${ancho}x${altoOriginal}`,
+
+    configuracion,
   };
 }
 

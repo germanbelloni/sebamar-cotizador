@@ -2,9 +2,6 @@ const { fromRoot } = require("../../utils/path");
 
 const colores = require(fromRoot("frontend/data/colores.json"));
 
-// ========================
-// 🔧 HELPERS
-// ========================
 function normalizar(txt) {
   return txt?.toString().toLowerCase().trim();
 }
@@ -15,19 +12,11 @@ function buscarModelo(obj, nombre) {
   )?.[1];
 }
 
-function getColorValor(color) {
+function getColorFactor(color) {
   const c = colores.find((x) => normalizar(x.nombre) === normalizar(color));
   return c ? c.valor : 0;
 }
 
-function parseMedida(medida) {
-  const [ancho, alto] = medida.split("x").map(Number);
-  return { ancho, alto };
-}
-
-// ========================
-// 🧠 MAIN
-// ========================
 function calcularPuertas(dataInput) {
   const {
     tipo = "simple",
@@ -44,118 +33,77 @@ function calcularPuertas(dataInput) {
     fromRoot(`frontend/data/productos/puertas_${linea}.json`),
   );
 
-  const colorValor = getColorValor(color);
+  const items = [];
+  let baseSolo = 0;
+  let vidrioTotal = 0;
+  let hojas = tipo === "doble" ? 2 : 1;
 
-  // =========================
-  // 🚪 PUERTA Y MEDIA
-  // =========================
   if (tipo === "puerta_y_media") {
-    // 🔸 HERRERO
-    if (linea === "herrero") {
-      const puerta = buscarModelo(data.modelos, modeloPuerta);
+    const puerta = buscarModelo(data.modelos, modeloPuerta);
+    const media = buscarModelo(data.modelos, modeloMedia);
 
-      const dataMedias = require(
-        fromRoot("frontend/data/productos/puertas_media_herrero.json"),
-      );
-
-      let media = buscarModelo(dataMedias.medias, modeloMedia);
-
-      if (!puerta) {
-        throw new Error("Modelo de puerta inválido");
-      }
-
-      if (!media) {
-        const primeraMedia = Object.values(dataMedias.medias || {})[0];
-
-        if (!primeraMedia) {
-          throw new Error("No hay medias definidas");
-        }
-
-        console.warn("⚠️ Media no encontrada, usando fallback");
-        media = primeraMedia;
-      }
-
-      let total =
-        puerta.base +
-        (puerta.vidrios?.[tipoVidrio] || 0) +
-        (media.base + (media.vidrios?.[tipoVidrio] || 0));
-
-      total *= 1 + colorValor;
-
-      return {
-        costo: Math.round(total),
-        hojas: 2,
-      };
+    if (!puerta || !media) {
+      throw new Error("Modelo puerta/media inválido");
     }
 
-    // 🔸 MODENA
-    if (linea === "modena") {
-      const puerta = buscarModelo(data.modelos, modeloPuerta);
-      let media = buscarModelo(data.modelos, modeloMedia);
+    baseSolo += puerta.base + media.base;
 
-      if (!puerta) {
-        throw new Error("Modelo de puerta inválido");
-      }
+    const v1 = puerta.vidrios?.[tipoVidrio] || 0;
+    const v2 = media.vidrios?.[tipoVidrio] || 0;
 
-      if (!media) {
-        const primeraMedia = Object.values(data.modelos || {})[0];
+    vidrioTotal += v1 + v2;
 
-        if (!primeraMedia) {
-          throw new Error("No hay modelos disponibles");
-        }
+    items.push(
+      { tipo: "base", descripcion: modeloPuerta, precio: puerta.base },
+      { tipo: "vidrio", descripcion: tipoVidrio, precio: v1 },
+      { tipo: "base", descripcion: modeloMedia, precio: media.base },
+      { tipo: "vidrio", descripcion: tipoVidrio, precio: v2 },
+    );
 
-        console.warn("⚠️ Media no encontrada, usando fallback");
-        media = primeraMedia;
-      }
-
-      let total =
-        puerta.base +
-        (puerta.vidrios?.[tipoVidrio] || 0) +
-        (media.base + (media.vidrios?.[tipoVidrio] || 0));
-
-      total *= 1 + colorValor;
-
-      return {
-        costo: Math.round(total),
-        hojas: 2,
-      };
-    }
-
-    // 🔸 ECO (bloqueado)
-    throw new Error("Puerta y media no disponible para esta línea");
-  }
-
-  // =========================
-  // 🚪 SIMPLE / DOBLE
-  // =========================
-
-  if (!medida) {
-    throw new Error("Falta medida");
-  }
-
-  const producto = buscarModelo(data.modelos, modelo);
-
-  if (!producto) {
-    throw new Error("Modelo no encontrado");
-  }
-
-  let hojas = 1;
-
-  if (tipo === "doble") {
     hojas = 2;
+  } else {
+    const producto = buscarModelo(data.modelos, modelo);
+
+    if (!producto) throw new Error("Modelo no encontrado");
+
+    baseSolo = producto.base * hojas;
+    vidrioTotal = (producto.vidrios?.[tipoVidrio] || 0) * hojas;
+
+    items.push(
+      { tipo: "base", descripcion: modelo, precio: producto.base },
+      {
+        tipo: "vidrio",
+        descripcion: tipoVidrio,
+        precio: producto.vidrios?.[tipoVidrio] || 0,
+      },
+    );
   }
 
-  // 🔹 BASE + VIDRIO
-  let base = producto.base + (producto.vidrios?.[tipoVidrio] || 0);
+  // COLOR SOLO SOBRE BASE
+  const colorFactor = getColorFactor(color);
+  const costoColor = baseSolo * colorFactor;
 
-  // 🎨 COLOR
-  base *= 1 + colorValor;
+  if (costoColor > 0) {
+    items.push({
+      tipo: "color",
+      descripcion: color,
+      precio: Math.round(costoColor),
+    });
+  }
 
-  const costo = base * hojas;
+  const costoBase = baseSolo + vidrioTotal + costoColor;
 
   return {
-    costo: Math.round(costo),
-    hojas,
+    costoBase: Math.round(costoBase),
+    items,
+    descripcionBase: `Puerta ${linea}`,
+    configuracion: {
+      tipo,
+      hojas,
+      linea,
+      color,
+      tipoVidrio,
+    },
   };
 }
 

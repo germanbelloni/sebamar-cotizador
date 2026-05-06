@@ -1,18 +1,9 @@
 const { fromRoot } = require("../../utils/path");
 
-const colores = require(fromRoot("frontend/data/colores.json"));
 const data = require(fromRoot("frontend/data/productos/postigones.json"));
 
-// 🎨 COLOR
-function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-  return c ? c.valor : 0;
-}
-
 function calcularPostigon(dataInput) {
-  const { medida, tipo, marco, color } = dataInput;
+  const { medida, tipo } = dataInput;
 
   const datos = data.medidas?.[medida];
 
@@ -30,13 +21,23 @@ function calcularPostigon(dataInput) {
     throw new Error("Tipo inválido");
   }
 
-  // 🎨 COLOR
-  const colorValor = getColorValor(color);
-  base *= 1 + colorValor;
+  const items = [
+    {
+      tipo: "base",
+      descripcion: `${tipo} ${medida}`,
+      precio: base,
+      costo: base,
+    },
+  ];
 
   return {
-    total: Math.round(base),
-    hojasBase: datos.hojas || 2,
+    costoBase: base,
+    items,
+    configuracion: {
+      hojasBase: datos.hojas || 2,
+      tipo,
+      medida,
+    },
   };
 }
 

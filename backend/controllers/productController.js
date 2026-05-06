@@ -159,6 +159,10 @@ function patagonicas(req, res) {
   return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
 }
 
+if (!req.user?.perfil) {
+  return res.status(400).json({ error: "Perfil no definido" });
+}
+
 module.exports = {
   mosquiteros,
   puertaMosquitera,

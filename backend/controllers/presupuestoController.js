@@ -2,8 +2,10 @@ const puppeteer = require("puppeteer");
 
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
-const calcularMosquitero = require("../services/mosquiteros/calcularMosquitero");
-const calcularPuerta = require("../services/puertas/calcularPuertas");
+
+const calcularMosquitero = require("../wrappers/mosquiteros/calcularMosquiteroVentana");
+const calcularPuerta = require("../wrappers/puertas/calcularPuerta");
+
 const generarHTML = require("../services/pdf/generarPDF");
 
 async function nuevoNumero(req, res) {
@@ -22,6 +24,7 @@ async function nuevoNumero(req, res) {
 async function crear(req, res) {
   try {
     const userId = req.user.id;
+
     const user = await User.findById(userId);
 
     if (!user) {
@@ -29,27 +32,46 @@ async function crear(req, res) {
     }
 
     let total = 0;
+
     const itemsProcesados = req.body.items.map((item) => {
       const cantidad = item.cantidad || 1;
+
       let precio = item.precio || 0;
       let descripcion = item.descripcion || item.tipo || "Producto";
 
+      // =========================
+      // 🔧 PRODUCTOS DINÁMICOS
+      // =========================
+
       if (item.tipo === "puerta") {
-        const result = calcularPuerta(item);
-        precio = result.total;
-        descripcion = `Puerta ${item.linea} - ${item.modelo} - ${item.medida}`;
+        const result = calcularPuerta({
+          ...item,
+          perfil: req.user.perfil,
+        });
+
+        precio = result.precioVenta || result.total;
+        descripcion = result.descripcion;
       }
 
       if (item.tipo === "mosquitero") {
-        const result = calcularMosquitero(item);
-        precio = result.total;
-        descripcion = `Mosquitero ${item.medida}`;
+        const result = calcularMosquitero({
+          ...item,
+          perfil: req.user.perfil,
+        });
+
+        precio = result.precioVenta || result.total;
+        descripcion = result.descripcion;
       }
 
       const subtotal = precio * cantidad;
       total += subtotal;
 
-      return { cantidad, descripcion, precio, subtotal };
+      return {
+        cantidad,
+        descripcion,
+        precio,
+        subtotal,
+      };
     });
 
     user.contadorPresupuestos += 1;
@@ -69,15 +91,17 @@ async function crear(req, res) {
     return res.json(presupuesto);
   } catch (error) {
     console.error("ERROR PRESUPUESTO:", error);
-    return res.status(500).json({ error: "Error creando presupuesto" });
+
+    return res.status(500).json({
+      error: "Error creando presupuesto",
+    });
   }
 }
 
 async function listar(req, res) {
-  const presupuestos = await Presupuesto.find({ userId: req.user.id }).populate(
-    "userId",
-    "nombre",
-  );
+  const presupuestos = await Presupuesto.find({
+    userId: req.user.id,
+  }).populate("userId", "nombre");
 
   const resultado = presupuestos.map((p) => ({
     id: p._id,
@@ -122,6 +146,7 @@ async function pdf(req, res) {
     }
 
     const html = generarHTML(presupuesto);
+
     const browser = await puppeteer.launch({
       headless: "new",
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -145,8 +170,17 @@ async function pdf(req, res) {
     return res.send(pdfBuffer);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error generando PDF" });
+
+    return res.status(500).json({
+      error: "Error generando PDF",
+    });
   }
 }
 
-module.exports = { crear, listar, nuevoNumero, obtener, pdf };
+module.exports = {
+  crear,
+  listar,
+  nuevoNumero,
+  obtener,
+  pdf,
+};

@@ -1,14 +1,14 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularPatagonicaModena = require(
-  fromRoot("backend/services/patagonicas/calcularPatagonicaModena"),
+const calcular = require(
+  fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
 
-console.log("\n🧪 TEST SERVICE PATAGONICAS MODENA\n");
+console.log("\n🧪 TEST SERVICE PATAGONICA MODENA\n");
 
 const casos = [
   {
-    nombre: "Base 1 raja",
+    nombre: "base 1 raja",
     input: {
       tipo: "1_raja",
       medida: "150x100",
@@ -17,7 +17,16 @@ const casos = [
     },
   },
   {
-    nombre: "Color negro",
+    nombre: "2 rajas",
+    input: {
+      tipo: "2_rajas",
+      medida: "200x60",
+      color: "blanco",
+      tipoVidrio: "4mm",
+    },
+  },
+  {
+    nombre: "color negro",
     input: {
       tipo: "1_raja",
       medida: "150x100",
@@ -26,7 +35,7 @@ const casos = [
     },
   },
   {
-    nombre: "Vidrio 3+3",
+    nombre: "vidrio 3+3",
     input: {
       tipo: "1_raja",
       medida: "150x100",
@@ -34,15 +43,15 @@ const casos = [
     },
   },
   {
-    nombre: "DVH clásico",
+    nombre: "dvh",
     input: {
       tipo: "1_raja",
-      medida: "150x100",
+      medida: "150x150",
       tipoVidrio: "dvh",
     },
   },
   {
-    nombre: "DVH 5+9+5",
+    nombre: "dvh 5+9+5",
     input: {
       tipo: "1_raja",
       medida: "150x150",
@@ -50,22 +59,14 @@ const casos = [
     },
   },
   {
-    nombre: "Laminado 4+4",
-    input: {
-      tipo: "1_raja",
-      medida: "150x150",
-      tipoVidrio: "4+4",
-    },
-  },
-  {
-    nombre: "Tipo inválido",
+    nombre: "error tipo",
     input: {
       tipo: "3_rajas",
       medida: "150x100",
     },
   },
   {
-    nombre: "Medida inexistente",
+    nombre: "error medida",
     input: {
       tipo: "1_raja",
       medida: "999x999",
@@ -73,21 +74,43 @@ const casos = [
   },
 ];
 
-casos.forEach((t, i) => {
+// =========================
+// VALIDADOR
+// =========================
+function validar(res) {
+  const errores = [];
+
+  if (!res) errores.push("sin respuesta");
+
+  if (typeof res.total !== "number") {
+    errores.push("total inválido");
+  }
+
+  if (res.total <= 0) {
+    errores.push("total <= 0");
+  }
+
+  return errores;
+}
+
+// =========================
+// RUN
+// =========================
+casos.forEach((test, i) => {
   try {
-    const r = calcularPatagonicaModena(t.input);
+    const res = calcular(test.input);
 
-    if (!r.total || r.total <= 0) {
-      throw new Error("total inválido");
+    const errores = validar(res);
+
+    if (errores.length) {
+      console.log(`❌ [${i + 1}] ${test.nombre}`);
+      errores.forEach((e) => console.log("   -", e));
+    } else {
+      console.log(`✔️ [${i + 1}] ${test.nombre}`);
     }
-
-    console.log(`✔️ [${i + 1}] ${t.nombre}`);
-    console.log("   👉 total:", r.total);
-    console.log("   👉 base:", r.base);
-    console.log("   👉 vidrio:", r.vidrio);
-  } catch (e) {
-    console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   👉 ERROR:", e.message);
+  } catch (err) {
+    console.log(`💥 [${i + 1}] ${test.nombre}`);
+    console.log("   -", err.message);
   }
 });
 

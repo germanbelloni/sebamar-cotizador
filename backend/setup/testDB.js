@@ -1,17 +1,30 @@
 const mongoose = require("mongoose");
 
+// 🔌 CONNECT
 const connectDB = async () => {
-  await mongoose.connect(process.env.MONGODB_URI);
+  await mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };
 
-const closeDB = async () => {
-  const collections = await mongoose.connection.db.collections();
+// 🧹 LIMPIAR DB (🔥 CLAVE)
+const clearDB = async () => {
+  const collections = mongoose.connection.collections;
 
-  for (let collection of collections) {
+  for (const key in collections) {
+    const collection = collections[key];
     await collection.deleteMany({});
   }
+};
 
+// ❌ CLOSE
+const closeDB = async () => {
   await mongoose.connection.close();
 };
 
-module.exports = { connectDB, closeDB };
+module.exports = {
+  connectDB,
+  clearDB,
+  closeDB,
+};

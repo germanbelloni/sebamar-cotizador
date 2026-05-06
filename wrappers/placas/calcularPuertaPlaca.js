@@ -32,6 +32,25 @@ function normalizarAlto(alto) {
 }
 
 // ========================
+// 🎯 SVG
+// ========================
+function buildPuertaSVG({ mano = "derecha" }) {
+  if (mano === "izquierda") {
+    return {
+      tipo: "puerta",
+      layout: ["bisagra_izq"],
+      svgKey: "puerta_izq",
+    };
+  }
+
+  return {
+    tipo: "puerta",
+    layout: ["bisagra_der"],
+    svgKey: "puerta_der",
+  };
+}
+
+// ========================
 // 🧠 MAIN
 // ========================
 function calcularWrapper(dataInput) {
@@ -43,7 +62,6 @@ function calcularWrapper(dataInput) {
     modelo,
     marco,
     mano,
-    extras = {},
     perfil = "amarilla",
   } = dataInput;
 
@@ -59,13 +77,6 @@ function calcularWrapper(dataInput) {
   }
 
   // ========================
-  // 🔒 VALIDACIONES
-  // ========================
-  if (ancho < 60 || ancho > 100) {
-    throw new Error("Ancho fuera de rango (60 - 100)");
-  }
-
-  // ========================
   // 🔧 NORMALIZACIÓN
   // ========================
   const anchoNorm = normalizarAncho(ancho);
@@ -76,57 +87,80 @@ function calcularWrapper(dataInput) {
   // ========================
   // 🧠 SERVICE
   // ========================
-  const resultadoBase = calcularBase({
+  const base = calcularBase({
     tipo,
     modelo,
     medida: medidaBase,
     marco,
   });
 
-  let total = resultadoBase.base || 0;
+  const costoBase = base.base;
 
   // ========================
   // 📐 RECARGOS
   // ========================
-  total *= anchoNorm.recargo;
-  total *= altoNorm.recargo;
+  let costoConRecargos = costoBase;
+  costoConRecargos *= anchoNorm.recargo;
+  costoConRecargos *= altoNorm.recargo;
 
   // ========================
-  // ➕ EXTRAS (FUTURO)
+  // 💰 PERFIL + AUMENTO
   // ========================
-  if (extras?.picaporteBronce) {
-    // placeholder
-  }
+  const perfilData = perfiles[perfil]?.placa || perfiles.amarilla.placa;
+
+  const aumento = perfilData.aumento || 0;
+
+  let costo = costoConRecargos * (1 + aumento);
+  costo *= 1 - perfilData.descuento;
+
+  const proveedor = costo; // 👈 placas no tiene flete
+  const venta = proveedor * (1 + perfilData.ganancia);
 
   // ========================
-  // 💰 PERFIL
+  // 🧾 ITEMS
   // ========================
-  const perfilData = perfiles[perfil]?.placa || perfiles["amarilla"].placa;
+  const items = [
+    {
+      tipo: "base",
+      descripcion: `${tipo} ${modelo} ${medidaBase}`,
+      precio: Math.round(costoBase),
+      costo: Math.round(costoBase),
+    },
+  ];
 
-  total *= 1 - (perfilData.descuento || 0);
-  total *= 1 + (perfilData.ganancia || 0);
+  // ========================
+  // 🧾 DESCRIPCIÓN
+  // ========================
+  let descripcion = `Puerta placa ${modelo} ${ancho}x${alto}`;
+
+  if (marco) descripcion += ` marco ${marco}`;
+  if (mano) descripcion += ` mano ${mano}`;
 
   // ========================
-  // 🧾 DETALLE LIMPIO
+  // ⚙️ CONFIG
   // ========================
-  const detalle = {
+  const configuracion = {
+    ancho,
+    alto,
+    medidaBase,
     tipo,
     modelo,
-    medidaBase,
-    anchoOriginal: ancho,
-    altoOriginal: alto,
+    marco,
+    mano,
     recargoAncho: anchoNorm.recargo,
     recargoAlto: altoNorm.recargo,
-    marco,
+    svg: buildPuertaSVG({ mano }),
   };
 
-  if (mano) {
-    detalle.mano = mano;
-  }
-
   return {
-    total: Math.round(total),
-    detalle,
+    costoBase: Math.round(costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+    items,
+    descripcion,
+    configuracion,
   };
 }
 

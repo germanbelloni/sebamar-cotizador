@@ -7,7 +7,6 @@ const superficies = require(
 );
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
-
 const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
 
 // 📐
@@ -18,7 +17,7 @@ function normalizarAlto(alto) {
   return alto;
 }
 
-// 🔍
+// 🔍 LOOKUP
 function buscarMedidaValida(ancho, alto) {
   const medidas = Object.keys(data.medidas);
 
@@ -39,39 +38,36 @@ function buscarMedidaValida(ancho, alto) {
 
 // 💰 PERFIL
 function aplicarPerfil(costo, p) {
-  return costo * (1 - p.descuento) * (1 + p.flete) * (1 + p.ganancia);
+  const proveedor = costo * (1 - p.descuento);
+  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+
+  return {
+    proveedor,
+    venta,
+  };
 }
 
-// 🚀
+// 🚀 MAIN
 function calcularRajaHerrero(dataInput) {
   const {
     ancho,
     alto,
     color,
     vidrio,
-    tipoVidrio, // 👈 ahora acepta ambos
+    tipoVidrio,
     mosquitero,
     modelo = "raja",
     desague,
     bisagra,
-    cp8 = 1,
+    premarco,
+    contramarco,
     perfil = "amarilla",
   } = dataInput;
 
   if (!ancho || !alto) throw new Error("Faltan medidas");
 
-  if (ancho < 30 || ancho > 90) {
-    throw new Error("Ancho fuera de rango (30 - 90)");
-  }
+  const medida = buscarMedidaValida(ancho, normalizarAlto(alto));
 
-  if (alto < 40 || alto > 180) {
-    throw new Error("Alto fuera de rango (40 - 180)");
-  }
-
-  const altoLookup = normalizarAlto(alto);
-  const medida = buscarMedidaValida(ancho, altoLookup);
-
-  // 🔥 FIX CLAVE
   const vidrioFinal = tipoVidrio || vidrio || "4mm";
 
   const base = calcularRaja({
@@ -81,39 +77,31 @@ function calcularRajaHerrero(dataInput) {
     linea: "herrero",
   });
 
-  let totalCosto = base?.costoBase || 0;
+  let costo = base.costoBase;
+  let items = [];
+
+  items.push({
+    tipo: "base",
+    descripcion: medida,
+    precio: Math.round(base.costoBase),
+  });
 
   const m2 = calcularM2(ancho, alto);
 
-  const items = [];
-
   // 🧵 MOSQUITERO
   if (mosquitero) {
-    const costoMosq = (superficies.superficies.mosquitero_fijo || 0) * m2;
-
-    totalCosto += costoMosq;
+    const c = (superficies.superficies.mosquitero_fijo || 0) * m2;
+    costo += c;
 
     items.push({
       tipo: "mosquitero",
-      precio: Math.round(costoMosq),
-    });
-  }
-
-  // 🔩 CP8
-  if (cp8) {
-    const costoCp8 = (superficies.extras.cp8 || 0) * cp8;
-
-    totalCosto += costoCp8;
-
-    items.push({
-      tipo: "cp8",
-      precio: Math.round(costoCp8),
+      precio: Math.round(c),
     });
   }
 
   // 🔧 MODELO
   if (modelo === "brazo" || modelo === "volcable") {
-    totalCosto += 4000;
+    costo += 4000;
 
     items.push({
       tipo: "modelo",
@@ -124,28 +112,51 @@ function calcularRajaHerrero(dataInput) {
 
   // 📏 ALTURA
   if (alto > 150) {
-    totalCosto *= 1.3;
+    costo *= 1.3;
   }
 
   // 💰 PERFIL
   const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
 
-  const totalVenta = aplicarPerfil(totalCosto, perfilData);
-
-  // 🧾 DESCRIPCIÓN
-  let descripcion = `Raja Herrero ${ancho}x${alto}`;
-
-  if (vidrioFinal) descripcion += ` vidrio ${vidrioFinal}`;
-  if (mosquitero) descripcion += ` con mosquitero`;
-  if (modelo !== "raja") descripcion += ` ${modelo}`;
-  if (desague) descripcion += ` con desagüe`;
-  if (bisagra) descripcion += ` bisagra ${bisagra}`;
+  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
   return {
-    total: Math.round(totalVenta),
-    medidaUsada: medida,
-    descripcion,
+    costoBase: Math.round(base.costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+
     items,
+
+    descripcion: `Raja Herrero ${ancho}x${alto}`,
+
+    configuracion: {
+      ancho,
+      alto,
+      medidaUsada: medida,
+      color,
+      vidrio: vidrioFinal,
+      mosquitero: !!mosquitero,
+      modelo,
+      desague,
+      bisagra,
+
+      // 🔥 SVG READY
+      svg: {
+        tipo: "raja",
+        apertura: modelo,
+        bisagra: bisagra
+          ? {
+              tipo: bisagra,
+              svgKey:
+                bisagra === "izquierda"
+                  ? "bisagra_izquierda"
+                  : "bisagra_derecha",
+            }
+          : null,
+      },
+    },
   };
 }
 

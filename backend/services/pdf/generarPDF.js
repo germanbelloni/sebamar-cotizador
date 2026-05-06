@@ -1,11 +1,24 @@
+const fs = require("fs");
+const path = require("path");
+
 const format = (n) => new Intl.NumberFormat("es-AR").format(n);
 
-function generarHTML(presupuesto) {
-  // 📍 1. NUMERO DE PRESUPUESTO (ARRIBA DE TODO)
-  const numero = presupuesto._id.toString().slice(-6);
+// 🔧 OPCIONAL → logo en base64 (RECOMENDADO)
+let logoBase64 = "";
+try {
+  const logoPath = path.join(__dirname, "../../public/img/logosebamar.png");
+  if (fs.existsSync(logoPath)) {
+    const file = fs.readFileSync(logoPath);
+    logoBase64 = `data:image/png;base64,${file.toString("base64")}`;
+  }
+} catch (e) {
+  console.log("⚠ No se pudo cargar logo base64");
+}
 
-  // 📍 2. FILAS (TABLA)
-  const filas = presupuesto.items
+function generarHTML(presupuesto) {
+  const numero = presupuesto._id?.toString().slice(-6) || "000000";
+
+  const filas = (presupuesto.items || [])
     .map((item) => {
       const descripcion = item.descripcion || "Producto";
       const cantidad = item.cantidad || 1;
@@ -13,12 +26,12 @@ function generarHTML(presupuesto) {
       const subtotal = item.subtotal || precio * cantidad;
 
       return `
-        <tr class="border-b">
-          <td class="p-2 text-center">${cantidad}</td>
-          <td class="p-2 text-center"></td>
-          <td class="p-2 text-left">${descripcion}</td>
-          <td class="p-2 text-right">$${format(precio)}</td>
-          <td class="p-2 text-right">$${format(subtotal)}</td>
+        <tr>
+          <td>${cantidad}</td>
+          <td></td>
+          <td class="text-left">${descripcion}</td>
+          <td class="text-right">$${format(precio)}</td>
+          <td class="text-right">$${format(subtotal)}</td>
         </tr>
       `;
     })
@@ -27,80 +40,145 @@ function generarHTML(presupuesto) {
   return `
   <html>
     <head>
-      <script src="https://cdn.tailwindcss.com"></script>
+      <meta charset="utf-8" />
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 40px;
+          border: 10px solid #facc15;
+          max-width: 800px;
+          margin: auto;
+          font-size: 14px;
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .titulo {
+          background: #facc15;
+          padding: 10px 20px;
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .empresa {
+          margin-top: 10px;
+          font-size: 12px;
+        }
+
+        .info {
+          margin-top: 20px;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 25px;
+        }
+
+        th, td {
+          border: 1px solid #000;
+          padding: 6px;
+        }
+
+        th {
+          background: #eee;
+        }
+
+        .text-right {
+          text-align: right;
+        }
+
+        .text-left {
+          text-align: left;
+        }
+
+        .total {
+          margin-top: 30px;
+          text-align: right;
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .footer {
+          margin-top: 40px;
+          text-align: center;
+          font-size: 12px;
+        }
+
+        .logo {
+          height: 60px;
+        }
+      </style>
     </head>
 
-    <!-- 📍 3. BODY (CENTRADO + RELATIVE PARA FOOTER) -->
-    <body class="relative p-10 border-[15px] border-yellow-400 font-sans max-w-4xl mx-auto">
+    <body>
 
       <!-- HEADER -->
-      <div class="flex justify-between items-center">
+      <div class="header">
+        ${
+          logoBase64
+            ? `<img src="${logoBase64}" class="logo" />`
+            : `<div><b>SEBAMAR</b></div>`
+        }
 
-        <!-- 📍 4. LOGO -->
-        <img src="http://localhost:3000/img/logosebamar.png" class="h-16" />
-
-        <div class="bg-yellow-400 px-6 py-3 text-xl font-bold">
-          PRESUPUESTO
-        </div>
+        <div class="titulo">PRESUPUESTO</div>
       </div>
 
       <!-- EMPRESA -->
-      <div class="mt-3 text-xs">
+      <div class="empresa">
         SEBAMAR ABERTURAS<br/>
         Av. Venezuela 100<br/>
-        2314-483072<br/>
-        <div class="flex gap-3 items-center mt-2">
-  <img src="http://localhost:3000/img/facebook.png" class="h-4" />
-  <span>Sebamar aberturas</span>
-</div>
-
-<div class="flex gap-3 items-center mt-2">
-  <img src="http://localhost:3000/img/instagram.png" class="h-4" />
-  <span>Sebamaraberturasok</span>
-</div>
+        2314-483072
       </div>
 
       <!-- INFO -->
-      <div class="mt-6 flex justify-between text-sm">
-
+      <div class="info">
         <div>
-          <div class="font-bold">Facturar a:</div>
-          <div>${presupuesto.cliente || "-"}</div>
+          <b>Facturar a:</b><br/>
+          ${presupuesto.cliente || "-"}
         </div>
 
-        <!-- 📍 5. NUMERO USADO ACÁ -->
         <div class="text-right">
-          <div><span class="font-bold">Fecha:</span> ${new Date(presupuesto.createdAt).toLocaleDateString()}</div>
-          <div><span class="font-bold">Presupuesto N°:</span> ${numero}</div>
+          <div><b>Fecha:</b> ${
+            presupuesto.createdAt
+              ? new Date(presupuesto.createdAt).toLocaleDateString()
+              : new Date().toLocaleDateString()
+          }</div>
+          <div><b>Presupuesto N°:</b> ${numero}</div>
         </div>
       </div>
 
       <!-- TABLA -->
-      <table class="w-full mt-8 border-2 border-black text-sm">
-        <thead class="bg-gray-200">
+      <table>
+        <thead>
           <tr>
-            <th class="border p-2">Cant.</th>
-            <th class="border p-2">Código</th>
-            <th class="border p-2 text-left">Descripción</th>
-            <th class="border p-2 text-right">Precio unitario</th>
-            <th class="border p-2 text-right">Total</th>
+            <th>Cant.</th>
+            <th>Código</th>
+            <th class="text-left">Descripción</th>
+            <th class="text-right">Precio unitario</th>
+            <th class="text-right">Total</th>
           </tr>
         </thead>
-
         <tbody>
           ${filas}
         </tbody>
       </table>
 
-      <!-- TOTALES -->
-      <div class="absolute bottom-16 right-10 text-xl font-bold">
-        <div>Total: $${format(presupuesto.total)}</div>
+      <!-- TOTAL -->
+      <div class="total">
+        Total: $${format(presupuesto.total || 0)}
       </div>
 
-      <!-- 📍 6. FOOTER ABAJO -->
-      <div class="absolute bottom-6 left-0 w-full text-center text-xs">
+      <!-- FOOTER -->
+      <div class="footer">
         Visitá nuestra página web: www.sebamaraberturas.wordpress.com<br/>
-        Por consultas comunicarse al whatsapp 2314 483072
+        WhatsApp: 2314 483072
       </div>
 
     </body>

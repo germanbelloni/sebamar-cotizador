@@ -7,8 +7,23 @@ const calcular = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
 
 const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
+// 📦 RESULTADOS
 let resultados = [];
 
+// 📁 OUTPUT
+const baseOutput =
+  process.env.OUTPUT_DIR || path.join(process.cwd(), "backend/tests/output");
+
+const folderName = path.basename(__filename).replace(".gen.js", "");
+const outputDir = path.join(baseOutput, folderName);
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// =========================
+// 🔁 GENERADOR
+// =========================
 Object.keys(data).forEach((tipo) => {
   Object.keys(data[tipo]).forEach((modelo) => {
     Object.keys(data[tipo][modelo]).forEach((medida) => {
@@ -16,29 +31,43 @@ Object.keys(data).forEach((tipo) => {
         try {
           const [ancho, alto] = medida.split("x").map(Number);
 
-          const result = calcular({
+          const input = {
             ancho,
             alto,
             tipo,
             modelo,
             marco,
-          });
+          };
+
+          const res = calcular(input);
 
           resultados.push({
-            input: { tipo, modelo, medida, marco },
-            output: result,
+            input,
+            output: res,
           });
 
-          console.log(`✔ ${tipo} ${modelo} ${medida}`);
+          console.log(`✔ ${tipo} ${modelo} ${medida} → ${res.precioVenta}`);
         } catch (e) {
-          console.log(`❌ ${tipo} ${modelo} ${medida}`, e.message);
+          resultados.push({
+            input: { tipo, modelo, medida, marco },
+            error: e.message,
+          });
+
+          console.log(`❌ ${tipo} ${modelo} ${medida}`);
         }
       });
     });
   });
 });
 
+// =========================
+// 💾 SAVE
+// =========================
+const nombreArchivo = `puertaPlaca_${Date.now()}.json`;
+
 fs.writeFileSync(
-  path.join(process.cwd(), "placas_test.json"),
+  path.join(outputDir, nombreArchivo),
   JSON.stringify(resultados, null, 2),
 );
+
+console.log(`\n✅ JSON generado: ${nombreArchivo}`);

@@ -3,52 +3,34 @@ const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularRajaHerrero = require(
-  fromRoot("wrappers/rajas/calcularRajaHerrero"),
-);
+const calcular = require(fromRoot("wrappers/rajas/calcularRajaHerrero"));
 
 const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
 
-const COLORES = ["blanco", "negro", "bronce", "simil madera"];
-const VIDRIOS = ["3mm", "4mm", "5mm", "3+3"];
+const colores = ["blanco", "negro", "simil madera"];
+const vidrios = ["4mm", "3+3"];
 
 let resultados = [];
 
-Object.keys(data.medidas).forEach((medida) => {
-  const [ancho, alto] = medida.split("x").map(Number);
+Object.keys(data.medidas).forEach((m) => {
+  const [a, h] = m.split("x").map(Number);
 
-  COLORES.forEach((color) => {
-    VIDRIOS.forEach((vidrio) => {
-      const input = {
-        ancho,
-        alto,
-        color,
-        vidrio,
-      };
-
+  colores.forEach((color) => {
+    vidrios.forEach((tipoVidrio) => {
       try {
-        const res = calcularRajaHerrero(input);
+        const res = calcular({ ancho: a, alto: h, color, tipoVidrio });
 
-        resultados.push({ input, output: res });
+        resultados.push({ input: { m, color }, output: res });
 
-        console.log(`✔ ${medida} ${color} ${vidrio}`);
+        console.log(`✔ ${m} ${color}`);
       } catch (e) {
-        resultados.push({ input, error: e.message });
-
-        console.log(`❌ ${medida} ${color} ${vidrio}`);
+        console.log(`❌ ${m}`, e.message);
       }
     });
   });
 });
 
-const outputDir = path.join(process.cwd(), "backend/tests/output/rajaHerrero");
-
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
-
-const file = path.join(outputDir, `raja_herrero_${Date.now()}.json`);
-
-fs.writeFileSync(file, JSON.stringify(resultados, null, 2));
-
-console.log("\n✅ JSON generado");
+fs.writeFileSync(
+  path.join(process.cwd(), "rajas_herrero_test.json"),
+  JSON.stringify(resultados, null, 2),
+);

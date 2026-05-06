@@ -16,29 +16,44 @@ const BASE_TESTS_DIR = path.resolve(__dirname, "..");
 // 📁 GENERATORS
 const GENERATORS_DIR = path.join(BASE_TESTS_DIR, "generators");
 
-// 📁 OUTPUT (único y limpio)
+// 📁 OUTPUT
 const OUTPUT_DIR = path.join(BASE_TESTS_DIR, "output");
 
-// asegurar carpeta output
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+// 🧹 LIMPIAR OUTPUT (🔥 IMPORTANTE)
+if (fs.existsSync(OUTPUT_DIR)) {
+  fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
 }
+fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-// 🎯 LISTA EXACTA
+// 🎯 LISTA COMPLETA
 const archivosValidos = [
+  // 🏔 PATAGONICAS
   "patagonicaHerrero.gen.js",
   "patagonicaModena.gen.js",
 
+  // 🧱 POSTIGONES
   "postigon.gen.js",
+
+  // 🚪 PUERTAS
   "puertas.gen.js",
-  "puertaPlaca.gen.js",
   "puerta_y_media.gen.js",
 
+  // 🪵 PLACAS
+  "puertaPlaca.gen.js",
+
+  // 🔳 RAJAS
   "rajasHerrero.gen.js",
   "rajasModena.gen.js",
 
+  // 🪟 VENTANAS
   "ventanaHerrero.gen.js",
   "ventanaModena.gen.js",
+
+  // 🧱 SUPERFICIES (🔥 AHORA UNIFICADO)
+  "superficies.gen.js",
+
+  // 🚪 PORTONES
+  "portones.gen.js",
 ];
 
 // 🔍 ARMAR PATHS
@@ -98,5 +113,5 @@ if (errores.length) {
   errores.forEach((e) => console.log(" -", e));
 }
 
-console.log(`\n📁 Output: ${OUTPUT_DIR}`);
+console.log(`\n📁 Output limpio: ${OUTPUT_DIR}`);
 console.log(`\n✅ RUN COMPLETO\n`);

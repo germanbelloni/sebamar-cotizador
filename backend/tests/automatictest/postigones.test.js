@@ -6,7 +6,7 @@ console.log("\n🧪 TEST WRAPPER POSTIGONES\n");
 
 const casos = [
   {
-    nombre: "base corredizo",
+    nombre: "base",
     input: {
       ancho: 120,
       alto: 100,
@@ -15,29 +15,21 @@ const casos = [
     },
   },
   {
-    nombre: "3 hojas corredizo",
+    nombre: "color negro",
     input: {
-      ancho: 180,
+      ancho: 120,
       alto: 100,
       tipo: "corredizo",
-      hojas: 3,
+      color: "negro",
     },
   },
   {
-    nombre: "abrir 4 hojas",
-    input: {
-      ancho: 210,
-      alto: 100,
-      tipo: "abrir",
-      hojas: 4,
-    },
-  },
-  {
-    nombre: "microperforado",
+    nombre: "con extras",
     input: {
       ancho: 120,
       alto: 100,
       tipo: "abrir",
+      color: "blanco",
       extras: { microperforado: true },
     },
   },
@@ -48,11 +40,12 @@ casos.forEach((t, i) => {
     const r = calcular(t.input);
 
     console.log(`✔️ [${i + 1}] ${t.nombre}`);
-    console.log("   👉 total:", r.total);
+    console.log("   👉 venta:", r.precioVenta);
+    console.log("   👉 costo:", r.costo);
   } catch (e) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
     console.log("   👉", e.message);
   }
 });
 
-console.log("\n✅ FIN TEST WRAPPER\n");
+console.log("\n✅ FIN TEST\n");

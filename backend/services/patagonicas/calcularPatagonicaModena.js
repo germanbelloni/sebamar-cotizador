@@ -1,10 +1,14 @@
-const fs = require("fs");
 const { fromRoot } = require("../../utils/path");
 
 const colores = require(fromRoot("frontend/data/colores.json"));
 
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
+);
+
+// 📦 DATA (cargar UNA VEZ)
+const data = require(
+  fromRoot("frontend/data/productos/patagonicas_modena.json"),
 );
 
 // 🎨 COLOR
@@ -17,14 +21,14 @@ function getColorValor(color) {
 
 // 📏 NORMALIZAR MEDIDA
 function normalizarMedida(medida) {
-  if (!medida) return null;
+  if (!medida) throw new Error("Medida inválida");
 
   if (medida.includes("x")) {
     const [a, b] = medida.split("x").map(Number);
 
-    if (a > 1000 || b > 1000) {
-      return `${a / 10}x${b / 10}`;
-    }
+    if (!a || !b) throw new Error("Medida inválida");
+
+    return `${a}x${b}`;
   }
 
   return medida.trim().toLowerCase();
@@ -44,8 +48,7 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
   // DVH 5+9+5
   if (tipoVidrio === "dvh_5_9_5") {
     const m2 = (ancho * alto) / 10000;
-
-    const perimetro = ((ancho + alto) * 2) / 100; // 🔥 FIX
+    const perimetro = ((ancho + alto) * 2) / 100;
 
     const vidrio5 = superficies.vidrios["5mm"] || 0;
     const camara = superficies.vidrios["dvh"] || 0;
@@ -60,16 +63,22 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
     return m2 * valor;
   }
 
-  // Otros vidrios desde JSON base
+  // Otros
   return datos.vidrios?.[tipoVidrio] || 0;
 }
 
-// 🧠 SERVICE PRINCIPAL
+// 🧠 MAIN
 function calcularPatagonicaModena(dataInput) {
   const { tipo, medida, color, tipoVidrio } = dataInput;
 
-  const filePath = fromRoot("frontend/data/productos/patagonicas_modena.json");
-  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  // =========================
+  // VALIDACIONES
+  // =========================
+  if (!tipo) throw new Error("Falta tipo");
+
+  if (!data.tipos?.[tipo]) {
+    throw new Error("Tipo inválido");
+  }
 
   const medidaKey = normalizarMedida(medida);
 
@@ -81,17 +90,17 @@ function calcularPatagonicaModena(dataInput) {
 
   const base = datos.base || 0;
 
-  // 🎨 color
+  // 🎨 COLOR
   const colorValor = getColorValor(color);
   const baseColor = base * (1 + colorValor);
 
-  // 🪟 vidrio
+  // 🪟 VIDRIO
   const vidrio = calcularVidrio(datos, ancho, alto, tipoVidrio);
 
   const total = baseColor + vidrio;
 
   return {
-    total: Math.round(total),
+    costo: Math.round(total),
     base,
     vidrio,
   };

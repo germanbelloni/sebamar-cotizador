@@ -1,60 +1,174 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
+const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
 
-const User = require("../models/User");
+const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
+const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
 
-async function register(req, res) {
+const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
+
+const calcularPorton = require("../../wrappers/portones/calcularporton");
+
+const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
+
+const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
+const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
+
+const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
+const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
+
+const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
+
+const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
+const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
+
+// 🔥 GANANCIA CLIENTE
+const aplicarGananciaCliente = require("../utils/aplicarGananciaCliente");
+
+// =========================
+// 🧠 CORE GLOBAL
+// =========================
+function runCalculation(req, res, label, calculate) {
   try {
-    const { nombre, password } = req.body;
+    const data = {
+      ...req.body,
+      perfil: req.user.perfil,
+    };
 
-    const existingUser = await User.findOne({ nombre });
+    console.log("PERFIL USADO:", data.perfil);
 
-    if (existingUser) {
-      return res.status(400).json({ error: "Usuario ya existe" });
+    const resultadoBase = calculate(data);
+
+    const resultadoFinal = aplicarGananciaCliente(resultadoBase, req.user);
+
+    if (req.user?.role === "user") {
+      delete resultadoFinal.costo;
+      delete resultadoFinal.ganancia;
+      delete resultadoFinal.gananciaCliente;
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ nombre, password: hashedPassword });
-
-    await user.save();
-
-    return res.status(201).json({ msg: "Usuario creado" });
+    return res.json(resultadoFinal);
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ error: "Usuario ya existe" });
-    }
+    console.log(`ERROR ${label}:`, error.message);
 
-    return res.status(500).json({ error: "Error registrando usuario" });
+    return res.status(500).json({
+      error: "Error en calculo",
+      detalle: error.message,
+    });
   }
 }
 
-async function login(req, res) {
-  try {
-    const { nombre, password } = req.body;
-    const user = await User.findOne({ nombre });
+// =========================
+// 🚪 PUERTAS
+// =========================
+function puertas(req, res) {
+  return runCalculation(req, res, "PUERTAS", (data) => calcularPuerta(data));
+}
 
-    if (!user) {
-      return res.status(400).json({ error: "Credenciales invalidas" });
-    }
+function puertasEco(req, res) {
+  return runCalculation(req, res, "PUERTAS ECO", (data) =>
+    calcularPuertaEco(data),
+  );
+}
 
-    const validPassword = await bcrypt.compare(password, user.password);
+// =========================
+// 🪵 PLACAS
+// =========================
+function placas(req, res) {
+  return runCalculation(req, res, "PLACAS", (data) =>
+    calcularPuertaPlaca(data),
+  );
+}
 
-    if (!validPassword) {
-      return res.status(400).json({ error: "Credenciales invalidas" });
-    }
+// =========================
+// 🧵 MOSQUITEROS
+// =========================
+function mosquiteros(req, res) {
+  return runCalculation(req, res, "MOSQUITEROS", (data) =>
+    calcularMosquiteroVentana(data),
+  );
+}
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      },
+function puertaMosquitera(req, res) {
+  return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
+    calcularPuertaMosquitera(data),
+  );
+}
+
+// =========================
+// 🪟 VENTANAS
+// =========================
+function ventanas(req, res) {
+  const { linea } = req.body;
+
+  if (linea === "modena") {
+    return runCalculation(req, res, "VENTANAS MODENA", (data) =>
+      calcularVentanaModena(data),
     );
-
-    return res.json({ token });
-  } catch (error) {
-    return res.status(500).json({ error: "Error en login" });
   }
+
+  return runCalculation(req, res, "VENTANAS HERRERO", (data) =>
+    calcularVentanaHerrero(data),
+  );
 }
 
-module.exports = { login, register };
+// =========================
+// 🔩 RAJAS
+// =========================
+function rajas(req, res) {
+  const { linea } = req.body;
+
+  if (linea === "modena") {
+    return runCalculation(req, res, "RAJAS MODENA", (data) =>
+      calcularRajaModena(data),
+    );
+  }
+
+  return runCalculation(req, res, "RAJAS HERRERO", (data) =>
+    calcularRajaHerrero(data),
+  );
+}
+
+// =========================
+// 🪵 OTROS
+// =========================
+function postigones(req, res) {
+  return runCalculation(req, res, "POSTIGONES", (data) =>
+    calcularPostigones(data),
+  );
+}
+
+function portones(req, res) {
+  return runCalculation(req, res, "PORTONES", (data) => calcularPorton(data));
+}
+
+function superficies(req, res) {
+  return runCalculation(req, res, "SUPERFICIES", (data) =>
+    calcularSuperficies(data),
+  );
+}
+
+// =========================
+// 🏔 PATAGÓNICAS
+// =========================
+function patagonicas(req, res) {
+  const { linea } = req.body;
+
+  const calculadora =
+    linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
+
+  return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
+}
+
+module.exports = {
+  mosquiteros,
+  puertaMosquitera,
+  patagonicas,
+  placas,
+  postigones,
+  portones,
+  puertas,
+  puertasEco,
+  rajas,
+  ventanas,
+  superficies,
+};

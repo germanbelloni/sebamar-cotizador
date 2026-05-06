@@ -4,196 +4,120 @@ const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
 
+const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
+
 const perfiles = require(fromRoot("backend/config/perfiles"));
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
 );
-const ventanas = require(
-  fromRoot("frontend/data/productos/ventanas_modena.json"),
-);
-const colores = require(fromRoot("frontend/data/colores.json"));
 
 // 📐
 const calcularM2 = (a, h) => (a * h) / 10000;
 const calcularML = (a, h) => (a * 2 + h * 2) / 100;
 
-// 🎨
-function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-  return c ? c.valor : 0;
-}
-
-// 🔍
-function buscarMedidaValida(ancho, alto) {
-  const medidas = Object.keys(ventanas.medidas);
-
-  const anchos = [...new Set(medidas.map((m) => +m.split("x")[0]))].sort(
-    (a, b) => a - b,
-  );
-  const altos = [...new Set(medidas.map((m) => +m.split("x")[1]))].sort(
-    (a, b) => a - b,
-  );
-
-  const a = anchos.find((x) => x >= ancho);
-  const h = altos.find((x) => x >= alto);
-
-  if (!a || !h) throw new Error("No hay medida válida");
-
-  return `${a}x${h}`;
-}
-
-// 💰
+// 💰 PERFIL
 function aplicarPerfil(costo, p) {
-  return costo * (1 - p.descuento) * (1 + p.flete) * (1 + p.ganancia);
+  const proveedor = costo * (1 - p.descuento);
+  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+
+  return { proveedor, venta };
 }
 
-// 🧠 UNIDAD
-function calcularUnidad(data, perfil) {
-  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
-
-  const r = calcularVentana({
-    medida: data.medida,
-    color: data.color,
-    incluirGuia: data.guia,
-    incluirMosquitero: data.mosquitero,
-    linea: "modena",
-    tipoVidrio: data.tipoVidrio,
-  });
-
-  let costoBase = r.costoBase;
-
-  // ALTURA
-  if (data.alto > 200 && data.alto <= 205) costoBase *= 1.05;
-  else if (data.alto > 205) costoBase *= 1.1;
-
-  // 3 hojas
-  if (data.tresHojas === "2guias") {
-    costoBase *= superficies.recargos?.tres_hojas || 1.2;
-  }
-
-  if (data.tresHojas === "3guias") {
-    costoBase *= superficies.recargos?.cuatro_hojas || 1.3;
-  }
-
-  return aplicarPerfil(costoBase, perfilModena);
-}
-
-// 🚀 MAIN
+// 🚀 WRAPPER
 function calcularVentanaModena(dataInput) {
   const {
     ancho,
     alto,
     color,
     tipoVidrio,
-    perfil = "amarilla",
-    tresHojas,
-    bipuntos = [],
-    herrajeBlanco,
+    mosquitero,
     premarco,
     contramarco,
+    perfil = "amarilla",
   } = dataInput;
 
   if (!ancho || !alto) throw new Error("Faltan medidas");
 
-  if (ancho < 30 || ancho > 480)
-    throw new Error("Ancho fuera de rango (30-480)");
+  const medida = `${ancho}x${alto > 200 ? 200 : alto}`;
 
-  if (alto < 40 || alto > 210) throw new Error("Alto fuera de rango (40-210)");
-
-  if (!tipoVidrio) throw new Error("Falta tipoVidrio");
-
-  const altoBase = alto > 200 ? 200 : alto;
-
-  let unidades = [];
-
-  if (ancho > 240) {
-    const mitad = ancho / 2;
-    const m = buscarMedidaValida(mitad, altoBase);
-
-    unidades.push({ medida: m, ancho: mitad, alto });
-    unidades.push({ medida: m, ancho: mitad, alto });
-  } else {
-    const m = buscarMedidaValida(ancho, altoBase);
-    unidades.push({ medida: m, ancho, alto });
-  }
-
-  let total = 0;
-  let items = [];
-
-  unidades.forEach((u) => {
-    const v = calcularUnidad({ ...dataInput, ...u }, perfil);
-    total += v;
+  const base = calcularVentana({
+    medida,
+    color,
+    tipoVidrio,
+    linea: "modena",
   });
 
-  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+  let costo = base.costoBase;
+  const items = [];
+
+  items.push({
+    tipo: "base",
+    precio: Math.round(base.costoBase),
+  });
 
   const m2 = calcularM2(ancho, alto);
   const ml = calcularML(ancho, alto);
 
-  // 🔹 VIDRIOS ESPECIALES
-  if (tipoVidrio === "4+4") {
-    total += superficies.vidrios["4+4"] * m2;
+  // 🧵 MOSQUITERO
+  if (mosquitero) {
+    const c = superficies.superficies.mosquitero_fijo * m2;
+    costo += c;
+
+    items.push({ tipo: "mosquitero", precio: Math.round(c) });
   }
 
-  if (tipoVidrio === "dvh_5_9_5") {
-    const vidrio = superficies.vidrios["5+5"];
-    const camara = superficies.vidrios["dvh"];
-
-    total += (vidrio * 2 + camara) * m2;
-  }
-
-  // 🔹 BIPUNTOS (NUEVO SISTEMA)
-  if (bipuntos.length) {
-    bipuntos.forEach((b, i) => {
-      let costo = superficies.extras.bipunto || 0;
-
-      if (b.tipo === "llave") {
-        costo = superficies.extras.bipuntoConLlave || 45000;
-      }
-
-      const venta = aplicarPerfil(costo, perfilModena);
-
-      total += venta;
-
-      items.push({
-        tipo: "bipunto",
-        descripcion: `Bipunto ${b.tipo || "comun"}`,
-        precio: Math.round(venta),
-      });
-    });
-  }
-
-  // 🔹 HERRAJE BLANCO
-  if (herrajeBlanco) total *= 1.05;
-
-  // 🔹 PREMARCO / CONTRAMARCO
-  const colorFactor = 1 + getColorValor(color);
-
+  // 🪚 PREMARCO / CONTRAMARCO
   if (premarco) {
-    const costo = superficies.superficies.premarco * ml;
-    const venta = aplicarPerfil(costo, perfilModena);
+    const c = superficies.superficies.premarco * ml;
+    costo += c;
 
-    total += venta;
-    items.push({ tipo: "premarco", precio: Math.round(venta) });
-
-    const costoC = superficies.superficies.contramarco * ml * colorFactor;
-    const ventaC = aplicarPerfil(costoC, perfilModena);
-
-    total += ventaC;
-    items.push({ tipo: "contramarco", precio: Math.round(ventaC) });
-  } else if (contramarco) {
-    const costo = superficies.superficies.contramarco * ml * colorFactor;
-    const venta = aplicarPerfil(costo, perfilModena);
-
-    total += venta;
-    items.push({ tipo: "contramarco", precio: Math.round(venta) });
+    items.push({ tipo: "premarco", precio: Math.round(c) });
   }
+
+  if (premarco || contramarco) {
+    const c = superficies.superficies.contramarco * ml;
+    costo += c;
+
+    items.push({ tipo: "contramarco", precio: Math.round(c) });
+  }
+
+  // 📏 ALTURA
+  if (alto > 200) costo *= 1.1;
+
+  // 💰 PERFIL
+  const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+
+  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
   return {
-    total: Math.round(total),
+    costoBase: Math.round(base.costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+
     items,
+
+    descripcion: `Ventana modena ${ancho}x${alto}`,
+
+    configuracion: {
+      ancho,
+      alto,
+      color,
+      tipoVidrio,
+      mosquitero,
+      premarco,
+      contramarco,
+
+      // 🔥 SVG
+      svg: {
+        tipo: "ventana_modena",
+        hojas: ancho > 240 ? 2 : 1,
+        mosquitero: !!mosquitero,
+        premarco: !!premarco,
+        contramarco: !!contramarco,
+      },
+    },
   };
 }
 

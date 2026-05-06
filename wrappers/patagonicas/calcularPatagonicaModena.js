@@ -1,28 +1,19 @@
 const { fromRoot } = require("../../backend/utils/path");
 
-const calcularPatagonicaModena = require(
-  fromRoot("backend/services/patagonicas/calcularPatagonicaModena"),
+const service = require(
+  fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
 
-const dataSuperficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
-);
+const perfiles = require(fromRoot("config/perfiles"));
+const colores = require(fromRoot("frontend/data/colores.json"));
+const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
-const perfiles = require(fromRoot("backend/config/perfiles"));
-
-// 🔍 BUSCAR MEDIDA SUPERIOR
-function buscarMedidaValida(medidas, ancho, alto) {
-  const keys = Object.keys(medidas);
-
-  const validas = keys
-    .map((k) => {
-      const [a, b] = k.split("x").map(Number);
-      return { key: k, ancho: a, alto: b };
-    })
-    .filter((m) => m.ancho >= ancho && m.alto >= alto)
-    .sort((a, b) => a.ancho - b.ancho || a.alto - b.alto);
-
-  return validas[0]?.key;
+// 🎨 COLOR
+function getColorFactor(color) {
+  const c = colores.find(
+    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
+  );
+  return c ? c.valor : 0;
 }
 
 function calcularWrapper(data) {
@@ -30,131 +21,122 @@ function calcularWrapper(data) {
     medida,
     ancho,
     alto,
-    cantidadRajas,
-    tipoRaja,
-    tipoApertura,
+    cantidadRajas = 1,
     tipoVidrio,
     color,
-    extras = {},
     perfil = "amarilla",
+    ladoApertura = "derecha",
+    tipoApertura = "abrir",
   } = data;
+  console.log("INPUT PATAGONICA MODENA:", data);
 
-  const dataJson = require(
-    fromRoot("frontend/data/productos/patagonicas_modena.json"),
-  );
+  // =========================
+  // 📏 NORMALIZAR MEDIDAS
+  // =========================
+  let anchoFinal = ancho;
+  let altoFinal = alto;
 
-  // 📏 PARSEO MEDIDA
-  if (medida && medida !== "fuera_medida") {
-    [ancho, alto] = medida.split("x").map(Number);
+  if (medida && typeof medida === "string") {
+    const clean = medida.trim().toLowerCase();
+
+    if (!clean.includes("x")) {
+      throw new Error("Formato de medida inválido");
+    }
+
+    const partes = clean.split("x").map(Number);
+
+    if (partes.length !== 2 || partes.some(isNaN)) {
+      throw new Error("Medida inválida");
+    }
+
+    anchoFinal = partes[0];
+    altoFinal = partes[1];
   }
 
-  if (!ancho || !alto) {
-    throw new Error("Faltan dimensiones");
+  if (!anchoFinal || !altoFinal) {
+    throw new Error("Faltan medidas");
   }
 
-  // 🔧 GUARDAR ORIGINAL
-  const altoOriginal = alto;
+  const medidaFinal = `${anchoFinal}x${altoFinal}`;
 
-  // 🔧 NORMALIZAR PARA LOOKUP
-  if (alto > 150) {
-    alto = 150;
-  }
-
-  // ❌ VALIDACION
-  if (cantidadRajas === 2 && ancho <= 150) {
-    throw new Error("No puede tener 2 rajas con ese ancho");
-  }
-
+  // =========================
   // 🔧 TIPO
+  // =========================
   const tipo = cantidadRajas === 2 ? "2_rajas" : "1_raja";
 
-  // 🔧 ANCHO LOOKUP
-  const anchoLookup = cantidadRajas === 2 ? 200 : ancho;
-
-  const medidas = dataJson.tipos?.[tipo]?.medidas;
-
-  if (!medidas) {
-    throw new Error("Tipo inválido");
-  }
-
-  const medidaValida = buscarMedidaValida(medidas, anchoLookup, alto);
-
-  if (!medidaValida) {
-    throw new Error("No hay medida válida");
-  }
-
+  // =========================
   // 🧠 SERVICE
-  const service = calcularPatagonicaModena({
+  // =========================
+  const base = service({
     tipo,
-    medida: medidaValida,
+    medida: medidaFinal,
     color,
     tipoVidrio,
   });
 
-  let total = service.total;
+  let costoBase = base.total;
 
-  // 📏 ALTURA >150
-  if (altoOriginal > 150) {
-    total *= 1.3;
+  const items = [
+    {
+      tipo: "base",
+      descripcion: `${tipo} ${medidaFinal}`,
+      precio: Math.round(costoBase),
+      costo: Math.round(costoBase),
+    },
+  ];
+
+  // =========================
+  // 🎨 COLOR
+  // =========================
+  const colorFactor = getColorFactor(color);
+  const costoColor = costoBase * colorFactor;
+
+  if (costoColor > 0) {
+    items.push({
+      tipo: "color",
+      descripcion: color,
+      precio: Math.round(costoColor),
+    });
   }
 
-  // 🪟 MOSQUITERO
-  if (extras.mosquitero) {
-    const m2 = (tipoRaja * altoOriginal) / 10000;
+  let costoConExtras = costoBase + costoColor;
 
-    const valorMosq = dataSuperficies.superficies["mosquitero_fijo"] || 0;
-
-    let precio = m2 * valorMosq;
-
-    if (cantidadRajas === 2) {
-      precio *= 2;
-    }
-
-    total += precio;
-  }
-
-  // 📦 VALIDACION GUIA / CAJON
-  if (extras.cajonBlock && extras.guia) {
-    throw new Error("No se puede guia y cajon block juntos");
-  }
-
-  // 📦 CAJON BLOCK
-  if (extras.cajonBlock) {
-    const m2 = (ancho * altoOriginal) / 10000;
-
-    const valorCajon = dataSuperficies.superficies["cajon_block"] || 0;
-
-    total += m2 * valorCajon;
-  }
-
-  // 🔧 APERTURA
-  if (tipoApertura === "oscilobatiente") {
-    const valorOsc = dataSuperficies.extras["oscilobatiente"] || 0;
-
-    total += valorOsc;
-  }
-
+  // =========================
   // 💰 PERFIL
-  const perfilData = perfiles[perfil]?.modena || perfiles["amarilla"].modena;
+  // =========================
+  const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.flete;
-  total *= 1 + perfilData.ganancia;
+  const costo = costoConExtras * (1 - perfilData.descuento);
+  const proveedor = costo * (1 + perfilData.flete);
+  const venta = proveedor * (1 + perfilData.ganancia);
 
-  const detalle = {
+  // =========================
+  // 🧠 CONFIG
+  // =========================
+  const configuracion = {
+    ancho: anchoFinal,
+    alto: altoFinal,
+    medida: medidaFinal,
+    cantidadRajas,
     tipo,
-    medidaValida,
-    ancho,
-    alto: altoOriginal,
+    color,
+    tipoVidrio,
+    svg: buildPatagonicaSVG({
+      cantidadRajas,
+      ladoApertura,
+      tipoApertura,
+    }),
   };
 
-  if (cantidadRajas !== undefined) {
-    detalle.cantidadRajas = cantidadRajas;
-  }
-
   return {
-    total: Math.round(total),
-    detalle,
+    costoBase: Math.round(costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+    items,
+    descripcion: `Patagónica Modena ${medidaFinal}`,
+    configuracion,
   };
 }
 

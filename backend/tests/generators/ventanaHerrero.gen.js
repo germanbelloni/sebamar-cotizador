@@ -4,27 +4,26 @@ const path = require("path");
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
-// 📦 DATA
-const data = require(
-  fromRoot("frontend", "data", "productos", "ventanas_herrero.json"),
+// 🧠 WRAPPER (NO SERVICE)
+const calcularVentanaHerrero = require(
+  fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
 );
 
-// 🧠 SERVICE
-const calcularVentana = require(
-  fromRoot("services", "ventanas", "calcularVentana.js"),
-);
+// 📦 DATA
+const data = require(fromRoot("frontend/data/productos/ventanas_herrero.json"));
 
 // 🎯 CONFIG
 const CONFIG = {
   colores: ["blanco", "negro", "bronce", "simil madera"],
-  linea: "herrero",
+  perfil: "amarilla",
 };
 
 // 📦 RESULTADOS
 let resultados = [];
 
 // 📁 OUTPUT
-const baseOutput = path.join(__dirname, "..", "output");
+const baseOutput =
+  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
 
 const folderName = path.basename(__filename).replace(".gen.js", "");
 const outputDir = path.join(baseOutput, folderName);
@@ -33,65 +32,43 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// 🔍 VALIDADORES
-function isObject(val) {
-  return val && typeof val === "object" && !Array.isArray(val);
-}
-
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
-}
-
+// 🔍 HELPERS
 function getMedidas() {
-  if (!isObject(data?.medidas)) {
-    throw new Error("JSON inválido: 'medidas' no existe");
-  }
-
-  return Object.keys(data.medidas);
+  return Object.keys(data.medidas || {});
 }
 
 // 🔁 GENERADOR
 function generar() {
-  const { colores, linea } = CONFIG;
+  const { colores, perfil } = CONFIG;
 
-  let medidas;
+  const medidas = getMedidas();
 
-  try {
-    medidas = getMedidas();
-  } catch (err) {
-    console.log(`❌ ${err.message}`);
-    return;
-  }
+  medidas.forEach((medida) => {
+    const [ancho, alto] = medida.split("x").map(Number);
 
-  colores.forEach((color) => {
-    medidas.forEach((medida) => {
-      if (!isValidMedida(medida)) return;
-
+    colores.forEach((color) => {
       const input = {
-        medida,
+        ancho,
+        alto,
         color,
-        linea,
-        incluirGuia: true,
-        incluirMosquitero: true,
+        guia: true,
+        mosquitero: true,
+        perfil,
       };
 
       try {
-        const r = calcularVentana(input);
+        const result = calcularVentanaHerrero(input);
 
-        resultados.push({
-          input,
-          output: {
-            costoBase: Math.round(r.costoBase),
-            costoGuia: Math.round(r.costoGuia),
-            costoMosquitero: Math.round(r.costoMosquitero),
-          },
-        });
+        resultados.push({ input, output: result });
 
         console.log(
-          `✔ ${medida} (${color}) → base:${Math.round(r.costoBase)} guia:${Math.round(r.costoGuia)} mosq:${Math.round(r.costoMosquitero)}`,
+          `✔ herrero | ${medida} | ${color} → $${result?.precioVenta} (costo: ${result?.costo})`,
         );
       } catch (err) {
-        console.log(`❌ error → ${medida} ${color}`);
+        resultados.push({ input, error: err.message });
+
+        console.log(`❌ herrero | ${medida} | ${color}`);
+        console.log("   👉", err.message);
       }
     });
   });

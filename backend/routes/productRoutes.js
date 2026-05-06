@@ -39,5 +39,9 @@ router.post("/rajas", productController.rajas);
 // router.post("/rajas/modena", productController.rajasModena);
 router.post("/postigones", productController.postigones);
 router.post("/patagonicas", productController.patagonicas);
+// =========================
+// 📦 SUPERFICIES
+// =========================
+router.post("/superficies", productController.superficies);
 
 module.exports = router;

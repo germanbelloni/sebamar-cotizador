@@ -4,66 +4,71 @@ const calcularMosquitero = require(
   fromRoot("services/mosquiteros/calcularMosquitero"),
 );
 
+const perfiles = require(fromRoot("config/perfiles"));
+
 const mosquiterosData = require(
   fromRoot("frontend/data/productos/mosquiteros.json"),
 );
 
-// 📐 obtener medidas disponibles
-function getMedidasDisponibles() {
-  return Object.keys(mosquiterosData.medidas).map((key) => {
-    const [ancho, alto] = key.split("x").map(Number);
-    return { ancho, alto, key };
-  });
-}
-
-// 📐 lookup hacia arriba
+// 🔍 lookup
 function buscarMedidaValida(anchoInput, altoInput) {
-  const medidas = getMedidasDisponibles();
+  const medidas = Object.keys(mosquiterosData.medidas).map((k) => {
+    const [a, b] = k.split("x").map(Number);
+    return { key: k, ancho: a, alto: b };
+  });
 
-  // validaciones
-  if (anchoInput < 60 || anchoInput > 200) {
-    throw new Error("Ancho fuera de rango (60 - 200)");
-  }
+  const candidatas = medidas
+    .filter((m) => m.ancho >= anchoInput && m.alto >= altoInput)
+    .sort((a, b) => a.ancho * a.alto - b.ancho * b.alto);
 
-  if (altoInput < 50 || altoInput > 205) {
-    throw new Error("Alto fuera de rango (50 - 205)");
-  }
-
-  // candidatas válidas
-  const candidatas = medidas.filter(
-    (m) => m.ancho >= anchoInput && m.alto >= altoInput,
-  );
-
-  if (candidatas.length === 0) {
-    throw new Error("No hay medida disponible para esa combinación");
-  }
-
-  // elegir la más cercana (menor área)
-  candidatas.sort((a, b) => a.ancho * a.alto - b.ancho * b.alto);
+  if (!candidatas.length) throw new Error("No hay medida válida");
 
   return candidatas[0];
 }
 
-// 🧠 FUNCIÓN PRINCIPAL
-function calcularMosquiteroVentana({ ancho, alto, color }) {
-  // 1. normalizar
+// 🧠 MAIN
+function calcularMosquiteroVentana(dataInput) {
+  const { ancho, alto, color, perfil = "amarilla" } = dataInput;
+
   const medidaValida = buscarMedidaValida(ancho, alto);
 
-  // 2. delegar al service (IMPORTANTE)
-  const resultado = calcularMosquitero({
+  const base = calcularMosquitero({
     medida: medidaValida.key,
     color,
   });
 
-  // 3. descripción prolija
-  const colorTexto = color ? ` ${color}` : "";
+  const costoBase = base.costoBase;
 
-  const descripcion = `Mosquitero fijo aluminio${colorTexto} para ventana de ${medidaValida.key}`;
+  // 💰 PERFIL (moscas)
+  const perfilData = perfiles[perfil]?.moscas || perfiles.amarilla.moscas;
+
+  let totalCosto = costoBase;
+
+  totalCosto *= 1 + perfilData.aumento1;
+  totalCosto *= 1 + perfilData.aumento2;
+
+  const venta = totalCosto * (1 + perfilData.ganancia);
 
   return {
-    total: resultado.total,
-    medida: medidaValida.key,
-    descripcion,
+    costoBase: Math.round(costoBase),
+    costo: Math.round(totalCosto),
+    precioProveedor: Math.round(totalCosto),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - totalCosto),
+    items: [
+      {
+        tipo: "mosquitero",
+        descripcion: `${medidaValida.key}`,
+        precio: Math.round(costoBase),
+      },
+    ],
+    descripcion: `Mosquitero ventana ${ancho}x${alto} ${color || ""}`.trim(),
+    configuracion: {
+      ancho,
+      alto,
+      medidaUsada: medidaValida.key,
+      color,
+    },
   };
 }
 

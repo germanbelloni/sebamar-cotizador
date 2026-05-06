@@ -1,17 +1,17 @@
 const { fromRoot } = require("../../utils/path");
 
 const calcular = require(
-  fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
+  fromRoot("services/patagonicas/calcularPatagonicaHerrero"),
 );
 
-console.log("\n🧪 TEST WRAPPER MODENA\n");
+console.log("\n🧪 TEST SERVICE HERRERO\n");
 
 const casos = [
   {
-    medida: "150x100",
-    cantidadRajas: 2,
-    tipoVidrio: "4mm",
-    color: "negro",
+    medidaTotal: "150x100",
+    tipo: "1_raja",
+    raja: { ancho: 50, tipoVidrio: "4mm" },
+    color: "blanco",
   },
 ];
 
@@ -19,7 +19,7 @@ casos.forEach((c, i) => {
   try {
     const r = calcular(c);
 
-    if (!r.precioVenta) throw new Error("sin venta");
+    if (!r.total) throw new Error("sin total");
 
     console.log(`✔ [${i + 1}] OK`);
   } catch (e) {

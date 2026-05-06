@@ -6,9 +6,9 @@ console.log("\n🧪 TEST WRAPPER PLACAS\n");
 
 const casos = [
   {
-    nombre: "base normal",
+    nombre: "base simple",
     input: {
-      ancho: 70,
+      ancho: 80,
       alto: 200,
       tipo: "placa",
       modelo: "finger_pino",
@@ -16,7 +16,7 @@ const casos = [
     },
   },
   {
-    nombre: "ancho 90 (recargo 10%)",
+    nombre: "con recargo ancho",
     input: {
       ancho: 90,
       alto: 200,
@@ -26,17 +26,7 @@ const casos = [
     },
   },
   {
-    nombre: "ancho 100 (recargo 20%)",
-    input: {
-      ancho: 100,
-      alto: 200,
-      tipo: "placa",
-      modelo: "finger_pino",
-      marco: "marco_10",
-    },
-  },
-  {
-    nombre: "alto 205",
+    nombre: "con recargo alto",
     input: {
       ancho: 80,
       alto: 205,
@@ -45,17 +35,70 @@ const casos = [
       marco: "marco_10",
     },
   },
+  {
+    nombre: "mano izquierda (svg)",
+    input: {
+      ancho: 80,
+      alto: 200,
+      tipo: "placa",
+      modelo: "finger_pino",
+      marco: "marco_10",
+      mano: "izquierda",
+    },
+  },
 ];
 
+// =========================
+// 🧠 VALIDADOR
+// =========================
+function validar(res) {
+  const errores = [];
+
+  if (typeof res.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
+  }
+
+  if (typeof res.costo !== "number") {
+    errores.push("costo inválido");
+  }
+
+  if (typeof res.ganancia !== "number") {
+    errores.push("ganancia inválida");
+  }
+
+  if (!Array.isArray(res.items)) {
+    errores.push("items no es array");
+  }
+
+  if (!res.configuracion?.svg) {
+    errores.push("falta svg");
+  }
+
+  if (res.ganancia !== res.precioVenta - res.costo) {
+    errores.push("ganancia mal calculada");
+  }
+
+  return errores;
+}
+
+// =========================
+// 🚀 RUN
+// =========================
 casos.forEach((t, i) => {
   try {
     const r = calcular(t.input);
 
-    console.log(`✔️ [${i + 1}] ${t.nombre}`);
-    console.log("   👉 total:", r.total);
+    const errores = validar(r);
+
+    if (errores.length) {
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+      errores.forEach((e) => console.log("   -", e));
+    } else {
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+    }
   } catch (e) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   👉", e.message);
+    console.log("   -", e.message);
   }
 });
 

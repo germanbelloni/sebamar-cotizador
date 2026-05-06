@@ -4,9 +4,9 @@ const path = require("path");
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
-// 🧠 SERVICE
+// 🧠 WRAPPER (NO SERVICE)
 const calcularPuerta = require(
-  fromRoot("services", "puertas", "calcularPuerta.js"),
+  fromRoot("wrappers", "puertas", "calcularPuerta.js"),
 );
 
 // 📦 DATA
@@ -27,7 +27,6 @@ const CONFIG = {
   medidas: {
     simple: ["70x200", "80x200", "90x200"],
     doble: ["140x200", "160x200", "180x200"],
-    porton: ["210x200", "240x200", "270x200"],
   },
   vidriosPorLinea: {
     herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
@@ -50,26 +49,13 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// 🔍 VALIDADORES
-function isObject(val) {
-  return val && typeof val === "object" && !Array.isArray(val);
-}
-
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
-}
-
+// 🔍 HELPERS
 function getModelos(data) {
-  if (!isObject(data?.modelos)) {
-    throw new Error("JSON inválido: 'modelos' no existe");
-  }
-
-  return Object.keys(data.modelos).filter((m) => {
-    return (
+  return Object.keys(data.modelos || {}).filter(
+    (m) =>
       !m.toLowerCase().includes("barral") &&
-      !m.toLowerCase().includes("adicional")
-    );
-  });
+      !m.toLowerCase().includes("adicional"),
+  );
 }
 
 // 🔁 GENERADOR
@@ -78,29 +64,14 @@ function generar() {
 
   Object.keys(dataMap).forEach((linea) => {
     const data = dataMap[linea];
-
-    let modelos;
-    try {
-      modelos = getModelos(data);
-    } catch (err) {
-      console.log(`❌ ${linea}: ${err.message}`);
-      return;
-    }
-
+    const modelos = getModelos(data);
     const vidrios = vidriosPorLinea[linea];
 
     modelos.forEach((modelo) => {
-      const producto = data.modelos[modelo];
-      if (!producto) return;
-
       Object.keys(medidas).forEach((tipo) => {
         medidas[tipo].forEach((medida) => {
-          if (!isValidMedida(medida)) return;
-
           colores.forEach((color) => {
             vidrios.forEach((tipoVidrio) => {
-              if (producto.sinVidrio && tipoVidrio !== "3mm") return;
-
               const input = {
                 tipo,
                 linea,
@@ -117,12 +88,12 @@ function generar() {
                 resultados.push({ input, output: result });
 
                 console.log(
-                  `✔ ${linea} | ${tipo} | ${modelo} | ${medida} | ${color} | ${tipoVidrio} → ${result?.total ?? "sin_total"}`,
+                  `✔ ${linea} | ${tipo} | ${modelo} → $${result?.precioVenta} (costo: ${result?.costo})`,
                 );
               } catch (error) {
                 resultados.push({ input, error: error.message });
 
-                console.log(`❌ ERROR → ${linea} ${modelo} ${medida}`);
+                console.log(`❌ ${linea} ${modelo}`);
                 console.log("   👉", error.message);
               }
             });
@@ -145,6 +116,3 @@ fs.writeFileSync(
 );
 
 console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
-

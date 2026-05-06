@@ -12,14 +12,16 @@ const colores = ["blanco", "negro"];
 let resultados = [];
 
 Object.keys(data.medidas).forEach((medida) => {
+  const [ancho, alto] = medida.split("x").map(Number);
+
   colores.forEach((color) => {
     ["corredizo", "abrir"].forEach((tipo) => {
       try {
         const result = calcular({
-          medida,
+          ancho,
+          alto,
           tipo,
           color,
-          hojas: 2,
         });
 
         resultados.push({
@@ -27,7 +29,7 @@ Object.keys(data.medidas).forEach((medida) => {
           output: result,
         });
 
-        console.log(`✔ ${medida} ${tipo}`);
+        console.log(`✔ ${medida} ${tipo} → $${result?.precioVenta}`);
       } catch (e) {
         console.log(`❌ ${medida} ${tipo}`, e.message);
       }

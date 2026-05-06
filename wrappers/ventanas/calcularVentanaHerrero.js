@@ -3,6 +3,8 @@ const { fromRoot } = require("../../backend/utils/path");
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
+const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
+
 const perfiles = require(fromRoot("backend/config/perfiles"));
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
@@ -11,108 +13,39 @@ const ventanas = require(
   fromRoot("frontend/data/productos/ventanas_herrero.json"),
 );
 
-// 📐 m²
-function calcularM2(ancho, alto) {
-  return (ancho * alto) / 10000;
-}
+// 📐
+const calcularM2 = (a, h) => (a * h) / 10000;
 
 // 🔍 LOOKUP
 function buscarMedidaValida(ancho, alto) {
   const medidas = Object.keys(ventanas.medidas);
 
-  const anchos = [...new Set(medidas.map((m) => Number(m.split("x")[0])))].sort(
+  const anchos = [...new Set(medidas.map((m) => +m.split("x")[0]))].sort(
     (a, b) => a - b,
   );
 
-  const altos = [...new Set(medidas.map((m) => Number(m.split("x")[1])))].sort(
+  const altos = [...new Set(medidas.map((m) => +m.split("x")[1]))].sort(
     (a, b) => a - b,
   );
 
-  const anchoValido = anchos.find((a) => a >= ancho);
-  const altoValido = altos.find((h) => h >= alto);
+  const a = anchos.find((x) => x >= ancho);
+  const h = altos.find((x) => x >= alto);
 
-  if (!anchoValido || !altoValido) {
-    throw new Error("No hay medida válida");
-  }
+  if (!a || !h) throw new Error("No hay medida válida");
 
-  return `${anchoValido}x${altoValido}`;
+  return `${a}x${h}`;
 }
 
 // 💰 PERFIL
-function aplicarPerfil(costo, perfilData) {
-  let v = costo;
-  v *= 1 - perfilData.descuento;
-  v *= 1 + perfilData.flete;
-  v *= 1 + perfilData.ganancia;
-  return v;
+function aplicarPerfil(costo, p) {
+  const proveedor = costo * (1 - p.descuento);
+  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+
+  return { proveedor, venta };
 }
 
-// =========================
-// 🧠 CALCULO UNITARIO
-// =========================
-function calcularUnidad(data, perfil) {
-  const perfilHerrero =
-    perfiles[perfil]?.herrero || perfiles["amarilla"].herrero;
-
-  const perfilMosq =
-    perfiles[perfil]?.mosquiteros || perfiles["amarilla"].mosquiteros;
-
-  const result = calcularVentana({
-    medida: data.medida,
-    color: data.color,
-    incluirGuia: data.guia,
-    incluirMosquitero: data.mosquitero,
-    linea: "herrero",
-  });
-
-  let costoBase = result.costoBase;
-  let costoGuia = result.costoGuia;
-  let costoMosq = result.costoMosquitero;
-
-  // 🔹 3 HOJAS (esto sí es técnico-comercial por unidad)
-  if (data.tresHojas === "2guias") {
-    costoBase *= 1.2;
-  } else if (data.tresHojas === "3guias") {
-    costoBase *= 1.3;
-  }
-
-  const ventaBase = aplicarPerfil(costoBase, perfilHerrero);
-  const ventaGuia = data.guia ? aplicarPerfil(costoGuia, perfilHerrero) : 0;
-  const ventaMosq = data.mosquitero ? aplicarPerfil(costoMosq, perfilMosq) : 0;
-
-  const items = [];
-
-  if (data.guia) {
-    items.push({
-      tipo: "guia",
-      descripcion: `Guía ${data.medida}`,
-      precio: Math.round(ventaGuia),
-      costo: costoGuia,
-    });
-  }
-
-  if (data.mosquitero) {
-    items.push({
-      tipo: "mosquitero",
-      descripcion: `Mosquitero ${data.medida}`,
-      precio: Math.round(ventaMosq),
-      costo: costoMosq,
-    });
-  }
-
-  return {
-    venta: ventaBase,
-    costo: costoBase,
-    items,
-  };
-}
-
-// =========================
 // 🚀 WRAPPER
-// =========================
-function calcularVentanaHerrero(dataInput, options = {}) {
-  const debug = options.debug;
-
+function calcularVentanaHerrero(dataInput) {
   const {
     ancho,
     alto,
@@ -120,115 +53,117 @@ function calcularVentanaHerrero(dataInput, options = {}) {
     guia,
     mosquitero,
     cortina,
+    cajonBlock,
     perfil = "amarilla",
-    tresHojas,
   } = dataInput;
 
   if (!ancho || !alto) throw new Error("Faltan medidas");
 
-  // 👉 GUARDAMOS ALTURA ORIGINAL
-  const altoOriginal = alto;
-
-  // 👉 NORMALIZAMOS PARA LOOKUP
-  let altoLookup = alto;
-  if (alto > 200) altoLookup = 200;
-
-  let unidades = [];
-
-  // =========================
-  // 🔹 DIVISIÓN
-  // =========================
-  if (ancho > 240) {
-    const mitad = ancho / 2;
-
-    const medida = buscarMedidaValida(mitad, altoLookup);
-
-    unidades.push({ medida, ancho: mitad, alto });
-    unidades.push({ medida, ancho: mitad, alto });
-  } else {
-    const medida = buscarMedidaValida(ancho, altoLookup);
-    unidades.push({ medida, ancho, alto });
+  // 🔥 REGLAS
+  if (cajonBlock && guia) {
+    throw new Error("No puede llevar guía y cajón block juntos");
   }
 
-  let totalVenta = 0;
-  let totalCosto = 0;
-  let items = [];
+  if (!guia && cortina) {
+    throw new Error("Sin guía no puede llevar cortina");
+  }
 
-  unidades.forEach((u) => {
-    const res = calcularUnidad(
-      {
-        ...u,
-        color,
-        guia,
-        mosquitero,
-        tresHojas,
-      },
-      perfil,
-    );
+  let medida = buscarMedidaValida(ancho, alto > 200 ? 200 : alto);
 
-    totalVenta += res.venta;
-    totalCosto += res.costo;
-    items = items.concat(res.items);
+  const base = calcularVentana({
+    medida,
+    color,
+    incluirGuia: guia,
+    incluirMosquitero: mosquitero,
+    linea: "herrero",
   });
 
-  // =========================
-  // 🪟 CORTINAS
-  // =========================
-  if (cortina && guia) {
-    const m2 = calcularM2(ancho, alto);
+  let costo = base.costoBase + base.costoGuia + base.costoMosquitero;
 
-    if (cortina === "pvc") {
-      const precio = superficies.cortinas?.pvc || 0;
-      items.push({
-        tipo: "cortina",
-        descripcion: `Cortina PVC ${ancho}x${alto}`,
-        precio: Math.round(precio * m2),
-      });
-      totalVenta += precio * m2;
-    }
+  const items = [];
 
-    if (cortina === "aluminio") {
-      const precio = superficies.cortinas?.aluminio?.blanco || 0;
-      items.push({
-        tipo: "cortina",
-        descripcion: `Cortina aluminio ${ancho}x${alto}`,
-        precio: Math.round(precio * m2),
-      });
-      totalVenta += precio * m2;
-    }
+  items.push({
+    tipo: "base",
+    precio: Math.round(base.costoBase),
+  });
+
+  if (guia) {
+    items.push({
+      tipo: "guia",
+      precio: Math.round(base.costoGuia),
+    });
   }
 
-  // =========================
-  // 📏 RECARGO POR ALTURA (FINAL)
-  // =========================
-  if (altoOriginal > 200 && altoOriginal <= 205) {
-    totalVenta *= 1.05;
-  } else if (altoOriginal > 205 && altoOriginal <= 210) {
-    totalVenta *= 1.1;
+  if (mosquitero) {
+    items.push({
+      tipo: "mosquitero",
+      precio: Math.round(base.costoMosquitero),
+    });
   }
 
-  // =========================
-  // 🧾 DESCRIPCIÓN
-  // =========================
-  let descripcion = `Ventana Herrero ${ancho}x${alto} aluminio ${color}`;
-  if (guia) descripcion += " con guía";
-  if (mosquitero) descripcion += " con mosquitero";
+  const m2 = calcularM2(ancho, alto);
 
-  const response = {
-    total: Math.round(totalVenta),
-    descripcion,
+  // 🪟 CORTINA
+  if (cortina === "pvc") {
+    const c = (superficies.cortinas?.pvc || 0) * m2;
+    costo += c;
+
+    items.push({ tipo: "cortina_pvc", precio: Math.round(c) });
+  }
+
+  if (cortina === "aluminio") {
+    const c = (superficies.cortinas?.aluminio?.blanco || 0) * m2;
+    costo += c;
+
+    items.push({ tipo: "cortina_aluminio", precio: Math.round(c) });
+  }
+
+  // 📦 CAJON BLOCK (solo informativo)
+  let anchoFinal = ancho;
+  let altoFinal = alto;
+
+  if (cajonBlock) {
+    anchoFinal += 8;
+    altoFinal += 20;
+  }
+
+  // 💰 PERFIL
+  const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
+
+  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+
+  return {
+    costoBase: Math.round(base.costoBase),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+
     items,
+
+    descripcion: `Ventana herrero ${ancho}x${alto}`,
+
+    configuracion: {
+      ancho,
+      alto,
+      anchoFinal,
+      altoFinal,
+      color,
+      guia: !!guia,
+      mosquitero: !!mosquitero,
+      cortina: cortina || null,
+      cajonBlock: !!cajonBlock,
+
+      // 🔥 SVG
+      svg: {
+        tipo: "ventana_herrero",
+        hojas: ancho > 240 ? 2 : 1,
+        mosquitero: !!mosquitero,
+        guia: !!guia,
+        cortina: cortina || null,
+      },
+    },
   };
-
-  if (debug) {
-    response.admin = {
-      venta: Math.round(totalVenta),
-      costo: Math.round(totalCosto),
-      ganancia: Math.round(totalVenta - totalCosto),
-    };
-  }
-
-  return response;
 }
 
 module.exports = calcularVentanaHerrero;

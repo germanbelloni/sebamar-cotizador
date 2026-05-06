@@ -1,122 +1,52 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularVentana = require(fromRoot("services/ventanas/calcularVentana"));
+const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
 
-// =========================
-// 🧪 CASOS DE PRUEBA (SERVICE)
-// =========================
+console.log("\n🧪 TEST WRAPPER PORTONES\n");
+
 const casos = [
   {
-    nombre: "base sola",
+    nombre: "portón base",
     input: {
-      medida: "120x100",
-      color: "blanco",
-      incluirGuia: false,
-      incluirMosquitero: false,
+      ancho: 240,
+      alto: 200,
+      hojas: 3,
+      tipo: "abrir",
+      modelo: "modelo 4",
       linea: "herrero",
+      color: "blanco",
+      tipoVidrio: "4mm",
+      apertura: "izquierda_izquierda",
     },
   },
   {
-    nombre: "con guía",
+    nombre: "portón corredizo negro",
     input: {
-      medida: "120x100",
-      color: "blanco",
-      incluirGuia: true,
-      incluirMosquitero: false,
-      linea: "herrero",
-    },
-  },
-  {
-    nombre: "con mosquitero",
-    input: {
-      medida: "120x100",
-      color: "blanco",
-      incluirGuia: false,
-      incluirMosquitero: true,
-      linea: "herrero",
-    },
-  },
-  {
-    nombre: "completo",
-    input: {
-      medida: "120x100",
-      color: "blanco",
-      incluirGuia: true,
-      incluirMosquitero: true,
-      linea: "herrero",
-    },
-  },
-  {
-    nombre: "color distinto",
-    input: {
-      medida: "120x100",
+      ancho: 300,
+      alto: 210,
+      hojas: 4,
+      tipo: "corredizo",
+      modelo: "modelo 4",
+      linea: "modena",
       color: "negro",
-      incluirGuia: true,
-      incluirMosquitero: true,
-      linea: "herrero",
+      tipoVidrio: "4mm",
+      apertura: "derecha_izquierda",
     },
   },
 ];
 
-// =========================
-// 🧠 VALIDADOR SERVICE
-// =========================
-function validar(resultado) {
-  const errores = [];
-
-  if (typeof resultado.costoBase !== "number") {
-    errores.push("costoBase inválido");
-  }
-
-  if (typeof resultado.costoGuia !== "number") {
-    errores.push("costoGuia inválido");
-  }
-
-  if (typeof resultado.costoMosquitero !== "number") {
-    errores.push("costoMosquitero inválido");
-  }
-
-  if (typeof resultado.incluyeGuia !== "boolean") {
-    errores.push("incluyeGuia inválido");
-  }
-
-  if (typeof resultado.incluyeMosquitero !== "boolean") {
-    errores.push("incluyeMosquitero inválido");
-  }
-
-  // coherencia básica
-  if (!resultado.incluyeGuia && resultado.costoGuia > 0) {
-    errores.push("guia cobrada sin incluir");
-  }
-
-  if (!resultado.incluyeMosquitero && resultado.costoMosquitero > 0) {
-    errores.push("mosquitero cobrado sin incluir");
-  }
-
-  return errores;
-}
-
-// =========================
-// 🚀 RUN TESTS
-// =========================
-console.log("\n🧪 TEST AUTOMÁTICO - SERVICE VENTANAS HERRERO\n");
-
-casos.forEach((test, index) => {
+casos.forEach((t, i) => {
   try {
-    const resultado = calcularVentana(test.input);
+    const r = calcularPorton(t.input);
 
-    const errores = validar(resultado);
-
-    if (errores.length > 0) {
-      console.log(`❌ [${index + 1}] ${test.nombre}`);
-      errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${index + 1}] ${test.nombre}`);
-    }
-  } catch (err) {
-    console.log(`💥 [${index + 1}] ${test.nombre}`);
-    console.log("   - error ejecución:", err.message);
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+    console.log("   👉 total:", r.total);
+    console.log("   👉 costo:", r.costo);
+    console.log("   👉 ganancia:", r.ganancia);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+    console.log("   👉 ERROR:", e.message);
   }
 });
 
-console.log("\n✅ FIN TEST SERVICE\n");
+console.log("\n✅ FIN TEST WRAPPER\n");

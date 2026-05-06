@@ -4,9 +4,9 @@ const path = require("path");
 // 🔧 PATH HELPER
 const { fromRoot } = require("../../utils/path");
 
-// 🧠 SERVICE
+// 🧠 WRAPPER (IMPORTANTE: NO SERVICE)
 const calcularPuerta = require(
-  fromRoot("services", "puertas", "calcularPuerta.js"),
+  fromRoot("wrappers", "puertas", "calcularPuerta.js"),
 );
 
 // 🎯 CONFIG
@@ -32,47 +32,31 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// 🔍 VALIDADORES
+// 🔍 HELPERS
 function loadData(linea) {
-  try {
-    return require(
-      fromRoot("frontend", "data", "productos", `puertas_${linea}.json`),
-    );
-  } catch (err) {
-    throw new Error(`No se pudo cargar JSON de linea: ${linea}`);
-  }
+  return require(
+    fromRoot("frontend", "data", "productos", `puertas_${linea}.json`),
+  );
 }
 
 function getModelosPuerta(data) {
-  if (!data?.modelos || typeof data.modelos !== "object") {
-    throw new Error("JSON inválido: 'modelos' no existe");
-  }
+  if (!data?.modelos) throw new Error("modelos no existe");
   return Object.keys(data.modelos);
 }
 
 function getModelosMedia(data, linea) {
   if (linea === "herrero") {
-    if (!data?.medias || typeof data.medias !== "object") {
-      throw new Error("JSON inválido: 'medias' no existe en herrero");
-    }
-    return Object.keys(data.medias);
+    const dataMedias = require(
+      fromRoot("frontend", "data", "productos", "puertas_media_herrero.json"),
+    );
+    return Object.keys(dataMedias.medias || {});
   }
-
   return Object.keys(data.modelos || {});
-}
-
-function isValidMedida(medida) {
-  return typeof medida === "string" && medida.includes("x");
 }
 
 // 🔁 GENERADOR
 function generar() {
   const { colores, vidrios, lineas, medida, perfil } = CONFIG;
-
-  if (!isValidMedida(medida)) {
-    console.log("❌ Medida inválida");
-    return;
-  }
 
   lineas.forEach((linea) => {
     let data, modelosPuerta, modelosMedia;
@@ -87,8 +71,6 @@ function generar() {
     }
 
     console.log(`\n🔧 LINEA: ${linea}`);
-    console.log("modelosPuerta:", modelosPuerta.length);
-    console.log("modelosMedia:", modelosMedia.length);
 
     colores.forEach((color) => {
       modelosPuerta.forEach((modeloPuerta) => {
@@ -111,16 +93,12 @@ function generar() {
               resultados.push({ input, output: result });
 
               console.log(
-                `✔ ${linea} → ${modeloPuerta} + ${modeloMedia} (${color}) → ${
-                  result?.total ?? "sin_total"
-                }`,
+                `✔ ${linea} → ${modeloPuerta} + ${modeloMedia} → $${result?.precioVenta}`,
               );
             } catch (error) {
               resultados.push({ input, error: error.message });
 
-              console.log(
-                `❌ ERROR → ${linea} ${modeloPuerta} + ${modeloMedia}`,
-              );
+              console.log(`❌ ${linea} ${modeloPuerta} + ${modeloMedia}`);
               console.log("   👉", error.message);
             }
           });
@@ -142,6 +120,3 @@ fs.writeFileSync(
 );
 
 console.log(`\n✅ JSON generado: ${nombreArchivo}`);
-
-
-

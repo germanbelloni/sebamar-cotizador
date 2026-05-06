@@ -16,9 +16,15 @@ const superficies = require(
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
-// ========================
+// 💰 PERFIL
+function aplicarPerfil(costo, p) {
+  const proveedor = costo * (1 - p.descuento);
+  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+
+  return { proveedor, venta };
+}
+
 // 🚀 WRAPPER
-// ========================
 function calcularPuertaWrapper(dataInput) {
   if (!dataInput.medida && dataInput.ancho && dataInput.alto) {
     dataInput.medida = `${dataInput.ancho}x${dataInput.alto}`;
@@ -31,6 +37,9 @@ function calcularPuertaWrapper(dataInput) {
     extras = {},
     color,
     linea,
+    tipo = "simple",
+    modelo,
+    apertura, // 🔥 NUEVO
   } = dataInput;
 
   // ========================
@@ -42,55 +51,19 @@ function calcularPuertaWrapper(dataInput) {
 
   const items = [];
 
-  // ========================
-  // 🪟 RAJA
-  // ========================
-  if (raja && raja.ancho && raja.alto) {
-    const r = calcularRaja({
-      medida: `${raja.ancho}x${raja.alto}`,
-      color,
-      tipoVidrio: raja.tipoVidrio || "3+3",
-      modelo: "4",
-      linea,
-    });
-
-    const costoRaja = r.costoBase || r.total || 0;
-
-    costo += costoRaja;
-
-    items.push({
-      tipo: "raja",
-      precio: Math.round(costoRaja),
-    });
-  }
-
-  // ========================
-  // 🪟 VENTANA
-  // ========================
-  if (ventana) {
-    const v = calcularVentana({
-      linea,
-      medida: "60x40",
-      color,
-      tipoVidrio: "3mm",
-    });
-
-    const costoVentana = v.costoBase || 0;
-
-    costo += costoVentana;
-
-    items.push({
-      tipo: "ventana",
-      precio: Math.round(costoVentana),
-    });
-  }
+  items.push({
+    tipo: "base",
+    descripcion: modelo,
+    precio: Math.round(costo),
+  });
 
   // ========================
   // ➕ EXTRAS
   // ========================
+
   if (extras.barralRecto) {
-    const valor = superficies.herrajes?.barral_recto || 0;
-    const extra = valor * extras.barralRecto;
+    const extra =
+      (superficies.herrajes?.barral_recto || 0) * extras.barralRecto;
 
     costo += extra;
 
@@ -101,8 +74,8 @@ function calcularPuertaWrapper(dataInput) {
   }
 
   if (extras.barralCurvo) {
-    const valor = superficies.herrajes?.barral_curvo || 0;
-    const extra = valor * extras.barralCurvo;
+    const extra =
+      (superficies.herrajes?.barral_curvo || 0) * extras.barralCurvo;
 
     costo += extra;
 
@@ -139,19 +112,47 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
   const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
 
-  let total = costo;
-
-  total *= 1 - perfilData.descuento;
-  total *= 1 + perfilData.flete;
-  total *= 1 + perfilData.ganancia;
+  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
   return {
-    total: Math.round(total),
+    costoBase: Math.round(base.costo),
     costo: Math.round(costo),
-    ganancia: Math.round(total - costo),
-    hojas: base.hojas || 1,
-    descripcion: `${linea} ${dataInput.tipo || "simple"}`,
+    precioProveedor: Math.round(proveedor),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+
     items,
+
+    descripcion: `Puerta ${linea} ${modelo}`,
+
+    configuracion: {
+      tipo,
+      hojas: base.hojas || 1,
+      linea,
+      color,
+      modelo,
+
+      // 🔥 SVG READY
+      svg: {
+        tipo: "puerta",
+        apertura: apertura || "derecha",
+
+        hojas: base.hojas || 1,
+
+        manija: extras.manija
+          ? {
+              tipo: "manija",
+              svgKey: "manija_standard",
+            }
+          : null,
+
+        barral: extras.barralRecto
+          ? { tipo: "recto", svgKey: "barral_recto" }
+          : extras.barralCurvo
+            ? { tipo: "curvo", svgKey: "barral_curvo" }
+            : null,
+      },
+    },
   };
 }
 

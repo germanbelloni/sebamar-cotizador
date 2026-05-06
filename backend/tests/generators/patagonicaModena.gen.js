@@ -1,49 +1,53 @@
 const fs = require("fs");
 const path = require("path");
+
 const { fromRoot } = require("../../utils/path");
 
-const wrapper = require(
-  fromRoot("wrappers/patagonicas/patagonicasModenaWrapper"),
+const calcular = require(
+  fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
 );
 
-const medidas = ["100x60", "150x100", "150x150"];
-const rajas = [40, 50, 60];
-const cantidades = [1, 2];
+const medidas = ["100x60", "150x100", "200x100"];
+const colores = ["blanco", "negro", "simil madera"];
 
-const resultados = [];
+let resultados = [];
 
 medidas.forEach((medida) => {
-  rajas.forEach((tipoRaja) => {
-    cantidades.forEach((cantidadRajas) => {
+  colores.forEach((color) => {
+    [1, 2].forEach((cantidadRajas) => {
       try {
-        const res = wrapper({
+        const res = calcular({
           medida,
-          tipoRaja,
           cantidadRajas,
           tipoVidrio: "4mm",
-          tipoApertura: "abrir",
-          color: "blanco",
-          extras: {
-            mosquitero: true,
-            cajonBlock: false,
-            guia: false,
-          },
+          color,
+          tipoApertura: "oscilobatiente",
         });
 
-        resultados.push({
-          input: { medida, tipoRaja, cantidadRajas },
-          output: res,
-        });
+        resultados.push({ input: { medida }, output: res });
 
-        console.log("✔", medida, tipoRaja, cantidadRajas, res.total);
+        console.log(`✔ ${medida} ${cantidadRajas}`);
       } catch (e) {
-        console.log("❌", medida, e.message);
+        resultados.push({ input: { medida }, error: e.message });
+
+        console.log(`❌ ${medida}`, e.message);
       }
     });
   });
 });
 
+const outputDir = path.join(
+  process.cwd(),
+  "backend/tests/output/patagonicaModena",
+);
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
 fs.writeFileSync(
-  path.join(__dirname, "patagonicas_output.json"),
+  path.join(outputDir, `patagonica_modena_${Date.now()}.json`),
   JSON.stringify(resultados, null, 2),
 );
+
+console.log("\n✅ GENERATOR MODENA OK");

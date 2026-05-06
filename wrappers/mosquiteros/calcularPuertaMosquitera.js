@@ -1,55 +1,38 @@
-function calcularPuertaMosquitera({ ancho, alto, color }) {
-  // 🔒 VALIDACIONES
-  if (ancho < 70 || ancho > 100) {
-    throw new Error("Ancho fuera de rango (70 - 100)");
-  }
+const { fromRoot } = require("../../backend/utils/path");
 
-  if (alto < 180 || alto > 210) {
-    throw new Error("Alto fuera de rango (180 - 210)");
-  }
+const perfiles = require(fromRoot("config/perfiles"));
+const superficies = require(
+  fromRoot("frontend/data/productos/superficies.json"),
+);
 
-  // 📐 NORMALIZACIÓN ANCHO
-  let anchoBase;
-  let recargoAncho = 0;
+function calcularPuertaMosquitera(dataInput) {
+  const { ancho, alto, perfil = "amarilla" } = dataInput;
 
-  if (ancho <= 80) {
-    anchoBase = 80;
-  } else if (ancho <= 90) {
-    anchoBase = 90;
-  } else {
-    anchoBase = 90;
-    recargoAncho = 0.1; // +10%
-  }
+  if (ancho < 70 || ancho > 100) throw new Error("Ancho fuera de rango");
+  if (alto < 180 || alto > 210) throw new Error("Alto fuera de rango");
 
-  // 📐 NORMALIZACIÓN ALTO
-  let altoBase = 200;
-  let recargoAlto = 0;
+  const m2 = (ancho * alto) / 10000;
 
-  if (alto > 200) {
-    recargoAlto = 0.1; // +10%
-  }
+  const base = superficies.puertas_mosquitero["80"] || 100000;
 
-  // 📦 RESULTADO (SIN PRECIO)
-  const medidaBase = `${anchoBase}x${altoBase}`;
-  //debug
-  const debug = {
-    recargoAncho,
-    recargoAlto,
-  };
+  let costo = base * m2;
 
-  const descripcion = `Puerta mosquitera aluminio ${
-    color || ""
-  } ${ancho}x${alto}`.trim();
+  const perfilData = perfiles[perfil]?.moscas || perfiles.amarilla.moscas;
 
-  const ajuste = recargoAncho + recargoAlto;
+  costo *= 1 + perfilData.aumento1;
+  costo *= 1 + perfilData.aumento2;
+
+  const venta = costo * (1 + perfilData.ganancia);
 
   return {
-    medidaBase,
-    ajuste,
-    descripcion,
+    costoBase: Math.round(base),
+    costo: Math.round(costo),
+    precioProveedor: Math.round(costo),
+    precioVenta: Math.round(venta),
+    ganancia: Math.round(venta - costo),
+    descripcion: `Puerta mosquitera ${ancho}x${alto}`,
+    configuracion: { ancho, alto },
   };
 }
 
 module.exports = calcularPuertaMosquitera;
-
-//sin precio!! actualizar

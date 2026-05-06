@@ -9,18 +9,36 @@ const BACKEND_ALIASES = new Map([
   ["services", "backend/services"],
   ["tests", "backend/tests"],
   ["utils", "backend/utils"],
+  ["wrappers", "wrappers"],
+  ["frontend", "frontend"],
 ]);
 
+function normalizeParts(parts) {
+  return parts.flatMap((part) => String(part).split(/[\\/]/));
+}
+
 function fromRoot(...parts) {
-  const cleanParts = parts.flatMap((part) => String(part).split(/[\\/]/));
+  const cleanParts = normalizeParts(parts);
+
+  if (cleanParts.length === 0) {
+    throw new Error("fromRoot requires at least one path segment");
+  }
+
   const [firstPart, ...rest] = cleanParts;
+
   const mappedFirstPart = BACKEND_ALIASES.get(firstPart) || firstPart;
 
   return path.join(ROOT, mappedFirstPart, ...rest);
 }
 
 function fromBackend(...parts) {
-  return path.join(BACKEND_ROOT, ...parts);
+  const cleanParts = normalizeParts(parts);
+  return path.join(BACKEND_ROOT, ...cleanParts);
 }
 
-module.exports = { BACKEND_ROOT, ROOT, fromBackend, fromRoot };
+module.exports = {
+  BACKEND_ROOT,
+  ROOT,
+  fromBackend,
+  fromRoot,
+};
