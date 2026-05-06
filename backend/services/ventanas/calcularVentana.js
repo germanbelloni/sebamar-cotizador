@@ -8,42 +8,103 @@ const dataModena = require(
   fromRoot("frontend/data/productos/ventanas_modena.json"),
 );
 
+// =========================
+// 🧠 HELPERS
+// =========================
+
+function crearItem(tipo, precio) {
+  return {
+    tipo,
+    precio: Number(precio || 0),
+  };
+}
+
+function sumarItems(items) {
+  return items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+}
+
+// =========================
+// 🚀 MAIN
+// =========================
+
 function calcularVentana(dataInput) {
   const { linea = "herrero" } = dataInput;
 
-  if (linea === "modena") return calcularModena(dataInput);
+  if (linea === "modena") {
+    return calcularModena(dataInput);
+  }
+
   return calcularHerrero(dataInput);
 }
 
 // =========================
-// HERRERO
+// 🪟 HERRERO
 // =========================
+
 function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
   const d = dataHerrero.medidas?.[medida];
-  if (!d) throw new Error("Medida no encontrada");
+
+  if (!d) {
+    throw new Error("Medida no encontrada");
+  }
+
+  // =========================
+  // COMPONENTES
+  // =========================
+
+  const estructura = Number(d.base || 0);
+
+  const vidrio = Number(d.vidrio || 0);
+
+  const guia = incluirGuia ? Number(d.guia || 0) : 0;
+
+  const mosquitero = incluirMosquitero ? Number(d.mosquitero || 0) : 0;
+
+  // =========================
+  // ITEMS
+  // =========================
 
   const items = [];
 
-  items.push({ tipo: "base", precio: d.base });
-  items.push({ tipo: "vidrio", precio: d.vidrio || 0 });
+  items.push(crearItem("estructura", estructura));
 
-  if (incluirGuia) items.push({ tipo: "guia", precio: d.guia });
-  if (incluirMosquitero)
-    items.push({ tipo: "mosquitero", precio: d.mosquitero });
+  items.push(crearItem("vidrio", vidrio));
 
-  const costoBase = items.reduce((a, i) => a + i.precio, 0);
+  if (guia) {
+    items.push(crearItem("guia", guia));
+  }
+
+  if (mosquitero) {
+    items.push(crearItem("mosquitero", mosquitero));
+  }
+
+  // =========================
+  // RESPONSE
+  // =========================
 
   return {
-    costoBase,
+    estructura,
+
+    vidrio,
+
+    guia,
+
+    mosquitero,
+
+    subtotal: sumarItems(items),
+
     items,
+
     descripcionBase: "Ventana herrero",
+
     configuracion: {},
   };
 }
 
 // =========================
-// MODENA
+// 🪟 MODENA
 // =========================
+
 function calcularModena({
   medida,
   tipoVidrio,
@@ -51,25 +112,60 @@ function calcularModena({
   incluirMosquitero,
 }) {
   const d = dataModena.medidas?.[medida];
-  if (!d) throw new Error("Medida no encontrada");
 
-  const vidrio = d.vidrios?.[tipoVidrio] || 0;
+  if (!d) {
+    throw new Error("Medida no encontrada");
+  }
 
-  const items = [
-    { tipo: "base", precio: d.base },
-    { tipo: "vidrio", precio: vidrio },
-  ];
+  // =========================
+  // COMPONENTES
+  // =========================
 
-  if (incluirGuia) items.push({ tipo: "guia", precio: d.guia });
-  if (incluirMosquitero)
-    items.push({ tipo: "mosquitero", precio: d.mosquitero });
+  const estructura = Number(d.base || 0);
 
-  const costoBase = items.reduce((a, i) => a + i.precio, 0);
+  const vidrio = Number(d.vidrios?.[tipoVidrio] || 0);
+
+  const guia = incluirGuia ? Number(d.guia || 0) : 0;
+
+  const mosquitero = incluirMosquitero ? Number(d.mosquitero || 0) : 0;
+
+  // =========================
+  // ITEMS
+  // =========================
+
+  const items = [];
+
+  items.push(crearItem("estructura", estructura));
+
+  items.push(crearItem("vidrio", vidrio));
+
+  if (guia) {
+    items.push(crearItem("guia", guia));
+  }
+
+  if (mosquitero) {
+    items.push(crearItem("mosquitero", mosquitero));
+  }
+
+  // =========================
+  // RESPONSE
+  // =========================
 
   return {
-    costoBase,
+    estructura,
+
+    vidrio,
+
+    guia,
+
+    mosquitero,
+
+    subtotal: sumarItems(items),
+
     items,
+
     descripcionBase: "Ventana modena",
+
     configuracion: {},
   };
 }

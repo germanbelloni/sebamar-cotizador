@@ -3,23 +3,164 @@ const puppeteer = require("puppeteer");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
 
-const calcularMosquitero = require("../wrappers/mosquiteros/calcularMosquiteroVentana");
-const calcularPuerta = require("../wrappers/puertas/calcularPuerta");
+// =========================
+// WRAPPERS
+// =========================
+
+const calcularMosquitero = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
+
+const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
+
+const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
+const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
+
+const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
+const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
+
+const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
+
+const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
+const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
+
+const calcularPorton = require("../../wrappers/portones/calcularporton");
+
+const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
+
+const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
+
+const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
+
+const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
+
+// =========================
+// PDF
+// =========================
 
 const generarHTML = require("../services/pdf/generarPDF");
+
+// =========================
+// NUEVO NUMERO
+// =========================
 
 async function nuevoNumero(req, res) {
   const user = await User.findById(req.user.id);
 
   if (!user) {
-    return res.status(404).json({ error: "Usuario no encontrado" });
+    return res.status(404).json({
+      error: "Usuario no encontrado",
+    });
   }
 
   user.contadorPresupuestos += 1;
+
   await user.save();
 
-  return res.json({ numero: user.contadorPresupuestos });
+  return res.json({
+    numero: user.contadorPresupuestos,
+  });
 }
+
+// =========================
+// CALCULADOR GLOBAL
+// =========================
+
+function calcularItem(item, perfil) {
+  switch (item.tipo) {
+    case "puerta":
+      return calcularPuerta({
+        ...item,
+        perfil,
+      });
+
+    case "puertaEco":
+      return calcularPuertaEco({
+        ...item,
+        perfil,
+      });
+
+    case "mosquitero":
+      return calcularMosquitero({
+        ...item,
+        perfil,
+      });
+
+    case "puertaMosquitera":
+      return calcularPuertaMosquitera({
+        ...item,
+        perfil,
+      });
+
+    case "ventana":
+      if (item.linea === "modena") {
+        return calcularVentanaModena({
+          ...item,
+          perfil,
+        });
+      }
+
+      return calcularVentanaHerrero({
+        ...item,
+        perfil,
+      });
+
+    case "raja":
+      if (item.linea === "modena") {
+        return calcularRajaModena({
+          ...item,
+          perfil,
+        });
+      }
+
+      return calcularRajaHerrero({
+        ...item,
+        perfil,
+      });
+
+    case "postigon":
+      return calcularPostigones({
+        ...item,
+        perfil,
+      });
+
+    case "patagonica":
+      if (item.linea === "modena") {
+        return calcularPatagonicaModena({
+          ...item,
+          perfil,
+        });
+      }
+
+      return calcularPatagonicaHerrero({
+        ...item,
+        perfil,
+      });
+
+    case "porton":
+      return calcularPorton({
+        ...item,
+        perfil,
+      });
+
+    case "superficie":
+      return calcularSuperficies({
+        ...item,
+        perfil,
+      });
+
+    case "placa":
+      return calcularPuertaPlaca({
+        ...item,
+        perfil,
+      });
+
+    default:
+      return null;
+  }
+}
+
+// =========================
+// CREAR
+// =========================
 
 async function crear(req, res) {
   try {
@@ -28,7 +169,9 @@ async function crear(req, res) {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
+      return res.status(404).json({
+        error: "Usuario no encontrado",
+      });
     }
 
     let total = 0;
@@ -37,44 +180,38 @@ async function crear(req, res) {
       const cantidad = item.cantidad || 1;
 
       let precio = item.precio || 0;
-      let descripcion = item.descripcion || item.tipo || "Producto";
 
-      // =========================
-      // 🔧 PRODUCTOS DINÁMICOS
-      // =========================
+      let descripcion =
+        item.descripcion || item.tipo || "Producto";
 
-      if (item.tipo === "puerta") {
-        const result = calcularPuerta({
-          ...item,
-          perfil: req.user.perfil,
-        });
+      const resultado = calcularItem(item, req.user.perfil);
 
-        precio = result.precioVenta || result.total;
-        descripcion = result.descripcion;
-      }
+      if (resultado) {
+        precio =
+          resultado.precioVenta ||
+          resultado.total ||
+          0;
 
-      if (item.tipo === "mosquitero") {
-        const result = calcularMosquitero({
-          ...item,
-          perfil: req.user.perfil,
-        });
-
-        precio = result.precioVenta || result.total;
-        descripcion = result.descripcion;
+        descripcion =
+          resultado.descripcion || descripcion;
       }
 
       const subtotal = precio * cantidad;
+
       total += subtotal;
 
       return {
+        tipo: item.tipo,
         cantidad,
         descripcion,
         precio,
         subtotal,
+        configuracion: item,
       };
     });
 
     user.contadorPresupuestos += 1;
+
     await user.save();
 
     const presupuesto = new Presupuesto({
@@ -94,9 +231,14 @@ async function crear(req, res) {
 
     return res.status(500).json({
       error: "Error creando presupuesto",
+      detalle: error.message,
     });
   }
 }
+
+// =========================
+// LISTAR
+// =========================
 
 async function listar(req, res) {
   const presupuestos = await Presupuesto.find({
@@ -115,45 +257,77 @@ async function listar(req, res) {
   return res.json(resultado);
 }
 
+// =========================
+// OBTENER
+// =========================
+
 async function obtener(req, res) {
-  const presupuesto = await Presupuesto.findById(req.params.id);
+  const presupuesto = await Presupuesto.findById(
+    req.params.id,
+  );
 
   if (!presupuesto) {
-    return res.status(404).json({ error: "No encontrado" });
+    return res.status(404).json({
+      error: "No encontrado",
+    });
   }
 
-  if (presupuesto.userId.toString() !== req.user.id) {
-    return res.status(403).json({ error: "No autorizado" });
+  if (
+    presupuesto.userId.toString() !== req.user.id
+  ) {
+    return res.status(403).json({
+      error: "No autorizado",
+    });
   }
 
   return res.json(presupuesto);
 }
 
+// =========================
+// PDF
+// =========================
+
 async function pdf(req, res) {
   try {
     if (!req.params.id) {
-      return res.status(400).json({ error: "ID invalido" });
+      return res.status(400).json({
+        error: "ID invalido",
+      });
     }
 
-    const presupuesto = await Presupuesto.findById(req.params.id);
+    const presupuesto = await Presupuesto.findById(
+      req.params.id,
+    );
 
     if (!presupuesto) {
-      return res.status(404).json({ error: "No encontrado" });
+      return res.status(404).json({
+        error: "No encontrado",
+      });
     }
 
-    if (presupuesto.userId.toString() !== req.user.id) {
-      return res.status(403).json({ error: "No autorizado" });
+    if (
+      presupuesto.userId.toString() !== req.user.id
+    ) {
+      return res.status(403).json({
+        error: "No autorizado",
+      });
     }
 
     const html = generarHTML(presupuesto);
 
     const browser = await puppeteer.launch({
       headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+      ],
     });
 
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: "networkidle0" });
+
+    await page.setContent(html, {
+      waitUntil: "networkidle0",
+    });
 
     const pdfBuffer = await page.pdf({
       format: "A4",
@@ -164,7 +338,8 @@ async function pdf(req, res) {
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition": "inline; filename=presupuesto.pdf",
+      "Content-Disposition":
+        "inline; filename=presupuesto.pdf",
     });
 
     return res.send(pdfBuffer);
@@ -173,6 +348,7 @@ async function pdf(req, res) {
 
     return res.status(500).json({
       error: "Error generando PDF",
+      detalle: error.message,
     });
   }
 }

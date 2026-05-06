@@ -1,174 +1,118 @@
-const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
-const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
-const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
-
-const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
-
-const calcularPorton = require("../../wrappers/portones/calcularporton");
-
-const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
-
-const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
-const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
-
-const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
-const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
-
-const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
-
-const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
-const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
-
-// 🔥 GANANCIA CLIENTE
-const aplicarGananciaCliente = require("../utils/aplicarGananciaCliente");
+const User = require("../models/User");
 
 // =========================
-// 🧠 CORE GLOBAL
+// 🔐 GENERAR TOKEN
 // =========================
-function runCalculation(req, res, label, calculate) {
+function generarToken(user) {
+  return jwt.sign(
+    {
+      id: user._id,
+      role: user.role,
+      perfil: user.perfil,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "7d",
+    },
+  );
+}
+
+// =========================
+// 📝 REGISTER
+// =========================
+async function register(req, res) {
   try {
-    const data = {
-      ...req.body,
-      perfil: req.user.perfil,
-    };
+    const { nombre, email, password, role, perfil } = req.body;
 
-    console.log("PERFIL USADO:", data.perfil);
+    const existeUsuario = await User.findOne({ email });
 
-    const resultadoBase = calculate(data);
-
-    const resultadoFinal = aplicarGananciaCliente(resultadoBase, req.user);
-
-    if (req.user?.role === "user") {
-      delete resultadoFinal.costo;
-      delete resultadoFinal.ganancia;
-      delete resultadoFinal.gananciaCliente;
+    if (existeUsuario) {
+      return res.status(400).json({
+        error: "El usuario ya existe",
+      });
     }
 
-    return res.json(resultadoFinal);
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const nuevoUsuario = await User.create({
+      nombre,
+      email,
+      password: hashedPassword,
+      role: role || "user",
+      perfil: perfil || "standard",
+    });
+
+    const token = generarToken(nuevoUsuario);
+
+    return res.status(201).json({
+      token,
+      user: {
+        id: nuevoUsuario._id,
+        nombre: nuevoUsuario.nombre,
+        email: nuevoUsuario.email,
+        role: nuevoUsuario.role,
+        perfil: nuevoUsuario.perfil,
+      },
+    });
   } catch (error) {
-    console.log(`ERROR ${label}:`, error.message);
+    console.log("ERROR REGISTER:", error.message);
 
     return res.status(500).json({
-      error: "Error en calculo",
+      error: "Error registrando usuario",
       detalle: error.message,
     });
   }
 }
 
 // =========================
-// 🚪 PUERTAS
+// 🔑 LOGIN
 // =========================
-function puertas(req, res) {
-  return runCalculation(req, res, "PUERTAS", (data) => calcularPuerta(data));
-}
+async function login(req, res) {
+  try {
+    const { email, password } = req.body;
 
-function puertasEco(req, res) {
-  return runCalculation(req, res, "PUERTAS ECO", (data) =>
-    calcularPuertaEco(data),
-  );
-}
+    const user = await User.findOne({ email });
 
-// =========================
-// 🪵 PLACAS
-// =========================
-function placas(req, res) {
-  return runCalculation(req, res, "PLACAS", (data) =>
-    calcularPuertaPlaca(data),
-  );
-}
+    if (!user) {
+      return res.status(401).json({
+        error: "Credenciales invalidas",
+      });
+    }
 
-// =========================
-// 🧵 MOSQUITEROS
-// =========================
-function mosquiteros(req, res) {
-  return runCalculation(req, res, "MOSQUITEROS", (data) =>
-    calcularMosquiteroVentana(data),
-  );
-}
+    const passwordOk = await bcrypt.compare(password, user.password);
 
-function puertaMosquitera(req, res) {
-  return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
-    calcularPuertaMosquitera(data),
-  );
-}
+    if (!passwordOk) {
+      return res.status(401).json({
+        error: "Credenciales invalidas",
+      });
+    }
 
-// =========================
-// 🪟 VENTANAS
-// =========================
-function ventanas(req, res) {
-  const { linea } = req.body;
+    const token = generarToken(user);
 
-  if (linea === "modena") {
-    return runCalculation(req, res, "VENTANAS MODENA", (data) =>
-      calcularVentanaModena(data),
-    );
+    return res.json({
+      token,
+      user: {
+        id: user._id,
+        nombre: user.nombre,
+        email: user.email,
+        role: user.role,
+        perfil: user.perfil,
+      },
+    });
+  } catch (error) {
+    console.log("ERROR LOGIN:", error.message);
+
+    return res.status(500).json({
+      error: "Error login",
+      detalle: error.message,
+    });
   }
-
-  return runCalculation(req, res, "VENTANAS HERRERO", (data) =>
-    calcularVentanaHerrero(data),
-  );
-}
-
-// =========================
-// 🔩 RAJAS
-// =========================
-function rajas(req, res) {
-  const { linea } = req.body;
-
-  if (linea === "modena") {
-    return runCalculation(req, res, "RAJAS MODENA", (data) =>
-      calcularRajaModena(data),
-    );
-  }
-
-  return runCalculation(req, res, "RAJAS HERRERO", (data) =>
-    calcularRajaHerrero(data),
-  );
-}
-
-// =========================
-// 🪵 OTROS
-// =========================
-function postigones(req, res) {
-  return runCalculation(req, res, "POSTIGONES", (data) =>
-    calcularPostigones(data),
-  );
-}
-
-function portones(req, res) {
-  return runCalculation(req, res, "PORTONES", (data) => calcularPorton(data));
-}
-
-function superficies(req, res) {
-  return runCalculation(req, res, "SUPERFICIES", (data) =>
-    calcularSuperficies(data),
-  );
-}
-
-// =========================
-// 🏔 PATAGÓNICAS
-// =========================
-function patagonicas(req, res) {
-  const { linea } = req.body;
-
-  const calculadora =
-    linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
-
-  return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
 }
 
 module.exports = {
-  mosquiteros,
-  puertaMosquitera,
-  patagonicas,
-  placas,
-  postigones,
-  portones,
-  puertas,
-  puertasEco,
-  rajas,
-  ventanas,
-  superficies,
+  register,
+  login,
 };

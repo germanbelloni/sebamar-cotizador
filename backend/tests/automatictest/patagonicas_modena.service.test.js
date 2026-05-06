@@ -4,11 +4,11 @@ const calcular = require(
   fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
 
-console.log("\n🧪 TEST SERVICE PATAGONICA MODENA\n");
+console.log("\n🧪 TEST SERVICE PATAGÓNICA MODENA\n");
 
 const casos = [
   {
-    nombre: "base 1 raja",
+    nombre: "base 4mm",
     input: {
       tipo: "1_raja",
       medida: "150x100",
@@ -16,60 +16,34 @@ const casos = [
       tipoVidrio: "4mm",
     },
   },
+
   {
-    nombre: "2 rajas",
-    input: {
-      tipo: "2_rajas",
-      medida: "200x60",
-      color: "blanco",
-      tipoVidrio: "4mm",
-    },
-  },
-  {
-    nombre: "color negro",
+    nombre: "negra dvh",
     input: {
       tipo: "1_raja",
       medida: "150x100",
       color: "negro",
-      tipoVidrio: "4mm",
-    },
-  },
-  {
-    nombre: "vidrio 3+3",
-    input: {
-      tipo: "1_raja",
-      medida: "150x100",
-      tipoVidrio: "3+3",
-    },
-  },
-  {
-    nombre: "dvh",
-    input: {
-      tipo: "1_raja",
-      medida: "150x150",
       tipoVidrio: "dvh",
     },
   },
+
   {
-    nombre: "dvh 5+9+5",
+    nombre: "bronce dvh 5+9+5",
     input: {
-      tipo: "1_raja",
-      medida: "150x150",
+      tipo: "2_rajas",
+      medida: "200x100",
+      color: "bronce",
       tipoVidrio: "dvh_5_9_5",
     },
   },
+
   {
-    nombre: "error tipo",
-    input: {
-      tipo: "3_rajas",
-      medida: "150x100",
-    },
-  },
-  {
-    nombre: "error medida",
+    nombre: "laminado 4+4",
     input: {
       tipo: "1_raja",
-      medida: "999x999",
+      medida: "150x150",
+      color: "blanco",
+      tipoVidrio: "4+4",
     },
   },
 ];
@@ -77,17 +51,24 @@ const casos = [
 // =========================
 // VALIDADOR
 // =========================
+
 function validar(res) {
   const errores = [];
 
-  if (!res) errores.push("sin respuesta");
-
-  if (typeof res.total !== "number") {
-    errores.push("total inválido");
+  if (!res) {
+    errores.push("sin response");
   }
 
-  if (res.total <= 0) {
-    errores.push("total <= 0");
+  if (typeof res.costoBase !== "number") {
+    errores.push("costoBase inválido");
+  }
+
+  if (!Array.isArray(res.items)) {
+    errores.push("items inválidos");
+  }
+
+  if (res.costoBase <= 0) {
+    errores.push("costoBase <= 0");
   }
 
   return errores;
@@ -96,21 +77,24 @@ function validar(res) {
 // =========================
 // RUN
 // =========================
-casos.forEach((test, i) => {
-  try {
-    const res = calcular(test.input);
 
-    const errores = validar(res);
+casos.forEach((t, i) => {
+  try {
+    const r = calcular(t.input);
+
+    const errores = validar(r);
 
     if (errores.length) {
-      console.log(`❌ [${i + 1}] ${test.nombre}`);
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
       errores.forEach((e) => console.log("   -", e));
     } else {
-      console.log(`✔️ [${i + 1}] ${test.nombre}`);
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
     }
-  } catch (err) {
-    console.log(`💥 [${i + 1}] ${test.nombre}`);
-    console.log("   -", err.message);
+  } catch (e) {
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉", e.message);
   }
 });
 

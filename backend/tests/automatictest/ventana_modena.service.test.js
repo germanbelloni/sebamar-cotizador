@@ -1,45 +1,24 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularVentana = require(
-  fromRoot("backend/services/ventanas/calcularVentana"),
-);
+const calcularRaja = require(fromRoot("services/rajas/calcularRaja"));
 
-console.log("\n🧪 TEST SERVICE VENTANA MODENA\n");
+console.log("\n🧪 TEST SERVICE RAJA MODENA\n");
 
 const casos = [
   {
-    nombre: "base 4mm",
+    nombre: "base",
     input: {
-      medida: "120x100",
-      color: "blanco",
+      medida: "60x60",
       tipoVidrio: "4mm",
       linea: "modena",
     },
   },
+
   {
-    nombre: "vidrio 3+3",
+    nombre: "dvh",
     input: {
-      medida: "120x100",
-      color: "blanco",
-      tipoVidrio: "3+3",
-      linea: "modena",
-    },
-  },
-  {
-    nombre: "vidrio dvh",
-    input: {
-      medida: "120x100",
-      color: "blanco",
+      medida: "60x60",
       tipoVidrio: "dvh",
-      linea: "modena",
-    },
-  },
-  {
-    nombre: "color negro",
-    input: {
-      medida: "120x100",
-      color: "negro",
-      tipoVidrio: "4mm",
       linea: "modena",
     },
   },
@@ -48,14 +27,16 @@ const casos = [
 function validar(res) {
   const errores = [];
 
-  if (!res) errores.push("sin respuesta");
-
-  if (typeof res.costoBase !== "number") {
-    errores.push("costoBase inválido");
+  if (typeof res.estructura !== "number") {
+    errores.push("estructura inválida");
   }
 
-  if (res.costoBase <= 0) {
-    errores.push("costoBase <= 0");
+  if (typeof res.vidrio !== "number") {
+    errores.push("vidrio inválido");
+  }
+
+  if (typeof res.subtotal !== "number") {
+    errores.push("subtotal inválido");
   }
 
   return errores;
@@ -63,19 +44,21 @@ function validar(res) {
 
 casos.forEach((t, i) => {
   try {
-    const r = calcularVentana(t.input);
+    const r = calcularRaja(t.input);
 
     const errores = validar(r);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
+
       errores.forEach((e) => console.log("   -", e));
     } else {
       console.log(`✔️ [${i + 1}] ${t.nombre}`);
     }
   } catch (e) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   👉", e.message);
+
+    console.log("   -", e.message);
   }
 });
 

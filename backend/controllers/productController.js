@@ -1,7 +1,9 @@
 const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
+
 const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
 
 const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
+
 const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
 
 const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
@@ -11,24 +13,37 @@ const calcularPorton = require("../../wrappers/portones/calcularporton");
 const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
 
 const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
+
 const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
 
 const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
+
 const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
 
 const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
 
 const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
+
 const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
 
+// =========================
 // 🔥 GANANCIA CLIENTE
+// =========================
+
 const aplicarGananciaCliente = require("../utils/aplicarGananciaCliente");
 
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
+
 function runCalculation(req, res, label, calculate) {
   try {
+    if (!req.user?.perfil) {
+      return res.status(400).json({
+        error: "Perfil no definido",
+      });
+    }
+
     const data = {
       ...req.body,
       perfil: req.user.perfil,
@@ -42,7 +57,9 @@ function runCalculation(req, res, label, calculate) {
 
     if (req.user?.role === "user") {
       delete resultadoFinal.costo;
+
       delete resultadoFinal.ganancia;
+
       delete resultadoFinal.gananciaCliente;
     }
 
@@ -60,6 +77,7 @@ function runCalculation(req, res, label, calculate) {
 // =========================
 // 🚪 PUERTAS
 // =========================
+
 function puertas(req, res) {
   return runCalculation(req, res, "PUERTAS", (data) => calcularPuerta(data));
 }
@@ -73,6 +91,7 @@ function puertasEco(req, res) {
 // =========================
 // 🪵 PLACAS
 // =========================
+
 function placas(req, res) {
   return runCalculation(req, res, "PLACAS", (data) =>
     calcularPuertaPlaca(data),
@@ -82,6 +101,7 @@ function placas(req, res) {
 // =========================
 // 🧵 MOSQUITEROS
 // =========================
+
 function mosquiteros(req, res) {
   return runCalculation(req, res, "MOSQUITEROS", (data) =>
     calcularMosquiteroVentana(data),
@@ -97,6 +117,7 @@ function puertaMosquitera(req, res) {
 // =========================
 // 🪟 VENTANAS
 // =========================
+
 function ventanas(req, res) {
   const { linea } = req.body;
 
@@ -114,6 +135,7 @@ function ventanas(req, res) {
 // =========================
 // 🔩 RAJAS
 // =========================
+
 function rajas(req, res) {
   const { linea } = req.body;
 
@@ -131,6 +153,7 @@ function rajas(req, res) {
 // =========================
 // 🪵 OTROS
 // =========================
+
 function postigones(req, res) {
   return runCalculation(req, res, "POSTIGONES", (data) =>
     calcularPostigones(data),
@@ -150,6 +173,7 @@ function superficies(req, res) {
 // =========================
 // 🏔 PATAGÓNICAS
 // =========================
+
 function patagonicas(req, res) {
   const { linea } = req.body;
 
@@ -157,10 +181,6 @@ function patagonicas(req, res) {
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
 
   return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
-}
-
-if (!req.user?.perfil) {
-  return res.status(400).json({ error: "Perfil no definido" });
 }
 
 module.exports = {
