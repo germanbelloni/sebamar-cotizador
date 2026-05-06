@@ -1,33 +1,149 @@
+// backend/tests/generators/rajasModena.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(fromRoot("wrappers/rajas/calcularRajaModena"));
+const calcularRajaModena = require(
+  fromRoot("wrappers/rajas/calcularRajaModena"),
+);
 
 const data = require(fromRoot("frontend/data/productos/rajas_modena.json"));
 
-const colores = ["blanco", "negro", "simil madera"];
+// =========================
+// ⚙ CONFIG
+// =========================
 
-let resultados = [];
+const CONFIG = {
+  colores: ["blanco", "negro", "simil madera"],
 
-Object.keys(data.medidas).forEach((m) => {
-  const [a, h] = m.split("x").map(Number);
+  vidrios: ["4mm", "3+3", "4+4", "dvh", "dvh_5_9_5"],
 
-  colores.forEach((color) => {
-    try {
-      const res = calcular({ ancho: a, alto: h, color });
+  modelos: ["raja", "oscilobatiente"],
 
-      resultados.push({ input: { m, color }, output: res });
+  perfiles: ["amarilla"],
 
-      console.log(`✔ ${m} ${color}`);
-    } catch (e) {
-      console.log(`❌ ${m}`, e.message);
-    }
+  bisagras: ["izquierda", "derecha"],
+
+  mosquitero: [true, false],
+
+  premarco: [true, false],
+
+  contramarco: [true, false],
+};
+
+// =========================
+// 📦 RESULTADOS
+// =========================
+
+const resultados = [];
+
+// =========================
+// 📁 OUTPUT
+// =========================
+
+const outputDir = fromRoot("backend/tests/generated/rajas");
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
+}
+
+// =========================
+// 🚀 GENERADOR
+// =========================
+
+Object.keys(data.medidas).forEach((medida) => {
+  const [ancho, alto] = medida.split("x").map(Number);
+
+  CONFIG.colores.forEach((color) => {
+    CONFIG.vidrios.forEach((vidrio) => {
+      CONFIG.modelos.forEach((modelo) => {
+        CONFIG.perfiles.forEach((perfil) => {
+          CONFIG.bisagras.forEach((bisagra) => {
+            CONFIG.mosquitero.forEach((mosquitero) => {
+              CONFIG.premarco.forEach((premarco) => {
+                CONFIG.contramarco.forEach((contramarco) => {
+                  const input = {
+                    ancho,
+
+                    alto,
+
+                    color,
+
+                    vidrio,
+
+                    modelo,
+
+                    perfil,
+
+                    bisagra,
+
+                    mosquitero,
+
+                    premarco,
+
+                    contramarco,
+                  };
+
+                  try {
+                    const output = calcularRajaModena(input);
+
+                    resultados.push({
+                      ok: true,
+
+                      input,
+
+                      output,
+                    });
+
+                    console.log(`✔ ${medida} | ${modelo} | ${color}`);
+                  } catch (error) {
+                    resultados.push({
+                      ok: false,
+
+                      input,
+
+                      error: error.message,
+                    });
+
+                    console.log(`❌ ${medida} | ${modelo}`);
+
+                    console.log(`👉 ${error.message}`);
+                  }
+                });
+              });
+            });
+          });
+        });
+      });
+    });
   });
 });
 
+// =========================
+// 💾 SAVE
+// =========================
+
+const fileName = `rajas_modena_${Date.now()}.json`;
+
+const outputPath = path.join(outputDir, fileName);
+
 fs.writeFileSync(
-  path.join(process.cwd(), "rajas_modena_test.json"),
+  outputPath,
+
   JSON.stringify(resultados, null, 2),
 );
+
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Rajas Modena OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

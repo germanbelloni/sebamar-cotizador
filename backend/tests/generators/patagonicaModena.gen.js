@@ -1,53 +1,127 @@
+// backend/tests/generators/patagonicaModena.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(
+const calcularPatagonicaModena = require(
   fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
 );
 
-const medidas = ["100x60", "150x100", "200x100"];
-const colores = ["blanco", "negro", "simil madera"];
+// =========================
+// ⚙ CONFIG
+// =========================
 
-let resultados = [];
+const CONFIG = {
+  medidas: ["100x60", "150x100", "200x100"],
 
-medidas.forEach((medida) => {
-  colores.forEach((color) => {
-    [1, 2].forEach((cantidadRajas) => {
-      try {
-        const res = calcular({
-          medida,
-          cantidadRajas,
-          tipoVidrio: "4mm",
-          color,
-          tipoApertura: "oscilobatiente",
+  colores: ["blanco", "negro", "simil madera"],
+
+  cantidadesRajas: [1, 2],
+
+  vidrios: ["4mm", "4+4", "dvh"],
+
+  aperturas: ["abrir", "oscilobatiente"],
+
+  lados: ["derecha", "izquierda"],
+
+  perfiles: ["amarilla"],
+};
+
+// =========================
+// 🚀 GENERAR
+// =========================
+
+const resultados = [];
+
+CONFIG.medidas.forEach((medida) => {
+  CONFIG.colores.forEach((color) => {
+    CONFIG.cantidadesRajas.forEach((cantidadRajas) => {
+      CONFIG.vidrios.forEach((tipoVidrio) => {
+        CONFIG.aperturas.forEach((tipoApertura) => {
+          CONFIG.lados.forEach((ladoApertura) => {
+            CONFIG.perfiles.forEach((perfil) => {
+              const input = {
+                medida,
+
+                cantidadRajas,
+
+                tipoVidrio,
+
+                color,
+
+                perfil,
+
+                tipoApertura,
+
+                ladoApertura,
+              };
+
+              try {
+                const output = calcularPatagonicaModena(input);
+
+                resultados.push({
+                  ok: true,
+
+                  input,
+
+                  output,
+                });
+
+                console.log(`✔ ${medida} | ${cantidadRajas} rajas | ${color}`);
+              } catch (error) {
+                resultados.push({
+                  ok: false,
+
+                  input,
+
+                  error: error.message,
+                });
+
+                console.log(`❌ ${medida} | ${cantidadRajas} rajas`);
+              }
+            });
+          });
         });
-
-        resultados.push({ input: { medida }, output: res });
-
-        console.log(`✔ ${medida} ${cantidadRajas}`);
-      } catch (e) {
-        resultados.push({ input: { medida }, error: e.message });
-
-        console.log(`❌ ${medida}`, e.message);
-      }
+      });
     });
   });
 });
 
-const outputDir = path.join(
-  process.cwd(),
-  "backend/tests/output/patagonicaModena",
-);
+// =========================
+// 📁 OUTPUT
+// =========================
+
+const outputDir = fromRoot("backend/tests/generated/patagonicas");
 
 if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
 }
 
+const fileName = `patagonica_modena_${Date.now()}.json`;
+
+const outputPath = path.join(outputDir, fileName);
+
+// =========================
+// 💾 SAVE
+// =========================
+
 fs.writeFileSync(
-  path.join(outputDir, `patagonica_modena_${Date.now()}.json`),
+  outputPath,
+
   JSON.stringify(resultados, null, 2),
 );
 
-console.log("\n✅ GENERATOR MODENA OK");
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Patagónica Modena OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

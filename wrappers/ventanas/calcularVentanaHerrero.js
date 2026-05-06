@@ -1,17 +1,22 @@
+// wrappers/ventanas/calcularVentanaHerrero.js
+
 const { fromRoot } = require("../../backend/utils/path");
 
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
-const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
+
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
 );
+
 const ventanas = require(
   fromRoot("frontend/data/productos/ventanas_herrero.json"),
 );
+
+const colores = require(fromRoot("frontend/data/colores.json"));
 
 // 📐
 const calcularM2 = (a, h) => (a * h) / 10000;
@@ -29,9 +34,12 @@ function buscarMedidaValida(ancho, alto) {
   );
 
   const a = anchos.find((x) => x >= ancho);
+
   const h = altos.find((x) => x >= alto);
 
-  if (!a || !h) throw new Error("No hay medida válida");
+  if (!a || !h) {
+    throw new Error("No hay medida válida");
+  }
 
   return `${a}x${h}`;
 }
@@ -39,9 +47,33 @@ function buscarMedidaValida(ancho, alto) {
 // 💰 PERFIL
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);
+
   const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
 
-  return { proveedor, venta };
+  return {
+    proveedor,
+    venta,
+  };
+}
+
+// 🎨 COLOR
+function aplicarColor(items, color) {
+  if (!color || color === "blanco") {
+    return items;
+  }
+
+  const porcentaje = Number(colores?.[color] || 0);
+
+  return items.map((item) => {
+    if (item.tipo !== "estructura") {
+      return item;
+    }
+
+    return {
+      ...item,
+      precio: Math.round(item.precio * (1 + porcentaje)),
+    };
+  });
 }
 
 // 🚀 WRAPPER
@@ -49,7 +81,7 @@ function calcularVentanaHerrero(dataInput) {
   const {
     ancho,
     alto,
-    color,
+    color = "blanco",
     guia,
     mosquitero,
     cortina,
@@ -57,7 +89,9 @@ function calcularVentanaHerrero(dataInput) {
     perfil = "amarilla",
   } = dataInput;
 
-  if (!ancho || !alto) throw new Error("Faltan medidas");
+  if (!ancho || !alto) {
+    throw new Error("Faltan medidas");
+  }
 
   // 🔥 REGLAS
   if (cajonBlock && guia) {
@@ -68,57 +102,47 @@ function calcularVentanaHerrero(dataInput) {
     throw new Error("Sin guía no puede llevar cortina");
   }
 
-  let medida = buscarMedidaValida(ancho, alto > 200 ? 200 : alto);
+  const medida = buscarMedidaValida(ancho, alto > 200 ? 200 : alto);
 
   const base = calcularVentana({
     medida,
-    color,
     incluirGuia: guia,
     incluirMosquitero: mosquitero,
     linea: "herrero",
   });
 
-  let costo = base.costoBase + base.costoGuia + base.costoMosquitero;
+  // 🎨 COLOR SOLO ESTRUCTURA
+  const items = aplicarColor([...base.items], color);
 
-  const items = [];
-
-  items.push({
-    tipo: "base",
-    precio: Math.round(base.costoBase),
-  });
-
-  if (guia) {
-    items.push({
-      tipo: "guia",
-      precio: Math.round(base.costoGuia),
-    });
-  }
-
-  if (mosquitero) {
-    items.push({
-      tipo: "mosquitero",
-      precio: Math.round(base.costoMosquitero),
-    });
-  }
+  let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
   const m2 = calcularM2(ancho, alto);
 
-  // 🪟 CORTINA
+  // 🪟 CORTINA PVC
   if (cortina === "pvc") {
-    const c = (superficies.cortinas?.pvc || 0) * m2;
+    const c = Number(superficies.cortinas?.pvc || 0) * m2;
+
     costo += c;
 
-    items.push({ tipo: "cortina_pvc", precio: Math.round(c) });
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(c),
+    });
   }
 
+  // 🪟 CORTINA ALUMINIO
   if (cortina === "aluminio") {
-    const c = (superficies.cortinas?.aluminio?.blanco || 0) * m2;
+    const c = Number(superficies.cortinas?.aluminio?.blanco || 0) * m2;
+
     costo += c;
 
-    items.push({ tipo: "cortina_aluminio", precio: Math.round(c) });
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(c),
+    });
   }
 
-  // 📦 CAJON BLOCK (solo informativo)
+  // 📦 CAJON BLOCK
   let anchoFinal = ancho;
   let altoFinal = alto;
 
@@ -134,9 +158,13 @@ function calcularVentanaHerrero(dataInput) {
 
   return {
     costoBase: Math.round(base.costoBase),
+
     costo: Math.round(costo),
+
     precioProveedor: Math.round(proveedor),
+
     precioVenta: Math.round(venta),
+
     ganancia: Math.round(venta - costo),
 
     items,
@@ -148,13 +176,17 @@ function calcularVentanaHerrero(dataInput) {
       alto,
       anchoFinal,
       altoFinal,
+
       color,
+
       guia: !!guia,
+
       mosquitero: !!mosquitero,
+
       cortina: cortina || null,
+
       cajonBlock: !!cajonBlock,
 
-      // 🔥 SVG
       svg: {
         tipo: "ventana_herrero",
         hojas: ancho > 240 ? 2 : 1,

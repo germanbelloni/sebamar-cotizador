@@ -1,71 +1,147 @@
+// backend/tests/generators/superficies.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(fromRoot("wrappers/superficies/calcularSuperficies"));
+const calcularSuperficies = require(
+  fromRoot("wrappers/superficies/calcularSuperficies"),
+);
 
-const tipos = ["pano_fijo", "premarco", "contramarco"];
-const medidas = [
-  { ancho: 100, alto: 100 },
-  { ancho: 150, alto: 120 },
-  { ancho: 200, alto: 150 },
-];
+// =========================
+// ⚙ CONFIG
+// =========================
 
-const lineas = ["herrero", "modena"];
-const colores = ["blanco", "negro"];
-const vidrios = ["3mm", "4mm"];
+const CONFIG = {
+  tipos: ["pano_fijo", "premarco", "contramarco"],
 
-let resultados = [];
+  medidas: [
+    {
+      ancho: 100,
+      alto: 100,
+    },
 
-tipos.forEach((tipo) => {
-  medidas.forEach(({ ancho, alto }) => {
-    colores.forEach((color) => {
-      lineas.forEach((linea) => {
-        vidrios.forEach((vidrio) => {
-          try {
+    {
+      ancho: 150,
+      alto: 120,
+    },
+
+    {
+      ancho: 200,
+      alto: 150,
+    },
+  ],
+
+  lineas: ["herrero", "modena"],
+
+  colores: ["blanco", "negro"],
+
+  vidrios: ["3mm", "4mm", "3+3", "dvh"],
+
+  perfiles: ["amarilla"],
+};
+
+// =========================
+// 📦 RESULTADOS
+// =========================
+
+const resultados = [];
+
+// =========================
+// 📁 OUTPUT
+// =========================
+
+const outputDir = fromRoot("backend/tests/generated/superficies");
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
+}
+
+// =========================
+// 🚀 GENERADOR
+// =========================
+
+CONFIG.tipos.forEach((tipo) => {
+  CONFIG.medidas.forEach(({ ancho, alto }) => {
+    CONFIG.colores.forEach((color) => {
+      CONFIG.lineas.forEach((linea) => {
+        CONFIG.vidrios.forEach((tipoVidrio) => {
+          CONFIG.perfiles.forEach((perfil) => {
             const input = {
               tipo,
+
               ancho,
+
               alto,
+
               linea,
+
               color,
+
+              perfil,
             };
 
+            // 🪟 SOLO PAÑO FIJO
             if (tipo === "pano_fijo") {
-              input.tipoVidrio = vidrio;
+              input.tipoVidrio = tipoVidrio;
             }
 
-            const res = calcular(input);
+            try {
+              const output = calcularSuperficies(input);
 
-            resultados.push({
-              input,
-              output: res,
-            });
+              resultados.push({
+                ok: true,
 
-            console.log(`✔ ${tipo} ${ancho}x${alto}`);
-          } catch (e) {
-            resultados.push({
-              input: { tipo, ancho, alto },
-              error: e.message,
-            });
+                input,
 
-            console.log(`❌ ${tipo} ${ancho}x${alto}`);
-          }
+                output,
+              });
+
+              console.log(`✔ ${tipo} | ${ancho}x${alto} | ${linea}`);
+            } catch (error) {
+              resultados.push({
+                ok: false,
+
+                input,
+
+                error: error.message,
+              });
+
+              console.log(`❌ ${tipo} | ${ancho}x${alto}`);
+
+              console.log(`👉 ${error.message}`);
+            }
+          });
         });
       });
     });
   });
 });
 
-const outputDir = path.join(process.cwd(), "tests/output/superficies");
+// =========================
+// 💾 SAVE
+// =========================
 
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
+const fileName = `superficies_${Date.now()}.json`;
 
-const file = path.join(outputDir, `superficies_${Date.now()}.json`);
+const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(file, JSON.stringify(resultados, null, 2));
+fs.writeFileSync(
+  outputPath,
 
-console.log("\n✅ JSON generado:", file);
+  JSON.stringify(resultados, null, 2),
+);
+
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Superficies OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

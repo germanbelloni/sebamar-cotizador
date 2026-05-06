@@ -1,59 +1,93 @@
+// backend/tests/generators/puertaPlaca.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
+const calcularPuertaPlaca = require(
+  fromRoot("wrappers/placas/calcularPuertaPlaca"),
+);
 
 const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
 
+// =========================
 // 📦 RESULTADOS
-let resultados = [];
+// =========================
 
+const resultados = [];
+
+// =========================
 // 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "backend/tests/output");
+// =========================
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
+const outputDir = fromRoot("backend/tests/generated/placas");
 
 if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
 }
 
 // =========================
-// 🔁 GENERADOR
+// 🚀 GENERADOR
 // =========================
+
 Object.keys(data).forEach((tipo) => {
   Object.keys(data[tipo]).forEach((modelo) => {
     Object.keys(data[tipo][modelo]).forEach((medida) => {
       Object.keys(data[tipo][modelo][medida]).forEach((marco) => {
+        let input = null;
+
         try {
           const [ancho, alto] = medida.split("x").map(Number);
 
-          const input = {
+          input = {
             ancho,
+
             alto,
+
             tipo,
+
             modelo,
+
             marco,
           };
 
-          const res = calcular(input);
+          const output = calcularPuertaPlaca(input);
 
           resultados.push({
+            ok: true,
+
             input,
-            output: res,
+
+            output,
           });
 
-          console.log(`✔ ${tipo} ${modelo} ${medida} → ${res.precioVenta}`);
-        } catch (e) {
+          console.log(
+            `✔ ${tipo} | ${modelo} | ${medida} → $${output?.precioVenta}`,
+          );
+        } catch (error) {
           resultados.push({
-            input: { tipo, modelo, medida, marco },
-            error: e.message,
+            ok: false,
+
+            input: input || {
+              tipo,
+
+              modelo,
+
+              medida,
+
+              marco,
+            },
+
+            error: error.message,
           });
 
-          console.log(`❌ ${tipo} ${modelo} ${medida}`);
+          console.log(`❌ ${tipo} | ${modelo} | ${medida}`);
+
+          console.log(`👉 ${error.message}`);
         }
       });
     });
@@ -63,11 +97,23 @@ Object.keys(data).forEach((tipo) => {
 // =========================
 // 💾 SAVE
 // =========================
-const nombreArchivo = `puertaPlaca_${Date.now()}.json`;
+
+const fileName = `puertaPlaca_${Date.now()}.json`;
+
+const outputPath = path.join(outputDir, fileName);
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
+  outputPath,
+
   JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Puerta Placa OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

@@ -1,37 +1,49 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(
-  fromRoot("backend/services/placas/calcularPuertaPlaca"),
-);
+const calcular = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
 
-console.log("\n🧪 TEST SERVICE PLACAS\n");
+console.log("\n🧪 TEST WRAPPER PLACAS\n");
 
 const casos = [
   {
-    nombre: "placa base",
+    nombre: "base simple",
     input: {
+      ancho: 80,
+      alto: 200,
       tipo: "placa",
       modelo: "finger_pino",
-      medida: "070x200",
       marco: "marco_10",
     },
   },
   {
-    nombre: "embutir base",
+    nombre: "con recargo ancho",
     input: {
-      tipo: "embutir",
+      ancho: 90,
+      alto: 200,
+      tipo: "placa",
       modelo: "finger_pino",
-      medida: "080x200",
-      marco: "marco_15",
+      marco: "marco_10",
     },
   },
   {
-    nombre: "error modelo",
+    nombre: "con recargo alto",
     input: {
+      ancho: 80,
+      alto: 205,
       tipo: "placa",
-      modelo: "no_existe",
-      medida: "070x200",
+      modelo: "finger_pino",
       marco: "marco_10",
+    },
+  },
+  {
+    nombre: "mano izquierda (svg)",
+    input: {
+      ancho: 80,
+      alto: 200,
+      tipo: "placa",
+      modelo: "finger_pino",
+      marco: "marco_10",
+      mano: "izquierda",
     },
   },
 ];
@@ -42,14 +54,28 @@ const casos = [
 function validar(res) {
   const errores = [];
 
-  if (!res) errores.push("sin respuesta");
-
-  if (typeof res.base !== "number") {
-    errores.push("base inválido");
+  if (typeof res.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
   }
 
-  if (res.base <= 0) {
-    errores.push("base <= 0");
+  if (typeof res.costo !== "number") {
+    errores.push("costo inválido");
+  }
+
+  if (typeof res.ganancia !== "number") {
+    errores.push("ganancia inválida");
+  }
+
+  if (!Array.isArray(res.items)) {
+    errores.push("items no es array");
+  }
+
+  if (!res.configuracion?.svg) {
+    errores.push("falta svg");
+  }
+
+  if (res.ganancia !== res.precioVenta - res.costo) {
+    errores.push("ganancia mal calculada");
   }
 
   return errores;
@@ -76,4 +102,4 @@ casos.forEach((t, i) => {
   }
 });
 
-console.log("\n✅ FIN TEST SERVICE\n");
+console.log("\n✅ FIN TEST WRAPPER\n");

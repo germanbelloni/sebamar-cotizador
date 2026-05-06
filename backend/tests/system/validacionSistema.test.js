@@ -7,69 +7,108 @@ const { fromRoot } = require("../../utils/path");
 const calcularVentanaHerrero = require(
   fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
 );
+
 const calcularVentanaModena = require(
   fromRoot("wrappers/ventanas/calcularVentanaModena"),
 );
+
 const calcularRajaHerrero = require(
   fromRoot("wrappers/rajas/calcularRajaHerrero"),
 );
+
 const calcularRajaModena = require(
   fromRoot("wrappers/rajas/calcularRajaModena"),
 );
+
 const calcularPostigones = require(
   fromRoot("wrappers/postigones/calcularPostigones"),
 );
+
 const calcularPlacas = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
+
 const calcularSuperficies = require(
   fromRoot("wrappers/superficies/calcularSuperficies"),
 );
+
 const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
+
 const calcularPatagonicaModena = require(
   fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
 );
+
 const calcularPatagonicaHerrero = require(
   fromRoot("wrappers/patagonicas/calcularPatagonicaHerrero"),
 );
 
 // =======================
-// 🧠 VALIDADOR GENERAL
+// 📊 TRACKING
 // =======================
+
+let ok = 0;
+
+let fail = 0;
+
+// =======================
+// 🧠 VALIDADOR
+// =======================
+
 function validar(nombre, fn, input) {
   try {
     const res = fn(input);
 
-    if (!res) throw new Error("sin respuesta");
+    if (!res) {
+      throw new Error("sin respuesta");
+    }
 
     if (res.precioVenta !== undefined && res.precioVenta <= 0) {
       throw new Error("precioVenta inválido");
     }
 
-    if (res.total !== undefined && res.total <= 0) {
-      throw new Error("total inválido");
+    if (res.costo !== undefined && res.costo <= 0) {
+      throw new Error("costo inválido");
     }
+
+    if (!Array.isArray(res.items)) {
+      throw new Error("items inválidos");
+    }
+
+    if (!res.configuracion) {
+      throw new Error("sin configuracion");
+    }
+
+    ok++;
 
     console.log(`✔️ ${nombre}`);
   } catch (e) {
+    fail++;
+
     console.log(`💥 ${nombre}`);
+
     console.log("   👉", e.message);
   }
 }
 
+// =======================
+// 🚨 START
+// =======================
+
 console.log("\n==============================");
-console.log("🧪 VALIDACIÓN REAL SISTEMA");
+
+console.log("🧪 VALIDACIÓN SISTEMA");
+
 console.log("==============================\n");
 
 // =======================
 // 🪟 VENTANAS
 // =======================
 
-validar("Ventana Herrero base", calcularVentanaHerrero, {
+validar("Ventana Herrero", calcularVentanaHerrero, {
   ancho: 120,
   alto: 100,
   color: "blanco",
 });
 
-validar("Ventana Modena DVH", calcularVentanaModena, {
+validar("Ventana Modena", calcularVentanaModena, {
   ancho: 150,
   alto: 120,
   color: "negro",
@@ -98,7 +137,7 @@ validar("Raja Modena", calcularRajaModena, {
 // 🧱 POSTIGONES
 // =======================
 
-validar("Postigon abrir", calcularPostigones, {
+validar("Postigon", calcularPostigones, {
   ancho: 120,
   alto: 100,
   tipo: "abrir",
@@ -106,10 +145,10 @@ validar("Postigon abrir", calcularPostigones, {
 });
 
 // =======================
-// 🧾 PLACAS
+// 🚪 PLACAS
 // =======================
 
-validar("Placa base", calcularPlacas, {
+validar("Puerta Placa", calcularPlacas, {
   ancho: 80,
   alto: 200,
   tipo: "placa",
@@ -121,7 +160,7 @@ validar("Placa base", calcularPlacas, {
 // 🧱 SUPERFICIES
 // =======================
 
-validar("Paño fijo", calcularSuperficies, {
+validar("Paño Fijo", calcularSuperficies, {
   tipo: "pano_fijo",
   ancho: 100,
   alto: 100,
@@ -133,7 +172,7 @@ validar("Paño fijo", calcularSuperficies, {
 // 🚪 PORTONES
 // =======================
 
-validar("Porton abrir", calcularPorton, {
+validar("Porton", calcularPorton, {
   ancho: 240,
   alto: 200,
   hojas: 3,
@@ -152,7 +191,6 @@ validar("Porton abrir", calcularPorton, {
 validar("Patagonica Modena", calcularPatagonicaModena, {
   ancho: 150,
   alto: 100,
-  tipoRaja: 50,
   cantidadRajas: 1,
   tipoVidrio: "4mm",
   color: "blanco",
@@ -160,11 +198,39 @@ validar("Patagonica Modena", calcularPatagonicaModena, {
 
 validar("Patagonica Herrero", calcularPatagonicaHerrero, {
   medidaTotal: "150x100",
+
   tipo: "1_raja",
-  raja: { ancho: 50, tipoVidrio: "4mm" },
+
+  raja: {
+    ancho: 50,
+    tipoVidrio: "4mm",
+  },
+
   color: "blanco",
 });
 
+// =======================
+// 📊 SUMMARY
+// =======================
+
 console.log("\n==============================");
-console.log("✅ FIN VALIDACIÓN");
+
+console.log("📊 RESUMEN");
+
 console.log("==============================\n");
+
+console.log(`✔ OK: ${ok}`);
+
+console.log(`💥 FAIL: ${fail}`);
+
+// =======================
+// 🚨 EXIT
+// =======================
+
+if (fail > 0) {
+  console.log("\n❌ SISTEMA CON ERRORES\n");
+
+  process.exit(1);
+}
+
+console.log("\n✅ SISTEMA OK\n");

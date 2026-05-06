@@ -1,100 +1,120 @@
+// backend/tests/automatictest/patagonicas_modena.service.test.js
+
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(
+const calcularPatagonicaModena = require(
   fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
 
 console.log("\n🧪 TEST SERVICE PATAGÓNICA MODENA\n");
 
+// =========================
+// 🧪 CASOS
+// =========================
+
 const casos = [
   {
     nombre: "base 4mm",
+
     input: {
       tipo: "1_raja",
+
       medida: "150x100",
-      color: "blanco",
+
       tipoVidrio: "4mm",
     },
   },
 
   {
     nombre: "negra dvh",
+
     input: {
       tipo: "1_raja",
+
       medida: "150x100",
-      color: "negro",
+
       tipoVidrio: "dvh",
     },
   },
 
   {
-    nombre: "bronce dvh 5+9+5",
+    nombre: "dvh 5+9+5",
+
     input: {
       tipo: "2_rajas",
+
       medida: "200x100",
-      color: "bronce",
+
       tipoVidrio: "dvh_5_9_5",
     },
   },
 
   {
     nombre: "laminado 4+4",
+
     input: {
       tipo: "1_raja",
+
       medida: "150x150",
-      color: "blanco",
+
       tipoVidrio: "4+4",
     },
   },
 ];
 
 // =========================
-// VALIDADOR
+// ✅ VALIDADOR
 // =========================
 
-function validar(res) {
+function validar(result) {
   const errores = [];
 
-  if (!res) {
-    errores.push("sin response");
+  if (!result || typeof result !== "object") {
+    errores.push("response inválida");
+
+    return errores;
   }
 
-  if (typeof res.costoBase !== "number") {
+  if (typeof result.costoBase !== "number") {
     errores.push("costoBase inválido");
   }
 
-  if (!Array.isArray(res.items)) {
-    errores.push("items inválidos");
+  if (result.costoBase <= 0) {
+    errores.push("costoBase <= 0");
   }
 
-  if (res.costoBase <= 0) {
-    errores.push("costoBase <= 0");
+  if (!Array.isArray(result.items)) {
+    errores.push("items inválidos");
   }
 
   return errores;
 }
 
 // =========================
-// RUN
+// 🚀 RUN
 // =========================
 
 casos.forEach((t, i) => {
   try {
-    const r = calcular(t.input);
+    const result = calcularPatagonicaModena(t.input);
 
-    const errores = validar(r);
+    const errores = validar(result);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
 
       errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+      return;
     }
-  } catch (e) {
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉 costoBase:", result.costoBase);
+  } catch (error) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
 
-    console.log("   👉", e.message);
+    console.log("   👉", error.message);
   }
 });
 

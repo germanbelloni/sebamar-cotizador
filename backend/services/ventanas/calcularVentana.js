@@ -1,3 +1,5 @@
+// backend/services/ventanas/calcularVentana.js
+
 const { fromRoot } = require("../../utils/path");
 
 const dataHerrero = require(
@@ -49,33 +51,21 @@ function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
   }
 
   // =========================
-  // COMPONENTES
-  // =========================
-
-  const estructura = Number(d.base || 0);
-
-  const vidrio = Number(d.vidrio || 0);
-
-  const guia = incluirGuia ? Number(d.guia || 0) : 0;
-
-  const mosquitero = incluirMosquitero ? Number(d.mosquitero || 0) : 0;
-
-  // =========================
   // ITEMS
   // =========================
 
   const items = [];
 
-  items.push(crearItem("estructura", estructura));
+  items.push(crearItem("estructura", Number(d.base || 0)));
 
-  items.push(crearItem("vidrio", vidrio));
+  items.push(crearItem("vidrio", Number(d.vidrio || 0)));
 
-  if (guia) {
-    items.push(crearItem("guia", guia));
+  if (incluirGuia) {
+    items.push(crearItem("guia", Number(d.guia || 0)));
   }
 
-  if (mosquitero) {
-    items.push(crearItem("mosquitero", mosquitero));
+  if (incluirMosquitero) {
+    items.push(crearItem("mosquitero", Number(d.mosquitero || 0)));
   }
 
   // =========================
@@ -83,21 +73,16 @@ function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
   // =========================
 
   return {
-    estructura,
-
-    vidrio,
-
-    guia,
-
-    mosquitero,
-
-    subtotal: sumarItems(items),
+    costoBase: sumarItems(items),
 
     items,
 
-    descripcionBase: "Ventana herrero",
-
-    configuracion: {},
+    configuracion: {
+      linea: "herrero",
+      medida,
+      incluirGuia: !!incluirGuia,
+      incluirMosquitero: !!incluirMosquitero,
+    },
   };
 }
 
@@ -118,33 +103,21 @@ function calcularModena({
   }
 
   // =========================
-  // COMPONENTES
-  // =========================
-
-  const estructura = Number(d.base || 0);
-
-  const vidrio = Number(d.vidrios?.[tipoVidrio] || 0);
-
-  const guia = incluirGuia ? Number(d.guia || 0) : 0;
-
-  const mosquitero = incluirMosquitero ? Number(d.mosquitero || 0) : 0;
-
-  // =========================
   // ITEMS
   // =========================
 
   const items = [];
 
-  items.push(crearItem("estructura", estructura));
+  items.push(crearItem("estructura", Number(d.base || 0)));
 
-  items.push(crearItem("vidrio", vidrio));
+  items.push(crearItem("vidrio", Number(d.vidrios?.[tipoVidrio] || 0)));
 
-  if (guia) {
-    items.push(crearItem("guia", guia));
+  if (incluirGuia) {
+    items.push(crearItem("guia", Number(d.guia || 0)));
   }
 
-  if (mosquitero) {
-    items.push(crearItem("mosquitero", mosquitero));
+  if (incluirMosquitero) {
+    items.push(crearItem("mosquitero", Number(d.mosquitero || 0)));
   }
 
   // =========================
@@ -152,21 +125,17 @@ function calcularModena({
   // =========================
 
   return {
-    estructura,
-
-    vidrio,
-
-    guia,
-
-    mosquitero,
-
-    subtotal: sumarItems(items),
+    costoBase: sumarItems(items),
 
     items,
 
-    descripcionBase: "Ventana modena",
-
-    configuracion: {},
+    configuracion: {
+      linea: "modena",
+      medida,
+      tipoVidrio,
+      incluirGuia: !!incluirGuia,
+      incluirMosquitero: !!incluirMosquitero,
+    },
   };
 }
 

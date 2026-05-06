@@ -1,117 +1,248 @@
+// backend/tests/runner/runGenerators.js
+
 const fs = require("fs");
+
 const path = require("path");
+
 const { spawnSync } = require("child_process");
+
+// =========================
+// 🚨 START
+// =========================
 
 console.log("🚨 RUNNER EJECUTADO", new Date().toISOString());
 
-// 🛑 ANTI-LOOP GLOBAL
+// =========================
+// 🛑 ANTI LOOP
+// =========================
+
 if (process.env.RUNNER_ACTIVE === "true") {
   console.log("⛔ Runner ya activo → cancelado");
+
   process.exit(0);
 }
 
-// 🔧 PATH BASE
+// =========================
+// 🔧 PATHS
+// =========================
+
 const BASE_TESTS_DIR = path.resolve(__dirname, "..");
 
-// 📁 GENERATORS
 const GENERATORS_DIR = path.join(BASE_TESTS_DIR, "generators");
 
-// 📁 OUTPUT
-const OUTPUT_DIR = path.join(BASE_TESTS_DIR, "output");
+const OUTPUT_DIR = path.join(BASE_TESTS_DIR, "generated");
 
-// 🧹 LIMPIAR OUTPUT (🔥 IMPORTANTE)
+// =========================
+// 🧹 CLEAN OUTPUT
+// =========================
+
 if (fs.existsSync(OUTPUT_DIR)) {
-  fs.rmSync(OUTPUT_DIR, { recursive: true, force: true });
+  fs.rmSync(OUTPUT_DIR, {
+    recursive: true,
+    force: true,
+  });
 }
-fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-// 🎯 LISTA COMPLETA
-const archivosValidos = [
-  // 🏔 PATAGONICAS
+fs.mkdirSync(OUTPUT_DIR, {
+  recursive: true,
+});
+
+// =========================
+// 🎯 GENERATORS
+// =========================
+
+const generators = [
   "patagonicaHerrero.gen.js",
+
   "patagonicaModena.gen.js",
 
-  // 🧱 POSTIGONES
   "postigon.gen.js",
 
-  // 🚪 PUERTAS
   "puertas.gen.js",
+
   "puerta_y_media.gen.js",
 
-  // 🪵 PLACAS
   "puertaPlaca.gen.js",
 
-  // 🔳 RAJAS
   "rajasHerrero.gen.js",
+
   "rajasModena.gen.js",
 
-  // 🪟 VENTANAS
   "ventanaHerrero.gen.js",
+
   "ventanaModena.gen.js",
 
-  // 🧱 SUPERFICIES (🔥 AHORA UNIFICADO)
   "superficies.gen.js",
 
-  // 🚪 PORTONES
-  "portones.gen.js",
+  "mosquiteros.gen.js",
 ];
 
-// 🔍 ARMAR PATHS
-const generators = archivosValidos.map((file) =>
-  path.join(GENERATORS_DIR, file),
-);
-
+// =========================
 // 🔍 DEBUG
-console.log("🔧 Generators a ejecutar:");
-generators.forEach((g) => console.log(" -", path.basename(g)));
+// =========================
+
+console.log("\n🔧 Generators a ejecutar:\n");
+
+generators.forEach((g) => {
+  console.log(` - ${g}`);
+});
+
 console.log("");
 
+// =========================
 // 📊 TRACKING
-let errores = [];
+// =========================
+
+const errores = [];
+
 let ejecutados = 0;
 
-// 🚀 EJECUCIÓN
-generators.forEach((file) => {
-  const nombre = path.basename(file);
+// =========================
+// 🚀 EJECUCION
+// =========================
+
+generators.forEach((generatorName) => {
+  const file = path.join(GENERATORS_DIR, generatorName);
+
+  // =========================
+  // 🔍 EXISTE?
+  // =========================
 
   if (!fs.existsSync(file)) {
-    console.log(`⚠ NO EXISTE: ${nombre}`);
-    errores.push(nombre);
+    console.log(`⚠ NO EXISTE: ${generatorName}`);
+
+    errores.push({
+      generator: generatorName,
+
+      error: "Archivo no encontrado",
+
+      file,
+    });
+
     return;
   }
 
-  console.log(`▶ Ejecutando: ${nombre}`);
+  console.log(`▶ Ejecutando: ${generatorName}`);
+
+  // =========================
+  // 🚀 SPAWN
+  // =========================
 
   const result = spawnSync("node", [file], {
-    stdio: "inherit",
+    encoding: "utf-8",
+
+    maxBuffer: 1024 * 1024 * 100,
+
     env: {
       ...process.env,
-      OUTPUT_DIR: OUTPUT_DIR,
+
+      OUTPUT_DIR,
+
       RUNNER_ACTIVE: "true",
     },
   });
 
   ejecutados++;
 
-  if (result.status === 0) {
-    console.log(`✔ OK\n`);
-  } else {
-    console.log(`❌ ERROR en ${nombre}\n`);
-    errores.push(nombre);
+  // =========================
+  // 📤 STDOUT
+  // =========================
+
+  if (result.stdout) {
+    console.log(result.stdout);
   }
+
+  // =========================
+  // ❌ STDERR
+  // =========================
+
+  if (result.stderr) {
+    console.log(result.stderr);
+  }
+
+  // =========================
+  // ✅ OK
+  // =========================
+
+  if (result.status === 0) {
+    console.log("✔ OK\n");
+
+    return;
+  }
+
+  // =========================
+  // ❌ ERROR
+  // =========================
+
+  console.log(`❌ ERROR en ${generatorName}\n`);
+
+  errores.push({
+    generator: generatorName,
+
+    status: result.status,
+
+    signal: result.signal,
+
+    stdout: result.stdout,
+
+    stderr: result.stderr,
+
+    error: result.error ? result.error.message : `Exit code ${result.status}`,
+
+    file,
+  });
 });
 
-// 📊 RESUMEN FINAL
+// =========================
+// 📊 RESUMEN
+// =========================
+
 console.log("\n📊 RESUMEN FINAL");
+
 console.log(`Total definidos: ${generators.length}`);
+
 console.log(`Ejecutados: ${ejecutados}`);
+
 console.log(`OK: ${ejecutados - errores.length}`);
+
 console.log(`Errores: ${errores.length}`);
 
+// =========================
+// ❌ ERRORES
+// =========================
+
 if (errores.length) {
-  console.log("\n❌ FALLARON:");
-  errores.forEach((e) => console.log(" -", e));
+  console.log("\n❌ FALLARON:\n");
+
+  errores.forEach((e) => {
+    console.log(` - ${e.generator}`);
+
+    console.log(`   👉 ${e.error}`);
+  });
 }
 
+// =========================
+// 💾 SAVE ERROR REPORT
+// =========================
+
+const errorReportPath = path.join(OUTPUT_DIR, "errores.json");
+
+fs.writeFileSync(
+  errorReportPath,
+
+  JSON.stringify(errores, null, 2),
+);
+
+console.log(`\n📝 Error report: ${errorReportPath}`);
+
+// =========================
+// 📁 OUTPUT
+// =========================
+
 console.log(`\n📁 Output limpio: ${OUTPUT_DIR}`);
+
+// =========================
+// ✅ END
+// =========================
+
 console.log(`\n✅ RUN COMPLETO\n`);

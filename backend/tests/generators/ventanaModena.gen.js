@@ -1,7 +1,10 @@
+// backend/tests/generators/ventanaModena.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
-// 🔧 PATH HELPER
+// 🔧 PATH
 const { fromRoot } = require("../../utils/path");
 
 // 🧠 WRAPPER
@@ -12,79 +15,148 @@ const calcularVentanaModena = require(
 // 📦 DATA
 const data = require(fromRoot("frontend/data/productos/ventanas_modena.json"));
 
-// 🎯 CONFIG
+// =========================
+// ⚙ CONFIG
+// =========================
+
 const CONFIG = {
   colores: ["blanco", "negro", "bronce", "simil madera"],
+
   vidrios: ["3mm", "4mm", "5mm", "3+3", "dvh"],
-  perfil: "amarilla",
+
+  perfiles: ["amarilla"],
+
+  mosquiteros: [true, false],
+
+  premarcos: [true, false],
+
+  contramarcos: [true, false],
 };
 
+// =========================
 // 📦 RESULTADOS
-let resultados = [];
+// =========================
 
+const resultados = [];
+
+// =========================
 // 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+// =========================
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
+const outputDir = fromRoot("backend/tests/generated/ventanas");
 
 if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
 }
 
+// =========================
 // 🔍 HELPERS
+// =========================
+
 function getMedidas() {
   return Object.keys(data.medidas || {});
 }
 
-// 🔁 GENERADOR
-function generar() {
-  const { colores, vidrios, perfil } = CONFIG;
+// =========================
+// 🚀 GENERADOR
+// =========================
 
+function generar() {
   const medidas = getMedidas();
 
   medidas.forEach((medida) => {
     const [ancho, alto] = medida.split("x").map(Number);
 
-    colores.forEach((color) => {
-      vidrios.forEach((tipoVidrio) => {
-        const input = {
-          ancho,
-          alto,
-          color,
-          tipoVidrio,
-          perfil,
-        };
+    CONFIG.colores.forEach((color) => {
+      CONFIG.vidrios.forEach((tipoVidrio) => {
+        CONFIG.perfiles.forEach((perfil) => {
+          CONFIG.mosquiteros.forEach((mosquitero) => {
+            CONFIG.premarcos.forEach((premarco) => {
+              CONFIG.contramarcos.forEach((contramarco) => {
+                const input = {
+                  ancho,
 
-        try {
-          const result = calcularVentanaModena(input);
+                  alto,
 
-          resultados.push({ input, output: result });
+                  color,
 
-          console.log(
-            `✔ modena | ${medida} | ${color} | ${tipoVidrio} → $${result?.precioVenta}`,
-          );
-        } catch (err) {
-          resultados.push({ input, error: err.message });
+                  tipoVidrio,
 
-          console.log(`❌ modena | ${medida} | ${color} | ${tipoVidrio}`);
-          console.log("   👉", err.message);
-        }
+                  perfil,
+
+                  mosquitero,
+
+                  premarco,
+
+                  contramarco,
+                };
+
+                try {
+                  const output = calcularVentanaModena(input);
+
+                  resultados.push({
+                    ok: true,
+
+                    input,
+
+                    output,
+                  });
+
+                  console.log(
+                    `✔ modena | ${medida} | ${color} | ${tipoVidrio}`,
+                  );
+                } catch (error) {
+                  resultados.push({
+                    ok: false,
+
+                    input,
+
+                    error: error.message,
+                  });
+
+                  console.log(
+                    `❌ modena | ${medida} | ${color} | ${tipoVidrio}`,
+                  );
+
+                  console.log(`👉 ${error.message}`);
+                }
+              });
+            });
+          });
+        });
       });
     });
   });
 }
 
+// =========================
 // 🚀 RUN
+// =========================
+
 generar();
 
+// =========================
 // 💾 SAVE
-const nombreArchivo = `ventana_modena_${Date.now()}.json`;
+// =========================
+
+const fileName = `ventana_modena_${Date.now()}.json`;
+
+const outputPath = path.join(outputDir, fileName);
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
+  outputPath,
+
   JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Ventana Modena OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

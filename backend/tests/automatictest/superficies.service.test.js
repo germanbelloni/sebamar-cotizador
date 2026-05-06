@@ -1,3 +1,5 @@
+// backend/tests/automatictest/superficies.service.test.js
+
 const { fromRoot } = require("../../utils/path");
 
 const calcularSuperficie = require(
@@ -6,105 +8,111 @@ const calcularSuperficie = require(
 
 console.log("\n🧪 TEST SERVICE SUPERFICIES\n");
 
+// =========================
+// 🧪 CASOS
+// =========================
+
 const casos = [
   {
     nombre: "paño fijo base",
+
     input: {
       tipo: "pano_fijo",
+
       ancho: 100,
+
       alto: 100,
+
       linea: "herrero",
+
       tipoVidrio: "4mm",
     },
   },
+
   {
-    nombre: "paño fijo negro",
+    nombre: "paño fijo modena",
+
     input: {
       tipo: "pano_fijo",
-      ancho: 100,
+
+      ancho: 120,
+
       alto: 100,
-      linea: "herrero",
-      tipoVidrio: "4mm",
-      color: "negro",
+
+      linea: "modena",
+
+      tipoVidrio: "dvh",
     },
   },
+
   {
     nombre: "premarco",
+
     input: {
       tipo: "premarco",
+
       ancho: 100,
+
       alto: 100,
     },
   },
+
   {
-    nombre: "contramarco negro",
+    nombre: "contramarco",
+
     input: {
       tipo: "contramarco",
+
       ancho: 100,
+
       alto: 100,
-      color: "negro",
     },
   },
 ];
 
 // =========================
-// 🧠 VALIDADOR PRO
+// ✅ VALIDADOR
 // =========================
-function validar(res, input) {
+
+function validar(result, input) {
   const errores = [];
 
-  if (!res) errores.push("sin respuesta");
+  if (!result || typeof result !== "object") {
+    errores.push("response inválida");
 
-  if (typeof res.costo !== "number") {
-    errores.push("costo inválido");
+    return errores;
   }
 
-  if (res.costo <= 0) {
-    errores.push("costo <= 0");
+  if (typeof result.costoBase !== "number") {
+    errores.push("costoBase inválido");
   }
 
-  if (!res.detalle) {
-    errores.push("sin detalle");
+  if (result.costoBase <= 0) {
+    errores.push("costoBase <= 0");
   }
 
-  if (typeof res.detalle?.perfil !== "number") {
-    errores.push("detalle.perfil inválido");
-  }
-
-  if (typeof res.detalle?.vidrio !== "number") {
-    errores.push("detalle.vidrio inválido");
+  if (!Array.isArray(result.items)) {
+    errores.push("items inválidos");
   }
 
   // =========================
-  // REGLAS DE NEGOCIO
+  // REGLAS NEGOCIO
   // =========================
 
   if (input.tipo === "pano_fijo") {
-    if (res.detalle.vidrio <= 0) {
+    const tieneVidrio = result.items.some((i) => i.tipo === "vidrio");
+
+    if (!tieneVidrio) {
       errores.push("paño fijo sin vidrio");
     }
   }
 
-  if (input.tipo === "premarco") {
-    if (res.detalle.vidrio !== 0) {
-      errores.push("premarco no debería tener vidrio");
+  if (input.tipo === "premarco" || input.tipo === "contramarco") {
+    const tieneVidrio = result.items.some((i) => i.tipo === "vidrio");
+
+    if (tieneVidrio) {
+      errores.push("no debería tener vidrio");
     }
-  }
-
-  if (input.tipo === "contramarco") {
-    if (res.detalle.vidrio !== 0) {
-      errores.push("contramarco no debería tener vidrio");
-    }
-  }
-
-  // =========================
-  // CONSISTENCIA
-  // =========================
-
-  const suma = res.detalle.perfil + res.detalle.vidrio;
-
-  if (Math.abs(suma - res.costo) > 2) {
-    errores.push("costo no coincide con detalle");
   }
 
   return errores;
@@ -113,22 +121,28 @@ function validar(res, input) {
 // =========================
 // 🚀 RUN
 // =========================
+
 casos.forEach((t, i) => {
   try {
-    const r = calcularSuperficie(t.input);
+    const result = calcularSuperficie(t.input);
 
-    const errores = validar(r, t.input);
+    const errores = validar(result, t.input);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
+
       errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${t.nombre}`);
-      console.log("   👉 costo:", r.costo);
+
+      return;
     }
-  } catch (e) {
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉 costoBase:", result.costoBase);
+  } catch (error) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   👉", e.message);
+
+    console.log("   👉", error.message);
   }
 });
 

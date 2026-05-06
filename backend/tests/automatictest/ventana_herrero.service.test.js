@@ -1,75 +1,117 @@
+// backend/tests/automatictest/ventana_herrero.service.test.js
+
 const { fromRoot } = require("../../utils/path");
 
-const calcularRaja = require(fromRoot("services/rajas/calcularRaja"));
+const calcularVentana = require(fromRoot("services/ventanas/calcularVentana"));
 
-console.log("\n🧪 TEST SERVICE RAJA HERRERO\n");
+console.log("\n🧪 TEST SERVICE VENTANA HERRERO\n");
+
+// =========================
+// 🧪 CASOS
+// =========================
 
 const casos = [
   {
     nombre: "base 4mm",
+
     input: {
-      medida: "60x60",
-      tipoVidrio: "4mm",
+      medida: "120x100",
+
       linea: "herrero",
     },
   },
 
   {
-    nombre: "vidrio 3+3",
+    nombre: "con guia",
+
     input: {
-      medida: "60x60",
-      tipoVidrio: "3+3",
+      medida: "120x100",
+
       linea: "herrero",
+
+      incluirGuia: true,
+    },
+  },
+
+  {
+    nombre: "con mosquitero",
+
+    input: {
+      medida: "120x100",
+
+      linea: "herrero",
+
+      incluirMosquitero: true,
     },
   },
 ];
 
-function validar(res) {
+// =========================
+// ✅ VALIDADOR
+// =========================
+
+function validar(result) {
   const errores = [];
 
-  if (!res) {
+  if (!result || typeof result !== "object") {
     errores.push("sin respuesta");
+
     return errores;
   }
 
-  if (typeof res.estructura !== "number") {
-    errores.push("estructura inválida");
+  if (typeof result.costoBase !== "number") {
+    errores.push("costoBase inválido");
   }
 
-  if (typeof res.vidrio !== "number") {
-    errores.push("vidrio inválido");
+  if (result.costoBase <= 0) {
+    errores.push("costoBase <= 0");
   }
 
-  if (typeof res.subtotal !== "number") {
-    errores.push("subtotal inválido");
-  }
-
-  if (!Array.isArray(res.items)) {
+  if (!Array.isArray(result.items)) {
     errores.push("items inválidos");
+  }
+
+  const tieneEstructura = result.items.some((i) => i.tipo === "estructura");
+
+  if (!tieneEstructura) {
+    errores.push("falta estructura");
+  }
+
+  const tieneVidrio = result.items.some((i) => i.tipo === "vidrio");
+
+  if (!tieneVidrio) {
+    errores.push("falta vidrio");
   }
 
   return errores;
 }
 
+// =========================
+// 🚀 RUN
+// =========================
+
 casos.forEach((t, i) => {
   try {
-    const res = calcularRaja(t.input);
+    const result = calcularVentana(t.input);
 
-    const errores = validar(res);
+    const errores = validar(result);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
 
       errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+      return;
     }
-  } catch (err) {
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉 costoBase:", result.costoBase);
+  } catch (error) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
 
-    console.log("   -", err.message);
+    console.log("   -", error.message);
   }
 });
 
 console.log("\n✅ FIN TEST SERVICE\n");
-  

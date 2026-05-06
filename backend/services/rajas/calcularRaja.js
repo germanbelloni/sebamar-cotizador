@@ -1,3 +1,5 @@
+// backend/services/rajas/calcularRaja.js
+
 const fs = require("fs");
 
 const { fromRoot } = require("../../utils/path");
@@ -90,41 +92,43 @@ function calcularRaja(dataInput) {
   // COMPONENTES
   // =========================
 
-  const estructura = datos.base || 0;
+  const estructura = Number(datos.base || 0);
 
-  const vidrio =
-    calcularVidrio(datos, ancho, alto, tipoVidrio, superficies) || 0;
+  const vidrio = Number(
+    calcularVidrio(datos, ancho, alto, tipoVidrio, superficies) || 0,
+  );
 
   // =========================
   // ITEMS
   // =========================
 
-  const items = [
-    {
-      tipo: "estructura",
-      precio: estructura,
-    },
+  const items = [];
 
-    {
-      tipo: "vidrio",
-      descripcion: tipoVidrio,
-      precio: vidrio,
-    },
-  ];
+  items.push({
+    tipo: "estructura",
+    precio: estructura,
+  });
+
+  items.push({
+    tipo: "vidrio",
+    descripcion: tipoVidrio,
+    precio: vidrio,
+  });
 
   // =========================
   // RESPONSE
   // =========================
 
   return {
-    estructura,
-    vidrio,
-
-    subtotal: estructura + vidrio,
-
     costoBase: estructura + vidrio,
 
     items,
+
+    configuracion: {
+      medida,
+      tipoVidrio,
+      linea,
+    },
   };
 }
 

@@ -1,10 +1,13 @@
+// backend/tests/generators/ventanaHerrero.generator.js
+
 const fs = require("fs");
+
 const path = require("path");
 
-// 🔧 PATH HELPER
+// 🔧 PATH
 const { fromRoot } = require("../../utils/path");
 
-// 🧠 WRAPPER (NO SERVICE)
+// 🧠 WRAPPER
 const calcularVentanaHerrero = require(
   fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
 );
@@ -12,77 +15,154 @@ const calcularVentanaHerrero = require(
 // 📦 DATA
 const data = require(fromRoot("frontend/data/productos/ventanas_herrero.json"));
 
-// 🎯 CONFIG
+// =========================
+// ⚙ CONFIG
+// =========================
+
 const CONFIG = {
   colores: ["blanco", "negro", "bronce", "simil madera"],
-  perfil: "amarilla",
+
+  perfiles: ["amarilla"],
+
+  guias: [true, false],
+
+  mosquiteros: [true, false],
+
+  cortinas: [null, "pvc", "aluminio"],
+
+  cajonBlock: [true, false],
 };
 
+// =========================
 // 📦 RESULTADOS
-let resultados = [];
+// =========================
 
+const resultados = [];
+
+// =========================
 // 📁 OUTPUT
-const baseOutput =
-  process.env.OUTPUT_DIR || path.join(process.cwd(), "tests", "output");
+// =========================
 
-const folderName = path.basename(__filename).replace(".gen.js", "");
-const outputDir = path.join(baseOutput, folderName);
+const outputDir = fromRoot("backend/tests/generated/ventanas");
 
 if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
 }
 
+// =========================
 // 🔍 HELPERS
+// =========================
+
 function getMedidas() {
   return Object.keys(data.medidas || {});
 }
 
-// 🔁 GENERADOR
-function generar() {
-  const { colores, perfil } = CONFIG;
+// =========================
+// 🚀 GENERADOR
+// =========================
 
+function generar() {
   const medidas = getMedidas();
 
   medidas.forEach((medida) => {
-    const [ancho, alto] = medida.split("x").map(Number);
+    const partes = medida.split("x").map(Number);
 
-    colores.forEach((color) => {
-      const input = {
-        ancho,
-        alto,
-        color,
-        guia: true,
-        mosquitero: true,
-        perfil,
-      };
+    if (partes.length !== 2) {
+      return;
+    }
 
-      try {
-        const result = calcularVentanaHerrero(input);
+    const [ancho, alto] = partes;
 
-        resultados.push({ input, output: result });
+    if (!ancho || !alto) {
+      return;
+    }
 
-        console.log(
-          `✔ herrero | ${medida} | ${color} → $${result?.precioVenta} (costo: ${result?.costo})`,
-        );
-      } catch (err) {
-        resultados.push({ input, error: err.message });
+    CONFIG.colores.forEach((color) => {
+      CONFIG.perfiles.forEach((perfil) => {
+        CONFIG.guias.forEach((guia) => {
+          CONFIG.mosquiteros.forEach((mosquitero) => {
+            CONFIG.cortinas.forEach((cortina) => {
+              CONFIG.cajonBlock.forEach((cajonBlock) => {
+                const input = {
+                  ancho,
 
-        console.log(`❌ herrero | ${medida} | ${color}`);
-        console.log("   👉", err.message);
-      }
+                  alto,
+
+                  color,
+
+                  guia,
+
+                  mosquitero,
+
+                  cortina,
+
+                  cajonBlock,
+
+                  perfil,
+                };
+
+                try {
+                  const output = calcularVentanaHerrero(input);
+
+                  resultados.push({
+                    ok: true,
+
+                    input,
+
+                    output,
+                  });
+
+                  console.log(`✔ herrero | ${medida} | ${color}`);
+                } catch (error) {
+                  resultados.push({
+                    ok: false,
+
+                    input,
+
+                    error: error.message,
+                  });
+
+                  console.log(`❌ herrero | ${medida} | ${color}`);
+
+                  console.log(`👉 ${error.message}`);
+                }
+              });
+            });
+          });
+        });
+      });
     });
   });
 }
 
+// =========================
 // 🚀 RUN
+// =========================
+
 generar();
 
+// =========================
 // 💾 SAVE
-const nombreArchivo = `ventana_herrero_${Date.now()}.json`;
+// =========================
+
+const fileName = `ventana_herrero_${Date.now()}.json`;
+
+const outputPath = path.join(outputDir, fileName);
 
 fs.writeFileSync(
-  path.join(outputDir, nombreArchivo),
+  outputPath,
+
   JSON.stringify(resultados, null, 2),
 );
 
-console.log(`\n✅ JSON generado: ${nombreArchivo}`);
+// =========================
+// ✅ LOG
+// =========================
+
+console.log(`\n✅ Generator Ventana Herrero OK`);
+
+console.log(`📁 Archivo: ${outputPath}`);
+
+console.log(`📦 Casos generados: ${resultados.length}`);

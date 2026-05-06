@@ -1,24 +1,42 @@
 const { fromRoot } = require("../../utils/path");
 
-const calcularRaja = require(fromRoot("services/rajas/calcularRaja"));
+const calcular = require(fromRoot("wrappers/rajas/calcularRajaHerrero"));
 
-console.log("\n🧪 TEST SERVICE RAJA HERRERO\n");
+console.log("\n🧪 TEST WRAPPER RAJA HERRERO\n");
 
 const casos = [
   {
-    nombre: "base 4mm",
+    nombre: "base",
     input: {
-      medida: "60x60",
-      tipoVidrio: "4mm",
-      linea: "herrero",
+      ancho: 60,
+      alto: 60,
+      color: "blanco",
     },
   },
   {
-    nombre: "vidrio 3+3",
+    nombre: "con mosquitero",
     input: {
-      medida: "60x60",
-      tipoVidrio: "3+3",
-      linea: "herrero",
+      ancho: 60,
+      alto: 60,
+      color: "negro",
+      mosquitero: true,
+    },
+  },
+  {
+    nombre: "con premarco",
+    input: {
+      ancho: 60,
+      alto: 60,
+      color: "simil madera",
+      premarco: true,
+    },
+  },
+  {
+    nombre: "altura alta",
+    input: {
+      ancho: 60,
+      alto: 160,
+      color: "blanco",
     },
   },
 ];
@@ -26,14 +44,20 @@ const casos = [
 function validar(res) {
   const errores = [];
 
-  if (!res) errores.push("sin respuesta");
+  if (typeof res.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
+  }
 
-  if (typeof res.costoBase !== "number") {
-    errores.push("costoBase inválido");
+  if (typeof res.costo !== "number") {
+    errores.push("costo inválido");
   }
 
   if (!Array.isArray(res.items)) {
     errores.push("items inválidos");
+  }
+
+  if (res.ganancia !== res.precioVenta - res.costo) {
+    errores.push("ganancia mal calculada");
   }
 
   return errores;
@@ -41,7 +65,8 @@ function validar(res) {
 
 casos.forEach((t, i) => {
   try {
-    const res = calcularRaja(t.input);
+    const res = calcular(t.input);
+
     const errores = validar(res);
 
     if (errores.length) {
@@ -50,10 +75,10 @@ casos.forEach((t, i) => {
     } else {
       console.log(`✔️ [${i + 1}] ${t.nombre}`);
     }
-  } catch (err) {
+  } catch (e) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   -", err.message);
+    console.log("   -", e.message);
   }
 });
 
-console.log("\n✅ FIN TEST SERVICE\n");
+console.log("\n✅ FIN TEST WRAPPER\n");

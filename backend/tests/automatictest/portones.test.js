@@ -1,3 +1,5 @@
+// backend/tests/automatictest/portones.test.js
+
 const { fromRoot } = require("../../utils/path");
 
 const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
@@ -5,133 +7,180 @@ const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
 console.log("\n🧪 TEST WRAPPER PORTONES\n");
 
 // =========================
-// CASOS
+// 🧪 CASOS
 // =========================
+
 const casos = [
   {
     nombre: "portón base abrir",
+
     input: {
       ancho: 240,
+
       alto: 200,
+
       hojas: 3,
+
       tipo: "abrir",
+
       modelo: "modelo 4",
+
       linea: "herrero",
+
       color: "blanco",
+
       tipoVidrio: "4mm",
+
       apertura: "izquierda_izquierda",
     },
   },
+
   {
     nombre: "portón corredizo negro",
+
     input: {
       ancho: 300,
+
       alto: 210,
+
       hojas: 4,
+
       tipo: "corredizo",
+
       modelo: "modelo 4",
+
       linea: "modena",
+
       color: "negro",
+
       tipoVidrio: "4mm",
+
       apertura: "derecha_izquierda",
     },
   },
+
   {
-    nombre: "portón grande con recargo altura",
+    nombre: "portón grande",
+
     input: {
       ancho: 320,
+
       alto: 220,
+
       hojas: 4,
+
       tipo: "corredizo",
+
       modelo: "modelo 4",
+
       linea: "herrero",
+
       color: "blanco",
     },
   },
 ];
 
 // =========================
-// VALIDADOR PRO
+// ✅ VALIDADOR
 // =========================
-function validar(res, input) {
+
+function validar(result, input) {
   const errores = [];
 
   // =========================
-  // ESTRUCTURA
+  // RESPONSE
   // =========================
-  if (typeof res.precioVenta !== "number") {
-    errores.push("precioVenta inválido");
+
+  if (!result || typeof result !== "object") {
+    errores.push("response inválida");
+
+    return errores;
   }
 
-  if (typeof res.costo !== "number") {
+  // =========================
+  // NUMÉRICOS
+  // =========================
+
+  if (typeof result.costoBase !== "number") {
+    errores.push("costoBase inválido");
+  }
+
+  if (typeof result.costo !== "number") {
     errores.push("costo inválido");
   }
 
-  if (typeof res.ganancia !== "number") {
-    errores.push("ganancia inválida");
+  if (typeof result.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
   }
 
-  if (!Array.isArray(res.items)) {
-    errores.push("items no es array");
+  if (typeof result.ganancia !== "number") {
+    errores.push("ganancia inválida");
   }
 
   // =========================
   // ITEMS
   // =========================
-  if (res.items.length === 0) {
+
+  if (!Array.isArray(result.items)) {
+    errores.push("items inválidos");
+  }
+
+  if (result.items?.length === 0) {
     errores.push("sin items");
   }
 
-  const tieneBase = res.items.some((i) => i.tipo === "base");
+  const tieneBase = result.items?.some((i) => i.tipo === "base");
 
   if (!tieneBase) {
     errores.push("falta item base");
   }
 
   // =========================
-  // CONSISTENCIA NUMÉRICA
+  // CONSISTENCIA
   // =========================
-  if (res.precioVenta < res.costo) {
+
+  if (result.precioVenta < result.costo) {
     errores.push("venta menor a costo");
   }
 
-  if (res.ganancia !== res.precioVenta - res.costo) {
+  if (result.ganancia !== result.precioVenta - result.costo) {
     errores.push("ganancia inconsistente");
   }
 
   // =========================
   // CONFIG
   // =========================
-  if (!res.configuracion) {
+
+  if (!result.configuracion) {
     errores.push("sin configuracion");
   }
 
-  if (!res.configuracion?.ancho || !res.configuracion?.alto) {
+  if (!result.configuracion?.ancho || !result.configuracion?.alto) {
     errores.push("configuracion incompleta");
   }
 
   // =========================
-  // SVG (CLAVE FRONT)
+  // SVG
   // =========================
-  if (!res.configuracion?.svg) {
+
+  if (!result.configuracion?.svg) {
     errores.push("falta svg");
   } else {
-    if (!res.configuracion.svg.layout) {
+    if (!result.configuracion.svg.layout) {
       errores.push("svg sin layout");
     }
 
-    if (!res.configuracion.svg.svgKey) {
+    if (!result.configuracion.svg.svgKey) {
       errores.push("svg sin svgKey");
     }
   }
 
   // =========================
-  // REGLAS DE NEGOCIO
+  // HOJAS
   // =========================
 
-  // hojas coherentes
-  if (input.hojas && res.configuracion?.hojas) {
-    if (res.configuracion.hojas !== input.hojas) {
+  if (input.hojas && result.configuracion?.hojas) {
+    if (result.configuracion.hojas !== input.hojas) {
       errores.push("hojas no coinciden");
     }
   }
@@ -140,26 +189,34 @@ function validar(res, input) {
 }
 
 // =========================
-// RUN
+// 🚀 RUN
 // =========================
+
 casos.forEach((t, i) => {
   try {
-    const r = calcularPorton(t.input);
+    const result = calcularPorton(t.input);
 
-    const errores = validar(r, t.input);
+    const errores = validar(result, t.input);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
+
       errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${t.nombre}`);
-      console.log("   👉 venta:", r.precioVenta);
-      console.log("   👉 costo:", r.costo);
-      console.log("   👉 ganancia:", r.ganancia);
+
+      return;
     }
-  } catch (e) {
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉 venta:", result.precioVenta);
+
+    console.log("   👉 costo:", result.costo);
+
+    console.log("   👉 ganancia:", result.ganancia);
+  } catch (error) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   👉 ERROR:", e.message);
+
+    console.log("   👉 ERROR:", error.message);
   }
 });
 

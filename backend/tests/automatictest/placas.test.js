@@ -1,81 +1,124 @@
+// backend/tests/automatictest/placas.test.js
+
 const { fromRoot } = require("../../utils/path");
 
-const calcular = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
+const calcularPuertaPlaca = require(
+  fromRoot("wrappers/placas/calcularPuertaPlaca"),
+);
 
 console.log("\n🧪 TEST WRAPPER PLACAS\n");
+
+// =========================
+// 🧪 CASOS
+// =========================
 
 const casos = [
   {
     nombre: "base simple",
+
     input: {
       ancho: 80,
+
       alto: 200,
+
       tipo: "placa",
+
       modelo: "finger_pino",
+
       marco: "marco_10",
     },
   },
+
   {
     nombre: "con recargo ancho",
+
     input: {
       ancho: 90,
+
       alto: 200,
+
       tipo: "placa",
+
       modelo: "finger_pino",
+
       marco: "marco_10",
     },
   },
+
   {
     nombre: "con recargo alto",
+
     input: {
       ancho: 80,
+
       alto: 205,
+
       tipo: "placa",
+
       modelo: "finger_pino",
+
       marco: "marco_10",
     },
   },
+
   {
     nombre: "mano izquierda (svg)",
+
     input: {
       ancho: 80,
+
       alto: 200,
+
       tipo: "placa",
+
       modelo: "finger_pino",
+
       marco: "marco_10",
+
       mano: "izquierda",
     },
   },
 ];
 
 // =========================
-// 🧠 VALIDADOR
+// ✅ VALIDADOR
 // =========================
-function validar(res) {
+
+function validar(result) {
   const errores = [];
 
-  if (typeof res.precioVenta !== "number") {
-    errores.push("precioVenta inválido");
+  if (!result || typeof result !== "object") {
+    errores.push("response inválida");
+
+    return errores;
   }
 
-  if (typeof res.costo !== "number") {
+  if (typeof result.costoBase !== "number") {
+    errores.push("costoBase inválido");
+  }
+
+  if (typeof result.costo !== "number") {
     errores.push("costo inválido");
   }
 
-  if (typeof res.ganancia !== "number") {
+  if (typeof result.precioVenta !== "number") {
+    errores.push("precioVenta inválido");
+  }
+
+  if (typeof result.ganancia !== "number") {
     errores.push("ganancia inválida");
   }
 
-  if (!Array.isArray(res.items)) {
-    errores.push("items no es array");
+  if (!Array.isArray(result.items)) {
+    errores.push("items inválidos");
   }
 
-  if (!res.configuracion?.svg) {
+  if (!result.configuracion?.svg) {
     errores.push("falta svg");
   }
 
-  if (res.ganancia !== res.precioVenta - res.costo) {
-    errores.push("ganancia mal calculada");
+  if (result.ganancia !== result.precioVenta - result.costo) {
+    errores.push("ganancia inconsistente");
   }
 
   return errores;
@@ -84,21 +127,28 @@ function validar(res) {
 // =========================
 // 🚀 RUN
 // =========================
+
 casos.forEach((t, i) => {
   try {
-    const r = calcular(t.input);
+    const result = calcularPuertaPlaca(t.input);
 
-    const errores = validar(r);
+    const errores = validar(result);
 
     if (errores.length) {
       console.log(`❌ [${i + 1}] ${t.nombre}`);
+
       errores.forEach((e) => console.log("   -", e));
-    } else {
-      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+      return;
     }
-  } catch (e) {
+
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+    console.log("   👉 precioVenta:", result.precioVenta);
+  } catch (error) {
     console.log(`💥 [${i + 1}] ${t.nombre}`);
-    console.log("   -", e.message);
+
+    console.log("   -", error.message);
   }
 });
 

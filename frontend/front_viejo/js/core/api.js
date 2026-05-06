@@ -1,4 +1,4 @@
-import { CONFIG } from "../../config/config.js";
+import { CONFIG } from "../../../config/config.js";
 
 function getToken() {
   return localStorage.getItem("token");
