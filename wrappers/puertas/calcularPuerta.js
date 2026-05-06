@@ -4,27 +4,45 @@ const calcularPuertas = require(
   fromRoot("backend/services/puertas/calcularPuertas"),
 );
 
-const calcularRaja = require(fromRoot("backend/services/rajas/calcularRaja"));
-
-const calcularVentana = require(
-  fromRoot("backend/services/ventanas/calcularVentana"),
-);
-
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
 );
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
-// 💰 PERFIL
-function aplicarPerfil(costo, p) {
-  const proveedor = costo * (1 - p.descuento);
-  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+const colores = require(fromRoot("frontend/data/colores.json"));
 
-  return { proveedor, venta };
+// ========================
+// 🎨 COLOR
+// ========================
+
+function getColorFactor(color) {
+  const c = colores.find(
+    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
+  );
+
+  return c ? c.valor : 0;
 }
 
+// ========================
+// 💰 PERFIL
+// ========================
+
+function aplicarPerfil(costo, p) {
+  const proveedor = costo * (1 - p.descuento);
+
+  const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
+
+  return {
+    proveedor,
+    venta,
+  };
+}
+
+// ========================
 // 🚀 WRAPPER
+// ========================
+
 function calcularPuertaWrapper(dataInput) {
   if (!dataInput.medida && dataInput.ancho && dataInput.alto) {
     dataInput.medida = `${dataInput.ancho}x${dataInput.alto}`;
@@ -32,30 +50,47 @@ function calcularPuertaWrapper(dataInput) {
 
   const {
     perfil = "amarilla",
-    raja,
-    ventana,
     extras = {},
-    color,
+    color = "blanco",
     linea,
     tipo = "simple",
     modelo,
-    apertura, // 🔥 NUEVO
+    apertura,
+    hojas = 1,
   } = dataInput;
 
   // ========================
   // 🚪 BASE
   // ========================
+
   const base = calcularPuertas(dataInput);
 
-  let costo = base.costo || 0;
+  let costo = Number(base.costoBase || 0);
 
-  const items = [];
+  const items = [...base.items];
 
-  items.push({
-    tipo: "base",
-    descripcion: modelo,
-    precio: Math.round(costo),
-  });
+  // ========================
+  // 🎨 COLOR
+  // SOLO ESTRUCTURA
+  // ========================
+
+  const estructura = items
+    .filter((i) => i.tipo === "estructura")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const colorFactor = getColorFactor(color);
+
+  const costoColor = estructura * colorFactor;
+
+  if (costoColor > 0) {
+    costo += costoColor;
+
+    items.push({
+      tipo: "color",
+      descripcion: color,
+      precio: Math.round(costoColor),
+    });
+  }
 
   // ========================
   // ➕ EXTRAS
@@ -108,36 +143,83 @@ function calcularPuertaWrapper(dataInput) {
   }
 
   // ========================
+  // 🚪 HERRAJE CORREDIZO
+  // SOLO PORTONES 3+ HOJAS
+  // ========================
+
+  if (tipo === "corredizo" && Number(hojas) >= 3) {
+    const extra = superficies.herrajes?.corredizo || 0;
+
+    costo += extra;
+
+    items.push({
+      tipo: "herraje_corredizo",
+      precio: Math.round(extra),
+    });
+  }
+
+  // ========================
+  // 🚪 HERRAJE PLEGADIZO
+  // SOLO PORTONES 3+ HOJAS
+  // ========================
+
+  if (tipo === "plegadizo" && Number(hojas) >= 3) {
+    const extra = superficies.herrajes?.plegadizo || 0;
+
+    costo += extra;
+
+    items.push({
+      tipo: "herraje_plegadizo",
+      precio: Math.round(extra),
+    });
+  }
+
+  // ========================
   // 💰 PERFIL
   // ========================
+
   const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
   return {
-    costoBase: Math.round(base.costo),
+    costoBase: Math.round(base.costoBase),
+
     costo: Math.round(costo),
+
     precioProveedor: Math.round(proveedor),
+
     precioVenta: Math.round(venta),
+
     ganancia: Math.round(venta - costo),
 
-    items,
+    items: items.map((i) => ({
+      tipo: i.tipo,
+
+      descripcion: i.descripcion,
+
+      precio: Math.round(i.precio || 0),
+    })),
 
     descripcion: `Puerta ${linea} ${modelo}`,
 
     configuracion: {
       tipo,
-      hojas: base.hojas || 1,
+
+      hojas: base.configuracion?.hojas || hojas || 1,
+
       linea,
+
       color,
+
       modelo,
 
-      // 🔥 SVG READY
       svg: {
         tipo: "puerta",
+
         apertura: apertura || "derecha",
 
-        hojas: base.hojas || 1,
+        hojas: base.configuracion?.hojas || hojas || 1,
 
         manija: extras.manija
           ? {
@@ -147,9 +229,15 @@ function calcularPuertaWrapper(dataInput) {
           : null,
 
         barral: extras.barralRecto
-          ? { tipo: "recto", svgKey: "barral_recto" }
+          ? {
+              tipo: "recto",
+              svgKey: "barral_recto",
+            }
           : extras.barralCurvo
-            ? { tipo: "curvo", svgKey: "barral_curvo" }
+            ? {
+                tipo: "curvo",
+                svgKey: "barral_curvo",
+              }
             : null,
       },
     },

@@ -30,6 +30,13 @@ function calcularPuertaMosquitera(dataInput) {
     precioProveedor: Math.round(costo),
     precioVenta: Math.round(venta),
     ganancia: Math.round(venta - costo),
+    items: [
+      {
+        tipo: "estructura",
+        descripcion: `${ancho}x${alto}`,
+        precio: Math.round(base * m2),
+      },
+    ],
     descripcion: `Puerta mosquitera ${ancho}x${alto}`,
     configuracion: { ancho, alto },
   };

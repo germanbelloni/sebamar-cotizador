@@ -5,16 +5,26 @@ const service = require(
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
+
 const colores = require(fromRoot("frontend/data/colores.json"));
+
 const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
+// =========================
 // 🎨 COLOR
+// =========================
+
 function getColorFactor(color) {
   const c = colores.find(
     (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
   );
+
   return c ? c.valor : 0;
 }
+
+// =========================
+// 🚀 WRAPPER
+// =========================
 
 function calcularWrapper(data) {
   let {
@@ -23,17 +33,18 @@ function calcularWrapper(data) {
     alto,
     cantidadRajas = 1,
     tipoVidrio,
-    color,
+    color = "blanco",
     perfil = "amarilla",
     ladoApertura = "derecha",
     tipoApertura = "abrir",
   } = data;
-  console.log("INPUT PATAGONICA MODENA:", data);
 
   // =========================
-  // 📏 NORMALIZAR MEDIDAS
+  // 📏 NORMALIZAR
   // =========================
+
   let anchoFinal = ancho;
+
   let altoFinal = alto;
 
   if (medida && typeof medida === "string") {
@@ -50,6 +61,7 @@ function calcularWrapper(data) {
     }
 
     anchoFinal = partes[0];
+
     altoFinal = partes[1];
   }
 
@@ -62,80 +74,100 @@ function calcularWrapper(data) {
   // =========================
   // 🔧 TIPO
   // =========================
+
   const tipo = cantidadRajas === 2 ? "2_rajas" : "1_raja";
 
   // =========================
   // 🧠 SERVICE
   // =========================
+
   const base = service({
     tipo,
     medida: medidaFinal,
-    color,
     tipoVidrio,
   });
-
-  let costoBase = base.total;
-
-  const items = [
-    {
-      tipo: "base",
-      descripcion: `${tipo} ${medidaFinal}`,
-      precio: Math.round(costoBase),
-      costo: Math.round(costoBase),
-    },
-  ];
 
   // =========================
   // 🎨 COLOR
   // =========================
+
   const colorFactor = getColorFactor(color);
-  const costoColor = costoBase * colorFactor;
 
-  if (costoColor > 0) {
-    items.push({
-      tipo: "color",
-      descripcion: color,
-      precio: Math.round(costoColor),
-    });
-  }
+  const items = base.items.map((i) => {
+    let precio = i.precio;
 
-  let costoConExtras = costoBase + costoColor;
+    // SOLO estructura lleva color
+    if (i.tipo === "estructura") {
+      precio *= 1 + colorFactor;
+    }
+
+    return {
+      ...i,
+      precio: Math.round(precio),
+    };
+  });
+
+  // =========================
+  // 💰 COSTO BASE
+  // =========================
+
+  const costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
   // =========================
   // 💰 PERFIL
   // =========================
+
   const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  const costo = costoConExtras * (1 - perfilData.descuento);
+  const costo = costoBase * (1 - perfilData.descuento);
+
   const proveedor = costo * (1 + perfilData.flete);
+
   const venta = proveedor * (1 + perfilData.ganancia);
 
   // =========================
   // 🧠 CONFIG
   // =========================
+
   const configuracion = {
     ancho: anchoFinal,
+
     alto: altoFinal,
+
     medida: medidaFinal,
+
     cantidadRajas,
+
     tipo,
+
     color,
+
     tipoVidrio,
+
     svg: buildPatagonicaSVG({
       cantidadRajas,
+
       ladoApertura,
+
       tipoApertura,
     }),
   };
 
   return {
     costoBase: Math.round(costoBase),
+
     costo: Math.round(costo),
+
     precioProveedor: Math.round(proveedor),
+
     precioVenta: Math.round(venta),
+
     ganancia: Math.round(venta - costo),
+
     items,
+
     descripcion: `Patagónica Modena ${medidaFinal}`,
+
     configuracion,
   };
 }

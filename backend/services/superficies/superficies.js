@@ -5,6 +5,7 @@ const data = require(fromRoot("frontend/data/productos/superficies.json"));
 // ======================
 // 🎯 HELPERS
 // ======================
+
 function calcularPerimetro(ancho, alto) {
   return (ancho * 2 + alto * 2) / 100;
 }
@@ -16,15 +17,9 @@ function calcularM2(ancho, alto) {
 // ======================
 // 🧠 MAIN
 // ======================
+
 function calcularSuperficie(dataInput) {
-  const {
-    tipo, // pano_fijo | premarco | contramarco
-    ancho,
-    alto,
-    linea,
-    color = "blanco",
-    tipoVidrio,
-  } = dataInput;
+  const { tipo, ancho, alto, linea, tipoVidrio } = dataInput;
 
   if (!tipo || !ancho || !alto) {
     throw new Error("Faltan datos");
@@ -35,9 +30,12 @@ function calcularSuperficie(dataInput) {
   let costoPerfil = 0;
   let costoVidrio = 0;
 
+  const items = [];
+
   // ======================
   // 🪟 PAÑO FIJO
   // ======================
+
   if (tipo === "pano_fijo") {
     if (!linea || !tipoVidrio) {
       throw new Error("Faltan datos para paño fijo");
@@ -51,19 +49,27 @@ function calcularSuperficie(dataInput) {
 
     costoPerfil = perimetro * base;
 
-    // 🎨 COLOR (solo perfil)
-    if (color !== "blanco") {
-      const recargo = data.recargos[color];
-      if (!recargo) throw new Error(`Color inválido: ${color}`);
-      costoPerfil *= recargo;
+    const precioVidrio = data.vidrios[tipoVidrio];
+
+    if (!precioVidrio) {
+      throw new Error(`Vidrio inválido: ${tipoVidrio}`);
     }
 
-    // 🪟 VIDRIO
-    const precioVidrio = data.vidrios[tipoVidrio];
-    if (!precioVidrio) throw new Error(`Vidrio inválido: ${tipoVidrio}`);
-
     const m2 = calcularM2(ancho, alto);
+
     costoVidrio = m2 * precioVidrio;
+
+    items.push({
+      tipo: "estructura",
+      descripcion: linea,
+      precio: Math.round(costoPerfil),
+    });
+
+    items.push({
+      tipo: "vidrio",
+      descripcion: tipoVidrio,
+      precio: Math.round(costoVidrio),
+    });
   }
 
   // ======================
@@ -77,6 +83,12 @@ function calcularSuperficie(dataInput) {
     }
 
     costoPerfil = perimetro * base;
+
+    items.push({
+      tipo: "estructura",
+      descripcion: "premarco",
+      precio: Math.round(costoPerfil),
+    });
   }
 
   // ======================
@@ -91,12 +103,11 @@ function calcularSuperficie(dataInput) {
 
     costoPerfil = perimetro * base;
 
-    // 🎨 COLOR
-    if (color !== "blanco") {
-      const recargo = data.recargos[color];
-      if (!recargo) throw new Error(`Color inválido: ${color}`);
-      costoPerfil *= recargo;
-    }
+    items.push({
+      tipo: "estructura",
+      descripcion: "contramarco",
+      precio: Math.round(costoPerfil),
+    });
   }
 
   // ======================
@@ -106,13 +117,23 @@ function calcularSuperficie(dataInput) {
     throw new Error(`Tipo inválido: ${tipo}`);
   }
 
-  const costoTotal = costoPerfil + costoVidrio;
+  // ======================
+  // 💰 TOTAL
+  // ======================
+
+  const costoBase = costoPerfil + costoVidrio;
 
   return {
-    costo: Math.round(costoTotal),
-    detalle: {
-      perfil: Math.round(costoPerfil),
-      vidrio: Math.round(costoVidrio),
+    costoBase: Math.round(costoBase),
+
+    items,
+
+    configuracion: {
+      tipo,
+      ancho,
+      alto,
+      linea,
+      tipoVidrio,
     },
   };
 }

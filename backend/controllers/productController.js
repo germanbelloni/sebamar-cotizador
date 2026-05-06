@@ -8,7 +8,7 @@ const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPat
 
 const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
 
-const calcularPorton = require("../../wrappers/portones/calcularporton");
+const calcularPorton = require("../../wrappers/portones/calcularPorton");
 
 const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
 
@@ -52,6 +52,7 @@ function runCalculation(req, res, label, calculate) {
     console.log("PERFIL USADO:", data.perfil);
 
     const resultadoBase = calculate(data);
+    console.log("RESULTADO BASE:", resultadoBase);
 
     const resultadoFinal = aplicarGananciaCliente(resultadoBase, req.user);
 
@@ -62,7 +63,7 @@ function runCalculation(req, res, label, calculate) {
 
       delete resultadoFinal.gananciaCliente;
     }
-
+    console.log("RESULTADO FINAL:", resultadoFinal);
     return res.json(resultadoFinal);
   } catch (error) {
     console.log(`ERROR ${label}:`, error.message);

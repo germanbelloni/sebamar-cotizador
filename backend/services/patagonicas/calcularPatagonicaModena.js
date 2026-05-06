@@ -1,7 +1,5 @@
 const { fromRoot } = require("../../utils/path");
 
-const colores = require(fromRoot("frontend/data/colores.json"));
-
 const superficies = require(
   fromRoot("frontend/data/productos/superficies.json"),
 );
@@ -9,18 +7,6 @@ const superficies = require(
 const data = require(
   fromRoot("frontend/data/productos/patagonicas_modena.json"),
 );
-
-// =========================
-// 🎨 COLOR
-// =========================
-
-function getColorValor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-
-  return c ? c.valor : 0;
-}
 
 // =========================
 // 📏 NORMALIZAR
@@ -80,7 +66,7 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
 // =========================
 
 function calcularPatagonicaModena(dataInput) {
-  const { tipo, medida, color, tipoVidrio } = dataInput;
+  const { tipo, medida, tipoVidrio } = dataInput;
 
   if (!tipo) {
     throw new Error("Falta tipo");
@@ -97,14 +83,10 @@ function calcularPatagonicaModena(dataInput) {
   const [ancho, alto] = medidaKey.split("x").map(Number);
 
   // =========================
-  // 🎨 ESTRUCTURA
+  // 🪟 ESTRUCTURA
   // =========================
 
-  const estructuraBase = datos.base || 0;
-
-  const colorFactor = getColorValor(color);
-
-  const estructura = estructuraBase * (1 + colorFactor);
+  const estructura = datos.base || 0;
 
   // =========================
   // 🪟 VIDRIO

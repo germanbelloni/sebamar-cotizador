@@ -1,105 +1,151 @@
 const { fromRoot } = require("../../backend/utils/path");
 
-const service = require(
-  fromRoot("services/patagonicas/calcularPatagonicaHerrero"),
+const calcularRajaHerrero = require(
+  fromRoot("wrappers/rajas/calcularRajaHerrero"),
+);
+
+const calcularSuperficie = require(
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
-const colores = require(fromRoot("frontend/data/colores.json"));
 
-// 🎨
-function getColorFactor(color) {
-  const c = colores.find(
-    (x) => x.nombre.toLowerCase().trim() === (color || "").toLowerCase().trim(),
-  );
-  return c ? c.valor : 0;
-}
+const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
-// 🧠 SVG
-function buildPatagonicaSVG({ cantidadRajas, ladoApertura, tipoApertura }) {
-  if (cantidadRajas === 2) {
-    return {
-      tipo: "patagonica",
-      layout: ["bisagra_izq", "pano_fijo", "bisagra_der"],
-      apertura: tipoApertura,
-    };
-  }
-
-  if (ladoApertura === "izquierda") {
-    return {
-      tipo: "patagonica",
-      layout: ["bisagra_izq", "pano_fijo"],
-      apertura: tipoApertura,
-    };
-  }
-
-  return {
-    tipo: "patagonica",
-    layout: ["pano_fijo", "bisagra_der"],
-    apertura: tipoApertura,
-  };
-}
+// =========================
+// 🚀 WRAPPER
+// =========================
 
 function calcularWrapper(data) {
   const {
     medidaTotal,
     tipo,
-    raja,
-    color,
+    color = "blanco",
     perfil = "amarilla",
     ladoApertura = "derecha",
     tipoApertura = "abrir",
+    raja,
   } = data;
 
-  const base = service(data);
+  if (!medidaTotal) {
+    throw new Error("Falta medida");
+  }
 
-  let costoBase = base.total;
+  const [ancho, alto] = medidaTotal.split("x").map(Number);
 
-  const items = [
-    {
-      tipo: "estructura",
-      descripcion: tipo,
-      precio: Math.round(costoBase),
-      costo: Math.round(costoBase),
-    },
-  ];
+  // =========================
+  // CONFIGURACION
+  // =========================
 
-  // 🎨 COLOR
-  const colorFactor = getColorFactor(color);
-  const costoColor = costoBase * colorFactor;
+  const cantidadRajas = tipo === "2_rajas" ? 2 : 1;
 
-  if (costoColor > 0) {
+  const anchoRaja = raja?.ancho || 50;
+
+  const anchoTotalRajas = anchoRaja * cantidadRajas;
+
+  const anchoFijo = ancho - anchoTotalRajas;
+
+  if (anchoFijo <= 0) {
+    throw new Error("Ancho fijo inválido");
+  }
+
+  // =========================
+  // 🪟 RAJAS
+  // =========================
+
+  let totalRajas = 0;
+
+  let items = [];
+
+  for (let i = 0; i < cantidadRajas; i++) {
+    const r = calcularRajaHerrero({
+      ancho: anchoRaja,
+      alto,
+      color,
+      tipoVidrio: raja?.tipoVidrio || "4mm",
+    });
+
+    totalRajas += r.costoBase;
+
     items.push({
-      tipo: "color",
-      descripcion: color,
-      precio: Math.round(costoColor),
+      tipo: "raja",
+      precio: r.costoBase,
     });
   }
 
-  let costoConExtras = costoBase + costoColor;
+  // =========================
+  // 🪟 PAÑO FIJO
+  // =========================
 
-  // 💰 PERFIL
+  const fijo = calcularSuperficie({
+    tipo: "pano_fijo",
+    ancho: anchoFijo,
+    alto,
+    linea: "herrero",
+    color,
+    tipoVidrio: raja?.tipoVidrio || "4mm",
+    perfil,
+  });
+
+  items.push({
+    tipo: "pano_fijo",
+    precio: fijo.costoBase,
+  });
+
+  // =========================
+  // 💰 TOTAL
+  // =========================
+
+  const costoBase = totalRajas + fijo.costoBase;
+
   const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
 
-  const costo = costoConExtras * (1 - perfilData.descuento);
+  const costo = costoBase * (1 - perfilData.descuento);
+
   const proveedor = costo * (1 + perfilData.flete);
+
   const venta = proveedor * (1 + perfilData.ganancia);
+
+  // =========================
+  // ✅ RESPONSE
+  // =========================
 
   return {
     costoBase: Math.round(costoBase),
+
     costo: Math.round(costo),
+
     precioProveedor: Math.round(proveedor),
+
     precioVenta: Math.round(venta),
+
     ganancia: Math.round(venta - costo),
-    items,
+
+    items: items.map((i) => ({
+      tipo: i.tipo,
+      precio: Math.round(i.precio || 0),
+    })),
+
     descripcion: `Patagónica Herrero ${medidaTotal}`,
+
     configuracion: {
       medidaTotal,
+
       tipo,
+
       color,
+
+      cantidadRajas,
+
+      anchoRaja,
+
+      anchoFijo,
+
       svg: buildPatagonicaSVG({
-        cantidadRajas: tipo === "2_rajas" ? 2 : 1,
+        cantidadRajas,
+
         ladoApertura,
+
         tipoApertura,
       }),
     },

@@ -1,9 +1,11 @@
 const { fromRoot } = require("../../backend/utils/path");
 
-const calcularPuertas = require(fromRoot("services/puertas/calcularPuertas"));
+const calcularPuertaWrapper = require(
+  fromRoot("wrappers/puertas/calcularPuerta"),
+);
 
 function calcularPuertaEco(dataInput) {
-  return calcularPuertas({
+  return calcularPuertaWrapper({
     ...dataInput,
     linea: "eco",
   });

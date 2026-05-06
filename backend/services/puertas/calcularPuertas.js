@@ -1,6 +1,12 @@
 const { fromRoot } = require("../../utils/path");
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const superficies = require(
+  fromRoot("frontend/data/productos/superficies.json"),
+);
+
+// ========================
+// 🧠 HELPERS
+// ========================
 
 function normalizar(txt) {
   return txt?.toString().toLowerCase().trim();
@@ -12,10 +18,57 @@ function buscarModelo(obj, nombre) {
   )?.[1];
 }
 
-function getColorFactor(color) {
-  const c = colores.find((x) => normalizar(x.nombre) === normalizar(color));
-  return c ? c.valor : 0;
+// ========================
+// 🪟 VIDRIOS
+// ========================
+
+function calcularVidrio(producto, tipoVidrio) {
+  if (!tipoVidrio) {
+    return 0;
+  }
+
+  // ========================
+  // DVH CLÁSICO
+  // ========================
+
+  if (tipoVidrio === "dvh") {
+    const vidrio4 = producto.vidrios?.["4mm"] || 0;
+
+    const camara = producto.camara || 0;
+
+    return vidrio4 * 2 + camara;
+  }
+
+  // ========================
+  // DVH 5+9+5
+  // ========================
+
+  if (tipoVidrio === "dvh_5_9_5") {
+    const vidrio5 = superficies.vidrios?.["5mm"] || 0;
+
+    const camara = superficies.vidrios?.["dvh"] || 0;
+
+    return vidrio5 * 2 + camara;
+  }
+
+  // ========================
+  // LAMINADO
+  // ========================
+
+  if (tipoVidrio === "4+4") {
+    return superficies.vidrios?.["4+4"] || 0;
+  }
+
+  // ========================
+  // STANDARD
+  // ========================
+
+  return producto.vidrios?.[tipoVidrio] || 0;
 }
+
+// ========================
+// 🚀 MAIN
+// ========================
 
 function calcularPuertas(dataInput) {
   const {
@@ -24,8 +77,6 @@ function calcularPuertas(dataInput) {
     modelo,
     modeloPuerta,
     modeloMedia,
-    medida,
-    color,
     tipoVidrio,
   } = dataInput;
 
@@ -34,74 +85,112 @@ function calcularPuertas(dataInput) {
   );
 
   const items = [];
-  let baseSolo = 0;
+
+  let estructura = 0;
+
   let vidrioTotal = 0;
+
   let hojas = tipo === "doble" ? 2 : 1;
+
+  // ========================
+  // 🚪 PUERTA Y MEDIA
+  // ========================
 
   if (tipo === "puerta_y_media") {
     const puerta = buscarModelo(data.modelos, modeloPuerta);
+
     const media = buscarModelo(data.modelos, modeloMedia);
 
     if (!puerta || !media) {
       throw new Error("Modelo puerta/media inválido");
     }
 
-    baseSolo += puerta.base + media.base;
+    estructura += puerta.base + media.base;
 
-    const v1 = puerta.vidrios?.[tipoVidrio] || 0;
-    const v2 = media.vidrios?.[tipoVidrio] || 0;
+    const v1 = calcularVidrio(puerta, tipoVidrio);
+
+    const v2 = calcularVidrio(media, tipoVidrio);
 
     vidrioTotal += v1 + v2;
 
     items.push(
-      { tipo: "base", descripcion: modeloPuerta, precio: puerta.base },
-      { tipo: "vidrio", descripcion: tipoVidrio, precio: v1 },
-      { tipo: "base", descripcion: modeloMedia, precio: media.base },
-      { tipo: "vidrio", descripcion: tipoVidrio, precio: v2 },
-    );
+      {
+        tipo: "estructura",
+        descripcion: modeloPuerta,
+        precio: Math.round(puerta.base),
+      },
 
-    hojas = 2;
-  } else {
-    const producto = buscarModelo(data.modelos, modelo);
-
-    if (!producto) throw new Error("Modelo no encontrado");
-
-    baseSolo = producto.base * hojas;
-    vidrioTotal = (producto.vidrios?.[tipoVidrio] || 0) * hojas;
-
-    items.push(
-      { tipo: "base", descripcion: modelo, precio: producto.base },
       {
         tipo: "vidrio",
         descripcion: tipoVidrio,
-        precio: producto.vidrios?.[tipoVidrio] || 0,
+        precio: Math.round(v1),
+      },
+
+      {
+        tipo: "estructura",
+        descripcion: modeloMedia,
+        precio: Math.round(media.base),
+      },
+
+      {
+        tipo: "vidrio",
+        descripcion: tipoVidrio,
+        precio: Math.round(v2),
+      },
+    );
+
+    hojas = 2;
+  }
+
+  // ========================
+  // 🚪 SIMPLE / DOBLE
+  // ========================
+  else {
+    const producto = buscarModelo(data.modelos, modelo);
+
+    if (!producto) {
+      throw new Error("Modelo no encontrado");
+    }
+
+    estructura = producto.base * hojas;
+
+    vidrioTotal = calcularVidrio(producto, tipoVidrio) * hojas;
+
+    items.push(
+      {
+        tipo: "estructura",
+        descripcion: modelo,
+        precio: Math.round(estructura),
+      },
+
+      {
+        tipo: "vidrio",
+        descripcion: tipoVidrio,
+        precio: Math.round(vidrioTotal),
       },
     );
   }
 
-  // COLOR SOLO SOBRE BASE
-  const colorFactor = getColorFactor(color);
-  const costoColor = baseSolo * colorFactor;
+  // ========================
+  // 💰 TOTAL
+  // ========================
 
-  if (costoColor > 0) {
-    items.push({
-      tipo: "color",
-      descripcion: color,
-      precio: Math.round(costoColor),
-    });
-  }
-
-  const costoBase = baseSolo + vidrioTotal + costoColor;
+  const costoBase = estructura + vidrioTotal;
 
   return {
     costoBase: Math.round(costoBase),
+
     items,
+
     descripcionBase: `Puerta ${linea}`,
+
     configuracion: {
       tipo,
+
       hojas,
+
       linea,
-      color,
+
       tipoVidrio,
     },
   };

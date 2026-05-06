@@ -2,6 +2,10 @@ const { fromRoot } = require("../../utils/path");
 
 const data = require(fromRoot("frontend/data/productos/postigones.json"));
 
+// =========================
+// 🚀 SERVICE
+// =========================
+
 function calcularPostigon(dataInput) {
   const { medida, tipo } = dataInput;
 
@@ -11,31 +15,34 @@ function calcularPostigon(dataInput) {
     throw new Error("Medida no encontrada");
   }
 
-  let base = 0;
+  let estructura = 0;
 
   if (tipo === "corredizo") {
-    base = datos.corredizo || 0;
+    estructura = datos.corredizo || 0;
   } else if (tipo === "abrir") {
-    base = datos.de_abrir || 0;
+    estructura = datos.de_abrir || 0;
   } else {
     throw new Error("Tipo inválido");
   }
 
   const items = [
     {
-      tipo: "base",
+      tipo: "estructura",
       descripcion: `${tipo} ${medida}`,
-      precio: base,
-      costo: base,
+      precio: Math.round(estructura),
     },
   ];
 
   return {
-    costoBase: base,
+    costoBase: Math.round(estructura),
+
     items,
+
     configuracion: {
       hojasBase: datos.hojas || 2,
+
       tipo,
+
       medida,
     },
   };

@@ -1,12 +1,18 @@
 function aplicarGananciaCliente(resultado, user) {
-  if (!user || !user.margen) return resultado;
+  if (!user || !user.margen) {
+    return resultado;
+  }
 
   const margen = user.margen;
 
+  const base = resultado.precioVenta || resultado.total || 0;
+
   return {
     ...resultado,
-    total: resultado.total * (1 + margen),
-    gananciaCliente: resultado.total * margen,
+
+    total: Math.round(base * (1 + margen)),
+
+    gananciaCliente: Math.round(base * margen),
   };
 }
 

@@ -13,6 +13,7 @@ router.use(auth);
 // =========================
 router.post("/puertas", productController.puertas);
 router.post("/puertas/eco", productController.puertasEco);
+router.post("/portones", productController.portones);
 
 // =========================
 // 🪵 PLACAS

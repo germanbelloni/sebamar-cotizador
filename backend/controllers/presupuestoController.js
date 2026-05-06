@@ -22,7 +22,7 @@ const calcularPostigones = require("../../wrappers/postigones/calcularPostigones
 const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
 const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
 
-const calcularPorton = require("../../wrappers/portones/calcularporton");
+const calcularPorton = require("../../wrappers/portones/calcularPorton");
 
 const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
 
