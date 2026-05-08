@@ -5,61 +5,104 @@ type Props = {
   ancho: number;
   alto: number;
 
-  medidaAncho: number;
-  medidaAlto: number;
+  anchoReal: number;
+  altoReal: number;
 };
 
-export function Cotas({
-  left,
-  top,
-  ancho,
-  alto,
-  medidaAncho,
-  medidaAlto,
-}: Props) {
+export function Cotas({ left, top, ancho, alto, anchoReal, altoReal }: Props) {
+  const offset = Math.max(55, ancho * 0.16);
+
   return (
     <>
-      {/* ANCHO */}
+      {/* COTA ANCHO */}
 
       <line
         x1={left}
-        y1={top + alto + 70}
+        y1={top + alto + offset}
         x2={left + ancho}
-        y2={top + alto + 70}
+        y2={top + alto + offset}
         stroke="#71717A"
         strokeWidth={1.5}
       />
 
+      {/* FLECHA IZQ */}
+
+      <polygon
+        points={`
+          ${left + 8},${top + alto + offset - 4}
+          ${left},${top + alto + offset}
+          ${left + 8},${top + alto + offset + 4}
+        `}
+        fill="#A1A1AA"
+      />
+
+      {/* FLECHA DER */}
+
+      <polygon
+        points={`
+          ${left + ancho - 8},${top + alto + offset - 4}
+          ${left + ancho},${top + alto + offset}
+          ${left + ancho - 8},${top + alto + offset + 4}
+        `}
+        fill="#A1A1AA"
+      />
+
+      {/* TEXTO */}
+
       <text
         x={left + ancho / 2}
-        y={top + alto + 65}
+        y={top + alto + offset - 6}
         textAnchor="middle"
         fill="#A1A1AA"
         fontSize="14"
       >
-        {medidaAncho} cm
+        {anchoReal} cm
       </text>
 
-      {/* ALTO */}
+      {/* COTA ALTO */}
 
       <line
-        x1={left - 70}
+        x1={left - offset}
         y1={top}
-        x2={left - 70}
+        x2={left - offset}
         y2={top + alto}
         stroke="#71717A"
         strokeWidth={1.5}
       />
 
+      {/* FLECHA ARRIBA */}
+
+      <polygon
+        points={`
+          ${left - offset - 4},${top + 8}
+          ${left - offset},${top}
+          ${left - offset + 4},${top + 8}
+        `}
+        fill="#A1A1AA"
+      />
+
+      {/* FLECHA ABAJO */}
+
+      <polygon
+        points={`
+          ${left - offset - 4},${top + alto - 8}
+          ${left - offset},${top + alto}
+          ${left - offset + 4},${top + alto - 8}
+        `}
+        fill="#A1A1AA"
+      />
+
+      {/* TEXTO */}
+
       <text
-        x={left - 85}
-        y={250}
+        x={left - offset - 15}
+        y={top + alto / 2}
         textAnchor="middle"
         fill="#A1A1AA"
         fontSize="14"
-        transform={`rotate(-90 ${left - 85} 250)`}
+        transform={`rotate(-90 ${left - offset - 15} ${top + alto / 2})`}
       >
-        {medidaAlto} cm
+        {altoReal} cm
       </text>
     </>
   );

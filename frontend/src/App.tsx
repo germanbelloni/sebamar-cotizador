@@ -7,10 +7,10 @@ import { Sidebar } from "@/layouts/components/Sidebar";
 import { VentanaConfigForm } from "@/features/ventanas/components/VentanaConfigForm";
 import { VentanaPreview } from "@/features/ventanas/components/VentanaPreview";
 
-import type { VentanaHerreroConfig } from "@/features/ventanas/types";
+import type { VentanaConfig, VentanaItem } from "@/features/ventanas/types";
 
 function App() {
-  const [config, setConfig] = useState<VentanaHerreroConfig>({
+  const [config, setConfig] = useState<VentanaConfig>({
     ancho: 120,
 
     alto: 150,
@@ -34,6 +34,8 @@ function App() {
     contramarco: false,
   });
 
+  const [items, setItems] = useState<VentanaItem[]>([]);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div className="flex h-screen">
@@ -43,13 +45,17 @@ function App() {
           <Header />
 
           <div className="grid grid-cols-2 gap-6 p-6">
-            <VentanaConfigForm config={config} setConfig={setConfig} />
+            <VentanaConfigForm
+              config={config}
+              setConfig={setConfig}
+              setItems={setItems}
+            />
 
             <VentanaPreview config={config} />
           </div>
         </main>
 
-        <BudgetPanel />
+        <BudgetPanel items={items} setItems={setItems} />
       </div>
     </div>
   );

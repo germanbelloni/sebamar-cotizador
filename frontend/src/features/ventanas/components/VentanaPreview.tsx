@@ -1,4 +1,4 @@
-import type { VentanaHerreroConfig } from "../types";
+import type { VentanaConfig } from "../types";
 
 import { Guide } from "../svg/Guide";
 import { CortinaPVC } from "../svg/CortinaPVC";
@@ -13,9 +13,10 @@ import { Mosquitero } from "../svg/Mosquitero";
 import { Cierres } from "../svg/Cierres";
 import { Cotas } from "../svg/Cotas";
 import { RielInferior } from "../svg/RielInferior";
+import { RielSuperior } from "../svg/RielSuperior";
 
 type Props = {
-  config: VentanaHerreroConfig;
+  config: VentanaConfig;
 };
 export function VentanaPreview({ config }: Props) {
   const maxSize = 260;
@@ -59,8 +60,39 @@ export function VentanaPreview({ config }: Props) {
         </span>
       </div>
 
-      <div className="mt-6 flex h-[500px] items-center justify-center rounded-2xl border border-border bg-zinc-950 p-6 transition-all duration-300">
-        <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
+      <div
+        className="
+        relative overflow-hidden
+        mt-6 flex h-[500px]
+        items-center justify-center
+        rounded-2xl
+        border border-white/5
+        bg-gradient-to-b
+        from-zinc-950
+        via-zinc-900
+        to-black
+        p-6
+        transition-all duration-300
+      "
+      >
+        {/* GLOW CENTRAL */}
+
+        <div
+          className="
+          absolute h-[420px] w-[420px]
+          rounded-full
+          bg-white/[0.015]
+          blur-3xl
+        "
+        />
+
+        <svg
+          width="500"
+          height="500"
+          viewBox="0 0 500 500"
+          fill="none"
+          className="drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
+        >
           <defs>
             <pattern
               id="mosquiteroPattern"
@@ -80,12 +112,35 @@ export function VentanaPreview({ config }: Props) {
 
               <stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
             </linearGradient>
-          </defs>
 
+            {/* GRADIENT ALUMINIO */}
+
+            <linearGradient
+              id="aluminumGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+
+              <stop offset="20%" stopColor="rgba(255,255,255,0.10)" />
+
+              <stop offset="50%" stopColor="rgba(0,0,0,0.10)" />
+
+              <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
+            </linearGradient>
+          </defs>
           {/* GUIA */}
 
           {config.guia && (
-            <Guide left={left} top={top} ancho={ancho} alto={alto} />
+            <Guide
+              left={left}
+              top={top}
+              ancho={ancho}
+              alto={alto}
+              tieneCortina={config.cortinaPVC || config.cortinaAluminio}
+            />
           )}
 
           {/* CORTINA PVC */}
@@ -120,6 +175,13 @@ export function VentanaPreview({ config }: Props) {
             alto={alto}
             color={aluminioColor}
             frameWidth={frameWidth}
+          />
+          <RielSuperior
+            left={left}
+            top={top}
+            ancho={ancho}
+            color={aluminioColor}
+            esHerrero={esHerrero}
           />
 
           <RielInferior
@@ -156,6 +218,7 @@ export function VentanaPreview({ config }: Props) {
             width={esHerrero ? 8 : 4}
             height={alto}
             fill={aluminioColor}
+            stroke="url(#aluminumGradient)"
           />
 
           {/* SOMBRA */}
@@ -201,7 +264,12 @@ export function VentanaPreview({ config }: Props) {
 
           {/* CIERRES */}
 
-          <Cierres centerX={centerX} ancho={ancho} esHerrero={esHerrero} />
+          <Cierres
+            centerX={centerX}
+            centerY={top + alto / 2}
+            ancho={ancho}
+            esHerrero={esHerrero}
+          />
 
           {/* COTAS */}
 
@@ -210,8 +278,8 @@ export function VentanaPreview({ config }: Props) {
             top={top}
             ancho={ancho}
             alto={alto}
-            medidaAncho={config.ancho}
-            medidaAlto={config.alto}
+            anchoReal={config.ancho}
+            altoReal={config.alto}
           />
         </svg>
       </div>
@@ -227,20 +295,17 @@ export function VentanaPreview({ config }: Props) {
           <div className="text-base font-medium text-foreground">
             {config.ancho} × {config.alto} cm
           </div>
+        </div>
 
-          {(config.cajonBlock || config.cortinaPVC) && (
-            <div className="mt-2 space-y-1 text-xs text-muted-foreground">
-              {config.cajonBlock && (
-                <>
-                  <div>+8 cm ancho cajón block</div>
-
-                  <div>+20 cm alto cajón block</div>
-                </>
-              )}
-
-              {config.cortinaPVC && <div>+17 cm PVC</div>}
-            </div>
-          )}
+        <div className="mt-2 text-xs text-muted-foreground">
+          Ventana {config.ancho}x{config.alto} {config.linea} {config.color}
+          {config.guia && " c/guía"}
+          {config.mosquitero && " c/mosq"}
+          {config.cajonBlock && " c/cajón block"}
+          {config.cortinaPVC && " PVC"}
+          {config.cortinaAluminio && " cortina aluminio"}
+          {config.premarco && " c/premarco"}
+          {config.contramarco && " c/contramarco"} vidrio 4mm
         </div>
       </div>
     </div>

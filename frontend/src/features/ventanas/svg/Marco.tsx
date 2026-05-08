@@ -13,6 +13,19 @@ type Props = {
 export function Marco({ left, top, ancho, alto, color, frameWidth }: Props) {
   return (
     <>
+      {/* SOMBRA EXTERIOR */}
+
+      <rect
+        x={left + 2}
+        y={top + 4}
+        width={ancho}
+        height={alto}
+        stroke="rgba(0,0,0,0.18)"
+        strokeWidth={frameWidth + 1}
+        fill="none"
+        opacity={0.6}
+      />
+
       {/* MARCO PRINCIPAL */}
 
       <rect
@@ -23,7 +36,20 @@ export function Marco({ left, top, ancho, alto, color, frameWidth }: Props) {
         stroke={color}
         strokeWidth={frameWidth}
         fill="none"
-        className="transition-all duration-300"   
+        className="transition-all duration-300"
+      />
+
+      {/* METAL LIGHT */}
+
+      <rect
+        x={left}
+        y={top}
+        width={ancho}
+        height={alto}
+        stroke="url(#aluminumGradient)"
+        strokeWidth={frameWidth - 1}
+        fill="none"
+        opacity={0.9}
       />
 
       {/* BRILLO EXTERIOR */}

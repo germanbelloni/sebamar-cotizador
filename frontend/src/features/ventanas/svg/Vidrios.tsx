@@ -23,6 +23,16 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
           rx={2}
         />
 
+        {/* BRILLO INTERNO */}
+
+        <rect
+          x={left + 18}
+          y={top + 18}
+          width={ancho / 2 - 32}
+          height={2}
+          fill="rgba(255,255,255,0.10)"
+          opacity={0.8}
+        />
         {/* REFLEJO */}
 
         <rect
@@ -58,6 +68,17 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
           height={alto - 28}
           fill="rgba(0,0,0,0.14)"
           rx={2}
+        />
+
+        {/* BRILLO INTERNO */}
+
+        <rect
+          x={left + ancho / 2 + 14}
+          y={top + 18}
+          width={ancho / 2 - 32}
+          height={2}
+          fill="rgba(255,255,255,0.10)"
+          opacity={0.8}
         />
 
         {/* REFLEJO */}

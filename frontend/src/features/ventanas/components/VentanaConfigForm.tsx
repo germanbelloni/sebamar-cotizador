@@ -1,20 +1,45 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 
+import { LIMITES_LINEA } from "../constants";
 import { coloresVentana } from "../constants";
 
-import type { VentanaHerreroConfig } from "../types";
+import { buildVentanaItem } from "../utils/buildVentanaItem";
+
+import type { VentanaConfig, VentanaItem } from "../types";
 
 type Props = {
-  config: VentanaHerreroConfig;
+  config: VentanaConfig;
 
-  setConfig: React.Dispatch<React.SetStateAction<VentanaHerreroConfig>>;
+  setConfig: React.Dispatch<React.SetStateAction<VentanaConfig>>;
+
+  setItems: React.Dispatch<React.SetStateAction<VentanaItem[]>>;
 };
-export function VentanaConfigForm({ config, setConfig }: Props) {
-  const toggleField = (field: keyof VentanaHerreroConfig) => {
+
+export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
+  const limites = LIMITES_LINEA[config.linea];
+
+  /* INPUT STATES */
+
+  const [anchoInput, setAnchoInput] = useState(String(config.ancho));
+
+  const [altoInput, setAltoInput] = useState(String(config.alto));
+
+  /* HELPERS */
+
+  const toggleField = (field: keyof VentanaConfig) => {
     setConfig((prev) => ({
       ...prev,
+
       [field]: !prev[field],
     }));
+  };
+
+  const handleAddToBudget = () => {
+    const item = buildVentanaItem(config);
+
+    setItems((prev) => [...prev, item]);
   };
 
   return (
@@ -25,17 +50,27 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
         {/* LINEA */}
 
         <div>
-          <label className="mb-3 block text-sm text-muted-foreground">
+          <label
+            className="
+              mb-3 block text-center
+              text-sm text-muted-foreground
+            "
+          >
             Línea
           </label>
 
-          <div className="flex gap-3">
+          <div className="flex justify-center gap-3">
             <Button
               variant={config.linea === "Herrero" ? "default" : "outline"}
               onClick={() =>
                 setConfig((prev) => ({
                   ...prev,
+
                   linea: "Herrero",
+
+                  ancho: Math.min(prev.ancho, LIMITES_LINEA.Herrero.anchoMax),
+
+                  alto: Math.min(prev.alto, LIMITES_LINEA.Herrero.altoMax),
                 }))
               }
             >
@@ -47,7 +82,12 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
               onClick={() =>
                 setConfig((prev) => ({
                   ...prev,
+
                   linea: "Modena",
+
+                  ancho: Math.min(prev.ancho, LIMITES_LINEA.Modena.anchoMax),
+
+                  alto: Math.min(prev.alto, LIMITES_LINEA.Modena.altoMax),
                 }))
               }
             >
@@ -59,51 +99,128 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
         {/* MEDIDAS */}
 
         <div className="grid grid-cols-2 gap-4">
+          {/* ANCHO */}
+
           <div>
-            <label className="mb-2 block text-sm text-muted-foreground">
+            <label
+              className="
+        mb-2 block text-sm
+        text-muted-foreground
+      "
+            >
               Ancho
             </label>
 
             <input
-              type="number"
-              value={config.ancho}
-              onChange={(e) =>
+              type="text"
+              inputMode="numeric"
+              value={anchoInput}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+
+                setAnchoInput(value);
+
                 setConfig((prev) => ({
                   ...prev,
-                  ancho: Number(e.target.value),
-                }))
-              }
-              className="w-full rounded-xl border border-border bg-background px-4 py-2"
+
+                  ancho: value === "" ? 0 : Number(value),
+                }));
+              }}
+              className="
+        w-full rounded-xl
+        border border-white/10
+        bg-zinc-900
+        px-4 py-2
+        transition-all
+        focus:border-white/20
+        focus:outline-none
+      "
             />
           </div>
 
+          {/* ALTO */}
+
           <div>
-            <label className="mb-2 block text-sm text-muted-foreground">
+            <label
+              className="
+        mb-2 block text-sm
+        text-muted-foreground
+      "
+            >
               Alto
             </label>
 
             <input
-              type="number"
-              value={config.alto}
-              onChange={(e) =>
+              type="text"
+              inputMode="numeric"
+              value={altoInput}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+
+                setAltoInput(value);
+
                 setConfig((prev) => ({
                   ...prev,
-                  alto: Number(e.target.value),
-                }))
-              }
-              className="w-full rounded-xl border border-border bg-background px-4 py-2"
+
+                  alto: value === "" ? 0 : Number(value),
+                }));
+              }}
+              className="
+        w-full rounded-xl
+        border border-white/10
+        bg-zinc-900
+        px-4 py-2
+        transition-all
+        focus:border-white/20
+        focus:outline-none
+      "
             />
+          </div>
+        </div>
+
+        {/* LIMITES */}
+
+        <div
+          className="
+            rounded-xl border border-border
+            bg-zinc-900/80
+            p-3 text-center
+            text-xs text-muted-foreground
+          "
+        >
+          <div>
+            Ancho permitido: {limites.anchoMin}
+            {" - "}
+            {limites.anchoMax}
+            {" cm"}
+          </div>
+
+          <div className="mt-1">
+            Alto permitido: {limites.altoMin}
+            {" - "}
+            {limites.altoMax}
+            {" cm"}
           </div>
         </div>
 
         {/* COLORES */}
 
         <div>
-          <label className="mb-3 block text-sm text-muted-foreground">
+          <label
+            className="
+              mb-3 block text-sm
+              text-muted-foreground
+            "
+          >
             Color
           </label>
 
-          <div className="flex flex-wrap gap-4">
+          <div
+            className="
+              flex gap-3
+              overflow-x-auto pb-1
+            "
+          >
             {coloresVentana.map((color) => {
               const selected = config.color === color.nombre;
 
@@ -114,21 +231,30 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                   onClick={() =>
                     setConfig((prev) => ({
                       ...prev,
+
                       color: color.nombre,
+
+                      cortinaPVC:
+                        color.nombre === "Blanco" ? prev.cortinaPVC : false,
                     }))
                   }
                   className={`
-                    flex items-center gap-3 rounded-xl border px-3 py-2 transition-all
+                    flex items-center gap-3
+                    rounded-xl border
+                    px-3 py-2
+                    transition-all
+
                     ${
                       selected
-                        ? "border-green-500 bg-green-500/10"
+                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
                         : "border-border"
                     }
                   `}
                 >
                   <div
                     className={`
-                      h-6 w-6 rounded-full border border-white/20
+                      h-6 w-6 rounded-full
+                      border border-white/20
                       ${color.clase}
                     `}
                   />
@@ -143,23 +269,37 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
         {/* EXTRAS */}
 
         <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">Extras</h4>
+          <h4
+            className="
+              text-sm font-medium
+              text-muted-foreground
+            "
+          >
+            Extras
+          </h4>
 
           <div className="grid grid-cols-2 gap-3">
+            {/* MOSQUITERO */}
+
             <button
               type="button"
               onClick={() => toggleField("mosquitero")}
               className={`
-                rounded-xl border p-3 text-left transition-all
+                rounded-xl border
+                p-3 text-left
+                transition-all
+
                 ${
                   config.mosquitero
-                    ? "border-green-500 bg-green-500/10"
+                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
                     : "border-border"
                 }
               `}
             >
               Mosquitero
             </button>
+
+            {/* GUIA */}
 
             <button
               type="button"
@@ -181,16 +321,21 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                 })
               }
               className={`
-                rounded-xl border p-3 text-left transition-all
+                rounded-xl border
+                p-3 text-left
+                transition-all
+
                 ${
                   config.guia
-                    ? "border-green-500 bg-green-500/10"
+                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
                     : "border-border"
                 }
               `}
             >
               Guía
             </button>
+
+            {/* CAJON */}
 
             <button
               type="button"
@@ -208,10 +353,13 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                 }))
               }
               className={`
-                rounded-xl border p-3 text-left transition-all
+                rounded-xl border
+                p-3 text-left
+                transition-all
+
                 ${
                   config.cajonBlock
-                    ? "border-green-500 bg-green-500/10"
+                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
                     : "border-border"
                 }
               `}
@@ -224,11 +372,18 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
 
           {config.guia && (
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-muted-foreground">
+              <h4
+                className="
+                  text-sm font-medium
+                  text-muted-foreground
+                "
+              >
                 Cortina
               </h4>
 
               <div className="grid grid-cols-2 gap-3">
+                {/* PVC */}
+
                 <button
                   type="button"
                   disabled={config.color !== "Blanco"}
@@ -242,15 +397,27 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                     }))
                   }
                   className={`
-    rounded-xl border p-3 text-left transition-all
+                    rounded-xl border
+                    p-3 text-left
+                    transition-all
 
-    ${config.cortinaPVC ? "border-green-500 bg-green-500/10" : "border-border"}
+                    ${
+                      config.cortinaPVC
+                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+                        : "border-border"
+                    }
 
-    ${config.color !== "Blanco" ? "cursor-not-allowed opacity-40" : ""}
-  `}
+                    ${
+                      config.color !== "Blanco"
+                        ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-white/30"
+                        : ""
+                    }
+                  `}
                 >
                   PVC
                 </button>
+
+                {/* ALUMINIO */}
 
                 <button
                   type="button"
@@ -264,18 +431,31 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                     }))
                   }
                   className={`
-    rounded-xl border p-3 text-left transition-all
+                    rounded-xl border
+                    p-3 text-left
+                    transition-all
 
-    ${
-      config.cortinaAluminio
-        ? "border-green-500 bg-green-500/10"
-        : "border-border"
-    }
-  `}
+                    ${
+                      config.cortinaAluminio
+                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+                        : "border-border"
+                    }
+                  `}
                 >
                   Aluminio
                 </button>
               </div>
+
+              {config.color !== "Blanco" && (
+                <p
+                  className="
+                    text-xs
+                    text-muted-foreground
+                  "
+                >
+                  PVC disponible únicamente en Blanco
+                </p>
+              )}
             </div>
           )}
 
@@ -283,7 +463,12 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
 
           {config.linea === "Modena" && (
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-muted-foreground">
+              <h4
+                className="
+                  text-sm font-medium
+                  text-muted-foreground
+                "
+              >
                 Modena
               </h4>
 
@@ -306,14 +491,16 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                     })
                   }
                   className={`
-          rounded-xl border p-3 text-left transition-all
+                    rounded-xl border
+                    p-3 text-left
+                    transition-all
 
-          ${
-            config.premarco
-              ? "border-green-500 bg-green-500/10"
-              : "border-border"
-          }
-        `}
+                    ${
+                      config.premarco
+                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+                        : "border-border"
+                    }
+                  `}
                 >
                   Premarco
                 </button>
@@ -330,14 +517,16 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
                     }))
                   }
                   className={`
-          rounded-xl border p-3 text-left transition-all
+                    rounded-xl border
+                    p-3 text-left
+                    transition-all
 
-          ${
-            config.contramarco
-              ? "border-green-500 bg-green-500/10"
-              : "border-border"
-          }
-        `}
+                    ${
+                      config.contramarco
+                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
+                        : "border-border"
+                    }
+                  `}
                 >
                   Contramarco
                 </button>
@@ -346,7 +535,11 @@ export function VentanaConfigForm({ config, setConfig }: Props) {
           )}
         </div>
 
-        <Button className="w-full">Agregar al presupuesto</Button>
+        {/* ACTION */}
+
+        <Button className="w-full" onClick={handleAddToBudget}>
+          Agregar al presupuesto
+        </Button>
       </div>
     </div>
   );

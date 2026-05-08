@@ -19,3 +19,27 @@ export const coloresVentana = [
     clase: "bg-orange-900",
   },
 ] as const;
+
+export const LIMITES_LINEA = {
+  Herrero: {
+    anchoMin: 50,
+    anchoMax: 200,
+
+    altoMin: 50,
+    altoMax: 200,
+  },
+
+  Modena: {
+    anchoMin: 60,
+    anchoMax: 300,
+
+    altoMin: 60,
+    altoMax: 260,
+  },
+};
+
+export const COMPANY = {
+  name: "Sebamar",
+
+  logo: "/logo.png",
+};
