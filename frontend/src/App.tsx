@@ -4,17 +4,34 @@ import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 import { Header } from "@/layouts/components/Header";
 import { Sidebar } from "@/layouts/components/Sidebar";
 
-import { VentanaHerreroForm } from "@/features/ventanas/components/VentanaHerreroForm";
-import { VentanaHerreroPreview } from "@/features/ventanas/components/VentanaHerreroPreview";
+import { VentanaConfigForm } from "@/features/ventanas/components/VentanaConfigForm";
+import { VentanaPreview } from "@/features/ventanas/components/VentanaPreview";
 
 import type { VentanaHerreroConfig } from "@/features/ventanas/types";
 
 function App() {
   const [config, setConfig] = useState<VentanaHerreroConfig>({
     ancho: 120,
+
     alto: 150,
+
     linea: "Herrero",
+
     color: "Blanco",
+
+    mosquitero: false,
+
+    guia: false,
+
+    cajonBlock: false,
+
+    cortinaPVC: false,
+
+    cortinaAluminio: false,
+
+    premarco: false,
+
+    contramarco: false,
   });
 
   return (
@@ -26,9 +43,9 @@ function App() {
           <Header />
 
           <div className="grid grid-cols-2 gap-6 p-6">
-            <VentanaHerreroForm config={config} setConfig={setConfig} />
+            <VentanaConfigForm config={config} setConfig={setConfig} />
 
-            <VentanaHerreroPreview config={config} />
+            <VentanaPreview config={config} />
           </div>
         </main>
 
