@@ -17,8 +17,8 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + 14}
           y={top + 14}
-          width={ancho / 2 - 24}
-          height={alto - 28}
+          width={Math.max(0, ancho / 2 - 24)}
+          height={Math.max(0, alto - 28)}
           fill="rgba(0,0,0,0.14)"
           rx={2}
         />
@@ -28,18 +28,19 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + 18}
           y={top + 18}
-          width={ancho / 2 - 32}
+          width={Math.max(0, ancho / 2 - 32)}
           height={2}
           fill="rgba(255,255,255,0.10)"
           opacity={0.8}
         />
+
         {/* REFLEJO */}
 
         <rect
           x={left + 24}
           y={top + 20}
           width={10}
-          height={alto - 40}
+          height={Math.max(0, alto - 40)}
           fill="rgba(255,255,255,0.10)"
           opacity={0.5}
         />
@@ -49,8 +50,8 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + 16}
           y={top + 16}
-          width={ancho / 2 - 28}
-          height={alto - 32}
+          width={Math.max(0, ancho / 2 - 28)}
+          height={Math.max(0, alto - 32)}
           fill="url(#glassGradient)"
           className="transition-all duration-300"
         />
@@ -64,8 +65,8 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + ancho / 2 + 10}
           y={top + 14}
-          width={ancho / 2 - 24}
-          height={alto - 28}
+          width={Math.max(0, ancho / 2 - 24)}
+          height={Math.max(0, alto - 28)}
           fill="rgba(0,0,0,0.14)"
           rx={2}
         />
@@ -75,7 +76,7 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + ancho / 2 + 14}
           y={top + 18}
-          width={ancho / 2 - 32}
+          width={Math.max(0, ancho / 2 - 32)}
           height={2}
           fill="rgba(255,255,255,0.10)"
           opacity={0.8}
@@ -87,7 +88,7 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
           x={left + ancho / 2 + 20}
           y={top + 20}
           width={10}
-          height={alto - 40}
+          height={Math.max(0, alto - 40)}
           fill="rgba(255,255,255,0.10)"
           opacity={0.5}
         />
@@ -97,8 +98,8 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
         <rect
           x={left + ancho / 2 + 12}
           y={top + 16}
-          width={ancho / 2 - 28}
-          height={alto - 32}
+          width={Math.max(0, ancho / 2 - 28)}
+          height={Math.max(0, alto - 32)}
           fill="url(#glassGradient)"
           className="transition-all duration-300"
         />

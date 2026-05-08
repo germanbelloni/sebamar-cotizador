@@ -2,14 +2,30 @@ import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 import { buildBudgetMessage } from "@/features/ventanas/utils/buildBudgetMessage";
 import type { VentanaItem } from "@/features/ventanas/types";
+import type { Cliente } from "@/features/clientes/types";
+
+import type { Empresa } from "@/features/empresa/types";
+import { useNavigate } from "react-router-dom";
+import type { VentanaConfig } from "@/features/ventanas/types";
 
 type Props = {
   items: VentanaItem[];
 
   setItems: React.Dispatch<React.SetStateAction<VentanaItem[]>>;
+
+  cliente: Cliente;
+
+  empresa: Empresa;
+  config: VentanaConfig;
 };
 
-export function BudgetPanel({ items, setItems }: Props) {
+export function BudgetPanel({
+  items,
+  setItems,
+  cliente,
+  empresa,
+  config,
+}: Props) {
   const handleRemoveItem = (index: number) => {
     setItems((prev) => prev.filter((_, i) => i !== index));
   };
@@ -32,13 +48,33 @@ export function BudgetPanel({ items, setItems }: Props) {
     (acc, item) => acc + item.subtotal * item.cantidad,
     0,
   );
+  const navigate = useNavigate();
+
+  const canShare =
+    items.length > 0 && cliente.nombre.trim() && cliente.telefono.trim();
 
   const handleShareWhatsApp = () => {
-    const message = buildBudgetMessage(items);
+    const message = buildBudgetMessage(items, cliente);
 
     const encoded = encodeURIComponent(message);
 
     window.open(`https://wa.me/?text=${encoded}`, "_blank");
+  };
+  const handlePrint = () => {
+    console.log({
+      empresa,
+      cliente,
+      items,
+      config,
+    });
+
+    navigate("/print", {
+      state: {
+        empresa,
+        cliente,
+        items,
+      },
+    });
   };
 
   return (
@@ -220,15 +256,28 @@ export function BudgetPanel({ items, setItems }: Props) {
       {/* ACTIONS */}
 
       <div className="mt-4 space-y-2">
-        <Button className="w-full">Generar PDF</Button>
+        <Button
+          className="w-full"
+          onClick={handlePrint}
+          disabled={items.length === 0}
+        >
+          Imprimir / PDF
+        </Button>
 
         <Button
           variant="outline"
           className="w-full"
           onClick={handleShareWhatsApp}
+          disabled={!canShare}
         >
           Compartir WhatsApp
         </Button>
+
+        {!canShare && (
+          <p className="text-center text-[11px] text-muted-foreground">
+            Completá nombre, teléfono y agregá productos.
+          </p>
+        )}
       </div>
     </aside>
   );

@@ -42,6 +42,14 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
     setItems((prev) => [...prev, item]);
   };
 
+  const anchoInvalido =
+    config.ancho < limites.anchoMin || config.ancho > limites.anchoMax;
+
+  const altoInvalido =
+    config.alto < limites.altoMin || config.alto > limites.altoMax;
+
+  const medidasInvalidas = anchoInvalido || altoInvalido;
+
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
       <h3 className="text-lg font-semibold">Configuración</h3>
@@ -537,9 +545,18 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
 
         {/* ACTION */}
 
-        <Button className="w-full" onClick={handleAddToBudget}>
+        <Button
+          className="w-full"
+          onClick={handleAddToBudget}
+          disabled={medidasInvalidas}
+        >
           Agregar al presupuesto
         </Button>
+        {medidasInvalidas && (
+          <p className="text-center text-xs text-red-400">
+            Las medidas están fuera de los límites permitidos.
+          </p>
+        )}
       </div>
     </div>
   );

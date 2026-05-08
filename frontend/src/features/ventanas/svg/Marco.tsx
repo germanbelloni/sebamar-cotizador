@@ -83,8 +83,8 @@ export function Marco({ left, top, ancho, alto, color, frameWidth }: Props) {
       <rect
         x={left + 4}
         y={top + 4}
-        width={ancho - 8}
-        height={alto - 8}
+        width={Math.max(0, ancho - 8)}
+        height={Math.max(0, alto - 8)}
         stroke="rgba(255,255,255,0.05)"
         strokeWidth={1.5}
         fill="none"
