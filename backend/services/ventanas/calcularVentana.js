@@ -3,11 +3,11 @@
 const { fromRoot } = require("../../utils/path");
 
 const dataHerrero = require(
-  fromRoot("frontend/data/productos/ventanas_herrero.json"),
+  fromRoot("backend/data/productos/ventanas_herrero.json"),
 );
 
 const dataModena = require(
-  fromRoot("frontend/data/productos/ventanas_modena.json"),
+  fromRoot("backend/data/productos/ventanas_modena.json"),
 );
 
 // =========================

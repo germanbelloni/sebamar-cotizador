@@ -15,11 +15,11 @@ const calcularPuerta = require(fromRoot("wrappers/puertas/calcularPuerta.js"));
 // =========================
 
 const dataMap = {
-  herrero: require(fromRoot("frontend/data/productos/puertas_herrero.json")),
+  herrero: require(fromRoot("backend/data/productos/puertas_herrero.json")),
 
-  modena: require(fromRoot("frontend/data/productos/puertas_modena.json")),
+  modena: require(fromRoot("backend/data/productos/puertas_modena.json")),
 
-  eco: require(fromRoot("frontend/data/productos/puertas_eco.json")),
+  eco: require(fromRoot("backend/data/productos/puertas_eco.json")),
 };
 
 // =========================

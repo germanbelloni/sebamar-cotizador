@@ -49,7 +49,7 @@ for (let i = headerIndex + 1; i < raw.length; i++) {
 
 // 💾 guardar
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/mosquiteros.json"),
+  fromRoot("backend/data/productos/mosquiteros.json"),
   JSON.stringify(resultado, null, 2),
 );
 

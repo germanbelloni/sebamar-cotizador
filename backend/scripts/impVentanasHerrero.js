@@ -70,7 +70,7 @@ for (let i = headerIndex + 1; i < data.length; i++) {
 const resultado = { medidas };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/ventanas_herrero.json"),
+  fromRoot("backend/data/productos/ventanas_herrero.json"),
   JSON.stringify(resultado, null, 2),
 );
 

@@ -13,7 +13,7 @@ const calcularVentanaModena = require(
 );
 
 // 📦 DATA
-const data = require(fromRoot("frontend/data/productos/ventanas_modena.json"));
+const data = require(fromRoot("backend/data/productos/ventanas_modena.json"));
 
 // =========================
 // ⚙ CONFIG

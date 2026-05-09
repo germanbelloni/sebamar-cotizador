@@ -6,7 +6,7 @@ const calcularSuperficie = require(
 
 const perfiles = require(fromRoot("config/perfiles"));
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
 // ========================
 // 🎨 COLOR

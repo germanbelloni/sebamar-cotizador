@@ -13,7 +13,7 @@ type CotizacionResponse = {
 };
 
 export async function cotizarVentana(config: VentanaConfig) {
-  return apiFetch<CotizacionResponse>("/productos/ventanas", {
+  return apiFetch<CotizacionResponse>("/ventanas", {
     method: "POST",
 
     body: JSON.stringify(config),

@@ -10,7 +10,7 @@ const calcularRajaHerrero = require(
   fromRoot("wrappers/rajas/calcularRajaHerrero"),
 );
 
-const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
+const data = require(fromRoot("backend/data/productos/rajas_herrero.json"));
 
 // =========================
 // ⚙ CONFIG

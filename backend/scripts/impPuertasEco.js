@@ -68,7 +68,7 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/puertas_eco.json"),
+  fromRoot("backend/data/productos/puertas_eco.json"),
   JSON.stringify(resultado, null, 2),
 );
 

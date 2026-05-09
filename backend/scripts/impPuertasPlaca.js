@@ -104,7 +104,7 @@ for (let i = 0; i < data.length; i++) {
 
 // GUARDAR
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/puertas_placa.json"),
+  fromRoot("backend/data/productos/puertas_placa.json"),
   JSON.stringify(resultado, null, 2),
 );
 

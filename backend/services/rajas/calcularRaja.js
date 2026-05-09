@@ -58,10 +58,10 @@ function calcularRaja(dataInput) {
   const { medida, tipoVidrio, linea = "herrero" } = dataInput;
 
   const superficies = require(
-    fromRoot("frontend/data/productos/superficies.json"),
+    fromRoot("backend/data/productos/superficies.json"),
   );
 
-  const filePath = fromRoot(`frontend/data/productos/rajas_${linea}.json`);
+  const filePath = fromRoot(`backend/data/productos/rajas_${linea}.json`);
 
   const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 

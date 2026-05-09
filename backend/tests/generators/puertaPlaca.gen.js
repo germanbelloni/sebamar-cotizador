@@ -10,7 +10,7 @@ const calcularPuertaPlaca = require(
   fromRoot("wrappers/placas/calcularPuertaPlaca"),
 );
 
-const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
+const data = require(fromRoot("backend/data/productos/puertas_placa.json"));
 
 // =========================
 // 📦 RESULTADOS

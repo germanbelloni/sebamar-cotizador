@@ -6,10 +6,10 @@ const calcularMosquitero = require(
 
 const perfiles = require(fromRoot("config/perfiles"));
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
 const mosquiterosData = require(
-  fromRoot("frontend/data/productos/mosquiteros.json"),
+  fromRoot("backend/data/productos/mosquiteros.json"),
 );
 
 // =========================

@@ -69,7 +69,7 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/rajas_modena.json"),
+  fromRoot("backend/data/productos/rajas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 

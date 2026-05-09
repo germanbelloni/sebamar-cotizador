@@ -5,12 +5,12 @@ const calcularPuertas = require(
 );
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
 // ========================
 // 🎨 COLOR

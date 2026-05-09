@@ -6,13 +6,13 @@ const calcularPostigon = require(
 
 const perfiles = require(fromRoot("config/perfiles"));
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
-const dataJson = require(fromRoot("frontend/data/productos/postigones.json"));
+const dataJson = require(fromRoot("backend/data/productos/postigones.json"));
 
 // =========================
 // 🎨 COLOR

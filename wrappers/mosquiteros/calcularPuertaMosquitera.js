@@ -3,10 +3,10 @@ const { fromRoot } = require("../../backend/utils/path");
 const perfiles = require(fromRoot("config/perfiles"));
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
 // =========================
 // 🎨 COLOR

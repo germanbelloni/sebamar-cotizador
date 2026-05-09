@@ -11,7 +11,7 @@ window.Puertas = {
   cargarModelos() {
     const producto = document.getElementById("producto").value;
 
-    fetch(`/frontend/data/productos/puertas_${producto}.json`)
+    fetch(`/backend/data/productos/puertas_${producto}.json`)
       .then((res) => res.json())
       .then((data) => {
         window.dataPuertas = data;
@@ -129,7 +129,6 @@ window.Puertas = {
 
     // 🔥 TOTAL
     let total = precioBase + precioVidrio;
-
 
     const res = {
       total,

@@ -104,7 +104,7 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/patagonicas_modena.json"),
+  fromRoot("backend/data/productos/patagonicas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 

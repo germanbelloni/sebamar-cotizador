@@ -51,7 +51,7 @@ rango.forEach((row) => {
 const colores = Object.values(mapa);
 
 // 💾 guardar
-const outputPath = fromRoot("frontend/data/colores.json");
+const outputPath = fromRoot("backend/data/colores.json");
 
 fs.writeFileSync(outputPath, JSON.stringify(colores, null, 2));
 

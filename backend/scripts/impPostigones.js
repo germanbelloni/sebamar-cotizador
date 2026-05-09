@@ -66,7 +66,7 @@ for (let i = headerIndex + 1; i < data.length; i++) {
 const resultado = { medidas };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/postigones.json"),
+  fromRoot("backend/data/productos/postigones.json"),
   JSON.stringify(resultado, null, 2),
 );
 

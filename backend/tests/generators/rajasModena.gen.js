@@ -10,7 +10,7 @@ const calcularRajaModena = require(
   fromRoot("wrappers/rajas/calcularRajaModena"),
 );
 
-const data = require(fromRoot("frontend/data/productos/rajas_modena.json"));
+const data = require(fromRoot("backend/data/productos/rajas_modena.json"));
 
 // =========================
 // ⚙ CONFIG

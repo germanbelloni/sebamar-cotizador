@@ -49,7 +49,7 @@ if (!fs.existsSync(outputDir)) {
 // =========================
 
 function loadData(linea) {
-  return require(fromRoot(`frontend/data/productos/puertas_${linea}.json`));
+  return require(fromRoot(`backend/data/productos/puertas_${linea}.json`));
 }
 
 function getModelosPuerta(data) {
@@ -63,7 +63,7 @@ function getModelosPuerta(data) {
 function getModelosMedia(data, linea) {
   if (linea === "herrero") {
     const dataMedias = require(
-      fromRoot("frontend/data/productos/puertas_media_herrero.json"),
+      fromRoot("backend/data/productos/puertas_media_herrero.json"),
     );
 
     return Object.keys(dataMedias.medias || {});

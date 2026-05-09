@@ -5,14 +5,14 @@ const { fromRoot } = require("../../backend/utils/path");
 const calcularRaja = require(fromRoot("backend/services/rajas/calcularRaja"));
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
-const colores = require(fromRoot("frontend/data/colores.json"));
+const colores = require(fromRoot("backend/data/colores.json"));
 
-const data = require(fromRoot("frontend/data/productos/rajas_herrero.json"));
+const data = require(fromRoot("backend/data/productos/rajas_herrero.json"));
 
 // 📐
 const calcularM2 = (a, h) => (a * h) / 10000;

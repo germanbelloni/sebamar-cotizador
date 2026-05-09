@@ -100,7 +100,7 @@ filas.forEach((row) => {
 
 // OUTPUT
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/ventanas_modena.json"),
+  fromRoot("backend/data/productos/ventanas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 

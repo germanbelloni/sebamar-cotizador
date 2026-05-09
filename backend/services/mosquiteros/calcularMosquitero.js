@@ -1,7 +1,7 @@
 const { fromRoot } = require("../../utils/path");
 
 const mosquiteros = require(
-  fromRoot("frontend/data/productos/mosquiteros.json"),
+  fromRoot("backend/data/productos/mosquiteros.json"),
 );
 
 function calcularMosquitero(dataInput) {

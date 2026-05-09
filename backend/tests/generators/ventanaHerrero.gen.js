@@ -13,7 +13,7 @@ const calcularVentanaHerrero = require(
 );
 
 // 📦 DATA
-const data = require(fromRoot("frontend/data/productos/ventanas_herrero.json"));
+const data = require(fromRoot("backend/data/productos/ventanas_herrero.json"));
 
 // =========================
 // ⚙ CONFIG

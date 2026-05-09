@@ -27,49 +27,34 @@ const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaH
 const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
 
 // =========================
-// 🔥 GANANCIA CLIENTE
-// =========================
-
-const aplicarGananciaCliente = require("../utils/aplicarGananciaCliente");
-
-// =========================
 // 🧠 CORE GLOBAL
 // =========================
 
 function runCalculation(req, res, label, calculate) {
   try {
-    if (!req.user?.perfil) {
-      return res.status(400).json({
-        error: "Perfil no definido",
-      });
-    }
-
     const data = {
       ...req.body,
-      perfil: req.user.perfil,
+
+      perfil: req.user?.perfil || "MODENA",
     };
 
     console.log("PERFIL USADO:", data.perfil);
 
     const resultadoBase = calculate(data);
+
     console.log("RESULTADO BASE:", resultadoBase);
 
-    const resultadoFinal = aplicarGananciaCliente(resultadoBase, req.user);
+    const resultadoFinal = resultadoBase;
 
-    if (req.user?.role === "user") {
-      delete resultadoFinal.costo;
-
-      delete resultadoFinal.ganancia;
-
-      delete resultadoFinal.gananciaCliente;
-    }
     console.log("RESULTADO FINAL:", resultadoFinal);
+
     return res.json(resultadoFinal);
   } catch (error) {
     console.log(`ERROR ${label}:`, error.message);
 
     return res.status(500).json({
       error: "Error en calculo",
+
       detalle: error.message,
     });
   }
@@ -120,7 +105,7 @@ function puertaMosquitera(req, res) {
 // =========================
 
 function ventanas(req, res) {
-  const { linea } = req.body;
+  const linea = req.body.linea?.toLowerCase();
 
   if (linea === "modena") {
     return runCalculation(req, res, "VENTANAS MODENA", (data) =>
@@ -138,7 +123,7 @@ function ventanas(req, res) {
 // =========================
 
 function rajas(req, res) {
-  const { linea } = req.body;
+  const linea = req.body.linea?.toLowerCase();
 
   if (linea === "modena") {
     return runCalculation(req, res, "RAJAS MODENA", (data) =>
@@ -176,7 +161,7 @@ function superficies(req, res) {
 // =========================
 
 function patagonicas(req, res) {
-  const { linea } = req.body;
+  const linea = req.body.linea?.toLowerCase();
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
@@ -186,14 +171,24 @@ function patagonicas(req, res) {
 
 module.exports = {
   mosquiteros,
+
   puertaMosquitera,
+
   patagonicas,
+
   placas,
+
   postigones,
+
   portones,
+
   puertas,
+
   puertasEco,
+
   rajas,
+
   ventanas,
+
   superficies,
 };

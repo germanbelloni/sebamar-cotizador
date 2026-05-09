@@ -1,7 +1,7 @@
 const { fromRoot } = require("../../utils/path");
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
 // ========================
@@ -81,7 +81,7 @@ function calcularPuertas(dataInput) {
   } = dataInput;
 
   const data = require(
-    fromRoot(`frontend/data/productos/puertas_${linea}.json`),
+    fromRoot(`backend/data/productos/puertas_${linea}.json`),
   );
 
   const items = [];

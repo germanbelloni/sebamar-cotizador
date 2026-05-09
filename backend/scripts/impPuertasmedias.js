@@ -65,7 +65,7 @@ data.forEach((row) => {
 
 // OUTPUT
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/puertas_media_herrero.json"),
+  fromRoot("backend/data/productos/puertas_media_herrero.json"),
   JSON.stringify(resultado, null, 2),
 );
 

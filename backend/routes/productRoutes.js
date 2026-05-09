@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 // 🔐 TODO protegido
-router.use(auth);
+//router.use(auth); COMENTTO PARA PROBAR
 
 // =========================
 // 🚪 PUERTAS

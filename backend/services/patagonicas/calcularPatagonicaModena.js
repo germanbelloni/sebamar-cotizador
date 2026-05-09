@@ -1,11 +1,11 @@
 const { fromRoot } = require("../../utils/path");
 
 const superficies = require(
-  fromRoot("frontend/data/productos/superficies.json"),
+  fromRoot("backend/data/productos/superficies.json"),
 );
 
 const data = require(
-  fromRoot("frontend/data/productos/patagonicas_modena.json"),
+  fromRoot("backend/data/productos/patagonicas_modena.json"),
 );
 
 // =========================

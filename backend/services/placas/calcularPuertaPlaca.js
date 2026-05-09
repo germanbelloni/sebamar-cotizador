@@ -1,7 +1,7 @@
 const { fromRoot } = require("../../utils/path");
 
 // 📦 DATA
-const data = require(fromRoot("frontend/data/productos/puertas_placa.json"));
+const data = require(fromRoot("backend/data/productos/puertas_placa.json"));
 
 function calcularPuertaPlaca(dataInput) {
   const { tipo, modelo, medida, marco } = dataInput;

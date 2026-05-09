@@ -87,7 +87,7 @@ const resultado = {
 };
 
 fs.writeFileSync(
-  fromRoot("frontend/data/productos/puertas_modena.json"),
+  fromRoot("backend/data/productos/puertas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 

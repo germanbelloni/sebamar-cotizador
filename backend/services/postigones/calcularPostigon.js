@@ -1,6 +1,6 @@
 const { fromRoot } = require("../../utils/path");
 
-const data = require(fromRoot("frontend/data/productos/postigones.json"));
+const data = require(fromRoot("backend/data/productos/postigones.json"));
 
 // =========================
 // 🚀 SERVICE
