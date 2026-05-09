@@ -1,3 +1,4 @@
+import type { ColorVentana } from "./constants";
 export type VentanaItem = {
   tipo: "ventana";
 
@@ -37,7 +38,7 @@ export type VentanaConfig = {
 
   linea: "Herrero" | "Modena";
 
-  color: "Blanco" | "Negro" | "Bronce Colonial" | "Simil Madera";
+  color: ColorVentana;
 
   mosquitero: boolean;
 

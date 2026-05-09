@@ -44,8 +44,8 @@ export function VentanaPreview({ config }: Props) {
   const colorMap = {
     Blanco: "#E4E4E7",
     Negro: "#18181B",
-    "Bronce Colonial": "#2e411f",
-    "Simil Madera": "#7C2D12",
+    "bronce colonial": "#2e411f",
+    "simil madera": "#7C2D12",
   };
 
   const aluminioColor = colorMap[config.color];

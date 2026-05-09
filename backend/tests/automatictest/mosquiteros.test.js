@@ -1,19 +1,12 @@
 // backend/tests/automatictest/mosquiteros.test.js
 
-const { fromRoot } = require(
-  "../../utils/path",
+const { fromRoot } = require("../../utils/path");
+
+const calcularMosquiteroVentana = require(
+  fromRoot("wrappers/mosquiteros/calcularMosquiteroVentana"),
 );
 
-const calcularMosquiteroVentana =
-  require(
-    fromRoot(
-      "wrappers/mosquiteros/calcularMosquiteroVentana",
-    ),
-  );
-
-console.log(
-  "\n🧪 TEST WRAPPER MOSQUITEROS\n",
-);
+console.log("\n🧪 TEST WRAPPER MOSQUITEROS\n");
 
 // =========================
 // 🧪 CASOS
@@ -43,16 +36,14 @@ const casos = [
   },
 
   {
-    nombre:
-      "simil madera",
+    nombre: "simil madera",
 
     input: {
       ancho: 150,
 
       alto: 120,
 
-      color:
-        "simil madera",
+      color: "simil madera",
     },
   },
 ];
@@ -63,83 +54,40 @@ const casos = [
 
 casos.forEach((test, i) => {
   try {
-    const result =
-      calcularMosquiteroVentana(
-        test.input,
-      );
+    const result = calcularMosquiteroVentana(test.input);
 
     // =========================
     // ✅ VALIDACIONES
     // =========================
 
-    if (
-      !result ||
-      typeof result !==
-        "object"
-    ) {
-      throw new Error(
-        "response inválida",
-      );
+    if (!result || typeof result !== "object") {
+      throw new Error("response inválida");
     }
 
-    if (
-      !result.costoBase ||
-      result.costoBase <= 0
-    ) {
-      throw new Error(
-        "costoBase inválido",
-      );
+    if (!result.costoBase || result.costoBase <= 0) {
+      throw new Error("costoBase inválido");
     }
 
-    if (
-      !result.precioVenta ||
-      result.precioVenta <= 0
-    ) {
-      throw new Error(
-        "precioVenta inválido",
-      );
+    if (!result.precioVenta || result.precioVenta <= 0) {
+      throw new Error("precioVenta inválido");
     }
 
-    if (
-      !Array.isArray(
-        result.items,
-      )
-    ) {
-      throw new Error(
-        "items inválidos",
-      );
+    if (!Array.isArray(result.items)) {
+      throw new Error("items inválidos");
     }
 
-    console.log(
-      `✔️ [${i + 1}] ${test.nombre}`,
-    );
+    console.log(`✔️ [${i + 1}] ${test.nombre}`);
 
-    console.log(
-      "   👉 costoBase:",
-      result.costoBase,
-    );
+    console.log("   👉 costoBase:", result.costoBase);
 
-    console.log(
-      "   👉 precioVenta:",
-      result.precioVenta,
-    );
+    console.log("   👉 precioVenta:", result.precioVenta);
 
-    console.log(
-      "   👉 items:",
-      result.items.length,
-    );
+    console.log("   👉 items:", result.items.length);
   } catch (error) {
-    console.log(
-      `💥 [${i + 1}] ${test.nombre}`,
-    );
+    console.log(`💥 [${i + 1}] ${test.nombre}`);
 
-    console.log(
-      "   👉",
-      error.message,
-    );
+    console.log("   👉", error.message);
   }
 });
 
-console.log(
-  "\n✅ FIN TEST WRAPPER\n",
-);
+console.log("\n✅ FIN TEST WRAPPER\n");

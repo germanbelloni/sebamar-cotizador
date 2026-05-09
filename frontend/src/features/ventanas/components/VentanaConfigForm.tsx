@@ -2,15 +2,18 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-import { LIMITES_LINEA } from "../constants";
-import { coloresVentana } from "../constants";
-import { useMutation } from "@tanstack/react-query";
-
-import { cotizarVentana } from "../api/cotizarVentana";
-import { buildVentanaItem } from "../utils/buildVentanaItem";
-
 import type { VentanaConfig, VentanaItem } from "../types";
 
+import { ColorSelector } from "./sections/ColorSelector";
+import { ExtrasSection } from "./sections/ExtrasSection";
+import { CortinasSection } from "./sections/CortinasSection";
+import { ModenaSection } from "./sections/ModenaSection";
+import { DimensionsSection } from "./sections/DimensionsSection";
+import { LineaSelector } from "./sections/LineaSelector";
+import { useVentanaValidation } from "../hooks/useVentanaValidation";
+import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
+import { useCotizarVentana } from "../hooks/useCotizarVentana";
+import { useVentanaConfig } from "../hooks/useVentanaConfig";
 type Props = {
   config: VentanaConfig;
 
@@ -20,19 +23,8 @@ type Props = {
 };
 
 export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
-  const limites = LIMITES_LINEA[config.linea];
+  const cotizacionMutation = useCotizarVentana();
 
-  const cotizacionMutation = useMutation({
-    mutationFn: cotizarVentana,
-
-    onSuccess: (data) => {
-      console.log("COTIZACION:", data);
-    },
-
-    onError: (error) => {
-      console.error(error);
-    },
-  });
   /* INPUT STATES */
 
   const [anchoInput, setAnchoInput] = useState(String(config.ancho));
@@ -41,42 +33,42 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
 
   /* HELPERS */
 
-  const toggleField = (field: keyof VentanaConfig) => {
-    setConfig((prev) => ({
-      ...prev,
+  const {
+    updateConfig,
 
-      [field]: !prev[field],
-    }));
-  };
+    toggleField,
+
+    handleSelectHerrero,
+
+    handleSelectModena,
+  } = useVentanaConfig({
+    config,
+    setConfig,
+  });
+
+  const {
+    limites,
+
+    anchoValido,
+
+    altoValido,
+
+    medidasValidas,
+
+    medidasInvalidas,
+  } = useVentanaValidation(config);
 
   const handleAddToBudget = async () => {
-    console.log("CONFIG:", config);
-
     try {
       const result = await cotizacionMutation.mutateAsync(config);
 
-      console.log("RESULT:", result);
-
-      const item = buildVentanaItem(config);
-
-      item.description = result.descripcion;
-
-      item.subtotal = result.precioVenta;
+      const item = createVentanaBudgetItem(config, result);
 
       setItems((prev) => [...prev, item]);
     } catch (error) {
       console.error("ERROR COTIZANDO:", error);
     }
   };
-
-  const anchoValido =
-    config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;
-
-  const altoValido =
-    config.alto >= limites.altoMin && config.alto <= limites.altoMax;
-
-  const medidasValidas = anchoValido && altoValido;
-  const medidasInvalidas = !medidasValidas;
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
@@ -85,171 +77,53 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
       <div className="mt-6 space-y-6">
         {/* LINEA */}
 
-        <div>
-          <label
-            className="
-              mb-3 block text-center
-              text-sm text-muted-foreground
-            "
-          >
-            Línea
-          </label>
-
-          <div className="flex justify-center gap-3">
-            <Button
-              variant={config.linea === "Herrero" ? "default" : "outline"}
-              onClick={() =>
-                setConfig((prev) => ({
-                  ...prev,
-
-                  linea: "Herrero",
-
-                  ancho: Math.min(prev.ancho, LIMITES_LINEA.Herrero.anchoMax),
-
-                  alto: Math.min(prev.alto, LIMITES_LINEA.Herrero.altoMax),
-                }))
-              }
-            >
-              Herrero
-            </Button>
-
-            <Button
-              variant={config.linea === "Modena" ? "default" : "outline"}
-              onClick={() =>
-                setConfig((prev) => ({
-                  ...prev,
-
-                  linea: "Modena",
-
-                  ancho: Math.min(prev.ancho, LIMITES_LINEA.Modena.anchoMax),
-
-                  alto: Math.min(prev.alto, LIMITES_LINEA.Modena.altoMax),
-                }))
-              }
-            >
-              Modena
-            </Button>
-          </div>
-        </div>
+        <LineaSelector
+          linea={config.linea}
+          onSelectHerrero={handleSelectHerrero}
+          onSelectModena={handleSelectModena}
+        />
 
         {/* MEDIDAS */}
 
-        <div className="grid grid-cols-2 gap-4">
-          {/* ANCHO */}
+        <DimensionsSection
+          anchoInput={anchoInput}
+          altoInput={altoInput}
+          anchoValido={anchoValido}
+          altoValido={altoValido}
+          anchoMin={limites.anchoMin}
+          anchoMax={limites.anchoMax}
+          altoMin={limites.altoMin}
+          altoMax={limites.altoMax}
+          onAnchoChange={(value) => {
+            setAnchoInput(value);
 
-          <div>
-            <label
-              className="
-        mb-2 block text-sm
-        text-muted-foreground
-      "
-            >
-              Ancho
-            </label>
+            updateConfig({
+              ancho: value === "" ? 0 : Number(value),
+            });
+          }}
+          onAltoChange={(value) => {
+            setAltoInput(value);
 
-            <input
-              type="text"
-              inputMode="numeric"
-              value={anchoInput}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, "");
-
-                setAnchoInput(value);
-
-                setConfig((prev) => ({
-                  ...prev,
-
-                  ancho: value === "" ? 0 : Number(value),
-                }));
-              }}
-              className={`
-        w-full rounded-xl
-        border
-        px-4 py-2
-        transition-all
-        focus:outline-none
-
-        ${
-          anchoValido
-            ? "border-white/10 bg-zinc-900 focus:border-white/20"
-            : "border-red-500/60 bg-red-500/5 text-red-200"
-        }
-      `}
-            />
-
-            {!anchoValido && (
-              <p className="mt-2 text-xs text-red-300">
-                El ancho debe estar entre {limites.anchoMin} y{" "}
-                {limites.anchoMax} cm
-              </p>
-            )}
-          </div>
-
-          {/* ALTO */}
-
-          <div>
-            <label
-              className="
-        mb-2 block text-sm
-        text-muted-foreground
-      "
-            >
-              Alto
-            </label>
-
-            <input
-              type="text"
-              inputMode="numeric"
-              value={altoInput}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, "");
-
-                setAltoInput(value);
-
-                setConfig((prev) => ({
-                  ...prev,
-
-                  alto: value === "" ? 0 : Number(value),
-                }));
-              }}
-              className={`
-        w-full rounded-xl
-        border
-        px-4 py-2
-        transition-all
-        focus:outline-none
-
-        ${
-          altoValido
-            ? "border-white/10 bg-zinc-900 focus:border-white/20"
-            : "border-red-500/60 bg-red-500/5 text-red-200"
-        }
-      `}
-            />
-
-            {!altoValido && (
-              <p className="mt-2 text-xs text-red-300">
-                El alto debe estar entre {limites.altoMin} y {limites.altoMax}{" "}
-                cm
-              </p>
-            )}
-          </div>
-        </div>
-
+            updateConfig({
+              alto: value === "" ? 0 : Number(value),
+            });
+          }}
+        />
         {!medidasValidas && (
           <div
             className="
-      rounded-xl
-      border border-red-500/30
-      bg-red-500/10
-      p-3
-      text-sm
-      text-red-200
-    "
+              rounded-xl
+              border border-red-500/30
+              bg-red-500/10
+              p-3
+              text-sm
+              text-red-200
+            "
           >
             Las medidas ingresadas no son válidas para la línea seleccionada.
           </div>
         )}
+
         {/* LIMITES */}
 
         <div
@@ -277,335 +151,113 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
 
         {/* COLORES */}
 
-        <div>
-          <label
-            className="
-              mb-3 block text-sm
-              text-muted-foreground
-            "
-          >
-            Color
-          </label>
+        <ColorSelector
+          value={config.color}
+          onChange={(color) =>
+            updateConfig({
+              color,
 
-          <div
-            className="
-              flex gap-3
-              overflow-x-auto pb-1
-            "
-          >
-            {coloresVentana.map((color) => {
-              const selected = config.color === color.nombre;
-
-              return (
-                <button
-                  type="button"
-                  key={color.nombre}
-                  onClick={() =>
-                    setConfig((prev) => ({
-                      ...prev,
-
-                      color: color.nombre,
-
-                      cortinaPVC:
-                        color.nombre === "Blanco" ? prev.cortinaPVC : false,
-                    }))
-                  }
-                  className={`
-                    flex items-center gap-3
-                    rounded-xl border
-                    px-3 py-2
-                    transition-all
-
-                    ${
-                      selected
-                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                        : "border-border"
-                    }
-                  `}
-                >
-                  <div
-                    className={`
-                      h-6 w-6 rounded-full
-                      border border-white/20
-                      ${color.clase}
-                    `}
-                  />
-
-                  <span className="text-sm">{color.nombre}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
+              cortinaPVC: color === "blanco" ? config.cortinaPVC : false,
+            })
+          }
+        />
         {/* EXTRAS */}
 
-        <div className="space-y-4">
-          <h4
-            className="
-              text-sm font-medium
-              text-muted-foreground
-            "
-          >
-            Extras
-          </h4>
+        <ExtrasSection
+          mosquitero={config.mosquitero}
+          guia={config.guia}
+          cajonBlock={config.cajonBlock}
+          onToggleMosquitero={() => toggleField("mosquitero")}
+          onToggleGuia={() =>
+            setConfig((prev) => {
+              const nuevaGuia = !prev.guia;
 
-          <div className="grid grid-cols-2 gap-3">
-            {/* MOSQUITERO */}
+              return {
+                ...prev,
 
-            <button
-              type="button"
-              onClick={() => toggleField("mosquitero")}
-              className={`
-                rounded-xl border
-                p-3 text-left
-                transition-all
+                guia: nuevaGuia,
 
-                ${
-                  config.mosquitero
-                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                    : "border-border"
-                }
-              `}
-            >
-              Mosquitero
-            </button>
+                cajonBlock: false,
 
-            {/* GUIA */}
+                cortinaPVC: nuevaGuia ? prev.cortinaPVC : false,
 
-            <button
-              type="button"
-              onClick={() =>
-                setConfig((prev) => {
-                  const nuevaGuia = !prev.guia;
+                cortinaAluminio: nuevaGuia ? prev.cortinaAluminio : false,
+              };
+            })
+          }
+          onToggleCajonBlock={() =>
+            setConfig((prev) => ({
+              ...prev,
 
-                  return {
-                    ...prev,
+              cajonBlock: !prev.cajonBlock,
 
-                    guia: nuevaGuia,
+              guia: false,
 
-                    cajonBlock: false,
+              cortinaPVC: false,
 
-                    cortinaPVC: nuevaGuia ? prev.cortinaPVC : false,
+              cortinaAluminio: false,
+            }))
+          }
+        />
 
-                    cortinaAluminio: nuevaGuia ? prev.cortinaAluminio : false,
-                  };
-                })
-              }
-              className={`
-                rounded-xl border
-                p-3 text-left
-                transition-all
+        {/* CORTINAS */}
 
-                ${
-                  config.guia
-                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                    : "border-border"
-                }
-              `}
-            >
-              Guía
-            </button>
+        {config.guia && (
+          <CortinasSection
+            color={config.color}
+            cortinaPVC={config.cortinaPVC}
+            cortinaAluminio={config.cortinaAluminio}
+            onTogglePVC={() =>
+              updateConfig({
+                cortinaPVC: !config.cortinaPVC,
+                cortinaAluminio: false,
+              })
+            }
+            onToggleAluminio={() =>
+              updateConfig({
+                cortinaAluminio: !config.cortinaAluminio,
+                cortinaPVC: false,
+              })
+            }
+          />
+        )}
 
-            {/* CAJON */}
+        {/* MODENA */}
 
-            <button
-              type="button"
-              onClick={() =>
-                setConfig((prev) => ({
+        {config.linea === "Modena" && (
+          <ModenaSection
+            premarco={config.premarco}
+            contramarco={config.contramarco}
+            onTogglePremarco={() =>
+              setConfig((prev) => {
+                const nuevoPremarco = !prev.premarco;
+
+                return {
                   ...prev,
 
-                  cajonBlock: !prev.cajonBlock,
+                  premarco: nuevoPremarco,
 
-                  guia: false,
-
-                  cortinaPVC: false,
-
-                  cortinaAluminio: false,
-                }))
-              }
-              className={`
-                rounded-xl border
-                p-3 text-left
-                transition-all
-
-                ${
-                  config.cajonBlock
-                    ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                    : "border-border"
-                }
-              `}
-            >
-              Cajón Block
-            </button>
+                  contramarco: nuevoPremarco ? true : prev.contramarco,
+                };
+              })
+            }
+            onToggleContramarco={() => toggleField("contramarco")}
+          />
+        )}
+        {/* ERROR */}
+        {cotizacionMutation.isError && (
+          <div
+            className="
+      rounded-xl
+      border border-red-500/20
+      bg-red-500/10
+      px-4 py-3
+      text-sm text-red-300
+    "
+          >
+            Ocurrió un error al cotizar la ventana.
           </div>
-
-          {/* CORTINAS */}
-
-          {config.guia && (
-            <div className="space-y-3">
-              <h4
-                className="
-                  text-sm font-medium
-                  text-muted-foreground
-                "
-              >
-                Cortina
-              </h4>
-
-              <div className="grid grid-cols-2 gap-3">
-                {/* PVC */}
-
-                <button
-                  type="button"
-                  disabled={config.color !== "Blanco"}
-                  onClick={() =>
-                    setConfig((prev) => ({
-                      ...prev,
-
-                      cortinaPVC: !prev.cortinaPVC,
-
-                      cortinaAluminio: false,
-                    }))
-                  }
-                  className={`
-                    rounded-xl border
-                    p-3 text-left
-                    transition-all
-
-                    ${
-                      config.cortinaPVC
-                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                        : "border-border"
-                    }
-
-                    ${
-                      config.color !== "Blanco"
-                        ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-white/30"
-                        : ""
-                    }
-                  `}
-                >
-                  PVC
-                </button>
-
-                {/* ALUMINIO */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setConfig((prev) => ({
-                      ...prev,
-
-                      cortinaAluminio: !prev.cortinaAluminio,
-
-                      cortinaPVC: false,
-                    }))
-                  }
-                  className={`
-                    rounded-xl border
-                    p-3 text-left
-                    transition-all
-
-                    ${
-                      config.cortinaAluminio
-                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                        : "border-border"
-                    }
-                  `}
-                >
-                  Aluminio
-                </button>
-              </div>
-
-              {config.color !== "Blanco" && (
-                <p
-                  className="
-                    text-xs
-                    text-muted-foreground
-                  "
-                >
-                  PVC disponible únicamente en Blanco
-                </p>
-              )}
-            </div>
-          )}
-
-          {/* MODENA */}
-
-          {config.linea === "Modena" && (
-            <div className="space-y-3">
-              <h4
-                className="
-                  text-sm font-medium
-                  text-muted-foreground
-                "
-              >
-                Modena
-              </h4>
-
-              <div className="grid grid-cols-2 gap-3">
-                {/* PREMARCO */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setConfig((prev) => {
-                      const nuevoPremarco = !prev.premarco;
-
-                      return {
-                        ...prev,
-
-                        premarco: nuevoPremarco,
-
-                        contramarco: nuevoPremarco ? true : prev.contramarco,
-                      };
-                    })
-                  }
-                  className={`
-                    rounded-xl border
-                    p-3 text-left
-                    transition-all
-
-                    ${
-                      config.premarco
-                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                        : "border-border"
-                    }
-                  `}
-                >
-                  Premarco
-                </button>
-
-                {/* CONTRAMARCO */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setConfig((prev) => ({
-                      ...prev,
-
-                      contramarco: !prev.contramarco,
-                    }))
-                  }
-                  className={`
-                    rounded-xl border
-                    p-3 text-left
-                    transition-all
-
-                    ${
-                      config.contramarco
-                        ? "border-white/20 bg-white/5 shadow-[0_0_12px_rgba(255,255,255,0.05)]"
-                        : "border-border"
-                    }
-                  `}
-                >
-                  Contramarco
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        )}
 
         {/* ACTION */}
 
@@ -613,9 +265,11 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
           <Button
             className="w-full"
             onClick={handleAddToBudget}
-            disabled={!medidasValidas}
+            disabled={!medidasValidas || cotizacionMutation.isPending}
           >
-            Agregar al presupuesto
+            {cotizacionMutation.isPending
+              ? "Cotizando..."
+              : "Agregar al presupuesto"}
           </Button>
 
           {medidasInvalidas && (

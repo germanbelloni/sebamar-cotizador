@@ -37,7 +37,9 @@ function aplicarColor(items, color) {
     return items;
   }
 
-  const porcentaje = Number(colores?.[color] || 0);
+  const colorData = colores.find((c) => c.nombre === color);
+
+  const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
     if (item.tipo !== "estructura") {

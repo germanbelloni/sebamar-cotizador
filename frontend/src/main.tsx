@@ -9,8 +9,6 @@ import "./index.css";
 
 import { Providers } from "@/app/providers";
 
-document.documentElement.classList.add("dark");
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>

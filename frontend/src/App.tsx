@@ -8,42 +8,28 @@ import { Sidebar } from "@/layouts/components/Sidebar";
 
 import { empresa } from "@/features/empresa/constants";
 
-import { VentanaConfigForm } from "@/features/ventanas/components/VentanaConfigForm";
-
-import { VentanaPreview } from "@/features/ventanas/components/VentanaPreview";
-
-import type { VentanaConfig, VentanaItem } from "@/features/ventanas/types";
-
 import type { Cliente } from "@/features/clientes/types";
 
 import { PrintPage } from "@/pages/PrintPage";
 
-function App() {
-  const [config, setConfig] = useState<VentanaConfig>({
-    ancho: 120,
+import type { RajasConfig } from "@/features/rajas/types";
 
-    alto: 150,
+import { RajasConfigForm } from "@/features/rajas/components/RajasConfigForm";
+
+function App() {
+  const [rajasConfig, setRajasConfig] = useState<RajasConfig>({
+    ancho: 60,
+
+    alto: 60,
 
     linea: "Herrero",
 
-    color: "Blanco",
+    color: "blanco",
 
     mosquitero: false,
-
-    guia: false,
-
-    cajonBlock: false,
-
-    cortinaPVC: false,
-
-    cortinaAluminio: false,
-
-    premarco: false,
-
-    contramarco: false,
   });
-
-  const [items, setItems] = useState<VentanaItem[]>([]);
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const [items, setItems] = useState<any[]>([]);
 
   const [cliente, setCliente] = useState<Cliente>({
     nombre: "",
@@ -68,13 +54,13 @@ function App() {
                 />
 
                 <div className="grid grid-cols-2 gap-6 p-6">
-                  <VentanaConfigForm
-                    config={config}
-                    setConfig={setConfig}
+                  <RajasConfigForm
+                    config={rajasConfig}
+                    setConfig={setRajasConfig}
                     setItems={setItems}
                   />
 
-                  <VentanaPreview config={config} />
+                  <div />
                 </div>
               </main>
 
@@ -84,7 +70,7 @@ function App() {
                   setItems={setItems}
                   cliente={cliente}
                   empresa={empresa}
-                  config={config}
+                  config={rajasConfig as any}
                 />
               </div>
             </div>
