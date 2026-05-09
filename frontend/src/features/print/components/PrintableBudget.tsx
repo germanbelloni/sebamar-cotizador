@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 
+import { Printer, User, MessageSquare } from "lucide-react";
+
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
 import type { VentanaItem } from "@/features/ventanas/types";
@@ -22,204 +24,385 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
   const today = new Date();
 
-  const formattedDate = today.toLocaleDateString("es-AR");
+  const formattedDate = today.toLocaleDateString("es-AR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
-  const presupuestoId = Date.now().toString().slice(-4);
+  const presupuestoId = `${today.getDate()}${
+    today.getMonth() + 1
+  }${today.getFullYear().toString().slice(-2)}`;
+
+  const primaryColor = empresa.primaryColor || "#111827";
 
   return (
-    <div
-      className="
-        min-h-screen
-        bg-zinc-300
-        py-10
-        print:bg-white
-        print:py-0
-      "
-    >
+    <div className="min-h-screen bg-zinc-100 py-12 print:bg-white print:py-0">
       {/* ACTIONS */}
 
-      <div className="mx-auto mb-4 flex w-[820px] justify-end print:hidden">
-        <Button onClick={() => window.print()}>Imprimir / Guardar PDF</Button>
+      <div className="mx-auto mb-8 flex w-[850px] items-center justify-between print:hidden px-4">
+        <h2 className="font-medium text-zinc-500">
+          Vista Previa de Presupuesto
+        </h2>
+
+        <Button
+          onClick={() => window.print()}
+          className="rounded-full shadow-lg transition-all hover:shadow-xl"
+          style={{
+            backgroundColor: primaryColor,
+          }}
+        >
+          <Printer className="mr-2 h-4 w-4" />
+          Imprimir o Guardar PDF
+        </Button>
       </div>
 
-      {/* DOCUMENT */}
+      {/* PAGE */}
 
       <div
         className="
+          relative
           mx-auto
-          w-[820px]
+          w-[850px]
+          overflow-hidden
+          rounded-[32px]
           bg-white
-          text-black
+          shadow-[0_0_50px_-12px_rgba(0,0,0,0.10)]
+          print:w-full
+          print:rounded-none
+          print:shadow-none
         "
       >
-        {/* OUTER BORDER */}
+        {/* TOP ACCENT */}
 
         <div
-          className="border-[14px] p-5"
+          className="h-2 w-full"
           style={{
-            borderColor: empresa.primaryColor || "#d6c221",
+            background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
           }}
-        >
-          {/* TOP */}
+        />
 
-          <div className="flex justify-between gap-8">
+        {/* DECORATION */}
+
+        <div
+          className="
+            absolute
+            right-[-120px]
+            top-[-120px]
+            h-[320px]
+            w-[320px]
+            rounded-full
+            blur-3xl
+            opacity-10
+          "
+          style={{
+            backgroundColor: primaryColor,
+          }}
+        />
+
+        <div className="p-16">
+          {/* HEADER */}
+
+          <div className="flex items-start justify-between">
             {/* LEFT */}
 
-            <div className="flex-1">
+            <div>
               {empresa.logo ? (
                 <img
                   src={empresa.logo}
                   alt={empresa.nombre}
-                  className="mb-3 h-16 object-contain"
+                  className="mb-6 h-16 object-contain"
                 />
               ) : (
-                <h1 className="text-[32px] font-black uppercase leading-none tracking-tight">
-                  {empresa.nombre}
-                </h1>
+                <div className="mb-6">
+                  <h1 className="text-5xl font-black uppercase tracking-tighter text-zinc-900">
+                    {empresa.nombre}
+                  </h1>
+
+                  <div
+                    className="mt-2 h-1.5 w-16 rounded-full"
+                    style={{
+                      backgroundColor: primaryColor,
+                    }}
+                  />
+                </div>
               )}
 
-              <div className="mt-3 space-y-[2px] text-[13px] leading-tight text-zinc-800">
+              <div className="space-y-1 text-sm font-medium text-zinc-500">
                 {empresa.direccion && <p>{empresa.direccion}</p>}
 
-                {empresa.telefono && <p>{empresa.telefono}</p>}
-
-                {empresa.email && <p>{empresa.email}</p>}
+                <p>
+                  {empresa.telefono} · {empresa.email}
+                </p>
               </div>
             </div>
 
             {/* RIGHT */}
 
-            <div className="w-[250px] shrink-0 text-right">
+            <div className="text-right">
+              <h2
+                className="
+                  absolute
+                  right-16
+                  top-12
+                  select-none
+                  text-7xl
+                  font-black
+                  tracking-tighter
+                  opacity-[0.04]
+                "
+              >
+                PRESUPUESTO
+              </h2>
+
               <div
                 className="
                   inline-flex
-                  items-center
-                  justify-center
-                  px-5 py-2
-                  text-[28px]
-                  font-black
+                  rounded-2xl
+                  px-6 py-3
+                  text-sm
+                  font-bold
                   uppercase
-                  tracking-wide
+                  tracking-[0.3em]
+                  text-white
+                  shadow-xl
                 "
                 style={{
-                  backgroundColor: empresa.primaryColor || "#d6c221",
+                  background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
                 }}
               >
-                PRESUPUESTO
+                Presupuesto
               </div>
 
-              <div className="mt-8 space-y-1 text-[13px] leading-tight">
-                <p>
-                  <span className="font-bold">Fecha:</span> {formattedDate}
-                </p>
+              <div className="mt-10 space-y-4">
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
+                    Número
+                  </span>
 
-                <p>
-                  <span className="font-bold">Detalle Nº:</span> {presupuestoId}
-                </p>
+                  <span className="font-mono text-2xl font-black text-zinc-900">
+                    #{presupuestoId}
+                  </span>
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
+                    Fecha de emisión
+                  </span>
+
+                  <span className="font-medium text-zinc-700">
+                    {formattedDate}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* CLIENTE */}
+          {/* CLIENT SECTION */}
 
-          <div className="mt-8 border border-zinc-400">
-            <div className="border-b border-zinc-400 bg-zinc-100 px-3 py-2 text-[13px] font-bold uppercase">
-              Facturar a:
+          <div className="mt-16 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
+            {/* CLIENT */}
+
+            <div>
+              <div className="mb-4 flex items-center gap-2 text-zinc-400">
+                <User size={14} />
+
+                <span className="text-xs font-bold uppercase tracking-[0.25em]">
+                  Información del Cliente
+                </span>
+              </div>
+
+              <h3 className="text-3xl font-black tracking-tight text-zinc-900">
+                {cliente.nombre || "Consumidor Final"}
+              </h3>
+
+              <p className="mt-2 text-zinc-500">
+                {cliente.telefono || "Sin teléfono registrado"}
+              </p>
             </div>
 
-            <div className="space-y-1 p-3 text-[13px]">
-              <p className="font-semibold uppercase">{cliente.nombre || "-"}</p>
+            {/* NOTE */}
 
-              <p>{cliente.telefono || "-"}</p>
+            <div
+              className="
+                rounded-3xl
+                border
+                border-zinc-100
+                bg-gradient-to-br
+                from-zinc-50
+                to-white
+                p-7
+                shadow-sm
+              "
+            >
+              <div className="mb-3 flex items-center gap-2 text-zinc-400">
+                <MessageSquare size={14} />
+
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em]">
+                  Nota rápida
+                </span>
+              </div>
+
+              <p className="text-sm leading-relaxed text-zinc-500">
+                Este documento representa una cotización formal de los productos
+                solicitados.
+                <br />
+                Los valores pueden variar según disponibilidad y costos de
+                materiales.
+              </p>
             </div>
           </div>
 
           {/* TABLE */}
 
-          <div className="mt-8">
-            <table className="w-full border-collapse text-[13px]">
-              <thead>
-                <tr className="bg-zinc-100">
-                  <th className="border border-zinc-400 px-2 py-2 text-left font-bold">
-                    Cant.
-                  </th>
+          <div className="mt-14 overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm">
+            {/* HEAD */}
 
-                  <th className="border border-zinc-400 px-2 py-2 text-left font-bold">
-                    Descripción
-                  </th>
+            <div
+              className="
+                grid
+                grid-cols-[80px_1fr_180px_180px]
+                px-8
+                py-5
+                text-[11px]
+                font-bold
+                uppercase
+                tracking-[0.25em]
+                text-white
+              "
+              style={{
+                background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
+              }}
+            >
+              <div>Cant.</div>
 
-                  <th className="border border-zinc-400 px-2 py-2 text-right font-bold">
-                    Precio unitario
-                  </th>
+              <div>Descripción detallada</div>
 
-                  <th className="border border-zinc-400 px-2 py-2 text-right font-bold">
-                    Total
-                  </th>
-                </tr>
-              </thead>
+              <div className="text-right">Unitario</div>
 
-              <tbody>
-                {items.map((item, index) => (
-                  <tr key={index}>
-                    <td className="border border-zinc-300 px-2 py-3 align-top">
-                      {item.cantidad}
-                    </td>
+              <div className="text-right">Subtotal</div>
+            </div>
 
-                    <td className="border border-zinc-300 px-2 py-3 align-top">
+            {/* BODY */}
+
+            <div className="divide-y divide-zinc-100">
+              {items.map((item, index) => (
+                <div
+                  key={index}
+                  className="
+                    grid
+                    grid-cols-[80px_1fr_180px_180px]
+                    px-8
+                    py-6
+                    transition-colors
+                    hover:bg-zinc-50/60
+                  "
+                >
+                  <div className="font-mono font-semibold text-zinc-900">
+                    {item.cantidad}
+                  </div>
+
+                  <div>
+                    <div className="font-semibold leading-relaxed text-zinc-800">
                       {item.description}
-                    </td>
+                    </div>
 
-                    <td className="border border-zinc-300 px-2 py-3 text-right align-top whitespace-nowrap">
-                      {formatCurrency(item.subtotal)}
-                    </td>
+                    <div className="mt-1 text-xs text-zinc-400">
+                      Producto premium
+                    </div>
+                  </div>
 
-                    <td className="border border-zinc-300 px-2 py-3 text-right align-top whitespace-nowrap font-semibold">
-                      {formatCurrency(item.subtotal * item.cantidad)}
-                    </td>
-                  </tr>
-                ))}
+                  <div className="text-right text-zinc-600">
+                    {formatCurrency(item.subtotal)}
+                  </div>
 
-                {/* EMPTY ROWS */}
-
-                {Array.from({
-                  length: Math.max(0, 10 - items.length),
-                }).map((_, index) => (
-                  <tr key={index}>
-                    <td className="h-[42px] border border-zinc-300" />
-
-                    <td className="border border-zinc-300" />
-
-                    <td className="border border-zinc-300" />
-
-                    <td className="border border-zinc-300" />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  <div className="text-right font-bold text-zinc-900">
+                    {formatCurrency(item.subtotal * item.cantidad)}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* TOTAL */}
 
-          <div className="mt-6 flex justify-end">
-            <div className="w-[320px] border-2 border-black">
-              <div className="flex items-center justify-between px-4 py-3">
-                <span className="text-[22px] font-black uppercase">Total</span>
+          <div className="mt-14 flex justify-end">
+            <div className="w-full max-w-[420px]">
+              <div
+                className="
+                  relative
+                  overflow-hidden
+                  rounded-[32px]
+                  p-8
+                  text-white
+                  shadow-[0_20px_60px_rgba(0,0,0,0.18)]
+                "
+                style={{
+                  background: `linear-gradient(135deg, ${primaryColor}, ${empresa.secondaryColor})`,
+                }}
+              >
+                {/* GLOW */}
 
-                <span className="text-[24px] font-black">
-                  {formatCurrency(total)}
-                </span>
+                <div
+                  className="
+                    absolute
+                    right-[-40px]
+                    top-[-40px]
+                    h-[180px]
+                    w-[180px]
+                    rounded-full
+                    bg-white
+                    opacity-10
+                  "
+                />
+
+                <div className="relative">
+                  <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">
+                    Total Final
+                  </div>
+
+                  <div className="mt-4 text-5xl font-black tracking-tight">
+                    {formatCurrency(total)}
+                  </div>
+
+                  <div className="mt-4 text-sm text-white/70">IVA incluido</div>
+                </div>
               </div>
             </div>
           </div>
 
+          {/* TERMS */}
+
+          <div className="mt-20 border-l-2 border-zinc-200 pl-6">
+            <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
+              Términos y condiciones
+            </h4>
+
+            <ul className="space-y-2 text-[13px] leading-relaxed text-zinc-500">
+              <li>• Validez del presupuesto: 15 días corridos.</li>
+
+              <li>• Plazo estimado de entrega: 20 a 30 días hábiles.</li>
+
+              <li>• Los precios pueden variar según disponibilidad.</li>
+            </ul>
+          </div>
+
           {/* FOOTER */}
 
-          <div className="mt-12 border-t border-zinc-400 pt-4 text-center text-[12px] text-zinc-700">
-            <p>Gracias por confiar en {empresa.nombre}</p>
+          <div className="mt-20 flex items-end justify-between border-t border-zinc-100 pt-8">
+            <div>
+              <p className="text-sm text-zinc-400">Gracias por confiar en</p>
 
-            {empresa.telefono && (
-              <p className="mt-1">Consultas: {empresa.telefono}</p>
-            )}
+              <p className="mt-1 text-xl font-bold tracking-tight text-zinc-900">
+                {empresa.nombre}
+              </p>
+            </div>
+
+            <div className="text-right text-sm text-zinc-500">
+              <p>{empresa.telefono}</p>
+
+              <p>{empresa.email}</p>
+            </div>
           </div>
         </div>
       </div>

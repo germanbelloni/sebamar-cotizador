@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 
 import { LIMITES_LINEA } from "../constants";
 import { coloresVentana } from "../constants";
+import { useMutation } from "@tanstack/react-query";
 
+import { cotizarVentana } from "../api/cotizarVentana";
 import { buildVentanaItem } from "../utils/buildVentanaItem";
 
 import type { VentanaConfig, VentanaItem } from "../types";
@@ -20,6 +22,17 @@ type Props = {
 export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
   const limites = LIMITES_LINEA[config.linea];
 
+  const cotizacionMutation = useMutation({
+    mutationFn: cotizarVentana,
+
+    onSuccess: (data) => {
+      console.log("COTIZACION:", data);
+    },
+
+    onError: (error) => {
+      console.error(error);
+    },
+  });
   /* INPUT STATES */
 
   const [anchoInput, setAnchoInput] = useState(String(config.ancho));
@@ -36,19 +49,34 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
     }));
   };
 
-  const handleAddToBudget = () => {
-    const item = buildVentanaItem(config);
+  const handleAddToBudget = async () => {
+    console.log("CONFIG:", config);
 
-    setItems((prev) => [...prev, item]);
+    try {
+      const result = await cotizacionMutation.mutateAsync(config);
+
+      console.log("RESULT:", result);
+
+      const item = buildVentanaItem(config);
+
+      item.description = result.descripcion;
+
+      item.subtotal = result.precioVenta;
+
+      setItems((prev) => [...prev, item]);
+    } catch (error) {
+      console.error("ERROR COTIZANDO:", error);
+    }
   };
 
-  const anchoInvalido =
-    config.ancho < limites.anchoMin || config.ancho > limites.anchoMax;
+  const anchoValido =
+    config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;
 
-  const altoInvalido =
-    config.alto < limites.altoMin || config.alto > limites.altoMax;
+  const altoValido =
+    config.alto >= limites.altoMin && config.alto <= limites.altoMax;
 
-  const medidasInvalidas = anchoInvalido || altoInvalido;
+  const medidasValidas = anchoValido && altoValido;
+  const medidasInvalidas = !medidasValidas;
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
@@ -134,16 +162,27 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
                   ancho: value === "" ? 0 : Number(value),
                 }));
               }}
-              className="
+              className={`
         w-full rounded-xl
-        border border-white/10
-        bg-zinc-900
+        border
         px-4 py-2
         transition-all
-        focus:border-white/20
         focus:outline-none
-      "
+
+        ${
+          anchoValido
+            ? "border-white/10 bg-zinc-900 focus:border-white/20"
+            : "border-red-500/60 bg-red-500/5 text-red-200"
+        }
+      `}
             />
+
+            {!anchoValido && (
+              <p className="mt-2 text-xs text-red-300">
+                El ancho debe estar entre {limites.anchoMin} y{" "}
+                {limites.anchoMax} cm
+              </p>
+            )}
           </div>
 
           {/* ALTO */}
@@ -173,19 +212,44 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
                   alto: value === "" ? 0 : Number(value),
                 }));
               }}
-              className="
+              className={`
         w-full rounded-xl
-        border border-white/10
-        bg-zinc-900
+        border
         px-4 py-2
         transition-all
-        focus:border-white/20
         focus:outline-none
-      "
+
+        ${
+          altoValido
+            ? "border-white/10 bg-zinc-900 focus:border-white/20"
+            : "border-red-500/60 bg-red-500/5 text-red-200"
+        }
+      `}
             />
+
+            {!altoValido && (
+              <p className="mt-2 text-xs text-red-300">
+                El alto debe estar entre {limites.altoMin} y {limites.altoMax}{" "}
+                cm
+              </p>
+            )}
           </div>
         </div>
 
+        {!medidasValidas && (
+          <div
+            className="
+      rounded-xl
+      border border-red-500/30
+      bg-red-500/10
+      p-3
+      text-sm
+      text-red-200
+    "
+          >
+            Las medidas ingresadas no son válidas para la línea seleccionada.
+          </div>
+        )}
         {/* LIMITES */}
 
         <div
@@ -545,18 +609,36 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
 
         {/* ACTION */}
 
-        <Button
-          className="w-full"
-          onClick={handleAddToBudget}
-          disabled={medidasInvalidas}
-        >
-          Agregar al presupuesto
-        </Button>
-        {medidasInvalidas && (
-          <p className="text-center text-xs text-red-400">
-            Las medidas están fuera de los límites permitidos.
-          </p>
-        )}
+        <div className="space-y-3">
+          <Button
+            className="w-full"
+            onClick={handleAddToBudget}
+            disabled={!medidasValidas}
+          >
+            Agregar al presupuesto
+          </Button>
+
+          {medidasInvalidas && (
+            <div
+              className="
+        rounded-xl
+        border border-red-500/20
+        bg-red-500/10
+        px-4 py-3
+        text-center
+      "
+            >
+              <p className="text-sm font-medium text-red-300">
+                Las medidas ingresadas no son válidas para la línea
+                seleccionada.
+              </p>
+
+              <p className="mt-1 text-xs text-red-400">
+                Revisá los límites permitidos antes de agregar al presupuesto.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

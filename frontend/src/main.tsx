@@ -1,15 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { AppRoutes } from "@/app/routes";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./App";
 
 import "./index.css";
+
 import { Providers } from "@/app/providers";
+
+document.documentElement.classList.add("dark");
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Providers>
-      <AppRoutes />
-    </Providers>
+    <BrowserRouter>
+      <Providers>
+        <App />
+      </Providers>
+    </BrowserRouter>
   </React.StrictMode>,
 );

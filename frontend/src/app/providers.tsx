@@ -1,13 +1,23 @@
-import { ThemeProvider } from "next-themes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-type ProvidersProps = {
-  children: React.ReactNode;
+import type { ReactNode } from "react";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+type Props = {
+  children: ReactNode;
 };
 
-export function Providers({ children }: ProvidersProps) {
+export function Providers({ children }: Props) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      {children}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }

@@ -1,7 +1,5 @@
-export interface Empresa {
+export type Empresa = {
   nombre: string;
-
-  logo?: string;
 
   telefono?: string;
 
@@ -9,5 +7,9 @@ export interface Empresa {
 
   email?: string;
 
-  primaryColor?: string;
-}
+  logo?: string;
+
+  primaryColor: string;
+
+  secondaryColor: string;
+};

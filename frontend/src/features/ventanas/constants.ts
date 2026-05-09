@@ -37,9 +37,3 @@ export const LIMITES_LINEA = {
     altoMax: 260,
   },
 };
-
-export const COMPANY = {
-  name: "Sebamar",
-
-  logo: "/logo.png",
-};
