@@ -1,6 +1,6 @@
-import type { MosquiterosConfig } from "../types";
-
 import { LIMITES_MOSQUITEROS } from "../constants";
+
+import type { MosquiterosConfig } from "../types";
 
 export function useMosquiterosValidation(config: MosquiterosConfig) {
   const limites = LIMITES_MOSQUITEROS[config.tipo];
@@ -13,8 +13,6 @@ export function useMosquiterosValidation(config: MosquiterosConfig) {
 
   const medidasValidas = anchoValido && altoValido;
 
-  const medidasInvalidas = !medidasValidas;
-
   return {
     limites,
 
@@ -24,6 +22,6 @@ export function useMosquiterosValidation(config: MosquiterosConfig) {
 
     medidasValidas,
 
-    medidasInvalidas,
+    medidasInvalidas: !medidasValidas,
   };
 }

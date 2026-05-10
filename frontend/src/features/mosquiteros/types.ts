@@ -1,4 +1,4 @@
-export type MosquiteroTipo = "ventana" | "puerta";
+export type MosquiteroTipo = "ventana" | "puerta_mosquitera";
 
 export type MosquiterosConfig = {
   ancho: number;

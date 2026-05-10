@@ -74,35 +74,32 @@ export function DimensionsSection({
             border
             px-4 py-2
 
+            bg-card
+            text-foreground
+
             transition-all
 
             focus:outline-none
             focus:ring-2
-            focus:ring-[#39FF14]/40
-
-            focus:shadow-[0_0_20px_rgba(57,255,20,0.25)]
+            focus:ring-primary/30
 
             ${
               anchoValido
                 ? `
-                  border-white/10
-                  bg-zinc-900
-
-                  focus:border-white/20
+                  border-border
+                  focus:border-primary
                 `
                 : `
                   border-red-500/60
-
                   bg-red-500/5
-
-                  text-red-200
+                  text-red-500
                 `
             }
           `}
         />
 
         {!anchoValido && (
-          <p className="mt-2 text-xs text-red-300">
+          <p className="mt-2 text-xs text-red-500">
             El ancho debe estar entre {anchoMin} y {anchoMax} cm
           </p>
         )}
@@ -137,35 +134,32 @@ export function DimensionsSection({
             border
             px-4 py-2
 
+            bg-card
+            text-foreground
+
             transition-all
 
             focus:outline-none
             focus:ring-2
-            focus:ring-[#39FF14]/40
-
-            focus:shadow-[0_0_20px_rgba(57,255,20,0.25)]
+            focus:ring-primary/30
 
             ${
               altoValido
                 ? `
-                  border-white/10
-                  bg-zinc-900
-
-                  focus:border-white/20
+                  border-border
+                  focus:border-primary
                 `
                 : `
                   border-red-500/60
-
                   bg-red-500/5
-
-                  text-red-200
+                  text-red-500
                 `
             }
           `}
         />
 
         {!altoValido && (
-          <p className="mt-2 text-xs text-red-300">
+          <p className="mt-2 text-xs text-red-500">
             El alto debe estar entre {altoMin} y {altoMax} cm
           </p>
         )}

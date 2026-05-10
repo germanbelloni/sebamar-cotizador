@@ -49,7 +49,7 @@ export function SelectableCard({
   rounded-2xl
   border
 
-  border-white/10
+  border-border
 
   bg-white/[0.03]
   backdrop-blur-xl
@@ -69,7 +69,7 @@ export function SelectableCard({
         shadow-[0_0_18px_rgba(255,255,255,0.08)]
       `
         : `
-        border-white/10
+        border-border
 
         bg-[#39FF14]/[0.10]
 

@@ -32,8 +32,7 @@ export function LineaSelector({
           className="
             text-sm
             font-medium
-
-            text-white/70
+            text-foreground
           "
         >
           {label}

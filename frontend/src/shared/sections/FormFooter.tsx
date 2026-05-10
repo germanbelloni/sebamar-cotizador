@@ -8,7 +8,7 @@ export function FormFooter({ children }: Props) {
       className="
         pt-4
 
-        border-t border-white/10
+        border-t border-border
       "
     >
       <div className="space-y-4">{children}</div>

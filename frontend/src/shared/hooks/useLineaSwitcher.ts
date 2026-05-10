@@ -1,39 +1,50 @@
-type Limits = {
-  anchoMax: number;
+type LimitsMap = Record<
+  string,
+  {
+    anchoMin: number;
 
-  altoMax: number;
+    anchoMax: number;
+
+    altoMin: number;
+
+    altoMax: number;
+  }
+>;
+
+type BaseConfig = {
+  linea: string;
+
+  ancho: number;
+
+  alto: number;
 };
 
-type Params<T> = {
+type Params<T extends BaseConfig> = {
   setConfig: React.Dispatch<React.SetStateAction<T>>;
 
-  limits: Record<string, Limits>;
+  limits: LimitsMap;
 };
 
-export function useLineaSwitcher<
-  T extends {
-    linea: string;
-
-    ancho: number;
-
-    alto: number;
-  },
->({
+export function useLineaSwitcher<T extends BaseConfig>({
   setConfig,
 
   limits,
 }: Params<T>) {
-  function switchLinea(linea: string) {
-    setConfig((prev) => ({
-      ...prev,
+  const switchLinea = (linea: string) => {
+    setConfig((prev) => {
+      const nuevosLimites = limits[linea];
 
-      linea,
+      return {
+        ...prev,
 
-      ancho: Math.min(prev.ancho, limits[linea].anchoMax),
+        linea,
 
-      alto: Math.min(prev.alto, limits[linea].altoMax),
-    }));
-  }
+        ancho: Math.min(prev.ancho, nuevosLimites.anchoMax),
+
+        alto: Math.min(prev.alto, nuevosLimites.altoMax),
+      };
+    });
+  };
 
   return {
     switchLinea,

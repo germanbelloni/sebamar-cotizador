@@ -8,7 +8,7 @@ export const coloresVentana = [
   {
     label: "negro",
     value: "negro",
-    clase: "bg-black",
+    clase: "bg-background",
   },
 
   {

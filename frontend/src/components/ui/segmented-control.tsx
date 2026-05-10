@@ -31,7 +31,7 @@ export function SegmentedControl({
 
         rounded-[32px]
 
-        border border-white/10
+        border border-border
 
         bg-white/[0.03]
 
@@ -161,7 +161,7 @@ export function SegmentedControl({
                     : `
                       text-white/45
 
-                      group-hover:text-white/75
+                      group-hover:text-foreground/75
                     `
                 }
               `}

@@ -54,7 +54,7 @@ export function ToggleCard({
               shadow-[0_0_25px_rgba(57,255,20,0.18)]
             `
             : `
-              border-white/10
+              border-border
 
               bg-white/[0.03]
 

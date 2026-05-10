@@ -18,7 +18,7 @@ export function ConfigSection({
 
         rounded-[30px]
 
-        border border-white/10
+        border border-border
 
         bg-white/[0.03]
 

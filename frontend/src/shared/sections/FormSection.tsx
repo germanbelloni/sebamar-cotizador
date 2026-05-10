@@ -17,12 +17,9 @@ export function FormSection({
             className="
               text-sm
               font-semibold
-
               uppercase
-
               tracking-[0.18em]
-
-              text-white/45
+              text-foreground
             "
           >
             {title}

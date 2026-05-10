@@ -1,6 +1,6 @@
 export type PuertaLinea = "herrero" | "modena" | "eco";
 
-export type PuertaTipo = "simple" | "corredizo" | "plegadizo";
+export type PuertaTipo = "simple" | "doble" | "puerta_y_media";
 
 export type PuertaApertura = "izquierda" | "derecha";
 

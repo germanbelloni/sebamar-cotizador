@@ -1,8 +1,9 @@
 import type { ColorVentana } from "./constants";
+import type { LineaAluminio } from "@/shared/types/lineas";
 export type VentanaItem = {
   tipo: "ventana";
 
-  linea: "Herrero" | "Modena";
+  linea: LineaAluminio;
   cantidad: number;
 
   medidas: {
@@ -13,7 +14,7 @@ export type VentanaItem = {
 
   color: string;
 
-  extras: {
+  configuracion: {
     mosquitero: boolean;
 
     guia: boolean;
@@ -36,7 +37,7 @@ export type VentanaConfig = {
 
   alto: number;
 
-  linea: "Herrero" | "Modena";
+  linea: LineaAluminio;
 
   color: ColorVentana;
 
@@ -53,20 +54,4 @@ export type VentanaConfig = {
   premarco: boolean;
 
   contramarco: boolean;
-};
-
-export type BudgetItem = {
-  id: string;
-
-  descripcion: string;
-
-  ancho: number;
-
-  alto: number;
-
-  linea: string;
-
-  color: string;
-
-  precio: number;
 };

@@ -18,7 +18,7 @@ export const coloresPostigones = [
     label: "Negro",
     value: "negro",
 
-    clase: "bg-black",
+    clase: "bg-background",
   },
 
   {

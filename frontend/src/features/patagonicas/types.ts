@@ -23,6 +23,12 @@ export type PatagonicasConfig = {
 
   tipoApertura: "abrir" | "corredizo";
 
+  premarco: boolean;
+
+  contramarco: boolean;
+
+  mosquitero: boolean;
+
   raja?: {
     ancho: number;
 
@@ -57,6 +63,11 @@ export type PatagonicasItem = {
     ladoApertura: "izquierda" | "derecha";
 
     tipoApertura: "abrir" | "corredizo";
+    premarco: boolean;
+
+    contramarco: boolean;
+
+    mosquitero: boolean;
   };
 
   subtotal: number;

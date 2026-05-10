@@ -7,7 +7,7 @@ export const LIMITES_MOSQUITEROS = {
     altoMax: 200,
   },
 
-  puerta: {
+  puerta_mosquitera: {
     anchoMin: 70,
     anchoMax: 100,
 
@@ -24,6 +24,6 @@ export const tiposMosquitero = [
 
   {
     label: "Puerta",
-    value: "puerta",
+    value: "puerta_mosquitera",
   },
 ] as const;

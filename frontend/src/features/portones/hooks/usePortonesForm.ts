@@ -1,0 +1,68 @@
+import type { PortonesConfig } from "../types";
+
+import { LIMITES_PORTONES } from "../constants";
+
+import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
+
+import { useDimensionsInputs } from "@/shared/hooks/useDimensionsInputs";
+
+import { useLineaSwitcher } from "@/shared/hooks/useLineaSwitcher";
+
+type Params = {
+  config: PortonesConfig;
+
+  setConfig: React.Dispatch<React.SetStateAction<PortonesConfig>>;
+};
+
+export function usePortonesForm({
+  config,
+
+  setConfig,
+}: Params) {
+  const { updateConfig } = useConfigUpdater(setConfig);
+
+  const {
+    anchoInput,
+
+    altoInput,
+
+    handleAnchoChange,
+
+    handleAltoChange,
+  } = useDimensionsInputs({
+    ancho: config.ancho,
+
+    alto: config.alto,
+
+    onChange: ({
+      ancho,
+
+      alto,
+    }) =>
+      updateConfig({
+        ancho,
+
+        alto,
+      }),
+  });
+
+  const { switchLinea } = useLineaSwitcher({
+    setConfig,
+
+    limits: LIMITES_PORTONES,
+  });
+
+  return {
+    updateConfig,
+
+    switchLinea,
+
+    anchoInput,
+
+    altoInput,
+
+    handleAnchoChange,
+
+    handleAltoChange,
+  };
+}

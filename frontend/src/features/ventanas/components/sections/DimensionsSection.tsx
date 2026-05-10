@@ -79,7 +79,7 @@ export function DimensionsSection({
             ${
               anchoValido
                 ? `
-                  border-white/10
+                  border-border
 
                   bg-white/[0.03]
 
@@ -193,7 +193,7 @@ export function DimensionsSection({
             ${
               altoValido
                 ? `
-                  border-white/10
+                  border-border
 
                   bg-white/[0.03]
 

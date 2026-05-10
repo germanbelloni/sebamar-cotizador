@@ -53,7 +53,7 @@ export function GlassCard({
               scale-[1.02]
             `
             : `
-              border-white/10
+              border-border
 
               bg-white/[0.03]
 

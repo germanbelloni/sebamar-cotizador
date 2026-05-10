@@ -18,7 +18,7 @@ export function ProductFormLayout({
 
         rounded-[34px]
 
-        border border-white/10
+        border border-border
 
         bg-white/[0.03]
 

@@ -1,36 +1,55 @@
 import { Button } from "@/components/ui/button";
+
+import { useNavigate } from "react-router-dom";
+
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
+
 import { buildBudgetMessage } from "@/features/ventanas/utils/buildBudgetMessage";
-import type { VentanaItem } from "@/features/ventanas/types";
+
 import type { Cliente } from "@/features/clientes/types";
 
 import type { Empresa } from "@/features/empresa/types";
-import { useNavigate } from "react-router-dom";
-import type { VentanaConfig } from "@/features/ventanas/types";
+
+type BudgetItem = {
+  tipo: string;
+
+  cantidad: number;
+
+  description: string;
+
+  subtotal: number;
+};
 
 type Props = {
-  items: VentanaItem[];
+  items: BudgetItem[];
 
-  setItems: React.Dispatch<React.SetStateAction<VentanaItem[]>>;
+  setItems: React.Dispatch<React.SetStateAction<BudgetItem[]>>;
 
   cliente: Cliente;
 
   empresa: Empresa;
-  config: VentanaConfig;
 };
 
 export function BudgetPanel({
   items,
-  setItems,
-  cliente,
-  empresa,
-  config,
-}: Props) {
-  const handleRemoveItem = (index: number) => {
-    setItems((prev) => prev.filter((_, i) => i !== index));
-  };
 
-  const handleQuantityChange = (index: number, delta: number) => {
+  setItems,
+
+  cliente,
+
+  empresa,
+}: Props) {
+  const navigate = useNavigate();
+
+  function handleRemoveItem(index: number) {
+    setItems((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function handleQuantityChange(
+    index: number,
+
+    delta: number,
+  ) {
     setItems((prev) =>
       prev.map((item, i) => {
         if (i !== index) return item;
@@ -42,40 +61,44 @@ export function BudgetPanel({
         };
       }),
     );
-  };
+  }
 
   const total = items.reduce(
     (acc, item) => acc + item.subtotal * item.cantidad,
+
     0,
   );
-  const navigate = useNavigate();
 
   const canShare =
     items.length > 0 && cliente.nombre.trim() && cliente.telefono.trim();
 
-  const handleShareWhatsApp = () => {
-    const message = buildBudgetMessage(items, cliente);
+  function handleShareWhatsApp() {
+    const message = buildBudgetMessage(
+      items as never,
+
+      cliente,
+    );
 
     const encoded = encodeURIComponent(message);
 
-    window.open(`https://wa.me/?text=${encoded}`, "_blank");
-  };
-  const handlePrint = () => {
-    console.log({
-      empresa,
-      cliente,
-      items,
-      config,
-    });
+    window.open(
+      `https://wa.me/?text=${encoded}`,
 
+      "_blank",
+    );
+  }
+
+  function handlePrint() {
     navigate("/print", {
       state: {
         empresa,
+
         cliente,
+
         items,
       },
     });
-  };
+  }
 
   return (
     <aside
@@ -124,114 +147,132 @@ export function BudgetPanel({
             </p>
           </div>
         ) : (
-          items.map((item, index) => (
-            <div
-              key={index}
-              className="
-                rounded-xl
-                border border-border
-                bg-background
-                p-3
-              "
-            >
-              {/* TOP */}
+          items.map(
+            (
+              item,
 
-              <div className="flex items-center justify-between gap-3">
-                <div className="text-xs font-medium text-muted-foreground">
-                  Item {index + 1}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => handleRemoveItem(index)}
-                  className="
-                    rounded-md
-                    border border-white/10
-                    px-2 py-1
-                    text-[11px]
-                    text-muted-foreground
-                    transition-all
-                    hover:border-white/20
-                    hover:bg-white/5
-                    hover:text-white
-                  "
-                >
-                  Eliminar
-                </button>
-              </div>
-
-              {/* DESCRIPTION */}
-
+              index,
+            ) => (
               <div
+                key={index}
                 className="
-                  mt-2
-                  text-xs
-                  leading-relaxed
-                  text-muted-foreground
+                  rounded-xl
+                  border border-border
+                  bg-background
+                  p-3
                 "
               >
-                {item.description}
-              </div>
+                {/* TOP */}
 
-              {/* CANTIDAD */}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-xs font-medium capitalize text-muted-foreground">
+                    {item.tipo}
+                  </div>
 
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] text-muted-foreground">
-                  Cantidad
-                </span>
-
-                <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => handleQuantityChange(index, -1)}
+                    onClick={() => handleRemoveItem(index)}
                     className="
-        rounded-md
-        border border-white/10
-        px-2 py-1
-        text-xs
-        transition-all
-        hover:bg-white/5
-      "
+                      rounded-md
+                      border border-border
+                      px-2 py-1
+                      text-[11px]
+                      text-muted-foreground
+                      transition-all
+                      hover:border-border
+                      hover:bg-muted
+                      hover:text-foreground
+                    "
                   >
-                    −
+                    Eliminar
                   </button>
+                </div>
 
-                  <span className="min-w-[20px] text-center text-sm">
-                    {item.cantidad}
+                {/* DESCRIPTION */}
+
+                <div
+                  className="
+                    mt-2
+                    text-xs
+                    leading-relaxed
+                    text-muted-foreground
+                  "
+                >
+                  {item.description}
+                </div>
+
+                {/* CANTIDAD */}
+
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="text-[10px] text-muted-foreground">
+                    Cantidad
                   </span>
 
-                  <button
-                    type="button"
-                    onClick={() => handleQuantityChange(index, 1)}
-                    className="
-        rounded-md
-        border border-white/10
-        px-2 py-1
-        text-xs
-        transition-all
-        hover:bg-white/5
-      "
-                  >
-                    +
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleQuantityChange(
+                          index,
+
+                          -1,
+                        )
+                      }
+                      className="
+                        rounded-md
+                        border border-border
+                        px-2 py-1
+                        text-xs
+                        transition-all
+                        hover:bg-muted
+                      "
+                    >
+                      −
+                    </button>
+
+                    <span className="min-w-[20px] text-center text-sm">
+                      {item.cantidad}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleQuantityChange(
+                          index,
+
+                          1,
+                        )
+                      }
+                      className="
+                        rounded-md
+                        border border-border
+                        px-2 py-1
+                        text-xs
+                        transition-all
+                        hover:bg-muted
+                      "
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* SUBTOTAL */}
+
+                <div className="mt-2 flex justify-end">
+                  <div className="text-right">
+                    <div className="text-[9px] text-muted-foreground">
+                      Subtotal
+                    </div>
+
+                    <div className="text-sm font-medium">
+                      {formatCurrency(item.subtotal * item.cantidad)}
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              {/* SUBTOTAL */}
-
-              <div className="mt-2 flex justify-end">
-                <div className="text-right">
-                  <div className="text-[9px] text-muted-foreground">
-                    Subtotal
-                  </div>
-
-                  <div className="text-sm font-medium">
-                    {formatCurrency(item.subtotal * item.cantidad)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
+            ),
+          )
         )}
       </div>
 

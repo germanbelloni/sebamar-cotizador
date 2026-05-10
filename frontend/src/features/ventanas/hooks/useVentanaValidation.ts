@@ -2,16 +2,24 @@ import { LIMITES_LINEA } from "../constants";
 
 import type { VentanaConfig } from "../types";
 
+import { validateDimensions } from "@/shared/utils/validateDimensions";
+
 export function useVentanaValidation(config: VentanaConfig) {
   const limites = LIMITES_LINEA[config.linea];
 
-  const anchoValido =
-    config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;
+  const {
+    anchoValido,
 
-  const altoValido =
-    config.alto >= limites.altoMin && config.alto <= limites.altoMax;
+    altoValido,
 
-  const medidasValidas = anchoValido && altoValido;
+    medidasValidas,
+  } = validateDimensions({
+    ancho: config.ancho,
+
+    alto: config.alto,
+
+    limits: limites,
+  });
 
   return {
     limites,

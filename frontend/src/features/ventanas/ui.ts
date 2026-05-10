@@ -1,4 +1,6 @@
-export const VENTANAS_UI = {
+import type { ProductUI } from "@/shared/types/ui";
+import type { FormField } from "@/shared/types/form";
+export const VENTANAS_UI: ProductUI = {
   title: "Ventanas",
 
   sections: {
@@ -50,4 +52,31 @@ export const VENTANAS_UI = {
 
     quoting: "Cotizando...",
   },
+  fields: [
+    {
+      id: "linea",
+
+      type: "selector",
+
+      section: "sistema",
+
+      selectorKey: "lineas",
+    },
+
+    {
+      id: "dimensions",
+
+      type: "dimensions",
+
+      section: "medidas",
+    },
+
+    {
+      id: "color",
+
+      type: "color-selector",
+
+      section: "colores",
+    },
+  ] satisfies FormField[],
 };

@@ -12,7 +12,7 @@ const colors = [
     label: "Negro",
     value: "negro",
 
-    preview: "bg-black",
+    preview: "bg-background",
   },
 
   {
@@ -77,7 +77,7 @@ export function ColorSelector({
 
                 rounded-full
 
-                border border-white/10
+                border border-border
 
                 ${color.preview}
               `}

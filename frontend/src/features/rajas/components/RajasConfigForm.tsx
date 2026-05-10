@@ -1,12 +1,8 @@
-import { useState } from "react";
-
 import type { RajasConfig, RajasItem } from "../types";
 
 import type { VidrioType } from "@/shared/types/vidrios";
 
 import { RAJAS_UI } from "../ui";
-
-import { LIMITES_RAJAS } from "../constants";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -26,9 +22,7 @@ import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
 
 import { DimensionsSection } from "@/shared/sections/DimensionsSection";
 
-import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
-
-import { useLineaSwitcher } from "@/shared/hooks/useLineaSwitcher";
+import { useRajasForm } from "../hooks/useRajasForm";
 
 import { ExtrasSection } from "@/shared/sections/ExtrasSection";
 
@@ -55,18 +49,23 @@ export function RajasConfigForm({
 }: Props) {
   const cotizacionMutation = useCotizarRajas();
 
-  const [anchoInput, setAnchoInput] = useState(String(config.ancho));
+  const {
+    updateConfig,
 
-  const [altoInput, setAltoInput] = useState(String(config.alto));
+    switchLinea,
 
-  const { updateConfig } = useConfigUpdater(setConfig);
+    anchoInput,
 
-  const { switchLinea } = useLineaSwitcher({
+    altoInput,
+
+    handleAnchoChange,
+
+    handleAltoChange,
+  } = useRajasForm({
+    config,
+
     setConfig,
-
-    limits: LIMITES_RAJAS,
   });
-
   const {
     limites,
 
@@ -116,20 +115,8 @@ export function RajasConfigForm({
             anchoMax={limites.anchoMax}
             altoMin={limites.altoMin}
             altoMax={limites.altoMax}
-            onAnchoChange={(value) => {
-              setAnchoInput(value);
-
-              updateConfig({
-                ancho: value === "" ? 0 : Number(value),
-              });
-            }}
-            onAltoChange={(value) => {
-              setAltoInput(value);
-
-              updateConfig({
-                alto: value === "" ? 0 : Number(value),
-              });
-            }}
+            onAnchoChange={handleAnchoChange}
+            onAltoChange={handleAltoChange}
           />
         </FormSection>
 
@@ -172,7 +159,7 @@ export function RajasConfigForm({
         </FormSection>
 
         {medidasInvalidas && (
-          <AlertBox variant="error">Medidas inválidas.</AlertBox>
+          <AlertBox type="error">Medidas inválidas.</AlertBox>
         )}
 
         <FormFooter>

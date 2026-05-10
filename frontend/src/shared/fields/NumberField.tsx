@@ -50,7 +50,7 @@ export function NumberField({
 
           rounded-2xl
 
-          border border-white/10
+          border border-border
 
           bg-white/[0.03]
 
