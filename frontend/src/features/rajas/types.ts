@@ -1,7 +1,7 @@
 export type RajaLinea = "Herrero" | "Modena";
 
 export type RajaModelo = "raja" | "brazo" | "volcable" | "oscilobatiente";
-
+import type { VidrioType } from "@/shared/types/vidrios";
 export type RajaBisagra = "izquierda" | "derecha";
 
 export type RajaVidrio =
@@ -23,7 +23,7 @@ export type RajasConfig = {
 
   vidrio?: string;
 
-  tipoVidrio?: RajaVidrio;
+  tipoVidrio?: VidrioType;
 
   mosquitero: boolean;
 
@@ -70,6 +70,7 @@ export type RajasItem = {
 
     bisagra?: RajaBisagra;
 
+  
     premarco: boolean;
 
     contramarco: boolean;

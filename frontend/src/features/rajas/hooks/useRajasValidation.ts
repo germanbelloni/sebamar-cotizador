@@ -2,16 +2,24 @@ import type { RajasConfig } from "../types";
 
 import { LIMITES_RAJAS } from "../constants";
 
+import { validateDimensions } from "@/shared/utils/validateDimensions";
+
 export function useRajasValidation(config: RajasConfig) {
   const limites = LIMITES_RAJAS[config.linea];
 
-  const anchoValido =
-    config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;
+  const {
+    anchoValido,
 
-  const altoValido =
-    config.alto >= limites.altoMin && config.alto <= limites.altoMax;
+    altoValido,
 
-  const medidasValidas = anchoValido && altoValido;
+    medidasValidas,
+  } = validateDimensions({
+    ancho: config.ancho,
+
+    alto: config.alto,
+
+    limits: limites,
+  });
 
   const medidasInvalidas = !medidasValidas;
 

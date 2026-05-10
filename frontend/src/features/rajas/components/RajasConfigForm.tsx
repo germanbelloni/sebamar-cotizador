@@ -1,16 +1,36 @@
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-
 import type { RajasConfig, RajasItem } from "../types";
 
-import { LineaSelector } from "@/features/ventanas/components/sections/LineaSelector";
+import type { VidrioType } from "@/shared/types/vidrios";
 
-import { DimensionsSection } from "@/features/ventanas/components/sections/DimensionsSection";
+import { RAJAS_UI } from "../ui";
 
-import { ColorSelector } from "@/features/ventanas/components/sections/ColorSelector";
+import { LIMITES_RAJAS } from "../constants";
 
-import { ExtrasSection } from "@/features/ventanas/components/sections/ExtrasSection";
+import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
+
+import { FormSection } from "@/shared/sections/FormSection";
+
+import { FormFooter } from "@/shared/sections/FormFooter";
+
+import { AlertBox } from "@/shared/components/AlertBox";
+
+import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
+
+import { LineaSelector } from "@/shared/selectors/LineaSelector";
+
+import { ColorSelector } from "@/shared/selectors/ColorSelector";
+
+import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
+
+import { DimensionsSection } from "@/shared/sections/DimensionsSection";
+
+import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
+
+import { useLineaSwitcher } from "@/shared/hooks/useLineaSwitcher";
+
+import { ExtrasSection } from "@/shared/sections/ExtrasSection";
 
 import { useRajasValidation } from "../hooks/useRajasValidation";
 
@@ -26,12 +46,26 @@ type Props = {
   setItems: React.Dispatch<React.SetStateAction<RajasItem[]>>;
 };
 
-export function RajasConfigForm({ config, setConfig, setItems }: Props) {
+export function RajasConfigForm({
+  config,
+
+  setConfig,
+
+  setItems,
+}: Props) {
   const cotizacionMutation = useCotizarRajas();
 
   const [anchoInput, setAnchoInput] = useState(String(config.ancho));
 
   const [altoInput, setAltoInput] = useState(String(config.alto));
+
+  const { updateConfig } = useConfigUpdater(setConfig);
+
+  const { switchLinea } = useLineaSwitcher({
+    setConfig,
+
+    limits: LIMITES_RAJAS,
+  });
 
   const {
     limites,
@@ -44,13 +78,6 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
 
     medidasInvalidas,
   } = useRajasValidation(config);
-
-  const updateConfig = (updates: Partial<RajasConfig>) => {
-    setConfig((prev) => ({
-      ...prev,
-      ...updates,
-    }));
-  };
 
   const handleAddToBudget = async () => {
     try {
@@ -68,114 +95,98 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
     }
   };
 
-  const handleSelectHerrero = () => {
-    setConfig((prev) => ({
-      ...prev,
-
-      linea: "Herrero",
-
-      ancho: Math.min(prev.ancho, 240),
-
-      alto: Math.min(prev.alto, 150),
-    }));
-  };
-
-  const handleSelectModena = () => {
-    setConfig((prev) => ({
-      ...prev,
-
-      linea: "Modena",
-
-      ancho: Math.min(prev.ancho, 240),
-
-      alto: Math.min(prev.alto, 150),
-    }));
-  };
-
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
-      <h3 className="text-lg font-semibold">Configuración</h3>
+    <ProductFormLayout title={RAJAS_UI.title}>
+      <div className="space-y-6">
+        <FormSection title={RAJAS_UI.sections.sistema}>
+          <LineaSelector
+            value={config.linea}
+            options={RAJAS_UI.lineas}
+            onChange={(value) => switchLinea(value)}
+          />
+        </FormSection>
 
-      <div className="mt-6 space-y-6">
-        <LineaSelector
-          linea={config.linea}
-          onSelectHerrero={handleSelectHerrero}
-          onSelectModena={handleSelectModena}
-        />
+        <FormSection title={RAJAS_UI.sections.medidas}>
+          <DimensionsSection
+            anchoInput={anchoInput}
+            altoInput={altoInput}
+            anchoValido={anchoValido}
+            altoValido={altoValido}
+            anchoMin={limites.anchoMin}
+            anchoMax={limites.anchoMax}
+            altoMin={limites.altoMin}
+            altoMax={limites.altoMax}
+            onAnchoChange={(value) => {
+              setAnchoInput(value);
 
-        <DimensionsSection
-          anchoInput={anchoInput}
-          altoInput={altoInput}
-          anchoValido={anchoValido}
-          altoValido={altoValido}
-          anchoMin={limites.anchoMin}
-          anchoMax={limites.anchoMax}
-          altoMin={limites.altoMin}
-          altoMax={limites.altoMax}
-          onAnchoChange={(value) => {
-            setAnchoInput(value);
+              updateConfig({
+                ancho: value === "" ? 0 : Number(value),
+              });
+            }}
+            onAltoChange={(value) => {
+              setAltoInput(value);
 
-            updateConfig({
-              ancho: value === "" ? 0 : Number(value),
-            });
-          }}
-          onAltoChange={(value) => {
-            setAltoInput(value);
+              updateConfig({
+                alto: value === "" ? 0 : Number(value),
+              });
+            }}
+          />
+        </FormSection>
 
-            updateConfig({
-              alto: value === "" ? 0 : Number(value),
-            });
-          }}
-        />
+        <FormSection title={RAJAS_UI.sections.colores}>
+          <ColorSelector
+            value={config.color}
+            onChange={(color) =>
+              updateConfig({
+                color: color as RajasConfig["color"],
+              })
+            }
+          />
+        </FormSection>
 
-        <ColorSelector
-          value={config.color}
-          onChange={(color) =>
-            updateConfig({
-              color,
-            })
-          }
-        />
+        <FormSection title={RAJAS_UI.sections.vidrio}>
+          <VidrioSelector
+            value={config.tipoVidrio || "4mm"}
+            options={RAJAS_UI.vidrios}
+            onChange={(value) =>
+              updateConfig({
+                tipoVidrio: value as VidrioType,
+              })
+            }
+          />
+        </FormSection>
 
-        <ExtrasSection
-          mosquitero={config.mosquitero}
-          guia={false}
-          cajonBlock={false}
-          onToggleMosquitero={() =>
-            updateConfig({
-              mosquitero: !config.mosquitero,
-            })
-          }
-          onToggleGuia={() => {}}
-          onToggleCajonBlock={() => {}}
-        />
-
-        <Button
-          className="w-full"
-          onClick={handleAddToBudget}
-          disabled={!medidasValidas || cotizacionMutation.isPending}
-        >
-          {cotizacionMutation.isPending
-            ? "Cotizando..."
-            : "Agregar al presupuesto"}
-        </Button>
+        <FormSection title={RAJAS_UI.sections.extras}>
+          <ExtrasSection
+            mosquitero={config.mosquitero}
+            guia={false}
+            cajonBlock={false}
+            onToggleMosquitero={() =>
+              updateConfig({
+                mosquitero: !config.mosquitero,
+              })
+            }
+            onToggleGuia={() => {}}
+            onToggleCajonBlock={() => {}}
+          />
+        </FormSection>
 
         {medidasInvalidas && (
-          <div
-            className="
-              rounded-xl
-              border border-red-500/20
-              bg-red-500/10
-              px-4 py-3
-              text-center
-            "
-          >
-            <p className="text-sm font-medium text-red-300">
-              Medidas inválidas.
-            </p>
-          </div>
+          <AlertBox variant="error">Medidas inválidas.</AlertBox>
         )}
+
+        <FormFooter>
+          <PrimaryButton
+            className="w-full"
+            onClick={handleAddToBudget}
+            disabled={!medidasValidas || cotizacionMutation.isPending}
+          >
+            {cotizacionMutation.isPending
+              ? "Cotizando..."
+              : "Agregar al presupuesto"}
+          </PrimaryButton>
+        </FormFooter>
       </div>
-    </div>
+    </ProductFormLayout>
   );
 }

@@ -1,19 +1,38 @@
-import { useState } from "react";
+import type { VentanaConfig, VentanaItem } from "../types";
+
+import { VENTANAS_UI } from "../ui";
+
+import { useVentanaForm } from "../hooks/useVentanaForm";
+
+import { useVentanaValidation } from "../hooks/useVentanaValidation";
+
+import { useCotizarVentana } from "../hooks/useCotizarVentana";
+
+import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
+
+import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
+
+import { FormSection } from "@/shared/sections/FormSection";
+
+import { FormFooter } from "@/shared/sections/FormFooter";
+
+import { AlertBox } from "@/shared/components/AlertBox";
 
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
-import type { VentanaConfig, VentanaItem } from "../types";
-import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
+
+import { LineaSelector } from "@/shared/selectors/LineaSelector";
+
 import { ColorSelector } from "@/shared/selectors/ColorSelector";
-import { ExtrasSection } from "./sections/ExtrasSection";
-import { CortinasSection } from "./sections/CortinasSection";
-import { ModenaSection } from "./sections/ModenaSection";
-import { DimensionsSection } from "./sections/DimensionsSection";
-import { LineaSelector } from "./sections/LineaSelector";
-import { useVentanaValidation } from "../hooks/useVentanaValidation";
-import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
-import { useCotizarVentana } from "../hooks/useCotizarVentana";
-import { useVentanaConfig } from "../hooks/useVentanaConfig";
-import { AlertBox } from "@/shared/components/AlertBox";
+
+import { DimensionsSection } from "@/shared/sections/DimensionsSection";
+
+import { ExtrasSection } from "@/shared/sections/ExtrasSection";
+
+import { CortinasSection } from "@/shared/sections/CortinasSection";
+
+import { ModenaSection } from "@/shared/sections/ModenaSection";
+import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+
 type Props = {
   config: VentanaConfig;
 
@@ -22,27 +41,38 @@ type Props = {
   setItems: React.Dispatch<React.SetStateAction<VentanaItem[]>>;
 };
 
-export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
+export function VentanaConfigForm({
+  config,
+
+  setConfig,
+
+  setItems,
+}: Props) {
   const cotizacionMutation = useCotizarVentana();
-
-  /* INPUT STATES */
-
-  const [anchoInput, setAnchoInput] = useState(String(config.ancho));
-
-  const [altoInput, setAltoInput] = useState(String(config.alto));
-
-  /* HELPERS */
 
   const {
     updateConfig,
 
+    switchLinea,
+
     toggleField,
 
-    handleSelectHerrero,
+    anchoInput,
 
-    handleSelectModena,
-  } = useVentanaConfig({
+    altoInput,
+
+    handleAnchoChange,
+
+    handleAltoChange,
+
+    handleToggleGuia,
+
+    handleToggleCajonBlock,
+
+    handleTogglePremarco,
+  } = useVentanaForm({
     config,
+
     setConfig,
   });
 
@@ -58,225 +88,127 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
     medidasInvalidas,
   } = useVentanaValidation(config);
 
-  const handleAddToBudget = async () => {
-    try {
-      const result = await cotizacionMutation.mutateAsync(config);
+  const { handleAdd } = useBudgetAdder({
+    mutation: cotizacionMutation,
 
-      const item = createVentanaBudgetItem(config, result);
+    config,
 
-      setItems((prev) => [...prev, item]);
-    } catch (error) {
-      console.error("ERROR COTIZANDO:", error);
-    }
-  };
+    setItems,
 
+    createItem: createVentanaBudgetItem,
+  });
   return (
-    <ProductFormLayout title="Configuración">
-      <h3 className="text-lg font-semibold">Configuración</h3>
+    <ProductFormLayout title={VENTANAS_UI.title}>
+      <div className="space-y-6">
+        <FormSection title={VENTANAS_UI.sections.sistema}>
+          <LineaSelector
+            value={config.linea}
+            options={VENTANAS_UI.selectors.lineas}
+            onChange={(value) => switchLinea(value)}
+          />
+        </FormSection>
 
-      <div className="mt-6 space-y-6">
-        {/* LINEA */}
+        <FormSection title={VENTANAS_UI.sections.medidas}>
+          <DimensionsSection
+            anchoInput={anchoInput}
+            altoInput={altoInput}
+            anchoValido={anchoValido}
+            altoValido={altoValido}
+            anchoMin={limites.anchoMin}
+            anchoMax={limites.anchoMax}
+            altoMin={limites.altoMin}
+            altoMax={limites.altoMax}
+            onAnchoChange={handleAnchoChange}
+            onAltoChange={handleAltoChange}
+          />
+        </FormSection>
 
-        <LineaSelector
-          linea={config.linea}
-          onSelectHerrero={handleSelectHerrero}
-          onSelectModena={handleSelectModena}
-        />
-
-        {/* MEDIDAS */}
-
-        <DimensionsSection
-          anchoInput={anchoInput}
-          altoInput={altoInput}
-          anchoValido={anchoValido}
-          altoValido={altoValido}
-          anchoMin={limites.anchoMin}
-          anchoMax={limites.anchoMax}
-          altoMin={limites.altoMin}
-          altoMax={limites.altoMax}
-          onAnchoChange={(value) => {
-            setAnchoInput(value);
-
-            updateConfig({
-              ancho: value === "" ? 0 : Number(value),
-            });
-          }}
-          onAltoChange={(value) => {
-            setAltoInput(value);
-
-            updateConfig({
-              alto: value === "" ? 0 : Number(value),
-            });
-          }}
-        />
         {!medidasValidas && (
           <AlertBox type="error">
-            Las medidas ingresadas no son válidas para la línea seleccionada.
+            {VENTANAS_UI.messages.invalidMeasures}
           </AlertBox>
         )}
 
-        {/* LIMITES */}
+        <FormSection title={VENTANAS_UI.sections.colores}>
+          <ColorSelector
+            value={config.color}
+            onChange={(color) =>
+              updateConfig({
+                color,
 
-        <div
-          className="
-            rounded-xl border border-border
-            bg-zinc-900/80
-            p-3 text-center
-            text-xs text-muted-foreground
-          "
-        >
-          <div>
-            Ancho permitido: {limites.anchoMin}
-            {" - "}
-            {limites.anchoMax}
-            {" cm"}
-          </div>
+                cortinaPVC: color === "blanco" ? config.cortinaPVC : false,
+              })
+            }
+          />
+        </FormSection>
 
-          <div className="mt-1">
-            Alto permitido: {limites.altoMin}
-            {" - "}
-            {limites.altoMax}
-            {" cm"}
-          </div>
-        </div>
-
-        {/* COLORES */}
-
-        <ColorSelector
-          value={config.color}
-          onChange={(color) =>
-            updateConfig({
-              color,
-
-              cortinaPVC: color === "blanco" ? config.cortinaPVC : false,
-            })
-          }
-        />
-        {/* EXTRAS */}
-
-        <ExtrasSection
-          mosquitero={config.mosquitero}
-          guia={config.guia}
-          cajonBlock={config.cajonBlock}
-          onToggleMosquitero={() => toggleField("mosquitero")}
-          onToggleGuia={() =>
-            setConfig((prev) => {
-              const nuevaGuia = !prev.guia;
-
-              return {
-                ...prev,
-
-                guia: nuevaGuia,
-
-                cajonBlock: false,
-
-                cortinaPVC: nuevaGuia ? prev.cortinaPVC : false,
-
-                cortinaAluminio: nuevaGuia ? prev.cortinaAluminio : false,
-              };
-            })
-          }
-          onToggleCajonBlock={() =>
-            setConfig((prev) => ({
-              ...prev,
-
-              cajonBlock: !prev.cajonBlock,
-
-              guia: false,
-
-              cortinaPVC: false,
-
-              cortinaAluminio: false,
-            }))
-          }
-        />
-
-        {/* CORTINAS */}
+        <FormSection title={VENTANAS_UI.sections.extras}>
+          <ExtrasSection
+            mosquitero={config.mosquitero}
+            guia={config.guia}
+            cajonBlock={config.cajonBlock}
+            onToggleMosquitero={() => toggleField("mosquitero")}
+            onToggleGuia={handleToggleGuia}
+            onToggleCajonBlock={handleToggleCajonBlock}
+          />
+        </FormSection>
 
         {config.guia && (
-          <CortinasSection
-            color={config.color}
-            cortinaPVC={config.cortinaPVC}
-            cortinaAluminio={config.cortinaAluminio}
-            onTogglePVC={() =>
-              updateConfig({
-                cortinaPVC: !config.cortinaPVC,
-                cortinaAluminio: false,
-              })
-            }
-            onToggleAluminio={() =>
-              updateConfig({
-                cortinaAluminio: !config.cortinaAluminio,
-                cortinaPVC: false,
-              })
-            }
-          />
-        )}
+          <FormSection title={VENTANAS_UI.sections.cortinas}>
+            <CortinasSection
+              color={config.color}
+              cortinaPVC={config.cortinaPVC}
+              cortinaAluminio={config.cortinaAluminio}
+              onTogglePVC={() =>
+                updateConfig({
+                  cortinaPVC: !config.cortinaPVC,
 
-        {/* MODENA */}
+                  cortinaAluminio: false,
+                })
+              }
+              onToggleAluminio={() =>
+                updateConfig({
+                  cortinaAluminio: !config.cortinaAluminio,
+
+                  cortinaPVC: false,
+                })
+              }
+            />
+          </FormSection>
+        )}
 
         {config.linea === "Modena" && (
-          <ModenaSection
-            premarco={config.premarco}
-            contramarco={config.contramarco}
-            onTogglePremarco={() =>
-              setConfig((prev) => {
-                const nuevoPremarco = !prev.premarco;
-
-                return {
-                  ...prev,
-
-                  premarco: nuevoPremarco,
-
-                  contramarco: nuevoPremarco ? true : prev.contramarco,
-                };
-              })
-            }
-            onToggleContramarco={() => toggleField("contramarco")}
-          />
+          <FormSection title={VENTANAS_UI.sections.modena}>
+            <ModenaSection
+              premarco={config.premarco}
+              contramarco={config.contramarco}
+              onTogglePremarco={handleTogglePremarco}
+              onToggleContramarco={() => toggleField("contramarco")}
+            />
+          </FormSection>
         )}
-        {/* ERROR */}
+
         {cotizacionMutation.isError && (
           <AlertBox type="error">
-            Ocurrió un error al cotizar la ventana.
+            {VENTANAS_UI.messages.quotationError}
           </AlertBox>
         )}
 
-        {/* ACTION */}
-
-        <div className="space-y-3">
+        <FormFooter>
           <PrimaryButton
-            className="w-full"
-            onClick={handleAddToBudget}
+            onClick={handleAdd}
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {cotizacionMutation.isPending
-              ? "Cotizando..."
-              : "Agregar al presupuesto"}
+            {VENTANAS_UI.actions.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (
-            <div
-              className="
-        rounded-xl
-        border border-red-500/20
-        bg-red-500/10
-        px-4 py-3
-        text-center
-      "
-            >
-              <p className="text-sm font-medium text-red-300">
-                Las medidas ingresadas no son válidas para la línea
-                seleccionada.
-              </p>
-
-              <p className="mt-1 text-xs text-red-400">
-                Revisá los límites permitidos antes de agregar al presupuesto.
-              </p>
-            </div>
+            <AlertBox type="error">
+              {VENTANAS_UI.messages.reviewLimits}
+            </AlertBox>
           )}
-        </div>
+        </FormFooter>
       </div>
     </ProductFormLayout>
   );

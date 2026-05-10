@@ -1,4 +1,4 @@
-import { SegmentedControl } from "@/components/ui/segmented-control";
+import { LineaSelector as SharedLineaSelector } from "@/shared/selectors/LineaSelector";
 
 type Props = {
   linea: "Herrero" | "Modena";
@@ -16,41 +16,28 @@ export function LineaSelector({
   onSelectModena,
 }: Props) {
   return (
-    <div>
-      <label
-        className="
-          mb-3 block text-center
-          text-sm text-muted-foreground
-        "
-      >
-        Línea
-      </label>
+    <SharedLineaSelector
+      value={linea}
+      onChange={(value) => {
+        if (value === "Herrero") {
+          onSelectHerrero();
+        }
 
-      <div className="flex justify-center">
-        <SegmentedControl
-          value={linea}
-          onChange={(value) => {
-            if (value === "Herrero") {
-              onSelectHerrero();
-            }
+        if (value === "Modena") {
+          onSelectModena();
+        }
+      }}
+      options={[
+        {
+          label: "Herrero",
+          value: "Herrero",
+        },
 
-            if (value === "Modena") {
-              onSelectModena();
-            }
-          }}
-          options={[
-            {
-              label: "Herrero",
-              value: "Herrero",
-            },
-
-            {
-              label: "Modena",
-              value: "Modena",
-            },
-          ]}
-        />
-      </div>
-    </div>
+        {
+          label: "Modena",
+          value: "Modena",
+        },
+      ]}
+    />
   );
 }
