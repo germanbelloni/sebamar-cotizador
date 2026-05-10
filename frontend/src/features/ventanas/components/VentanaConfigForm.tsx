@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-
+import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 import type { VentanaConfig, VentanaItem } from "../types";
-
-import { ColorSelector } from "./sections/ColorSelector";
+import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
+import { ColorSelector } from "@/shared/selectors/ColorSelector";
 import { ExtrasSection } from "./sections/ExtrasSection";
 import { CortinasSection } from "./sections/CortinasSection";
 import { ModenaSection } from "./sections/ModenaSection";
@@ -14,6 +13,7 @@ import { useVentanaValidation } from "../hooks/useVentanaValidation";
 import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
 import { useCotizarVentana } from "../hooks/useCotizarVentana";
 import { useVentanaConfig } from "../hooks/useVentanaConfig";
+import { AlertBox } from "@/shared/components/AlertBox";
 type Props = {
   config: VentanaConfig;
 
@@ -71,7 +71,7 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
+    <ProductFormLayout title="Configuración">
       <h3 className="text-lg font-semibold">Configuración</h3>
 
       <div className="mt-6 space-y-6">
@@ -110,18 +110,9 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
           }}
         />
         {!medidasValidas && (
-          <div
-            className="
-              rounded-xl
-              border border-red-500/30
-              bg-red-500/10
-              p-3
-              text-sm
-              text-red-200
-            "
-          >
+          <AlertBox type="error">
             Las medidas ingresadas no son válidas para la línea seleccionada.
-          </div>
+          </AlertBox>
         )}
 
         {/* LIMITES */}
@@ -246,31 +237,24 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
         )}
         {/* ERROR */}
         {cotizacionMutation.isError && (
-          <div
-            className="
-      rounded-xl
-      border border-red-500/20
-      bg-red-500/10
-      px-4 py-3
-      text-sm text-red-300
-    "
-          >
+          <AlertBox type="error">
             Ocurrió un error al cotizar la ventana.
-          </div>
+          </AlertBox>
         )}
 
         {/* ACTION */}
 
         <div className="space-y-3">
-          <Button
+          <PrimaryButton
             className="w-full"
             onClick={handleAddToBudget}
             disabled={!medidasValidas || cotizacionMutation.isPending}
+            loading={cotizacionMutation.isPending}
           >
             {cotizacionMutation.isPending
               ? "Cotizando..."
               : "Agregar al presupuesto"}
-          </Button>
+          </PrimaryButton>
 
           {medidasInvalidas && (
             <div
@@ -294,6 +278,6 @@ export function VentanaConfigForm({ config, setConfig, setItems }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </ProductFormLayout>
   );
 }

@@ -18,8 +18,6 @@ import { useCotizarRajas } from "../hooks/useCotizarRajas";
 
 import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
-import { LIMITES_LINEA } from "../constants";
-
 type Props = {
   config: RajasConfig;
 
@@ -76,9 +74,9 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
 
       linea: "Herrero",
 
-      ancho: Math.min(prev.ancho, LIMITES_LINEA.Herrero.anchoMax),
+      ancho: Math.min(prev.ancho, 240),
 
-      alto: Math.min(prev.alto, LIMITES_LINEA.Herrero.altoMax),
+      alto: Math.min(prev.alto, 150),
     }));
   };
 
@@ -88,9 +86,9 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
 
       linea: "Modena",
 
-      ancho: Math.min(prev.ancho, LIMITES_LINEA.Modena.anchoMax),
+      ancho: Math.min(prev.ancho, 240),
 
-      alto: Math.min(prev.alto, LIMITES_LINEA.Modena.altoMax),
+      alto: Math.min(prev.alto, 150),
     }));
   };
 
