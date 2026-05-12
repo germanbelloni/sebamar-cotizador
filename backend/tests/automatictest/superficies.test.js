@@ -3,7 +3,7 @@
 const { fromRoot } = require("../../utils/path");
 
 const calcularsuperficies = require(
-  fromRoot("wrappers/superficies/calcularsuperficies"),
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 console.log("\n🧪 TEST WRAPPER superficies\n");
@@ -179,7 +179,7 @@ console.log("\n✅ FIN TEST WRAPPER\n"); // backend/tests/automatictest/superfic
 const { fromRoot } = require("../../utils/path");
 
 const calcularsuperficies = require(
-  fromRoot("wrappers/superficies/calcularsuperficies"),
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 console.log("\n🧪 TEST WRAPPER superficies\n");

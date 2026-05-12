@@ -27,7 +27,7 @@ const calcularPostigones = require(
 const calcularPlacas = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
 
 const calcularsuperficies = require(
-  fromRoot("wrappers/superficies/calcularsuperficies"),
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 const calcularporton = require(fromRoot("wrappers/portones/calcularporton"));

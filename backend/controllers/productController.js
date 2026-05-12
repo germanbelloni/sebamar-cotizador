@@ -20,7 +20,7 @@ const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
 
 const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
 
-const calcularsuperficies = require("../../wrappers/superficies/calcularsuperficies");
+const calcularsuperficies = require("../../wrappers/superficies/calcularSuperficies");
 
 const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
 

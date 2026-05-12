@@ -24,7 +24,7 @@ const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPat
 
 const calcularporton = require("../../wrappers/portones/calcularporton");
 
-const calcularsuperficies = require("../../wrappers/superficies/calcularsuperficies");
+const calcularsuperficies = require("../../wrappers/superficies/calcularSuperficies");
 
 const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
 

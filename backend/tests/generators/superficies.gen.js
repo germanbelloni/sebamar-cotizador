@@ -7,7 +7,7 @@ const path = require("path");
 const { fromRoot } = require("../../utils/path");
 
 const calcularsuperficies = require(
-  fromRoot("wrappers/superficies/calcularsuperficies"),
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 // =========================

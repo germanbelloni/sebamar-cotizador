@@ -5,7 +5,7 @@ const calcularRajaHerrero = require(
 );
 
 const calcularSuperficie = require(
-  fromRoot("wrappers/superficies/calcularsuperficies"),
+  fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
