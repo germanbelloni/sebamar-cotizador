@@ -1,7 +1,7 @@
 const { fromRoot } = require("../../backend/utils/path");
 
 const calcularportones = require(
-  fromRoot("backend/services/portones/calcularportones"),
+  fromRoot("backend/services/portones/calcularPortones"),
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
