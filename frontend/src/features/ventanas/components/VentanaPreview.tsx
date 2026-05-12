@@ -18,8 +18,9 @@ import { RielSuperior } from "../svg/RielSuperior";
 type Props = {
   config: VentanaConfig;
 };
+
 export function VentanaPreview({ config }: Props) {
-  const maxSize = 260;
+  const maxSize = 340;
 
   const mayorMedida = Math.max(config.ancho, config.alto);
 
@@ -42,48 +43,78 @@ export function VentanaPreview({ config }: Props) {
     : Math.max(4, ancho * 0.015);
 
   const colorMap = {
-    Blanco: "#E4E4E7",
-    Negro: "#18181B",
+    blanco: "#E4E4E7",
+
+    negro: "#18181B",
+
     "bronce colonial": "#2e411f",
+
     "simil madera": "#7C2D12",
   };
 
   const aluminioColor = colorMap[config.color];
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Preview</h3>
-
-        <span className="text-sm text-muted-foreground">
-          {config.ancho} x {config.alto}
-        </span>
-      </div>
-
-      <div
-        className="
-        relative overflow-hidden
-        mt-6 flex h-[500px]
-        items-center justify-center
+    <div
+      className="
         rounded-2xl
-        border border-white/5
-        bg-gradient-to-b
-        from-zinc-950
-        via-zinc-900
-        to-black
+        border border-border
+        bg-card
         p-6
         transition-all duration-300
       "
+    >
+      {/* HEADER */}
+
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Ventana</h3>
+
+        <span className="text-sm text-muted-foreground">
+          {config.ancho} × {config.alto}
+        </span>
+      </div>
+
+      {/* SVG */}
+
+      <div
+        className="
+          relative overflow-hidden
+
+          mt-6
+          flex h-[500px]
+
+          items-center
+          justify-center
+
+          rounded-2xl
+
+          border border-white/5
+
+          bg-gradient-to-b
+          from-zinc-950
+          via-zinc-900
+          to-black
+
+          p-6
+
+          transition-all duration-300
+        "
       >
-        {/* GLOW CENTRAL */}
+        {/* GLOW */}
 
         <div
           className="
-          absolute h-[420px] w-[420px]
-          rounded-full
-          bg-white/[0.015]
-          blur-3xl
-        "
+            absolute
+
+            h-[420px]
+            w-[420px]
+
+            rounded-full
+
+            bg-white/[0.015]
+
+            blur-3xl
+          "
         />
 
         <svg
@@ -91,7 +122,9 @@ export function VentanaPreview({ config }: Props) {
           height="500"
           viewBox="0 0 500 500"
           fill="none"
-          className="drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
+          className="
+            drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]
+          "
         >
           <defs>
             <pattern
@@ -106,14 +139,35 @@ export function VentanaPreview({ config }: Props) {
                 strokeWidth="0.5"
               />
             </pattern>
+            <pattern
+              id="fantasiaPattern"
+              width="12"
+              height="12"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 0 12 L 12 0"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="1"
+              />
 
+              <path
+                d="M -3 9 L 3 15"
+                stroke="rgba(255,255,255,0.05)"
+                strokeWidth="1"
+              />
+
+              <path
+                d="M 9 -3 L 15 3"
+                stroke="rgba(255,255,255,0.05)"
+                strokeWidth="1"
+              />
+            </pattern>
             <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
 
               <stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
             </linearGradient>
-
-            {/* GRADIENT ALUMINIO */}
 
             <linearGradient
               id="aluminumGradient"
@@ -131,6 +185,7 @@ export function VentanaPreview({ config }: Props) {
               <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
             </linearGradient>
           </defs>
+
           {/* GUIA */}
 
           {config.guia && (
@@ -176,6 +231,7 @@ export function VentanaPreview({ config }: Props) {
             color={aluminioColor}
             frameWidth={frameWidth}
           />
+
           <RielSuperior
             left={left}
             top={top}
@@ -210,7 +266,7 @@ export function VentanaPreview({ config }: Props) {
             />
           )}
 
-          {/* DIVISION CENTRAL */}
+          {/* DIVISION */}
 
           <rect
             x={centerX - (esHerrero ? 4 : 2)}
@@ -243,7 +299,13 @@ export function VentanaPreview({ config }: Props) {
 
           {/* VIDRIOS */}
 
-          <Vidrios left={left} top={top} ancho={ancho} alto={alto} />
+          <Vidrios
+            left={left}
+            top={top}
+            ancho={ancho}
+            alto={alto}
+            tipoVidrio={config.tipoVidrio}
+          />
 
           {/* MOSQUITERO */}
 
@@ -284,6 +346,8 @@ export function VentanaPreview({ config }: Props) {
         </svg>
       </div>
 
+      {/* TECHNICAL INFO */}
+
       <div className="mt-4 space-y-3 text-sm text-muted-foreground">
         <div className="flex items-center justify-between">
           <span>Línea: {config.linea}</span>
@@ -291,21 +355,36 @@ export function VentanaPreview({ config }: Props) {
           <span>Color: {config.color}</span>
         </div>
 
-        <div className="rounded-xl border border-border bg-background px-4 py-3 text-center">
+        <div
+          className="
+            rounded-xl
+            border border-border
+            bg-background
+
+            px-4 py-3
+
+            text-center
+          "
+        >
           <div className="text-base font-medium text-foreground">
             {config.ancho} × {config.alto} cm
           </div>
         </div>
 
         <div className="mt-2 text-xs text-muted-foreground">
-          Ventana {config.ancho}x{config.alto} {config.linea} {config.color}
-          {config.guia && " c/guía"}
-          {config.mosquitero && " c/mosq"}
-          {config.cajonBlock && " c/cajón block"}
-          {config.cortinaPVC && " PVC"}
-          {config.cortinaAluminio && " cortina aluminio"}
-          {config.premarco && " c/premarco"}
-          {config.contramarco && " c/contramarco"} vidrio 4mm
+          Ventana {config.ancho}x{config.alto}
+          {" · "}
+          {config.linea}
+          {" · "}
+          {config.color}
+          {config.tipoVidrio && ` · ${config.tipoVidrio}`}
+          {config.guia && " · guía"}
+          {config.mosquitero && " · mosquitero"}
+          {config.cajonBlock && " · cajón block"}
+          {config.cortinaPVC && " · PVC"}
+          {config.cortinaAluminio && " · cortina aluminio"}
+          {config.premarco && " · premarco"}
+          {config.contramarco && " · contramarco"}
         </div>
       </div>
     </div>

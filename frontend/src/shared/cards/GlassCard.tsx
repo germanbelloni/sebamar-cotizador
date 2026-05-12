@@ -44,24 +44,26 @@ export function GlassCard({
         ${
           selected
             ? `
-              border-lime-400/40
+              border-[#39FF14]
 
-              bg-lime-400/10
+              bg-[#39FF14]/15
 
-              shadow-[0_0_25px_rgba(163,230,53,0.25)]
+              shadow-[0_0_40px_rgba(57,255,20,0.45)]
 
-              scale-[1.02]
+              scale-[1.03]
             `
             : `
               border-border
 
               bg-white/[0.03]
 
-              hover:bg-white/[0.05]
+              hover:border-[#39FF14]/30
+
+              hover:bg-[#39FF14]/5
             `
         }
 
-        ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
+        ${disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer"}
 
         ${className}
       `}

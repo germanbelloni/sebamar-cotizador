@@ -1,12 +1,32 @@
+import type { VidrioType } from "@/shared/types/vidrios";
+
 type Props = {
   left: number;
+
   top: number;
 
   ancho: number;
+
   alto: number;
+
+  tipoVidrio?: VidrioType;
 };
 
-export function Vidrios({ left, top, ancho, alto }: Props) {
+export function Vidrios({ left, top, ancho, alto, tipoVidrio }: Props) {
+  const esEsmerilado = tipoVidrio === "esmerilado";
+
+  const esFantasia = tipoVidrio === "fantasia";
+
+  const esDVH = tipoVidrio?.includes("DVH");
+
+  const esLaminado = tipoVidrio === "3+3" || tipoVidrio === "4+4";
+
+  const strokeVidrio = esDVH
+    ? "rgba(220,220,220,0.30)"
+    : esLaminado
+      ? "rgba(255,255,255,0.18)"
+      : "rgba(255,255,255,0.08)";
+
   return (
     <>
       {/* VIDRIO IZQUIERDO */}
@@ -52,9 +72,46 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
           y={top + 16}
           width={Math.max(0, ancho / 2 - 28)}
           height={Math.max(0, alto - 32)}
-          fill="url(#glassGradient)"
-          className="transition-all duration-300"
+          fill={
+            esEsmerilado
+              ? "rgba(255,255,255,0.22)"
+              : esFantasia
+                ? "rgba(120,140,160,0.18)"
+                : "url(#glassGradient)"
+          }
+          className="
+            transition-all duration-300
+          "
+          stroke={strokeVidrio}
+          strokeWidth={esDVH ? 2 : 1}
         />
+
+        {/* DVH INTERNO */}
+
+        {esDVH && (
+          <rect
+            x={left + 22}
+            y={top + 22}
+            width={Math.max(0, ancho / 2 - 40)}
+            height={Math.max(0, alto - 44)}
+            fill="none"
+            stroke="rgba(220,220,220,0.20)"
+            strokeWidth={1.5}
+          />
+        )}
+
+        {/* FANTASÍA */}
+
+        {esFantasia && (
+          <rect
+            x={left + 16}
+            y={top + 16}
+            width={Math.max(0, ancho / 2 - 28)}
+            height={Math.max(0, alto - 32)}
+            fill="url(#fantasiaPattern)"
+            opacity={0.7}
+          />
+        )}
       </g>
 
       {/* VIDRIO DERECHO */}
@@ -100,9 +157,46 @@ export function Vidrios({ left, top, ancho, alto }: Props) {
           y={top + 16}
           width={Math.max(0, ancho / 2 - 28)}
           height={Math.max(0, alto - 32)}
-          fill="url(#glassGradient)"
-          className="transition-all duration-300"
+          fill={
+            esEsmerilado
+              ? "rgba(255,255,255,0.22)"
+              : esFantasia
+                ? "rgba(120,140,160,0.18)"
+                : "url(#glassGradient)"
+          }
+          className="
+            transition-all duration-300
+          "
+          stroke={strokeVidrio}
+          strokeWidth={esDVH ? 2 : 1}
         />
+
+        {/* DVH INTERNO */}
+
+        {esDVH && (
+          <rect
+            x={left + ancho / 2 + 18}
+            y={top + 22}
+            width={Math.max(0, ancho / 2 - 40)}
+            height={Math.max(0, alto - 44)}
+            fill="none"
+            stroke="rgba(220,220,220,0.20)"
+            strokeWidth={1.5}
+          />
+        )}
+
+        {/* FANTASÍA */}
+
+        {esFantasia && (
+          <rect
+            x={left + ancho / 2 + 12}
+            y={top + 16}
+            width={Math.max(0, ancho / 2 - 28)}
+            height={Math.max(0, alto - 32)}
+            fill="url(#fantasiaPattern)"
+            opacity={0.7}
+          />
+        )}
       </g>
     </>
   );

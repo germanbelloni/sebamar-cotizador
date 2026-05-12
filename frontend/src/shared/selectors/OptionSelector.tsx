@@ -37,7 +37,7 @@ export function OptionSelector({
             text-sm
             font-medium
 
-            text-white/70
+            text-foreground/70
           "
         >
           {title}
@@ -65,6 +65,7 @@ export function OptionSelector({
           >
             <div
               className="
+                min-h-[52px]
                 flex
                 items-center
                 justify-center
@@ -73,7 +74,8 @@ export function OptionSelector({
 
                 text-center
                 text-sm
-                font-semibold
+                font-medium
+                tracking-wide
               "
             >
               {option.label}

@@ -1,20 +1,29 @@
 import type { ColorVentana } from "./constants";
+
 import type { LineaAluminio } from "@/shared/types/lineas";
+
+import type { VidrioType } from "@/shared/types/vidrios";
+
 export type VentanaItem = {
   tipo: "ventana";
 
   linea: LineaAluminio;
+
   cantidad: number;
 
   medidas: {
     ancho: number;
+
     alto: number;
   };
+
   description: string;
 
   color: string;
 
   configuracion: {
+    tipoVidrio?: VidrioType;
+
     mosquitero: boolean;
 
     guia: boolean;
@@ -29,6 +38,7 @@ export type VentanaItem = {
 
     contramarco: boolean;
   };
+
   subtotal: number;
 };
 
@@ -38,6 +48,8 @@ export type VentanaConfig = {
   alto: number;
 
   linea: LineaAluminio;
+
+  tipoVidrio?: VidrioType;
 
   color: ColorVentana;
 
@@ -54,4 +66,20 @@ export type VentanaConfig = {
   premarco: boolean;
 
   contramarco: boolean;
+};
+
+export type BudgetItem = {
+  id: string;
+
+  descripcion: string;
+
+  ancho: number;
+
+  alto: number;
+
+  linea: string;
+
+  color: string;
+
+  precio: number;
 };

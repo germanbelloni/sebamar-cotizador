@@ -20,7 +20,7 @@ const colors = [
 
     value: "bronce colonial",
 
-    preview: "bg-[#6b4423]",
+    preview: "bg-[#2e411f]",
   },
 
   {

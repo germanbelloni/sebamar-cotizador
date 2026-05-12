@@ -23,11 +23,23 @@ export function useVentanaForm({
 }: Params) {
   const { updateConfig } = useConfigUpdater(setConfig);
 
-  const { switchLinea } = useLineaSwitcher({
+  const { switchLinea: baseSwitchLinea } = useLineaSwitcher({
     setConfig,
 
     limits: LIMITES_LINEA,
   });
+
+  function switchLinea(linea: string) {
+    baseSwitchLinea(linea);
+
+    setConfig((prev) => ({
+      ...prev,
+
+      linea: linea as VentanaConfig["linea"],
+
+      tipoVidrio: "3mm",
+    }));
+  }
 
   const { toggleField } = useToggleField({
     config,

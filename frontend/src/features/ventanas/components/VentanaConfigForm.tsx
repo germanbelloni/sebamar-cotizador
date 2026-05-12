@@ -10,6 +10,8 @@ import { useCotizarVentana } from "../hooks/useCotizarVentana";
 
 import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
 
+import { VIDRIOS_HERRERO, VIDRIOS_MODENA } from "@/shared/constants/vidrios";
+import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -97,6 +99,9 @@ export function VentanaConfigForm({
 
     createItem: createVentanaBudgetItem,
   });
+
+  const vidrios = config.linea === "Herrero" ? VIDRIOS_HERRERO : VIDRIOS_MODENA;
+
   return (
     <ProductFormLayout title={VENTANAS_UI.title}>
       <div className="space-y-6">
@@ -128,6 +133,18 @@ export function VentanaConfigForm({
             {VENTANAS_UI.messages.invalidMeasures}
           </AlertBox>
         )}
+
+        <FormSection title="Vidrio">
+          <VidrioSelector
+            value={config.tipoVidrio || "3mm"}
+            options={vidrios}
+            onChange={(value) =>
+              updateConfig({
+                tipoVidrio: value as VentanaConfig["tipoVidrio"],
+              })
+            }
+          />
+        </FormSection>
 
         <FormSection title={VENTANAS_UI.sections.colores}>
           <ColorSelector
