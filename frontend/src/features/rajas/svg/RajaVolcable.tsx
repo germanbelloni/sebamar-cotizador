@@ -1,5 +1,5 @@
 // RajaVolcable.tsx
-
+import type { RajaBisagra } from "../types";
 import type { VidrioType } from "@/shared/types/vidrios";
 
 type Props = {
@@ -14,6 +14,8 @@ type Props = {
   color: string;
 
   esHerrero: boolean;
+
+  bisagra?: RajaBisagra;
 
   tipoVidrio?: VidrioType;
 };

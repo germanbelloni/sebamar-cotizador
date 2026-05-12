@@ -21,7 +21,9 @@ export function buildVentanaItem(config: VentanaConfig): VentanaItem {
 
     color: config.color,
 
-    extras: {
+    configuracion: {
+      tipoVidrio: config.tipoVidrio,
+
       mosquitero: config.mosquitero,
 
       guia: config.guia,

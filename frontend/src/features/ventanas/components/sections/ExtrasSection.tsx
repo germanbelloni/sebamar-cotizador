@@ -1,4 +1,3 @@
-import { SelectableCard } from "@/components/ui/selectable-card";
 import { ToggleCard } from "@/shared/cards/ToggleCard";
 type Props = {
   mosquitero: boolean;

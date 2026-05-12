@@ -100,7 +100,9 @@ export function VentanaConfigForm({
     createItem: createVentanaBudgetItem,
   });
 
-  const vidrios = config.linea === "Herrero" ? VIDRIOS_HERRERO : VIDRIOS_MODENA;
+  const vidrios = [
+    ...(config.linea === "Herrero" ? VIDRIOS_HERRERO : VIDRIOS_MODENA),
+  ];
 
   return (
     <ProductFormLayout title={VENTANAS_UI.title}>
@@ -108,7 +110,7 @@ export function VentanaConfigForm({
         <FormSection title={VENTANAS_UI.sections.sistema}>
           <LineaSelector
             value={config.linea}
-            options={VENTANAS_UI.selectors.lineas}
+            options={VENTANAS_UI.selectors?.lineas || []}
             onChange={(value) => switchLinea(value)}
           />
         </FormSection>
@@ -130,7 +132,7 @@ export function VentanaConfigForm({
 
         {!medidasValidas && (
           <AlertBox type="error">
-            {VENTANAS_UI.messages.invalidMeasures}
+            VENTANAS_UI.messages?.invalidMeasures
           </AlertBox>
         )}
 
@@ -151,7 +153,7 @@ export function VentanaConfigForm({
             value={config.color}
             onChange={(color) =>
               updateConfig({
-                color,
+                color: color as VentanaConfig["color"],
 
                 cortinaPVC: color === "blanco" ? config.cortinaPVC : false,
               })
@@ -206,9 +208,7 @@ export function VentanaConfigForm({
         )}
 
         {cotizacionMutation.isError && (
-          <AlertBox type="error">
-            {VENTANAS_UI.messages.quotationError}
-          </AlertBox>
+          <AlertBox type="error">VENTANAS_UI.messages?.quotationError</AlertBox>
         )}
 
         <FormFooter>
@@ -217,12 +217,12 @@ export function VentanaConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {VENTANAS_UI.actions.addToBudget}
+            VENTANAS_UI.actions?.addToBudget
           </PrimaryButton>
 
           {medidasInvalidas && (
             <AlertBox type="error">
-              {VENTANAS_UI.messages.reviewLimits}
+              VENTANAS_UI.messages?.reviewLimitss
             </AlertBox>
           )}
         </FormFooter>

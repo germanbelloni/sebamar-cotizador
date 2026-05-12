@@ -10,8 +10,6 @@ import { RajaBrazo } from "../svg/RajaBrazo";
 import { RajaVolcable } from "../svg/RajaVolcable";
 import { RajaOscilo } from "../svg/RajaOscilo";
 
-import { Vidrios } from "@/features/ventanas/svg/Vidrios";
-
 type Props = {
   config: RajasConfig;
 };

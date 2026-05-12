@@ -20,8 +20,6 @@ export function createRajasBudgetItem(config: RajasConfig): RajasItem {
     color: config.color,
 
     configuracion: {
-      vidrio: config.vidrio,
-
       tipoVidrio: config.tipoVidrio,
 
       mosquitero: config.mosquitero,

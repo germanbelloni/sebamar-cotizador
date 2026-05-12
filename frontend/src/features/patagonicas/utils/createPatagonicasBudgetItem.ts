@@ -24,6 +24,12 @@ export function createPatagonicasBudgetItem(
     configuracion: {
       tipo: config.tipo,
 
+      premarco: config.premarco,
+
+      contramarco: config.contramarco,
+
+      mosquitero: config.mosquitero,
+
       cantidadRajas: config.cantidadRajas,
 
       tipoVidrio: config.tipoVidrio,

@@ -209,9 +209,11 @@ function App() {
 
     tipo: "abrir",
 
-    linea: "Herrero",
-
     color: "blanco",
+
+    microperforado: false,
+
+    herrajeBlanco: false,
   });
 
   /* PATAGONICAS */

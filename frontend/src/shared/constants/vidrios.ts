@@ -1,4 +1,4 @@
-export const VIDRIOS_HERRERO = ["3mm", "4mm", "3+3", "fantasia"];
+export const VIDRIOS_HERRERO = ["3mm", "4mm", "3+3", "fantasia"] as const;
 
 export const VIDRIOS_MODENA = [
   "4mm",
@@ -8,4 +8,4 @@ export const VIDRIOS_MODENA = [
   "4+4",
   "DVH 4+9+4",
   "DVH 5+9+5",
-];
+] as const;

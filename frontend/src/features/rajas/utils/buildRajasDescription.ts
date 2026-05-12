@@ -7,7 +7,7 @@ export function buildRajasDescription(config: RajasConfig) {
     ${config.modelo}
     ${config.ancho}x${config.alto}
     ${config.color}
-    vidrio ${config.tipoVidrio || config.vidrio || "4mm"}
+    vidrio ${config.tipoVidrio || config.tipoVidrio || "4mm"}
     ${config.mosquitero ? "c/mosquitero" : ""}
     ${config.premarco ? "c/premarco" : ""}
     ${config.contramarco ? "c/contramarco" : ""}

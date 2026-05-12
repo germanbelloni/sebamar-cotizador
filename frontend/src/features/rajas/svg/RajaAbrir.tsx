@@ -29,7 +29,6 @@ export function RajaAbrir({
   alto,
   color,
   esHerrero,
-  tipoVidrio,
   bisagra,
 }: Props) {
   const grosorMarco = esHerrero ? 12 : 8;
