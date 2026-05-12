@@ -1,9 +1,7 @@
 const { fromRoot } = require("../../backend/utils/path");
-
 const calcularSuperficie = require(
-  fromRoot("services/superficies/Superficies"),
+  fromRoot("services/superficies/superficies"),
 );
-
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
