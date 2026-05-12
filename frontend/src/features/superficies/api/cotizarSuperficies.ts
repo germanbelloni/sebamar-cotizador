@@ -1,6 +1,6 @@
 import { apiFetch } from "@/lib/api";
 
-import type { superficiesConfig } from "../types";
+import type { SuperficiesConfig } from "../types";
 
 type CotizacionsuperficiesResponse = {
   descripcion: string;
@@ -8,7 +8,7 @@ type CotizacionsuperficiesResponse = {
   precioVenta: number;
 };
 
-export async function cotizarsuperficies(config: superficiesConfig) {
+export async function cotizarSuperficies(config: SuperficiesConfig) {
   return apiFetch<CotizacionsuperficiesResponse>("/productos/superficies", {
     method: "POST",
 

@@ -1,6 +1,8 @@
-import type { superficiesConfig } from "../types";
+// buildSuperficiesDescription.ts
 
-export function buildsuperficiesDescription(config: superficiesConfig) {
+import type { SuperficiesConfig } from "../types";
+
+export function buildSuperficiesDescription(config: SuperficiesConfig) {
   return `
     ${config.tipo}
     ${config.linea || ""}

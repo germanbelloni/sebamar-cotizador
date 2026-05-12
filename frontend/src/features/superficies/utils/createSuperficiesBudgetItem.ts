@@ -1,10 +1,12 @@
-import type { superficiesConfig, superficiesItem } from "../types";
+// createSuperficiesBudgetItem.ts
 
-import { buildsuperficiesDescription } from "./buildsuperficiesDescription";
+import type { SuperficiesConfig, SuperficiesItem } from "../types";
 
-export function createsuperficiesBudgetItem(
-  config: superficiesConfig,
-): superficiesItem {
+import { buildSuperficiesDescription } from "./buildSuperficiesDescription";
+
+export function createSuperficiesBudgetItem(
+  config: SuperficiesConfig,
+): SuperficiesItem {
   return {
     tipo: "superficies",
 
@@ -12,10 +14,11 @@ export function createsuperficiesBudgetItem(
 
     medidas: {
       ancho: config.ancho,
+
       alto: config.alto,
     },
 
-    description: buildsuperficiesDescription(config),
+    description: buildSuperficiesDescription(config),
 
     color: config.color,
 

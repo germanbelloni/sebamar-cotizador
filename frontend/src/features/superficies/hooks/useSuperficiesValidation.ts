@@ -1,8 +1,8 @@
-import type { superficiesConfig } from "../types";
+import type { SuperficiesConfig } from "../types";
 
 import { LIMITES_superficies } from "../constants";
 
-export function usesuperficiesValidation(config: superficiesConfig) {
+export function useSuperficiesValidation(config: SuperficiesConfig) {
   const anchoValido =
     config.ancho >= LIMITES_superficies.anchoMin &&
     config.ancho <= LIMITES_superficies.anchoMax;

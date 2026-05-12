@@ -14,7 +14,7 @@ export type SuperficieVidrio =
   | "5+5"
   | "dvh";
 
-export type superficiesConfig = {
+export type SuperficiesConfig = {
   tipo: SuperficieTipo;
 
   ancho: number;
@@ -28,7 +28,7 @@ export type superficiesConfig = {
   tipoVidrio?: SuperficieVidrio;
 };
 
-export type superficiesItem = {
+export type SuperficiesItem = {
   tipo: "superficies";
 
   cantidad: number;
