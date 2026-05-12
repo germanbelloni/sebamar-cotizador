@@ -186,6 +186,7 @@ export function RajasPreview({ config }: Props) {
               color={aluminioColor}
               esHerrero={esHerrero}
               tipoVidrio={config.tipoVidrio}
+              bisagra={config.bisagra}
             />
           )}
 
@@ -198,6 +199,7 @@ export function RajasPreview({ config }: Props) {
               color={aluminioColor}
               esHerrero={esHerrero}
               tipoVidrio={config.tipoVidrio}
+              bisagra={config.bisagra}
             />
           )}
 
@@ -210,6 +212,7 @@ export function RajasPreview({ config }: Props) {
               color={aluminioColor}
               esHerrero={esHerrero}
               tipoVidrio={config.tipoVidrio}
+              bisagra={config.bisagra}
             />
           )}
 
@@ -222,6 +225,8 @@ export function RajasPreview({ config }: Props) {
               color={aluminioColor}
               esHerrero={esHerrero}
               tipoVidrio={config.tipoVidrio}
+              bisagra={config.bisagra}
+              posicion={config.posicionOscilo}
             />
           )}
 

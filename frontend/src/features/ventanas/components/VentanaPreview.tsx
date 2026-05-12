@@ -221,6 +221,23 @@ export function VentanaPreview({ config }: Props) {
             <CajonBlock left={left} top={top} ancho={ancho} />
           )}
 
+          {/* PREMARCO */}
+
+          {config.premarco && (
+            <Premarco left={left} top={top} ancho={ancho} alto={alto} />
+          )}
+
+          {/* CONTRAMARCO */}
+
+          {config.contramarco && (
+            <Contramarco
+              left={left}
+              top={top}
+              ancho={ancho}
+              alto={alto}
+              color={aluminioColor}
+            />
+          )}
           {/* MARCO */}
 
           <Marco
@@ -247,24 +264,6 @@ export function VentanaPreview({ config }: Props) {
             alto={alto}
             color={aluminioColor}
           />
-
-          {/* PREMARCO */}
-
-          {config.premarco && (
-            <Premarco left={left} top={top} ancho={ancho} alto={alto} />
-          )}
-
-          {/* CONTRAMARCO */}
-
-          {config.contramarco && (
-            <Contramarco
-              left={left}
-              top={top}
-              ancho={ancho}
-              alto={alto}
-              color={aluminioColor}
-            />
-          )}
 
           {/* DIVISION */}
 

@@ -4,6 +4,8 @@ export type RajaModelo = "raja" | "brazo" | "volcable" | "oscilobatiente";
 import type { VidrioType } from "@/shared/types/vidrios";
 export type RajaBisagra = "izquierda" | "derecha";
 
+export type PosicionOscilo = "cerrada" | "abrir" | "oscilo";
+
 export type RajasConfig = {
   ancho: number;
 
@@ -22,6 +24,8 @@ export type RajasConfig = {
   desague?: string;
 
   bisagra?: RajaBisagra;
+
+  posicionOscilo?: PosicionOscilo;
 
   premarco: boolean;
 

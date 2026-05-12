@@ -1,4 +1,8 @@
-import { Vidrios } from "@/features/ventanas/svg/Vidrios";
+import type { VidrioType } from "@/shared/types/vidrios";
+
+import type { RajaBisagra } from "../types";
+
+import { isLeft } from "@/shared/utils/openings/getOpeningSide";
 
 type Props = {
   left: number;
@@ -13,7 +17,9 @@ type Props = {
 
   esHerrero: boolean;
 
-  tipoVidrio?: any;
+  tipoVidrio?: VidrioType;
+
+  bisagra?: RajaBisagra;
 };
 
 export function RajaAbrir({
@@ -24,6 +30,7 @@ export function RajaAbrir({
   color,
   esHerrero,
   tipoVidrio,
+  bisagra,
 }: Props) {
   const grosorMarco = esHerrero ? 12 : 8;
 
@@ -40,6 +47,8 @@ export function RajaAbrir({
   const vidrioPadding = esHerrero ? 10 : 8;
 
   const colorHerraje = "#18181B";
+
+  const ladoIzquierdo = isLeft(bisagra);
 
   return (
     <>
@@ -83,7 +92,7 @@ export function RajaAbrir({
       {/* BISAGRA SUPERIOR */}
 
       <rect
-        x={left + 2}
+        x={ladoIzquierdo ? left + 2 : left + ancho - 9}
         y={top + 34}
         width={7}
         height={38}
@@ -94,7 +103,7 @@ export function RajaAbrir({
       {/* BISAGRA INFERIOR */}
 
       <rect
-        x={left + 2}
+        x={ladoIzquierdo ? left + 2 : left + ancho - 9}
         y={top + alto - 72}
         width={7}
         height={38}
@@ -107,7 +116,7 @@ export function RajaAbrir({
       <g
         transform={`
           translate(
-            ${left + ancho - 20},
+            ${ladoIzquierdo ? left + ancho - 20 : left + 10},
             ${top + alto / 2 - 24}
           )
         `}
@@ -119,12 +128,21 @@ export function RajaAbrir({
         {/* BRAZO */}
 
         <path
-          d="
-            M 5 16
-            L -12 16
-            Q -18 16 -18 24
-            L -18 46
-          "
+          d={
+            ladoIzquierdo
+              ? `
+                M 5 16
+                L -12 16
+                Q -18 16 -18 24
+                L -18 46
+              `
+              : `
+                M 5 16
+                L 22 16
+                Q 28 16 28 24
+                L 28 46
+              `
+          }
           fill="none"
           stroke={colorHerraje}
           strokeWidth={7}
@@ -135,11 +153,19 @@ export function RajaAbrir({
       {/* APERTURA */}
 
       <path
-        d={`
-          M ${left + 14} ${top + 16}
-          L ${left + ancho - 26} ${top + alto / 2}
-          L ${left + 14} ${top + alto - 16}
-        `}
+        d={
+          ladoIzquierdo
+            ? `
+              M ${left + 14} ${top + 16}
+              L ${left + ancho - 26} ${top + alto / 2}
+              L ${left + 14} ${top + alto - 16}
+            `
+            : `
+              M ${left + ancho - 14} ${top + 16}
+              L ${left + 26} ${top + alto / 2}
+              L ${left + ancho - 14} ${top + alto - 16}
+            `
+        }
         fill="none"
         stroke="rgba(255,255,255,0.18)"
         strokeWidth="1.5"

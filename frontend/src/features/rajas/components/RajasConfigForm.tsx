@@ -32,6 +32,12 @@ import { useCotizarRajas } from "../hooks/useCotizarRajas";
 
 import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
+import { BisagraSelector } from "@/shared/selectors/BisagraSelector";
+
+import { OsciloPositionSelector } from "@/shared/selectors/OsciloPositionSelector";
+
+import { OptionSelector } from "@/shared/selectors/OptionSelector";
+
 type Props = {
   config: RajasConfig;
 
@@ -40,43 +46,59 @@ type Props = {
   setItems: React.Dispatch<React.SetStateAction<RajasItem[]>>;
 };
 
-export function RajasConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function RajasConfigForm({ config, setConfig, setItems }: Props) {
   const cotizacionMutation = useCotizarRajas();
 
   const {
     updateConfig,
-
     switchLinea,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = useRajasForm({
     config,
-
     setConfig,
   });
-  const {
-    limites,
 
-    anchoValido,
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    useRajasValidation(config);
 
-    altoValido,
+  const modelosHerrero = [
+    {
+      label: "Raja",
+      value: "raja",
+    },
+    {
+      label: "Brazo de empuje",
+      value: "brazo",
+    },
+    {
+      label: "Volcable",
+      value: "volcable",
+    },
+  ];
 
-    medidasValidas,
+  const modelosModena = [
+    {
+      label: "Raja",
+      value: "raja",
+    },
+    {
+      label: "Brazo de empuje",
+      value: "brazo",
+    },
+    {
+      label: "Volcable",
+      value: "volcable",
+    },
+    {
+      label: "Oscilobatiente",
+      value: "oscilobatiente",
+    },
+  ];
 
-    medidasInvalidas,
-  } = useRajasValidation(config);
+  const modelos = config.linea === "Herrero" ? modelosHerrero : modelosModena;
 
   const handleAddToBudget = async () => {
     try {
@@ -97,6 +119,8 @@ export function RajasConfigForm({
   return (
     <ProductFormLayout title={RAJAS_UI.title}>
       <div className="space-y-6">
+        {/* SISTEMA */}
+
         <FormSection title={RAJAS_UI.sections.sistema}>
           <LineaSelector
             value={config.linea}
@@ -104,6 +128,35 @@ export function RajasConfigForm({
             onChange={(value) => switchLinea(value)}
           />
         </FormSection>
+
+        {/* MODELO */}
+
+        <FormSection title="Modelo">
+          <OptionSelector
+            value={config.modelo}
+            options={modelos}
+            onChange={(value) =>
+              updateConfig({
+                modelo: value as RajasConfig["modelo"],
+              })
+            }
+          />
+        </FormSection>
+
+        {config.modelo === "oscilobatiente" && (
+          <FormSection title="Posición">
+            <OsciloPositionSelector
+              value={config.posicionOscilo}
+              onChange={(value) =>
+                updateConfig({
+                  posicionOscilo: value,
+                })
+              }
+            />
+          </FormSection>
+        )}
+
+        {/* MEDIDAS */}
 
         <FormSection title={RAJAS_UI.sections.medidas}>
           <DimensionsSection
@@ -120,6 +173,36 @@ export function RajasConfigForm({
           />
         </FormSection>
 
+        {/* APERTURA */}
+
+        {(config.modelo === "raja" || config.modelo === "oscilobatiente") && (
+          <FormSection title="Apertura">
+            <BisagraSelector
+              value={config.bisagra}
+              onChange={(value) =>
+                updateConfig({
+                  bisagra: value,
+                })
+              }
+            />
+          </FormSection>
+        )}
+
+        {config.modelo === "oscilobatiente" && (
+          <FormSection title="Posición">
+            <OsciloPositionSelector
+              value={config.posicionOscilo}
+              onChange={(value) =>
+                updateConfig({
+                  posicionOscilo: value,
+                })
+              }
+            />
+          </FormSection>
+        )}
+
+        {/* COLOR */}
+
         <FormSection title={RAJAS_UI.sections.colores}>
           <ColorSelector
             value={config.color}
@@ -130,6 +213,8 @@ export function RajasConfigForm({
             }
           />
         </FormSection>
+
+        {/* VIDRIO */}
 
         <FormSection title={RAJAS_UI.sections.vidrio}>
           <VidrioSelector
@@ -142,6 +227,8 @@ export function RajasConfigForm({
             }
           />
         </FormSection>
+
+        {/* EXTRAS */}
 
         <FormSection title={RAJAS_UI.sections.extras}>
           <ExtrasSection
@@ -158,9 +245,13 @@ export function RajasConfigForm({
           />
         </FormSection>
 
+        {/* ALERTA */}
+
         {medidasInvalidas && (
           <AlertBox type="error">Medidas inválidas.</AlertBox>
         )}
+
+        {/* FOOTER */}
 
         <FormFooter>
           <PrimaryButton
