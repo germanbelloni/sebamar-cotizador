@@ -22,7 +22,7 @@ function getColorFactor(color) {
 // 🚀 WRAPPER
 // ========================
 
-function calcularSuperficiesWrapper(dataInput) {
+function calcularsuperficiesWrapper(dataInput) {
   const {
     tipo,
     ancho,
@@ -169,4 +169,4 @@ function calcularSuperficiesWrapper(dataInput) {
   };
 }
 
-module.exports = calcularSuperficiesWrapper;
+module.exports = calcularsuperficiesWrapper;

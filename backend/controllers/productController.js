@@ -8,7 +8,7 @@ const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPat
 
 const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
 
-const calcularPorton = require("../../wrappers/portones/calcularPorton");
+const calcularporton = require("../../wrappers/portones/calcularporton");
 
 const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
 
@@ -20,7 +20,7 @@ const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
 
 const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
 
-const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
+const calcularsuperficies = require("../../wrappers/superficies/calcularsuperficies");
 
 const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
 
@@ -147,12 +147,12 @@ function postigones(req, res) {
 }
 
 function portones(req, res) {
-  return runCalculation(req, res, "PORTONES", (data) => calcularPorton(data));
+  return runCalculation(req, res, "PORTONES", (data) => calcularporton(data));
 }
 
 function superficies(req, res) {
-  return runCalculation(req, res, "SUPERFICIES", (data) =>
-    calcularSuperficies(data),
+  return runCalculation(req, res, "superficies", (data) =>
+    calcularsuperficies(data),
   );
 }
 

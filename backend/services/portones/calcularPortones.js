@@ -2,7 +2,7 @@ const { fromRoot } = require("../../utils/path");
 
 const calcularPuertas = require(fromRoot("services/puertas/calcularPuertas"));
 
-function calcularPortones(dataInput) {
+function calcularportones(dataInput) {
   const { ancho, alto, hojas, ...rest } = dataInput;
 
   if (!ancho || !alto || !hojas) {
@@ -44,4 +44,4 @@ function calcularPortones(dataInput) {
   };
 }
 
-module.exports = calcularPortones;
+module.exports = calcularportones;

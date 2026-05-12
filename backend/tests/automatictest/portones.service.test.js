@@ -2,8 +2,8 @@
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularPortones = require(
-  fromRoot("backend/services/portones/calcularPortones"),
+const calcularportones = require(
+  fromRoot("backend/services/portones/calcularportones"),
 );
 
 console.log("\n🧪 TEST SERVICE PORTONES\n");
@@ -102,7 +102,7 @@ function validar(result) {
 
 casos.forEach((t, i) => {
   try {
-    const result = calcularPortones(t.input);
+    const result = calcularportones(t.input);
 
     const errores = validar(result);
 

@@ -1,22 +1,22 @@
-import type { SuperficiesConfig } from "../types";
+import type { superficiesConfig } from "../types";
 
-import { LIMITES_SUPERFICIES } from "../constants";
+import { LIMITES_superficies } from "../constants";
 
-export function useSuperficiesValidation(config: SuperficiesConfig) {
+export function usesuperficiesValidation(config: superficiesConfig) {
   const anchoValido =
-    config.ancho >= LIMITES_SUPERFICIES.anchoMin &&
-    config.ancho <= LIMITES_SUPERFICIES.anchoMax;
+    config.ancho >= LIMITES_superficies.anchoMin &&
+    config.ancho <= LIMITES_superficies.anchoMax;
 
   const altoValido =
-    config.alto >= LIMITES_SUPERFICIES.altoMin &&
-    config.alto <= LIMITES_SUPERFICIES.altoMax;
+    config.alto >= LIMITES_superficies.altoMin &&
+    config.alto <= LIMITES_superficies.altoMax;
 
   const medidasValidas = anchoValido && altoValido;
 
   const medidasInvalidas = !medidasValidas;
 
   return {
-    limites: LIMITES_SUPERFICIES,
+    limites: LIMITES_superficies,
 
     anchoValido,
 

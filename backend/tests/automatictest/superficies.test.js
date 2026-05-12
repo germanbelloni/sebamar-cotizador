@@ -2,11 +2,11 @@
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularSuperficies = require(
-  fromRoot("wrappers/superficies/calcularSuperficies"),
+const calcularsuperficies = require(
+  fromRoot("wrappers/superficies/calcularsuperficies"),
 );
 
-console.log("\n🧪 TEST WRAPPER SUPERFICIES\n");
+console.log("\n🧪 TEST WRAPPER superficies\n");
 
 // =========================
 // 🧪 CASOS
@@ -148,7 +148,7 @@ function validar(result) {
 
 casos.forEach((t, i) => {
   try {
-    const result = calcularSuperficies(t.input);
+    const result = calcularsuperficies(t.input);
 
     const errores = validar(result);
 
@@ -178,11 +178,11 @@ console.log("\n✅ FIN TEST WRAPPER\n"); // backend/tests/automatictest/superfic
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularSuperficies = require(
-  fromRoot("wrappers/superficies/calcularSuperficies"),
+const calcularsuperficies = require(
+  fromRoot("wrappers/superficies/calcularsuperficies"),
 );
 
-console.log("\n🧪 TEST WRAPPER SUPERFICIES\n");
+console.log("\n🧪 TEST WRAPPER superficies\n");
 
 // =========================
 // 🧪 CASOS
@@ -324,7 +324,7 @@ function validar(result) {
 
 casos.forEach((t, i) => {
   try {
-    const result = calcularSuperficies(t.input);
+    const result = calcularsuperficies(t.input);
 
     const errores = validar(result);
 

@@ -22,9 +22,9 @@ const calcularPostigones = require("../../wrappers/postigones/calcularPostigones
 const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
 const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
 
-const calcularPorton = require("../../wrappers/portones/calcularporton");
+const calcularporton = require("../../wrappers/portones/calcularporton");
 
-const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
+const calcularsuperficies = require("../../wrappers/superficies/calcularsuperficies");
 
 const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
 
@@ -136,13 +136,13 @@ function calcularItem(item, perfil) {
       });
 
     case "porton":
-      return calcularPorton({
+      return calcularporton({
         ...item,
         perfil,
       });
 
     case "superficie":
-      return calcularSuperficies({
+      return calcularsuperficies({
         ...item,
         perfil,
       });

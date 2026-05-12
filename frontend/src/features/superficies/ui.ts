@@ -1,7 +1,7 @@
 import type { ProductUI } from "@/shared/types/ui";
 
-export const SUPERFICIES_UI: ProductUI = {
-  title: "Superficies",
+export const superficies_UI: ProductUI = {
+  title: "superficies",
 
   sections: {
     sistema: "Sistema",

@@ -6,8 +6,8 @@ const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularSuperficies = require(
-  fromRoot("wrappers/superficies/calcularSuperficies"),
+const calcularsuperficies = require(
+  fromRoot("wrappers/superficies/calcularsuperficies"),
 );
 
 // =========================
@@ -91,7 +91,7 @@ CONFIG.tipos.forEach((tipo) => {
             }
 
             try {
-              const output = calcularSuperficies(input);
+              const output = calcularsuperficies(input);
 
               resultados.push({
                 ok: true,
@@ -140,7 +140,7 @@ fs.writeFileSync(
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Superficies OK`);
+console.log(`\n✅ Generator superficies OK`);
 
 console.log(`📁 Archivo: ${outputPath}`);
 

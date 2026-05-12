@@ -3,10 +3,10 @@
 const { fromRoot } = require("../../utils/path");
 
 const calcularSuperficie = require(
-  fromRoot("services/superficies/Superficies"),
+  fromRoot("services/superficies/superficies"),
 );
 
-console.log("\n🧪 TEST SERVICE SUPERFICIES\n");
+console.log("\n🧪 TEST SERVICE superficies\n");
 
 // =========================
 // 🧪 CASOS

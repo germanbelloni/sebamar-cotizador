@@ -2,7 +2,7 @@
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
+const calcularporton = require(fromRoot("wrappers/portones/calcularporton"));
 
 console.log("\n🧪 TEST WRAPPER PORTONES\n");
 
@@ -194,7 +194,7 @@ function validar(result, input) {
 
 casos.forEach((t, i) => {
   try {
-    const result = calcularPorton(t.input);
+    const result = calcularporton(t.input);
 
     const errores = validar(result, t.input);
 

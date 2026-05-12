@@ -41,7 +41,7 @@ router.post("/rajas", productController.rajas);
 router.post("/postigones", productController.postigones);
 router.post("/patagonicas", productController.patagonicas);
 // =========================
-// 📦 SUPERFICIES
+// 📦 superficies
 // =========================
 router.post("/superficies", productController.superficies);
 

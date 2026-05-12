@@ -62,11 +62,11 @@ import type { PatagonicasConfig } from "@/features/patagonicas/types";
 
 import { PatagonicasConfigForm } from "@/features/patagonicas/components/PatagonicasConfigForm";
 
-/* SUPERFICIES */
+/* superficies */
 
-import type { SuperficiesConfig } from "@/features/superficies/types";
+import type { superficiesConfig } from "@/features/superficies/types";
 
-import { SuperficiesConfigForm } from "@/features/superficies/components/SuperficiesConfigForm";
+import { superficiesConfigForm } from "@/features/superficies/components/superficiesConfigForm";
 
 /* MOSQUITEROS */
 
@@ -246,9 +246,9 @@ function App() {
     },
   );
 
-  /* SUPERFICIES */
+  /* superficies */
 
-  const [superficiesConfig, setSuperficiesConfig] = useState<SuperficiesConfig>(
+  const [superficiesConfig, setsuperficiesConfig] = useState<superficiesConfig>(
     {
       ancho: 120,
 
@@ -338,9 +338,9 @@ function App() {
     ),
 
     superficies: (
-      <SuperficiesConfigForm
+      <superficiesConfigForm
         config={superficiesConfig}
-        setConfig={setSuperficiesConfig}
+        setConfig={setsuperficiesConfig}
         setItems={setItems}
       />
     ),

@@ -26,11 +26,11 @@ const calcularPostigones = require(
 
 const calcularPlacas = require(fromRoot("wrappers/placas/calcularPuertaPlaca"));
 
-const calcularSuperficies = require(
-  fromRoot("wrappers/superficies/calcularSuperficies"),
+const calcularsuperficies = require(
+  fromRoot("wrappers/superficies/calcularsuperficies"),
 );
 
-const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
+const calcularporton = require(fromRoot("wrappers/portones/calcularporton"));
 
 const calcularPatagonicaModena = require(
   fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
@@ -157,10 +157,10 @@ validar("Puerta Placa", calcularPlacas, {
 });
 
 // =======================
-// 🧱 SUPERFICIES
+// 🧱 superficies
 // =======================
 
-validar("Paño Fijo", calcularSuperficies, {
+validar("Paño Fijo", calcularsuperficies, {
   tipo: "pano_fijo",
   ancho: 100,
   alto: 100,
@@ -172,7 +172,7 @@ validar("Paño Fijo", calcularSuperficies, {
 // 🚪 PORTONES
 // =======================
 
-validar("Porton", calcularPorton, {
+validar("Porton", calcularporton, {
   ancho: 240,
   alto: 200,
   hojas: 3,

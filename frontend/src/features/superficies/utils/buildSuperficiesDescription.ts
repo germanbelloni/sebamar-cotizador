@@ -1,6 +1,6 @@
-import type { SuperficiesConfig } from "../types";
+import type { superficiesConfig } from "../types";
 
-export function buildSuperficiesDescription(config: SuperficiesConfig) {
+export function buildsuperficiesDescription(config: superficiesConfig) {
   return `
     ${config.tipo}
     ${config.linea || ""}

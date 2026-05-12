@@ -38,7 +38,7 @@ export const FEATURES = [
   {
     id: "superficies",
 
-    label: "Superficies",
+    label: "superficies",
   },
 
   {

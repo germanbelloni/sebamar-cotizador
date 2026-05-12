@@ -2,15 +2,15 @@ import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
 
 import { useDimensionsInputs } from "@/shared/hooks/useDimensionsInputs";
 
-import type { SuperficiesConfig } from "../types";
+import type { superficiesConfig } from "../types";
 
 type Params = {
-  config: SuperficiesConfig;
+  config: superficiesConfig;
 
-  setConfig: React.Dispatch<React.SetStateAction<SuperficiesConfig>>;
+  setConfig: React.Dispatch<React.SetStateAction<superficiesConfig>>;
 };
 
-export function useSuperficiesForm({
+export function usesuperficiesForm({
   config,
 
   setConfig,

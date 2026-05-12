@@ -1,14 +1,14 @@
-import type { SuperficiesConfig, SuperficiesItem } from "../types";
+import type { superficiesConfig, superficiesItem } from "../types";
 
-import { SUPERFICIES_UI } from "../ui";
+import { superficies_UI } from "../ui";
 
-import { useSuperficiesForm } from "../hooks/useSuperficiesForm";
+import { usesuperficiesForm } from "../hooks/usesuperficiesForm";
 
-import { useSuperficiesValidation } from "../hooks/useSuperficiesValidation";
+import { usesuperficiesValidation } from "../hooks/usesuperficiesValidation";
 
-import { useCotizarSuperficies } from "../hooks/useCotizarSuperficies";
+import { useCotizarsuperficies } from "../hooks/useCotizarsuperficies";
 
-import { createSuperficiesBudgetItem } from "../utils/createSuperficiesBudgetItem";
+import { createsuperficiesBudgetItem } from "../utils/createsuperficiesBudgetItem";
 
 import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
 
@@ -29,21 +29,21 @@ import { AlertBox } from "@/shared/components/AlertBox";
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
 type Props = {
-  config: SuperficiesConfig;
+  config: superficiesConfig;
 
-  setConfig: React.Dispatch<React.SetStateAction<SuperficiesConfig>>;
+  setConfig: React.Dispatch<React.SetStateAction<superficiesConfig>>;
 
-  setItems: React.Dispatch<React.SetStateAction<SuperficiesItem[]>>;
+  setItems: React.Dispatch<React.SetStateAction<superficiesItem[]>>;
 };
 
-export function SuperficiesConfigForm({
+export function superficiesConfigForm({
   config,
 
   setConfig,
 
   setItems,
 }: Props) {
-  const cotizacionMutation = useCotizarSuperficies();
+  const cotizacionMutation = useCotizarsuperficies();
 
   const {
     updateConfig,
@@ -55,7 +55,7 @@ export function SuperficiesConfigForm({
     handleAnchoChange,
 
     handleAltoChange,
-  } = useSuperficiesForm({
+  } = usesuperficiesForm({
     config,
 
     setConfig,
@@ -71,7 +71,7 @@ export function SuperficiesConfigForm({
     medidasValidas,
 
     medidasInvalidas,
-  } = useSuperficiesValidation(config);
+  } = usesuperficiesValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
@@ -80,22 +80,22 @@ export function SuperficiesConfigForm({
 
     setItems,
 
-    createItem: createSuperficiesBudgetItem,
+    createItem: createsuperficiesBudgetItem,
   });
 
   const isPanoFijo = config.tipo === "pano_fijo";
 
   return (
-    <ProductFormLayout title={SUPERFICIES_UI.title}>
+    <ProductFormLayout title={superficies_UI.title}>
       <div className="space-y-6">
-        <FormSection title={SUPERFICIES_UI.sections.sistema}>
+        <FormSection title={superficies_UI.sections.sistema}>
           <div className="space-y-4">
             <LineaSelector
               value={config.tipo || "pano_fijo"}
-              options={SUPERFICIES_UI.selectors?.tipos || []}
+              options={superficies_UI.selectors?.tipos || []}
               onChange={(value) =>
                 updateConfig({
-                  tipo: value as SuperficiesConfig["tipo"],
+                  tipo: value as superficiesConfig["tipo"],
                 })
               }
             />
@@ -103,10 +103,10 @@ export function SuperficiesConfigForm({
             {isPanoFijo && (
               <LineaSelector
                 value={config.linea || "herrero"}
-                options={SUPERFICIES_UI.selectors?.lineas || []}
+                options={superficies_UI.selectors?.lineas || []}
                 onChange={(value) =>
                   updateConfig({
-                    linea: value as SuperficiesConfig["linea"],
+                    linea: value as superficiesConfig["linea"],
                   })
                 }
               />
@@ -114,7 +114,7 @@ export function SuperficiesConfigForm({
           </div>
         </FormSection>
 
-        <FormSection title={SUPERFICIES_UI.sections.medidas}>
+        <FormSection title={superficies_UI.sections.medidas}>
           <DimensionsSection
             anchoInput={anchoInput}
             altoInput={altoInput}
@@ -131,18 +131,18 @@ export function SuperficiesConfigForm({
 
         {!medidasValidas && (
           <AlertBox type="error">
-            {SUPERFICIES_UI.messages?.invalidMeasures}
+            {superficies_UI.messages?.invalidMeasures}
           </AlertBox>
         )}
 
         {isPanoFijo && (
-          <FormSection title={SUPERFICIES_UI.sections.vidrio}>
+          <FormSection title={superficies_UI.sections.vidrio}>
             <VidrioSelector
               value={config.tipoVidrio || "4mm"}
               options={["3mm", "4mm", "3+3", "DVH 4+9+4", "DVH 5+9+5"]}
               onChange={(value) =>
                 updateConfig({
-                  tipoVidrio: value as SuperficiesConfig["tipoVidrio"],
+                  tipoVidrio: value as superficiesConfig["tipoVidrio"],
                 })
               }
             />
@@ -151,7 +151,7 @@ export function SuperficiesConfigForm({
 
         {cotizacionMutation.isError && (
           <AlertBox type="error">
-            {SUPERFICIES_UI.messages?.quotationError}
+            {superficies_UI.messages?.quotationError}
           </AlertBox>
         )}
 
@@ -161,12 +161,12 @@ export function SuperficiesConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {SUPERFICIES_UI.actions?.addToBudget}
+            {superficies_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (
             <AlertBox type="error">
-              {SUPERFICIES_UI.messages?.reviewLimits}
+              {superficies_UI.messages?.reviewLimits}
             </AlertBox>
           )}
         </FormFooter>

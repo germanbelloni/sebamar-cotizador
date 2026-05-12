@@ -1,7 +1,7 @@
 const { fromRoot } = require("../../backend/utils/path");
 
-const calcularPortones = require(
-  fromRoot("backend/services/portones/calcularPortones"),
+const calcularportones = require(
+  fromRoot("backend/services/portones/calcularportones"),
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
@@ -28,7 +28,7 @@ function getColorFactor(color) {
 // 🚀 WRAPPER
 // ========================
 
-function calcularPortonWrapper(dataInput) {
+function calcularportonWrapper(dataInput) {
   const {
     perfil = "amarilla",
     linea,
@@ -41,7 +41,7 @@ function calcularPortonWrapper(dataInput) {
   // 🧠 SERVICE
   // ========================
 
-  const resultado = calcularPortones(dataInput);
+  const resultado = calcularportones(dataInput);
 
   let costo = Number(resultado.costoBase || 0);
 
@@ -141,4 +141,4 @@ function calcularPortonWrapper(dataInput) {
   };
 }
 
-module.exports = calcularPortonWrapper;
+module.exports = calcularportonWrapper;

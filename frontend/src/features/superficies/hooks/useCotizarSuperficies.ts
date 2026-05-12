@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { cotizarSuperficies } from "../api/cotizarSuperficies";
+import { cotizarsuperficies } from "../api/cotizarsuperficies";
 
-export function useCotizarSuperficies() {
+export function useCotizarsuperficies() {
   return useMutation({
-    mutationFn: cotizarSuperficies,
+    mutationFn: cotizarsuperficies,
 
     onSuccess: (data) => {
-      console.log("COTIZACION SUPERFICIES:", data);
+      console.log("COTIZACION superficies:", data);
     },
 
     onError: (error) => {

@@ -1,4 +1,4 @@
-export const LIMITES_SUPERFICIES = {
+export const LIMITES_superficies = {
   anchoMin: 20,
   anchoMax: 500,
 
