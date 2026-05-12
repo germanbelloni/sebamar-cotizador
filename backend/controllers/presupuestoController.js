@@ -22,7 +22,7 @@ const calcularPostigones = require("../../wrappers/postigones/calcularPostigones
 const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
 const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
 
-const calcularPorton = require("../../wrappers/portones/calcularPorton");
+const calcularPorton = require("../../wrappers/portones/calcularporton");
 
 const calcularSuperficies = require("../../wrappers/superficies/calcularSuperficies");
 
@@ -181,19 +181,14 @@ async function crear(req, res) {
 
       let precio = item.precio || 0;
 
-      let descripcion =
-        item.descripcion || item.tipo || "Producto";
+      let descripcion = item.descripcion || item.tipo || "Producto";
 
       const resultado = calcularItem(item, req.user.perfil);
 
       if (resultado) {
-        precio =
-          resultado.precioVenta ||
-          resultado.total ||
-          0;
+        precio = resultado.precioVenta || resultado.total || 0;
 
-        descripcion =
-          resultado.descripcion || descripcion;
+        descripcion = resultado.descripcion || descripcion;
       }
 
       const subtotal = precio * cantidad;
@@ -262,9 +257,7 @@ async function listar(req, res) {
 // =========================
 
 async function obtener(req, res) {
-  const presupuesto = await Presupuesto.findById(
-    req.params.id,
-  );
+  const presupuesto = await Presupuesto.findById(req.params.id);
 
   if (!presupuesto) {
     return res.status(404).json({
@@ -272,9 +265,7 @@ async function obtener(req, res) {
     });
   }
 
-  if (
-    presupuesto.userId.toString() !== req.user.id
-  ) {
+  if (presupuesto.userId.toString() !== req.user.id) {
     return res.status(403).json({
       error: "No autorizado",
     });
@@ -295,9 +286,7 @@ async function pdf(req, res) {
       });
     }
 
-    const presupuesto = await Presupuesto.findById(
-      req.params.id,
-    );
+    const presupuesto = await Presupuesto.findById(req.params.id);
 
     if (!presupuesto) {
       return res.status(404).json({
@@ -305,9 +294,7 @@ async function pdf(req, res) {
       });
     }
 
-    if (
-      presupuesto.userId.toString() !== req.user.id
-    ) {
+    if (presupuesto.userId.toString() !== req.user.id) {
       return res.status(403).json({
         error: "No autorizado",
       });
@@ -317,10 +304,7 @@ async function pdf(req, res) {
 
     const browser = await puppeteer.launch({
       headless: "new",
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-      ],
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
     const page = await browser.newPage();
@@ -338,8 +322,7 @@ async function pdf(req, res) {
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition":
-        "inline; filename=presupuesto.pdf",
+      "Content-Disposition": "inline; filename=presupuesto.pdf",
     });
 
     return res.send(pdfBuffer);
