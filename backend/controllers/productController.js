@@ -26,17 +26,26 @@ const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaH
 
 const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
 
+const aplicarMargen = require("../utils/pricing/aplicarMargen");
+
+const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
+const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
+
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
 
-function runCalculation(req, res, label, calculate) {
+async function runCalculation(req, res, label, calculate) {
   try {
+    const pricingUser = await resolvePricingUser(req.user);
+
     const data = {
       ...req.body,
 
-      perfil: req.user?.perfil || "MODENA",
+      perfil: pricingUser?.perfil || "amarilla",
     };
+
+    console.log("PRICING USER:", pricingUser.nombre);
 
     console.log("PERFIL USADO:", data.perfil);
 
@@ -44,9 +53,14 @@ function runCalculation(req, res, label, calculate) {
 
     console.log("RESULTADO BASE:", resultadoBase);
 
-    const resultadoFinal = resultadoBase;
+    let resultadoFinal = resultadoBase;
 
-    console.log("RESULTADO FINAL:", resultadoFinal);
+    // 🧑 ADMIN
+    if (pricingUser.role === "admin") {
+      resultadoFinal = aplicarMargen(resultadoBase, pricingUser.margen);
+    }
+
+    resultadoFinal = sanitizarResultado(resultadoFinal, req.user);
 
     return res.json(resultadoFinal);
   } catch (error) {

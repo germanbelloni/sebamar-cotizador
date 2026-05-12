@@ -16,6 +16,10 @@ import type { Cliente } from "@/features/clientes/types";
 
 import { PrintPage } from "@/pages/PrintPage";
 
+import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
+
+import { CreateUserModal } from "@/features/users/components/CreateUserModal";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -365,33 +369,36 @@ function App() {
       <Route
         path="/"
         element={
-          <div className="min-h-screen bg-background text-foreground transition-colors">
-            <div className="flex h-screen">
-              <Sidebar
-                features={FEATURES}
-                activeFeature={activeFeature}
-                onSelectFeature={setActiveFeature}
-              />
-
-              <main className="flex-1 overflow-auto">
-                <Header
-                  empresa={empresa}
-                  cliente={cliente}
-                  setCliente={setCliente}
+          <>
+            <UserManagementPanel />
+            <CreateUserModal />
+            <div className="min-h-screen bg-background text-foreground transition-colors">
+              <div className="flex h-screen">
+                <Sidebar
+                  features={FEATURES}
+                  activeFeature={activeFeature}
+                  onSelectFeature={setActiveFeature}
                 />
 
-                <div className="grid grid-cols-2 gap-6 p-6">
-                  {/* FORM */}
+                <main className="flex-1 overflow-auto">
+                  <Header
+                    empresa={empresa}
+                    cliente={cliente}
+                    setCliente={setCliente}
+                  />
 
-                  {FEATURE_COMPONENTS[activeFeature]}
+                  <div className="grid grid-cols-2 gap-6 p-6">
+                    {/* FORM */}
 
-                  {/* PREVIEW COLUMN */}
+                    {FEATURE_COMPONENTS[activeFeature]}
 
-                  <div className="flex h-full flex-col gap-4">
-                    {/* SVG / PREVIEW */}
+                    {/* PREVIEW COLUMN */}
 
-                    <div
-                      className="
+                    <div className="flex h-full flex-col gap-4">
+                      {/* SVG / PREVIEW */}
+
+                      <div
+                        className="
                       flex-[4]
 
                       rounded-2xl
@@ -401,34 +408,34 @@ function App() {
 
                       p-6
                     "
-                    >
-                      <div className="flex h-full flex-col">
-                        {/* HEADER */}
+                      >
+                        <div className="flex h-full flex-col">
+                          {/* HEADER */}
 
-                        <div>
-                          <h2 className="text-xl font-semibold">
-                            {activeFeatureLabel}
-                          </h2>
+                          <div>
+                            <h2 className="text-xl font-semibold">
+                              {activeFeatureLabel}
+                            </h2>
 
-                          <p className="mt-1 text-sm text-muted-foreground">
-                            Vista previa técnica del módulo.
-                          </p>
-                        </div>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              Vista previa técnica del módulo.
+                            </p>
+                          </div>
 
-                        {/* SVG */}
-                        <div className="mt-6 flex-1">
-                          {activeFeature === "ventanas" && (
-                            <VentanaPreview config={ventanasConfig} />
-                          )}
+                          {/* SVG */}
+                          <div className="mt-6 flex-1">
+                            {activeFeature === "ventanas" && (
+                              <VentanaPreview config={ventanasConfig} />
+                            )}
 
-                          {activeFeature === "rajas" && (
-                            <RajasPreview config={rajasConfig} />
-                          )}
-                        </div>
-                        {/* TECHNICAL INFO */}
+                            {activeFeature === "rajas" && (
+                              <RajasPreview config={rajasConfig} />
+                            )}
+                          </div>
+                          {/* TECHNICAL INFO */}
 
-                        <div
-                          className="
+                          <div
+                            className="
                           mt-4
 
                           rounded-xl
@@ -438,62 +445,62 @@ function App() {
 
                           p-4
                         "
-                        >
-                          <div className="space-y-2 text-sm">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">
-                                Línea
-                              </span>
+                          >
+                            <div className="space-y-2 text-sm">
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                  Línea
+                                </span>
 
-                              <span>
-                                {"linea" in activeConfig
-                                  ? activeConfig.linea
-                                  : "-"}
-                              </span>
-                            </div>
+                                <span>
+                                  {"linea" in activeConfig
+                                    ? activeConfig.linea
+                                    : "-"}
+                                </span>
+                              </div>
 
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">
-                                Vidrio
-                              </span>
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                  Vidrio
+                                </span>
 
-                              <span>
-                                {"tipoVidrio" in activeConfig
-                                  ? activeConfig.tipoVidrio || "-"
-                                  : "-"}
-                              </span>
-                            </div>
+                                <span>
+                                  {"tipoVidrio" in activeConfig
+                                    ? activeConfig.tipoVidrio || "-"
+                                    : "-"}
+                                </span>
+                              </div>
 
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">
-                                Color
-                              </span>
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                  Color
+                                </span>
 
-                              <span>
-                                {"color" in activeConfig
-                                  ? activeConfig.color
-                                  : "-"}
-                              </span>
-                            </div>
+                                <span>
+                                  {"color" in activeConfig
+                                    ? activeConfig.color
+                                    : "-"}
+                                </span>
+                              </div>
 
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">
-                                Medidas
-                              </span>
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                  Medidas
+                                </span>
 
-                              <span>
-                                {activeConfig.ancho} x {activeConfig.alto}
-                              </span>
+                                <span>
+                                  {activeConfig.ancho} x {activeConfig.alto}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* CLIENT CARD */}
+                      {/* CLIENT CARD */}
 
-                    <div
-                      className="
+                      <div
+                        className="
                       flex-[1]
 
                       rounded-2xl
@@ -503,12 +510,12 @@ function App() {
 
                       p-6
                     "
-                    >
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-base font-semibold">Cliente</h3>
+                      >
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-base font-semibold">Cliente</h3>
 
-                        <span
-                          className="
+                          <span
+                            className="
                           rounded-full
 
                           border border-lime-400/20
@@ -525,14 +532,14 @@ function App() {
 
                           text-zinc-300/70
                         "
-                        >
-                          Presupuesto
-                        </span>
-                      </div>
+                          >
+                            Presupuesto
+                          </span>
+                        </div>
 
-                      <div className="mt-4 grid grid-cols-2 gap-4">
-                        <div
-                          className="
+                        <div className="mt-4 grid grid-cols-2 gap-4">
+                          <div
+                            className="
                           rounded-xl
 
                           border border-border
@@ -541,18 +548,18 @@ function App() {
 
                           px-4 py-3
                         "
-                        >
-                          <p className="text-[11px] text-muted-foreground">
-                            Nombre
-                          </p>
+                          >
+                            <p className="text-[11px] text-muted-foreground">
+                              Nombre
+                            </p>
 
-                          <p className="mt-1 text-sm font-medium text-foreground">
-                            {cliente.nombre || "-"}
-                          </p>
-                        </div>
+                            <p className="mt-1 text-sm font-medium text-foreground">
+                              {cliente.nombre || "-"}
+                            </p>
+                          </div>
 
-                        <div
-                          className="
+                          <div
+                            className="
                           rounded-xl
 
                           border border-border
@@ -561,20 +568,20 @@ function App() {
 
                           px-4 py-3
                         "
-                        >
-                          <p className="text-[11px] text-muted-foreground">
-                            Teléfono
-                          </p>
+                          >
+                            <p className="text-[11px] text-muted-foreground">
+                              Teléfono
+                            </p>
 
-                          <p className="mt-1 text-sm font-medium text-foreground">
-                            {cliente.telefono || "-"}
-                          </p>
+                            <p className="mt-1 text-sm font-medium text-foreground">
+                              {cliente.telefono || "-"}
+                            </p>
+                          </div>
                         </div>
-                      </div>
 
-                      {/* TOTAL */}
-                      <div
-                        className="
+                        {/* TOTAL */}
+                        <div
+                          className="
     mt-5
 
     rounded-2xl
@@ -585,9 +592,9 @@ function App() {
 
     px-5 py-4
   "
-                      >
-                        <p
-                          className="
+                        >
+                          <p
+                            className="
       text-xs
 
       uppercase
@@ -595,12 +602,12 @@ function App() {
 
       text-zinc-400
     "
-                        >
-                          Total presupuesto
-                        </p>
+                          >
+                            Total presupuesto
+                          </p>
 
-                        <div
-                          className="
+                          <div
+                            className="
                             mt-2
 
                             text-3xl
@@ -610,28 +617,29 @@ function App() {
 
                             text-zinc-100
                           "
-                        >
-                          $
-                          {items
-                            .reduce((acc, item) => acc + item.subtotal, 0)
-                            .toLocaleString("es-AR")}
+                          >
+                            $
+                            {items
+                              .reduce((acc, item) => acc + item.subtotal, 0)
+                              .toLocaleString("es-AR")}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </main>
+                </main>
 
-              <div className="w-[420px] border-l bg-background">
-                <BudgetPanel
-                  items={items}
-                  setItems={setItems}
-                  cliente={cliente}
-                  empresa={empresa}
-                />
+                <div className="w-[420px] border-l bg-background">
+                  <BudgetPanel
+                    items={items}
+                    setItems={setItems}
+                    cliente={cliente}
+                    empresa={empresa}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </>
         }
       />
 

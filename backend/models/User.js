@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
+    // 🔐 LOGIN
     nombre: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
 
     password: {
@@ -13,6 +15,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
+    // 📊 NUMERACIÓN PRESUPUESTOS
     contadorPresupuestos: {
       type: Number,
       default: 0,
@@ -25,33 +28,37 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
 
-    // 📊 PERFIL (tu lista de precios)
+    // 📊 PERFIL DE PRECIOS
     perfil: {
       type: String,
       enum: ["amarilla", "azul", "verde"],
       default: "amarilla",
     },
 
-    // 💰 MARGEN DEL CLIENTE
+    // 💰 GANANCIA
+    // ejemplo:
+    // 0.20 = 20%
     margen: {
       type: Number,
       default: 0,
     },
 
-    // 🏢 EMPRESA (nombre visible)
+    // 🏢 EMPRESA
     empresa: {
       type: String,
       default: "sebamar",
     },
 
-    // 🧠 RELACIÓN (QUIÉN ES EL DUEÑO)
+    // 👑 OWNER
+    // USER → apunta al ADMIN
+    // ADMIN → apunta al SUPERADMIN
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       default: null,
     },
 
-    // 🎨 BRANDING (para front + PDF)
+    // 🎨 BRANDING
     logo: {
       type: String,
       default: "",
@@ -62,13 +69,15 @@ const userSchema = new mongoose.Schema(
       default: "#000000",
     },
 
-    // 🔒 ACTIVO / INACTIVO
+    // 🔒 ESTADO
     activo: {
       type: Boolean,
       default: true,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
 module.exports = mongoose.model("User", userSchema);
