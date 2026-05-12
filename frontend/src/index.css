@@ -225,3 +225,7 @@
     margin: 10mm;
   }
 }
+
+html {
+  font-size: 14px;
+}

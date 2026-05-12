@@ -382,7 +382,7 @@
       window.tipoPuerta = "simple";
       console.log("TIPO:", window.tipoPuerta);
 
-      const API = "http://localhost:3000";
+      const API = "http://import.meta.env.VITE_API_URL";
       let modoActual = "ventanas"; // "ventanas" o "puertas"
       let dataPuertas = null;
       let medidas = [];
