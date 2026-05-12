@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function RajasPreview({ config }: Props) {
-  const maxSize = 280;
+  const maxSize = 240;
 
   const mayorMedida = Math.max(config.ancho, config.alto);
 
@@ -76,7 +76,7 @@ export function RajasPreview({ config }: Props) {
 
           mt-6
 
-          flex h-[500px]
+          flex h-[420px]
 
           items-center
           justify-center

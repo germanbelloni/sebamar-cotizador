@@ -20,7 +20,7 @@ type Props = {
 };
 
 export function VentanaPreview({ config }: Props) {
-  const maxSize = 340;
+  const maxSize = 300;
 
   const mayorMedida = Math.max(config.ancho, config.alto);
 
@@ -81,7 +81,7 @@ export function VentanaPreview({ config }: Props) {
           relative overflow-hidden
 
           mt-6
-          flex h-[500px]
+          flex h-[420px]
 
           items-center
           justify-center

@@ -4,32 +4,149 @@ type AppLayoutProps = {
 
 export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
-      <div className="flex h-screen">
-        <aside className="w-72 border-r border-zinc-800 bg-zinc-900 p-4">
-          <h2 className="text-xl font-bold">Sebamar</h2>
+    <div className="min-h-screen bg-zinc-950 text-white overflow-auto">
+  <div
+    className="
+      origin-top-left
+
+      scale-[0.82]
+
+      xl:scale-[0.88]
+
+      2xl:scale-[0.92]
+    "
+  >
+      <div className="flex h-screen overflow-hidden">
+        {/* SIDEBAR */}
+
+        <aside
+          className="
+            w-60
+            border-r border-zinc-800
+            bg-zinc-900/95
+
+            px-4 py-5
+
+            backdrop-blur
+          "
+        >
+          <h2 className="text-lg font-bold tracking-tight">Sebamar</h2>
 
           <div className="mt-8 space-y-2">
-            <button className="w-full rounded-lg bg-zinc-800 px-4 py-2 text-left hover:bg-zinc-700">
+            <button
+              className="
+                w-full
+
+                rounded-xl
+
+                bg-zinc-800/70
+
+                px-4 py-2.5
+
+                text-left
+                text-sm
+
+                transition-all duration-200
+
+                hover:bg-zinc-700
+              "
+            >
               Ventanas
             </button>
 
-            <button className="w-full rounded-lg bg-zinc-800 px-4 py-2 text-left hover:bg-zinc-700">
+            <button
+              className="
+                w-full
+
+                rounded-xl
+
+                bg-zinc-800/70
+
+                px-4 py-2.5
+
+                text-left
+                text-sm
+
+                transition-all duration-200
+
+                hover:bg-zinc-700
+              "
+            >
               Puertas
             </button>
 
-            <button className="w-full rounded-lg bg-zinc-800 px-4 py-2 text-left hover:bg-zinc-700">
+            <button
+              className="
+                w-full
+
+                rounded-xl
+
+                bg-zinc-800/70
+
+                px-4 py-2.5
+
+                text-left
+                text-sm
+
+                transition-all duration-200
+
+                hover:bg-zinc-700
+              "
+            >
               Rajas
             </button>
           </div>
         </aside>
 
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+        {/* CONTENT */}
 
-        <aside className="w-80 border-l border-zinc-800 bg-zinc-900 p-4">
-          <h3 className="text-lg font-semibold">Presupuesto</h3>
+        <main
+          className="
+            flex-1
+            overflow-auto
 
-          <div className="mt-4 rounded-lg bg-zinc-800 p-4">Sin productos</div>
+            bg-zinc-950
+
+            px-8 py-6
+          "
+        >
+          <div className="mx-auto max-w-[1500px]">{children}</div>
+        </main>
+
+        {/* BUDGET PANEL */}
+
+        <aside
+          className="
+            w-[340px]
+
+            border-l border-zinc-800
+
+            bg-zinc-900/95
+
+            px-5 py-5
+
+            backdrop-blur
+          "
+        >
+          <h3 className="text-base font-semibold">Presupuesto</h3>
+
+          <div
+            className="
+              mt-4
+
+              rounded-2xl
+
+              border border-zinc-800
+
+              bg-zinc-800/40
+
+              p-4
+
+              text-sm text-zinc-400
+            "
+          >
+            Sin productos
+          </div>
         </aside>
       </div>
     </div>
