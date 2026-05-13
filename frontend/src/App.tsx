@@ -22,6 +22,12 @@ import { CreateUserModal } from "@/features/users/components/CreateUserModal";
 
 import PresupuestosPage from "@/pages/PresupuestosPage";
 
+import { Navigate } from "react-router-dom";
+
+import { LoginPage } from "@/features/auth/pages/LoginPage";
+
+import { useAuthStore } from "@/store/authStore";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -365,289 +371,293 @@ function App() {
       : activeFeature === "ventanas"
         ? ventanasConfig
         : portonesConfig;
-
+  const token = useAuthStore((state) => state.token);
   return (
     <Routes>
+      {/* LOGIN */}
+
+      <Route
+        path="/login"
+        element={token ? <Navigate to="/" replace /> : <LoginPage />}
+      />
+
+      {/* HOME */}
+
       <Route
         path="/"
         element={
-          <>
-            <UserManagementPanel />
-            <CreateUserModal />
-            <div className="min-h-screen bg-background text-foreground transition-colors">
-              <div className="flex h-screen">
-                <Sidebar
-                  features={FEATURES}
-                  activeFeature={activeFeature}
-                  onSelectFeature={setActiveFeature}
-                />
+          token ? (
+            <>
+              <UserManagementPanel />
 
-                <main className="flex-1 overflow-auto">
-                  <Header
-                    empresa={empresa}
-                    cliente={cliente}
-                    setCliente={setCliente}
+              <CreateUserModal />
+
+              <div className="min-h-screen bg-background text-foreground transition-colors">
+                <div className="flex h-screen">
+                  <Sidebar
+                    features={FEATURES}
+                    activeFeature={activeFeature}
+                    onSelectFeature={setActiveFeature}
                   />
 
-                  <div className="grid grid-cols-2 gap-6 p-6">
-                    {/* FORM */}
+                  <main className="flex-1 overflow-auto">
+                    <Header
+                      empresa={empresa}
+                      cliente={cliente}
+                      setCliente={setCliente}
+                    />
 
-                    {FEATURE_COMPONENTS[activeFeature]}
+                    <div className="grid grid-cols-2 gap-6 p-6">
+                      {/* FORM */}
 
-                    {/* PREVIEW COLUMN */}
+                      {FEATURE_COMPONENTS[activeFeature]}
 
-                    <div className="flex h-full flex-col gap-4">
-                      {/* SVG / PREVIEW */}
+                      {/* PREVIEW COLUMN */}
 
-                      <div
-                        className="
-                      flex-[4]
+                      <div className="flex h-full flex-col gap-4">
+                        {/* SVG / PREVIEW */}
 
-                      rounded-2xl
-                      border border-border
-
-                      bg-card
-
-                      p-6
-                    "
-                      >
-                        <div className="flex h-full flex-col">
-                          {/* HEADER */}
-
-                          <div>
-                            <h2 className="text-xl font-semibold">
-                              {activeFeatureLabel}
-                            </h2>
-
-                            <p className="mt-1 text-sm text-muted-foreground">
-                              Vista previa técnica del módulo.
-                            </p>
-                          </div>
-
-                          {/* SVG */}
-                          <div className="mt-6 flex-1">
-                            {activeFeature === "ventanas" && (
-                              <VentanaPreview config={ventanasConfig} />
-                            )}
-
-                            {activeFeature === "rajas" && (
-                              <RajasPreview config={rajasConfig} />
-                            )}
-                          </div>
-                          {/* TECHNICAL INFO */}
-
-                          <div
-                            className="
-                          mt-4
-
-                          rounded-xl
+                        <div
+                          className="
+                          flex-[4]
+                          rounded-2xl
                           border border-border
-
-                          bg-background/50
-
-                          p-4
+                          bg-card
+                          p-6
                         "
-                          >
-                            <div className="space-y-2 text-sm">
-                              <div className="flex justify-between">
-                                <span className="text-muted-foreground">
-                                  Línea
-                                </span>
+                        >
+                          <div className="flex h-full flex-col">
+                            {/* HEADER */}
 
-                                <span>
-                                  {"linea" in activeConfig
-                                    ? activeConfig.linea
-                                    : "-"}
-                                </span>
-                              </div>
+                            <div>
+                              <h2 className="text-xl font-semibold">
+                                {activeFeatureLabel}
+                              </h2>
 
-                              <div className="flex justify-between">
-                                <span className="text-muted-foreground">
-                                  Vidrio
-                                </span>
+                              <p className="mt-1 text-sm text-muted-foreground">
+                                Vista previa técnica del módulo.
+                              </p>
+                            </div>
 
-                                <span>
-                                  {"tipoVidrio" in activeConfig
-                                    ? activeConfig.tipoVidrio || "-"
-                                    : "-"}
-                                </span>
-                              </div>
+                            {/* SVG */}
 
-                              <div className="flex justify-between">
-                                <span className="text-muted-foreground">
-                                  Color
-                                </span>
+                            <div className="mt-6 flex-1">
+                              {activeFeature === "ventanas" && (
+                                <VentanaPreview config={ventanasConfig} />
+                              )}
 
-                                <span>
-                                  {"color" in activeConfig
-                                    ? activeConfig.color
-                                    : "-"}
-                                </span>
-                              </div>
+                              {activeFeature === "rajas" && (
+                                <RajasPreview config={rajasConfig} />
+                              )}
+                            </div>
 
-                              <div className="flex justify-between">
-                                <span className="text-muted-foreground">
-                                  Medidas
-                                </span>
+                            {/* TECHNICAL INFO */}
 
-                                <span>
-                                  {activeConfig.ancho} x {activeConfig.alto}
-                                </span>
+                            <div
+                              className="
+                              mt-4
+                              rounded-xl
+                              border border-border
+                              bg-background/50
+                              p-4
+                            "
+                            >
+                              <div className="space-y-2 text-sm">
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">
+                                    Línea
+                                  </span>
+
+                                  <span>
+                                    {"linea" in activeConfig
+                                      ? activeConfig.linea
+                                      : "-"}
+                                  </span>
+                                </div>
+
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">
+                                    Vidrio
+                                  </span>
+
+                                  <span>
+                                    {"tipoVidrio" in activeConfig
+                                      ? activeConfig.tipoVidrio || "-"
+                                      : "-"}
+                                  </span>
+                                </div>
+
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">
+                                    Color
+                                  </span>
+
+                                  <span>
+                                    {"color" in activeConfig
+                                      ? activeConfig.color
+                                      : "-"}
+                                  </span>
+                                </div>
+
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">
+                                    Medidas
+                                  </span>
+
+                                  <span>
+                                    {activeConfig.ancho} x {activeConfig.alto}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* CLIENT CARD */}
+                        {/* CLIENT CARD */}
 
-                      <div
-                        className="
-                      flex-[1]
-
-                      rounded-2xl
-                      border border-border
-
-                      bg-card
-
-                      p-6
-                    "
-                      >
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-base font-semibold">Cliente</h3>
-
-                          <span
-                            className="
-                          rounded-full
-
-                          border border-lime-400/20
-
-                          bg-lime-400/10
-
-                          px-2 py-1
-
-                          text-[10px]
-                          font-medium
-
-                          uppercase
-                          tracking-wider
-
-                          text-zinc-300/70
-                        "
-                          >
-                            Presupuesto
-                          </span>
-                        </div>
-
-                        <div className="mt-4 grid grid-cols-2 gap-4">
-                          <div
-                            className="
-                          rounded-xl
-
-                          border border-border
-
-                          bg-background
-
-                          px-4 py-3
-                        "
-                          >
-                            <p className="text-[11px] text-muted-foreground">
-                              Nombre
-                            </p>
-
-                            <p className="mt-1 text-sm font-medium text-foreground">
-                              {cliente.nombre || "-"}
-                            </p>
-                          </div>
-
-                          <div
-                            className="
-                          rounded-xl
-
-                          border border-border
-
-                          bg-background
-
-                          px-4 py-3
-                        "
-                          >
-                            <p className="text-[11px] text-muted-foreground">
-                              Teléfono
-                            </p>
-
-                            <p className="mt-1 text-sm font-medium text-foreground">
-                              {cliente.telefono || "-"}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* TOTAL */}
                         <div
                           className="
-    mt-5
-
-    rounded-2xl
-
-    border border-zinc-700/40
-
-    bg-zinc-900/60
-
-    px-5 py-4
-  "
+                          flex-[1]
+                          rounded-2xl
+                          border border-border
+                          bg-card
+                          p-6
+                        "
                         >
-                          <p
-                            className="
-      text-xs
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-base font-semibold">Cliente</h3>
 
-      uppercase
-      tracking-[0.18em]
+                            <span
+                              className="
+                              rounded-full
+                              border border-lime-400/20
+                              bg-lime-400/10
+                              px-2 py-1
+                              text-[10px]
+                              font-medium
+                              uppercase
+                              tracking-wider
+                              text-zinc-300/70
+                            "
+                            >
+                              Presupuesto
+                            </span>
+                          </div>
 
-      text-zinc-400
-    "
-                          >
-                            Total presupuesto
-                          </p>
+                          <div className="mt-4 grid grid-cols-2 gap-4">
+                            <div
+                              className="
+                              rounded-xl
+                              border border-border
+                              bg-background
+                              px-4 py-3
+                            "
+                            >
+                              <p className="text-[11px] text-muted-foreground">
+                                Nombre
+                              </p>
+
+                              <p className="mt-1 text-sm font-medium text-foreground">
+                                {cliente.nombre || "-"}
+                              </p>
+                            </div>
+
+                            <div
+                              className="
+                              rounded-xl
+                              border border-border
+                              bg-background
+                              px-4 py-3
+                            "
+                            >
+                              <p className="text-[11px] text-muted-foreground">
+                                Teléfono
+                              </p>
+
+                              <p className="mt-1 text-sm font-medium text-foreground">
+                                {cliente.telefono || "-"}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* TOTAL */}
 
                           <div
                             className="
-                            mt-2
-
-                            text-3xl
-                            font-bold
-
-                            tracking-tight
-
-                            text-zinc-100
+                            mt-5
+                            rounded-2xl
+                            border border-zinc-700/40
+                            bg-zinc-900/60
+                            px-5 py-4
                           "
                           >
-                            $
-                            {items
-                              .reduce((acc, item) => acc + item.subtotal, 0)
-                              .toLocaleString("es-AR")}
+                            <p
+                              className="
+                              text-xs
+                              uppercase
+                              tracking-[0.18em]
+                              text-zinc-400
+                            "
+                            >
+                              Total presupuesto
+                            </p>
+
+                            <div
+                              className="
+                              mt-2
+                              text-3xl
+                              font-bold
+                              tracking-tight
+                              text-zinc-100
+                            "
+                            >
+                              $
+                              {items
+                                .reduce(
+                                  (acc, item) =>
+                                    acc + Number(item.subtotal || 0),
+                                  0,
+                                )
+                                .toLocaleString("es-AR")}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </main>
+                  </main>
 
-                <div className="w-[420px] border-l bg-background">
-                  <BudgetPanel
-                    items={items}
-                    setItems={setItems}
-                    cliente={cliente}
-                    empresa={empresa}
-                  />
+                  <div className="w-[420px] border-l bg-background">
+                    <BudgetPanel
+                      items={items}
+                      setItems={setItems}
+                      cliente={cliente}
+                      empresa={empresa}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
+            </>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
 
-      <Route path="/presupuestos" element={<PresupuestosPage />} />
+      {/* PRESUPUESTOS */}
 
-      <Route path="/print" element={<PrintPage />} />
+      <Route
+        path="/presupuestos"
+        element={
+          token ? <PresupuestosPage /> : <Navigate to="/login" replace />
+        }
+      />
+
+      {/* PRINT */}
+
+      <Route
+        path="/print"
+        element={token ? <PrintPage /> : <Navigate to="/login" replace />}
+      />
     </Routes>
   );
 }

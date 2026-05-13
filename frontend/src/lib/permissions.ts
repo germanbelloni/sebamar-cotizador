@@ -33,7 +33,7 @@ export const permissions = {
     return role === "superadmin";
   },
 
-  canViewFinalClientPricing(role?: UserRole) {
+  canViewFinalClientPricing() {
     return true;
   },
 };
