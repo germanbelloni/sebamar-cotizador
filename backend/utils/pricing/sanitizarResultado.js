@@ -11,11 +11,20 @@ function sanitizarResultado(resultado, user) {
 
       precioBase: resultado.precioBase,
 
-      precioFinal: resultado.precioFinal,
+      precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 
       gananciaCliente: resultado.gananciaCliente,
 
       svg: resultado.svg,
+
+      configuracion: resultado.configuracion,
+
+      items:
+        resultado.items?.map((item) => ({
+          ...item,
+
+          subtotal: item.subtotal || item.precio || 0,
+        })) || [],
     };
   }
 
@@ -23,9 +32,16 @@ function sanitizarResultado(resultado, user) {
   return {
     descripcion: resultado.descripcion,
 
-    precioFinal: resultado.precioFinal,
+    precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 
     svg: resultado.svg,
+
+    items:
+      resultado.items?.map((item) => ({
+        ...item,
+
+        subtotal: item.subtotal || item.precio || 0,
+      })) || [],
   };
 }
 

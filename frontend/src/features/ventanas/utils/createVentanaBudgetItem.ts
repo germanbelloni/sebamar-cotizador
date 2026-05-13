@@ -6,6 +6,8 @@ type CotizacionResponse = {
   descripcion: string;
 
   precioVenta: number;
+
+  precioFinal?: number;
 };
 
 export function createVentanaBudgetItem(
@@ -14,7 +16,11 @@ export function createVentanaBudgetItem(
 ): VentanaItem {
   const item = buildVentanaItem(config);
 
-  item.subtotal = result.precioVenta;
+  return {
+    ...item,
 
-  return item;
+    cantidad: 1,
+
+    subtotal: Number(result.precioFinal) || Number(result.precioVenta) || 0,
+  };
 }

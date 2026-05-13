@@ -102,31 +102,16 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
         <div className="p-16">
           {/* HEADER */}
-
+          {/* HEADER */}
           <div className="flex items-start justify-between">
             {/* LEFT */}
 
             <div>
-              {empresa.logo ? (
-                <img
-                  src={empresa.logo}
-                  alt={empresa.nombre}
-                  className="mb-6 h-16 object-contain"
-                />
-              ) : (
-                <div className="mb-6">
-                  <h1 className="text-5xl font-black uppercase tracking-tighter text-zinc-900">
-                    {empresa.nombre}
-                  </h1>
-
-                  <div
-                    className="mt-2 h-1.5 w-16 rounded-full"
-                    style={{
-                      backgroundColor: primaryColor,
-                    }}
-                  />
-                </div>
-              )}
+              <img
+                src="/logosebamar.png"
+                alt="Sebamar"
+                className="mb-6 h-20 object-contain"
+              />
 
               <div className="space-y-1 text-sm font-medium text-zinc-500">
                 {empresa.direccion && <p>{empresa.direccion}</p>}
@@ -142,31 +127,31 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             <div className="text-right">
               <h2
                 className="
-                  absolute
-                  right-16
-                  top-12
-                  select-none
-                  text-7xl
-                  font-black
-                  tracking-tighter
-                  opacity-[0.04]
-                "
+        absolute
+        right-16
+        top-12
+        select-none
+        text-7xl
+        font-black
+        tracking-tighter
+        opacity-[0.04]
+      "
               >
                 PRESUPUESTO
               </h2>
 
               <div
                 className="
-                  inline-flex
-                  rounded-2xl
-                  px-6 py-3
-                  text-sm
-                  font-bold
-                  uppercase
-                  tracking-[0.3em]
-                  text-white
-                  shadow-xl
-                "
+        inline-flex
+        rounded-2xl
+        px-6 py-3
+        text-sm
+        font-bold
+        uppercase
+        tracking-[0.3em]
+        text-white
+        shadow-xl
+      "
                 style={{
                   background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
                 }}
@@ -196,10 +181,8 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                 </div>
               </div>
             </div>
-          </div>
-
+          </div>{" "}
           {/* CLIENT SECTION */}
-
           <div className="mt-16 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
             {/* CLIENT */}
 
@@ -252,9 +235,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               </p>
             </div>
           </div>
-
           {/* TABLE */}
-
           <div className="mt-14 overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm">
             {/* HEAD */}
 
@@ -323,9 +304,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               ))}
             </div>
           </div>
-
           {/* TOTAL */}
-
           <div className="mt-14 flex justify-end">
             <div className="w-full max-w-[420px]">
               <div
@@ -370,9 +349,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               </div>
             </div>
           </div>
-
           {/* TERMS */}
-
           <div className="mt-20 border-l-2 border-zinc-200 pl-6">
             <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
               Términos y condiciones
@@ -386,9 +363,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               <li>• Los precios pueden variar según disponibilidad.</li>
             </ul>
           </div>
-
           {/* FOOTER */}
-
           <div className="mt-20 flex items-end justify-between border-t border-zinc-100 pt-8">
             <div>
               <p className="text-sm text-zinc-400">Gracias por confiar en</p>

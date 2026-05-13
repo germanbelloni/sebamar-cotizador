@@ -20,6 +20,8 @@ import { UserManagementPanel } from "@/features/users/components/UserManagementP
 
 import { CreateUserModal } from "@/features/users/components/CreateUserModal";
 
+import PresupuestosPage from "@/pages/PresupuestosPage";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -642,6 +644,8 @@ function App() {
           </>
         }
       />
+
+      <Route path="/presupuestos" element={<PresupuestosPage />} />
 
       <Route path="/print" element={<PrintPage />} />
     </Routes>

@@ -1,4 +1,11 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import {
+  Document,
+  Image,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
 
 import type { Cliente } from "@/features/clientes/types";
 
@@ -7,8 +14,10 @@ import type { VentanaItem } from "@/features/ventanas/types";
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
 import type { Empresa } from "@/features/empresa/types";
+
 type Props = {
   empresa: Empresa;
+
   cliente: Cliente;
 
   items: VentanaItem[];
@@ -27,6 +36,24 @@ const styles = StyleSheet.create({
 
   header: {
     marginBottom: 24,
+
+    flexDirection: "row",
+
+    justifyContent: "space-between",
+
+    alignItems: "center",
+  },
+
+  logo: {
+    width: 120,
+
+    height: 40,
+
+    objectFit: "contain",
+  },
+
+  headerRight: {
+    alignItems: "flex-end",
   },
 
   title: {
@@ -106,7 +133,7 @@ const styles = StyleSheet.create({
 
 export function BudgetPDF({ empresa, cliente, items }: Props) {
   const total = items.reduce(
-    (acc, item) => acc + item.subtotal * item.cantidad,
+    (acc, item) => acc + Number(item.subtotal || 0),
     0,
   );
 
@@ -120,9 +147,16 @@ export function BudgetPDF({ empresa, cliente, items }: Props) {
         {/* HEADER */}
 
         <View style={styles.header}>
-          <Text style={styles.title}>{empresa.nombre}</Text>
+          <Image
+            style={styles.logo}
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+          />
 
-          <Text style={styles.subtitle}>Presupuesto de aberturas</Text>
+          <View style={styles.headerRight}>
+            <Text style={styles.title}>{empresa.nombre}</Text>
+
+            <Text style={styles.subtitle}>Presupuesto de aberturas</Text>
+          </View>
         </View>
 
         {/* CLIENTE */}
@@ -149,9 +183,9 @@ export function BudgetPDF({ empresa, cliente, items }: Props) {
               <Text style={styles.itemDescription}>{item.description}</Text>
 
               <View style={styles.itemRow}>
-                <Text>Cantidad: {item.cantidad}</Text>
+                <Text>Cantidad: {item.cantidad || 1}</Text>
 
-                <Text>{formatCurrency(item.subtotal * item.cantidad)}</Text>
+                <Text>{formatCurrency(Number(item.subtotal || 0))}</Text>
               </View>
             </View>
           ))}

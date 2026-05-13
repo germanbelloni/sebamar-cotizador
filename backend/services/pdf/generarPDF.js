@@ -11,11 +11,14 @@ try {
     const file = fs.readFileSync(logoPath);
     logoBase64 = `data:image/png;base64,${file.toString("base64")}`;
   }
+  console.log("LOGO PATH:", logoPath);
+
+  console.log("EXISTE:", fs.existsSync(logoPath));
 } catch (e) {
   console.log("⚠ No se pudo cargar logo base64");
 }
 
-function generarHTML(presupuesto) {
+function generarHTML(presupuesto, user) {
   const numero = presupuesto._id?.toString().slice(-6) || "000000";
 
   const filas = (presupuesto.items || [])
@@ -103,6 +106,11 @@ function generarHTML(presupuesto) {
           text-align: right;
           font-size: 18px;
           font-weight: bold;
+          background: #facc15;
+padding: 14px 18px;
+border-radius: 12px;
+display: inline-block;
+float: right;
         }
 
         .footer {
@@ -132,7 +140,10 @@ function generarHTML(presupuesto) {
 
       <!-- EMPRESA -->
       <div class="empresa">
-        SEBAMAR ABERTURAS<br/>
+  <b>${user?.empresa || "SEBAMAR ABERTURAS"}</b><br/>
+  Av. Venezuela 100<br/>
+  2314-483072
+</div>
         Av. Venezuela 100<br/>
         2314-483072
       </div>
@@ -140,9 +151,13 @@ function generarHTML(presupuesto) {
       <!-- INFO -->
       <div class="info">
         <div>
-          <b>Facturar a:</b><br/>
-          ${presupuesto.cliente || "-"}
-        </div>
+  <b>Cliente:</b><br/>
+  ${presupuesto.cliente || "-"}<br/>
+
+  ${presupuesto.telefono ? `<b>Tel:</b> ${presupuesto.telefono}<br/>` : ""}
+
+  ${presupuesto.direccion ? `<b>Dirección:</b> ${presupuesto.direccion}` : ""}
+</div>
 
         <div class="text-right">
           <div><b>Fecha:</b> ${
@@ -174,6 +189,35 @@ function generarHTML(presupuesto) {
       <div class="total">
         Total: $${format(presupuesto.total || 0)}
       </div>
+
+      ${
+        presupuesto.observaciones || presupuesto.validez
+          ? `
+      <div style="margin-top: 40px;">
+        ${
+          presupuesto.observaciones
+            ? `
+              <div style="margin-bottom: 10px;">
+                <b>Observaciones:</b><br/>
+                ${presupuesto.observaciones}
+              </div>
+            `
+            : ""
+        }
+
+        ${
+          presupuesto.validez
+            ? `
+              <div>
+                <b>Validez:</b> ${presupuesto.validez}
+              </div>
+            `
+            : ""
+        }
+      </div>
+    `
+          : ""
+      }
 
       <!-- FOOTER -->
       <div class="footer">

@@ -14,11 +14,19 @@ const presupuestoSchema = new mongoose.Schema(
     },
     numero: Number,
     cliente: String,
+
+    telefono: String,
+
+    direccion: String,
+
+    observaciones: String,
+
+    validez: String,
     fecha: String,
     items: [itemSchema],
     total: Number,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Presupuesto", presupuestoSchema);

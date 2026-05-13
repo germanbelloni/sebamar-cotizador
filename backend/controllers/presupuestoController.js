@@ -32,6 +32,8 @@ const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
 
 const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
 
+const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
+
 // =========================
 // PDF
 // =========================
@@ -215,12 +217,19 @@ async function crear(req, res) {
       cliente: req.body.cliente,
       fecha: req.body.fecha,
       items: itemsProcesados,
+      telefono: req.body.telefono,
+
+      direccion: req.body.direccion,
+
+      observaciones: req.body.observaciones,
+
+      validez: req.body.validez,
       total,
     });
 
     await presupuesto.save();
 
-    return res.json(presupuesto);
+    return res.json(sanitizarResultado(presupuesto, req.user));
   } catch (error) {
     console.error("ERROR PRESUPUESTO:", error);
 
@@ -249,7 +258,7 @@ async function listar(req, res) {
     fecha: p.fecha,
   }));
 
-  return res.json(resultado);
+  return res.json(sanitizarResultado(presupuesto, req.user));
 }
 
 // =========================
@@ -258,6 +267,8 @@ async function listar(req, res) {
 
 async function obtener(req, res) {
   const presupuesto = await Presupuesto.findById(req.params.id);
+
+  const user = await User.findById(req.user.id);
 
   if (!presupuesto) {
     return res.status(404).json({
@@ -271,7 +282,7 @@ async function obtener(req, res) {
     });
   }
 
-  return res.json(presupuesto);
+  return res.json(sanitizarResultado(presupuesto, req.user));
 }
 
 // =========================
@@ -300,7 +311,7 @@ async function pdf(req, res) {
       });
     }
 
-    const html = generarHTML(presupuesto);
+    const html = generarHTML(presupuesto, user);
 
     const browser = await puppeteer.launch({
       headless: "new",

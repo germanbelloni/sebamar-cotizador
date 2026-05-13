@@ -49,6 +49,16 @@ const userSchema = new mongoose.Schema(
       default: "sebamar",
     },
 
+    empresa: {
+      type: String,
+      default: "sebamar",
+    },
+
+    logo: {
+      type: String,
+      default: "",
+    },
+
     // 👑 OWNER
     // USER → apunta al ADMIN
     // ADMIN → apunta al SUPERADMIN

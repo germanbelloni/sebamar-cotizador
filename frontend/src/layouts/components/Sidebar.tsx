@@ -1,5 +1,6 @@
 import {
   DoorOpen,
+  FileText,
   LogOut,
   PanelsTopLeft,
   Settings,
@@ -7,6 +8,8 @@ import {
   User,
   Warehouse,
 } from "lucide-react";
+
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 
@@ -54,6 +57,8 @@ export function Sidebar({
 
   onSelectFeature,
 }: Props) {
+  const navigate = useNavigate();
+
   const user = useAuthStore((state) => state.user);
 
   const logout = useAuthStore((state) => state.logout);
@@ -161,17 +166,33 @@ export function Sidebar({
           p-3
         "
       >
+        {/* 📄 PRESUPUESTOS */}
+        <Button
+          variant="ghost"
+          className="
+            h-10
+            w-full
+            justify-start
+            gap-2
+            rounded-xl
+          "
+          onClick={() => navigate("/presupuestos")}
+        >
+          <FileText className="h-4 w-4" />
+          Presupuestos
+        </Button>
+
         {/* 👑 USERS */}
         {isSuperAdmin && (
           <Button
             variant="ghost"
             className="
-      h-10
-      w-full
-      justify-start
-      gap-2
-      rounded-xl
-    "
+              h-10
+              w-full
+              justify-start
+              gap-2
+              rounded-xl
+            "
             onClick={openUsersPanel}
           >
             <User className="h-4 w-4" />

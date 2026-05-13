@@ -27,8 +27,17 @@ function generarToken(user) {
 
 async function register(req, res) {
   try {
-    const { nombre, password, role, perfil, margen, empresa, ownerId } =
-      req.body;
+    const { nombre, password, role, perfil, margen, logo, empresa } = req.body;
+
+    // =========================
+    // VALIDACIONES BÁSICAS
+    // =========================
+
+    if (!nombre || !password) {
+      return res.status(400).json({
+        error: "Nombre y password son obligatorios",
+      });
+    }
 
     const existeUsuario = await User.findOne({
       nombre,
@@ -40,30 +49,65 @@ async function register(req, res) {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // =========================
+    // VALIDAR ROLES
+    // =========================
+
+    const currentUserRole = req.user?.role;
+
+    // SOLO SUPERADMIN CREA ADMINS
+    if (role === "admin" && currentUserRole !== "superadmin") {
+      return res.status(403).json({
+        error: "No autorizado para crear admins",
+      });
+    }
+
+    // ADMIN SOLO CREA USERS
+    if (currentUserRole === "admin" && role !== "user") {
+      return res.status(403).json({
+        error: "Admin solo puede crear vendedores",
+      });
+    }
+
+    // USER NO CREA NADA
+    if (currentUserRole === "user") {
+      return res.status(403).json({
+        error: "No autorizado",
+      });
+    }
+
+    // =========================
+    // OWNER ID AUTOMÁTICO
+    // =========================
 
     let finalOwnerId = null;
 
     // 👑 SUPERADMIN
-    if (req.user?.role === "superadmin") {
-      // ADMIN cliente
-      if (role === "admin") {
-        finalOwnerId = req.user.id;
-      }
-
-      // vendedor Sebamar
-      if (role === "user") {
-        finalOwnerId = req.user.id;
-      }
+    if (currentUserRole === "superadmin") {
+      finalOwnerId = req.user.id;
     }
 
-    // 🧑 ADMIN CLIENTE
-    if (req.user?.role === "admin") {
-      // vendedores del cliente
-      if (role === "user") {
-        finalOwnerId = req.user.id;
-      }
+    // 🧑 ADMIN
+    if (currentUserRole === "admin") {
+      finalOwnerId = req.user.id;
     }
+
+    // SEGURIDAD EXTRA
+    if (!finalOwnerId) {
+      return res.status(400).json({
+        error: "No se pudo asignar ownerId",
+      });
+    }
+
+    // =========================
+    // HASH PASSWORD
+    // =========================
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // =========================
+    // CREAR USUARIO
+    // =========================
 
     const nuevoUsuario = await User.create({
       nombre,
@@ -77,9 +121,14 @@ async function register(req, res) {
       margen: Number(margen ?? 0),
 
       empresa: empresa || "sebamar",
+      logo: logo || "",
 
       ownerId: finalOwnerId,
     });
+
+    // =========================
+    // RESPONSE
+    // =========================
 
     return res.status(201).json({
       ok: true,

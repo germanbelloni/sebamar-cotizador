@@ -25,7 +25,7 @@ type CreateUserForm = {
 };
 
 type Props = {
-  onUserCreated: () => Promise<void>;
+  onUserCreated?: () => Promise<void>;
 };
 
 export function CreateUserModal({ onUserCreated }: Props) {
@@ -61,9 +61,23 @@ export function CreateUserModal({ onUserCreated }: Props) {
         body: JSON.stringify(form),
       });
 
-      await onUserCreated();
+      await onUserCreated?.();
 
       closeCreateUserModal();
+
+      setForm({
+        nombre: "",
+
+        password: "",
+
+        empresa: "",
+
+        role: "user",
+
+        perfil: "amarilla",
+
+        margen: 0,
+      });
     } catch (error) {
       console.log(error);
 

@@ -217,7 +217,7 @@ export function VentanaConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            VENTANAS_UI.actions?.addToBudget
+            Agregar al presupuesto
           </PrimaryButton>
 
           {medidasInvalidas && (
