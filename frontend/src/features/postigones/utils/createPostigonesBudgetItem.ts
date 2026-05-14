@@ -22,8 +22,9 @@ export function createPostigonesBudgetItem(
     color: config.color,
 
     extras: {
+      cantidadHojas: config.cantidadHojas,
+      hojaCierre: config.hojaCierre,
       microperforado: config.microperforado,
-
       herrajeBlanco: config.herrajeBlanco,
     },
 
