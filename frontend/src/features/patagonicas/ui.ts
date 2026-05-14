@@ -37,6 +37,35 @@ export const PATAGONICAS_UI: ProductUI = {
         value: "2_rajas",
       },
     ],
+
+    medidasRaja: [
+      {
+        label: "40 cm",
+        value: 40,
+      },
+
+      {
+        label: "50 cm",
+        value: 50,
+      },
+
+      {
+        label: "60 cm",
+        value: 60,
+      },
+    ],
+
+    bisagras: [
+      {
+        label: "Izquierda",
+        value: "izquierda",
+      },
+
+      {
+        label: "Derecha",
+        value: "derecha",
+      },
+    ],
   },
 
   messages: {
@@ -52,42 +81,4 @@ export const PATAGONICAS_UI: ProductUI = {
 
     quoting: "Cotizando...",
   },
-
-  fields: [
-    {
-      id: "linea",
-
-      type: "selector",
-
-      section: "sistema",
-
-      selectorKey: "lineas",
-    },
-
-    {
-      id: "tipo",
-
-      type: "selector",
-
-      section: "sistema",
-
-      selectorKey: "tipos",
-    },
-
-    {
-      id: "dimensions",
-
-      type: "dimensions",
-
-      section: "medidas",
-    },
-
-    {
-      id: "vidrio",
-
-      type: "glass-selector",
-
-      section: "vidrio",
-    },
-  ],
 };

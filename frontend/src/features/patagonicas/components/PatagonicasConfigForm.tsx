@@ -10,9 +10,8 @@ import { useCotizarPatagonicas } from "../hooks/useCotizarPatagonicas";
 
 import { createPatagonicasBudgetItem } from "../utils/createPatagonicasBudgetItem";
 
-import { PatagonicasPreview } from "@/features/patagonicas/components/PatagonicasPreview";
-
 import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { CortinasSection } from "@/shared/sections/CortinasSection";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -92,125 +91,161 @@ export function PatagonicasConfigForm({
   });
 
   return (
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[420px_1fr]">
-      {/* FORM */}
-      <ProductFormLayout title={PATAGONICAS_UI.title}>
-        <div className="space-y-6">
-          <FormSection title={PATAGONICAS_UI.sections.sistema}>
-            <div className="space-y-4">
-              <LineaSelector
-                value={config.linea}
-                options={PATAGONICAS_UI.selectors?.lineas || []}
-                onChange={(value) => switchLinea(value)}
-              />
+    <ProductFormLayout title={PATAGONICAS_UI.title}>
+      <div className="space-y-6">
+        {/* SISTEMA */}
 
-              <LineaSelector
-                value={config.tipo}
-                options={PATAGONICAS_UI.selectors?.tipos || []}
-                onChange={(value) =>
-                  updateConfig({
-                    tipo: value as PatagonicasConfig["tipo"],
-
-                    cantidadRajas: value === "1_raja" ? 1 : 2,
-                  })
-                }
-              />
-            </div>
-          </FormSection>
-
-          <FormSection title={PATAGONICAS_UI.sections.medidas}>
-            <DimensionsSection
-              anchoInput={anchoInput}
-              altoInput={altoInput}
-              anchoValido={anchoValido}
-              altoValido={altoValido}
-              anchoMin={limites.anchoMin}
-              anchoMax={limites.anchoMax}
-              altoMin={limites.altoMin}
-              altoMax={limites.altoMax}
-              onAnchoChange={handleAnchoChange}
-              onAltoChange={handleAltoChange}
+        <FormSection title={PATAGONICAS_UI.sections.sistema}>
+          <div className="space-y-4">
+            <LineaSelector
+              value={config.linea}
+              options={PATAGONICAS_UI.selectors?.lineas || []}
+              onChange={(value) => switchLinea(value)}
             />
-          </FormSection>
 
-          {!medidasValidas && (
-            <AlertBox type="error">
-              {PATAGONICAS_UI.messages?.invalidMeasures}
-            </AlertBox>
-          )}
-
-          <FormSection title={PATAGONICAS_UI.sections.vidrio}>
-            <VidrioSelector
-              value={config.tipoVidrio}
-              options={["4mm", "3+3"]}
+            <LineaSelector
+              value={config.tipo}
+              options={PATAGONICAS_UI.selectors?.tipos || []}
               onChange={(value) =>
                 updateConfig({
-                  tipoVidrio: value as PatagonicasConfig["tipoVidrio"],
+                  tipo: value as PatagonicasConfig["tipo"],
+
+                  cantidadRajas: value === "1_raja" ? 1 : 2,
                 })
               }
             />
-          </FormSection>
+          </div>
+        </FormSection>
 
-          <FormSection title={PATAGONICAS_UI.sections.extras}>
-            <div className="space-y-4">
-              <ExtrasSection
-                mosquitero={config.mosquitero}
-                guia={false}
-                cajonBlock={false}
-                onToggleMosquitero={() =>
-                  updateConfig({
-                    mosquitero: !config.mosquitero,
-                  })
-                }
-                onToggleGuia={() => {}}
-                onToggleCajonBlock={() => {}}
-              />
+        {/* MEDIDAS */}
 
-              {config.linea === "Modena" && (
-                <ModenaSection
-                  premarco={config.premarco}
-                  contramarco={config.contramarco}
-                  onTogglePremarco={() =>
+        <FormSection title={PATAGONICAS_UI.sections.medidas}>
+          <DimensionsSection
+            anchoInput={anchoInput}
+            altoInput={altoInput}
+            anchoValido={anchoValido}
+            altoValido={altoValido}
+            anchoMin={limites.anchoMin}
+            anchoMax={limites.anchoMax}
+            altoMin={limites.altoMin}
+            altoMax={limites.altoMax}
+            onAnchoChange={handleAnchoChange}
+            onAltoChange={handleAltoChange}
+          />
+        </FormSection>
+
+        {!medidasValidas && (
+          <AlertBox type="error">
+            {PATAGONICAS_UI.messages?.invalidMeasures}
+          </AlertBox>
+        )}
+
+        {/* VIDRIO */}
+
+        <FormSection title={PATAGONICAS_UI.sections.vidrio}>
+          <VidrioSelector
+            value={config.tipoVidrio}
+            options={["4mm", "3+3"]}
+            onChange={(value) =>
+              updateConfig({
+                tipoVidrio: value as PatagonicasConfig["tipoVidrio"],
+              })
+            }
+          />
+        </FormSection>
+
+        {/* EXTRAS */}
+
+        <FormSection title={PATAGONICAS_UI.sections.extras}>
+          <div className="space-y-4">
+            <ExtrasSection
+              mosquitero={config.mosquitero}
+              guia={config.guia}
+              cajonBlock={config.cajonBlock}
+              onToggleMosquitero={() =>
+                updateConfig({
+                  mosquitero: !config.mosquitero,
+                })
+              }
+              onToggleGuia={() =>
+                updateConfig({
+                  guia: !config.guia,
+                })
+              }
+              onToggleCajonBlock={() =>
+                updateConfig({
+                  cajonBlock: !config.cajonBlock,
+                })
+              }
+            />
+
+            {config.guia && (
+              <FormSection title="Cortinas">
+                <CortinasSection
+                  color={config.color}
+                  cortinaPVC={config.cortinaPVC}
+                  cortinaAluminio={config.cortinaAluminio}
+                  onTogglePVC={() =>
                     updateConfig({
-                      premarco: !config.premarco,
+                      cortinaPVC: !config.cortinaPVC,
+                      cortinaAluminio: false,
                     })
                   }
-                  onToggleContramarco={() =>
+                  onToggleAluminio={() =>
                     updateConfig({
-                      contramarco: !config.contramarco,
+                      cortinaAluminio: !config.cortinaAluminio,
+                      cortinaPVC: false,
                     })
                   }
                 />
-              )}
-            </div>
-          </FormSection>
+              </FormSection>
+            )}
 
-          {cotizacionMutation.isError && (
+            {config.linea === "Modena" && (
+              <ModenaSection
+                premarco={config.premarco}
+                contramarco={config.contramarco}
+                onTogglePremarco={() =>
+                  updateConfig({
+                    premarco: !config.premarco,
+                  })
+                }
+                onToggleContramarco={() =>
+                  updateConfig({
+                    contramarco: !config.contramarco,
+                  })
+                }
+              />
+            )}
+          </div>
+        </FormSection>
+
+        {/* ERROR */}
+
+        {cotizacionMutation.isError && (
+          <AlertBox type="error">
+            {PATAGONICAS_UI.messages?.quotationError}
+          </AlertBox>
+        )}
+
+        {/* FOOTER */}
+
+        <FormFooter>
+          <PrimaryButton
+            onClick={handleAdd}
+            disabled={!medidasValidas || cotizacionMutation.isPending}
+            loading={cotizacionMutation.isPending}
+          >
+            {PATAGONICAS_UI.actions?.addToBudget}
+          </PrimaryButton>
+
+          {medidasInvalidas && (
             <AlertBox type="error">
-              {PATAGONICAS_UI.messages?.quotationError}
+              {PATAGONICAS_UI.messages?.reviewLimits}
             </AlertBox>
           )}
-
-          <FormFooter>
-            <PrimaryButton
-              onClick={handleAdd}
-              disabled={!medidasValidas || cotizacionMutation.isPending}
-              loading={cotizacionMutation.isPending}
-            >
-              {PATAGONICAS_UI.actions?.addToBudget}
-            </PrimaryButton>
-
-            {medidasInvalidas && (
-              <AlertBox type="error">
-                {PATAGONICAS_UI.messages?.reviewLimits}
-              </AlertBox>
-            )}
-          </FormFooter>
-        </div>
-      </ProductFormLayout>
-
-      {/* PREVIEW */}
-      <PatagonicasPreview config={config} />
-    </div>
+        </FormFooter>
+      </div>
+    </ProductFormLayout>
   );
 }

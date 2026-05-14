@@ -241,7 +241,11 @@ function App() {
 
       alto: 100,
 
-      anchoRaja: 35,
+      anchoRaja: 40,
+
+      bisagraRaja1: "izquierda",
+
+      bisagraRaja2: "derecha",
 
       linea: "Herrero",
 
@@ -262,6 +266,14 @@ function App() {
       contramarco: false,
 
       mosquitero: false,
+
+      guia: false,
+
+      cajonBlock: false,
+
+      cortinaPVC: false,
+
+      cortinaAluminio: false,
     },
   );
 

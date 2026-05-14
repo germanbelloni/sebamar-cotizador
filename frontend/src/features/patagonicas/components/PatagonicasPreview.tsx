@@ -1,14 +1,14 @@
 import type { PatagonicasConfig } from "../types";
 
-import { Marco } from "@/features/ventanas/svg/Marco";
 import { Premarco } from "@/features/ventanas/svg/Premarco";
 import { Contramarco } from "@/features/ventanas/svg/Contramarco";
-import { Cotas } from "@/features/ventanas/svg/Cotas";
+
+import { Guide } from "@/features/ventanas/svg/Guide";
+import { CajonBlock } from "@/features/ventanas/svg/CajonBlock";
+import { CortinaPVC } from "@/features/ventanas/svg/CortinaPVC";
+import { CortinaAluminio } from "@/features/ventanas/svg/CortinaAluminio";
 
 import { SVG_COLORS } from "@/shared/svg/constants/colors";
-
-import { calculateScale } from "@/shared/svg/utils/calculateScale";
-import { calculateCenter } from "@/shared/svg/utils/calculateCenter";
 
 type Props = {
   config: PatagonicasConfig;
@@ -17,181 +17,150 @@ type Props = {
 type RajaProps = {
   x: number;
 
-  top: number;
+  ancho: number;
 
-  anchoRaja: number;
+  alto: number;
 
-  altoTotal: number;
+  ladoBisagra: "izquierda" | "derecha";
 
-  hojaPadding: number;
+  aluminioColor: string;
 
-  lado: "izquierda" | "derecha";
+  mosquitero: boolean;
 };
 
 function Raja({
   x,
 
-  top,
+  ancho,
 
-  anchoRaja,
+  alto,
 
-  altoTotal,
+  ladoBisagra,
 
-  hojaPadding,
+  aluminioColor,
 
-  lado,
+  mosquitero,
 }: RajaProps) {
+  const vidrioPadding = 8;
+
+  const bisagraX = ladoBisagra === "izquierda" ? x + 3 : x + ancho - 7;
+
+  const manijaX = ladoBisagra === "izquierda" ? x + ancho - 12 : x + 7;
+
   return (
     <g>
       {/* HOJA */}
 
       <rect
         x={x}
-        y={top}
-        width={anchoRaja}
-        height={altoTotal}
-        fill="white"
-        stroke="rgba(0,0,0,0.08)"
-        strokeWidth={1}
-      />
-
-      {/* SOMBRA INTERNA */}
-
-      <rect
-        x={x + 4}
-        y={top + 4}
-        width={anchoRaja - 8}
-        height={altoTotal - 8}
-        fill="url(#metalGradient)"
-        opacity={0.6}
+        y={60}
+        width={ancho}
+        height={alto}
+        fill="rgba(20,20,20,0.95)"
+        stroke={aluminioColor}
+        strokeWidth={2}
       />
 
       {/* VIDRIO */}
 
       <rect
-        x={x + hojaPadding}
-        y={top + hojaPadding}
-        width={anchoRaja - hojaPadding * 2}
-        height={altoTotal - hojaPadding * 2}
-        fill="#18181B"
-      />
-
-      <rect
-        x={x + hojaPadding}
-        y={top + hojaPadding}
-        width={anchoRaja - hojaPadding * 2}
-        height={altoTotal - hojaPadding * 2}
-        fill="url(#glassPatagonica)"
+        x={x + vidrioPadding}
+        y={68}
+        width={ancho - vidrioPadding * 2}
+        height={alto - vidrioPadding * 2}
+        fill="rgba(255,255,255,0.05)"
       />
 
       {/* REFLEJO */}
 
-      <polygon
-        points={`
-          ${x + hojaPadding},${top + hojaPadding}
-          ${x + anchoRaja - hojaPadding},${top + hojaPadding}
-          ${x + anchoRaja - hojaPadding - 40},${top + altoTotal - hojaPadding}
-          ${x + hojaPadding},${top + altoTotal - hojaPadding}
-        `}
-        fill="rgba(255,255,255,0.04)"
+      <rect
+        x={x + vidrioPadding}
+        y={68}
+        width={ancho - vidrioPadding * 2}
+        height={alto * 0.28}
+        fill="rgba(255,255,255,0.03)"
       />
+
+      {/* MOSQUITERO */}
+
+      {mosquitero && (
+        <rect
+          x={x + vidrioPadding}
+          y={68}
+          width={ancho - vidrioPadding * 2}
+          height={alto - vidrioPadding * 2}
+          fill="url(#mosquiteroPattern)"
+          opacity={0.55}
+        />
+      )}
 
       {/* BISAGRAS */}
 
       <rect
-        x={lado === "izquierda" ? x + 4 : x + anchoRaja - 8}
-        y={top + 38}
+        x={bisagraX}
+        y={95}
         width={4}
-        height={38}
-        rx={2}
-        fill="#2A2A2A"
+        height={32}
+        rx={999}
+        fill="rgba(255,255,255,0.18)"
       />
 
       <rect
-        x={lado === "izquierda" ? x + 4 : x + anchoRaja - 8}
-        y={top + altoTotal - 76}
+        x={bisagraX}
+        y={alto + 28}
         width={4}
-        height={38}
-        rx={2}
-        fill="#2A2A2A"
+        height={32}
+        rx={999}
+        fill="rgba(255,255,255,0.18)"
       />
 
       {/* MANIJA */}
 
       <rect
-        x={lado === "izquierda" ? x + anchoRaja - 13 : x + 8}
-        y={top + altoTotal / 2 - 32}
-        width={6}
-        height={64}
+        x={manijaX}
+        y={alto / 2 + 40}
+        width={5}
+        height={46}
         rx={999}
-        fill="url(#handleGradient)"
+        fill="rgba(240,240,240,0.75)"
+      />
+
+      {/* SOMBRA */}
+
+      <rect
+        x={manijaX + 1}
+        y={alto / 2 + 40}
+        width={1}
+        height={46}
+        fill="rgba(0,0,0,0.25)"
       />
     </g>
   );
 }
 
-function Info({
-  label,
-
-  value,
-}: {
-  label: string;
-
-  value: string;
-}) {
-  return (
-    <div>
-      <p
-        className="
-          text-[10px]
-          uppercase
-          tracking-[0.25em]
-          text-zinc-500
-        "
-      >
-        {label}
-      </p>
-
-      <p
-        className="
-          mt-1
-          text-sm
-          font-medium
-          text-lime-400
-        "
-      >
-        {value}
-      </p>
-    </div>
-  );
-}
-
 export function PatagonicasPreview({ config }: Props) {
-  const scale = calculateScale(config.ancho, config.alto, 320);
-
-  const anchoTotal = config.ancho * scale;
-
-  const altoTotal = config.alto * scale;
-
-  const anchoRaja = Number(config.anchoRaja || 35) * scale;
-
-  const anchoFijo =
-    Number(config.cantidadRajas) === 1
-      ? anchoTotal - anchoRaja
-      : anchoTotal - anchoRaja * 2;
-
-  const { left, top } = calculateCenter(anchoTotal, altoTotal, 500);
-
   const aluminioColor =
     SVG_COLORS[config.color as keyof typeof SVG_COLORS] || SVG_COLORS.blanco;
 
-  const esHerrero = config.linea === "Herrero";
+  const viewWidth = 500;
 
-  const frameWidth = esHerrero
-    ? Math.max(10, anchoTotal * 0.03)
-    : Math.max(6, anchoTotal * 0.02);
+  const viewHeight = 350;
 
-  const hojaPadding = frameWidth * 0.9;
+  const padding = 60;
+
+  const drawWidth = viewWidth - padding * 2;
+
+  const drawHeight = viewHeight - padding * 2;
+
+  const anchoRaja =
+    config.tipo === "1_raja"
+      ? drawWidth * (config.anchoRaja / 100)
+      : drawWidth * ((config.anchoRaja - 8) / 100);
+
+  const anchoFijo =
+    config.tipo === "1_raja"
+      ? drawWidth - anchoRaja
+      : drawWidth - anchoRaja * 2;
 
   return (
     <div
@@ -245,7 +214,7 @@ export function PatagonicasPreview({ config }: Props) {
           relative
           mt-5
           flex
-          h-[520px]
+          h-[430px]
           items-center
           justify-center
           overflow-hidden
@@ -262,63 +231,80 @@ export function PatagonicasPreview({ config }: Props) {
         <div
           className="
             absolute
-            h-[500px]
-            w-[500px]
+            h-[450px]
+            w-[450px]
             rounded-full
-            bg-white/[0.03]
+            bg-white/[0.02]
             blur-3xl
           "
         />
 
         <svg
-          width="500"
-          height="500"
-          viewBox="0 0 500 500"
-          fill="none"
+          viewBox={`0 0 ${viewWidth} ${viewHeight}`}
           className="
             relative
             z-10
-            drop-shadow-[0_0_25px_rgba(0,0,0,0.45)]
+            h-full
+            w-full
+            max-w-[92%]
           "
         >
           <defs>
-            <linearGradient id="glassPatagonica" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.14)" />
-
-              <stop offset="100%" stopColor="rgba(255,255,255,0.03)" />
-            </linearGradient>
-
-            <linearGradient
-              id="metalGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
+            <pattern
+              id="mosquiteroPattern"
+              width="6"
+              height="6"
+              patternUnits="userSpaceOnUse"
             >
-              <stop offset="0%" stopColor="rgba(255,255,255,0.18)" />
-
-              <stop offset="50%" stopColor="rgba(255,255,255,0)" />
-
-              <stop offset="100%" stopColor="rgba(0,0,0,0.12)" />
-            </linearGradient>
-
-            <linearGradient id="handleGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#111111" />
-
-              <stop offset="50%" stopColor="#555555" />
-
-              <stop offset="100%" stopColor="#111111" />
-            </linearGradient>
+              <path
+                d="M 0 0 L 6 6 M 6 0 L 0 6"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="0.6"
+              />
+            </pattern>
           </defs>
+
+          {/* GUIA */}
+
+          {config.guia && (
+            <Guide
+              left={padding}
+              top={60}
+              ancho={drawWidth}
+              alto={drawHeight}
+              tieneCortina={config.cortinaPVC || config.cortinaAluminio}
+            />
+          )}
+
+          {/* CORTINAS */}
+
+          {config.cortinaPVC && (
+            <CortinaPVC left={padding} top={60} ancho={drawWidth} />
+          )}
+
+          {config.cortinaAluminio && (
+            <CortinaAluminio
+              left={padding}
+              top={60}
+              ancho={drawWidth}
+              color={aluminioColor}
+            />
+          )}
+
+          {/* CAJON BLOCK */}
+
+          {config.cajonBlock && (
+            <CajonBlock left={padding} top={60} ancho={drawWidth} />
+          )}
 
           {/* PREMARCO */}
 
           {config.premarco && (
             <Premarco
-              left={left}
-              top={top}
-              ancho={anchoTotal}
-              alto={altoTotal}
+              left={padding - 10}
+              top={50}
+              ancho={drawWidth + 20}
+              alto={drawHeight + 20}
             />
           )}
 
@@ -326,172 +312,170 @@ export function PatagonicasPreview({ config }: Props) {
 
           {config.contramarco && (
             <Contramarco
-              left={left}
-              top={top}
-              ancho={anchoTotal}
-              alto={altoTotal}
+              left={padding - 4}
+              top={56}
+              ancho={drawWidth + 8}
+              alto={drawHeight + 8}
               color={aluminioColor}
             />
           )}
 
           {/* MARCO */}
 
-          <Marco
-            left={left}
-            top={top}
-            ancho={anchoTotal}
-            alto={altoTotal}
-            color={aluminioColor}
-            frameWidth={frameWidth}
+          <rect
+            x={padding}
+            y={60}
+            width={drawWidth}
+            height={drawHeight}
+            fill="rgba(20,20,20,0.92)"
+            stroke={aluminioColor}
+            strokeWidth={4}
           />
 
           {/* ===== 1 RAJA ===== */}
 
-          {Number(config.cantidadRajas) === 1 && (
+          {config.tipo === "1_raja" && (
             <>
               <Raja
-                x={left}
-                top={top}
-                anchoRaja={anchoRaja}
-                altoTotal={altoTotal}
-                hojaPadding={hojaPadding}
-                lado="izquierda"
+                x={padding}
+                ancho={anchoRaja}
+                alto={drawHeight}
+                ladoBisagra={config.bisagraRaja1}
+                aluminioColor={aluminioColor}
+                mosquitero={config.mosquitero}
               />
 
               {/* PARANTE */}
 
-              <rect
-                x={left + anchoRaja - frameWidth / 2}
-                y={top}
-                width={frameWidth}
-                height={altoTotal}
-                fill={aluminioColor}
+              <line
+                x1={padding + anchoRaja}
+                y1={60}
+                x2={padding + anchoRaja}
+                y2={60 + drawHeight}
+                stroke={aluminioColor}
+                strokeWidth={2}
               />
 
               {/* PAÑO FIJO */}
 
               <rect
-                x={left + anchoRaja}
-                y={top}
+                x={padding + anchoRaja}
+                y={60}
                 width={anchoFijo}
-                height={altoTotal}
-                fill="white"
-              />
-
-              <rect
-                x={left + anchoRaja}
-                y={top}
-                width={anchoFijo}
-                height={altoTotal}
-                fill="url(#metalGradient)"
-                opacity={0.55}
-              />
-
-              {/* VIDRIO */}
-
-              <rect
-                x={left + anchoRaja + hojaPadding}
-                y={top + hojaPadding}
-                width={anchoFijo - hojaPadding * 2}
-                height={altoTotal - hojaPadding * 2}
-                fill="#18181B"
-              />
-
-              <rect
-                x={left + anchoRaja + hojaPadding}
-                y={top + hojaPadding}
-                width={anchoFijo - hojaPadding * 2}
-                height={altoTotal - hojaPadding * 2}
-                fill="url(#glassPatagonica)"
-              />
-
-              {/* REFLEJO */}
-
-              <polygon
-                points={`
-                  ${left + anchoRaja + hojaPadding},${top + hojaPadding}
-                  ${left + anchoTotal - hojaPadding},${top + hojaPadding}
-                  ${left + anchoTotal - hojaPadding - 80},${top + altoTotal - hojaPadding}
-                  ${left + anchoRaja + hojaPadding},${top + altoTotal - hojaPadding}
-                `}
-                fill="rgba(255,255,255,0.04)"
+                height={drawHeight}
+                fill="rgba(255,255,255,0.03)"
+                stroke={aluminioColor}
+                strokeWidth={1}
               />
             </>
           )}
 
           {/* ===== 2 RAJAS ===== */}
 
-          {Number(config.cantidadRajas) === 2 && (
+          {config.tipo === "2_rajas" && (
             <>
+              {/* RAJA IZQUIERDA */}
+
               <Raja
-                x={left}
-                top={top}
-                anchoRaja={anchoRaja}
-                altoTotal={altoTotal}
-                hojaPadding={hojaPadding}
-                lado="izquierda"
+                x={padding}
+                ancho={anchoRaja}
+                alto={drawHeight}
+                ladoBisagra={config.bisagraRaja1}
+                aluminioColor={aluminioColor}
+                mosquitero={config.mosquitero}
               />
 
-              {/* PAÑO FIJO */}
+              {/* PARANTE IZQ */}
+
+              <line
+                x1={padding + anchoRaja}
+                y1={60}
+                x2={padding + anchoRaja}
+                y2={60 + drawHeight}
+                stroke={aluminioColor}
+                strokeWidth={2}
+              />
+
+              {/* FIJO CENTRAL */}
 
               <rect
-                x={left + anchoRaja}
-                y={top}
+                x={padding + anchoRaja}
+                y={60}
                 width={anchoFijo}
-                height={altoTotal}
-                fill="white"
+                height={drawHeight}
+                fill="rgba(255,255,255,0.03)"
+                stroke={aluminioColor}
+                strokeWidth={1}
               />
 
-              <rect
-                x={left + anchoRaja}
-                y={top}
-                width={anchoFijo}
-                height={altoTotal}
-                fill="url(#metalGradient)"
-                opacity={0.55}
-              />
+              {/* PARANTE DER */}
 
-              {/* VIDRIO */}
-
-              <rect
-                x={left + anchoRaja + hojaPadding}
-                y={top + hojaPadding}
-                width={anchoFijo - hojaPadding * 2}
-                height={altoTotal - hojaPadding * 2}
-                fill="#18181B"
-              />
-
-              <rect
-                x={left + anchoRaja + hojaPadding}
-                y={top + hojaPadding}
-                width={anchoFijo - hojaPadding * 2}
-                height={altoTotal - hojaPadding * 2}
-                fill="url(#glassPatagonica)"
+              <line
+                x1={padding + anchoRaja + anchoFijo}
+                y1={60}
+                x2={padding + anchoRaja + anchoFijo}
+                y2={60 + drawHeight}
+                stroke={aluminioColor}
+                strokeWidth={2}
               />
 
               {/* RAJA DERECHA */}
 
               <Raja
-                x={left + anchoTotal - anchoRaja}
-                top={top}
-                anchoRaja={anchoRaja}
-                altoTotal={altoTotal}
-                hojaPadding={hojaPadding}
-                lado="derecha"
+                x={padding + anchoRaja + anchoFijo}
+                ancho={anchoRaja}
+                alto={drawHeight}
+                ladoBisagra={config.bisagraRaja2}
+                aluminioColor={aluminioColor}
+                mosquitero={config.mosquitero}
               />
             </>
           )}
 
           {/* COTAS */}
 
-          <Cotas
-            left={left}
-            top={top}
-            ancho={anchoTotal}
-            alto={altoTotal}
-            anchoReal={config.ancho}
-            altoReal={config.alto}
-          />
+          <g>
+            <line
+              x1={padding - 20}
+              y1={60}
+              x2={padding - 20}
+              y2={60 + drawHeight}
+              stroke="rgba(255,255,255,0.3)"
+              strokeWidth="1"
+            />
+
+            <text
+              x={padding - 32}
+              y={60 + drawHeight / 2}
+              transform={`rotate(-90 ${padding - 32} ${60 + drawHeight / 2})`}
+              textAnchor="middle"
+              fill="rgba(255,255,255,0.45)"
+              fontSize="11"
+            >
+              {config.alto} cm
+            </text>
+          </g>
+
+          <g>
+            <line
+              x1={padding}
+              y1={60 + drawHeight + 28}
+              x2={padding + drawWidth}
+              y2={60 + drawHeight + 28}
+              stroke="rgba(255,255,255,0.3)"
+              strokeWidth="1"
+            />
+
+            <text
+              x={padding + drawWidth / 2}
+              y={60 + drawHeight + 45}
+              textAnchor="middle"
+              fill="rgba(255,255,255,0.45)"
+              fontSize="11"
+            >
+              {config.ancho} cm
+            </text>
+          </g>
         </svg>
       </div>
 
@@ -501,7 +485,7 @@ export function PatagonicasPreview({ config }: Props) {
         className="
           mt-4
           grid
-          grid-cols-5
+          grid-cols-4
           gap-4
           border-t border-white/5
           pt-4
@@ -509,14 +493,46 @@ export function PatagonicasPreview({ config }: Props) {
       >
         <Info label="Línea" value={config.linea} />
 
-        <Info label="Tipo" value={`${config.cantidadRajas} Raja`} />
-
         <Info label="Vidrio" value={config.tipoVidrio} />
 
-        <Info label="Color" value={config.color} />
+        <Info label="Raja" value={`${config.anchoRaja} cm`} />
 
         <Info label="Medidas" value={`${config.ancho} × ${config.alto}`} />
       </div>
+    </div>
+  );
+}
+
+type InfoProps = {
+  label: string;
+
+  value: string;
+};
+
+function Info({ label, value }: InfoProps) {
+  return (
+    <div>
+      <p
+        className="
+          text-[10px]
+          uppercase
+          tracking-[0.25em]
+          text-zinc-500
+        "
+      >
+        {label}
+      </p>
+
+      <p
+        className="
+          mt-1
+          text-sm
+          font-medium
+          text-zinc-200
+        "
+      >
+        {value}
+      </p>
     </div>
   );
 }

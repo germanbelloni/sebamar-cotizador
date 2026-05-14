@@ -1,18 +1,18 @@
 export const LIMITES_PATAGONICAS = {
   Herrero: {
     anchoMin: 80,
-    anchoMax: 200,
+    anchoMax: 240,
 
     altoMin: 40,
-    altoMax: 150,
+    altoMax: 180,
   },
 
   Modena: {
     anchoMin: 120,
-    anchoMax: 240,
+    anchoMax: 300,
 
     altoMin: 40,
-    altoMax: 200,
+    altoMax: 220,
   },
 };
 
@@ -37,5 +37,49 @@ export const vidriosPatagonicas = [
   {
     label: "3+3",
     value: "3+3",
+  },
+
+  {
+    label: "4+4",
+    value: "4+4",
+  },
+
+  {
+    label: "DVH 4+9+4",
+    value: "DVH 4+9+4",
+  },
+
+  {
+    label: "DVH 5+9+5",
+    value: "DVH 5+9+5",
+  },
+] as const;
+
+export const medidasRajaPatagonicas = [
+  {
+    label: "40 cm",
+    value: 40,
+  },
+
+  {
+    label: "50 cm",
+    value: 50,
+  },
+
+  {
+    label: "60 cm",
+    value: 60,
+  },
+] as const;
+
+export const bisagrasPatagonicas = [
+  {
+    label: "Izquierda",
+    value: "izquierda",
+  },
+
+  {
+    label: "Derecha",
+    value: "derecha",
   },
 ] as const;

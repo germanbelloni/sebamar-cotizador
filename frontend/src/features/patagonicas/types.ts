@@ -8,9 +8,16 @@ export type PatagonicasColor =
   | "bronce colonial"
   | "simil madera";
 
-export type PatagonicasTipoVidrio = "4mm" | "3+3" | "4+4" | "DVH" | "DVH 5+9+5";
+export type PatagonicasTipoVidrio =
+  | "4mm"
+  | "3+3"
+  | "4+4"
+  | "DVH 4+9+4"
+  | "DVH 5+9+5";
 
 export type LadoApertura = "izquierda" | "derecha";
+
+export type MedidaRaja = 40 | 50 | 60;
 
 export interface PatagonicasConfig {
   linea: PatagonicasLinea;
@@ -27,9 +34,13 @@ export interface PatagonicasConfig {
 
   cantidadRajas: 1 | 2;
 
-  anchoRaja: number;
+  anchoRaja: MedidaRaja;
 
-  ladoApertura: "izquierda" | "derecha";
+  ladoApertura: LadoApertura;
+
+  bisagraRaja1: LadoApertura;
+
+  bisagraRaja2: LadoApertura;
 
   tipoApertura: "abrir";
 
@@ -38,6 +49,14 @@ export interface PatagonicasConfig {
   premarco: boolean;
 
   contramarco: boolean;
+
+  guia: boolean;
+
+  cajonBlock: boolean;
+
+  cortinaPVC: boolean;
+
+  cortinaAluminio: boolean;
 }
 
 export interface PatagonicasItem {
@@ -67,9 +86,15 @@ export interface PatagonicasItem {
 
     cantidadRajas: 1 | 2;
 
+    anchoRaja: MedidaRaja;
+
     tipoVidrio: PatagonicasTipoVidrio;
 
     ladoApertura: LadoApertura;
+
+    bisagraRaja1: LadoApertura;
+
+    bisagraRaja2: LadoApertura;
 
     tipoApertura: "abrir";
   };
