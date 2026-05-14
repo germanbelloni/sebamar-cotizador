@@ -9,10 +9,10 @@ export const LIMITES_PATAGONICAS = {
 
   Modena: {
     anchoMin: 120,
-    anchoMax: 200,
+    anchoMax: 240,
 
     altoMin: 40,
-    altoMax: 150,
+    altoMax: 200,
   },
 };
 

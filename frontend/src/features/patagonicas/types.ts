@@ -1,74 +1,78 @@
-export type PatagonicaLinea = "Herrero" | "Modena";
+export type PatagonicasLinea = "Herrero" | "Modena";
 
-export type PatagonicaTipo = "1_raja" | "2_rajas";
+export type PatagonicasTipo = "1_raja" | "2_rajas";
 
-export type PatagonicaVidrio = "4mm" | "3+3";
+export type PatagonicasColor =
+  | "blanco"
+  | "negro"
+  | "bronce colonial"
+  | "simil madera";
 
-export type PatagonicasConfig = {
+export type PatagonicasTipoVidrio = "4mm" | "3+3" | "4+4" | "DVH" | "DVH 5+9+5";
+
+export type LadoApertura = "izquierda" | "derecha";
+
+export interface PatagonicasConfig {
+  linea: PatagonicasLinea;
+
+  tipo: PatagonicasTipo;
+
   ancho: number;
 
   alto: number;
 
-  linea: PatagonicaLinea;
+  color: PatagonicasColor;
 
-  tipo: PatagonicaTipo;
+  tipoVidrio: PatagonicasTipoVidrio;
 
-  color: "blanco" | "negro" | "bronce colonial" | "simil madera";
+  cantidadRajas: 1 | 2;
 
-  cantidadRajas: number;
-
-  tipoVidrio: PatagonicaVidrio;
+  anchoRaja: number;
 
   ladoApertura: "izquierda" | "derecha";
 
-  tipoApertura: "abrir" | "corredizo";
+  tipoApertura: "abrir";
+
+  mosquitero: boolean;
 
   premarco: boolean;
 
   contramarco: boolean;
+}
 
-  mosquitero: boolean;
-
-  raja?: {
-    ancho: number;
-
-    tipoVidrio?: PatagonicaVidrio;
-  };
-};
-
-export type PatagonicasItem = {
+export interface PatagonicasItem {
   tipo: "patagonicas";
 
   cantidad: number;
 
-  linea: PatagonicaLinea;
+  linea: PatagonicasLinea;
 
   medidas: {
     ancho: number;
-
     alto: number;
   };
 
   description: string;
 
-  color: string;
+  color: PatagonicasColor;
 
   configuracion: {
-    tipo: PatagonicaTipo;
+    tipo: PatagonicasTipo;
 
-    cantidadRajas: number;
-
-    tipoVidrio: PatagonicaVidrio;
-
-    ladoApertura: "izquierda" | "derecha";
-
-    tipoApertura: "abrir" | "corredizo";
     premarco: boolean;
 
     contramarco: boolean;
 
     mosquitero: boolean;
+
+    cantidadRajas: 1 | 2;
+
+    tipoVidrio: PatagonicasTipoVidrio;
+
+    ladoApertura: LadoApertura;
+
+    tipoApertura: "abrir";
   };
 
   subtotal: number;
-};
+}

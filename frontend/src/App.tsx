@@ -76,6 +76,8 @@ import type { PatagonicasConfig } from "@/features/patagonicas/types";
 
 import { PatagonicasConfigForm } from "@/features/patagonicas/components/PatagonicasConfigForm";
 
+import { PatagonicasPreview } from "@/features/patagonicas/components/PatagonicasPreview";
+
 /* superficies */
 
 import type { SuperficiesConfig } from "@/features/superficies/types";
@@ -233,12 +235,13 @@ function App() {
     herrajeBlanco: false,
   });
   /* PATAGONICAS */
-
   const [patagonicasConfig, setPatagonicasConfig] = useState<PatagonicasConfig>(
     {
       ancho: 120,
 
       alto: 100,
+
+      anchoRaja: 35,
 
       linea: "Herrero",
 
@@ -344,7 +347,6 @@ function App() {
         setItems={setItems}
       />
     ),
-
     patagonicas: (
       <PatagonicasConfigForm
         config={patagonicasConfig}
@@ -457,6 +459,12 @@ function App() {
 
                               {activeFeature === "postigones" && (
                                 <PostigonPreview config={postigonesConfig} />
+                              )}
+
+                              {activeFeature === "patagonicas" && (
+                                <PatagonicasPreview
+                                  config={patagonicasConfig}
+                                />
                               )}
                             </div>
 
