@@ -1,11 +1,31 @@
+export type CantidadHojasPostigon = 2 | 3 | 4;
+
+export type HojaCierrePostigon =
+  | "izquierda"
+  | "derecha"
+  | "centro-izquierda"
+  | "centro-derecha";
+
+export type TipoPostigon = "abrir" | "corredizo";
+
+export type ColorPostigon =
+  | "blanco"
+  | "negro"
+  | "bronce colonial"
+  | "simil madera";
+
 export type PostigonesConfig = {
   ancho: number;
 
   alto: number;
 
-  tipo: "abrir" | "corredizo";
+  tipo: TipoPostigon;
 
-  color: "blanco" | "negro" | "bronce colonial" | "simil madera";
+  color: ColorPostigon;
+
+  cantidadHojas: CantidadHojasPostigon;
+
+  hojaCierre: HojaCierrePostigon;
 
   microperforado: boolean;
 
@@ -17,7 +37,7 @@ export type PostigonesItem = {
 
   cantidad: number;
 
-  tipoPostigon: "abrir" | "corredizo";
+  tipoPostigon: TipoPostigon;
 
   medidas: {
     ancho: number;
@@ -27,9 +47,13 @@ export type PostigonesItem = {
 
   description: string;
 
-  color: string;
+  color: ColorPostigon;
 
   extras: {
+    cantidadHojas: CantidadHojasPostigon;
+
+    hojaCierre: HojaCierrePostigon;
+
     microperforado: boolean;
 
     herrajeBlanco: boolean;

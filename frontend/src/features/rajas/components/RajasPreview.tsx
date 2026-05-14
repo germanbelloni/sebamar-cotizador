@@ -1,33 +1,38 @@
-import type { RajasConfig } from "../types";
+// =========================
+// RAJASPREVIEW.tsx
+// =========================
 
-import { Marco } from "@/features/ventanas/svg/Marco";
-import { Premarco } from "@/features/ventanas/svg/Premarco";
-import { Contramarco } from "@/features/ventanas/svg/Contramarco";
-import { Cotas } from "@/features/ventanas/svg/Cotas";
+import type { RajasConfig } from "../types";
 
 import { RajaAbrir } from "../svg/RajaAbrir";
 import { RajaBrazo } from "../svg/RajaBrazo";
 import { RajaVolcable } from "../svg/RajaVolcable";
 import { RajaOscilo } from "../svg/RajaOscilo";
 
+import { Premarco } from "@/features/ventanas/svg/Premarco";
+import { Contramarco } from "@/features/ventanas/svg/Contramarco";
+import { Marco } from "@/features/ventanas/svg/Marco";
+import { Cotas } from "@/features/ventanas/svg/Cotas";
+
+import { MetalGradient } from "@/shared/svg/components/MetalGradient";
+
+import { SVG_COLORS } from "@/shared/svg/constants/colors";
+
+import { calculateScale } from "@/shared/svg/utils/calculateScale";
+import { calculateCenter } from "@/shared/svg/utils/calculateCenter";
+
 type Props = {
   config: RajasConfig;
 };
 
 export function RajasPreview({ config }: Props) {
-  const maxSize = 240;
-
-  const mayorMedida = Math.max(config.ancho, config.alto);
-
-  const escala = maxSize / mayorMedida;
+  const escala = calculateScale(config.ancho, config.alto, 240);
 
   const ancho = config.ancho * escala;
 
   const alto = config.alto * escala;
 
-  const left = 250 - ancho / 2;
-
-  const top = 250 - alto / 2;
+  const { left, top } = calculateCenter(ancho, alto, 500);
 
   const esHerrero = config.linea === "Herrero";
 
@@ -35,26 +40,15 @@ export function RajasPreview({ config }: Props) {
     ? Math.max(10, ancho * 0.04)
     : Math.max(5, ancho * 0.02);
 
-  const colorMap = {
-    blanco: "#E4E4E7",
-
-    negro: "#18181B",
-
-    "bronce colonial": "#2e411f",
-
-    "simil madera": "#7C2D12",
-  };
-
-  const aluminioColor = colorMap[config.color];
+  const aluminioColor =
+    SVG_COLORS[config.color as keyof typeof SVG_COLORS] || SVG_COLORS.blanco;
 
   return (
     <div
       className="
         rounded-2xl
         border border-border
-
         bg-card
-
         p-6
       "
     >
@@ -73,23 +67,16 @@ export function RajasPreview({ config }: Props) {
       <div
         className="
           relative overflow-hidden
-
           mt-6
-
           flex h-[420px]
-
           items-center
           justify-center
-
           rounded-2xl
-
           border border-white/5
-
           bg-gradient-to-b
           from-zinc-950
           via-zinc-900
           to-black
-
           p-6
         "
       >
@@ -98,14 +85,10 @@ export function RajasPreview({ config }: Props) {
         <div
           className="
             absolute
-
             h-[400px]
             w-[400px]
-
             rounded-full
-
             bg-white/[0.015]
-
             blur-3xl
           "
         />
@@ -120,6 +103,8 @@ export function RajasPreview({ config }: Props) {
           "
         >
           <defs>
+            <MetalGradient />
+
             <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
 
@@ -141,15 +126,24 @@ export function RajasPreview({ config }: Props) {
 
               <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
             </linearGradient>
-          </defs>
 
-          {/* PREMARCO */}
+            <pattern
+              id="mosquiteroPattern"
+              width="6"
+              height="6"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 0 0 L 6 6 M 6 0 L 0 6"
+                stroke="#D4D4D8"
+                strokeWidth="0.5"
+              />
+            </pattern>
+          </defs>
 
           {config.premarco && (
             <Premarco left={left} top={top} ancho={ancho} alto={alto} />
           )}
-
-          {/* CONTRAMARCO */}
 
           {config.contramarco && (
             <Contramarco
@@ -161,8 +155,6 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
-          {/* MARCO */}
-
           <Marco
             left={left}
             top={top}
@@ -171,9 +163,6 @@ export function RajasPreview({ config }: Props) {
             color={aluminioColor}
             frameWidth={frameWidth}
           />
-
-          {/* HOJA ABIERTA */}
-          {/* MODELOS */}
 
           {config.modelo === "raja" && (
             <RajaAbrir
@@ -228,8 +217,6 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
-          {/* BRAZOS */}
-
           <line
             x1={left + 30}
             y1={top + alto - 30}
@@ -250,8 +237,6 @@ export function RajasPreview({ config }: Props) {
             strokeLinecap="round"
           />
 
-          {/* MOSQUITERO */}
-
           {config.mosquitero && (
             <rect
               x={left + 10}
@@ -263,8 +248,6 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
-          {/* COTAS */}
-
           <Cotas
             left={left}
             top={top}
@@ -274,28 +257,6 @@ export function RajasPreview({ config }: Props) {
             altoReal={config.alto}
           />
         </svg>
-      </div>
-
-      {/* INFO */}
-
-      <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-        <div className="flex justify-between">
-          <span>Línea</span>
-
-          <span>{config.linea}</span>
-        </div>
-
-        <div className="flex justify-between">
-          <span>Vidrio</span>
-
-          <span>{config.tipoVidrio || "4mm"}</span>
-        </div>
-
-        <div className="flex justify-between">
-          <span>Modelo</span>
-
-          <span>{config.modelo}</span>
-        </div>
       </div>
     </div>
   );

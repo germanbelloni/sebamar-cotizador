@@ -14,7 +14,7 @@ export const POSTIGONES_UI: ProductUI = {
   selectors: {
     tipos: [
       {
-        label: "Abrir",
+        label: "De Abrir",
         value: "abrir",
       },
 

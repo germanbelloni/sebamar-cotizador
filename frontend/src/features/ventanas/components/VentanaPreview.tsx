@@ -15,24 +15,25 @@ import { Cotas } from "../svg/Cotas";
 import { RielInferior } from "../svg/RielInferior";
 import { RielSuperior } from "../svg/RielSuperior";
 
+import { MetalGradient } from "@/shared/svg/components/MetalGradient";
+
+import { SVG_COLORS } from "@/shared/svg/constants/colors";
+
+import { calculateScale } from "@/shared/svg/utils/calculateScale";
+import { calculateCenter } from "@/shared/svg/utils/calculateCenter";
+
 type Props = {
   config: VentanaConfig;
 };
 
 export function VentanaPreview({ config }: Props) {
-  const maxSize = 300;
-
-  const mayorMedida = Math.max(config.ancho, config.alto);
-
-  const escala = maxSize / mayorMedida;
+  const escala = calculateScale(config.ancho, config.alto, 300);
 
   const ancho = config.ancho * escala;
 
   const alto = config.alto * escala;
 
-  const left = 250 - ancho / 2;
-
-  const top = 250 - alto / 2;
+  const { left, top } = calculateCenter(ancho, alto, 500);
 
   const centerX = 250;
 
@@ -42,17 +43,8 @@ export function VentanaPreview({ config }: Props) {
     ? Math.max(9, ancho * 0.032)
     : Math.max(4, ancho * 0.015);
 
-  const colorMap = {
-    blanco: "#E4E4E7",
-
-    negro: "#18181B",
-
-    "bronce colonial": "#2e411f",
-
-    "simil madera": "#7C2D12",
-  };
-
-  const aluminioColor = colorMap[config.color];
+  const aluminioColor =
+    SVG_COLORS[config.color as keyof typeof SVG_COLORS] || SVG_COLORS.blanco;
 
   return (
     <div
@@ -139,6 +131,7 @@ export function VentanaPreview({ config }: Props) {
                 strokeWidth="0.5"
               />
             </pattern>
+
             <pattern
               id="fantasiaPattern"
               width="12"
@@ -163,6 +156,9 @@ export function VentanaPreview({ config }: Props) {
                 strokeWidth="1"
               />
             </pattern>
+
+            <MetalGradient />
+
             <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
 
@@ -238,6 +234,7 @@ export function VentanaPreview({ config }: Props) {
               color={aluminioColor}
             />
           )}
+
           {/* MARCO */}
 
           <Marco
@@ -248,6 +245,8 @@ export function VentanaPreview({ config }: Props) {
             color={aluminioColor}
             frameWidth={frameWidth}
           />
+
+          {/* RIELES */}
 
           <RielSuperior
             left={left}
@@ -345,7 +344,7 @@ export function VentanaPreview({ config }: Props) {
         </svg>
       </div>
 
-      {/* TECHNICAL INFO */}
+      {/* INFO */}
 
       <div className="mt-4 space-y-3 text-sm text-muted-foreground">
         <div className="flex items-center justify-between">
