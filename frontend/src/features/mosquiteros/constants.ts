@@ -1,10 +1,10 @@
 export const LIMITES_MOSQUITEROS = {
   ventana: {
-    anchoMin: 40,
-    anchoMax: 200,
+    anchoMin: 60,
+    anchoMax: 240,
 
     altoMin: 40,
-    altoMax: 200,
+    altoMax: 210,
   },
 
   puerta_mosquitera: {
@@ -14,16 +14,29 @@ export const LIMITES_MOSQUITEROS = {
     altoMin: 180,
     altoMax: 210,
   },
+
+  fijo: {
+    anchoMin: 30,
+    anchoMax: 240,
+
+    altoMin: 20,
+    altoMax: 240,
+  },
 };
 
 export const tiposMosquitero = [
   {
-    label: "Ventana",
+    label: "Para ventana",
     value: "ventana",
   },
 
   {
-    label: "Puerta",
+    label: "Puerta mosquitera",
     value: "puerta_mosquitera",
+  },
+
+  {
+    label: "Fijo",
+    value: "fijo",
   },
 ] as const;

@@ -89,6 +89,8 @@ import type { MosquiterosConfig } from "@/features/mosquiteros/types";
 
 import { MosquiterosConfigForm } from "@/features/mosquiteros/components/MosquiterosConfigForm";
 
+import { MosquiterosPreview } from "@/features/mosquiteros/components/MosquiterosPreview";
+
 function App() {
   /* ACTIVE FEATURE */
 
@@ -306,6 +308,8 @@ function App() {
       tipo: "ventana",
 
       color: "blanco",
+
+      ladoBisagra: "derecha",
     },
   );
 
@@ -476,6 +480,12 @@ function App() {
                               {activeFeature === "patagonicas" && (
                                 <PatagonicasPreview
                                   config={patagonicasConfig}
+                                />
+                              )}
+
+                              {activeFeature === "mosquiteros" && (
+                                <MosquiterosPreview
+                                  config={mosquiterosConfig}
                                 />
                               )}
                             </div>

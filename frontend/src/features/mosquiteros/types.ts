@@ -1,4 +1,4 @@
-export type MosquiteroTipo = "ventana" | "puerta_mosquitera";
+export type MosquiteroTipo = "ventana" | "puerta_mosquitera" | "fijo";
 
 export type MosquiterosConfig = {
   ancho: number;
@@ -8,6 +8,8 @@ export type MosquiterosConfig = {
   tipo: MosquiteroTipo;
 
   color: "blanco" | "negro" | "bronce colonial" | "simil madera";
+
+  ladoBisagra: "izquierda" | "derecha";
 };
 
 export type MosquiterosItem = {

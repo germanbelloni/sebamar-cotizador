@@ -14,7 +14,13 @@ export const MOSQUITEROS_UI = {
       {
         value: "ventana",
 
-        label: "Ventana",
+        label: "Para ventana",
+      },
+
+      {
+        value: "fijo",
+
+        label: "Fijo",
       },
 
       {
