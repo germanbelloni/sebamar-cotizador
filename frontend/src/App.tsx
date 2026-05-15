@@ -209,7 +209,12 @@ function App() {
 
     vidrio: "4mm",
 
-    extras: {},
+    extras: {
+      barralRecto: 0,
+      barralCurvo: 0,
+      manija: false,
+      picaporte: false,
+    },
   });
 
   /* PUERTAS PLACA */

@@ -11,16 +11,28 @@ type Props = {
 };
 
 export function usePuertasForm({ config, setConfig }: Props) {
-  const updateConfig = useConfigUpdater(setConfig);
+  const { updateConfig } = useConfigUpdater(setConfig);
+
+  const switchLinea = (linea: PuertasConfig["linea"]) => {
+    updateConfig({
+      linea,
+
+      modelo: linea === "eco" ? "modelo 1 vr" : "modelo 1",
+
+      vidrio: linea === "eco" ? "4mm" : "3mm",
+    });
+  };
 
   const { anchoInput, altoInput, handleAnchoChange, handleAltoChange } =
     useDimensionsInputs({
       ancho: config.ancho,
+
       alto: config.alto,
 
       onChange: ({ ancho, alto }) => {
         updateConfig({
           ancho,
+
           alto,
         });
       },
@@ -29,10 +41,14 @@ export function usePuertasForm({ config, setConfig }: Props) {
   return {
     updateConfig,
 
+    switchLinea,
+
     anchoInput,
+
     altoInput,
 
     handleAnchoChange,
+
     handleAltoChange,
   };
 }
