@@ -1,8 +1,13 @@
 import type { PuertasConfig, PuertasItem } from "../types";
 
-import { buildPuertasDescription } from "./buildPuertasDescription";
+export function createPuertasBudgetItem(
+  config: PuertasConfig,
+  result: {
+    precioVenta?: number;
+  },
+): PuertasItem {
+  const subtotal = Number(result?.precioVenta) || 0;
 
-export function createPuertasBudgetItem(config: PuertasConfig): PuertasItem {
   return {
     tipo: "puertas",
 
@@ -15,24 +20,96 @@ export function createPuertasBudgetItem(config: PuertasConfig): PuertasItem {
       alto: config.alto,
     },
 
-    description: buildPuertasDescription(config),
+    description: buildDescription(config),
 
     color: config.color,
 
     configuracion: {
-      tipo: config.tipo,
+      tipoConfiguracion: config.tipoConfiguracion,
+
+      tipoPorton: config.tipoPorton,
 
       modelo: config.modelo,
 
-      apertura: config.apertura,
+      modeloMediaPuerta: config.modeloMediaPuerta,
+
+      mano: config.mano,
 
       hojas: config.hojas,
+
+      anchoPrincipal: config.anchoPrincipal,
 
       vidrio: config.vidrio,
 
       extras: config.extras,
     },
 
-    subtotal: 0,
+    subtotal,
   };
+}
+
+/* ========================= */
+/* DESCRIPTION */
+/* ========================= */
+
+function buildDescription(config: PuertasConfig) {
+  const parts: string[] = [];
+
+  /* LINEA */
+
+  parts.push(capitalize(config.linea));
+
+  /* TIPO */
+
+  switch (config.tipoConfiguracion) {
+    case "simple":
+      parts.push("Puerta");
+      break;
+
+    case "doble":
+      parts.push("Puerta doble");
+      break;
+
+    case "puerta_y_media":
+      parts.push("Puerta y media");
+      break;
+
+    case "porton":
+      parts.push("Portón");
+      break;
+  }
+
+  /* MODELO */
+
+  parts.push(config.modelo.replaceAll("_", " ").toUpperCase());
+
+  /* PORTON */
+
+  if (config.tipoConfiguracion === "porton") {
+    parts.push(`(${config.tipoPorton})`);
+  }
+
+  /* VIDRIO */
+
+  if (config.vidrio) {
+    parts.push(`Vidrio ${config.vidrio}`);
+  }
+
+  /* COLOR */
+
+  parts.push(capitalize(config.color));
+
+  /* MEDIDAS */
+
+  parts.push(`${config.ancho}x${config.alto}`);
+
+  return parts.join(" • ");
+}
+
+/* ========================= */
+/* HELPERS */
+/* ========================= */
+
+function capitalize(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

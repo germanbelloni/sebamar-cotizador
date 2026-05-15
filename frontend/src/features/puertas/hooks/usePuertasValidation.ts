@@ -1,9 +1,64 @@
 import type { PuertasConfig } from "../types";
 
-import { LIMITES_PUERTAS } from "../constants";
+type Limits = {
+  anchoMin: number;
+  anchoMax: number;
+
+  altoMin: number;
+  altoMax: number;
+};
+
+function getLimits(config: PuertasConfig): Limits {
+  switch (config.tipoConfiguracion) {
+    case "simple":
+      return {
+        anchoMin: 70,
+        anchoMax: 110,
+
+        altoMin: 190,
+        altoMax: 250,
+      };
+
+    case "puerta_y_media":
+      return {
+        anchoMin: 110,
+        anchoMax: 160,
+
+        altoMin: 190,
+        altoMax: 250,
+      };
+
+    case "doble":
+      return {
+        anchoMin: 140,
+        anchoMax: 220,
+
+        altoMin: 190,
+        altoMax: 250,
+      };
+
+    case "porton":
+      return {
+        anchoMin: 180,
+        anchoMax: 400,
+
+        altoMin: 180,
+        altoMax: 300,
+      };
+
+    default:
+      return {
+        anchoMin: 70,
+        anchoMax: 400,
+
+        altoMin: 180,
+        altoMax: 300,
+      };
+  }
+}
 
 export function usePuertasValidation(config: PuertasConfig) {
-  const limites = LIMITES_PUERTAS[config.linea];
+  const limites = getLimits(config);
 
   const anchoValido =
     config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;
@@ -12,8 +67,6 @@ export function usePuertasValidation(config: PuertasConfig) {
     config.alto >= limites.altoMin && config.alto <= limites.altoMax;
 
   const medidasValidas = anchoValido && altoValido;
-
-  const medidasInvalidas = !medidasValidas;
 
   return {
     limites,
@@ -24,6 +77,6 @@ export function usePuertasValidation(config: PuertasConfig) {
 
     medidasValidas,
 
-    medidasInvalidas,
+    medidasInvalidas: !medidasValidas,
   };
 }

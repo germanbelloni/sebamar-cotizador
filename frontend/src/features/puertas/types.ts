@@ -1,8 +1,14 @@
 export type PuertaLinea = "herrero" | "modena" | "eco";
 
-export type PuertaTipo = "simple" | "doble" | "puerta_y_media";
+export type PuertaTipoConfiguracion =
+  | "simple"
+  | "doble"
+  | "puerta_y_media"
+  | "porton";
 
-export type PuertaApertura = "izquierda" | "derecha";
+export type PuertaTipoPorton = "abrir" | "plegadizo" | "corredizo";
+
+export type PuertaMano = "izquierda" | "derecha";
 
 export type PuertaVidrio =
   | "3mm"
@@ -10,12 +16,15 @@ export type PuertaVidrio =
   | "5mm"
   | "fantasia"
   | "esmerilado"
-  | "3+3";
+  | "3+3"
+  | "dvh_4_9_4";
 
 export type PuertasExtras = {
   barralRecto?: number;
 
   barralCurvo?: number;
+
+  mediaManija?: boolean;
 
   manija?: boolean;
 
@@ -29,15 +38,21 @@ export type PuertasConfig = {
 
   linea: PuertaLinea;
 
-  tipo: PuertaTipo;
+  tipoConfiguracion: PuertaTipoConfiguracion;
+
+  tipoPorton: PuertaTipoPorton;
 
   modelo: string;
 
+  modeloMediaPuerta?: string;
+
   color: "blanco" | "negro" | "bronce colonial" | "simil madera";
 
-  apertura: PuertaApertura;
+  mano: PuertaMano;
 
   hojas: number;
+
+  anchoPrincipal: number;
 
   vidrio?: PuertaVidrio;
 
@@ -62,13 +77,19 @@ export type PuertasItem = {
   color: string;
 
   configuracion: {
-    tipo: PuertaTipo;
+    tipoConfiguracion: PuertaTipoConfiguracion;
+
+    tipoPorton: PuertaTipoPorton;
 
     modelo: string;
 
-    apertura: PuertaApertura;
+    modeloMediaPuerta?: string;
+
+    mano: PuertaMano;
 
     hojas: number;
+
+    anchoPrincipal: number;
 
     vidrio?: PuertaVidrio;
 

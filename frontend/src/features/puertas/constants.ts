@@ -1,105 +1,269 @@
-export const LIMITES_PUERTAS = {
-  herrero: {
-    anchoMin: 70,
-    anchoMax: 300,
+import type {
+  PuertaLinea,
+  PuertaTipoConfiguracion,
+  PuertaTipoPorton,
+  PuertaVidrio,
+} from "./types";
 
-    altoMin: 180,
-    altoMax: 250,
-  },
+/* ========================= */
+/* LINEAS */
+/* ========================= */
 
-  modena: {
-    anchoMin: 70,
-    anchoMax: 300,
-
-    altoMin: 180,
-    altoMax: 250,
-  },
-
-  eco: {
-    anchoMin: 70,
-    anchoMax: 300,
-
-    altoMin: 180,
-    altoMax: 250,
-  },
-};
-
-export const tiposPuerta = [
+export const PUERTAS_LINEAS: {
+  label: string;
+  value: PuertaLinea;
+}[] = [
   {
-    label: "Simple",
+    label: "Herrero",
+    value: "herrero",
+  },
+
+  {
+    label: "Módena",
+    value: "modena",
+  },
+
+  {
+    label: "Eco",
+    value: "eco",
+  },
+];
+
+/* ========================= */
+/* TIPOS */
+/* ========================= */
+
+export const PUERTAS_TIPOS: {
+  label: string;
+  value: PuertaTipoConfiguracion;
+}[] = [
+  {
+    label: "Puerta",
     value: "simple",
   },
 
   {
-    label: "Corredizo",
-    value: "corredizo",
+    label: "Puerta y media",
+    value: "puerta_y_media",
+  },
+
+  {
+    label: "Puerta doble",
+    value: "doble",
+  },
+
+  {
+    label: "Portón",
+    value: "porton",
+  },
+];
+
+/* ========================= */
+/* TIPOS PORTON */
+/* ========================= */
+
+export const TIPOS_PORTON: {
+  label: string;
+  value: PuertaTipoPorton;
+}[] = [
+  {
+    label: "De abrir",
+    value: "abrir",
   },
 
   {
     label: "Plegadizo",
     value: "plegadizo",
   },
-] as const;
-
-export const vidriosPuerta = [
-  {
-    label: "3mm",
-    value: "3mm",
-  },
 
   {
-    label: "4mm",
-    value: "4mm",
+    label: "Corredizo",
+    value: "corredizo",
   },
+];
 
-  {
-    label: "5mm",
-    value: "5mm",
-  },
+/* ========================= */
+/* PRESETS */
+/* ========================= */
 
-  {
-    label: "Fantasia",
-    value: "fantasia",
-  },
+export const PRESETS_PUERTAS = {
+  simple: [
+    {
+      label: "70 × 200",
+      ancho: 70,
+      alto: 200,
+    },
 
-  {
-    label: "Esmerilado",
-    value: "esmerilado",
-  },
+    {
+      label: "80 × 200",
+      ancho: 80,
+      alto: 200,
+    },
 
-  {
-    label: "3+3",
-    value: "3+3",
-  },
-] as const;
+    {
+      label: "90 × 200",
+      ancho: 90,
+      alto: 200,
+    },
 
-export const modelosPuertaHerrero = [
-  {
-    label: "Modelo 12",
-    value: "modelo 12",
-  },
+    {
+      label: "Fuera de medida",
+      ancho: 85,
+      alto: 205,
+      custom: true,
+    },
+  ],
 
-  {
-    label: "Modelo Panel",
-    value: "modelo panel",
-  },
-] as const;
+  puerta_y_media: [
+    {
+      label: "110 × 200",
+      ancho: 110,
+      alto: 200,
+      principal: 70,
+    },
 
-export const modelosPuertaModena = [
-  {
-    label: "Modelo 12",
-    value: "modelo 12",
-  },
+    {
+      label: "120 × 200",
+      ancho: 120,
+      alto: 200,
+      principal: 80,
+    },
 
-  {
-    label: "Modelo c/panel",
-    value: "modelo c/panel",
-  },
-] as const;
+    {
+      label: "130 × 200",
+      ancho: 130,
+      alto: 200,
+      principal: 90,
+    },
 
-export const modelosPuertaEco = [
-  {
-    label: "Modelo 1 VR",
-    value: "modelo 1 vr",
-  },
-] as const;
+    {
+      label: "Fuera de medida",
+      ancho: 125,
+      alto: 205,
+      principal: 80,
+      custom: true,
+    },
+  ],
+
+  doble: [
+    {
+      label: "140 × 200",
+      ancho: 140,
+      alto: 200,
+    },
+
+    {
+      label: "160 × 200",
+      ancho: 160,
+      alto: 200,
+    },
+
+    {
+      label: "180 × 200",
+      ancho: 180,
+      alto: 200,
+    },
+
+    {
+      label: "Fuera de medida",
+      ancho: 170,
+      alto: 205,
+      custom: true,
+    },
+  ],
+
+  porton: [
+    {
+      label: "210 × 200",
+      ancho: 210,
+      alto: 200,
+    },
+
+    {
+      label: "240 × 200",
+      ancho: 240,
+      alto: 200,
+    },
+
+    {
+      label: "270 × 200",
+      ancho: 270,
+      alto: 200,
+    },
+
+    {
+      label: "Fuera de medida",
+      ancho: 260,
+      alto: 210,
+      custom: true,
+    },
+  ],
+};
+
+/* ========================= */
+/* MODELOS */
+/* ========================= */
+
+export const MODELOS_PUERTAS = {
+  herrero: [
+    "modelo_1",
+    "modelo_1_vr",
+    "modelo_2",
+    "modelo_3",
+    "modelo_3_vr",
+    "modelo_4",
+    "modelo_4_vr",
+    "modelo_5",
+    "modelo_6",
+    "modelo_7",
+    "modelo_8",
+    "modelo_9",
+    "modelo_10",
+    "modelo_10_vr",
+    "modelo_11",
+    "modelo_12",
+    "modelo_panel",
+  ],
+
+  modena: [
+    "modelo_1",
+    "modelo_1_vr",
+    "modelo_2",
+    "modelo_3",
+    "modelo_3_vr",
+    "modelo_4",
+    "modelo_4_vr",
+    "modelo_5",
+    "modelo_6",
+    "modelo_7",
+    "modelo_8",
+    "modelo_9",
+    "modelo_10",
+    "modelo_10_vr",
+    "modelo_11",
+    "modelo_12",
+    "modelo_c_panel",
+  ],
+
+  eco: [
+    "modelo_1_vr",
+    "modelo_2",
+    "modelo_3",
+    "modelo_3vr",
+    "modelo_4",
+    "modelo_4_vr",
+    "modelo_5",
+  ],
+};
+
+/* ========================= */
+/* VIDRIOS */
+/* ========================= */
+
+export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
+  herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
+
+  modena: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3", "dvh_4_9_4"],
+
+  eco: ["3mm", "4mm", "fantasia"],
+};

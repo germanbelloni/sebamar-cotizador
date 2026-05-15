@@ -1,5 +1,14 @@
 import type { PuertasConfig, PuertasItem } from "../types";
 
+import {
+  MODELOS_PUERTAS,
+  PRESETS_PUERTAS,
+  PUERTAS_LINEAS,
+  PUERTAS_TIPOS,
+  TIPOS_PORTON,
+  VIDRIOS_POR_LINEA,
+} from "../constants";
+
 import { PUERTAS_UI } from "../ui";
 
 import { usePuertasForm } from "../hooks/usePuertasForm";
@@ -22,11 +31,19 @@ import { DimensionsSection } from "@/shared/sections/DimensionsSection";
 
 import { LineaSelector } from "@/shared/selectors/LineaSelector";
 
+import { ColorSelector } from "@/shared/selectors/ColorSelector";
+
 import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
+
+import { BisagraSelector } from "@/shared/selectors/BisagraSelector";
 
 import { AlertBox } from "@/shared/components/AlertBox";
 
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
+
+import { SelectableCard } from "@/components/ui/selectable-card";
+
+import { GlassCard } from "@/shared/cards/GlassCard";
 
 import { PuertasExtrasSection } from "./sections/PuertasExtrasSection";
 
@@ -38,79 +55,102 @@ type Props = {
   setItems: React.Dispatch<React.SetStateAction<PuertasItem[]>>;
 };
 
-export function PuertasConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
   const cotizacionMutation = useCotizarPuertas();
 
   const {
     updateConfig,
-
-    switchLinea,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = usePuertasForm({
     config,
-
     setConfig,
   });
 
-  const {
-    limites,
-
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-
-    medidasInvalidas,
-  } = usePuertasValidation(config);
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    usePuertasValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
-
     config,
-
     setItems,
-
     createItem: createPuertasBudgetItem,
   });
+
+  const modelos = MODELOS_PUERTAS[config.linea];
+
+  const vidrios = VIDRIOS_POR_LINEA[config.linea];
+
+  const presets = PRESETS_PUERTAS[config.tipoConfiguracion];
+
+  const esPorton = config.tipoConfiguracion === "porton";
+
+  const esPuertaYMedia = config.tipoConfiguracion === "puerta_y_media";
 
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
-        <FormSection title={PUERTAS_UI.sections.sistema}>
-          <div className="space-y-4">
-            <LineaSelector
-              value={config.linea}
-              options={PUERTAS_UI.selectors?.lineas || []}
-              onChange={(value) => switchLinea(value)}
-            />
+        {/* LINEA */}
 
-            <LineaSelector
-              value={config.tipo}
-              options={PUERTAS_UI.selectors?.tipos || []}
-              onChange={(value) =>
-                updateConfig({
-                  tipo: value as PuertasConfig["tipo"],
-                })
-              }
-            />
+        <FormSection title="Línea">
+          <LineaSelector
+            value={config.linea}
+            options={PUERTAS_LINEAS}
+            onChange={(value) =>
+              updateConfig({
+                linea: value as PuertasConfig["linea"],
+              })
+            }
+          />
+        </FormSection>
+
+        {/* TIPO */}
+
+        <FormSection title="Configuración">
+          <LineaSelector
+            value={config.tipoConfiguracion}
+            options={PUERTAS_TIPOS}
+            onChange={(value) =>
+              updateConfig({
+                tipoConfiguracion: value as PuertasConfig["tipoConfiguracion"],
+              })
+            }
+          />
+        </FormSection>
+
+        {/* PRESETS */}
+
+        <FormSection title="Medidas estándar">
+          <div className="grid grid-cols-2 gap-3">
+            {presets.map((preset) => (
+              <SelectableCard
+                key={preset.label}
+                selected={
+                  config.ancho === preset.ancho && config.alto === preset.alto
+                }
+                onClick={() =>
+                  updateConfig({
+                    ancho: preset.ancho,
+                    alto: preset.alto,
+
+                    anchoPrincipal:
+                      "principal" in preset
+                        ? preset.principal
+                        : config.anchoPrincipal,
+                  })
+                }
+              >
+                <div className="text-sm font-medium">{preset.label}</div>
+              </SelectableCard>
+            ))}
           </div>
         </FormSection>
 
-        <FormSection title={PUERTAS_UI.sections.medidas}>
+        {/* MEDIDAS */}
+
+        <FormSection title="Medidas">
           <DimensionsSection
             anchoInput={anchoInput}
             altoInput={altoInput}
@@ -125,16 +165,88 @@ export function PuertasConfigForm({
           />
         </FormSection>
 
-        {!medidasValidas && (
-          <AlertBox type="error">
-            {PUERTAS_UI.messages?.invalidMeasures}
-          </AlertBox>
+        {/* MODELOS */}
+
+        <FormSection title="Modelo">
+          <div className="grid grid-cols-2 gap-3">
+            {modelos.map((modelo) => (
+              <GlassCard
+                key={modelo}
+                selected={config.modelo === modelo}
+                onClick={() =>
+                  updateConfig({
+                    modelo,
+                  })
+                }
+              >
+                <div className="space-y-2">
+                  <div
+                    className="
+                      flex
+                      h-24
+                      items-center
+                      justify-center
+                      rounded-xl
+                      border border-white/5
+                      bg-black/30
+                    "
+                  >
+                    <div className="text-xs text-zinc-500">SVG modelo</div>
+                  </div>
+
+                  <div
+                    className="
+                      text-xs
+                      uppercase
+                      tracking-[0.2em]
+                      text-zinc-300
+                    "
+                  >
+                    {modelo.replaceAll("_", " ")}
+                  </div>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        </FormSection>
+
+        {/* MEDIA PUERTA */}
+
+        {esPuertaYMedia && (
+          <FormSection title="Modelo media puerta">
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                "v_entero",
+                "v_repartido",
+                "3_4_v_entero",
+                "3_4_v_repartido",
+                "1_2_v_entero",
+                "1_2_v_repartido",
+                "4_travesanos",
+                "1_travesano",
+              ].map((modelo) => (
+                <SelectableCard
+                  key={modelo}
+                  selected={config.modeloMediaPuerta === modelo}
+                  onClick={() =>
+                    updateConfig({
+                      modeloMediaPuerta: modelo,
+                    })
+                  }
+                >
+                  {modelo.replaceAll("_", " ")}
+                </SelectableCard>
+              ))}
+            </div>
+          </FormSection>
         )}
 
-        <FormSection title={PUERTAS_UI.sections.vidrio}>
+        {/* VIDRIO */}
+
+        <FormSection title="Vidrio">
           <VidrioSelector
             value={config.vidrio || "4mm"}
-            options={["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"]}
+            options={vidrios}
             onChange={(value) =>
               updateConfig({
                 vidrio: value as PuertasConfig["vidrio"],
@@ -143,18 +255,65 @@ export function PuertasConfigForm({
           />
         </FormSection>
 
-        <FormSection title={PUERTAS_UI.sections.extras}>
+        {/* COLOR */}
+
+        <FormSection title="Color">
+          <ColorSelector
+            value={config.color}
+            onChange={(color) =>
+              updateConfig({
+                color: color as PuertasConfig["color"],
+              })
+            }
+          />
+        </FormSection>
+
+        {/* MANO */}
+
+        <FormSection title="Mano">
+          <BisagraSelector
+            value={config.mano}
+            onChange={(value) =>
+              updateConfig({
+                mano: value as PuertasConfig["mano"],
+              })
+            }
+          />
+        </FormSection>
+
+        {/* PORTON */}
+
+        {esPorton && (
+          <FormSection title="Sistema">
+            <LineaSelector
+              value={config.tipoPorton}
+              options={TIPOS_PORTON}
+              onChange={(value) =>
+                updateConfig({
+                  tipoPorton: value as PuertasConfig["tipoPorton"],
+                })
+              }
+            />
+          </FormSection>
+        )}
+
+        {/* EXTRAS */}
+
+        <FormSection title="Extras">
           <PuertasExtrasSection
             barralRecto={config.extras.barralRecto}
             barralCurvo={config.extras.barralCurvo}
             manija={config.extras.manija}
             picaporte={config.extras.picaporte}
+            mediaManija={config.extras.mediaManija}
             onToggleBarralRecto={() =>
               updateConfig({
                 extras: {
                   ...config.extras,
 
                   barralRecto: config.extras.barralRecto ? 0 : 1,
+
+                  barralCurvo: 0,
                 },
               })
             }
@@ -164,6 +323,8 @@ export function PuertasConfigForm({
                   ...config.extras,
 
                   barralCurvo: config.extras.barralCurvo ? 0 : 1,
+
+                  barralRecto: 0,
                 },
               })
             }
@@ -185,14 +346,31 @@ export function PuertasConfigForm({
                 },
               })
             }
+            onToggleMediaManija={() =>
+              updateConfig({
+                extras: {
+                  ...config.extras,
+
+                  mediaManija: !config.extras.mediaManija,
+                },
+              })
+            }
           />
         </FormSection>
 
-        {cotizacionMutation.isError && (
+        {/* ERRORS */}
+
+        {!medidasValidas && (
           <AlertBox type="error">
-            {PUERTAS_UI.messages?.quotationError}
+            {PUERTAS_UI.messages.invalidMeasures}
           </AlertBox>
         )}
+
+        {cotizacionMutation.isError && (
+          <AlertBox type="error">{PUERTAS_UI.messages.quotationError}</AlertBox>
+        )}
+
+        {/* FOOTER */}
 
         <FormFooter>
           <PrimaryButton
@@ -200,13 +378,11 @@ export function PuertasConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PUERTAS_UI.actions?.addToBudget}
+            {PUERTAS_UI.actions.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (
-            <AlertBox type="error">
-              {PUERTAS_UI.messages?.reviewLimits}
-            </AlertBox>
+            <AlertBox type="error">{PUERTAS_UI.messages.reviewLimits}</AlertBox>
           )}
         </FormFooter>
       </div>

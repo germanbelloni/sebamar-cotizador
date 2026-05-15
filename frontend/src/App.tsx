@@ -56,6 +56,8 @@ import type { PuertasConfig } from "@/features/puertas/types";
 
 import { PuertasConfigForm } from "@/features/puertas/components/PuertasConfigForm";
 
+import { PuertasPreview } from "@/features/puertas/components/PuertasPreview";
+
 /* PUERTAS PLACA */
 
 import type { PuertasPlacaConfig } from "@/features/puertas-placa/types";
@@ -189,15 +191,23 @@ function App() {
 
     linea: "herrero",
 
-    tipo: "simple",
+    tipoConfiguracion: "simple",
 
-    modelo: "",
+    tipoPorton: "abrir",
+
+    modelo: "modelo_1",
+
+    modeloMediaPuerta: "v_entero",
 
     color: "blanco",
 
-    apertura: "derecha",
+    mano: "derecha",
 
     hojas: 1,
+
+    anchoPrincipal: 80,
+
+    vidrio: "4mm",
 
     extras: {},
   });
@@ -393,7 +403,18 @@ function App() {
       ? rajasConfig
       : activeFeature === "ventanas"
         ? ventanasConfig
-        : portonesConfig;
+        : activeFeature === "puertas"
+          ? puertasConfig
+          : activeFeature === "postigones"
+            ? postigonesConfig
+            : activeFeature === "patagonicas"
+              ? patagonicasConfig
+              : activeFeature === "mosquiteros"
+                ? mosquiterosConfig
+                : activeFeature === "superficies"
+                  ? superficiesConfig
+                  : portonesConfig;
+
   const token = useAuthStore((state) => state.token);
   return (
     <Routes>
@@ -487,6 +508,10 @@ function App() {
                                 <MosquiterosPreview
                                   config={mosquiterosConfig}
                                 />
+                              )}
+
+                              {activeFeature === "puertas" && (
+                                <PuertasPreview config={puertasConfig} />
                               )}
                             </div>
 
