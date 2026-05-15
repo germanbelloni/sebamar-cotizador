@@ -12,6 +12,7 @@ export function createPuertasPlacaBudgetItem(
 
     medidas: {
       ancho: config.ancho,
+
       alto: config.alto,
     },
 

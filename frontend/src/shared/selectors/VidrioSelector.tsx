@@ -1,11 +1,9 @@
 import { OptionSelector } from "./OptionSelector";
 
-import type { VidrioType } from "@/shared/types/vidrios";
-
 type Props = {
   value: string;
 
-  options: VidrioType[];
+  options: string[];
 
   onChange: (value: string) => void;
 };

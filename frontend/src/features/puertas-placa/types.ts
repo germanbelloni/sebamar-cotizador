@@ -1,15 +1,39 @@
+export type PuertasPlacaTipo = "abrir" | "embutir" | "granero";
+
+export type PuertasPlacaMarco = "marco_10" | "marco_15" | "aluminio";
+
+export type PuertasPlacaModelo =
+  | "finger_pino"
+  | "finger_cedro"
+  | "cedro_pino"
+  | "cedro_cedro"
+  | "aluminio_pino"
+  | "aluminio_cedro";
+
+export type PuertasPlacaMedida =
+  | "60x200"
+  | "70x200"
+  | "80x200"
+  | "140x200"
+  | "160x200"
+  | "180x200";
+
 export type PuertasPlacaConfig = {
   ancho: number;
 
   alto: number;
 
-  tipo: string;
+  tipo: PuertasPlacaTipo;
 
-  modelo: string;
+  modelo: PuertasPlacaModelo;
 
-  marco?: string;
+  marco: PuertasPlacaMarco;
 
   mano: "izquierda" | "derecha";
+
+  fueraDeMedida?: boolean;
+
+  medidaSeleccionada?: string;
 };
 
 export type PuertasPlacaItem = {
@@ -26,11 +50,11 @@ export type PuertasPlacaItem = {
   description: string;
 
   configuracion: {
-    tipo: string;
+    tipo: PuertasPlacaTipo;
 
-    modelo: string;
+    modelo: PuertasPlacaModelo;
 
-    marco?: string;
+    marco: PuertasPlacaMarco;
 
     mano: "izquierda" | "derecha";
   };

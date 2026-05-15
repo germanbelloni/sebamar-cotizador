@@ -52,6 +52,12 @@ export const FEATURES = [
 
     label: "Portones",
   },
+
+  {
+    id: "pano-fijo",
+
+    label: "Paño fijo",
+  },
 ] as const;
 
 export function getFeatureLabel(featureId: string) {

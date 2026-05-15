@@ -1,10 +1,6 @@
 import { useState } from "react";
 
-import { Routes, Route } from "react-router-dom";
-
 import { FEATURES, getFeatureLabel } from "@/features";
-
-import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 
 import { Header } from "@/layouts/components/Header";
 
@@ -13,20 +9,6 @@ import { Sidebar } from "@/layouts/components/Sidebar";
 import { empresa } from "@/features/empresa/constants";
 
 import type { Cliente } from "@/features/clientes/types";
-
-import { PrintPage } from "@/pages/PrintPage";
-
-import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
-
-import { CreateUserModal } from "@/features/users/components/CreateUserModal";
-
-import PresupuestosPage from "@/pages/PresupuestosPage";
-
-import { Navigate } from "react-router-dom";
-
-import { LoginPage } from "@/features/auth/pages/LoginPage";
-
-import { useAuthStore } from "@/store/authStore";
 
 /* RAJAS */
 
@@ -64,6 +46,8 @@ import type { PuertasPlacaConfig } from "@/features/puertas-placa/types";
 
 import { PuertasPlacaConfigForm } from "@/features/puertas-placa/components/PuertasPlacaConfigForm";
 
+import { PuertasPlacaPreview } from "@/features/puertas-placa/components/PuertasPlacaPreview";
+
 /* POSTIGONES */
 
 import type { PostigonesConfig } from "@/features/postigones/types";
@@ -85,6 +69,12 @@ import { PatagonicasPreview } from "@/features/patagonicas/components/Patagonica
 import type { SuperficiesConfig } from "@/features/superficies/types";
 
 import { SuperficiesConfigForm } from "@/features/superficies/components/SuperficiesConfigForm";
+/* PAÑO FIJO */
+import type { PanoFijoConfig } from "@/features/pano-fijo/types";
+
+import { PanoFijoConfigForm } from "@/features/pano-fijo/components/PanoFijoConfigForm";
+
+import { PanoFijoPreview } from "@/features/pano-fijo/components/PanoFijoPreview";
 /* MOSQUITEROS */
 
 import type { MosquiterosConfig } from "@/features/mosquiteros/types";
@@ -224,11 +214,15 @@ function App() {
 
       alto: 200,
 
-      tipo: "interior",
+      tipo: "abrir",
 
-      modelo: "de abrir",
+      medidaSeleccionada: "80x200",
 
-      marco: "ch18",
+      fueraDeMedida: false,
+
+      marco: "marco_10",
+
+      modelo: "finger_pino",
 
       mano: "derecha",
     });
@@ -311,6 +305,19 @@ function App() {
       tipoVidrio: "4mm",
     },
   );
+
+  /* PAÑO FIJO */
+  const [panoFijoConfig, setPanoFijoConfig] = useState<PanoFijoConfig>({
+    ancho: 120,
+
+    alto: 120,
+
+    linea: "herrero",
+
+    color: "blanco",
+
+    tipoVidrio: "4mm",
+  });
 
   /* MOSQUITEROS */
 
@@ -401,6 +408,14 @@ function App() {
         setItems={setItems}
       />
     ),
+
+    "pano-fijo": (
+      <PanoFijoConfigForm
+        config={panoFijoConfig}
+        setConfig={setPanoFijoConfig}
+        setItems={setItems}
+      />
+    ),
   };
 
   const activeConfig =
@@ -418,316 +433,250 @@ function App() {
                 ? mosquiterosConfig
                 : activeFeature === "superficies"
                   ? superficiesConfig
-                  : portonesConfig;
-
-  const token = useAuthStore((state) => state.token);
+                  : activeFeature === "pano-fijo"
+                    ? panoFijoConfig
+                    : portonesConfig;
   return (
-    <Routes>
-      {/* LOGIN */}
+    <div className="min-h-screen bg-background text-foreground transition-colors">
+      <div className="flex h-screen">
+        <Sidebar
+          features={FEATURES}
+          activeFeature={activeFeature}
+          onSelectFeature={setActiveFeature}
+        />
 
-      <Route
-        path="/login"
-        element={token ? <Navigate to="/" replace /> : <LoginPage />}
-      />
+        <main className="flex-1 overflow-auto">
+          <Header empresa={empresa} cliente={cliente} setCliente={setCliente} />
 
-      {/* HOME */}
+          <div className="grid grid-cols-2 gap-6 p-6">
+            {/* FORM */}
 
-      <Route
-        path="/"
-        element={
-          token ? (
-            <>
-              <UserManagementPanel />
+            {FEATURE_COMPONENTS[activeFeature]}
 
-              <CreateUserModal />
+            {/* PREVIEW COLUMN */}
 
-              <div className="min-h-screen bg-background text-foreground transition-colors">
-                <div className="flex h-screen">
-                  <Sidebar
-                    features={FEATURES}
-                    activeFeature={activeFeature}
-                    onSelectFeature={setActiveFeature}
-                  />
+            <div className="flex h-full flex-col gap-4">
+              {/* SVG / PREVIEW */}
 
-                  <main className="flex-1 overflow-auto">
-                    <Header
-                      empresa={empresa}
-                      cliente={cliente}
-                      setCliente={setCliente}
-                    />
+              <div
+                className="
+                flex-[4]
+                rounded-2xl
+                border border-border
+                bg-card
+                p-6
+              "
+              >
+                <div className="flex h-full flex-col">
+                  {/* HEADER */}
 
-                    <div className="grid grid-cols-2 gap-6 p-6">
-                      {/* FORM */}
+                  <div>
+                    <h2 className="text-xl font-semibold">
+                      {activeFeatureLabel}
+                    </h2>
 
-                      {FEATURE_COMPONENTS[activeFeature]}
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Vista previa técnica del módulo.
+                    </p>
+                  </div>
 
-                      {/* PREVIEW COLUMN */}
+                  {/* SVG */}
 
-                      <div className="flex h-full flex-col gap-4">
-                        {/* SVG / PREVIEW */}
+                  <div className="mt-6 flex-1">
+                    {activeFeature === "ventanas" && (
+                      <VentanaPreview config={ventanasConfig} />
+                    )}
 
-                        <div
-                          className="
-                          flex-[4]
-                          rounded-2xl
-                          border border-border
-                          bg-card
-                          p-6
-                        "
-                        >
-                          <div className="flex h-full flex-col">
-                            {/* HEADER */}
+                    {activeFeature === "rajas" && (
+                      <RajasPreview config={rajasConfig} />
+                    )}
 
-                            <div>
-                              <h2 className="text-xl font-semibold">
-                                {activeFeatureLabel}
-                              </h2>
+                    {activeFeature === "postigones" && (
+                      <PostigonPreview config={postigonesConfig} />
+                    )}
 
-                              <p className="mt-1 text-sm text-muted-foreground">
-                                Vista previa técnica del módulo.
-                              </p>
-                            </div>
+                    {activeFeature === "patagonicas" && (
+                      <PatagonicasPreview config={patagonicasConfig} />
+                    )}
 
-                            {/* SVG */}
+                    {activeFeature === "mosquiteros" && (
+                      <MosquiterosPreview config={mosquiterosConfig} />
+                    )}
 
-                            <div className="mt-6 flex-1">
-                              {activeFeature === "ventanas" && (
-                                <VentanaPreview config={ventanasConfig} />
-                              )}
+                    {activeFeature === "puertas" && (
+                      <PuertasPreview config={puertasConfig} />
+                    )}
 
-                              {activeFeature === "rajas" && (
-                                <RajasPreview config={rajasConfig} />
-                              )}
+                    {activeFeature === "puertas-placa" && (
+                      <PuertasPlacaPreview config={puertasPlacaConfig} />
+                    )}
 
-                              {activeFeature === "postigones" && (
-                                <PostigonPreview config={postigonesConfig} />
-                              )}
+                    {activeFeature === "pano-fijo" && (
+                      <PanoFijoPreview config={panoFijoConfig} />
+                    )}
+                  </div>
 
-                              {activeFeature === "patagonicas" && (
-                                <PatagonicasPreview
-                                  config={patagonicasConfig}
-                                />
-                              )}
+                  {/* TECHNICAL INFO */}
 
-                              {activeFeature === "mosquiteros" && (
-                                <MosquiterosPreview
-                                  config={mosquiterosConfig}
-                                />
-                              )}
+                  <div
+                    className="
+                    mt-4
+                    rounded-xl
+                    border border-border
+                    bg-background/50
+                    p-4
+                  "
+                  >
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Línea</span>
 
-                              {activeFeature === "puertas" && (
-                                <PuertasPreview config={puertasConfig} />
-                              )}
-                            </div>
+                        <span>
+                          {"linea" in activeConfig ? activeConfig.linea : "-"}
+                        </span>
+                      </div>
 
-                            {/* TECHNICAL INFO */}
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Vidrio</span>
 
-                            <div
-                              className="
-                              mt-4
-                              rounded-xl
-                              border border-border
-                              bg-background/50
-                              p-4
-                            "
-                            >
-                              <div className="space-y-2 text-sm">
-                                <div className="flex justify-between">
-                                  <span className="text-muted-foreground">
-                                    Línea
-                                  </span>
+                        <span>
+                          {"tipoVidrio" in activeConfig
+                            ? activeConfig.tipoVidrio || "-"
+                            : "-"}
+                        </span>
+                      </div>
 
-                                  <span>
-                                    {"linea" in activeConfig
-                                      ? activeConfig.linea
-                                      : "-"}
-                                  </span>
-                                </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Color</span>
 
-                                <div className="flex justify-between">
-                                  <span className="text-muted-foreground">
-                                    Vidrio
-                                  </span>
+                        <span>
+                          {"color" in activeConfig ? activeConfig.color : "-"}
+                        </span>
+                      </div>
 
-                                  <span>
-                                    {"tipoVidrio" in activeConfig
-                                      ? activeConfig.tipoVidrio || "-"
-                                      : "-"}
-                                  </span>
-                                </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Medidas</span>
 
-                                <div className="flex justify-between">
-                                  <span className="text-muted-foreground">
-                                    Color
-                                  </span>
-
-                                  <span>
-                                    {"color" in activeConfig
-                                      ? activeConfig.color
-                                      : "-"}
-                                  </span>
-                                </div>
-
-                                <div className="flex justify-between">
-                                  <span className="text-muted-foreground">
-                                    Medidas
-                                  </span>
-
-                                  <span>
-                                    {activeConfig.ancho} x {activeConfig.alto}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* CLIENT CARD */}
-
-                        <div
-                          className="
-                          flex-[1]
-                          rounded-2xl
-                          border border-border
-                          bg-card
-                          p-6
-                        "
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-base font-semibold">Cliente</h3>
-
-                            <span
-                              className="
-                              rounded-full
-                              border border-lime-400/20
-                              bg-lime-400/10
-                              px-2 py-1
-                              text-[10px]
-                              font-medium
-                              uppercase
-                              tracking-wider
-                              text-zinc-300/70
-                            "
-                            >
-                              Presupuesto
-                            </span>
-                          </div>
-
-                          <div className="mt-4 grid grid-cols-2 gap-4">
-                            <div
-                              className="
-                              rounded-xl
-                              border border-border
-                              bg-background
-                              px-4 py-3
-                            "
-                            >
-                              <p className="text-[11px] text-muted-foreground">
-                                Nombre
-                              </p>
-
-                              <p className="mt-1 text-sm font-medium text-foreground">
-                                {cliente.nombre || "-"}
-                              </p>
-                            </div>
-
-                            <div
-                              className="
-                              rounded-xl
-                              border border-border
-                              bg-background
-                              px-4 py-3
-                            "
-                            >
-                              <p className="text-[11px] text-muted-foreground">
-                                Teléfono
-                              </p>
-
-                              <p className="mt-1 text-sm font-medium text-foreground">
-                                {cliente.telefono || "-"}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* TOTAL */}
-
-                          <div
-                            className="
-                            mt-5
-                            rounded-2xl
-                            border border-zinc-700/40
-                            bg-zinc-900/60
-                            px-5 py-4
-                          "
-                          >
-                            <p
-                              className="
-                              text-xs
-                              uppercase
-                              tracking-[0.18em]
-                              text-zinc-400
-                            "
-                            >
-                              Total presupuesto
-                            </p>
-
-                            <div
-                              className="
-                              mt-2
-                              text-3xl
-                              font-bold
-                              tracking-tight
-                              text-zinc-100
-                            "
-                            >
-                              $
-                              {items
-                                .reduce(
-                                  (acc, item) =>
-                                    acc + Number(item.subtotal || 0),
-                                  0,
-                                )
-                                .toLocaleString("es-AR")}
-                            </div>
-                          </div>
-                        </div>
+                        <span>
+                          {activeConfig.ancho} x {activeConfig.alto}
+                        </span>
                       </div>
                     </div>
-                  </main>
-
-                  <div className="w-[420px] border-l bg-background">
-                    <BudgetPanel
-                      items={items}
-                      setItems={setItems}
-                      cliente={cliente}
-                      empresa={empresa}
-                    />
                   </div>
                 </div>
               </div>
-            </>
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
 
-      {/* PRESUPUESTOS */}
+              {/* CLIENT CARD */}
 
-      <Route
-        path="/presupuestos"
-        element={
-          token ? <PresupuestosPage /> : <Navigate to="/login" replace />
-        }
-      />
+              <div
+                className="
+                flex-[1]
+                rounded-2xl
+                border border-border
+                bg-card
+                p-6
+              "
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-semibold">Cliente</h3>
 
-      {/* PRINT */}
+                  <span
+                    className="
+                    rounded-full
+                    border border-lime-400/20
+                    bg-lime-400/10
+                    px-2 py-1
+                    text-[10px]
+                    font-medium
+                    uppercase
+                    tracking-wider
+                    text-zinc-300/70
+                  "
+                  >
+                    Presupuesto
+                  </span>
+                </div>
 
-      <Route
-        path="/print"
-        element={token ? <PrintPage /> : <Navigate to="/login" replace />}
-      />
-    </Routes>
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                  <div
+                    className="
+                    rounded-xl
+                    border border-border
+                    bg-background
+                    px-4 py-3
+                  "
+                  >
+                    <p className="text-[11px] text-muted-foreground">Nombre</p>
+
+                    <p className="mt-1 text-sm font-medium text-foreground">
+                      {cliente.nombre || "-"}
+                    </p>
+                  </div>
+
+                  <div
+                    className="
+                    rounded-xl
+                    border border-border
+                    bg-background
+                    px-4 py-3
+                  "
+                  >
+                    <p className="text-[11px] text-muted-foreground">
+                      Teléfono
+                    </p>
+
+                    <p className="mt-1 text-sm font-medium text-foreground">
+                      {cliente.telefono || "-"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* TOTAL */}
+
+                <div
+                  className="
+                  mt-5
+                  rounded-2xl
+                  border border-zinc-700/40
+                  bg-zinc-900/60
+                  px-5 py-4
+                "
+                >
+                  <p
+                    className="
+                    text-xs
+                    uppercase
+                    tracking-[0.18em]
+                    text-zinc-400
+                  "
+                  >
+                    Total presupuesto
+                  </p>
+
+                  <div
+                    className="
+                    mt-2
+                    text-3xl
+                    font-bold
+                    tracking-tight
+                    text-zinc-100
+                  "
+                  >
+                    $
+                    {items
+                      .reduce(
+                        (acc, item) => acc + Number(item.subtotal || 0),
+                        0,
+                      )
+                      .toLocaleString("es-AR")}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   );
 }
 

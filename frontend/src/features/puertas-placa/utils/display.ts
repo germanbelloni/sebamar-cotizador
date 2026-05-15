@@ -1,6 +1,10 @@
-import type { PuertasPlacaConfig } from "../types";
+import type {
+  PuertasPlacaMarco,
+  PuertasPlacaModelo,
+  PuertasPlacaTipo,
+} from "../types";
 
-function getTipoLabel(tipo: PuertasPlacaConfig["tipo"]) {
+export function getPuertaPlacaTipoLabel(tipo: PuertasPlacaTipo) {
   switch (tipo) {
     case "abrir":
       return "De abrir";
@@ -8,12 +12,15 @@ function getTipoLabel(tipo: PuertasPlacaConfig["tipo"]) {
     case "embutir":
       return "De embutir";
 
+    case "granero":
+      return "Granero";
+
     default:
       return tipo;
   }
 }
 
-function getMarcoLabel(marco: PuertasPlacaConfig["marco"]) {
+export function getPuertaPlacaMarcoLabel(marco: PuertasPlacaMarco) {
   switch (marco) {
     case "marco_10":
       return "Marco 10";
@@ -22,14 +29,14 @@ function getMarcoLabel(marco: PuertasPlacaConfig["marco"]) {
       return "Marco 15";
 
     case "aluminio":
-      return "Aluminio";
+      return "Marco aluminio blanco";
 
     default:
       return marco;
   }
 }
 
-function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
+export function getPuertaPlacaModeloLabel(modelo: PuertasPlacaModelo) {
   switch (modelo) {
     case "finger_pino":
       return "Finger / Pino";
@@ -52,24 +59,4 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
     default:
       return modelo;
   }
-}
-
-export function buildPuertasPlacaDescription(config: PuertasPlacaConfig) {
-  const tipo = getTipoLabel(config.tipo);
-
-  const marco = getMarcoLabel(config.marco);
-
-  const modelo = getModeloLabel(config.modelo);
-
-  return `
-    Puerta placa
-    ${tipo}
-    ${modelo}
-    ${config.ancho}x${config.alto}
-    ${marco}
-    mano ${config.mano}
-    ${config.fueraDeMedida ? "fuera de medida" : ""}
-  `
-    .replace(/\s+/g, " ")
-    .trim();
 }
