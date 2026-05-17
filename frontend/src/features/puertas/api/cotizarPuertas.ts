@@ -2,7 +2,13 @@ import { apiFetch } from "@/lib/api";
 
 import type { PuertasConfig } from "../types";
 
-export async function cotizarPuertas(config: PuertasConfig) {
+type CotizacionPuertasResponse = {
+  precioVenta?: number;
+};
+
+export async function cotizarPuertas(
+  config: PuertasConfig,
+): Promise<CotizacionPuertasResponse> {
   const body = {
     ancho: config.ancho,
 
@@ -37,7 +43,7 @@ export async function cotizarPuertas(config: PuertasConfig) {
   /* PORTON */
 
   if (config.tipoConfiguracion === "porton") {
-    return apiFetch("/portones", {
+    return apiFetch<CotizacionPuertasResponse>("/portones", {
       method: "POST",
 
       body: JSON.stringify(body),
@@ -47,14 +53,14 @@ export async function cotizarPuertas(config: PuertasConfig) {
   /* PUERTAS */
 
   if (config.linea === "eco") {
-    return apiFetch("/puertas/eco", {
+    return apiFetch<CotizacionPuertasResponse>("/puertas/eco", {
       method: "POST",
 
       body: JSON.stringify(body),
     });
   }
 
-  return apiFetch("/puertas", {
+  return apiFetch<CotizacionPuertasResponse>("/puertas", {
     method: "POST",
 
     body: JSON.stringify(body),

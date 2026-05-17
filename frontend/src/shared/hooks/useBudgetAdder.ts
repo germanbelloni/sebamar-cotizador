@@ -1,4 +1,4 @@
-type Params<TConfig, TResult, TItem> = {
+type Params<TConfig, TResult = unknown, TItem = unknown> = {
   mutation: {
     mutateAsync: (config: TConfig) => Promise<TResult>;
   };
@@ -14,7 +14,7 @@ type Params<TConfig, TResult, TItem> = {
   ) => TItem;
 };
 
-export function useBudgetAdder<TConfig, TResult, TItem>({
+export function useBudgetAdder<TConfig, TResult = unknown, TItem = unknown>({
   mutation,
 
   config,

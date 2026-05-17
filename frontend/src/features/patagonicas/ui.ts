@@ -41,17 +41,17 @@ export const PATAGONICAS_UI: ProductUI = {
     medidasRaja: [
       {
         label: "40 cm",
-        value: 40,
+        value: "40",
       },
 
       {
         label: "50 cm",
-        value: 50,
+        value: "50",
       },
 
       {
         label: "60 cm",
-        value: 60,
+        value: "60",
       },
     ],
 

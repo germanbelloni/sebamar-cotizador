@@ -1,4 +1,4 @@
-import type { PuertaLinea, PuertaTipo } from "./types";
+import type { PuertaLinea, PuertaTipoConfiguracion } from "./types";
 
 type Limites = {
   anchoMin: number;
@@ -12,7 +12,7 @@ type Limites = {
 
 export const LIMITES_PUERTAS: Record<
   PuertaLinea,
-  Record<PuertaTipo, Limites>
+  Record<PuertaTipoConfiguracion, Limites>
 > = {
   herrero: {
     simple: {
