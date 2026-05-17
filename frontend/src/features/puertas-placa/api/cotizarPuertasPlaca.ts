@@ -9,7 +9,7 @@ type CotizacionPuertasPlacaResponse = {
 };
 
 export async function cotizarPuertasPlaca(config: PuertasPlacaConfig) {
-  return apiFetch<CotizacionPuertasPlacaResponse>("/productos/puertas-placa", {
+  return apiFetch<CotizacionPuertasPlacaResponse>("/puertas-placa", {
     method: "POST",
 
     body: JSON.stringify(config),

@@ -139,14 +139,22 @@ function ventanas(req, res) {
 function rajas(req, res) {
   const linea = req.body.linea?.toLowerCase();
 
+  const payload = {
+    ...req.body,
+
+    modelo: req.body.modelo || req.body.apertura,
+
+    vidrio: req.body.tipoVidrio || req.body.vidrio,
+  };
+
   if (linea === "modena") {
     return runCalculation(req, res, "RAJAS MODENA", (data) =>
-      calcularRajaModena(data),
+      calcularRajaModena(payload),
     );
   }
 
   return runCalculation(req, res, "RAJAS HERRERO", (data) =>
-    calcularRajaHerrero(data),
+    calcularRajaHerrero(payload),
   );
 }
 

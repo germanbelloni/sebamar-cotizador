@@ -9,7 +9,7 @@ type CotizacionPanoFijoResponse = {
 };
 
 export async function cotizarPanoFijo(config: PanoFijoConfig) {
-  return apiFetch<CotizacionPanoFijoResponse>("/productos/superficies", {
+  return apiFetch<CotizacionPanoFijoResponse>("/superficies", {
     method: "POST",
 
     body: JSON.stringify({

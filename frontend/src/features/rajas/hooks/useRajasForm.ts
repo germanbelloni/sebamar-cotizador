@@ -14,43 +14,42 @@ type Params = {
   setConfig: React.Dispatch<React.SetStateAction<RajasConfig>>;
 };
 
-export function useRajasForm({
-  config,
-
-  setConfig,
-}: Params) {
+export function useRajasForm({ config, setConfig }: Params) {
   const { updateConfig } = useConfigUpdater(setConfig);
 
-  const {
-    anchoInput,
+  const { anchoInput, altoInput, handleAnchoChange, handleAltoChange } =
+    useDimensionsInputs({
+      ancho: config.ancho,
 
-    altoInput,
+      alto: config.alto,
 
-    handleAnchoChange,
+      onChange: ({ ancho, alto }) =>
+        updateConfig({
+          ancho,
+          alto,
+        }),
+    });
 
-    handleAltoChange,
-  } = useDimensionsInputs({
-    ancho: config.ancho,
-
-    alto: config.alto,
-
-    onChange: ({
-      ancho,
-
-      alto,
-    }) =>
-      updateConfig({
-        ancho,
-
-        alto,
-      }),
-  });
-
-  const { switchLinea } = useLineaSwitcher({
+  const { switchLinea: baseSwitchLinea } = useLineaSwitcher({
     setConfig,
 
     limits: LIMITES_RAJAS,
   });
+
+  function switchLinea(linea: string) {
+    baseSwitchLinea(linea);
+
+    setConfig((prev) => ({
+      ...prev,
+
+      linea: linea as RajasConfig["linea"],
+
+      apertura:
+        linea === "Herrero" && prev.apertura === "oscilobatiente"
+          ? "abrir"
+          : prev.apertura,
+    }));
+  }
 
   return {
     updateConfig,

@@ -9,7 +9,7 @@ type CotizacionMosquiterosResponse = {
 };
 
 export async function cotizarMosquiteros(config: MosquiterosConfig) {
-  return apiFetch<CotizacionMosquiterosResponse>("/productos/mosquiteros", {
+  return apiFetch<CotizacionMosquiterosResponse>("/mosquiteros", {
     method: "POST",
 
     body: JSON.stringify(config),

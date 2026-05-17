@@ -111,16 +111,21 @@ function App() {
 
   const [rajasConfig, setRajasConfig] = useState<RajasConfig>({
     ancho: 60,
-
     alto: 60,
 
     linea: "Herrero",
 
     color: "blanco",
 
+    tipoVidrio: "4mm",
+
     mosquitero: false,
 
     modelo: "raja",
+
+    bisagra: "izquierda",
+
+    posicionOscilo: "cerrada",
 
     premarco: false,
 

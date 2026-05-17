@@ -9,7 +9,7 @@ type CotizacionsuperficiesResponse = {
 };
 
 export async function cotizarSuperficies(config: SuperficiesConfig) {
-  return apiFetch<CotizacionsuperficiesResponse>("/productos/superficies", {
+  return apiFetch<CotizacionsuperficiesResponse>("/superficies", {
     method: "POST",
 
     body: JSON.stringify(config),

@@ -50,6 +50,7 @@ export function RajasPreview({ config }: Props) {
         border border-border
         bg-card
         p-6
+        transition-all duration-300
       "
     >
       {/* HEADER */}
@@ -78,6 +79,7 @@ export function RajasPreview({ config }: Props) {
           via-zinc-900
           to-black
           p-6
+          transition-all duration-300
         "
       >
         {/* GLOW */}
@@ -141,9 +143,13 @@ export function RajasPreview({ config }: Props) {
             </pattern>
           </defs>
 
+          {/* PREMARCO */}
+
           {config.premarco && (
             <Premarco left={left} top={top} ancho={ancho} alto={alto} />
           )}
+
+          {/* CONTRAMARCO */}
 
           {config.contramarco && (
             <Contramarco
@@ -155,6 +161,8 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
+          {/* MARCO */}
+
           <Marco
             left={left}
             top={top}
@@ -163,6 +171,8 @@ export function RajasPreview({ config }: Props) {
             color={aluminioColor}
             frameWidth={frameWidth}
           />
+
+          {/* APERTURAS */}
 
           {config.modelo === "raja" && (
             <RajaAbrir
@@ -217,6 +227,8 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
+          {/* DESAGUES */}
+
           <line
             x1={left + 30}
             y1={top + alto - 30}
@@ -237,6 +249,8 @@ export function RajasPreview({ config }: Props) {
             strokeLinecap="round"
           />
 
+          {/* MOSQUITERO */}
+
           {config.mosquitero && (
             <rect
               x={left + 10}
@@ -248,6 +262,8 @@ export function RajasPreview({ config }: Props) {
             />
           )}
 
+          {/* COTAS */}
+
           <Cotas
             left={left}
             top={top}
@@ -257,6 +273,45 @@ export function RajasPreview({ config }: Props) {
             altoReal={config.alto}
           />
         </svg>
+      </div>
+
+      {/* INFO */}
+
+      <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+        <div className="flex items-center justify-between">
+          <span>Línea: {config.linea}</span>
+
+          <span>Color: {config.color}</span>
+        </div>
+
+        <div
+          className="
+            rounded-xl
+            border border-border
+            bg-background
+            px-4 py-3
+            text-center
+          "
+        >
+          <div className="text-base font-medium text-foreground">
+            {config.ancho} × {config.alto} cm
+          </div>
+        </div>
+
+        <div className="mt-2 text-xs text-muted-foreground">
+          Raja {config.ancho}x{config.alto}
+          {" · "}
+          {config.linea}
+          {" · "}
+          {config.color}
+          {config.tipoVidrio && ` · ${config.tipoVidrio}`}
+          {" · "}
+          {config.modelo}
+          {config.bisagra && ` · bisagra ${config.bisagra}`}
+          {config.mosquitero && " · mosquitero"}
+          {config.premarco && " · premarco"}
+          {config.contramarco && " · contramarco"}
+        </div>
       </div>
     </div>
   );

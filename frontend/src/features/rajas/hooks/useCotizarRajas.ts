@@ -7,11 +7,11 @@ export function useCotizarRajas() {
     mutationFn: cotizarRajas,
 
     onSuccess: (data) => {
-      console.log("COTIZACION RAJAS:", data);
+      console.log("✅ COTIZACION RAJAS:", data);
     },
 
     onError: (error) => {
-      console.error(error);
+      console.error("❌ ERROR RAJAS:", error);
     },
   });
 }

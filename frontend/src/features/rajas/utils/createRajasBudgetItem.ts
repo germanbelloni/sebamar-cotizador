@@ -2,7 +2,19 @@ import type { RajasConfig, RajasItem } from "../types";
 
 import { buildRajasDescription } from "./buildRajasDescription";
 
-export function createRajasBudgetItem(config: RajasConfig): RajasItem {
+type CotizacionRajasResponse = {
+  descripcion: string;
+
+  precioVenta?: number;
+
+  precioFinal?: number;
+};
+
+export function createRajasBudgetItem(
+  config: RajasConfig,
+
+  result: CotizacionRajasResponse,
+): RajasItem {
   return {
     tipo: "rajas",
 
@@ -12,6 +24,7 @@ export function createRajasBudgetItem(config: RajasConfig): RajasItem {
 
     medidas: {
       ancho: config.ancho,
+
       alto: config.alto,
     },
 
@@ -37,6 +50,6 @@ export function createRajasBudgetItem(config: RajasConfig): RajasItem {
       herrajesBlancos: config.herrajesBlancos,
     },
 
-    subtotal: 0,
+    subtotal: Number(result.precioVenta || result.precioFinal || 0),
   };
 }

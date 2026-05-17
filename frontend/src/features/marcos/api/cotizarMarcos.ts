@@ -9,7 +9,7 @@ type Response = {
 };
 
 export async function cotizarMarcos(config: MarcosConfig) {
-  return apiFetch<Response>("/productos/superficies", {
+  return apiFetch<Response>("/superficies", {
     method: "POST",
 
     body: JSON.stringify(config),

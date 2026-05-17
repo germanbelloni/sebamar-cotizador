@@ -22,9 +22,15 @@ import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
 
 import { DimensionsSection } from "@/shared/sections/DimensionsSection";
 
-import { useRajasForm } from "../hooks/useRajasForm";
-
 import { ExtrasSection } from "@/shared/sections/ExtrasSection";
+
+import { OptionSelector } from "@/shared/selectors/OptionSelector";
+
+import { BisagraSelector } from "@/shared/selectors/BisagraSelector";
+
+import { OsciloPositionSelector } from "@/shared/selectors/OsciloPositionSelector";
+
+import { useRajasForm } from "../hooks/useRajasForm";
 
 import { useRajasValidation } from "../hooks/useRajasValidation";
 
@@ -32,11 +38,7 @@ import { useCotizarRajas } from "../hooks/useCotizarRajas";
 
 import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
-import { BisagraSelector } from "@/shared/selectors/BisagraSelector";
-
-import { OsciloPositionSelector } from "@/shared/selectors/OsciloPositionSelector";
-
-import { OptionSelector } from "@/shared/selectors/OptionSelector";
+import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
 
 type Props = {
   config: RajasConfig;
@@ -69,10 +71,12 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
       label: "Raja",
       value: "raja",
     },
+
     {
       label: "Brazo de empuje",
       value: "brazo",
     },
+
     {
       label: "Volcable",
       value: "volcable",
@@ -84,14 +88,17 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
       label: "Raja",
       value: "raja",
     },
+
     {
       label: "Brazo de empuje",
       value: "brazo",
     },
+
     {
       label: "Volcable",
       value: "volcable",
     },
+
     {
       label: "Oscilobatiente",
       value: "oscilobatiente",
@@ -100,21 +107,15 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
 
   const modelos = config.linea === "Herrero" ? modelosHerrero : modelosModena;
 
-  const handleAddToBudget = async () => {
-    try {
-      const result = await cotizacionMutation.mutateAsync(config);
+  const { handleAdd } = useBudgetAdder({
+    mutation: cotizacionMutation,
 
-      const item = createRajasBudgetItem(config);
+    config,
 
-      item.description = result.descripcion;
+    setItems,
 
-      item.subtotal = result.precioVenta;
-
-      setItems((prev) => [...prev, item]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    createItem: createRajasBudgetItem,
+  });
 
   return (
     <ProductFormLayout title={RAJAS_UI.title}>
@@ -124,7 +125,7 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
         <FormSection title={RAJAS_UI.sections.sistema}>
           <LineaSelector
             value={config.linea}
-            options={RAJAS_UI.lineas}
+            options={RAJAS_UI.selectors.lineas}
             onChange={(value) => switchLinea(value)}
           />
         </FormSection>
@@ -142,6 +143,8 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
             }
           />
         </FormSection>
+
+        {/* OSCILO */}
 
         {config.modelo === "oscilobatiente" && (
           <FormSection title="Posición">
@@ -173,28 +176,15 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
           />
         </FormSection>
 
-        {/* APERTURA */}
+        {/* BISAGRA */}
 
         {(config.modelo === "raja" || config.modelo === "oscilobatiente") && (
-          <FormSection title="Apertura">
+          <FormSection title="Bisagra">
             <BisagraSelector
               value={config.bisagra}
               onChange={(value) =>
                 updateConfig({
                   bisagra: value,
-                })
-              }
-            />
-          </FormSection>
-        )}
-
-        {config.modelo === "oscilobatiente" && (
-          <FormSection title="Posición">
-            <OsciloPositionSelector
-              value={config.posicionOscilo}
-              onChange={(value) =>
-                updateConfig({
-                  posicionOscilo: value,
                 })
               }
             />
@@ -245,10 +235,14 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
           />
         </FormSection>
 
-        {/* ALERTA */}
+        {/* ERROR */}
+
+        {cotizacionMutation.isError && (
+          <AlertBox type="error">{RAJAS_UI.messages.quotationError}</AlertBox>
+        )}
 
         {medidasInvalidas && (
-          <AlertBox type="error">Medidas inválidas.</AlertBox>
+          <AlertBox type="error">{RAJAS_UI.messages.reviewLimits}</AlertBox>
         )}
 
         {/* FOOTER */}
@@ -256,12 +250,11 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
         <FormFooter>
           <PrimaryButton
             className="w-full"
-            onClick={handleAddToBudget}
+            onClick={handleAdd}
             disabled={!medidasValidas || cotizacionMutation.isPending}
+            loading={cotizacionMutation.isPending}
           >
-            {cotizacionMutation.isPending
-              ? "Cotizando..."
-              : "Agregar al presupuesto"}
+            {RAJAS_UI.actions.addToBudget}
           </PrimaryButton>
         </FormFooter>
       </div>

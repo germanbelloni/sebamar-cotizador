@@ -7,13 +7,7 @@ import { validateDimensions } from "@/shared/utils/validateDimensions";
 export function useRajasValidation(config: RajasConfig) {
   const limites = LIMITES_RAJAS[config.linea];
 
-  const {
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-  } = validateDimensions({
+  const { anchoValido, altoValido, medidasValidas } = validateDimensions({
     ancho: config.ancho,
 
     alto: config.alto,
@@ -23,6 +17,9 @@ export function useRajasValidation(config: RajasConfig) {
 
   const medidasInvalidas = !medidasValidas;
 
+  const osciloInvalido =
+    config.linea === "Herrero" && config.apertura === "oscilobatiente";
+
   return {
     limites,
 
@@ -30,8 +27,10 @@ export function useRajasValidation(config: RajasConfig) {
 
     altoValido,
 
-    medidasValidas,
+    medidasValidas: medidasValidas && !osciloInvalido,
 
-    medidasInvalidas,
+    medidasInvalidas: medidasInvalidas || osciloInvalido,
+
+    osciloInvalido,
   };
 }

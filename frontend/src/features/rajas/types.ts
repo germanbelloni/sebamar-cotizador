@@ -1,10 +1,16 @@
+import type { VidrioType } from "@/shared/types/vidrios";
+
 export type RajaLinea = "Herrero" | "Modena";
 
 export type RajaModelo = "raja" | "brazo" | "volcable" | "oscilobatiente";
-import type { VidrioType } from "@/shared/types/vidrios";
+
 export type RajaBisagra = "izquierda" | "derecha";
 
 export type PosicionOscilo = "cerrada" | "abrir" | "oscilo";
+
+export type RajaDesague = "visible" | "oculto";
+
+export type RajaColor = "blanco" | "negro" | "bronce colonial" | "simil madera";
 
 export type RajasConfig = {
   ancho: number;
@@ -13,7 +19,7 @@ export type RajasConfig = {
 
   linea: RajaLinea;
 
-  color: "blanco" | "negro" | "bronce colonial" | "simil madera";
+  color: RajaColor;
 
   tipoVidrio?: VidrioType;
 
@@ -21,7 +27,7 @@ export type RajasConfig = {
 
   modelo: RajaModelo;
 
-  desague?: string;
+  desague?: RajaDesague;
 
   bisagra?: RajaBisagra;
 
@@ -49,7 +55,7 @@ export type RajasItem = {
 
   description: string;
 
-  color: string;
+  color: RajaColor;
 
   configuracion: {
     tipoVidrio?: VidrioType;
@@ -58,7 +64,7 @@ export type RajasItem = {
 
     modelo: RajaModelo;
 
-    desague?: string;
+    desague?: RajaDesague;
 
     bisagra?: RajaBisagra;
 
