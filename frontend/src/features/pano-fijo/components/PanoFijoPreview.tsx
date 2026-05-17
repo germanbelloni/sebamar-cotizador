@@ -31,16 +31,7 @@ export function PanoFijoPreview({ config }: Props) {
   const esDVH = config.tipoVidrio === "dvh_4_9_4";
 
   return (
-    <div
-      className="
-        rounded-2xl
-        border border-border
-
-        bg-card
-
-        p-6
-      "
-    >
+    <div className="h-full">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold text-white">Paño fijo</h3>
@@ -55,32 +46,21 @@ export function PanoFijoPreview({ config }: Props) {
 
       <div
         className="
-          relative overflow-hidden
-
+          relative
           mt-6
-          flex h-[420px]
-
+          flex
+          h-[420px]
           items-center
           justify-center
-
+          overflow-hidden
           rounded-2xl
-
           border border-white/5
-
           bg-gradient-to-b
           from-zinc-950
           via-zinc-900
           to-black
         "
       >
-        <div
-          className="
-            absolute inset-0
-
-            bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.04),transparent_60%)]
-          "
-        />
-
         <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
           {/* MARCO */}
 
@@ -89,11 +69,11 @@ export function PanoFijoPreview({ config }: Props) {
             y={top}
             width={ancho}
             height={alto}
-            fill={config.color === "blanco" ? "#D6D6D6" : aluminioColor}
+            fill={config.color === "blanco" ? "#B8B8B8" : aluminioColor}
             rx={4}
           />
 
-          {/* DVH BACK */}
+          {/* DVH */}
 
           {esDVH && (
             <rect
@@ -118,11 +98,11 @@ export function PanoFijoPreview({ config }: Props) {
                 ? "rgba(255,255,255,0.20)"
                 : config.tipoVidrio === "fantasia"
                   ? "rgba(255,255,255,0.14)"
-                  : "rgba(120,190,255,0.18)"
+                  : "rgba(90,140,190,0.22)"
             }
           />
 
-          {/* REFLEJO PRINCIPAL */}
+          {/* REFLEJO */}
 
           <rect
             x={left + 18}
@@ -133,8 +113,6 @@ export function PanoFijoPreview({ config }: Props) {
             rx={999}
           />
 
-          {/* REFLEJO SECUNDARIO */}
-
           <rect
             x={left + 58}
             y={top + 28}
@@ -142,17 +120,6 @@ export function PanoFijoPreview({ config }: Props) {
             height={alto - 56}
             fill="rgba(255,255,255,0.05)"
             rx={999}
-          />
-
-          {/* BRILLO DIAGONAL */}
-
-          <line
-            x1={left + 30}
-            y1={top + 20}
-            x2={left + ancho - 25}
-            y2={top + alto - 25}
-            stroke="rgba(255,255,255,0.06)"
-            strokeWidth={3}
           />
         </svg>
       </div>

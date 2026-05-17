@@ -10,6 +10,8 @@ import { empresa } from "@/features/empresa/constants";
 
 import type { Cliente } from "@/features/clientes/types";
 
+import { BudgetPanel } from "@/layouts/components/BudgetPanel";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -336,7 +338,7 @@ function App() {
   );
 
   const activeFeatureLabel = getFeatureLabel(activeFeature);
-
+  console.log(activeFeature);
   const FEATURE_COMPONENTS: Record<string, React.ReactNode> = {
     rajas: (
       <RajasConfigForm
@@ -438,7 +440,7 @@ function App() {
                     : portonesConfig;
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
-      <div className="flex h-screen">
+      <div className="flex h-screen overflow-hidden">
         <Sidebar
           features={FEATURES}
           activeFeature={activeFeature}
@@ -675,6 +677,13 @@ function App() {
             </div>
           </div>
         </main>
+
+        <BudgetPanel
+          items={items}
+          setItems={setItems}
+          cliente={cliente}
+          empresa={empresa}
+        />
       </div>
     </div>
   );
