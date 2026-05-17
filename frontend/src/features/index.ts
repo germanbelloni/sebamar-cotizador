@@ -36,12 +36,6 @@ export const FEATURES = [
   },
 
   {
-    id: "superficies",
-
-    label: "superficies",
-  },
-
-  {
     id: "mosquiteros",
 
     label: "Mosquiteros",
@@ -57,6 +51,12 @@ export const FEATURES = [
     id: "pano-fijo",
 
     label: "Paño fijo",
+  },
+
+  {
+    id: "marcos",
+
+    label: "Marcos",
   },
 ] as const;
 

@@ -66,6 +66,13 @@ import { PatagonicasConfigForm } from "@/features/patagonicas/components/Patagon
 
 import { PatagonicasPreview } from "@/features/patagonicas/components/PatagonicasPreview";
 
+/* MARCOS */
+
+import type { MarcosConfig } from "@/features/marcos/types";
+
+import { MarcosConfigForm } from "@/features/marcos/components/MarcosConfigForm";
+
+import { MarcosPreview } from "@/features/marcos/components/MarcosPreview";
 /* superficies */
 
 import type { SuperficiesConfig } from "@/features/superficies/types";
@@ -289,24 +296,17 @@ function App() {
       cortinaAluminio: false,
     },
   );
+  /* MARCOS */
 
-  /* superficies */
+  const [marcosConfig, setMarcosConfig] = useState<MarcosConfig>({
+    ancho: 120,
 
-  const [superficiesConfig, setSuperficiesConfig] = useState<SuperficiesConfig>(
-    {
-      ancho: 120,
+    alto: 100,
 
-      alto: 100,
+    tipo: "premarco",
 
-      linea: "herrero",
-
-      tipo: "pano_fijo",
-
-      color: "blanco",
-
-      tipoVidrio: "4mm",
-    },
-  );
+    color: "blanco",
+  });
 
   /* PAÑO FIJO */
   const [panoFijoConfig, setPanoFijoConfig] = useState<PanoFijoConfig>({
@@ -395,10 +395,10 @@ function App() {
       />
     ),
 
-    superficies: (
-      <SuperficiesConfigForm
-        config={superficiesConfig}
-        setConfig={setSuperficiesConfig}
+    marcos: (
+      <MarcosConfigForm
+        config={marcosConfig}
+        setConfig={setMarcosConfig}
         setItems={setItems}
       />
     ),
@@ -433,8 +433,8 @@ function App() {
               ? patagonicasConfig
               : activeFeature === "mosquiteros"
                 ? mosquiterosConfig
-                : activeFeature === "superficies"
-                  ? superficiesConfig
+                : activeFeature === "marcos"
+                  ? marcosConfig
                   : activeFeature === "pano-fijo"
                     ? panoFijoConfig
                     : portonesConfig;
@@ -517,6 +517,10 @@ function App() {
                       <PanoFijoPreview config={panoFijoConfig} />
                     )}
                   </div>
+
+                  {activeFeature === "marcos" && (
+                    <MarcosPreview config={marcosConfig} />
+                  )}
 
                   {/* TECHNICAL INFO */}
 
