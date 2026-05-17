@@ -183,18 +183,16 @@ export function PatagonicasConfigForm({
               <FormSection title="Cortinas">
                 <CortinasSection
                   color={config.color}
-                  cortinaPVC={config.cortinaPVC}
-                  cortinaAluminio={config.cortinaAluminio}
+                  cortina={config.cortina}
                   onTogglePVC={() =>
                     updateConfig({
-                      cortinaPVC: !config.cortinaPVC,
-                      cortinaAluminio: false,
+                      cortina: config.cortina === "pvc" ? null : "pvc",
                     })
                   }
                   onToggleAluminio={() =>
                     updateConfig({
-                      cortinaAluminio: !config.cortinaAluminio,
-                      cortinaPVC: false,
+                      cortina:
+                        config.cortina === "aluminio" ? null : "aluminio",
                     })
                   }
                 />

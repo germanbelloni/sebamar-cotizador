@@ -8,11 +8,11 @@ export function buildVentanaDescription(config: VentanaConfig) {
     ${config.guia ? "c/guía" : ""}
     ${config.mosquitero ? "c/mosq" : ""}
     ${config.cajonBlock ? "c/cajón block" : ""}
-    ${config.cortinaPVC ? "PVC" : ""}
-    ${config.cortinaAluminio ? "cortina aluminio" : ""}
+    ${config.cortina === "pvc" ? "PVC" : ""}
+    ${config.cortina === "aluminio" ? "cortina aluminio" : ""}
     ${config.premarco ? "c/premarco" : ""}
     ${config.contramarco ? "c/contramarco" : ""}
-    vidrio 4mm
+    vidrio ${config.tipoVidrio || "4mm"}
   `
     .replace(/\s+/g, " ")
     .trim();

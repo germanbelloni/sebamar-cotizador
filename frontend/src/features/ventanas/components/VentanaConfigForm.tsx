@@ -11,7 +11,9 @@ import { useCotizarVentana } from "../hooks/useCotizarVentana";
 import { createVentanaBudgetItem } from "../utils/createVentanaBudgetItem";
 
 import { VIDRIOS_HERRERO, VIDRIOS_MODENA } from "@/shared/constants/vidrios";
+
 import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -33,6 +35,7 @@ import { ExtrasSection } from "@/shared/sections/ExtrasSection";
 import { CortinasSection } from "@/shared/sections/CortinasSection";
 
 import { ModenaSection } from "@/shared/sections/ModenaSection";
+
 import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
 
 type Props = {
@@ -102,7 +105,7 @@ export function VentanaConfigForm({
 
   const vidrios = [
     ...(config.linea === "Herrero" ? VIDRIOS_HERRERO : VIDRIOS_MODENA),
-  ];
+  ] as string[];
 
   return (
     <ProductFormLayout title={VENTANAS_UI.title}>
@@ -132,7 +135,7 @@ export function VentanaConfigForm({
 
         {!medidasValidas && (
           <AlertBox type="error">
-            VENTANAS_UI.messages?.invalidMeasures
+            {VENTANAS_UI.messages?.invalidMeasures}
           </AlertBox>
         )}
 
@@ -155,7 +158,10 @@ export function VentanaConfigForm({
               updateConfig({
                 color: color as VentanaConfig["color"],
 
-                cortinaPVC: color === "blanco" ? config.cortinaPVC : false,
+                cortina:
+                  color === "blanco" || config.cortina !== "pvc"
+                    ? config.cortina
+                    : null,
               })
             }
           />
@@ -176,20 +182,15 @@ export function VentanaConfigForm({
           <FormSection title={VENTANAS_UI.sections.cortinas}>
             <CortinasSection
               color={config.color}
-              cortinaPVC={config.cortinaPVC}
-              cortinaAluminio={config.cortinaAluminio}
+              cortina={config.cortina}
               onTogglePVC={() =>
                 updateConfig({
-                  cortinaPVC: !config.cortinaPVC,
-
-                  cortinaAluminio: false,
+                  cortina: config.cortina === "pvc" ? null : "pvc",
                 })
               }
               onToggleAluminio={() =>
                 updateConfig({
-                  cortinaAluminio: !config.cortinaAluminio,
-
-                  cortinaPVC: false,
+                  cortina: config.cortina === "aluminio" ? null : "aluminio",
                 })
               }
             />
@@ -208,7 +209,9 @@ export function VentanaConfigForm({
         )}
 
         {cotizacionMutation.isError && (
-          <AlertBox type="error">VENTANAS_UI.messages?.quotationError</AlertBox>
+          <AlertBox type="error">
+            {VENTANAS_UI.messages?.quotationError}
+          </AlertBox>
         )}
 
         <FormFooter>
@@ -217,12 +220,12 @@ export function VentanaConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            Agregar al presupuesto
+            {VENTANAS_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (
             <AlertBox type="error">
-              VENTANAS_UI.messages?.reviewLimitss
+              {VENTANAS_UI.messages?.reviewLimits}
             </AlertBox>
           )}
         </FormFooter>

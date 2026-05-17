@@ -73,11 +73,7 @@ import type { MarcosConfig } from "@/features/marcos/types";
 import { MarcosConfigForm } from "@/features/marcos/components/MarcosConfigForm";
 
 import { MarcosPreview } from "@/features/marcos/components/MarcosPreview";
-/* superficies */
 
-import type { SuperficiesConfig } from "@/features/superficies/types";
-
-import { SuperficiesConfigForm } from "@/features/superficies/components/SuperficiesConfigForm";
 /* PAÑO FIJO */
 import type { PanoFijoConfig } from "@/features/pano-fijo/types";
 
@@ -152,10 +148,7 @@ function App() {
 
     cajonBlock: false,
 
-    cortinaPVC: false,
-
-    cortinaAluminio: false,
-
+    cortina: null,
     premarco: false,
 
     contramarco: false,
@@ -291,9 +284,7 @@ function App() {
 
       cajonBlock: false,
 
-      cortinaPVC: false,
-
-      cortinaAluminio: false,
+      cortina: null,
     },
   );
   /* MARCOS */

@@ -30,9 +30,7 @@ export type VentanaItem = {
 
     cajonBlock: boolean;
 
-    cortinaPVC: boolean;
-
-    cortinaAluminio: boolean;
+    cortina: "pvc" | "aluminio" | null;
 
     premarco: boolean;
 
@@ -59,9 +57,7 @@ export type VentanaConfig = {
 
   cajonBlock: boolean;
 
-  cortinaPVC: boolean;
-
-  cortinaAluminio: boolean;
+  cortina: "pvc" | "aluminio" | null;
 
   premarco: boolean;
 

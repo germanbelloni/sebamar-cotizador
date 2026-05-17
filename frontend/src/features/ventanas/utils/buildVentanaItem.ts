@@ -30,9 +30,7 @@ export function buildVentanaItem(config: VentanaConfig): VentanaItem {
 
       cajonBlock: config.cajonBlock,
 
-      cortinaPVC: config.cortinaPVC,
-
-      cortinaAluminio: config.cortinaAluminio,
+      cortina: config.cortina,
 
       premarco: config.premarco,
 

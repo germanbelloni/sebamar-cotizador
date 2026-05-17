@@ -143,10 +143,6 @@ function Raja({
 
   const vidrioAlto = Math.max(0, hojaAlto - vidrioPadding * 2);
 
-  const bisagraX = ladoBisagra === "izquierda" ? x + 2 : x + ancho - 9;
-
-  const manijaX = ladoBisagra === "izquierda" ? x + ancho - 22 : x + 12;
-
   const aperturaPath =
     ladoBisagra === "izquierda"
       ? `
@@ -225,74 +221,6 @@ function Raja({
           opacity={0.28}
         />
       )}
-
-      <rect
-        x={bisagraX}
-        y={y + 35}
-        width={7}
-        height={36}
-        rx={1.5}
-        fill="#18181B"
-      />
-
-      <rect
-        x={bisagraX + 1}
-        y={y + 38}
-        width={1}
-        height={30}
-        fill="rgba(255,255,255,0.22)"
-      />
-
-      <rect
-        x={bisagraX}
-        y={y + alto - 71}
-        width={7}
-        height={36}
-        rx={1.5}
-        fill="#18181B"
-      />
-
-      <rect
-        x={bisagraX + 1}
-        y={y + alto - 68}
-        width={1}
-        height={30}
-        fill="rgba(255,255,255,0.22)"
-      />
-
-      <g transform={`translate(${manijaX}, ${y + alto / 2 - 24})`}>
-        <rect x={0} y={0} width={10} height={48} rx={2} fill="#18181B" />
-
-        <rect
-          x={2}
-          y={3}
-          width={1.5}
-          height={42}
-          fill="rgba(255,255,255,0.22)"
-        />
-
-        <path
-          d={
-            ladoBisagra === "izquierda"
-              ? `
-                M 5 15
-                L -10 15
-                Q -16 15 -16 22
-                L -16 42
-              `
-              : `
-                M 5 15
-                L 20 15
-                Q 26 15 26 22
-                L 26 42
-              `
-          }
-          fill="none"
-          stroke="#18181B"
-          strokeWidth={6}
-          strokeLinecap="round"
-        />
-      </g>
 
       <path
         d={aperturaPath}
@@ -408,17 +336,7 @@ export function PatagonicasPreview({ config }: Props) {
   const segundaRajaX = left + anchoRaja + anchoFijo;
 
   return (
-    <div
-      className="
-        rounded-2xl
-        border border-border
-        bg-card
-        p-6
-        transition-all duration-300
-      "
-    >
-      {/* HEADER */}
-
+    <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Patagónica</h3>
 
@@ -427,46 +345,15 @@ export function PatagonicasPreview({ config }: Props) {
         </span>
       </div>
 
-      {/* SVG */}
-
-      <div
-        className="
-          relative overflow-hidden
-          mt-6
-          flex h-[420px]
-          items-center
-          justify-center
-          rounded-2xl
-          border border-white/5
-          bg-gradient-to-b
-          from-zinc-950
-          via-zinc-900
-          to-black
-          p-6
-          transition-all duration-300
-        "
-      >
-        {/* GLOW */}
-
-        <div
-          className="
-            absolute
-            h-[420px]
-            w-[420px]
-            rounded-full
-            bg-white/[0.015]
-            blur-3xl
-          "
-        />
+      <div className="relative mt-6 flex h-[420px] items-center justify-center overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black p-6 transition-all duration-300">
+        <div className="absolute h-[420px] w-[420px] rounded-full bg-white/[0.015] blur-3xl" />
 
         <svg
           width="500"
           height="500"
           viewBox="0 0 500 500"
           fill="none"
-          className="
-            drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]
-          "
+          className="drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
         >
           <defs>
             <pattern
@@ -507,27 +394,21 @@ export function PatagonicasPreview({ config }: Props) {
             </linearGradient>
           </defs>
 
-          {/* GUIA */}
-
           {config.guia && (
             <Guide
               left={left}
               top={top}
               ancho={ancho}
               alto={alto}
-              tieneCortina={config.cortinaPVC || config.cortinaAluminio}
+              tieneCortina={Boolean(config.cortina)}
             />
           )}
 
-          {/* CORTINA PVC */}
-
-          {config.cortinaPVC && (
+          {config.cortina === "pvc" && (
             <CortinaPVC left={left} top={top} ancho={ancho} />
           )}
 
-          {/* CORTINA ALUMINIO */}
-
-          {config.cortinaAluminio && (
+          {config.cortina === "aluminio" && (
             <CortinaAluminio
               left={left}
               top={top}
@@ -536,19 +417,13 @@ export function PatagonicasPreview({ config }: Props) {
             />
           )}
 
-          {/* CAJON BLOCK */}
-
           {config.cajonBlock && (
             <CajonBlock left={left} top={top} ancho={ancho} />
           )}
 
-          {/* PREMARCO */}
-
           {config.premarco && (
             <Premarco left={left} top={top} ancho={ancho} alto={alto} />
           )}
-
-          {/* CONTRAMARCO */}
 
           {config.contramarco && (
             <Contramarco
@@ -560,8 +435,6 @@ export function PatagonicasPreview({ config }: Props) {
             />
           )}
 
-          {/* MARCO */}
-
           <Marco
             left={left}
             top={top}
@@ -570,8 +443,6 @@ export function PatagonicasPreview({ config }: Props) {
             color={aluminioColor}
             frameWidth={frameWidth}
           />
-
-          {/* PATAGONICA */}
 
           {config.tipo === "1_raja" && (
             <>
@@ -585,23 +456,6 @@ export function PatagonicasPreview({ config }: Props) {
                 esHerrero={esHerrero}
                 mosquitero={config.mosquitero}
                 tipoVidrio={config.tipoVidrio}
-              />
-
-              <rect
-                x={fijoX - 2}
-                y={top}
-                width={esHerrero ? 8 : 5}
-                height={alto}
-                fill={aluminioColor}
-                stroke="url(#aluminumGradient)"
-              />
-
-              <rect
-                x={fijoX + 2}
-                y={top}
-                width={1}
-                height={alto}
-                fill="rgba(0,0,0,0.25)"
               />
 
               <FixedPanel
@@ -630,15 +484,6 @@ export function PatagonicasPreview({ config }: Props) {
                 tipoVidrio={config.tipoVidrio}
               />
 
-              <rect
-                x={fijoX - 2}
-                y={top}
-                width={esHerrero ? 8 : 5}
-                height={alto}
-                fill={aluminioColor}
-                stroke="url(#aluminumGradient)"
-              />
-
               <FixedPanel
                 x={fijoX}
                 y={top}
@@ -647,15 +492,6 @@ export function PatagonicasPreview({ config }: Props) {
                 aluminioColor={aluminioColor}
                 esHerrero={esHerrero}
                 tipoVidrio={config.tipoVidrio}
-              />
-
-              <rect
-                x={segundaRajaX - 2}
-                y={top}
-                width={esHerrero ? 8 : 5}
-                height={alto}
-                fill={aluminioColor}
-                stroke="url(#aluminumGradient)"
               />
 
               <Raja
@@ -672,8 +508,6 @@ export function PatagonicasPreview({ config }: Props) {
             </>
           )}
 
-          {/* COTAS */}
-
           <Cotas
             left={left}
             top={top}
@@ -683,50 +517,6 @@ export function PatagonicasPreview({ config }: Props) {
             altoReal={config.alto}
           />
         </svg>
-      </div>
-
-      {/* INFO */}
-
-      <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-        <div className="flex items-center justify-between">
-          <span>Línea: {config.linea}</span>
-
-          <span>Color: {config.color}</span>
-        </div>
-
-        <div
-          className="
-            rounded-xl
-            border border-border
-            bg-background
-            px-4 py-3
-            text-center
-          "
-        >
-          <div className="text-base font-medium text-foreground">
-            {config.ancho} × {config.alto} cm
-          </div>
-        </div>
-
-        <div className="mt-2 text-xs text-muted-foreground">
-          Patagónica {config.ancho}x{config.alto}
-          {" · "}
-          {config.linea}
-          {" · "}
-          {config.color}
-          {config.tipoVidrio && ` · ${config.tipoVidrio}`}
-          {" · "}
-          {config.cantidadRajas} raja/s
-          {" · "}
-          paño fijo
-          {config.guia && " · guía"}
-          {config.mosquitero && " · mosquitero"}
-          {config.cajonBlock && " · cajón block"}
-          {config.cortinaPVC && " · PVC"}
-          {config.cortinaAluminio && " · cortina aluminio"}
-          {config.premarco && " · premarco"}
-          {config.contramarco && " · contramarco"}
-        </div>
       </div>
     </div>
   );

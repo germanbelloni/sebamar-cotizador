@@ -54,9 +54,7 @@ export interface PatagonicasConfig {
 
   cajonBlock: boolean;
 
-  cortinaPVC: boolean;
-
-  cortinaAluminio: boolean;
+  cortina: "pvc" | "aluminio" | null;
 }
 
 export interface PatagonicasItem {
@@ -97,6 +95,12 @@ export interface PatagonicasItem {
     bisagraRaja2: LadoApertura;
 
     tipoApertura: "abrir";
+
+    guia: boolean;
+
+    cajonBlock: boolean;
+
+    cortina: "pvc" | "aluminio" | null;
   };
 
   subtotal: number;

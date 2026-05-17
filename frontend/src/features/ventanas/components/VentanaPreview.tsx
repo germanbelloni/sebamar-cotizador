@@ -190,19 +190,19 @@ export function VentanaPreview({ config }: Props) {
               top={top}
               ancho={ancho}
               alto={alto}
-              tieneCortina={config.cortinaPVC || config.cortinaAluminio}
+              tieneCortina={Boolean(config.cortina)}
             />
           )}
 
           {/* CORTINA PVC */}
 
-          {config.cortinaPVC && (
+          {config.cortina === "pvc" && (
             <CortinaPVC left={left} top={top} ancho={ancho} />
           )}
 
           {/* CORTINA ALUMINIO */}
 
-          {config.cortinaAluminio && (
+          {config.cortina === "aluminio" && (
             <CortinaAluminio
               left={left}
               top={top}
@@ -379,8 +379,8 @@ export function VentanaPreview({ config }: Props) {
           {config.guia && " · guía"}
           {config.mosquitero && " · mosquitero"}
           {config.cajonBlock && " · cajón block"}
-          {config.cortinaPVC && " · PVC"}
-          {config.cortinaAluminio && " · cortina aluminio"}
+          {config.cortina === "pvc" && " · PVC"}
+          {config.cortina === "aluminio" && " · cortina aluminio"}
           {config.premarco && " · premarco"}
           {config.contramarco && " · contramarco"}
         </div>

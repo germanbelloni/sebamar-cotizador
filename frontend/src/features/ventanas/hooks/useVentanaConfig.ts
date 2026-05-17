@@ -22,8 +22,8 @@ export function useVentanaConfig({ config, setConfig }: Params) {
       | "mosquitero"
       | "guia"
       | "cajonBlock"
-      | "cortinaPVC"
-      | "cortinaAluminio"
+      | "cortina"
+      | "cortina"
       | "premarco"
       | "contramarco"
     >,

@@ -1,11 +1,11 @@
 import { SelectableCard } from "@/components/ui/selectable-card";
+
 import { canUsePVC } from "@/features/ventanas/utils/canUsePVC";
+
 type Props = {
   color: string;
 
-  cortinaPVC: boolean;
-
-  cortinaAluminio: boolean;
+  cortina: "pvc" | "aluminio" | null;
 
   onTogglePVC: () => void;
 
@@ -15,9 +15,7 @@ type Props = {
 export function CortinasSection({
   color,
 
-  cortinaPVC,
-
-  cortinaAluminio,
+  cortina,
 
   onTogglePVC,
 
@@ -26,14 +24,17 @@ export function CortinasSection({
   return (
     <div className="grid grid-cols-2 gap-3">
       <SelectableCard
-        selected={cortinaPVC}
+        selected={cortina === "pvc"}
         disabled={!canUsePVC(color)}
         onClick={onTogglePVC}
       >
         Cortina PVC
       </SelectableCard>
 
-      <SelectableCard selected={cortinaAluminio} onClick={onToggleAluminio}>
+      <SelectableCard
+        selected={cortina === "aluminio"}
+        onClick={onToggleAluminio}
+      >
         Cortina Aluminio
       </SelectableCard>
     </div>

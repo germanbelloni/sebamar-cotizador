@@ -83,9 +83,7 @@ export function useVentanaForm({
 
         cajonBlock: false,
 
-        cortinaPVC: nuevaGuia ? prev.cortinaPVC : false,
-
-        cortinaAluminio: nuevaGuia ? prev.cortinaAluminio : false,
+        cortina: nuevaGuia ? prev.cortina : null,
       };
     });
   }
@@ -98,9 +96,7 @@ export function useVentanaForm({
 
       guia: false,
 
-      cortinaPVC: false,
-
-      cortinaAluminio: false,
+      cortina: null,
     }));
   }
 
