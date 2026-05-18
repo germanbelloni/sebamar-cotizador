@@ -12,7 +12,7 @@ export async function cotizarMosquiteros(
   config: MosquiterosConfig,
 ): Promise<number> {
   const response = await apiFetch<CotizacionMosquiterosResponse>(
-    "/mosquiteros",
+    "/api/mosquiteros",
     {
       method: "POST",
 

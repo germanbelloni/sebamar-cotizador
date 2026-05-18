@@ -20,7 +20,7 @@ export default function PresupuestosPage() {
   useEffect(() => {
     async function cargar() {
       try {
-        const data = (await apiFetch("/presupuestos")) as Presupuesto[];
+        const data = (await apiFetch("/api/presupuestos")) as Presupuesto[];
 
         setPresupuestos(data);
       } catch (error) {
@@ -35,7 +35,7 @@ export default function PresupuestosPage() {
 
   function abrirPDF(id: string) {
     window.open(
-      `${import.meta.env.VITE_API_URL}/presupuestos/${id}/pdf`,
+      `${import.meta.env.VITE_API_URL}/api/presupuestos/${id}/pdf`,
       "_blank",
     );
   }

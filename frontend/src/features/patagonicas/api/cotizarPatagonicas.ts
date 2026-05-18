@@ -12,7 +12,7 @@ export async function cotizarPatagonicas(
   config: PatagonicasConfig,
 ): Promise<number> {
   const response = await apiFetch<CotizacionPatagonicasResponse>(
-    "/patagonicas",
+    "/api/patagonicas",
     {
       method: "POST",
 

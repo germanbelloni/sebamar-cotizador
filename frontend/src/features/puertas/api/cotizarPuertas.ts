@@ -43,7 +43,7 @@ export async function cotizarPuertas(
   /* PORTON */
 
   if (config.tipoConfiguracion === "porton") {
-    return apiFetch<CotizacionPuertasResponse>("/portones", {
+    return apiFetch<CotizacionPuertasResponse>("/api/portones", {
       method: "POST",
 
       body: JSON.stringify(body),
@@ -53,14 +53,14 @@ export async function cotizarPuertas(
   /* PUERTAS */
 
   if (config.linea === "eco") {
-    return apiFetch<CotizacionPuertasResponse>("/puertas/eco", {
+    return apiFetch<CotizacionPuertasResponse>("/api/puertas/eco", {
       method: "POST",
 
       body: JSON.stringify(body),
     });
   }
 
-  return apiFetch<CotizacionPuertasResponse>("/puertas", {
+  return apiFetch<CotizacionPuertasResponse>("/api/puertas", {
     method: "POST",
 
     body: JSON.stringify(body),

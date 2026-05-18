@@ -13,7 +13,7 @@ type CotizacionRajasResponse = {
 };
 
 export async function cotizarRajas(config: RajasConfig) {
-  return apiFetch<CotizacionRajasResponse>("/rajas", {
+  return apiFetch<CotizacionRajasResponse>("/api/rajas", {
     method: "POST",
 
     body: JSON.stringify({

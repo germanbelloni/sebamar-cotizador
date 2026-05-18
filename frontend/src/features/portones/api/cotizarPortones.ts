@@ -9,7 +9,7 @@ type CotizacionPortonesResponse = {
 };
 
 export async function cotizarPortones(config: PortonesConfig) {
-  return apiFetch<CotizacionPortonesResponse>("/portones", {
+  return apiFetch<CotizacionPortonesResponse>("/api/portones", {
     method: "POST",
 
     body: JSON.stringify(config),
