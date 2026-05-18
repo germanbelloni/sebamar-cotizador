@@ -90,11 +90,23 @@ export function MosquiterosConfigForm({
           <LineaSelector
             value={config.tipo}
             options={MOSQUITEROS_UI.selectors.tipos}
-            onChange={(value) =>
+            onChange={(value) => {
+              const tipo = value as MosquiterosConfig["tipo"];
+
+              if (tipo === "puerta_mosquitera") {
+                updateConfig({
+                  tipo,
+                  ancho: 80,
+                  alto: 200,
+                });
+
+                return;
+              }
+
               updateConfig({
-                tipo: value as MosquiterosConfig["tipo"],
-              })
-            }
+                tipo,
+              });
+            }}
           />
         </FormSection>
 

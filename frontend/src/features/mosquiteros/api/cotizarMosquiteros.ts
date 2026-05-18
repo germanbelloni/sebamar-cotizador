@@ -5,13 +5,20 @@ import type { MosquiterosConfig } from "../types";
 type CotizacionMosquiterosResponse = {
   descripcion: string;
 
-  precioVenta: number;
+  precioFinal: number;
 };
 
-export async function cotizarMosquiteros(config: MosquiterosConfig) {
-  return apiFetch<CotizacionMosquiterosResponse>("/mosquiteros", {
-    method: "POST",
+export async function cotizarMosquiteros(
+  config: MosquiterosConfig,
+): Promise<number> {
+  const response = await apiFetch<CotizacionMosquiterosResponse>(
+    "/mosquiteros",
+    {
+      method: "POST",
 
-    body: JSON.stringify(config),
-  });
+      body: JSON.stringify(config),
+    },
+  );
+
+  return response.precioFinal;
 }

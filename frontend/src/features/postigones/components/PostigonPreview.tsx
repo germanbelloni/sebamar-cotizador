@@ -26,7 +26,7 @@ export function PostigonPreview({ config }: Props) {
 
   const cantidadHojas = config.tipo === "corredizo" ? 2 : config.cantidadHojas;
 
-  const hojaFrameThickness = 8;
+  const hojaFrameThickness = config.marco === "fino" ? 5 : 8;
 
   const numLamas = Math.floor(altoView / 12);
 
@@ -62,35 +62,102 @@ export function PostigonPreview({ config }: Props) {
 
       <div
         className="
-          relative
-          mt-6
-          flex
-          h-[420px]
-          items-center
-          justify-center
-          overflow-hidden
-          rounded-2xl
-          border border-white/5
-          bg-gradient-to-b
-          from-zinc-950
-          via-zinc-900
-          to-black
-          p-6
-        "
+    relative
+    mt-6
+    flex
+    h-[420px]
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-2xl
+    border border-white/5
+    bg-gradient-to-b
+    from-zinc-950
+    via-black
+    to-black
+    p-6
+  "
       >
+        {/* GLOW SUAVE */}
+
+        <div
+          className="
+    pointer-events-none
+    absolute
+    inset-0
+    bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_30%,transparent_65%)]
+  "
+        />
+
+        <div
+          className="
+    pointer-events-none
+    absolute
+    left-0
+    right-0
+    top-1/2
+    h-[120px]
+    -translate-y-1/2
+    bg-gradient-to-r
+    from-transparent
+    via-white/5
+    to-transparent
+    blur-3xl
+  "
+        />
+
+        {/* SOMBRA LATERAL IZQ */}
+
+        <div
+          className="
+      pointer-events-none
+      absolute
+      inset-y-0
+      left-0
+      w-[160px]
+      bg-gradient-to-r
+      from-black
+      via-black/70
+      to-transparent
+    "
+        />
+
+        {/* SOMBRA LATERAL DER */}
+
+        <div
+          className="
+      pointer-events-none
+      absolute
+      inset-y-0
+      right-0
+      w-[160px]
+      bg-gradient-to-l
+      from-black
+      via-black/70
+      to-transparent
+    "
+        />
         <svg
           width="500"
           height="500"
           viewBox="0 0 500 500"
           fill="none"
           className="
-            drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]
+            drop-shadow-[0_18px_35px_rgba(0,0,0,0.45)]
           "
         >
           <defs>
             <MetalGradient />
 
             <MicroperforadoPattern />
+
+            <radialGradient id="backgroundGlow" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.10)" />
+
+              <stop offset="45%" stopColor="rgba(24,24,27,0.95)" />
+
+              <stop offset="100%" stopColor="#050505" />
+            </radialGradient>
 
             <linearGradient
               id="shadowGradient"
@@ -105,20 +172,16 @@ export function PostigonPreview({ config }: Props) {
             </linearGradient>
           </defs>
 
-          {/* FONDO */}
-
-          <rect x="0" y="0" width="500" height="500" fill="#050505" rx="24" />
-
           {/* MARCO */}
 
           <rect
-            x={left - 4}
-            y={top - 4}
-            width={anchoView + 8}
-            height={altoView + 8}
+            x={left - (config.marco === "fino" ? 2 : 4)}
+            y={top - (config.marco === "fino" ? 2 : 4)}
+            width={anchoView + (config.marco === "fino" ? 4 : 8)}
+            height={altoView + (config.marco === "fino" ? 4 : 8)}
             rx="4"
             fill={baseColor}
-            stroke="rgba(255,255,255,0.08)"
+            stroke="rgba(255,255,255,0.12)"
             strokeWidth="1"
           />
 
@@ -157,24 +220,74 @@ export function PostigonPreview({ config }: Props) {
 
             // CIERRE
 
-            const esHojaCierre = (() => {
+            const cierreConfig = (() => {
+              // 2 HOJAS
+
               if (cantidadHojas === 2) {
-                return config.hojaCierre === "izquierda" ? i === 0 : i === 1;
+                if (config.hojaCierre === "izquierda") {
+                  return {
+                    hojaIndex: 0,
+
+                    lado: "derecha",
+
+                    direccion: "izquierda",
+                  };
+                }
+
+                return {
+                  hojaIndex: 1,
+
+                  lado: "izquierda",
+
+                  direccion: "derecha",
+                };
               }
+
+              // 3 HOJAS
 
               if (cantidadHojas === 3) {
-                return config.hojaCierre === "centro-izquierda"
-                  ? i === 1
-                  : i === 2;
+                if (config.hojaCierre === "centro-izquierda") {
+                  return {
+                    hojaIndex: 1,
+
+                    lado: "derecha",
+
+                    direccion: "izquierda",
+                  };
+                }
+
+                return {
+                  hojaIndex: 1,
+
+                  lado: "izquierda",
+
+                  direccion: "derecha",
+                };
               }
+
+              // 4 HOJAS
 
               if (cantidadHojas === 4) {
-                return config.hojaCierre === "centro-izquierda"
-                  ? i === 1
-                  : i === 2;
+                if (config.hojaCierre === "centro-izquierda") {
+                  return {
+                    hojaIndex: 1,
+
+                    lado: "derecha",
+
+                    direccion: "izquierda",
+                  };
+                }
+
+                return {
+                  hojaIndex: 2,
+
+                  lado: "izquierda",
+
+                  direccion: "derecha",
+                };
               }
 
-              return false;
+              return null;
             })();
 
             return (
@@ -270,16 +383,18 @@ export function PostigonPreview({ config }: Props) {
 
                 {/* CIERRE */}
 
-                {esHojaCierre && (
+                {cierreConfig && cierreConfig.hojaIndex === i && (
                   <g
-                    transform={`translate(${xPos + 8}, ${
-                      top + altoView / 2 - 22
-                    })`}
+                    transform={`translate(${
+                      cierreConfig.lado === "izquierda"
+                        ? xPos + 8
+                        : xPos + leafWidth - 18
+                    }, ${top + altoView / 2 - 22})`}
                   >
                     <rect width="10" height="44" rx="2" fill={herrajeColor} />
 
                     <rect
-                      x="6"
+                      x={cierreConfig.direccion === "derecha" ? 6 : -10}
                       y="12"
                       width="14"
                       height="4"

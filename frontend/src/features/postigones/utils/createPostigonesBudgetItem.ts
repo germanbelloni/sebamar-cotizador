@@ -1,9 +1,15 @@
-import type { PostigonesConfig, PostigonesItem } from "../types";
+import type {
+  PostigonesConfig,
+  PostigonesItem,
+  PostigonesResponse,
+} from "../types";
 
 import { buildPostigonesDescription } from "./buildPostigonesDescription";
 
 export function createPostigonesBudgetItem(
   config: PostigonesConfig,
+
+  result: PostigonesResponse,
 ): PostigonesItem {
   return {
     tipo: "postigones",
@@ -14,20 +20,24 @@ export function createPostigonesBudgetItem(
 
     medidas: {
       ancho: config.ancho,
+
       alto: config.alto,
     },
 
-    description: buildPostigonesDescription(config),
+    description: result.descripcion || buildPostigonesDescription(config),
 
     color: config.color,
 
     extras: {
       cantidadHojas: config.cantidadHojas,
+
       hojaCierre: config.hojaCierre,
+
       microperforado: config.microperforado,
+
       herrajeBlanco: config.herrajeBlanco,
     },
 
-    subtotal: 0,
+    subtotal: result.precioFinal || 0,
   };
 }

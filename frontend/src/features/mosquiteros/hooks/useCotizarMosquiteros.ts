@@ -2,8 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 
 import { cotizarMosquiteros } from "../api/cotizarMosquiteros";
 
+import type { MosquiterosConfig } from "../types";
+
 export function useCotizarMosquiteros() {
-  return useMutation({
+  return useMutation<number, Error, MosquiterosConfig>({
     mutationFn: cotizarMosquiteros,
 
     onSuccess: (data) => {

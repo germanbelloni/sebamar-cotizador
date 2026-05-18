@@ -24,34 +24,30 @@ function getColorFactor(color) {
 // 🚀 MAIN
 // =========================
 
-function calcularPuertaMosquitera(dataInput) {
+function calcularMosquiteroFijo(dataInput) {
   const { ancho, alto, color = "blanco", perfil = "amarilla" } = dataInput;
 
-  // =========================
-  // VALIDACIONES
-  // =========================
-
-  if (ancho < 70 || ancho > 100) {
-    throw new Error("Ancho fuera de rango");
-  }
-
-  if (alto < 180 || alto > 210) {
-    throw new Error("Alto fuera de rango");
+  if (!ancho || !alto) {
+    throw new Error("Faltan medidas");
   }
 
   // =========================
-  // 💰 BASE SEGÚN ANCHO
+  // 📐 M2
   // =========================
 
-  const anchoBase = ancho <= 85 ? "80" : "90";
+  const m2 = (ancho * alto) / 10000;
 
-  const base = superficies.puertas_mosquitero?.[anchoBase];
+  // =========================
+  // 💰 BASE
+  // =========================
 
-  if (!base) {
-    throw new Error("Falta precio puerta mosquitera");
+  const precioM2 = superficies.superficies?.mosquitero_fijo;
+
+  if (!precioM2) {
+    throw new Error("Falta precio mosquitero fijo");
   }
 
-  let costoBase = Number(base);
+  let costoBase = precioM2 * m2;
 
   const items = [
     {
@@ -63,7 +59,6 @@ function calcularPuertaMosquitera(dataInput) {
 
   // =========================
   // 🎨 COLOR
-  // SOLO ESTRUCTURA
   // =========================
 
   const colorFactor = getColorFactor(color);
@@ -108,13 +103,9 @@ function calcularPuertaMosquitera(dataInput) {
 
     ganancia: Math.round(venta - costo),
 
-    items: items.map((i) => ({
-      tipo: i.tipo,
-      descripcion: i.descripcion,
-      precio: Math.round(i.precio || 0),
-    })),
+    items,
 
-    descripcion: `Puerta mosquitera ${ancho}x${alto}`,
+    descripcion: `Mosquitero fijo ${ancho}x${alto}`,
 
     configuracion: {
       ancho,
@@ -124,4 +115,4 @@ function calcularPuertaMosquitera(dataInput) {
   };
 }
 
-module.exports = calcularPuertaMosquitera;
+module.exports = calcularMosquiteroFijo;

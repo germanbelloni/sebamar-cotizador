@@ -14,6 +14,10 @@ export type ColorPostigon =
   | "bronce colonial"
   | "simil madera";
 
+// =========================
+// 🎨 CONFIG FRONTEND
+// =========================
+
 export type PostigonesConfig = {
   ancho: number;
 
@@ -30,7 +34,53 @@ export type PostigonesConfig = {
   microperforado: boolean;
 
   herrajeBlanco: boolean;
+
+  // FUTURO
+  marco?: "ancho" | "fino";
 };
+
+// =========================
+// 🚀 PAYLOAD BACKEND
+// =========================
+
+export type PostigonesPayload = {
+  ancho: number;
+
+  alto: number;
+
+  tipo: TipoPostigon;
+
+  hojas: CantidadHojasPostigon;
+
+  apertura: HojaCierrePostigon;
+
+  color: ColorPostigon;
+
+  extras: {
+    microperforado: boolean;
+
+    herrajeBlanco: boolean;
+  };
+
+  // FUTURO
+  marco?: "ancho" | "fino";
+};
+
+// =========================
+// 💰 RESPONSE BACKEND
+// =========================
+
+export type PostigonesResponse = {
+  descripcion: string;
+
+  precioFinal: number;
+
+  configuracion?: unknown;
+};
+
+// =========================
+// 🧾 ITEM PRESUPUESTO
+// =========================
 
 export type PostigonesItem = {
   tipo: "postigones";

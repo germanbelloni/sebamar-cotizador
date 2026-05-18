@@ -58,6 +58,8 @@ import { PostigonesConfigForm } from "@/features/postigones/components/Postigone
 
 import { PostigonPreview } from "@/features/postigones/components/PostigonPreview";
 
+import { initialPostigonesConfig } from "@/features/postigones/constants";
+
 /* PATAGONICAS */
 
 import type { PatagonicasConfig } from "@/features/patagonicas/types";
@@ -235,23 +237,9 @@ function App() {
     });
   /* POSTIGONES */
 
-  const [postigonesConfig, setPostigonesConfig] = useState<PostigonesConfig>({
-    ancho: 120,
-
-    alto: 100,
-
-    tipo: "abrir",
-
-    color: "blanco",
-
-    cantidadHojas: 2,
-
-    hojaCierre: "derecha",
-
-    microperforado: false,
-
-    herrajeBlanco: false,
-  });
+  const [postigonesConfig, setPostigonesConfig] = useState<PostigonesConfig>(
+    initialPostigonesConfig,
+  );
   /* PATAGONICAS */
   const [patagonicasConfig, setPatagonicasConfig] = useState<PatagonicasConfig>(
     {

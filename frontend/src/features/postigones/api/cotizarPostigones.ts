@@ -1,17 +1,15 @@
 import { apiFetch } from "@/lib/api";
 
-import type { PostigonesConfig } from "../types";
+import type { PostigonesConfig, PostigonesResponse } from "../types";
 
-type CotizacionPostigonesResponse = {
-  descripcion: string;
-
-  precioVenta: number;
-};
+import { mapPostigonesToPayload } from "../utils/mapPostigonesToPayload";
 
 export async function cotizarPostigones(config: PostigonesConfig) {
-  return apiFetch<CotizacionPostigonesResponse>("/postigones", {
+  const payload = mapPostigonesToPayload(config);
+
+  return apiFetch<PostigonesResponse>("/postigones", {
     method: "POST",
 
-    body: JSON.stringify(config),
+    body: JSON.stringify(payload),
   });
 }

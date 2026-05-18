@@ -4,6 +4,8 @@ type Option = {
   label: string;
 
   value: string;
+
+  colorClass?: string;
 };
 
 type Props = {
@@ -82,6 +84,7 @@ export function OptionSelector({
                 flex
                 items-center
                 justify-center
+                gap-3
 
                 py-2
 
@@ -91,7 +94,22 @@ export function OptionSelector({
                 tracking-wide
               "
             >
-              {option.label}
+              {option.colorClass && (
+                <div
+                  className={`
+                    h-4
+                    w-4
+                    rounded-full
+                    border
+                    border-white/20
+                    shadow-md
+
+                    ${option.colorClass}
+                  `}
+                />
+              )}
+
+              <span>{option.label}</span>
             </div>
           </GlassCard>
         ))}

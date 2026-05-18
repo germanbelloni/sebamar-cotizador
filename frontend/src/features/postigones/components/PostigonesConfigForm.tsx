@@ -10,6 +10,10 @@ import { POSTIGONES_UI } from "../ui";
 
 import { usePostigonesForm } from "../hooks/usePostigonesForm";
 
+import { getPostigonesHojasOptions } from "../utils/getPostigonesHojasOptions";
+
+import { getDefaultHojaCierre } from "../utils/getDefaultHojaCierre";
+
 import { usePostigonesValidation } from "../hooks/usePostigonesValidation";
 
 import { useCotizarPostigones } from "../hooks/useCotizarPostigones";
@@ -34,6 +38,7 @@ import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
 import { OptionSelector } from "@/shared/selectors/OptionSelector";
 
+import { coloresPostigones } from "../constants";
 type Props = {
   config: PostigonesConfig;
 
@@ -89,78 +94,25 @@ export function PostigonesConfigForm({
     createItem: createPostigonesBudgetItem,
   });
 
+  const hojasDisponibles = getPostigonesHojasOptions({
+    tipo: config.tipo,
+
+    ancho: config.ancho,
+  });
+
   useEffect(() => {
-    // CORREDIZO = SIEMPRE 2 HOJAS
+    const hojaValida = hojasDisponibles.includes(config.cantidadHojas);
 
-    if (config.tipo === "corredizo") {
-      if (
-        config.cantidadHojas !== 2 ||
-        (config.hojaCierre !== "izquierda" && config.hojaCierre !== "derecha")
-      ) {
-        updateConfig({
-          cantidadHojas: 2,
+    if (!hojaValida) {
+      const hojas = hojasDisponibles[0];
 
-          hojaCierre: "derecha",
-        });
-      }
+      updateConfig({
+        cantidadHojas: hojas,
 
-      return;
+        hojaCierre: getDefaultHojaCierre(hojas),
+      });
     }
-
-    // HASTA 120
-
-    if (config.ancho <= 120) {
-      if (config.cantidadHojas !== 2) {
-        updateConfig({
-          cantidadHojas: 2,
-
-          hojaCierre: "derecha",
-        });
-      }
-    }
-
-    // 121 A 149
-
-    if (config.ancho >= 121 && config.ancho <= 149) {
-      if (config.cantidadHojas !== 2 && config.cantidadHojas !== 3) {
-        updateConfig({
-          cantidadHojas: 2,
-
-          hojaCierre: "derecha",
-        });
-      }
-    }
-
-    // 150 A 200
-
-    if (config.ancho >= 150 && config.ancho <= 200) {
-      if (config.cantidadHojas !== 3) {
-        updateConfig({
-          cantidadHojas: 3,
-
-          hojaCierre: "centro-derecha",
-        });
-      }
-    }
-
-    // +200
-
-    if (config.ancho > 200) {
-      if (config.cantidadHojas !== 3 && config.cantidadHojas !== 4) {
-        updateConfig({
-          cantidadHojas: 3,
-
-          hojaCierre: "centro-derecha",
-        });
-      }
-    }
-  }, [
-    config.tipo,
-    config.ancho,
-    config.cantidadHojas,
-    config.hojaCierre,
-    updateConfig,
-  ]);
+  }, [hojasDisponibles, config.cantidadHojas, updateConfig]);
 
   return (
     <ProductFormLayout title={POSTIGONES_UI.title}>
@@ -216,69 +168,16 @@ export function PostigonesConfigForm({
               title="Cantidad de hojas"
               value={String(config.cantidadHojas)}
               columns={2}
-              options={[
-                ...(config.tipo === "corredizo"
-                  ? [
-                      {
-                        label: "2 hojas",
-                        value: "2",
-                      },
-                    ]
-                  : []),
+              options={hojasDisponibles.map((hojas) => ({
+                label: `${hojas} hojas`,
 
-                ...(config.tipo !== "corredizo" && config.ancho <= 120
-                  ? [
-                      {
-                        label: "2 hojas",
-                        value: "2",
-                      },
-                    ]
-                  : []),
-
-                ...(config.tipo !== "corredizo" &&
-                config.ancho >= 121 &&
-                config.ancho <= 149
-                  ? [
-                      {
-                        label: "2 hojas",
-                        value: "2",
-                      },
-
-                      {
-                        label: "3 hojas",
-                        value: "3",
-                      },
-                    ]
-                  : []),
-
-                ...(config.tipo !== "corredizo" &&
-                config.ancho >= 150 &&
-                config.ancho <= 200
-                  ? [
-                      {
-                        label: "3 hojas",
-                        value: "3",
-                      },
-                    ]
-                  : []),
-
-                ...(config.tipo !== "corredizo" && config.ancho > 200
-                  ? [
-                      {
-                        label: "3 hojas",
-                        value: "3",
-                      },
-
-                      {
-                        label: "4 hojas",
-                        value: "4",
-                      },
-                    ]
-                  : []),
-              ]}
+                value: String(hojas),
+              }))}
               onChange={(value) =>
                 updateConfig({
                   cantidadHojas: Number(value) as 2 | 3 | 4,
+
+                  hojaCierre: getDefaultHojaCierre(Number(value) as 2 | 3 | 4),
                 })
               }
             />
@@ -327,27 +226,13 @@ export function PostigonesConfigForm({
               title="Color"
               value={config.color}
               columns={2}
-              options={[
-                {
-                  label: "Blanco",
-                  value: "blanco",
-                },
+              options={coloresPostigones.map((color) => ({
+                label: color.label,
 
-                {
-                  label: "Negro",
-                  value: "negro",
-                },
+                value: color.value,
 
-                {
-                  label: "Bronce colonial",
-                  value: "bronce colonial",
-                },
-
-                {
-                  label: "Simil madera",
-                  value: "simil madera",
-                },
-              ]}
+                colorClass: color.clase,
+              }))}
               onChange={(value) =>
                 updateConfig({
                   color: value as PostigonesConfig["color"],
@@ -355,6 +240,28 @@ export function PostigonesConfigForm({
               }
             />
           </div>
+
+          <OptionSelector
+            title="Marco"
+            value={config.marco || "ancho"}
+            columns={2}
+            options={[
+              {
+                label: "Ancho",
+                value: "ancho",
+              },
+
+              {
+                label: "Fino",
+                value: "fino",
+              },
+            ]}
+            onChange={(value) =>
+              updateConfig({
+                marco: value as "ancho" | "fino",
+              })
+            }
+          />
         </FormSection>
 
         {/* OPCIONES */}

@@ -161,8 +161,8 @@ export function MosquiterosPreview({ config }: Props) {
               <rect
                 x={paddingX + 10}
                 y={paddingTop + 10}
-                width={drawWidth - 20}
-                height={drawHeight - zocaloHeight - 20}
+                width={Math.max(0, drawWidth - 20)}
+                height={Math.max(0, drawHeight - zocaloHeight - 20)}
                 fill="rgba(255,255,255,0.03)"
                 stroke="rgba(255,255,255,0.10)"
                 strokeWidth={1.5}
@@ -173,8 +173,8 @@ export function MosquiterosPreview({ config }: Props) {
               <rect
                 x={paddingX + 16}
                 y={paddingTop + 16}
-                width={drawWidth - 32}
-                height={drawHeight - zocaloHeight - 32}
+                width={Math.max(0, drawWidth - 32)}
+                height={Math.max(0, drawHeight - zocaloHeight - 32)}
                 fill="url(#mosquiteroPattern)"
                 opacity={0.35}
               />
@@ -261,8 +261,8 @@ export function MosquiterosPreview({ config }: Props) {
             <rect
               x={paddingX + 10}
               y={paddingTop + 10}
-              width={drawWidth - 20}
-              height={drawHeight - 20}
+              width={Math.max(0, drawWidth - 20)}
+              height={Math.max(0, drawHeight - 20)}
               fill="rgba(255,255,255,0.02)"
               stroke="rgba(255,255,255,0.05)"
             />
