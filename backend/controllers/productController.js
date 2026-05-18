@@ -26,6 +26,8 @@ const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaH
 
 const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
 
+const calcularMosquiteroFijo = require("../../wrappers/mosquiteros/calcularMosquiteroFijo");
+
 const aplicarMargen = require("../utils/pricing/aplicarMargen");
 
 const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
@@ -103,17 +105,24 @@ function placas(req, res) {
 // =========================
 
 function mosquiteros(req, res) {
+  const tipo = req.body.tipo;
+
+  if (tipo === "puerta_mosquitera") {
+    return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
+      calcularPuertaMosquitera(data),
+    );
+  }
+
+  if (tipo === "fijo") {
+    return runCalculation(req, res, "MOSQUITERO FIJO", (data) =>
+      calcularMosquiteroFijo(data),
+    );
+  }
+
   return runCalculation(req, res, "MOSQUITEROS", (data) =>
     calcularMosquiteroVentana(data),
   );
 }
-
-function puertaMosquitera(req, res) {
-  return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
-    calcularPuertaMosquitera(data),
-  );
-}
-
 // =========================
 // 🪟 VENTANAS
 // =========================
@@ -201,8 +210,6 @@ function patagonicas(req, res) {
 
 module.exports = {
   mosquiteros,
-
-  puertaMosquitera,
 
   patagonicas,
 

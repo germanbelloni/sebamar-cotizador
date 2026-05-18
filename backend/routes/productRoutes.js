@@ -31,7 +31,6 @@ router.post("/placas", productController.placas);
 
 router.post("/mosquiteros", productController.mosquiteros);
 
-router.post("/mosquiteros/puerta", productController.puertaMosquitera);
 
 // =========================
 // 🪟 VENTANAS
