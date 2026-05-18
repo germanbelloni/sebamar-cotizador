@@ -1,6 +1,6 @@
 import type { PuertasConfig } from "../types";
 
-import { MODELOS_PUERTAS_CONFIG } from "../models/modelos";
+import { MODELOS_PUERTAS_CONFIG } from "../models/registry";
 
 import { DoorRenderer } from "../svg/components/DoorRenderer";
 

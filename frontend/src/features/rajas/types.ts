@@ -27,6 +27,8 @@ export type RajasConfig = {
 
   modelo: RajaModelo;
 
+  apertura?: string;
+
   desague?: RajaDesague;
 
   bisagra?: RajaBisagra;

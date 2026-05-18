@@ -46,6 +46,8 @@ import { PuertasExtrasSection } from "./sections/PuertasExtrasSection";
 
 import { getAvailableDoorModels } from "../models/utils/getAvailableDoorModels";
 
+import { MODELOS_PUERTAS_CONFIG } from "../models/registry";
+
 import { DoorRenderer } from "../svg/components/DoorRenderer";
 
 import { DoorPreviewCard } from "../svg/components/DoorPreviewCard";
@@ -81,8 +83,7 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
     setItems,
     createItem: createPuertasBudgetItem,
   });
-
-  const modelos = getAvailableDoorModels(config.linea, config.tipo) as string[];
+  const modelos = getAvailableDoorModels(config.linea);
 
   const vidrios = VIDRIOS_POR_LINEA[config.linea];
 

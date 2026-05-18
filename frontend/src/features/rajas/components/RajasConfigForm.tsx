@@ -134,6 +134,7 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
 
         <FormSection title="Modelo">
           <OptionSelector
+            title="Modelo"
             value={config.modelo}
             options={modelos}
             onChange={(value) =>

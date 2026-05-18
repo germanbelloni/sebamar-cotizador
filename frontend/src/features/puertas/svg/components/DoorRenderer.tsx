@@ -1,5 +1,3 @@
-import { GlassPanel } from "@/shared/svg/components/GlassPanel";
-
 import { OpeningLines } from "@/shared/svg/components/OpeningLines";
 
 import type { PuertasConfig } from "../../types";
@@ -8,7 +6,9 @@ import type { PuertaModeloConfig } from "../../models/types";
 
 import { DoorLeaf } from "./DoorLeaf";
 
-import { DoorTravesanos } from "./DoorTravesanos";
+import { DoorGlass } from "./DoorGlass";
+
+import { DoorTravesano } from "./DoorTravesano";
 
 import { DoorDivisions } from "./DoorDivisions";
 
@@ -62,7 +62,7 @@ export function DoorRenderer({
       {/* TRAVESAÑOS */}
 
       {model.travesanos?.map((travesano, index) => (
-        <DoorTravesanos
+        <DoorTravesano
           key={index}
           travesano={travesano}
           x={x}

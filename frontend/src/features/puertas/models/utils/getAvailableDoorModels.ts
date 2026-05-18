@@ -1,9 +1,7 @@
-import { DOOR_MODEL_REGISTRY } from "../registry";
+import { MODELOS_PUERTAS_CONFIG } from "../registry";
 
 import type { PuertaLinea } from "../../types";
 
-export function getAvailableDoorModels(linea: PuertaLinea) {
-  return Object.values(DOOR_MODEL_REGISTRY).filter((model) =>
-    model.availableIn.includes(linea),
-  );
+export function getAvailableDoorModels(_linea: PuertaLinea) {
+  return Object.keys(MODELOS_PUERTAS_CONFIG);
 }
