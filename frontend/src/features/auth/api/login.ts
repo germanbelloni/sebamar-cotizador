@@ -24,11 +24,9 @@ type LoginResponse = {
     ownerId: string | null;
   };
 };
-
 export async function login(payload: LoginPayload) {
-  return apiFetch<LoginResponse>("/auth/login", {
+  return apiFetch<LoginResponse>("/api/auth/login", {
     method: "POST",
-
     body: JSON.stringify(payload),
   });
 }

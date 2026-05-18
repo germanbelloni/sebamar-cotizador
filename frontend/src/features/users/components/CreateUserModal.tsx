@@ -55,7 +55,7 @@ export function CreateUserModal({ onUserCreated }: Props) {
     try {
       setLoading(true);
 
-      await apiFetch("/auth/register", {
+      await apiFetch("/api/auth/register", {
         method: "POST",
 
         body: JSON.stringify(form),

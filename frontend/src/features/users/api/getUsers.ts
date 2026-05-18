@@ -17,5 +17,5 @@ export type User = {
 };
 
 export async function getUsers() {
-  return apiFetch<User[]>("/auth/users");
+  return apiFetch<User[]>("/api/auth/users");
 }
