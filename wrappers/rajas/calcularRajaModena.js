@@ -63,16 +63,21 @@ function aplicarColor(items, color) {
     return items;
   }
 
-  const porcentaje = Number(colores?.[color] || 0);
+  const colorData = colores.find((c) => c.nombre === color);
+
+  const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
     if (item.tipo !== "estructura") {
       return item;
     }
 
+    const nuevoPrecio = Math.round(item.precio * (1 + porcentaje));
+
     return {
       ...item,
-      precio: Math.round(item.precio * (1 + porcentaje)),
+      precio: nuevoPrecio,
+      subtotal: nuevoPrecio,
     };
   });
 }

@@ -30,7 +30,8 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
   }
 
   // DVH clásico
-  if (tipoVidrio === "dvh") {
+  // DVH 4+9+4
+  if (tipoVidrio === "dvh" || tipoVidrio === "DVH 4+9+4") {
     const vidrio4 = datos.vidrios?.["4mm"] || 0;
 
     const camara = datos.camara || 0;
@@ -39,7 +40,7 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
   }
 
   // DVH 5+9+5
-  if (tipoVidrio === "dvh_5_9_5") {
+  if (tipoVidrio === "dvh_5_9_5" || tipoVidrio === "DVH 5+9+5") {
     const m2 = (ancho * alto) / 10000;
 
     const ml = ((ancho + alto) * 2) / 100;

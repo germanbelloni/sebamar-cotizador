@@ -34,20 +34,26 @@ function GlassPanel({ x, y, width, height, tipoVidrio }: GlassPanelProps) {
   const esLaminado = tipoVidrio === "3+3" || tipoVidrio === "4+4";
 
   const strokeVidrio = esDVH
-    ? "rgba(220,220,220,0.30)"
+    ? "rgba(220,220,220,0.34)"
     : esLaminado
-      ? "rgba(255,255,255,0.18)"
-      : "rgba(255,255,255,0.08)";
+      ? "rgba(125,211,252,0.28)"
+      : "rgba(255,255,255,0.12)";
+
+  const fillVidrio = esDVH
+    ? "url(#glassDvhGradient)"
+    : esLaminado
+      ? "url(#glassLaminadoGradient)"
+      : "url(#glassGradient)";
 
   return (
     <g>
       <rect
         x={x + 2}
-        y={y + 3}
+        y={y + 4}
         width={Math.max(0, width)}
         height={Math.max(0, height)}
         rx={2}
-        fill="rgba(0,0,0,0.16)"
+        fill="rgba(0,0,0,0.22)"
       />
 
       <rect
@@ -56,41 +62,46 @@ function GlassPanel({ x, y, width, height, tipoVidrio }: GlassPanelProps) {
         width={Math.max(0, width)}
         height={Math.max(0, height)}
         rx={2}
-        fill="url(#glassGradient)"
+        fill={fillVidrio}
+        filter="url(#glassGlow)"
         stroke={strokeVidrio}
-        strokeWidth={esDVH ? 2 : 1}
+        strokeWidth={esDVH ? 2 : 1.2}
         className="transition-all duration-300"
       />
 
       {esDVH && (
-        <rect
-          x={x + 6}
-          y={y + 6}
-          width={Math.max(0, width - 12)}
-          height={Math.max(0, height - 12)}
-          rx={1}
-          fill="none"
-          stroke="rgba(220,220,220,0.20)"
-          strokeWidth={1.5}
-        />
+        <>
+          <rect
+            x={x + 6}
+            y={y + 6}
+            width={Math.max(0, width - 12)}
+            height={Math.max(0, height - 12)}
+            rx={1}
+            fill="none"
+            stroke="rgba(220,220,220,0.22)"
+            strokeWidth={1.5}
+          />
+
+          <rect
+            x={x + 11}
+            y={y + 11}
+            width={Math.max(0, width - 22)}
+            height={Math.max(0, height - 22)}
+            rx={1}
+            fill="rgba(0,0,0,0.10)"
+            stroke="rgba(255,255,255,0.08)"
+            strokeWidth={1}
+          />
+        </>
       )}
 
       <rect
-        x={x + 5}
-        y={y + 5}
-        width={Math.max(0, width - 10)}
+        x={x + 6}
+        y={y + 6}
+        width={Math.max(0, width - 12)}
         height={2}
-        fill="rgba(255,255,255,0.10)"
-        opacity={0.8}
-      />
-
-      <rect
-        x={x + 10}
-        y={y + 10}
-        width={Math.max(0, width * 0.08)}
-        height={Math.max(0, height - 20)}
-        fill="rgba(255,255,255,0.10)"
-        opacity={0.45}
+        fill="rgba(255,255,255,0.14)"
+        opacity={0.9}
       />
     </g>
   );
@@ -143,6 +154,13 @@ function Raja({
 
   const vidrioAlto = Math.max(0, hojaAlto - vidrioPadding * 2);
 
+  const bisagraX =
+    ladoBisagra === "izquierda"
+      ? hojaX + hojaAncho - frameWidth / 2
+      : hojaX - frameWidth / 2;
+
+  const manijaX = ladoBisagra === "izquierda" ? x + 12 : x + ancho - 22;
+
   const aperturaPath =
     ladoBisagra === "izquierda"
       ? `
@@ -164,9 +182,9 @@ function Raja({
         width={hojaAncho}
         height={hojaAlto}
         fill="none"
-        stroke="rgba(0,0,0,0.20)"
+        stroke="rgba(0,0,0,0.26)"
         strokeWidth={frameWidth + 1}
-        opacity={0.7}
+        opacity={0.75}
       />
 
       <rect
@@ -190,7 +208,7 @@ function Raja({
         stroke="url(#aluminumGradient)"
         strokeWidth={Math.max(1, frameWidth - 1)}
         strokeLinejoin="round"
-        opacity={0.9}
+        opacity={0.92}
       />
 
       <rect
@@ -199,7 +217,7 @@ function Raja({
         width={Math.max(0, hojaAncho - frameWidth)}
         height={Math.max(0, hojaAlto - frameWidth)}
         fill="none"
-        stroke="rgba(0,0,0,0.22)"
+        stroke="rgba(0,0,0,0.24)"
         strokeWidth={2}
       />
 
@@ -221,6 +239,92 @@ function Raja({
           opacity={0.28}
         />
       )}
+
+      <rect
+        x={bisagraX}
+        y={y + 35}
+        width={7}
+        height={36}
+        rx={1.5}
+        fill="#18181B"
+      />
+
+      <rect
+        x={bisagraX + 1}
+        y={y + 38}
+        width={1}
+        height={30}
+        fill="rgba(255,255,255,0.24)"
+      />
+
+      <rect
+        x={bisagraX}
+        y={y + alto - 71}
+        width={7}
+        height={36}
+        rx={1.5}
+        fill="#18181B"
+      />
+
+      <rect
+        x={bisagraX + 1}
+        y={y + alto - 68}
+        width={1}
+        height={30}
+        fill="rgba(255,255,255,0.24)"
+      />
+
+      <g transform={`translate(${manijaX}, ${y + alto / 2 - 24})`}>
+        <rect x={0} y={0} width={10} height={48} rx={2} fill="#18181B" />
+
+        <rect
+          x={2}
+          y={3}
+          width={1.5}
+          height={42}
+          fill="rgba(255,255,255,0.22)"
+        />
+
+        <path
+          d={
+            ladoBisagra === "izquierda"
+              ? `
+                M 5 15
+                L -10 15
+                Q -16 15 -16 22
+                L -16 42
+              `
+              : `
+                M 5 15
+                L 20 15
+                Q 26 15 26 22
+                L 26 42
+              `
+          }
+          fill="none"
+          stroke="#18181B"
+          strokeWidth={6}
+          strokeLinecap="round"
+        />
+
+        <path
+          d={
+            ladoBisagra === "izquierda"
+              ? `
+                M 2 13
+                L -10 13
+              `
+              : `
+                M 8 13
+                L 20 13
+              `
+          }
+          fill="none"
+          stroke="rgba(255,255,255,0.18)"
+          strokeWidth={1.2}
+          strokeLinecap="round"
+        />
+      </g>
 
       <path
         d={aperturaPath}
@@ -271,6 +375,17 @@ function FixedPanel({
   return (
     <g>
       <rect
+        x={panelX + 2}
+        y={panelY + 3}
+        width={panelAncho}
+        height={panelAlto}
+        fill="none"
+        stroke="rgba(0,0,0,0.22)"
+        strokeWidth={frameWidth + 1}
+        opacity={0.75}
+      />
+
+      <rect
         x={panelX}
         y={panelY}
         width={panelAncho}
@@ -289,7 +404,17 @@ function FixedPanel({
         fill="none"
         stroke="url(#aluminumGradient)"
         strokeWidth={Math.max(1, frameWidth - 1)}
-        opacity={0.85}
+        opacity={0.88}
+      />
+
+      <rect
+        x={panelX + frameWidth / 2}
+        y={panelY + frameWidth / 2}
+        width={Math.max(0, panelAncho - frameWidth)}
+        height={Math.max(0, panelAlto - frameWidth)}
+        fill="none"
+        stroke="rgba(0,0,0,0.22)"
+        strokeWidth={2}
       />
 
       <GlassPanel
@@ -321,19 +446,40 @@ export function PatagonicasPreview({ config }: Props) {
   const aluminioColor =
     SVG_COLORS[config.color as keyof typeof SVG_COLORS] || SVG_COLORS.blanco;
 
-  const anchoRajaReal =
-    config.tipo === "1_raja"
-      ? config.ancho * (config.anchoRaja / 100)
-      : config.ancho * ((config.anchoRaja - 8) / 100);
+  const separacion = esHerrero ? 10 : 8;
 
-  const anchoRaja = anchoRajaReal * escala;
+  const anchoRajaValue =
+    typeof config.anchoRaja === "number" ? config.anchoRaja : 40;
+
+  const anchoRaja = Math.min(anchoRajaValue * escala, ancho * 0.42);
+
+  const rajaIzquierda = config.ladoApertura === "izquierda";
 
   const anchoFijo =
-    config.tipo === "1_raja" ? ancho - anchoRaja : ancho - anchoRaja * 2;
+    config.tipo === "2_rajas"
+      ? Math.max(0, ancho - anchoRaja * 2 - separacion * 2)
+      : Math.max(0, ancho - anchoRaja - separacion);
 
-  const fijoX = left + anchoRaja;
+  const rajaX = rajaIzquierda ? left : left + anchoFijo + separacion;
 
-  const segundaRajaX = left + anchoRaja + anchoFijo;
+  const fijoX =
+    config.tipo === "2_rajas"
+      ? left + anchoRaja + separacion
+      : rajaIzquierda
+        ? left + anchoRaja + separacion
+        : left;
+
+  const segundaRajaX = left + anchoRaja + separacion + anchoFijo + separacion;
+
+  const separador1X =
+    config.tipo === "2_rajas"
+      ? left + anchoRaja + separacion / 2
+      : rajaIzquierda
+        ? fijoX - separacion / 2
+        : rajaX - separacion / 2;
+
+  const separador2X =
+    left + anchoRaja + separacion + anchoFijo + separacion / 2;
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300">
@@ -371,10 +517,40 @@ export function PatagonicasPreview({ config }: Props) {
 
             <MetalGradient />
 
+            <filter id="glassGlow">
+              <feGaussianBlur stdDeviation="0.6" result="blur" />
+
+              <feMerge>
+                <feMergeNode in="blur" />
+
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
             <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+              <stop offset="0%" stopColor="rgba(255,255,255,0.24)" />
 
               <stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
+            </linearGradient>
+
+            <linearGradient
+              id="glassLaminadoGradient"
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="1"
+            >
+              <stop offset="0%" stopColor="rgba(125,211,252,0.28)" />
+
+              <stop offset="100%" stopColor="rgba(30,64,175,0.16)" />
+            </linearGradient>
+
+            <linearGradient id="glassDvhGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="rgba(113,113,122,0.42)" />
+
+              <stop offset="45%" stopColor="rgba(39,39,42,0.34)" />
+
+              <stop offset="100%" stopColor="rgba(10,10,12,0.26)" />
             </linearGradient>
 
             <linearGradient
@@ -384,11 +560,11 @@ export function PatagonicasPreview({ config }: Props) {
               x2="100%"
               y2="100%"
             >
-              <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+              <stop offset="0%" stopColor="rgba(255,255,255,0.24)" />
 
-              <stop offset="20%" stopColor="rgba(255,255,255,0.10)" />
+              <stop offset="20%" stopColor="rgba(255,255,255,0.11)" />
 
-              <stop offset="50%" stopColor="rgba(0,0,0,0.10)" />
+              <stop offset="50%" stopColor="rgba(0,0,0,0.12)" />
 
               <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
             </linearGradient>
@@ -446,8 +622,28 @@ export function PatagonicasPreview({ config }: Props) {
 
           {config.tipo === "1_raja" && (
             <>
+              <rect
+                x={separador1X}
+                y={top + 6}
+                width={esHerrero ? 8 : 6}
+                height={alto - 12}
+                rx={2}
+                fill={aluminioColor}
+                stroke="url(#aluminumGradient)"
+                opacity={0.95}
+              />
+
+              <rect
+                x={separador1X + 1}
+                y={top + 10}
+                width={esHerrero ? 2 : 1.5}
+                height={alto - 20}
+                fill="rgba(255,255,255,0.25)"
+                opacity={0.9}
+              />
+
               <Raja
-                x={left}
+                x={rajaX}
                 y={top}
                 ancho={anchoRaja}
                 alto={alto}
@@ -472,6 +668,46 @@ export function PatagonicasPreview({ config }: Props) {
 
           {config.tipo === "2_rajas" && (
             <>
+              <rect
+                x={separador1X}
+                y={top + 6}
+                width={esHerrero ? 8 : 6}
+                height={alto - 12}
+                rx={2}
+                fill={aluminioColor}
+                stroke="url(#aluminumGradient)"
+                opacity={0.95}
+              />
+
+              <rect
+                x={separador1X + 1}
+                y={top + 10}
+                width={esHerrero ? 2 : 1.5}
+                height={alto - 20}
+                fill="rgba(255,255,255,0.25)"
+                opacity={0.9}
+              />
+
+              <rect
+                x={separador2X}
+                y={top + 6}
+                width={esHerrero ? 8 : 6}
+                height={alto - 12}
+                rx={2}
+                fill={aluminioColor}
+                stroke="url(#aluminumGradient)"
+                opacity={0.95}
+              />
+
+              <rect
+                x={separador2X + 1}
+                y={top + 10}
+                width={esHerrero ? 2 : 1.5}
+                height={alto - 20}
+                fill="rgba(255,255,255,0.25)"
+                opacity={0.9}
+              />
+
               <Raja
                 x={left}
                 y={top}

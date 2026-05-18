@@ -3,7 +3,7 @@ import type { RajasConfig, RajasItem } from "../types";
 import { buildRajasDescription } from "./buildRajasDescription";
 
 type CotizacionRajasResponse = {
-  descripcion: string;
+  descripcion?: string;
 
   precioVenta?: number;
 
@@ -48,8 +48,14 @@ export function createRajasBudgetItem(
       contramarco: config.contramarco,
 
       herrajesBlancos: config.herrajesBlancos,
+
+      ...(config.linea === "Modena" && config.modelo === "oscilobatiente"
+        ? {
+            posicionOscilo: config.posicionOscilo,
+          }
+        : {}),
     },
 
-    subtotal: Number(result.precioVenta || result.precioFinal || 0),
+    subtotal: Number(result.precioVenta ?? result.precioFinal ?? 0),
   };
 }

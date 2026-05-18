@@ -1,5 +1,7 @@
 import type { PatagonicasConfig, PatagonicasItem } from "../types";
 
+import { buildPatagonicasDescription } from "./buildPatagonicasDescription";
+
 export function createPatagonicasBudgetItem(
   config: PatagonicasConfig,
 
@@ -31,7 +33,7 @@ export function createPatagonicasBudgetItem(
 
       cantidadRajas: config.cantidadRajas,
 
-      anchoRaja: config.anchoRaja,
+      anchoRaja: typeof config.anchoRaja === "number" ? config.anchoRaja : 40,
 
       tipoVidrio: config.tipoVidrio,
 
@@ -42,27 +44,15 @@ export function createPatagonicasBudgetItem(
       bisagraRaja2: config.bisagraRaja2,
 
       tipoApertura: config.tipoApertura,
+
+      guia: config.guia,
+
+      cajonBlock: config.cajonBlock,
+
+      cortina: config.cortina,
     },
 
-    description: [
-      `${config.cantidadRajas} Raja/s`,
-
-      `${config.ancho}x${config.alto}`,
-
-      config.linea,
-
-      config.tipoVidrio,
-
-      `Raja ${config.anchoRaja}cm`,
-
-      config.mosquitero ? "Mosquitero" : null,
-
-      config.premarco ? "Premarco" : null,
-
-      config.contramarco ? "Contramarco" : null,
-    ]
-      .filter(Boolean)
-      .join(" · "),
+    description: buildPatagonicasDescription(config),
 
     subtotal,
   };

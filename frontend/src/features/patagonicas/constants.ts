@@ -83,3 +83,14 @@ export const bisagrasPatagonicas = [
     value: "derecha",
   },
 ] as const;
+export const ladosPatagonicas = [
+  {
+    label: "Raja a la izquierda",
+    value: "izquierda",
+  },
+
+  {
+    label: "Raja a la derecha",
+    value: "derecha",
+  },
+] as const;

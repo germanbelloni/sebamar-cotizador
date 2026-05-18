@@ -185,10 +185,18 @@ function superficies(req, res) {
 function patagonicas(req, res) {
   const linea = req.body.linea?.toLowerCase();
 
+  const payload = {
+    ...req.body,
+
+    medida: `${req.body.ancho}x${req.body.alto}`,
+
+    cantidadRajas: req.body.tipo === "2_rajas" ? 2 : 1,
+  };
+
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
 
-  return runCalculation(req, res, "PATAGONICAS", (data) => calculadora(data));
+  return runCalculation(req, res, "PATAGONICAS", () => calculadora(payload));
 }
 
 module.exports = {

@@ -7,15 +7,17 @@ type Option = {
 };
 
 type Props = {
-  title?: string;
+  title: string;
 
   value: string;
 
-  options: Option[];
-
-  columns?: number;
+  options: readonly Option[];
 
   onChange: (value: string) => void;
+
+  disabled?: boolean;
+
+  columns?: 1 | 2 | 3;
 };
 
 export function OptionSelector({
@@ -28,15 +30,22 @@ export function OptionSelector({
   columns = 2,
 
   onChange,
+
+  disabled = false,
 }: Props) {
   return (
-    <div className="space-y-4">
+    <div
+      className={`
+        space-y-4
+
+        ${disabled ? "pointer-events-none opacity-50" : ""}
+      `}
+    >
       {title && (
         <h3
           className="
             text-sm
             font-medium
-
             text-foreground/70
           "
         >
@@ -61,7 +70,11 @@ export function OptionSelector({
           <GlassCard
             key={option.value}
             selected={value === option.value}
-            onClick={() => onChange(option.value)}
+            onClick={() => {
+              if (!disabled) {
+                onChange(option.value);
+              }
+            }}
           >
             <div
               className="

@@ -290,6 +290,8 @@ function App() {
       cajonBlock: false,
 
       cortina: null,
+
+      fueraDeMedida: false,
     },
   );
   /* MARCOS */

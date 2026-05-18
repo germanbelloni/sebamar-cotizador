@@ -5,7 +5,7 @@ import type { PatagonicasConfig } from "../types";
 export type CotizacionPatagonicasResponse = {
   descripcion: string;
 
-  precioVenta: number;
+  precioFinal: number;
 };
 
 export async function cotizarPatagonicas(
@@ -20,5 +20,7 @@ export async function cotizarPatagonicas(
     },
   );
 
-  return response.precioVenta;
+  console.log("RESPONSE PATAGONICAS:", response);
+
+  return response.precioFinal;
 }

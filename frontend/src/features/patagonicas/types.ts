@@ -17,7 +17,7 @@ export type PatagonicasTipoVidrio =
 
 export type LadoApertura = "izquierda" | "derecha";
 
-export type MedidaRaja = 40 | 50 | 60;
+export type MedidaRaja = number;
 
 export interface PatagonicasConfig {
   linea: PatagonicasLinea;
@@ -55,6 +55,8 @@ export interface PatagonicasConfig {
   cajonBlock: boolean;
 
   cortina: "pvc" | "aluminio" | null;
+
+  fueraDeMedida: boolean;
 }
 
 export interface PatagonicasItem {
