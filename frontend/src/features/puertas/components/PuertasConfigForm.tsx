@@ -1,7 +1,6 @@
 import type { PuertasConfig, PuertasItem } from "../types";
 
 import {
-  MODELOS_PUERTAS,
   PRESETS_PUERTAS,
   PUERTAS_LINEAS,
   PUERTAS_TIPOS,
@@ -43,9 +42,13 @@ import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
 import { SelectableCard } from "@/components/ui/selectable-card";
 
-import { GlassCard } from "@/shared/cards/GlassCard";
-
 import { PuertasExtrasSection } from "./sections/PuertasExtrasSection";
+
+import { getAvailableDoorModels } from "../models/utils/getAvailableDoorModels";
+
+import { DoorRenderer } from "../svg/components/DoorRenderer";
+
+import { DoorPreviewCard } from "../svg/components/DoorPreviewCard";
 
 type Props = {
   config: PuertasConfig;
@@ -79,7 +82,7 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
     createItem: createPuertasBudgetItem,
   });
 
-  const modelos = MODELOS_PUERTAS[config.linea];
+  const modelos = getAvailableDoorModels(config.linea, config.tipo) as string[];
 
   const vidrios = VIDRIOS_POR_LINEA[config.linea];
 
@@ -169,9 +172,10 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
 
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 gap-3">
-            {modelos.map((modelo) => (
-              <GlassCard
+            {modelos.map((modelo: string) => (
+              <DoorPreviewCard
                 key={modelo}
+                label={modelo.replaceAll("_", " ")}
                 selected={config.modelo === modelo}
                 onClick={() =>
                   updateConfig({
@@ -179,33 +183,22 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
                   })
                 }
               >
-                <div className="space-y-2">
-                  <div
-                    className="
-                      flex
-                      h-24
-                      items-center
-                      justify-center
-                      rounded-xl
-                      border border-white/5
-                      bg-black/30
-                    "
-                  >
-                    <div className="text-xs text-zinc-500">SVG modelo</div>
-                  </div>
-
-                  <div
-                    className="
-                      text-xs
-                      uppercase
-                      tracking-[0.2em]
-                      text-zinc-300
-                    "
-                  >
-                    {modelo.replaceAll("_", " ")}
-                  </div>
-                </div>
-              </GlassCard>
+                <svg viewBox="0 0 140 240" className="h-full w-full">
+                  <DoorRenderer
+                    config={config}
+                    model={
+                      MODELOS_PUERTAS_CONFIG[
+                        modelo as keyof typeof MODELOS_PUERTAS_CONFIG
+                      ]
+                    }
+                    color="#D6D3D1"
+                    x={38}
+                    y={14}
+                    width={64}
+                    height={210}
+                  />
+                </svg>
+              </DoorPreviewCard>
             ))}
           </div>
         </FormSection>
@@ -230,7 +223,7 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
                   selected={config.modeloMediaPuerta === modelo}
                   onClick={() =>
                     updateConfig({
-                      modeloMediaPuerta: modelo,
+                      modelo: modelo as PuertasConfig["modelo"],
                     })
                   }
                 >

@@ -17,7 +17,7 @@ export function usePuertasForm({ config, setConfig }: Props) {
     updateConfig({
       linea,
 
-      modelo: linea === "eco" ? "modelo 1 vr" : "modelo 1",
+      modelo: linea === "eco" ? "m1vr" : "m1",
 
       vidrio: linea === "eco" ? "4mm" : "3mm",
     });
