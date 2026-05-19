@@ -94,9 +94,9 @@ export default function PresupuestosPage() {
 
                     <td className="p-4 text-right font-semibold text-lime-400">
                       $
-                      {new Intl.NumberFormat("es-AR").format(
-                        presupuesto.total || 0,
-                      )}
+                      {new Intl.NumberFormat("es-AR")
+                        .format(presupuesto.total || 0)
+                        .replace(/\./g, "")}
                     </td>
 
                     <td className="p-4">

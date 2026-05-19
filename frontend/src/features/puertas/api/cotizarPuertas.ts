@@ -2,13 +2,40 @@ import { apiFetch } from "@/lib/api";
 
 import type { PuertasConfig } from "../types";
 
+import { BACKEND_MODEL_MAPPINGS } from "../models/backendMappings";
+
 type CotizacionPuertasResponse = {
   precioVenta?: number;
+
+  precioFinal?: number;
 };
+
+function normalizeModelo(modelo?: string) {
+  if (!modelo) {
+    return "";
+  }
+
+  return modelo.replaceAll("_", " ").trim();
+}
 
 export async function cotizarPuertas(
   config: PuertasConfig,
 ): Promise<CotizacionPuertasResponse> {
+  const backendMappings =
+    BACKEND_MODEL_MAPPINGS[config.linea as keyof typeof BACKEND_MODEL_MAPPINGS];
+
+  const backendModelo =
+    backendMappings?.[config.modelo as keyof typeof backendMappings] ||
+    normalizeModelo(config.modelo);
+
+  const backendModeloMedia =
+    backendMappings?.[
+      config.modeloMediaPuerta as keyof typeof backendMappings
+    ] || normalizeModelo(config.modeloMediaPuerta);
+
+  const modeloSinVidrio =
+    config.modelo === "modelo_5" || config.modelo === "modelo_panel";
+
   const body = {
     ancho: config.ancho,
 
@@ -21,9 +48,11 @@ export async function cotizarPuertas(
         ? config.tipoPorton
         : config.tipoConfiguracion,
 
-    modelo: config.modelo,
+    modelo: backendModelo,
 
-    modeloMediaPuerta: config.modeloMediaPuerta,
+    modeloPuerta: backendModelo,
+
+    modeloMedia: backendModeloMedia,
 
     color: config.color,
 
@@ -31,11 +60,11 @@ export async function cotizarPuertas(
 
     mano: config.mano,
 
-    hojas: config.hojas,
+    hojas: config.hojas || 1,
 
     anchoPrincipal: config.anchoPrincipal,
 
-    vidrio: config.vidrio,
+    tipoVidrio: modeloSinVidrio ? undefined : config.vidrio,
 
     extras: config.extras,
   };
@@ -50,7 +79,7 @@ export async function cotizarPuertas(
     });
   }
 
-  /* PUERTAS */
+  /* ECO */
 
   if (config.linea === "eco") {
     return apiFetch<CotizacionPuertasResponse>("/api/puertas/eco", {
@@ -59,6 +88,8 @@ export async function cotizarPuertas(
       body: JSON.stringify(body),
     });
   }
+
+  /* STANDARD */
 
   return apiFetch<CotizacionPuertasResponse>("/api/puertas", {
     method: "POST",

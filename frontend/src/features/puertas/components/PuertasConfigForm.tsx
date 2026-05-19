@@ -65,6 +65,7 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
 
   const {
     updateConfig,
+    switchLinea,
     anchoInput,
     altoInput,
     handleAnchoChange,
@@ -73,7 +74,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
     config,
     setConfig,
   });
-
   const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
     usePuertasValidation(config);
 
@@ -93,6 +93,17 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
 
   const esPuertaYMedia = config.tipoConfiguracion === "puerta_y_media";
 
+  const modeloSinVidrio =
+    config.modelo === "modelo_5" ||
+    config.modelo === "modelo_panel" ||
+    config.modelo === "modelo_c_panel";
+
+  const esFueraDeMedida = !presets.some(
+    (preset) =>
+      !preset.custom &&
+      preset.ancho === config.ancho &&
+      preset.alto === config.alto,
+  );
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -102,25 +113,46 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           <LineaSelector
             value={config.linea}
             options={PUERTAS_LINEAS}
-            onChange={(value) =>
-              updateConfig({
-                linea: value as PuertasConfig["linea"],
-              })
-            }
+            onChange={(value) => switchLinea(value as PuertasConfig["linea"])}
           />
         </FormSection>
 
-        {/* TIPO */}
+        {/* CONFIGURACION */}
 
         <FormSection title="Configuración">
           <LineaSelector
             value={config.tipoConfiguracion}
             options={PUERTAS_TIPOS}
-            onChange={(value) =>
+            onChange={(value) => {
+              const tipo = value as PuertasConfig["tipoConfiguracion"];
+
+              let hojas = 1;
+
+              if (tipo === "doble") {
+                hojas = 2;
+              }
+
+              if (tipo === "porton") {
+                hojas = 3;
+              }
+
               updateConfig({
-                tipoConfiguracion: value as PuertasConfig["tipoConfiguracion"],
-              })
-            }
+                tipoConfiguracion: tipo,
+
+                hojas,
+
+                ancho:
+                  tipo === "simple"
+                    ? 80
+                    : tipo === "puerta_y_media"
+                      ? 120
+                      : tipo === "doble"
+                        ? 160
+                        : 240,
+
+                alto: 200,
+              });
+            }}
           />
         </FormSection>
 
@@ -128,46 +160,80 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
 
         <FormSection title="Medidas estándar">
           <div className="grid grid-cols-2 gap-3">
-            {presets.map((preset) => (
-              <SelectableCard
-                key={preset.label}
-                selected={
-                  config.ancho === preset.ancho && config.alto === preset.alto
-                }
-                onClick={() =>
-                  updateConfig({
-                    ancho: preset.ancho,
-                    alto: preset.alto,
+            {presets
+              .filter((preset) => !preset.custom)
+              .map((preset) => (
+                <SelectableCard
+                  key={preset.label}
+                  selected={
+                    config.ancho === preset.ancho && config.alto === preset.alto
+                  }
+                  onClick={() =>
+                    updateConfig({
+                      ancho: preset.ancho,
 
-                    anchoPrincipal:
-                      "principal" in preset
-                        ? preset.principal
-                        : config.anchoPrincipal,
-                  })
-                }
-              >
-                <div className="text-sm font-medium">{preset.label}</div>
-              </SelectableCard>
-            ))}
+                      alto: preset.alto,
+
+                      hojas:
+                        config.tipoConfiguracion === "porton"
+                          ? 3
+                          : config.tipoConfiguracion === "doble"
+                            ? 2
+                            : 1,
+
+                      anchoPrincipal:
+                        "principal" in preset && preset.principal
+                          ? preset.principal
+                          : preset.ancho,
+                    })
+                  }
+                >
+                  <div className="text-sm font-medium">{preset.label}</div>
+                </SelectableCard>
+              ))}
+          </div>
+
+          <div className="mt-3">
+            <SelectableCard
+              selected={esFueraDeMedida}
+              onClick={() =>
+                updateConfig({
+                  ancho:
+                    config.tipoConfiguracion === "simple"
+                      ? 85
+                      : config.tipoConfiguracion === "puerta_y_media"
+                        ? 125
+                        : config.tipoConfiguracion === "doble"
+                          ? 170
+                          : 260,
+
+                  alto: config.tipoConfiguracion === "porton" ? 210 : 205,
+                })
+              }
+            >
+              <div className="text-sm font-medium">Fuera de medida</div>
+            </SelectableCard>
           </div>
         </FormSection>
 
-        {/* MEDIDAS */}
+        {/* MEDIDAS CUSTOM */}
 
-        <FormSection title="Medidas">
-          <DimensionsSection
-            anchoInput={anchoInput}
-            altoInput={altoInput}
-            anchoValido={anchoValido}
-            altoValido={altoValido}
-            anchoMin={limites.anchoMin}
-            anchoMax={limites.anchoMax}
-            altoMin={limites.altoMin}
-            altoMax={limites.altoMax}
-            onAnchoChange={handleAnchoChange}
-            onAltoChange={handleAltoChange}
-          />
-        </FormSection>
+        {esFueraDeMedida && (
+          <FormSection title="Medidas">
+            <DimensionsSection
+              anchoInput={anchoInput}
+              altoInput={altoInput}
+              anchoValido={anchoValido}
+              altoValido={altoValido}
+              anchoMin={limites.anchoMin}
+              anchoMax={limites.anchoMax}
+              altoMin={limites.altoMin}
+              altoMax={limites.altoMax}
+              onAnchoChange={handleAnchoChange}
+              onAltoChange={handleAltoChange}
+            />
+          </FormSection>
+        )}
 
         {/* MODELOS */}
 
@@ -184,7 +250,10 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
                   })
                 }
               >
-                <svg viewBox="0 0 140 240" className="h-full w-full">
+                <svg
+                  viewBox="0 0 140 240"
+                  className="h-full w-full pointer-events-none"
+                >
                   <DoorRenderer
                     config={config}
                     model={
@@ -224,7 +293,7 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
                   selected={config.modeloMediaPuerta === modelo}
                   onClick={() =>
                     updateConfig({
-                      modelo: modelo as PuertasConfig["modelo"],
+                      modeloMediaPuerta: modelo,
                     })
                   }
                 >
@@ -237,17 +306,19 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
 
         {/* VIDRIO */}
 
-        <FormSection title="Vidrio">
-          <VidrioSelector
-            value={config.vidrio || "4mm"}
-            options={vidrios}
-            onChange={(value) =>
-              updateConfig({
-                vidrio: value as PuertasConfig["vidrio"],
-              })
-            }
-          />
-        </FormSection>
+        {!modeloSinVidrio && (
+          <FormSection title="Vidrio">
+            <VidrioSelector
+              value={config.vidrio || "3mm"}
+              options={vidrios}
+              onChange={(value) =>
+                updateConfig({
+                  vidrio: value as PuertasConfig["vidrio"],
+                })
+              }
+            />
+          </FormSection>
+        )}
 
         {/* COLOR */}
 

@@ -4,9 +4,12 @@ export function createPuertasBudgetItem(
   config: PuertasConfig,
   result: {
     precioVenta?: number;
+
+    precioFinal?: number;
   },
 ): PuertasItem {
-  const subtotal = Number(result?.precioVenta) || 0;
+  const subtotal =
+    Number(result?.precioFinal) || Number(result?.precioVenta) || 0;
 
   return {
     tipo: "puertas",
@@ -91,7 +94,10 @@ function buildDescription(config: PuertasConfig) {
 
   /* VIDRIO */
 
-  if (config.vidrio) {
+  const modeloSinVidrio =
+    config.modelo === "modelo_5" || config.modelo === "modelo_panel";
+
+  if (!modeloSinVidrio && config.vidrio) {
     parts.push(`Vidrio ${config.vidrio}`);
   }
 

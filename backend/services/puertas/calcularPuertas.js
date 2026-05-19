@@ -9,7 +9,12 @@ const superficies = require(
 // ========================
 
 function normalizar(txt) {
-  return txt?.toString().toLowerCase().trim();
+  return txt
+    ?.toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
 }
 
 function buscarModelo(obj, nombre) {
@@ -84,13 +89,23 @@ function calcularPuertas(dataInput) {
     fromRoot(`backend/data/productos/puertas_${linea}.json`),
   );
 
+  const ajustes = data.ajustes || {};
+
   const items = [];
 
   let estructura = 0;
 
   let vidrioTotal = 0;
 
-  let hojas = tipo === "doble" ? 2 : 1;
+  let hojas = 1;
+
+  if (tipo === "doble") {
+    hojas = 2;
+  }
+
+  if (tipo === "porton") {
+    hojas = Number(dataInput.hojas) || 2;
+  }
 
   // ========================
   // 🚪 PUERTA Y MEDIA
@@ -99,7 +114,17 @@ function calcularPuertas(dataInput) {
   if (tipo === "puerta_y_media") {
     const puerta = buscarModelo(data.modelos, modeloPuerta);
 
-    const media = buscarModelo(data.modelos, modeloMedia);
+    let media = null;
+
+    if (linea === "herrero") {
+      const mediasData = require(
+        fromRoot("backend/data/productos/puertas_media_herrero.json"),
+      );
+
+      media = buscarModelo(mediasData.medias, modeloMedia);
+    } else {
+      media = puerta;
+    }
 
     if (!puerta || !media) {
       throw new Error("Modelo puerta/media inválido");
@@ -143,7 +168,7 @@ function calcularPuertas(dataInput) {
   }
 
   // ========================
-  // 🚪 SIMPLE / DOBLE
+  // 🚪 SIMPLE / DOBLE / PORTON
   // ========================
   else {
     const producto = buscarModelo(data.modelos, modelo);
@@ -175,14 +200,28 @@ function calcularPuertas(dataInput) {
   // 💰 TOTAL
   // ========================
 
-  const costoBase = estructura + vidrioTotal;
+  let costoBase = estructura + vidrioTotal;
+
+  // ========================
+  // 📏 AJUSTES MEDIDAS
+  // ========================
+
+  const key = `${Math.round(dataInput.ancho)}x${Math.round(dataInput.alto)}`;
+
+  const ajuste = ajustes[key];
+
+  if (typeof ajuste === "number") {
+    costoBase = costoBase * (1 + ajuste);
+  }
 
   return {
     costoBase: Math.round(costoBase),
 
+    precioVenta: Math.round(costoBase),
+
     items,
 
-    descripcionBase: `Puerta ${linea}`,
+    descripcion: tipo === "porton" ? "Portón" : `Puerta ${linea}`,
 
     configuracion: {
       tipo,

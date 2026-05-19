@@ -19,16 +19,24 @@ function calcularportones(dataInput) {
     const r = calcularPuertas({
       ...rest,
 
+      tipo: "simple",
+
+      ancho: anchoHoja,
+
+      alto,
+
       medida: `${Math.round(anchoHoja)}x${alto}`,
     });
 
-    costoBase += Number(r.costoBase || 0);
+    costoBase += Number(r.precioVenta || r.costoBase || 0);
 
     items.push(...(r.items || []));
   }
 
   return {
     costoBase: Math.round(costoBase),
+
+    precioVenta: Math.round(costoBase),
 
     items,
 
