@@ -1,41 +1,38 @@
-type Params<TConfig, TResult = unknown, TItem = unknown> = {
-  mutation: {
-    mutateAsync: (config: TConfig) => Promise<TResult>;
-  };
+import type { PanoFijoConfig, PanoFijoItem } from "../types";
 
-  config: TConfig;
+import { buildPanoFijoDescription } from "./buildPanoFijoDescription";
 
-  setItems: React.Dispatch<React.SetStateAction<TItem[]>>;
+type CotizacionResult = {
+  descripcion: string;
 
-  createItem: (
-    config: TConfig,
-
-    result: TResult,
-  ) => TItem;
+  precioVenta: number;
 };
 
-export function useBudgetAdder<TConfig, TResult = unknown, TItem = unknown>({
-  mutation,
-
-  config,
-
-  setItems,
-
-  createItem,
-}: Params<TConfig, TResult, TItem>) {
-  async function handleAdd() {
-    try {
-      const result = await mutation.mutateAsync(config);
-
-      const item = createItem(config, result);
-
-      setItems((prev) => [...prev, item]);
-    } catch (error) {
-      console.error("ERROR AGREGANDO ITEM:", error);
-    }
-  }
-
+export function createPanoFijoBudgetItem(
+  config: PanoFijoConfig,
+  result: CotizacionResult,
+): PanoFijoItem {
   return {
-    handleAdd,
+    tipo: "pano_fijo",
+
+    cantidad: 1,
+
+    medidas: {
+      ancho: config.ancho,
+
+      alto: config.alto,
+    },
+
+    description: result.descripcion || buildPanoFijoDescription(config),
+
+    color: config.color,
+
+    configuracion: {
+      linea: config.linea,
+
+      tipoVidrio: config.tipoVidrio,
+    },
+
+    subtotal: Number(result.precioVenta || 0),
   };
 }

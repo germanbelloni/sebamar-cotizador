@@ -136,6 +136,9 @@ export function PostigonesConfigForm({
             onChange={(value) =>
               updateConfig({
                 tipo: value as PostigonesConfig["tipo"],
+
+                // corredizo solo usa marco ancho
+                marco: value === "corredizo" ? "ancho" : config.marco,
               })
             }
           />
@@ -184,41 +187,43 @@ export function PostigonesConfigForm({
 
             {/* CIERRE */}
 
-            <OptionSelector
-              title="Hoja de cierre"
-              value={config.hojaCierre}
-              columns={2}
-              options={
-                config.cantidadHojas === 2
-                  ? [
-                      {
-                        label: "Izquierda",
-                        value: "izquierda",
-                      },
+            {config.tipo === "abrir" && (
+              <OptionSelector
+                title="Hoja de cierre"
+                value={config.hojaCierre}
+                columns={2}
+                options={
+                  config.cantidadHojas === 2
+                    ? [
+                        {
+                          label: "Izquierda",
+                          value: "izquierda",
+                        },
 
-                      {
-                        label: "Derecha",
-                        value: "derecha",
-                      },
-                    ]
-                  : [
-                      {
-                        label: "Centro izquierda",
-                        value: "centro-izquierda",
-                      },
+                        {
+                          label: "Derecha",
+                          value: "derecha",
+                        },
+                      ]
+                    : [
+                        {
+                          label: "Centro izquierda",
+                          value: "centro-izquierda",
+                        },
 
-                      {
-                        label: "Centro derecha",
-                        value: "centro-derecha",
-                      },
-                    ]
-              }
-              onChange={(value) =>
-                updateConfig({
-                  hojaCierre: value as HojaCierrePostigon,
-                })
-              }
-            />
+                        {
+                          label: "Centro derecha",
+                          value: "centro-derecha",
+                        },
+                      ]
+                }
+                onChange={(value) =>
+                  updateConfig({
+                    hojaCierre: value as HojaCierrePostigon,
+                  })
+                }
+              />
+            )}
 
             {/* COLOR */}
 
@@ -241,27 +246,29 @@ export function PostigonesConfigForm({
             />
           </div>
 
-          <OptionSelector
-            title="Marco"
-            value={config.marco || "ancho"}
-            columns={2}
-            options={[
-              {
-                label: "Ancho",
-                value: "ancho",
-              },
+          {config.tipo === "abrir" && (
+            <OptionSelector
+              title="Marco"
+              value={config.marco || "ancho"}
+              columns={2}
+              options={[
+                {
+                  label: "Ancho",
+                  value: "ancho",
+                },
 
-              {
-                label: "Fino",
-                value: "fino",
-              },
-            ]}
-            onChange={(value) =>
-              updateConfig({
-                marco: value as "ancho" | "fino",
-              })
-            }
-          />
+                {
+                  label: "Fino",
+                  value: "fino",
+                },
+              ]}
+              onChange={(value) =>
+                updateConfig({
+                  marco: value as "ancho" | "fino",
+                })
+              }
+            />
+          )}
         </FormSection>
 
         {/* OPCIONES */}
