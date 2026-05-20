@@ -39,6 +39,21 @@ export function MarcosPreview({ config }: Props) {
         "
       >
         <svg width="500" height="500" viewBox="0 0 500 500">
+          {/* SOMBRA */}
+
+          <rect
+            x="105"
+            y="105"
+            width="290"
+            height="290"
+            fill="none"
+            stroke="rgba(0,0,0,0.45)"
+            strokeWidth="24"
+            opacity="0.25"
+          />
+
+          {/* MARCO */}
+
           <rect
             x="110"
             y="110"
@@ -58,6 +73,112 @@ export function MarcosPreview({ config }: Props) {
             }
             strokeWidth={config.tipo === "premarco" ? 18 : 12}
           />
+
+          {/* REFLEJO */}
+
+          <line
+            x1="118"
+            y1="118"
+            x2="382"
+            y2="118"
+            stroke="rgba(255,255,255,0.18)"
+            strokeWidth="2"
+          />
+
+          <line
+            x1="118"
+            y1="118"
+            x2="118"
+            y2="382"
+            stroke="rgba(255,255,255,0.10)"
+            strokeWidth="2"
+          />
+
+          {/* ESCUADRAS SOLO PREMARCO */}
+
+          {config.tipo === "premarco" && (
+            <>
+              {/* SUPERIOR IZQ */}
+
+              <polygon
+                points="110,110 150,110 110,150"
+                fill="#1F1F1F"
+                opacity="0.95"
+              />
+
+              {/* SUPERIOR DER */}
+
+              <polygon
+                points="390,110 350,110 390,150"
+                fill="#1F1F1F"
+                opacity="0.95"
+              />
+
+              {/* INFERIOR IZQ */}
+
+              <polygon
+                points="110,390 150,390 110,350"
+                fill="#1F1F1F"
+                opacity="0.95"
+              />
+
+              {/* INFERIOR DER */}
+
+              <polygon
+                points="390,390 350,390 390,350"
+                fill="#1F1F1F"
+                opacity="0.95"
+              />
+
+              {/* HUECOS */}
+
+              <polygon points="120,120 138,120 120,138" fill="#2B2B2B" />
+
+              <polygon points="380,120 362,120 380,138" fill="#2B2B2B" />
+
+              <polygon points="120,380 138,380 120,362" fill="#2B2B2B" />
+
+              <polygon points="380,380 362,380 380,362" fill="#2B2B2B" />
+
+              {/* GRAMPAS LATERALES */}
+
+              <rect
+                x="100"
+                y="175"
+                width="10"
+                height="42"
+                rx="2"
+                fill="#BDBDBD"
+              />
+
+              <rect
+                x="100"
+                y="283"
+                width="10"
+                height="42"
+                rx="2"
+                fill="#BDBDBD"
+              />
+
+              <rect
+                x="390"
+                y="175"
+                width="10"
+                height="42"
+                rx="2"
+                fill="#BDBDBD"
+              />
+
+              <rect
+                x="390"
+                y="283"
+                width="10"
+                height="42"
+                rx="2"
+                fill="#BDBDBD"
+              />
+            </>
+          )}
         </svg>
       </div>
     </div>

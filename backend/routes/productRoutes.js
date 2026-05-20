@@ -1,3 +1,4 @@
+console.log("🚨 PRODUCT ROUTES REAL");
 const express = require("express");
 
 const productController = require("../controllers/productController");
@@ -31,7 +32,6 @@ router.post("/placas", productController.placas);
 
 router.post("/mosquiteros", productController.mosquiteros);
 
-
 // =========================
 // 🪟 VENTANAS
 // =========================
@@ -49,7 +49,6 @@ router.post("/rajas", productController.rajas);
 // =========================
 
 router.post("/postigones", productController.postigones);
-
 router.post("/patagonicas", productController.patagonicas);
 
 // =========================

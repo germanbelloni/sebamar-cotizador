@@ -1,13 +1,14 @@
-import {
-  DoorOpen,
-  FileText,
-  LogOut,
-  PanelsTopLeft,
-  Settings,
-  Square,
-  User,
-  Warehouse,
-} from "lucide-react";
+import { FileText, LogOut, Settings, User } from "lucide-react";
+
+import { PiGarageBold, PiSquareHalfBottomBold } from "react-icons/pi";
+
+import { MdOutlineDoorSliding } from "react-icons/md";
+
+import { TbWindow, TbWindowMaximize, TbFrame, TbSquare } from "react-icons/tb";
+
+import { GiWindow, GiDoor, GiGate } from "react-icons/gi";
+
+import { FaMosquitoNet } from "react-icons/fa6";
 
 import { useNavigate } from "react-router-dom";
 
@@ -34,19 +35,37 @@ type Props = {
 function getFeatureIcon(featureId: string) {
   switch (featureId) {
     case "ventanas":
-      return <PanelsTopLeft className="h-4 w-4" />;
+      return <GiWindow className="h-4 w-4" />;
 
     case "puertas":
-      return <DoorOpen className="h-4 w-4" />;
+      return <GiDoor className="h-4 w-4" />;
+
+    case "puertas-placa":
+      return <MdOutlineDoorSliding className="h-4 w-4" />;
 
     case "rajas":
-      return <Square className="h-4 w-4" />;
+      return <TbWindow className="h-4 w-4" />;
+
+    case "postigones":
+      return <TbWindowMaximize className="h-4 w-4" />;
+
+    case "patagonicas":
+      return <GiGate className="h-4 w-4" />;
+
+    case "mosquiteros":
+      return <FaMosquitoNet className="h-4 w-4" />;
 
     case "portones":
-      return <Warehouse className="h-4 w-4" />;
+      return <PiGarageBold className="h-4 w-4" />;
+
+    case "pano-fijo":
+      return <TbSquare className="h-4 w-4" />;
+
+    case "marcos":
+      return <TbFrame className="h-4 w-4" />;
 
     default:
-      return <Square className="h-4 w-4" />;
+      return <PiSquareHalfBottomBold className="h-4 w-4" />;
   }
 }
 
@@ -89,7 +108,6 @@ export function Sidebar({
         "
       >
         <div className="flex items-center gap-3">
-          {/* 🎨 LOGO */}
           <div
             className="
               flex
@@ -143,7 +161,7 @@ export function Sidebar({
               h-10
               w-full
               justify-start
-              gap-2
+              gap-3
               rounded-xl
               text-sm
             "
@@ -151,7 +169,7 @@ export function Sidebar({
           >
             {getFeatureIcon(feature.id)}
 
-            {feature.label}
+            <span>{feature.label}</span>
           </Button>
         ))}
       </div>
@@ -166,7 +184,6 @@ export function Sidebar({
           p-3
         "
       >
-        {/* 📄 PRESUPUESTOS */}
         <Button
           variant="ghost"
           className="
@@ -182,7 +199,6 @@ export function Sidebar({
           Presupuestos
         </Button>
 
-        {/* 👑 USERS */}
         {isSuperAdmin && (
           <Button
             variant="ghost"
@@ -200,7 +216,6 @@ export function Sidebar({
           </Button>
         )}
 
-        {/* ⚙️ SETTINGS */}
         <Button
           variant="ghost"
           className="
@@ -215,7 +230,6 @@ export function Sidebar({
           Configuración
         </Button>
 
-        {/* 🚪 LOGOUT */}
         <Button
           variant="ghost"
           className="

@@ -1,5 +1,5 @@
 const { fromRoot } = require("../../backend/utils/path");
-
+console.log("🔥 WRAPPER MODENA NUEVO");
 const service = require(
   fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
@@ -31,11 +31,17 @@ function calcularWrapper(data) {
     medida,
     ancho,
     alto,
+
     cantidadRajas = 1,
+
     tipoVidrio,
+
     color = "blanco",
+
     perfil = "amarilla",
+
     ladoApertura = "derecha",
+
     tipoApertura = "abrir",
   } = data;
 
@@ -83,7 +89,9 @@ function calcularWrapper(data) {
 
   const base = service({
     tipo,
+
     medida: medidaFinal,
+
     tipoVidrio,
   });
 
@@ -94,7 +102,7 @@ function calcularWrapper(data) {
   const colorFactor = getColorFactor(color);
 
   const items = base.items.map((i) => {
-    let precio = i.precio;
+    let precio = Number(i.precio || 0);
 
     // SOLO estructura lleva color
     if (i.tipo === "estructura") {
@@ -103,6 +111,7 @@ function calcularWrapper(data) {
 
     return {
       ...i,
+
       precio: Math.round(precio),
     };
   });
@@ -117,13 +126,20 @@ function calcularWrapper(data) {
   // 💰 PERFIL
   // =========================
 
-  const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+  const perfilData = perfiles?.[perfil]?.modena ||
+    perfiles?.amarilla?.modena || {
+      descuento: 0,
 
-  const costo = costoBase * (1 - perfilData.descuento);
+      flete: 0,
 
-  const proveedor = costo * (1 + perfilData.flete);
+      ganancia: 0.35,
+    };
 
-  const venta = proveedor * (1 + perfilData.ganancia);
+  const costo = costoBase * (1 - Number(perfilData.descuento || 0));
+
+  const proveedor = costo * (1 + Number(perfilData.flete || 0));
+
+  const venta = proveedor * (1 + Number(perfilData.ganancia || 0));
 
   // =========================
   // 🧠 CONFIG
@@ -153,6 +169,10 @@ function calcularWrapper(data) {
     }),
   };
 
+  // =========================
+  // ✅ RESPONSE
+  // =========================
+
   return {
     costoBase: Math.round(costoBase),
 
@@ -161,6 +181,8 @@ function calcularWrapper(data) {
     precioProveedor: Math.round(proveedor),
 
     precioVenta: Math.round(venta),
+
+    precioFinal: Math.round(venta),
 
     ganancia: Math.round(venta - costo),
 

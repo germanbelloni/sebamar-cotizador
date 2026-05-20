@@ -111,13 +111,22 @@ export function PatagonicasConfigForm({
               onChange={(value) => switchLinea(value)}
             />
 
-            <LineaSelector
+            <OptionSelector
+              title="Tipo"
               value={config.tipo}
-              options={PATAGONICAS_UI.selectors?.tipos || []}
+              options={[
+                {
+                  label: "1 Raja",
+                  value: "1_raja",
+                },
+                {
+                  label: "2 Rajas",
+                  value: "2_rajas",
+                },
+              ]}
               onChange={(value) =>
                 updateConfig({
                   tipo: value as PatagonicasConfig["tipo"],
-
                   cantidadRajas: value === "1_raja" ? 1 : 2,
                 })
               }

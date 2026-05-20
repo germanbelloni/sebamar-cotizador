@@ -56,7 +56,7 @@ export const FEATURES = [
   {
     id: "marcos",
 
-    label: "Marcos",
+    label: "Premarco / Contramarco",
   },
 ] as const;
 

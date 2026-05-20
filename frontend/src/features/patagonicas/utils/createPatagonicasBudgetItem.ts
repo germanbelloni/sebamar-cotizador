@@ -5,8 +5,16 @@ import { buildPatagonicasDescription } from "./buildPatagonicasDescription";
 export function createPatagonicasBudgetItem(
   config: PatagonicasConfig,
 
-  subtotal: number,
+  result: any,
 ): PatagonicasItem {
+  console.log("RESULT PATAGONICAS:", result);
+
+  const subtotal = Number(
+    result?.precioVenta || result?.precioFinal || result?.precio || 0,
+  );
+
+  console.log("SUBTOTAL FINAL:", subtotal);
+
   return {
     tipo: "patagonicas",
 
@@ -52,7 +60,7 @@ export function createPatagonicasBudgetItem(
       cortina: config.cortina,
     },
 
-    description: buildPatagonicasDescription(config),
+    description: result?.descripcion || buildPatagonicasDescription(config),
 
     subtotal,
   };

@@ -19,16 +19,34 @@ export function PanoFijoPreview({ config }: Props) {
 
   const { left, top } = calculateCenter(ancho, alto, 500);
 
-  const esHerrero = config.linea === "herrero";
+  const esHerrero = config.linea?.toLowerCase() === "herrero";
 
-  const frameWidth = esHerrero
-    ? Math.max(12, ancho * 0.03)
-    : Math.max(6, ancho * 0.015);
+  // MÁS GRUESO EN HERRERO
+  const frameWidth = esHerrero ? 14 : 22;
 
   const aluminioColor =
     SVG_COLORS[config.color as keyof typeof SVG_COLORS] || SVG_COLORS.blanco;
 
-  const esDVH = config.tipoVidrio === "dvh_4_9_4";
+  // TODOS LOS LADOS IGUALES
+  const marcoColor = config.color === "blanco" ? "#DCDCDC" : aluminioColor;
+
+  // AHORA:
+  // 👉 TODOS usan el vidrio estilo esmerilado suave
+  // 👉 ESMERILADO usa el azul clásico
+  const vidrioFill =
+    config.tipoVidrio === "esmerilado" ? "url(#glassBlue)" : "url(#glassSoft)";
+
+  const esDVH = ["dvh", "dvh_4_9_4", "DVH 4+9+4", "DVH 5+9+5"].includes(
+    config.tipoVidrio,
+  );
+
+  const glassLeft = left + frameWidth;
+
+  const glassTop = top + frameWidth;
+
+  const glassWidth = ancho - frameWidth * 2;
+
+  const glassHeight = alto - frameWidth * 2;
 
   return (
     <div className="h-full">
@@ -36,10 +54,10 @@ export function PanoFijoPreview({ config }: Props) {
         <div>
           <h3 className="text-lg font-semibold text-white">Paño fijo</h3>
 
-          <p className="text-sm text-white/45">{config.linea}</p>
+          <p className="text-sm capitalize text-white/45">{config.linea}</p>
         </div>
 
-        <div className="text-sm text-white/55">
+        <div className="font-mono text-sm text-white/55">
           {config.ancho} × {config.alto}
         </div>
       </div>
@@ -62,65 +80,280 @@ export function PanoFijoPreview({ config }: Props) {
         "
       >
         <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
-          {/* MARCO */}
+          <defs>
+            {/* ====================================== */}
+            {/* VIDRIO AZUL */}
+            {/* ====================================== */}
+
+            <linearGradient id="glassBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7ec2e2" stopOpacity="0.25" />
+
+              <stop offset="40%" stopColor="#a3d5ed" stopOpacity="0.18" />
+
+              <stop offset="100%" stopColor="#5fa1bf" stopOpacity="0.30" />
+            </linearGradient>
+
+            {/* ====================================== */}
+            {/* VIDRIO SUAVE / ESMERILADO */}
+            {/* ====================================== */}
+
+            <linearGradient id="glassSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.20" />
+
+              <stop offset="100%" stopColor="#dfe6ee" stopOpacity="0.10" />
+            </linearGradient>
+
+            {/* ====================================== */}
+            {/* REFLEJO */}
+            {/* ====================================== */}
+
+            <linearGradient
+              id="glassReflection"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+
+              <stop offset="30%" stopColor="#ffffff" stopOpacity="0" />
+
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </linearGradient>
+
+            {/* ====================================== */}
+            {/* SOMBRA */}
+            {/* ====================================== */}
+
+            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow
+                dx="0"
+                dy="2"
+                stdDeviation="3"
+                floodColor="#000000"
+                floodOpacity="0.5"
+              />
+            </filter>
+          </defs>
+
+          {/* ====================================== */}
+          {/* VIDRIO */}
+          {/* ====================================== */}
 
           <rect
-            x={left}
-            y={top}
-            width={ancho}
-            height={alto}
-            fill={config.color === "blanco" ? "#B8B8B8" : aluminioColor}
-            rx={4}
+            x={glassLeft}
+            y={glassTop}
+            width={glassWidth}
+            height={glassHeight}
+            fill={
+              config.tipoVidrio === "fantasia"
+                ? "rgba(240,245,255,0.20)"
+                : vidrioFill
+            }
           />
 
           {/* DVH */}
 
           {esDVH && (
             <rect
-              x={left + frameWidth + 6}
-              y={top + frameWidth + 6}
-              width={ancho - frameWidth * 2 - 12}
-              height={alto - frameWidth * 2 - 12}
-              fill="rgba(255,255,255,0.08)"
-              opacity={0.22}
+              x={glassLeft + 2}
+              y={glassTop + 2}
+              width={glassWidth - 4}
+              height={glassHeight - 4}
+              stroke="rgba(0,0,0,0.65)"
+              strokeWidth="3"
+              fill="none"
+              opacity={0.8}
             />
           )}
 
-          {/* VIDRIO */}
+          {/* ====================================== */}
+          {/* MARCO */}
+          {/* ====================================== */}
 
-          <rect
-            x={left + frameWidth}
-            y={top + frameWidth}
-            width={ancho - frameWidth * 2}
-            height={alto - frameWidth * 2}
-            fill={
-              config.tipoVidrio === "esmerilado"
-                ? "rgba(255,255,255,0.20)"
-                : config.tipoVidrio === "fantasia"
-                  ? "rgba(255,255,255,0.14)"
-                  : "rgba(90,140,190,0.22)"
-            }
-          />
+          <g filter="url(#shadow)">
+            {esHerrero ? (
+              <>
+                {/* SUPERIOR */}
 
-          {/* REFLEJO */}
+                <rect
+                  x={left}
+                  y={top}
+                  width={ancho}
+                  height={frameWidth}
+                  fill={marcoColor}
+                />
 
-          <rect
-            x={left + 18}
-            y={top + 18}
-            width={24}
-            height={alto - 36}
-            fill="rgba(255,255,255,0.10)"
-            rx={999}
-          />
+                {/* INFERIOR */}
 
-          <rect
-            x={left + 58}
-            y={top + 28}
-            width={10}
-            height={alto - 56}
-            fill="rgba(255,255,255,0.05)"
-            rx={999}
-          />
+                <rect
+                  x={left}
+                  y={top + alto - frameWidth}
+                  width={ancho}
+                  height={frameWidth}
+                  fill={marcoColor}
+                />
+
+                {/* IZQUIERDA */}
+
+                <rect
+                  x={left}
+                  y={top + frameWidth}
+                  width={frameWidth}
+                  height={alto - frameWidth * 2}
+                  fill={marcoColor}
+                />
+
+                {/* DERECHA */}
+
+                <rect
+                  x={left + ancho - frameWidth}
+                  y={top + frameWidth}
+                  width={frameWidth}
+                  height={alto - frameWidth * 2}
+                  fill={marcoColor}
+                />
+
+                {/* UNIONES */}
+
+                <line
+                  x1={left}
+                  y1={top + frameWidth}
+                  x2={left + frameWidth}
+                  y2={top + frameWidth}
+                  stroke="rgba(0,0,0,0.12)"
+                />
+
+                <line
+                  x1={left + ancho - frameWidth}
+                  y1={top + frameWidth}
+                  x2={left + ancho}
+                  y2={top + frameWidth}
+                  stroke="rgba(0,0,0,0.12)"
+                />
+
+                <line
+                  x1={left}
+                  y1={top + alto - frameWidth}
+                  x2={left + frameWidth}
+                  y2={top + alto - frameWidth}
+                  stroke="rgba(0,0,0,0.12)"
+                />
+
+                <line
+                  x1={left + ancho - frameWidth}
+                  y1={top + alto - frameWidth}
+                  x2={left + ancho}
+                  y2={top + alto - frameWidth}
+                  stroke="rgba(0,0,0,0.12)"
+                />
+              </>
+            ) : (
+              <>
+                {/* MODENA */}
+
+                <rect
+                  x={left}
+                  y={top}
+                  width={ancho}
+                  height={alto}
+                  fill="none"
+                  stroke={marcoColor}
+                  strokeWidth={frameWidth * 2}
+                  rx={2}
+                />
+
+                {/* INGLETES */}
+
+                <line
+                  x1={left}
+                  y1={top}
+                  x2={glassLeft}
+                  y2={glassTop}
+                  stroke="rgba(0,0,0,0.25)"
+                  strokeWidth="1.5"
+                />
+
+                <line
+                  x1={left + ancho}
+                  y1={top}
+                  x2={left + ancho - frameWidth}
+                  y2={glassTop}
+                  stroke="rgba(0,0,0,0.25)"
+                  strokeWidth="1.5"
+                />
+
+                <line
+                  x1={left}
+                  y1={top + alto}
+                  x2={glassLeft}
+                  y2={top + alto - frameWidth}
+                  stroke="rgba(0,0,0,0.35)"
+                  strokeWidth="1.5"
+                />
+
+                <line
+                  x1={left + ancho}
+                  y1={top + alto}
+                  x2={left + ancho - frameWidth}
+                  y2={top + alto - frameWidth}
+                  stroke="rgba(0,0,0,0.35)"
+                  strokeWidth="1.5"
+                />
+
+                {/* RELIEVE */}
+
+                <rect
+                  x={left + 3}
+                  y={top + 3}
+                  width={ancho - 6}
+                  height={alto - 6}
+                  fill="none"
+                  stroke="rgba(0,0,0,0.08)"
+                  strokeWidth="2"
+                  rx={1}
+                />
+
+                <rect
+                  x={glassLeft - 3}
+                  y={glassTop - 3}
+                  width={glassWidth + 6}
+                  height={glassHeight + 6}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.15)"
+                  strokeWidth="1"
+                />
+              </>
+            )}
+          </g>
+
+          {/* ====================================== */}
+          {/* REFLEJOS */}
+          {/* ====================================== */}
+
+          <g style={{ pointerEvents: "none" }}>
+            <polygon
+              points={`
+                ${glassLeft + 15},${glassTop}
+                ${Math.min(glassLeft + 75, glassLeft + glassWidth)},${glassTop}
+                ${glassLeft},${Math.min(glassTop + 75, glassTop + glassHeight)}
+                ${glassLeft},${glassTop + 15}
+              `}
+              fill="url(#glassReflection)"
+              opacity={0.6}
+            />
+
+            <polygon
+              points={`
+                ${glassLeft + 95},${glassTop}
+                ${Math.min(glassLeft + 120, glassLeft + glassWidth)},${glassTop}
+                ${glassLeft},${Math.min(glassTop + 120, glassTop + glassHeight)}
+                ${glassLeft},${glassTop + 95}
+              `}
+              fill="url(#glassReflection)"
+              opacity={0.3}
+            />
+          </g>
         </svg>
       </div>
     </div>

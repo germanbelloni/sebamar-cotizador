@@ -28,50 +28,23 @@ const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaMo
 
 const calcularMosquiteroFijo = require("../../wrappers/mosquiteros/calcularMosquiteroFijo");
 
-const aplicarMargen = require("../utils/pricing/aplicarMargen");
-
-const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
-const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
-
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
 
-async function runCalculation(req, res, label, calculate) {
+function runCalculation(req, res, name, callback) {
   try {
-    const pricingUser = await resolvePricingUser(req.user);
+    const result = callback();
 
-    const data = {
-      ...req.body,
+    console.log(`✅ ${name}:`, result);
 
-      perfil: pricingUser?.perfil || "amarilla",
-    };
-
-    console.log("PRICING USER:", pricingUser.nombre);
-
-    console.log("PERFIL USADO:", data.perfil);
-
-    const resultadoBase = calculate(data);
-
-    console.log("RESULTADO BASE:", resultadoBase);
-
-    let resultadoFinal = resultadoBase;
-
-    // 🧑 ADMIN
-    if (pricingUser.role === "admin") {
-      resultadoFinal = aplicarMargen(resultadoBase, pricingUser.margen);
-    }
-
-    resultadoFinal = sanitizarResultado(resultadoFinal, req.user);
-
-    return res.json(resultadoFinal);
+    return res.json(result);
   } catch (error) {
-    console.log(`ERROR ${label}:`, error.message);
+    console.error(`❌ ERROR REAL ${name}:`, error);
 
     return res.status(500).json({
-      error: "Error en calculo",
-
-      detalle: error.message,
+      error: error.message,
+      stack: error.stack,
     });
   }
 }
@@ -81,12 +54,12 @@ async function runCalculation(req, res, label, calculate) {
 // =========================
 
 function puertas(req, res) {
-  return runCalculation(req, res, "PUERTAS", (data) => calcularPuerta(data));
+  return runCalculation(req, res, "PUERTAS", () => calcularPuerta(req.body));
 }
 
 function puertasEco(req, res) {
-  return runCalculation(req, res, "PUERTAS ECO", (data) =>
-    calcularPuertaEco(data),
+  return runCalculation(req, res, "PUERTAS ECO", () =>
+    calcularPuertaEco(req.body),
   );
 }
 
@@ -95,8 +68,8 @@ function puertasEco(req, res) {
 // =========================
 
 function placas(req, res) {
-  return runCalculation(req, res, "PLACAS", (data) =>
-    calcularPuertaPlaca(data),
+  return runCalculation(req, res, "PLACAS", () =>
+    calcularPuertaPlaca(req.body),
   );
 }
 
@@ -108,21 +81,22 @@ function mosquiteros(req, res) {
   const tipo = req.body.tipo;
 
   if (tipo === "puerta_mosquitera") {
-    return runCalculation(req, res, "PUERTA MOSQUITERA", (data) =>
-      calcularPuertaMosquitera(data),
+    return runCalculation(req, res, "PUERTA MOSQUITERA", () =>
+      calcularPuertaMosquitera(req.body),
     );
   }
 
   if (tipo === "fijo") {
-    return runCalculation(req, res, "MOSQUITERO FIJO", (data) =>
-      calcularMosquiteroFijo(data),
+    return runCalculation(req, res, "MOSQUITERO FIJO", () =>
+      calcularMosquiteroFijo(req.body),
     );
   }
 
-  return runCalculation(req, res, "MOSQUITEROS", (data) =>
-    calcularMosquiteroVentana(data),
+  return runCalculation(req, res, "MOSQUITEROS", () =>
+    calcularMosquiteroVentana(req.body),
   );
 }
+
 // =========================
 // 🪟 VENTANAS
 // =========================
@@ -131,13 +105,13 @@ function ventanas(req, res) {
   const linea = req.body.linea?.toLowerCase();
 
   if (linea === "modena") {
-    return runCalculation(req, res, "VENTANAS MODENA", (data) =>
-      calcularVentanaModena(data),
+    return runCalculation(req, res, "VENTANAS MODENA", () =>
+      calcularVentanaModena(req.body),
     );
   }
 
-  return runCalculation(req, res, "VENTANAS HERRERO", (data) =>
-    calcularVentanaHerrero(data),
+  return runCalculation(req, res, "VENTANAS HERRERO", () =>
+    calcularVentanaHerrero(req.body),
   );
 }
 
@@ -157,50 +131,69 @@ function rajas(req, res) {
   };
 
   if (linea === "modena") {
-    return runCalculation(req, res, "RAJAS MODENA", (data) =>
+    return runCalculation(req, res, "RAJAS MODENA", () =>
       calcularRajaModena(payload),
     );
   }
 
-  return runCalculation(req, res, "RAJAS HERRERO", (data) =>
+  return runCalculation(req, res, "RAJAS HERRERO", () =>
     calcularRajaHerrero(payload),
   );
 }
 
 // =========================
-// 🪵 OTROS
+// 🪵 POSTIGONES
 // =========================
 
 function postigones(req, res) {
-  return runCalculation(req, res, "POSTIGONES", (data) =>
-    calcularPostigones(data),
-  );
-}
-
-function portones(req, res) {
-  return runCalculation(req, res, "PORTONES", (data) => calcularporton(data));
-}
-
-function superficies(req, res) {
-  return runCalculation(req, res, "superficies", (data) =>
-    calcularsuperficies(data),
+  return runCalculation(req, res, "POSTIGONES", () =>
+    calcularPostigones(req.body),
   );
 }
 
 // =========================
-// 🏔 PATAGÓNICAS
+// 🚪 PORTONES
+// =========================
+
+function portones(req, res) {
+  return runCalculation(req, res, "PORTONES", () => calcularporton(req.body));
+}
+
+// =========================
+// 🧱 SUPERFICIES
+// =========================
+
+function superficies(req, res) {
+  return runCalculation(req, res, "SUPERFICIES", () =>
+    calcularsuperficies(req.body),
+  );
+}
+
+// =========================
+// 🏔 PATAGONICAS
 // =========================
 
 function patagonicas(req, res) {
-  const linea = req.body.linea?.toLowerCase();
+  const linea = (req.body.linea || "Herrero").toLowerCase();
+
+  const medida = `${req.body.ancho}x${req.body.alto}`;
 
   const payload = {
     ...req.body,
 
-    medida: `${req.body.ancho}x${req.body.alto}`,
+    linea,
 
-    cantidadRajas: req.body.tipo === "2_rajas" ? 2 : 1,
+    medida,
+
+    medidaTotal: medida,
+
+    cantidadRajas:
+      Number(req.body.cantidadRajas) || (req.body.tipo === "2_rajas" ? 2 : 1),
+
+    anchoRaja: Number(req.body.anchoRaja || 40),
   };
+
+  console.log("PAYLOAD PATAGONICAS:", payload);
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;

@@ -2,7 +2,28 @@ import type { PanoFijoConfig, PanoFijoItem } from "../types";
 
 import { buildPanoFijoDescription } from "./buildPanoFijoDescription";
 
-export function createPanoFijoBudgetItem(config: PanoFijoConfig): PanoFijoItem {
+type CotizacionResult = {
+  descripcion?: string;
+
+  precioVenta?: number;
+
+  precioFinal?: number;
+
+  precio?: number;
+};
+
+export function createPanoFijoBudgetItem(
+  config: PanoFijoConfig,
+  result: CotizacionResult,
+): PanoFijoItem {
+  console.log("RESULT PANO FIJO:", result);
+
+  const subtotal = Number(
+    result?.precioVenta || result?.precioFinal || result?.precio || 0,
+  );
+
+  console.log("SUBTOTAL PANO FIJO:", subtotal);
+
   return {
     tipo: "pano_fijo",
 
@@ -14,7 +35,7 @@ export function createPanoFijoBudgetItem(config: PanoFijoConfig): PanoFijoItem {
       alto: config.alto,
     },
 
-    description: buildPanoFijoDescription(config),
+    description: result?.descripcion || buildPanoFijoDescription(config),
 
     color: config.color,
 
@@ -24,6 +45,6 @@ export function createPanoFijoBudgetItem(config: PanoFijoConfig): PanoFijoItem {
       tipoVidrio: config.tipoVidrio,
     },
 
-    subtotal: 0,
+    subtotal,
   };
 }

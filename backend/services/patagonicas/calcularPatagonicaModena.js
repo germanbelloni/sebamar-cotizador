@@ -74,14 +74,32 @@ function calcularPatagonicaModena(dataInput) {
   }
 
   const medidaKey = normalizarMedida(medida);
+  const [ancho, alto] = medidaKey.split("x").map(Number);
+  const medidas = data.tipos?.[tipo]?.medidas || {};
 
-  const datos = data.tipos?.[tipo]?.medidas?.[medidaKey];
+  let datos = medidas[medidaKey];
+
+  // 🔥 buscar medida superior automática
 
   if (!datos) {
-    throw new Error("Medida no encontrada");
-  }
+    const medidasDisponibles = Object.keys(medidas);
 
-  const [ancho, alto] = medidaKey.split("x").map(Number);
+    const medidaSuperior = medidasDisponibles.find((m) => {
+      const [w, h] = m.split("x").map(Number);
+
+      return w >= ancho && h >= alto;
+    });
+
+    if (!medidaSuperior) {
+      throw new Error(`No existe medida superior para ${medidaKey}`);
+    }
+
+    datos = medidas[medidaSuperior];
+
+    console.log(
+      `⚠️ usando medida superior ${medidaSuperior} para ${medidaKey}`,
+    );
+  }
 
   // =========================
   // 🪟 ESTRUCTURA

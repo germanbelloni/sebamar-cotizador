@@ -1,5 +1,7 @@
 const { fromRoot } = require("../../backend/utils/path");
 
+console.log("🔥 WRAPPER HERRERO NUEVO");
+
 const calcularRajaHerrero = require(
   fromRoot("wrappers/rajas/calcularRajaHerrero"),
 );
@@ -19,13 +21,33 @@ const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 function calcularWrapper(data) {
   const {
     medidaTotal,
+
     tipo,
+
     color = "blanco",
+
     perfil = "amarilla",
+
     ladoApertura = "derecha",
+
     tipoApertura = "abrir",
-    raja,
+
+    anchoRaja = 40,
+
+    tipoVidrio = "4mm",
+
+    linea = "Herrero",
   } = data;
+
+  // =========================
+  // 🧠 NORMALIZAR
+  // =========================
+
+  const lineaNormalizada = String(linea).toLowerCase();
+
+  // =========================
+  // 📏 VALIDAR
+  // =========================
 
   if (!medidaTotal) {
     throw new Error("Falta medida");
@@ -33,19 +55,34 @@ function calcularWrapper(data) {
 
   const [ancho, alto] = medidaTotal.split("x").map(Number);
 
+  if (!ancho || !alto) {
+    throw new Error("Medida inválida");
+  }
+
   // =========================
-  // CONFIGURACION
+  // ⚙️ CONFIG
   // =========================
 
   const cantidadRajas = tipo === "2_rajas" ? 2 : 1;
 
-  const anchoRaja = raja?.ancho || 50;
+  const anchoRajaFinal = Number(anchoRaja);
 
-  const anchoTotalRajas = anchoRaja * cantidadRajas;
+  const anchoTotalRajas = anchoRajaFinal * cantidadRajas;
 
   const anchoFijo = ancho - anchoTotalRajas;
 
-  if (anchoFijo <= 0) {
+  console.log("DEBUG HERRERO:", {
+    ancho,
+    alto,
+    anchoRajaFinal,
+    cantidadRajas,
+    anchoTotalRajas,
+    anchoFijo,
+    linea,
+    lineaNormalizada,
+  });
+
+  if (anchoFijo <= 0 || isNaN(anchoFijo)) {
     throw new Error("Ancho fijo inválido");
   }
 
@@ -55,21 +92,27 @@ function calcularWrapper(data) {
 
   let totalRajas = 0;
 
-  let items = [];
+  const items = [];
 
   for (let i = 0; i < cantidadRajas; i++) {
-    const r = calcularRajaHerrero({
-      ancho: anchoRaja,
-      alto,
+    const raja = calcularRajaHerrero({
+      ancho: anchoRajaFinal,
+
+      alto: Number(alto),
+
       color,
-      tipoVidrio: raja?.tipoVidrio || "4mm",
+
+      tipoVidrio,
     });
 
-    totalRajas += r.costoBase;
+    console.log("RAJA:", raja);
+
+    totalRajas += Number(raja?.costoBase || 0);
 
     items.push({
       tipo: "raja",
-      precio: r.costoBase,
+
+      precio: Math.round(Number(raja?.costoBase || 0)),
     });
   }
 
@@ -77,34 +120,71 @@ function calcularWrapper(data) {
   // 🪟 PAÑO FIJO
   // =========================
 
-  const fijo = calcularSuperficie({
-    tipo: "pano_fijo",
-    ancho: anchoFijo,
-    alto,
-    linea: "herrero",
-    color,
-    tipoVidrio: raja?.tipoVidrio || "4mm",
-    perfil,
-  });
+  let fijo = {
+    costoBase: 0,
+    items: [],
+  };
 
-  items.push({
-    tipo: "pano_fijo",
-    precio: fijo.costoBase,
-  });
+  try {
+    console.log("ANTES SUPERFICIE");
+
+    fijo = calcularSuperficie({
+      tipo: "pano_fijo",
+
+      ancho: Number(anchoFijo),
+
+      alto: Number(alto),
+
+      linea: lineaNormalizada,
+
+      color,
+
+      tipoVidrio,
+
+      perfil,
+    });
+
+    console.log("DESPUES SUPERFICIE", fijo);
+    items.push({
+      tipo: "pano_fijo",
+      precio: Math.round(Number(fijo?.costoBase || 0)),
+    });
+  } catch (err) {
+    console.error("ERROR SUPERFICIE:", err);
+  }
 
   // =========================
-  // 💰 TOTAL
+  // 💰 COSTO BASE
   // =========================
 
-  const costoBase = totalRajas + fijo.costoBase;
+  const costoBase = Number(totalRajas || 0) + Number(fijo?.costoBase || 0);
 
-  const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
+  // =========================
+  // 💰 PERFIL
+  // =========================
 
-  const costo = costoBase * (1 - perfilData.descuento);
+  console.log("PERFIL:", perfil);
 
-  const proveedor = costo * (1 + perfilData.flete);
+  console.log("LINEA NORMALIZADA:", lineaNormalizada);
 
-  const venta = proveedor * (1 + perfilData.ganancia);
+  console.log("PERFILES DISPONIBLES:", perfiles?.[perfil]);
+
+  const perfilData = perfiles?.[perfil]?.[lineaNormalizada] ||
+    perfiles?.amarilla?.[lineaNormalizada] || {
+      descuento: 0,
+
+      flete: 0,
+
+      ganancia: 0.35,
+    };
+
+  console.log("PERFIL DATA:", perfilData);
+
+  const costo = costoBase * (1 - Number(perfilData.descuento || 0));
+
+  const proveedor = costo * (1 + Number(perfilData.flete || 0));
+
+  const venta = proveedor * (1 + Number(perfilData.ganancia || 0));
 
   // =========================
   // ✅ RESPONSE
@@ -119,12 +199,11 @@ function calcularWrapper(data) {
 
     precioVenta: Math.round(venta),
 
+    precioFinal: Math.round(venta),
+
     ganancia: Math.round(venta - costo),
 
-    items: items.map((i) => ({
-      tipo: i.tipo,
-      precio: Math.round(i.precio || 0),
-    })),
+    items,
 
     descripcion: `Patagónica Herrero ${medidaTotal}`,
 
@@ -137,9 +216,13 @@ function calcularWrapper(data) {
 
       cantidadRajas,
 
-      anchoRaja,
+      anchoRaja: anchoRajaFinal,
 
       anchoFijo,
+
+      tipoVidrio,
+
+      linea: lineaNormalizada,
 
       svg: buildPatagonicaSVG({
         cantidadRajas,

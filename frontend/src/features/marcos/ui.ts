@@ -1,7 +1,7 @@
 import type { ProductUI } from "@/shared/types/ui";
 
 export const MARCOS_UI: ProductUI = {
-  title: "Marcos",
+  title: "Premarco / Contramarco",
 
   sections: {
     tipo: "Tipo",

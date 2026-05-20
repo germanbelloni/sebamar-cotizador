@@ -243,29 +243,49 @@ function App() {
   /* PATAGONICAS */
   const [patagonicasConfig, setPatagonicasConfig] = useState<PatagonicasConfig>(
     {
+      // =========================
+      // 📏 MEDIDAS
+      // =========================
+
       ancho: 120,
 
       alto: 100,
 
       anchoRaja: 40,
 
-      bisagraRaja1: "izquierda",
-
-      bisagraRaja2: "derecha",
+      // =========================
+      // 🪟 CONFIG
+      // =========================
 
       linea: "Herrero",
 
       tipo: "1_raja",
 
-      color: "blanco",
-
       cantidadRajas: 1,
 
+      // =========================
+      // 🎨 VISUAL
+      // =========================
+
+      color: "blanco",
+
       tipoVidrio: "4mm",
+
+      // =========================
+      // 🚪 APERTURA
+      // =========================
 
       ladoApertura: "derecha",
 
       tipoApertura: "abrir",
+
+      bisagraRaja1: "izquierda",
+
+      bisagraRaja2: "derecha",
+
+      // =========================
+      // 🧩 OPCIONALES
+      // =========================
 
       premarco: false,
 
@@ -542,7 +562,12 @@ function App() {
                         <span className="text-muted-foreground">Color</span>
 
                         <span>
-                          {"color" in activeConfig ? activeConfig.color : "-"}
+                          {"tipo" in activeConfig &&
+                          activeConfig.tipo === "premarco"
+                            ? "-"
+                            : "color" in activeConfig
+                              ? activeConfig.color
+                              : "-"}
                         </span>
                       </div>
 
@@ -647,20 +672,24 @@ function App() {
 
                   <div
                     className="
-                    mt-2
-                    text-3xl
-                    font-bold
-                    tracking-tight
-                    text-zinc-100
-                  "
+    mt-2
+    text-3xl
+    font-bold
+    tracking-tight
+    text-zinc-100
+  "
                   >
                     $
-                    {items
-                      .reduce(
+                    {(() => {
+                      const total = items.reduce(
                         (acc, item) => acc + Number(item.subtotal || 0),
                         0,
-                      )
-                      .toLocaleString("es-AR")}
+                      );
+
+                      return total >= 1000000
+                        ? total.toLocaleString("es-AR")
+                        : total;
+                    })()}
                   </div>
                 </div>
               </div>

@@ -1,9 +1,13 @@
 import type { MarcosConfig, MarcosItem } from "../types";
 
 type Result = {
-  descripcion: string;
+  descripcion?: string;
 
-  precioVenta: number;
+  precioVenta?: number;
+
+  precioFinal?: number;
+
+  precio?: number;
 };
 
 export function createMarcosBudgetItem(
@@ -11,6 +15,14 @@ export function createMarcosBudgetItem(
 
   result?: Result,
 ): MarcosItem {
+  console.log("RESULT MARCOS:", result);
+
+  const subtotal = Number(
+    result?.precioVenta || result?.precioFinal || result?.precio || 0,
+  );
+
+  console.log("SUBTOTAL MARCOS:", subtotal);
+
   return {
     tipo: "marcos",
 
@@ -19,7 +31,7 @@ export function createMarcosBudgetItem(
     description:
       result?.descripcion || `${config.tipo} ${config.ancho}x${config.alto}`,
 
-    subtotal: Number(result?.precioVenta || 0),
+    subtotal,
 
     configuracion: {
       tipo: config.tipo,
