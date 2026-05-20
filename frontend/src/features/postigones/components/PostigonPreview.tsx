@@ -33,7 +33,7 @@ export function PostigonPreview({ config }: Props) {
   const lamas = Array.from({
     length: numLamas,
   });
-
+  console.log(config.tipo);
   // CORREDIZO
 
   const overlap = config.tipo === "corredizo" ? anchoView * 0.08 : 0;
@@ -381,6 +381,54 @@ export function PostigonPreview({ config }: Props) {
                     </g>
                   )}
 
+                {/* CIERRE ABRIR */}
+
+                {config.tipo === "abrir" &&
+                  cierreConfig &&
+                  cierreConfig.hojaIndex === i && (
+                    <g
+                      transform={`translate(${
+                        cierreConfig.lado === "izquierda"
+                          ? xPos + 8
+                          : xPos + leafWidth - 18
+                      }, ${top + altoView / 2 - 22})`}
+                    >
+                      <rect width="10" height="44" rx="2" fill={herrajeColor} />
+
+                      <rect
+                        x={cierreConfig.direccion === "derecha" ? 6 : -10}
+                        y="12"
+                        width="14"
+                        height="4"
+                        rx="1"
+                        fill={herrajeColor}
+                      />
+                    </g>
+                  )}
+                {/* HERRAJE CORREDIZO */}
+
+                {config.tipo === "corredizo" && (
+                  <g
+                    transform={`translate(${
+                      i === 0 ? xPos + leafWidth - 14 : xPos + 6
+                    }, ${top + altoView / 2 - 10})`}
+                  >
+                    {/* base */}
+
+                    <rect width="8" height="20" rx="2" fill={herrajeColor} />
+
+                    {/* detalle interior */}
+
+                    <rect
+                      x="2"
+                      y="4"
+                      width="4"
+                      height="12"
+                      rx="1"
+                      fill="rgba(255,255,255,0.18)"
+                    />
+                  </g>
+                )}
                 {/* CIERRE */}
 
                 {cierreConfig && cierreConfig.hojaIndex === i && (
