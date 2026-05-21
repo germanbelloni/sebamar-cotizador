@@ -12,6 +12,10 @@ import type { Cliente } from "@/features/clientes/types";
 
 import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
+import { BudgetDebug } from "@/shared/budget/components/BudgetDebug";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -95,11 +99,9 @@ function App() {
 
   const [activeFeature, setActiveFeature] = useState("rajas");
 
-  /* ITEMS */
+  const items = useBudgetStore((state) => state.items);
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-
-  const [items, setItems] = useState<any[]>([]);
+  const setItems = () => {};
 
   /* CLIENTE */
 
@@ -346,13 +348,7 @@ function App() {
   const activeFeatureLabel = getFeatureLabel(activeFeature);
   console.log(activeFeature);
   const FEATURE_COMPONENTS: Record<string, React.ReactNode> = {
-    rajas: (
-      <RajasConfigForm
-        config={rajasConfig}
-        setConfig={setRajasConfig}
-        setItems={setItems}
-      />
-    ),
+    rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,
 
     ventanas: (
       <VentanaConfigForm
@@ -703,6 +699,7 @@ function App() {
           cliente={cliente}
           empresa={empresa}
         />
+        <BudgetDebug />
       </div>
     </div>
   );

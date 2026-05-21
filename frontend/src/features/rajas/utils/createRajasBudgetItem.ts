@@ -1,4 +1,6 @@
-import type { RajasConfig, RajasItem } from "../types";
+import type { RajasConfig } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { buildRajasDescription } from "./buildRajasDescription";
 
@@ -8,31 +10,43 @@ type CotizacionRajasResponse = {
   precioVenta?: number;
 
   precioFinal?: number;
+
+  subtotal?: number;
 };
 
 export function createRajasBudgetItem(
   config: RajasConfig,
 
   result: CotizacionRajasResponse,
-): RajasItem {
+): BudgetItem {
+  const precioUnitario = Number(
+    result.precioVenta ?? result.precioFinal ?? result.subtotal ?? 0,
+  );
+
   return {
-    tipo: "rajas",
+    id: crypto.randomUUID(),
+
+    modulo: "rajas",
+
+    titulo: `${config.linea} ${config.modelo}`,
+
+    descripcion: buildRajasDescription(config),
 
     cantidad: 1,
 
-    linea: config.linea,
+    precioUnitario,
 
-    medidas: {
+    subtotal: precioUnitario,
+
+    configuracion: {
       ancho: config.ancho,
 
       alto: config.alto,
-    },
 
-    description: buildRajasDescription(config),
+      linea: config.linea,
 
-    color: config.color,
+      color: config.color,
 
-    configuracion: {
       tipoVidrio: config.tipoVidrio,
 
       mosquitero: config.mosquitero,
@@ -56,6 +70,12 @@ export function createRajasBudgetItem(
         : {}),
     },
 
-    subtotal: Number(result.precioVenta ?? result.precioFinal ?? 0),
+    metadata: {
+      linea: config.linea,
+
+      color: config.color,
+
+      vidrio: config.tipoVidrio,
+    },
   };
 }

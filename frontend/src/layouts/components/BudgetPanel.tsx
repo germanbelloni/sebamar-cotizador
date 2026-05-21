@@ -10,20 +10,14 @@ import type { Cliente } from "@/features/clientes/types";
 
 import type { Empresa } from "@/features/empresa/types";
 
-type BudgetItem = {
-  tipo: string;
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
-  cantidad: number;
-
-  description: string;
-
-  subtotal: number;
-};
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 type Props = {
   items: BudgetItem[];
 
-  setItems: React.Dispatch<React.SetStateAction<BudgetItem[]>>;
+  setItems?: React.Dispatch<React.SetStateAction<BudgetItem[]>>;
 
   cliente: Cliente;
 
@@ -33,38 +27,38 @@ type Props = {
 export function BudgetPanel({
   items,
 
-  setItems,
-
   cliente,
 
   empresa,
 }: Props) {
   const navigate = useNavigate();
 
-  function handleRemoveItem(index: number) {
-    setItems((prev) => prev.filter((_, i) => i !== index));
+  const removeItem = useBudgetStore((state) => state.removeItem);
+
+  const updateCantidad = useBudgetStore((state) => state.updateCantidad);
+
+  function handleRemoveItem(id: string) {
+    removeItem(id);
   }
 
   function handleQuantityChange(
-    index: number,
+    id: string,
+
+    currentCantidad: number,
 
     delta: number,
   ) {
-    setItems((prev) =>
-      prev.map((item, i) => {
-        if (i !== index) return item;
+    const nuevaCantidad = Math.max(
+      1,
 
-        return {
-          ...item,
-
-          cantidad: Math.max(1, item.cantidad + delta),
-        };
-      }),
+      currentCantidad + delta,
     );
+
+    updateCantidad(id, nuevaCantidad);
   }
 
   const total = items.reduce(
-    (acc, item) => acc + item.subtotal * item.cantidad,
+    (acc, item) => acc + item.subtotal,
 
     0,
   );
@@ -147,132 +141,146 @@ export function BudgetPanel({
             </p>
           </div>
         ) : (
-          items.map(
-            (
-              item,
+          items.map((item) => (
+            <div
+              key={item.id}
+              className="
+                rounded-xl
+                border border-border
+                bg-background
+                p-3
+              "
+            >
+              {/* TOP */}
 
-              index,
-            ) => (
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-xs font-medium capitalize text-muted-foreground">
+                  {item.modulo}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleRemoveItem(item.id)}
+                  className="
+                    rounded-md
+                    border border-border
+                    px-2 py-1
+                    text-[11px]
+                    text-muted-foreground
+                    transition-all
+                    hover:border-border
+                    hover:bg-muted
+                    hover:text-foreground
+                  "
+                >
+                  Eliminar
+                </button>
+              </div>
+
+              {/* TITLE */}
+
+              <div className="mt-2 text-sm font-semibold text-foreground">
+                {item.titulo}
+              </div>
+
+              {/* DESCRIPTION */}
+
               <div
-                key={index}
                 className="
-                  rounded-xl
-                  border border-border
-                  bg-background
-                  p-3
+                  mt-2
+                  text-xs
+                  leading-relaxed
+                  text-muted-foreground
                 "
               >
-                {/* TOP */}
+                {item.descripcion}
+              </div>
 
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-medium capitalize text-muted-foreground">
-                    {item.tipo}
-                  </div>
+              {/* CANTIDAD */}
 
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] text-muted-foreground">
+                  Cantidad
+                </span>
+
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => handleRemoveItem(index)}
+                    onClick={() =>
+                      handleQuantityChange(
+                        item.id,
+
+                        item.cantidad,
+
+                        -1,
+                      )
+                    }
                     className="
                       rounded-md
                       border border-border
                       px-2 py-1
-                      text-[11px]
-                      text-muted-foreground
+                      text-xs
                       transition-all
-                      hover:border-border
                       hover:bg-muted
-                      hover:text-foreground
                     "
                   >
-                    Eliminar
+                    −
                   </button>
-                </div>
 
-                {/* DESCRIPTION */}
-
-                <div
-                  className="
-                    mt-2
-                    text-xs
-                    leading-relaxed
-                    text-muted-foreground
-                  "
-                >
-                  {item.description}
-                </div>
-
-                {/* CANTIDAD */}
-
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="text-[10px] text-muted-foreground">
-                    Cantidad
+                  <span className="min-w-[20px] text-center text-sm">
+                    {item.cantidad}
                   </span>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleQuantityChange(
-                          index,
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleQuantityChange(
+                        item.id,
 
-                          -1,
-                        )
-                      }
-                      className="
-                        rounded-md
-                        border border-border
-                        px-2 py-1
-                        text-xs
-                        transition-all
-                        hover:bg-muted
-                      "
-                    >
-                      −
-                    </button>
+                        item.cantidad,
 
-                    <span className="min-w-[20px] text-center text-sm">
-                      {item.cantidad}
-                    </span>
+                        1,
+                      )
+                    }
+                    className="
+                      rounded-md
+                      border border-border
+                      px-2 py-1
+                      text-xs
+                      transition-all
+                      hover:bg-muted
+                    "
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
 
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleQuantityChange(
-                          index,
+              {/* PRICE */}
 
-                          1,
-                        )
-                      }
-                      className="
-                        rounded-md
-                        border border-border
-                        px-2 py-1
-                        text-xs
-                        transition-all
-                        hover:bg-muted
-                      "
-                    >
-                      +
-                    </button>
+              <div className="mt-3 flex justify-between">
+                <div>
+                  <div className="text-[9px] text-muted-foreground">
+                    Unitario
+                  </div>
+
+                  <div className="text-sm">
+                    {formatCurrency(item.precioUnitario)}
                   </div>
                 </div>
 
-                {/* SUBTOTAL */}
+                <div className="text-right">
+                  <div className="text-[9px] text-muted-foreground">
+                    Subtotal
+                  </div>
 
-                <div className="mt-2 flex justify-end">
-                  <div className="text-right">
-                    <div className="text-[9px] text-muted-foreground">
-                      Subtotal
-                    </div>
-
-                    <div className="text-sm font-medium">
-                      {formatCurrency(item.subtotal * item.cantidad)}
-                    </div>
+                  <div className="text-sm font-medium">
+                    {formatCurrency(item.subtotal)}
                   </div>
                 </div>
               </div>
-            ),
-          )
+            </div>
+          ))
         )}
       </div>
 

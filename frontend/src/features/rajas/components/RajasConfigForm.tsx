@@ -44,11 +44,9 @@ type Props = {
   config: RajasConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<RajasConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<RajasItem[]>>;
 };
 
-export function RajasConfigForm({ config, setConfig, setItems }: Props) {
+export function RajasConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarRajas();
 
   const {
@@ -111,8 +109,6 @@ export function RajasConfigForm({ config, setConfig, setItems }: Props) {
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createRajasBudgetItem,
   });
