@@ -37,7 +37,7 @@ export type PuertasPlacaConfig = {
 };
 
 export type PuertasPlacaItem = {
-  tipo: "puerta_placa";
+  tipo: "puertas-placa";
 
   cantidad: number;
 

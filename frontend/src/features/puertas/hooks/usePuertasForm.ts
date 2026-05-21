@@ -39,7 +39,7 @@ export function usePuertasForm({ config, setConfig }: Props) {
 
       modelo: getDefaultModelo(linea),
 
-      vidrio: getDefaultVidrio(linea),
+      vidrio: getDefaultVidrio(linea) as PuertasConfig["vidrio"],
     });
   };
 

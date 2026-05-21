@@ -1,4 +1,6 @@
-import type { PanoFijoConfig, PanoFijoItem } from "../types";
+import type { PanoFijoConfig } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { buildPanoFijoDescription } from "./buildPanoFijoDescription";
 
@@ -10,41 +12,56 @@ type CotizacionResult = {
   precioFinal?: number;
 
   precio?: number;
+
+  subtotal?: number;
 };
 
 export function createPanoFijoBudgetItem(
   config: PanoFijoConfig,
   result: CotizacionResult,
-): PanoFijoItem {
-  console.log("RESULT PANO FIJO:", result);
-
-  const subtotal = Number(
-    result?.precioVenta || result?.precioFinal || result?.precio || 0,
+): BudgetItem {
+  const precioUnitario = Number(
+    result?.precioFinal ??
+      result?.precioVenta ??
+      result?.precio ??
+      result?.subtotal ??
+      0,
   );
 
-  console.log("SUBTOTAL PANO FIJO:", subtotal);
-
   return {
-    tipo: "pano_fijo",
+    id: crypto.randomUUID(),
+
+    modulo: "pano-fijo",
+
+    titulo: "Paño fijo",
+
+    descripcion: result?.descripcion || buildPanoFijoDescription(config),
 
     cantidad: 1,
 
-    medidas: {
-      ancho: config.ancho,
+    precioUnitario,
 
-      alto: config.alto,
-    },
+    subtotal: precioUnitario,
 
-    description: result?.descripcion || buildPanoFijoDescription(config),
-
-    color: config.color,
+    groupKey: [
+      "pano-fijo",
+      config.linea,
+      config.ancho,
+      config.alto,
+      config.color,
+      config.tipoVidrio,
+    ].join("-"),
 
     configuracion: {
-      linea: config.linea,
-
-      tipoVidrio: config.tipoVidrio,
+      ...config,
     },
 
-    subtotal,
+    metadata: {
+      linea: config.linea,
+
+      color: config.color,
+
+      vidrio: config.tipoVidrio,
+    },
   };
 }

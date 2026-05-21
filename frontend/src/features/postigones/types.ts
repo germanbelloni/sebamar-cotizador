@@ -76,6 +76,8 @@ export type PostigonesResponse = {
   precioFinal: number;
 
   configuracion?: unknown;
+
+  precioVenta?: number;
 };
 
 // =========================

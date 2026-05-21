@@ -1,4 +1,4 @@
-import type { PortonesConfig, PortonesItem } from "../types";
+import type { PortonesConfig } from "../types";
 
 import { PORTONES_UI } from "../ui";
 
@@ -10,7 +10,7 @@ import { useCotizarPortones } from "../hooks/useCotizarPortones";
 
 import { createPortonesBudgetItem } from "../utils/createPortonesBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -36,55 +36,30 @@ type Props = {
   config: PortonesConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PortonesConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PortonesItem[]>>;
 };
 
-export function PortonesConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function PortonesConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPortones();
 
   const {
     updateConfig,
-
     switchLinea,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = usePortonesForm({
     config,
-
     setConfig,
   });
 
-  const {
-    limites,
-
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-
-    medidasInvalidas,
-  } = usePortonesValidation(config);
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    usePortonesValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createPortonesBudgetItem,
   });

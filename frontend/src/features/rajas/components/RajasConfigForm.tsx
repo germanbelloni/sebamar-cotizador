@@ -1,4 +1,4 @@
-import type { RajasConfig, RajasItem } from "../types";
+import type { RajasConfig } from "../types";
 
 import type { VidrioType } from "@/shared/types/vidrios";
 
@@ -116,8 +116,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
   return (
     <ProductFormLayout title={RAJAS_UI.title}>
       <div className="space-y-6">
-        {/* SISTEMA */}
-
         <FormSection title={RAJAS_UI.sections.sistema}>
           <LineaSelector
             value={config.linea}
@@ -125,8 +123,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             onChange={(value) => switchLinea(value)}
           />
         </FormSection>
-
-        {/* MODELO */}
 
         <FormSection title="Modelo">
           <OptionSelector
@@ -141,8 +137,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        {/* OSCILO */}
-
         {config.modelo === "oscilobatiente" && (
           <FormSection title="Posición">
             <OsciloPositionSelector
@@ -155,8 +149,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             />
           </FormSection>
         )}
-
-        {/* MEDIDAS */}
 
         <FormSection title={RAJAS_UI.sections.medidas}>
           <DimensionsSection
@@ -173,8 +165,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        {/* BISAGRA */}
-
         {(config.modelo === "raja" || config.modelo === "oscilobatiente") && (
           <FormSection title="Bisagra">
             <BisagraSelector
@@ -188,8 +178,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
           </FormSection>
         )}
 
-        {/* COLOR */}
-
         <FormSection title={RAJAS_UI.sections.colores}>
           <ColorSelector
             value={config.color}
@@ -200,8 +188,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
-
-        {/* VIDRIO */}
 
         <FormSection title={RAJAS_UI.sections.vidrio}>
           <VidrioSelector
@@ -214,8 +200,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
-
-        {/* EXTRAS */}
 
         <FormSection title={RAJAS_UI.sections.extras}>
           <ExtrasSection
@@ -232,8 +216,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        {/* ERROR */}
-
         {cotizacionMutation.isError && (
           <AlertBox type="error">{RAJAS_UI.messages.quotationError}</AlertBox>
         )}
@@ -241,8 +223,6 @@ export function RajasConfigForm({ config, setConfig }: Props) {
         {medidasInvalidas && (
           <AlertBox type="error">{RAJAS_UI.messages.reviewLimits}</AlertBox>
         )}
-
-        {/* FOOTER */}
 
         <FormFooter>
           <PrimaryButton

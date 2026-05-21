@@ -1,28 +1,33 @@
-type Params<TConfig, TResult = unknown, TItem = unknown> = {
+import type { BudgetItem } from "../budget/types/budget.types";
+
+type Params<TConfig, TResult = unknown> = {
   mutation: {
     mutateAsync: (config: TConfig) => Promise<TResult>;
   };
 
   config: TConfig;
 
-  setItems: React.Dispatch<React.SetStateAction<TItem[]>>;
+  createItem: (config: TConfig, result: TResult) => BudgetItem;
 
-  createItem: (config: TConfig, result: TResult) => TItem;
+  onAddItem?: (item: BudgetItem) => void;
 };
 
-export function useBudgetAdder<TConfig, TResult = unknown, TItem = unknown>({
+export function useBudgetAdder<TConfig, TResult = unknown>({
   mutation,
+
   config,
-  setItems,
+
   createItem,
-}: Params<TConfig, TResult, TItem>) {
+
+  onAddItem,
+}: Params<TConfig, TResult>) {
   async function handleAdd() {
     try {
       const result = await mutation.mutateAsync(config);
 
       const item = createItem(config, result);
 
-      setItems((prev) => [...prev, item]);
+      onAddItem?.(item);
     } catch (error) {
       console.error("ERROR AGREGANDO ITEM:", error);
     }

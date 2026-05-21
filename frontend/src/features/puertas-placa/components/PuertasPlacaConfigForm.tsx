@@ -1,4 +1,4 @@
-import type { PuertasPlacaConfig, PuertasPlacaItem } from "../types";
+import type { PuertasPlacaConfig } from "../types";
 
 import {
   MARCOS_ABRIR,
@@ -22,7 +22,7 @@ import { useCotizarPuertasPlaca } from "../hooks/useCotizarPuertasPlaca";
 
 import { createPuertasPlacaBudgetItem } from "../utils/createPuertasPlacaBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -42,37 +42,23 @@ type Props = {
   config: PuertasPlacaConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PuertasPlacaConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PuertasPlacaItem[]>>;
 };
 
-export function PuertasPlacaConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPuertasPlaca();
 
   const { updateConfig } = usePuertasPlacaForm({
     config,
-
     setConfig,
   });
 
-  const {
-    medidasValidas,
-
-    medidasInvalidas,
-  } = usePuertasPlacaValidation(config);
+  const { medidasValidas, medidasInvalidas } =
+    usePuertasPlacaValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createPuertasPlacaBudgetItem,
   });
@@ -130,12 +116,7 @@ export function PuertasPlacaConfigForm({
                           ? "marco_15"
                           : "marco_10",
 
-                    modelo:
-                      tipo.value === "granero"
-                        ? "finger_pino"
-                        : tipo.value === "embutir"
-                          ? "finger_pino"
-                          : "finger_pino",
+                    modelo: "finger_pino",
                   })
                 }
               >
@@ -145,9 +126,7 @@ export function PuertasPlacaConfigForm({
                       flex-col
                       items-center
                       justify-center
-
                       gap-2
-
                       text-center
                     "
                 >
@@ -156,7 +135,6 @@ export function PuertasPlacaConfigForm({
                         text-sm
                         font-semibold
                         tracking-wide
-
                         text-white
                       "
                   >
@@ -167,7 +145,6 @@ export function PuertasPlacaConfigForm({
                     className="
                         text-xs
                         leading-relaxed
-
                         text-white/45
                       "
                   >
@@ -204,7 +181,6 @@ export function PuertasPlacaConfigForm({
                       flex min-h-[90px]
                       items-center
                       justify-center
-
                       text-center
                     "
                 >
@@ -212,9 +188,7 @@ export function PuertasPlacaConfigForm({
                     className="
                         text-sm
                         font-semibold
-
                         tracking-wide
-
                         text-white
                       "
                   >
@@ -259,9 +233,7 @@ export function PuertasPlacaConfigForm({
                         flex-col
                         items-center
                         justify-center
-
                         gap-2
-
                         text-center
                       "
                   >
@@ -270,7 +242,6 @@ export function PuertasPlacaConfigForm({
                           text-sm
                           font-semibold
                           tracking-wide
-
                           text-white
                         "
                     >
@@ -310,21 +281,19 @@ export function PuertasPlacaConfigForm({
               >
                 <div
                   className="
-        flex min-h-[110px]
-        items-center
-        justify-center
-
-        text-center
-      "
+                      flex min-h-[110px]
+                      items-center
+                      justify-center
+                      text-center
+                    "
                 >
                   <span
                     className="
-          text-sm
-          font-semibold
-          tracking-wide
-
-          text-white
-        "
+                        text-sm
+                        font-semibold
+                        tracking-wide
+                        text-white
+                      "
                   >
                     {modelo.label}
                   </span>
@@ -338,8 +307,6 @@ export function PuertasPlacaConfigForm({
 
         <FormSection title="Mano">
           <div className="grid grid-cols-2 gap-4">
-            {/* IZQUIERDA */}
-
             <GlassCard
               selected={config.mano === "izquierda"}
               onClick={() =>
@@ -350,19 +317,14 @@ export function PuertasPlacaConfigForm({
             >
               <div
                 className="
-          flex min-h-[110px]
-          flex-col
-          items-center
-          justify-center
-
-          gap-4
-        "
+                  flex min-h-[110px]
+                  flex-col
+                  items-center
+                  justify-center
+                  gap-4
+                "
               >
-                {/* ICON */}
-
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  {/* MARCO */}
-
                   <rect
                     x="14"
                     y="10"
@@ -377,8 +339,6 @@ export function PuertasPlacaConfigForm({
                     strokeWidth="2.5"
                   />
 
-                  {/* HOJA */}
-
                   <rect
                     x="18"
                     y="14"
@@ -387,8 +347,6 @@ export function PuertasPlacaConfigForm({
                     rx="3"
                     fill="rgba(255,255,255,0.06)"
                   />
-
-                  {/* BISAGRA */}
 
                   <rect
                     x="14"
@@ -407,8 +365,6 @@ export function PuertasPlacaConfigForm({
                     rx="999"
                     fill="rgba(255,255,255,0.45)"
                   />
-
-                  {/* APERTURA */}
 
                   <path
                     d="M 48 18 Q 26 32 48 46"
@@ -423,23 +379,18 @@ export function PuertasPlacaConfigForm({
                   />
                 </svg>
 
-                {/* LABEL */}
-
                 <div
                   className="
-            text-sm
-            font-semibold
-            tracking-wide
-
-            text-white
-          "
+                    text-sm
+                    font-semibold
+                    tracking-wide
+                    text-white
+                  "
                 >
                   Izquierda
                 </div>
               </div>
             </GlassCard>
-
-            {/* DERECHA */}
 
             <GlassCard
               selected={config.mano === "derecha"}
@@ -451,19 +402,14 @@ export function PuertasPlacaConfigForm({
             >
               <div
                 className="
-          flex min-h-[110px]
-          flex-col
-          items-center
-          justify-center
-
-          gap-4
-        "
+                  flex min-h-[110px]
+                  flex-col
+                  items-center
+                  justify-center
+                  gap-4
+                "
               >
-                {/* ICON */}
-
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  {/* MARCO */}
-
                   <rect
                     x="14"
                     y="10"
@@ -478,8 +424,6 @@ export function PuertasPlacaConfigForm({
                     strokeWidth="2.5"
                   />
 
-                  {/* HOJA */}
-
                   <rect
                     x="18"
                     y="14"
@@ -488,8 +432,6 @@ export function PuertasPlacaConfigForm({
                     rx="3"
                     fill="rgba(255,255,255,0.06)"
                   />
-
-                  {/* BISAGRA */}
 
                   <rect
                     x="47"
@@ -509,8 +451,6 @@ export function PuertasPlacaConfigForm({
                     fill="rgba(255,255,255,0.45)"
                   />
 
-                  {/* APERTURA */}
-
                   <path
                     d="M 16 18 Q 38 32 16 46"
                     stroke={
@@ -524,16 +464,13 @@ export function PuertasPlacaConfigForm({
                   />
                 </svg>
 
-                {/* LABEL */}
-
                 <div
                   className="
-            text-sm
-            font-semibold
-            tracking-wide
-
-            text-white
-          "
+                    text-sm
+                    font-semibold
+                    tracking-wide
+                    text-white
+                  "
                 >
                   Derecha
                 </div>

@@ -1,31 +1,42 @@
-import type { MosquiterosConfig, MosquiterosItem } from "../types";
+import type { MosquiterosConfig } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { buildMosquiterosDescription } from "./buildMosquiterosDescription";
 
 export function createMosquiterosBudgetItem(
   config: MosquiterosConfig,
-
   subtotal: number,
-): MosquiterosItem {
+): BudgetItem {
   return {
-    tipo: "mosquiteros",
+    id: crypto.randomUUID(),
+
+    modulo: "mosquiteros",
+
+    titulo: "Mosquitero",
+
+    descripcion: buildMosquiterosDescription(config),
 
     cantidad: 1,
 
-    medidas: {
-      ancho: config.ancho,
-
-      alto: config.alto,
-    },
-
-    description: buildMosquiterosDescription(config),
-
-    color: config.color,
-
-    configuracion: {
-      tipo: config.tipo,
-    },
+    precioUnitario: subtotal,
 
     subtotal,
+
+    groupKey: [
+      "mosquiteros",
+      config.tipo,
+      config.ancho,
+      config.alto,
+      config.color,
+    ].join("-"),
+
+    configuracion: {
+      ...config,
+    },
+
+    metadata: {
+      color: config.color,
+    },
   };
 }

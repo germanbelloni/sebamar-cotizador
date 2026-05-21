@@ -1,4 +1,6 @@
-import type { PortonesConfig, PortonesItem } from "../types";
+import type { PortonesConfig } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { buildPortonesDescription } from "./buildPortonesDescription";
 
@@ -6,42 +8,58 @@ type Result = {
   descripcion?: string;
 
   precioVenta?: number;
+
+  precioFinal?: number;
+
+  subtotal?: number;
 };
 
 export function createPortonesBudgetItem(
   config: PortonesConfig,
 
   result?: Result,
-): PortonesItem {
+): BudgetItem {
+  const precioUnitario = Number(
+    result?.precioFinal ?? result?.precioVenta ?? result?.subtotal ?? 0,
+  );
+
   return {
-    tipo: "portones",
+    id: crypto.randomUUID(),
+
+    modulo: "portones",
+
+    titulo: "Portón",
+
+    descripcion: result?.descripcion || buildPortonesDescription(config),
 
     cantidad: 1,
 
-    linea: config.linea,
+    precioUnitario,
 
-    medidas: {
-      ancho: config.ancho,
+    subtotal: precioUnitario,
 
-      alto: config.alto,
-    },
-
-    description: result?.descripcion || buildPortonesDescription(config),
-
-    color: config.color,
+    groupKey: [
+      "portones",
+      config.linea,
+      config.sistema,
+      config.ancho,
+      config.alto,
+      config.color,
+      config.tipoVidrio,
+      config.automatizado,
+      config.guiaInferior,
+    ].join("-"),
 
     configuracion: {
-      sistema: config.sistema,
-
-      hojas: config.hojas,
-
-      tipoVidrio: config.tipoVidrio,
-
-      automatizado: config.automatizado,
-
-      guiaInferior: config.guiaInferior,
+      ...config,
     },
 
-    subtotal: result?.precioVenta || 0,
+    metadata: {
+      linea: config.linea,
+
+      color: config.color,
+
+      vidrio: config.tipoVidrio,
+    },
   };
 }

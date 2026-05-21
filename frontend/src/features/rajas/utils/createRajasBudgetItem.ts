@@ -16,7 +16,6 @@ type CotizacionRajasResponse = {
 
 export function createRajasBudgetItem(
   config: RajasConfig,
-
   result: CotizacionRajasResponse,
 ): BudgetItem {
   const precioUnitario = Number(
@@ -45,39 +44,18 @@ export function createRajasBudgetItem(
       config.alto,
       config.color,
       config.tipoVidrio,
+      config.mosquitero,
       config.modelo,
+      config.desague,
+      config.bisagra,
+      config.premarco,
+      config.contramarco,
+      config.herrajesBlancos,
+      config.posicionOscilo,
     ].join("-"),
 
     configuracion: {
-      ancho: config.ancho,
-
-      alto: config.alto,
-
-      linea: config.linea,
-
-      color: config.color,
-
-      tipoVidrio: config.tipoVidrio,
-
-      mosquitero: config.mosquitero,
-
-      modelo: config.modelo,
-
-      desague: config.desague,
-
-      bisagra: config.bisagra,
-
-      premarco: config.premarco,
-
-      contramarco: config.contramarco,
-
-      herrajesBlancos: config.herrajesBlancos,
-
-      ...(config.linea === "Modena" && config.modelo === "oscilobatiente"
-        ? {
-            posicionOscilo: config.posicionOscilo,
-          }
-        : {}),
+      ...config,
     },
 
     metadata: {

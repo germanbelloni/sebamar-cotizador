@@ -1,4 +1,4 @@
-import type { PuertasConfig, PuertasItem } from "../types";
+import type { PuertasConfig } from "../types";
 
 import {
   PRESETS_PUERTAS,
@@ -18,7 +18,7 @@ import { useCotizarPuertas } from "../hooks/useCotizarPuertas";
 
 import { createPuertasBudgetItem } from "../utils/createPuertasBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -56,11 +56,9 @@ type Props = {
   config: PuertasConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PuertasConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PuertasItem[]>>;
 };
 
-export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
+export function PuertasConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPuertas();
 
   const {
@@ -74,15 +72,18 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
     config,
     setConfig,
   });
+
   const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
     usePuertasValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
+
     config,
-    setItems,
+
     createItem: createPuertasBudgetItem,
   });
+
   const modelos = getAvailableDoorModels(config.linea);
 
   const vidrios = VIDRIOS_POR_LINEA[config.linea];
@@ -104,11 +105,10 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
       preset.ancho === config.ancho &&
       preset.alto === config.alto,
   );
+
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
-        {/* LINEA */}
-
         <FormSection title="Línea">
           <LineaSelector
             value={config.linea}
@@ -116,8 +116,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
             onChange={(value) => switchLinea(value as PuertasConfig["linea"])}
           />
         </FormSection>
-
-        {/* CONFIGURACION */}
 
         <FormSection title="Configuración">
           <LineaSelector
@@ -156,8 +154,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           />
         </FormSection>
 
-        {/* PRESETS */}
-
         <FormSection title="Medidas estándar">
           <div className="grid grid-cols-2 gap-3">
             {presets
@@ -182,8 +178,8 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
                             : 1,
 
                       anchoPrincipal:
-                        "principal" in preset && preset.principal
-                          ? preset.principal
+                        "principal" in preset
+                          ? Number(preset.principal ?? preset.ancho)
                           : preset.ancho,
                     })
                   }
@@ -216,8 +212,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           </div>
         </FormSection>
 
-        {/* MEDIDAS CUSTOM */}
-
         {esFueraDeMedida && (
           <FormSection title="Medidas">
             <DimensionsSection
@@ -234,8 +228,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
             />
           </FormSection>
         )}
-
-        {/* MODELOS */}
 
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 gap-3">
@@ -273,8 +265,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           </div>
         </FormSection>
 
-        {/* MEDIA PUERTA */}
-
         {esPuertaYMedia && (
           <FormSection title="Modelo media puerta">
             <div className="grid grid-cols-2 gap-3">
@@ -304,8 +294,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           </FormSection>
         )}
 
-        {/* VIDRIO */}
-
         {!modeloSinVidrio && (
           <FormSection title="Vidrio">
             <VidrioSelector
@@ -320,8 +308,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           </FormSection>
         )}
 
-        {/* COLOR */}
-
         <FormSection title="Color">
           <ColorSelector
             value={config.color}
@@ -333,8 +319,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           />
         </FormSection>
 
-        {/* MANO */}
-
         <FormSection title="Mano">
           <BisagraSelector
             value={config.mano}
@@ -345,8 +329,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
             }
           />
         </FormSection>
-
-        {/* PORTON */}
 
         {esPorton && (
           <FormSection title="Sistema">
@@ -361,8 +343,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
             />
           </FormSection>
         )}
-
-        {/* EXTRAS */}
 
         <FormSection title="Extras">
           <PuertasExtrasSection
@@ -423,8 +403,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
           />
         </FormSection>
 
-        {/* ERRORS */}
-
         {!medidasValidas && (
           <AlertBox type="error">
             {PUERTAS_UI.messages.invalidMeasures}
@@ -434,8 +412,6 @@ export function PuertasConfigForm({ config, setConfig, setItems }: Props) {
         {cotizacionMutation.isError && (
           <AlertBox type="error">{PUERTAS_UI.messages.quotationError}</AlertBox>
         )}
-
-        {/* FOOTER */}
 
         <FormFooter>
           <PrimaryButton

@@ -1,4 +1,4 @@
-import type { PanoFijoConfig, PanoFijoItem } from "../types";
+import type { PanoFijoConfig } from "../types";
 
 import { LINEAS_PANO_FIJO, VIDRIOS_PANO_FIJO } from "../constants";
 
@@ -12,7 +12,7 @@ import { useCotizarPanoFijo } from "../hooks/useCotizarPanoFijo";
 
 import { createPanoFijoBudgetItem } from "../utils/createPanoFijoBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -36,53 +36,29 @@ type Props = {
   config: PanoFijoConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PanoFijoConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PanoFijoItem[]>>;
 };
 
-export function PanoFijoConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function PanoFijoConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPanoFijo();
 
   const {
     updateConfig,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = usePanoFijoForm({
     config,
-
     setConfig,
   });
 
-  const {
-    limites,
-
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-
-    medidasInvalidas,
-  } = usePanoFijoValidation(config);
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    usePanoFijoValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createPanoFijoBudgetItem,
   });

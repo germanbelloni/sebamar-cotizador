@@ -1,67 +1,60 @@
-import type { PatagonicasConfig, PatagonicasItem } from "../types";
+import type { PatagonicasConfig } from "../types";
 
-import { buildPatagonicasDescription } from "./buildPatagonicasDescription";
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+
+type Result = {
+  descripcion?: string;
+
+  precioVenta?: number;
+
+  precioFinal?: number;
+
+  subtotal?: number;
+};
 
 export function createPatagonicasBudgetItem(
   config: PatagonicasConfig,
-
-  result: any,
-): PatagonicasItem {
-  console.log("RESULT PATAGONICAS:", result);
-
-  const subtotal = Number(
-    result?.precioVenta || result?.precioFinal || result?.precio || 0,
+  result: Result,
+): BudgetItem {
+  const precioUnitario = Number(
+    result.precioFinal ?? result.precioVenta ?? result.subtotal ?? 0,
   );
 
-  console.log("SUBTOTAL FINAL:", subtotal);
-
   return {
-    tipo: "patagonicas",
+    id: crypto.randomUUID(),
+
+    modulo: "patagonicas",
+
+    titulo: "Ventana patagónica",
+
+    descripcion:
+      result.descripcion ?? `${config.tipo} ${config.ancho}x${config.alto}`,
 
     cantidad: 1,
 
-    medidas: {
-      ancho: config.ancho,
+    precioUnitario,
 
-      alto: config.alto,
-    },
+    subtotal: precioUnitario,
 
-    linea: config.linea,
-
-    color: config.color,
+    groupKey: [
+      "patagonicas",
+      config.linea,
+      config.tipo,
+      config.ancho,
+      config.alto,
+      config.color,
+    ].join("-"),
 
     configuracion: {
-      tipo: config.tipo,
-
-      premarco: config.premarco,
-
-      contramarco: config.contramarco,
-
-      mosquitero: config.mosquitero,
-
-      cantidadRajas: config.cantidadRajas,
-
-      anchoRaja: typeof config.anchoRaja === "number" ? config.anchoRaja : 40,
-
-      tipoVidrio: config.tipoVidrio,
-
-      ladoApertura: config.ladoApertura,
-
-      bisagraRaja1: config.bisagraRaja1,
-
-      bisagraRaja2: config.bisagraRaja2,
-
-      tipoApertura: config.tipoApertura,
-
-      guia: config.guia,
-
-      cajonBlock: config.cajonBlock,
-
-      cortina: config.cortina,
+      ...config,
     },
 
-    description: result?.descripcion || buildPatagonicasDescription(config),
+    metadata: {
+      linea: config.linea,
 
-    subtotal,
+      color: config.color,
+
+      vidrio: config.tipoVidrio,
+    },
   };
 }

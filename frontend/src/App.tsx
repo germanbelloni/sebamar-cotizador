@@ -97,9 +97,9 @@ function App() {
 
   const [activeFeature, setActiveFeature] = useState("rajas");
 
-  const items = useBudgetStore((state) => state.items);
+  const total = useBudgetStore((state) => state.total);
 
-  const setItems = () => {};
+  const items = useBudgetStore((state) => state.items);
 
   /* CLIENTE */
 
@@ -352,7 +352,6 @@ function App() {
       <VentanaConfigForm
         config={ventanasConfig}
         setConfig={setVentanasConfig}
-        setItems={setItems}
       />
     ),
 
@@ -360,23 +359,17 @@ function App() {
       <PortonesConfigForm
         config={portonesConfig}
         setConfig={setPortonesConfig}
-        setItems={setItems}
       />
     ),
 
     puertas: (
-      <PuertasConfigForm
-        config={puertasConfig}
-        setConfig={setPuertasConfig}
-        setItems={setItems}
-      />
+      <PuertasConfigForm config={puertasConfig} setConfig={setPuertasConfig} />
     ),
 
     "puertas-placa": (
       <PuertasPlacaConfigForm
         config={puertasPlacaConfig}
         setConfig={setPuertasPlacaConfig}
-        setItems={setItems}
       />
     ),
 
@@ -384,30 +377,23 @@ function App() {
       <PostigonesConfigForm
         config={postigonesConfig}
         setConfig={setPostigonesConfig}
-        setItems={setItems}
       />
     ),
     patagonicas: (
       <PatagonicasConfigForm
         config={patagonicasConfig}
         setConfig={setPatagonicasConfig}
-        setItems={setItems}
       />
     ),
 
     marcos: (
-      <MarcosConfigForm
-        config={marcosConfig}
-        setConfig={setMarcosConfig}
-        setItems={setItems}
-      />
+      <MarcosConfigForm config={marcosConfig} setConfig={setMarcosConfig} />
     ),
 
     mosquiteros: (
       <MosquiterosConfigForm
         config={mosquiterosConfig}
         setConfig={setMosquiterosConfig}
-        setItems={setItems}
       />
     ),
 
@@ -415,7 +401,6 @@ function App() {
       <PanoFijoConfigForm
         config={panoFijoConfig}
         setConfig={setPanoFijoConfig}
-        setItems={setItems}
       />
     ),
   };
@@ -675,14 +660,11 @@ function App() {
                   >
                     $
                     {(() => {
-                      const total = items.reduce(
-                        (acc, item) => acc + Number(item.subtotal || 0),
-                        0,
-                      );
+                      const totalValue = total();
 
-                      return total >= 1000000
-                        ? total.toLocaleString("es-AR")
-                        : total;
+                      return totalValue >= 1000000
+                        ? totalValue.toLocaleString("es-AR")
+                        : totalValue;
                     })()}
                   </div>
                 </div>
@@ -691,12 +673,7 @@ function App() {
           </div>
         </main>
 
-        <BudgetPanel
-          items={items}
-          setItems={setItems}
-          cliente={cliente}
-          empresa={empresa}
-        />
+        <BudgetPanel items={items} cliente={cliente} empresa={empresa} />
       </div>
     </div>
   );

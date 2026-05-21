@@ -15,7 +15,7 @@ export async function cotizarPanoFijo(config: PanoFijoConfig) {
     body: JSON.stringify({
       ...config,
 
-      tipo: "pano_fijo",
+      tipo: "pano-fijo",
     }),
   });
 }

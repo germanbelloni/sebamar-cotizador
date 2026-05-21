@@ -1,4 +1,4 @@
-export type SuperficieTipo = "pano_fijo" | "premarco" | "contramarco";
+export type SuperficieTipo = "pano-fijo" | "premarco" | "contramarco";
 
 export type SuperficieLinea = "herrero" | "modena";
 

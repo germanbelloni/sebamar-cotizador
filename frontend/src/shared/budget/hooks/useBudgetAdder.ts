@@ -1,8 +1,8 @@
-import { useBudgetStore } from "../store/useBudgetStore";
-
 import type { BudgetItem } from "../types/budget.types";
 
-type Params<TConfig, TResult> = {
+import { useBudgetStore } from "../store/useBudgetStore";
+
+type Params<TConfig, TResult = unknown> = {
   mutation: {
     mutateAsync: (config: TConfig) => Promise<TResult>;
   };
@@ -14,7 +14,9 @@ type Params<TConfig, TResult> = {
 
 export function useBudgetAdder<TConfig, TResult = unknown>({
   mutation,
+
   config,
+
   createItem,
 }: Params<TConfig, TResult>) {
   const addItem = useBudgetStore((state) => state.addItem);

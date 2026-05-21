@@ -1,4 +1,4 @@
-import type { MosquiterosConfig, MosquiterosItem } from "../types";
+import type { MosquiterosConfig } from "../types";
 
 import { MOSQUITEROS_UI } from "../ui";
 
@@ -10,7 +10,7 @@ import { useCotizarMosquiteros } from "../hooks/useCotizarMosquiteros";
 
 import { createMosquiterosBudgetItem } from "../utils/createMosquiterosBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -32,53 +32,29 @@ type Props = {
   config: MosquiterosConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<MosquiterosConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<MosquiterosItem[]>>;
 };
 
-export function MosquiterosConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function MosquiterosConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarMosquiteros();
 
   const {
     updateConfig,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = useMosquiterosForm({
     config,
-
     setConfig,
   });
 
-  const {
-    limites,
-
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-
-    medidasInvalidas,
-  } = useMosquiterosValidation(config);
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    useMosquiterosValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createMosquiterosBudgetItem,
   });
@@ -96,7 +72,9 @@ export function MosquiterosConfigForm({
               if (tipo === "puerta_mosquitera") {
                 updateConfig({
                   tipo,
+
                   ancho: 80,
+
                   alto: 200,
                 });
 

@@ -9,7 +9,7 @@ export const LIMITES_superficies = {
 export const tiposSuperficie = [
   {
     label: "Paño fijo",
-    value: "pano_fijo",
+    value: "pano-fijo",
   },
 
   {

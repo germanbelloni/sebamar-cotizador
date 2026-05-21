@@ -28,7 +28,7 @@ export type PanoFijoConfig = {
 };
 
 export type PanoFijoItem = {
-  tipo: "pano_fijo";
+  tipo: "pano-fijo";
 
   cantidad: number;
 

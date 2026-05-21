@@ -1,4 +1,4 @@
-import type { VentanaConfig, VentanaItem } from "../types";
+import type { VentanaConfig } from "../types";
 
 import { VENTANAS_UI } from "../ui";
 
@@ -36,22 +36,18 @@ import { CortinasSection } from "@/shared/sections/CortinasSection";
 
 import { ModenaSection } from "@/shared/sections/ModenaSection";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 type Props = {
   config: VentanaConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<VentanaConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<VentanaItem[]>>;
 };
 
 export function VentanaConfigForm({
   config,
 
   setConfig,
-
-  setItems,
 }: Props) {
   const cotizacionMutation = useCotizarVentana();
 
@@ -97,8 +93,6 @@ export function VentanaConfigForm({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createVentanaBudgetItem,
   });

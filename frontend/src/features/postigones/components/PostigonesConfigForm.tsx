@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 
-import type {
-  PostigonesConfig,
-  PostigonesItem,
-  HojaCierrePostigon,
-} from "../types";
+import type { PostigonesConfig, HojaCierrePostigon } from "../types";
 
 import { POSTIGONES_UI } from "../ui";
 
@@ -20,7 +16,7 @@ import { useCotizarPostigones } from "../hooks/useCotizarPostigones";
 
 import { createPostigonesBudgetItem } from "../utils/createPostigonesBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -39,57 +35,34 @@ import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 import { OptionSelector } from "@/shared/selectors/OptionSelector";
 
 import { coloresPostigones } from "../constants";
+
 type Props = {
   config: PostigonesConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PostigonesConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PostigonesItem[]>>;
 };
 
-export function PostigonesConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function PostigonesConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPostigones();
 
   const {
     updateConfig,
-
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   } = usePostigonesForm({
     config,
-
     setConfig,
   });
 
-  const {
-    limites,
-
-    anchoValido,
-
-    altoValido,
-
-    medidasValidas,
-
-    medidasInvalidas,
-  } = usePostigonesValidation(config);
+  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
+    usePostigonesValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
 
     config,
-
-    setItems,
 
     createItem: createPostigonesBudgetItem,
   });
@@ -117,8 +90,6 @@ export function PostigonesConfigForm({
   return (
     <ProductFormLayout title={POSTIGONES_UI.title}>
       <div className="space-y-6">
-        {/* TIPO */}
-
         <FormSection title={POSTIGONES_UI.sections.tipo}>
           <LineaSelector
             value={config.tipo}
@@ -137,14 +108,11 @@ export function PostigonesConfigForm({
               updateConfig({
                 tipo: value as PostigonesConfig["tipo"],
 
-                // corredizo solo usa marco ancho
                 marco: value === "corredizo" ? "ancho" : config.marco,
               })
             }
           />
         </FormSection>
-
-        {/* MEDIDAS */}
 
         <FormSection title={POSTIGONES_UI.sections.medidas}>
           <DimensionsSection
@@ -161,12 +129,8 @@ export function PostigonesConfigForm({
           />
         </FormSection>
 
-        {/* CONFIGURACION */}
-
         <FormSection title="Configuración">
           <div className="space-y-6">
-            {/* HOJAS */}
-
             <OptionSelector
               title="Cantidad de hojas"
               value={String(config.cantidadHojas)}
@@ -184,8 +148,6 @@ export function PostigonesConfigForm({
                 })
               }
             />
-
-            {/* CIERRE */}
 
             {config.tipo === "abrir" && (
               <OptionSelector
@@ -224,8 +186,6 @@ export function PostigonesConfigForm({
                 }
               />
             )}
-
-            {/* COLOR */}
 
             <OptionSelector
               title="Color"
@@ -270,8 +230,6 @@ export function PostigonesConfigForm({
             />
           )}
         </FormSection>
-
-        {/* OPCIONES */}
 
         <FormSection title="Opciones">
           <div className="space-y-4">
@@ -321,8 +279,6 @@ export function PostigonesConfigForm({
           </div>
         </FormSection>
 
-        {/* ERRORES */}
-
         {!medidasValidas && (
           <AlertBox type="error">
             {POSTIGONES_UI.messages?.invalidMeasures}
@@ -334,8 +290,6 @@ export function PostigonesConfigForm({
             {POSTIGONES_UI.messages?.quotationError}
           </AlertBox>
         )}
-
-        {/* FOOTER */}
 
         <FormFooter>
           <PrimaryButton

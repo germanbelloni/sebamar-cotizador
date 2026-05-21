@@ -8,7 +8,8 @@ export type BudgetModule =
   | "mosquiteros"
   | "portones"
   | "marcos"
-  | "pano-fijo";
+  | "pano-fijo"
+  | "superficies";
 
 export type BudgetItem = {
   id: string;
@@ -24,6 +25,7 @@ export type BudgetItem = {
   precioUnitario: number;
 
   subtotal: number;
+
   groupKey: string;
 
   configuracion: unknown;

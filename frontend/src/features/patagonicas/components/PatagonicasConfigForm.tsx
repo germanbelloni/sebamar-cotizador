@@ -1,4 +1,4 @@
-import type { PatagonicasConfig, PatagonicasItem } from "../types";
+import type { PatagonicasConfig } from "../types";
 
 import { PATAGONICAS_UI } from "../ui";
 
@@ -10,7 +10,8 @@ import { useCotizarPatagonicas } from "../hooks/useCotizarPatagonicas";
 
 import { createPatagonicasBudgetItem } from "../utils/createPatagonicasBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
+
 import { CortinasSection } from "@/shared/sections/CortinasSection";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
@@ -45,16 +46,12 @@ type Props = {
   config: PatagonicasConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<PatagonicasConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<PatagonicasItem[]>>;
 };
 
 export function PatagonicasConfigForm({
   config,
 
   setConfig,
-
-  setItems,
 }: Props) {
   const cotizacionMutation = useCotizarPatagonicas();
 
@@ -93,8 +90,6 @@ export function PatagonicasConfigForm({
 
     config,
 
-    setItems,
-
     createItem: createPatagonicasBudgetItem,
   });
 
@@ -127,10 +122,12 @@ export function PatagonicasConfigForm({
               onChange={(value) =>
                 updateConfig({
                   tipo: value as PatagonicasConfig["tipo"],
+
                   cantidadRajas: value === "1_raja" ? 1 : 2,
                 })
               }
             />
+
             {config.tipo === "1_raja" && (
               <>
                 <OptionSelector
@@ -221,6 +218,7 @@ export function PatagonicasConfigForm({
               value={String(config.anchoRaja)}
               options={medidasRajaPatagonicas.map((medida) => ({
                 label: medida.label,
+
                 value: String(medida.value),
               }))}
               disabled={config.fueraDeMedida}
@@ -238,13 +236,13 @@ export function PatagonicasConfigForm({
                 })
               }
               className={`
-        flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all
-        ${
-          config.fueraDeMedida
-            ? "border-primary bg-primary/10"
-            : "border-border bg-card"
-        }
-      `}
+                flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all
+                ${
+                  config.fueraDeMedida
+                    ? "border-primary bg-primary/10"
+                    : "border-border bg-card"
+                }
+              `}
             >
               <div>
                 <p className="text-sm font-medium">Fuera de medida</p>
@@ -256,15 +254,15 @@ export function PatagonicasConfigForm({
 
               <div
                 className={`
-          relative h-6 w-11 rounded-full transition-all
-          ${config.fueraDeMedida ? "bg-primary" : "bg-muted"}
-        `}
+                  relative h-6 w-11 rounded-full transition-all
+                  ${config.fueraDeMedida ? "bg-primary" : "bg-muted"}
+                `}
               >
                 <div
                   className={`
-            absolute top-1 h-4 w-4 rounded-full bg-white transition-all
-            ${config.fueraDeMedida ? "left-6" : "left-1"}
-          `}
+                    absolute top-1 h-4 w-4 rounded-full bg-white transition-all
+                    ${config.fueraDeMedida ? "left-6" : "left-1"}
+                  `}
                 />
               </div>
             </div>

@@ -1,8 +1,6 @@
-import type {
-  PostigonesConfig,
-  PostigonesItem,
-  PostigonesResponse,
-} from "../types";
+import type { PostigonesConfig, PostigonesResponse } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { buildPostigonesDescription } from "./buildPostigonesDescription";
 
@@ -10,34 +8,44 @@ export function createPostigonesBudgetItem(
   config: PostigonesConfig,
 
   result: PostigonesResponse,
-): PostigonesItem {
+): BudgetItem {
+  const precioUnitario = Number(result.precioFinal ?? result.precioVenta ?? 0);
+
   return {
-    tipo: "postigones",
+    id: crypto.randomUUID(),
+
+    modulo: "postigones",
+
+    titulo:
+      config.tipo === "abrir" ? "Postigón de abrir" : "Postigón corredizo",
+
+    descripcion: result.descripcion || buildPostigonesDescription(config),
 
     cantidad: 1,
 
-    tipoPostigon: config.tipo,
+    precioUnitario,
 
-    medidas: {
-      ancho: config.ancho,
+    subtotal: precioUnitario,
 
-      alto: config.alto,
+    groupKey: [
+      "postigones",
+      config.tipo,
+      config.ancho,
+      config.alto,
+      config.color,
+      config.cantidadHojas,
+      config.hojaCierre,
+      config.microperforado,
+      config.herrajeBlanco,
+      config.marco,
+    ].join("-"),
+
+    configuracion: {
+      ...config,
     },
 
-    description: result.descripcion || buildPostigonesDescription(config),
-
-    color: config.color,
-
-    extras: {
-      cantidadHojas: config.cantidadHojas,
-
-      hojaCierre: config.hojaCierre,
-
-      microperforado: config.microperforado,
-
-      herrajeBlanco: config.herrajeBlanco,
+    metadata: {
+      color: config.color,
     },
-
-    subtotal: result.precioFinal || 0,
   };
 }

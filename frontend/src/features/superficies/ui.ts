@@ -15,7 +15,7 @@ export const superficies_UI: ProductUI = {
     tipos: [
       {
         label: "Paño fijo",
-        value: "pano_fijo",
+        value: "pano-fijo",
       },
 
       {

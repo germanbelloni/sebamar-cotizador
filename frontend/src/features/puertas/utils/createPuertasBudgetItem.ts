@@ -1,54 +1,87 @@
-import type { PuertasConfig, PuertasItem } from "../types";
+import type { PuertasConfig } from "../types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+
+type CotizacionResponse = {
+  precioVenta?: number;
+
+  precioFinal?: number;
+
+  subtotal?: number;
+};
 
 export function createPuertasBudgetItem(
   config: PuertasConfig,
-  result: {
-    precioVenta?: number;
-
-    precioFinal?: number;
-  },
-): PuertasItem {
-  const subtotal =
-    Number(result?.precioFinal) || Number(result?.precioVenta) || 0;
+  result: CotizacionResponse,
+): BudgetItem {
+  const precioUnitario = Number(
+    result?.precioFinal ?? result?.precioVenta ?? result?.subtotal ?? 0,
+  );
 
   return {
-    tipo: "puertas",
+    id: crypto.randomUUID(),
+
+    modulo: "puertas",
+
+    titulo: buildTitle(config),
+
+    descripcion: buildDescription(config),
 
     cantidad: 1,
 
-    linea: config.linea,
+    precioUnitario,
 
-    medidas: {
-      ancho: config.ancho,
-      alto: config.alto,
-    },
+    subtotal: precioUnitario,
 
-    description: buildDescription(config),
-
-    color: config.color,
+    groupKey: [
+      "puertas",
+      config.linea,
+      config.tipoConfiguracion,
+      config.tipoPorton,
+      config.modelo,
+      config.modeloMediaPuerta,
+      config.color,
+      config.vidrio,
+      config.ancho,
+      config.alto,
+      JSON.stringify(config.extras),
+    ].join("-"),
 
     configuracion: {
-      tipoConfiguracion: config.tipoConfiguracion,
-
-      tipoPorton: config.tipoPorton,
-
-      modelo: config.modelo,
-
-      modeloMediaPuerta: config.modeloMediaPuerta,
-
-      mano: config.mano,
-
-      hojas: config.hojas,
-
-      anchoPrincipal: config.anchoPrincipal,
-
-      vidrio: config.vidrio,
-
-      extras: config.extras,
+      ...config,
     },
 
-    subtotal,
+    metadata: {
+      linea: config.linea,
+
+      color: config.color,
+
+      vidrio: config.vidrio,
+    },
   };
+}
+
+/* ========================= */
+/* TITLE */
+/* ========================= */
+
+function buildTitle(config: PuertasConfig) {
+  switch (config.tipoConfiguracion) {
+    case "simple":
+      return "Puerta simple";
+
+    case "doble":
+      return "Puerta doble";
+
+    case "puerta_y_media":
+      return "Puerta y media";
+
+    case "porton":
+      return "Portón";
+
+    default:
+      return "Puerta";
+  }
 }
 
 /* ========================= */
@@ -58,11 +91,7 @@ export function createPuertasBudgetItem(
 function buildDescription(config: PuertasConfig) {
   const parts: string[] = [];
 
-  /* LINEA */
-
   parts.push(capitalize(config.linea));
-
-  /* TIPO */
 
   switch (config.tipoConfiguracion) {
     case "simple":
@@ -82,17 +111,11 @@ function buildDescription(config: PuertasConfig) {
       break;
   }
 
-  /* MODELO */
-
   parts.push(config.modelo.replaceAll("_", " ").toUpperCase());
-
-  /* PORTON */
 
   if (config.tipoConfiguracion === "porton") {
     parts.push(`(${config.tipoPorton})`);
   }
-
-  /* VIDRIO */
 
   const modeloSinVidrio =
     config.modelo === "modelo_5" || config.modelo === "modelo_panel";
@@ -101,11 +124,7 @@ function buildDescription(config: PuertasConfig) {
     parts.push(`Vidrio ${config.vidrio}`);
   }
 
-  /* COLOR */
-
   parts.push(capitalize(config.color));
-
-  /* MEDIDAS */
 
   parts.push(`${config.ancho}x${config.alto}`);
 

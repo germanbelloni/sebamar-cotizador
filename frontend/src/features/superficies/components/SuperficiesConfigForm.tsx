@@ -1,4 +1,4 @@
-import type { SuperficiesConfig, SuperficiesItem } from "../types";
+import type { SuperficiesConfig } from "../types";
 
 import { superficies_UI } from "../ui";
 
@@ -10,7 +10,7 @@ import { useCotizarSuperficies } from "../hooks/useCotizarSuperficies";
 
 import { createSuperficiesBudgetItem } from "../utils/createSuperficiesBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
@@ -32,17 +32,9 @@ type Props = {
   config: SuperficiesConfig;
 
   setConfig: React.Dispatch<React.SetStateAction<SuperficiesConfig>>;
-
-  setItems: React.Dispatch<React.SetStateAction<SuperficiesItem[]>>;
 };
 
-export function SuperficiesConfigForm({
-  config,
-
-  setConfig,
-
-  setItems,
-}: Props) {
+export function SuperficiesConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarSuperficies();
 
   const {
@@ -78,12 +70,10 @@ export function SuperficiesConfigForm({
 
     config,
 
-    setItems,
-
     createItem: createSuperficiesBudgetItem,
   });
 
-  const isPanoFijo = config.tipo === "pano_fijo";
+  const isPanoFijo = config.tipo === "pano-fijo";
 
   return (
     <ProductFormLayout title={superficies_UI.title}>
@@ -91,7 +81,7 @@ export function SuperficiesConfigForm({
         <FormSection title={superficies_UI.sections.sistema}>
           <div className="space-y-4">
             <LineaSelector
-              value={config.tipo || "pano_fijo"}
+              value={config.tipo || "pano-sfijo"}
               options={superficies_UI.selectors?.tipos || []}
               onChange={(value) =>
                 updateConfig({

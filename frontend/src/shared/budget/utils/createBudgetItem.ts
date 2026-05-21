@@ -65,5 +65,6 @@ export function createBudgetItem({
     svg,
 
     metadata,
+    groupKey: crypto.randomUUID(),
   };
 }
