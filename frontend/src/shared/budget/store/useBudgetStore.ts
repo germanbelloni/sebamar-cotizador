@@ -23,20 +23,70 @@ export const useBudgetStore = create<BudgetState>()(
     (set, get) => ({
       items: [],
 
+      /* ========================= */
+      /* ADD ITEM */
+      /* ========================= */
+
       addItem: (item) =>
-        set((state) => ({
-          items: [...state.items, item],
-        })),
+        set((state) => {
+          const existingItem = state.items.find(
+            (i) => i.groupKey === item.groupKey,
+          );
+
+          // =========================
+          // EXISTE
+          // =========================
+
+          if (existingItem) {
+            return {
+              items: state.items.map((i) => {
+                if (i.groupKey !== item.groupKey) {
+                  return i;
+                }
+
+                const nuevaCantidad = i.cantidad + item.cantidad;
+
+                return {
+                  ...i,
+
+                  cantidad: nuevaCantidad,
+
+                  subtotal: i.precioUnitario * nuevaCantidad,
+                };
+              }),
+            };
+          }
+
+          // =========================
+          // NUEVO
+          // =========================
+
+          return {
+            items: [...state.items, item],
+          };
+        }),
+
+      /* ========================= */
+      /* REMOVE */
+      /* ========================= */
 
       removeItem: (id) =>
         set((state) => ({
           items: state.items.filter((item) => item.id !== id),
         })),
 
+      /* ========================= */
+      /* CLEAR */
+      /* ========================= */
+
       clearBudget: () =>
         set({
           items: [],
         }),
+
+      /* ========================= */
+      /* UPDATE CANTIDAD */
+      /* ========================= */
 
       updateCantidad: (id, cantidad) =>
         set((state) => ({
@@ -45,15 +95,21 @@ export const useBudgetStore = create<BudgetState>()(
               return item;
             }
 
+            const cantidadFinal = Math.max(1, Number(cantidad) || 1);
+
             return {
               ...item,
 
-              cantidad,
+              cantidad: cantidadFinal,
 
-              subtotal: item.precioUnitario * cantidad,
+              subtotal: item.precioUnitario * cantidadFinal,
             };
           }),
         })),
+
+      /* ========================= */
+      /* TOTAL */
+      /* ========================= */
 
       total: () =>
         get().items.reduce((acc, item) => {
