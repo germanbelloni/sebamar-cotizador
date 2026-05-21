@@ -274,7 +274,13 @@ export function BudgetPanel({
                     Subtotal
                   </div>
 
-                  <div className="text-sm font-medium">
+                  <div
+                    className="
+    text-sm
+    font-bold
+    text-emerald-400
+  "
+                  >
                     {formatCurrency(item.subtotal)}
                   </div>
                 </div>
@@ -298,7 +304,15 @@ export function BudgetPanel({
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">Total</span>
 
-          <span className="text-lg font-bold">{formatCurrency(total)}</span>
+          <span
+            className="
+    text-lg
+    font-black
+    text-emerald-400
+  "
+          >
+            {formatCurrency(total)}
+          </span>
         </div>
       </div>
 

@@ -38,6 +38,16 @@ export function createRajasBudgetItem(
 
     subtotal: precioUnitario,
 
+    groupKey: [
+      "rajas",
+      config.linea,
+      config.ancho,
+      config.alto,
+      config.color,
+      config.tipoVidrio,
+      config.modelo,
+    ].join("-"),
+
     configuracion: {
       ancho: config.ancho,
 

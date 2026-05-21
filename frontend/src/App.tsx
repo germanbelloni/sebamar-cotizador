@@ -14,8 +14,6 @@ import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
-import { BudgetDebug } from "@/shared/budget/components/BudgetDebug";
-
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -699,7 +697,6 @@ function App() {
           cliente={cliente}
           empresa={empresa}
         />
-        <BudgetDebug />
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export type BudgetItem = {
   precioUnitario: number;
 
   subtotal: number;
+  groupKey: string;
 
   configuracion: unknown;
 

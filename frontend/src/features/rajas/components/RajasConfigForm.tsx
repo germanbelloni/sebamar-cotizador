@@ -38,7 +38,7 @@ import { useCotizarRajas } from "../hooks/useCotizarRajas";
 
 import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
-import { useBudgetAdder } from "@/shared/hooks/useBudgetAdder";
+import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
 type Props = {
   config: RajasConfig;
