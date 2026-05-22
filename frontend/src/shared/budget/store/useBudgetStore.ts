@@ -118,6 +118,9 @@ export const useBudgetStore = create<BudgetState>()(
     }),
     {
       name: "sebamar-budget-storage",
+      partialize: (state) => ({
+        items: state.items,
+      }),
     },
   ),
 );

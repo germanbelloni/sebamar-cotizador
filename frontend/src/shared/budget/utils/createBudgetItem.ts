@@ -1,4 +1,5 @@
 import type { BudgetItem, BudgetModule } from "../types/budget.types";
+import { createGroupKey } from "../utils/createGroupKey";
 
 type Params = {
   modulo: BudgetModule;
@@ -65,6 +66,11 @@ export function createBudgetItem({
     svg,
 
     metadata,
-    groupKey: crypto.randomUUID(),
+    groupKey: createGroupKey({
+      modulo,
+      descripcion,
+      metadata,
+      configuracion,
+    }),
   };
 }

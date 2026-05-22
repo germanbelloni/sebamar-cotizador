@@ -9,7 +9,7 @@ import {
 
 import type { Cliente } from "@/features/clientes/types";
 
-import type { VentanaItem } from "@/features/ventanas/types";
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
@@ -20,7 +20,7 @@ type Props = {
 
   cliente: Cliente;
 
-  items: VentanaItem[];
+  items: BudgetItem[];
 };
 
 const styles = StyleSheet.create({
@@ -180,7 +180,7 @@ export function BudgetPDF({ empresa, cliente, items }: Props) {
 
           {items.map((item, index) => (
             <View key={index} style={styles.item}>
-              <Text style={styles.itemDescription}>{item.description}</Text>
+              <Text style={styles.itemDescription}>{item.descripcion}</Text>
 
               <View style={styles.itemRow}>
                 <Text>Cantidad: {item.cantidad || 1}</Text>

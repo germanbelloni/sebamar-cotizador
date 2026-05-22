@@ -1,6 +1,6 @@
 import type { BudgetItem } from "../types/budget.types";
 
-import { useBudgetStore } from "../store/useBudgetStore";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 type Params<TConfig, TResult = unknown> = {
   mutation: {
@@ -14,9 +14,7 @@ type Params<TConfig, TResult = unknown> = {
 
 export function useBudgetAdder<TConfig, TResult = unknown>({
   mutation,
-
   config,
-
   createItem,
 }: Params<TConfig, TResult>) {
   const addItem = useBudgetStore((state) => state.addItem);

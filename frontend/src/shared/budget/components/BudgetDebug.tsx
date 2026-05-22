@@ -1,4 +1,4 @@
-import { useBudgetStore } from "../store/useBudgetStore";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 export function BudgetDebug() {
   const items = useBudgetStore((state) => state.items);

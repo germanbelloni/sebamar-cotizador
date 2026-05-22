@@ -8,6 +8,7 @@ import type { Empresa } from "@/features/empresa/types";
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
+import { useShareWhatsApp } from "@/shared/budget/hooks/useShareWhatsApp";
 
 type Props = {
   empresa: Empresa;
@@ -18,10 +19,7 @@ type Props = {
 };
 
 export function PrintableBudget({ empresa, cliente, items }: Props) {
-  const total = items.reduce(
-    (acc, item) => acc + item.subtotal * item.cantidad,
-    0,
-  );
+  const total = items.reduce((acc, item) => acc + item.subtotal, 0);
 
   const today = new Date();
 
@@ -37,6 +35,12 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
   const primaryColor = empresa.primaryColor || "#111827";
 
+  const { share } = useShareWhatsApp({
+    empresa: empresa.nombre,
+    cliente: cliente.nombre,
+    telefono: cliente.telefono,
+  });
+
   return (
     <div className="min-h-screen bg-zinc-100 py-12 print:bg-white print:py-0">
       {/* ACTIONS */}
@@ -46,16 +50,23 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
           Vista Previa de Presupuesto
         </h2>
 
-        <Button
-          onClick={() => window.print()}
-          className="rounded-full shadow-lg transition-all hover:shadow-xl"
-          style={{
-            backgroundColor: primaryColor,
-          }}
-        >
-          <Printer className="mr-2 h-4 w-4" />
-          Imprimir o Guardar PDF
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button onClick={share} variant="outline" className="rounded-full">
+            <MessageSquare className="mr-2 h-4 w-4" />
+            WhatsApp
+          </Button>
+
+          <Button
+            onClick={() => window.print()}
+            className="rounded-full shadow-lg transition-all hover:shadow-xl"
+            style={{
+              backgroundColor: primaryColor,
+            }}
+          >
+            <Printer className="mr-2 h-4 w-4" />
+            Imprimir o Guardar PDF
+          </Button>
+        </div>
       </div>
 
       {/* PAGE */}
