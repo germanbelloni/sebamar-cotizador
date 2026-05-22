@@ -4,7 +4,8 @@ import { Printer, User, MessageSquare } from "lucide-react";
 
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
-import type { VentanaItem } from "@/features/ventanas/types";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
@@ -13,7 +14,7 @@ type Props = {
 
   cliente: Cliente;
 
-  items: VentanaItem[];
+  items: BudgetItem[];
 };
 
 export function PrintableBudget({ empresa, cliente, items }: Props) {
@@ -40,7 +41,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
     <div className="min-h-screen bg-zinc-100 py-12 print:bg-white print:py-0">
       {/* ACTIONS */}
 
-      <div className="mx-auto mb-8 flex w-[850px] items-center justify-between print:hidden px-4">
+      <div className="print-hidden mx-auto mb-8 flex w-[850px] items-center justify-between px-4">
         <h2 className="font-medium text-zinc-500">
           Vista Previa de Presupuesto
         </h2>
@@ -68,6 +69,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
           rounded-[32px]
           bg-white
           shadow-[0_0_50px_-12px_rgba(0,0,0,0.10)]
+
           print:w-full
           print:rounded-none
           print:shadow-none
@@ -76,7 +78,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
         {/* TOP ACCENT */}
 
         <div
-          className="h-2 w-full"
+          className="h-3 w-full"
           style={{
             background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
           }}
@@ -89,9 +91,12 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             absolute
             right-[-120px]
             top-[-120px]
+
             h-[320px]
             w-[320px]
+
             rounded-full
+
             blur-3xl
             opacity-10
           "
@@ -102,14 +107,14 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
         <div className="p-16">
           {/* HEADER */}
-          {/* HEADER */}
+
           <div className="flex items-start justify-between">
             {/* LEFT */}
 
             <div>
               <img
-                src="/logosebamar.png"
-                alt="Sebamar"
+                src={empresa.logo}
+                alt={empresa.nombre}
                 className="mb-6 h-20 object-contain"
               />
 
@@ -127,31 +132,39 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             <div className="text-right">
               <h2
                 className="
-        absolute
-        right-16
-        top-12
-        select-none
-        text-7xl
-        font-black
-        tracking-tighter
-        opacity-[0.04]
-      "
+                  absolute
+                  right-16
+                  top-12
+
+                  select-none
+
+                  text-7xl
+                  font-black
+                  tracking-tighter
+
+                  opacity-[0.04]
+                "
               >
                 PRESUPUESTO
               </h2>
 
               <div
                 className="
-        inline-flex
-        rounded-2xl
-        px-6 py-3
-        text-sm
-        font-bold
-        uppercase
-        tracking-[0.3em]
-        text-white
-        shadow-xl
-      "
+                  inline-flex
+
+                  rounded-2xl
+
+                  px-6 py-3
+
+                  text-sm
+                  font-bold
+                  uppercase
+                  tracking-[0.3em]
+
+                  text-white
+
+                  shadow-xl
+                "
                 style={{
                   background: `linear-gradient(to right, ${primaryColor}, ${empresa.secondaryColor})`,
                 }}
@@ -181,11 +194,11 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                 </div>
               </div>
             </div>
-          </div>{" "}
-          {/* CLIENT SECTION */}
-          <div className="mt-16 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
-            {/* CLIENT */}
+          </div>
 
+          {/* CLIENT */}
+
+          <div className="mt-16 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
             <div>
               <div className="mb-4 flex items-center gap-2 text-zinc-400">
                 <User size={14} />
@@ -209,12 +222,15 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             <div
               className="
                 rounded-3xl
-                border
-                border-zinc-100
+
+                border border-zinc-100
+
                 bg-gradient-to-br
                 from-zinc-50
                 to-white
+
                 p-7
+
                 shadow-sm
               "
             >
@@ -235,20 +251,25 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               </p>
             </div>
           </div>
+
           {/* TABLE */}
+
           <div className="mt-14 overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm">
             {/* HEAD */}
 
             <div
               className="
                 grid
-                grid-cols-[80px_1fr_180px_180px]
+                grid-cols-[90px_1fr_180px_180px]
+
                 px-8
                 py-5
+
                 text-[11px]
                 font-bold
                 uppercase
                 tracking-[0.25em]
+
                 text-white
               "
               style={{
@@ -267,15 +288,18 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             {/* BODY */}
 
             <div className="divide-y divide-zinc-100">
-              {items.map((item, index) => (
+              {items.map((item) => (
                 <div
-                  key={index}
+                  key={item.id}
                   className="
                     grid
-                    grid-cols-[80px_1fr_180px_180px]
+                    grid-cols-[90px_1fr_180px_180px]
+
                     px-8
                     py-6
+
                     transition-colors
+
                     hover:bg-zinc-50/60
                   "
                 >
@@ -285,51 +309,58 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
                   <div>
                     <div className="font-semibold leading-relaxed text-zinc-800">
-                      {item.description}
+                      {item.descripcion}
                     </div>
 
                     <div className="mt-1 text-xs text-zinc-400">
-                      Producto premium
+                      {item.titulo}
                     </div>
                   </div>
 
                   <div className="text-right text-zinc-600">
-                    {formatCurrency(item.subtotal)}
+                    {formatCurrency(item.precioUnitario)}
                   </div>
 
                   <div className="text-right font-bold text-zinc-900">
-                    {formatCurrency(item.subtotal * item.cantidad)}
+                    {formatCurrency(item.subtotal)}
                   </div>
                 </div>
               ))}
             </div>
           </div>
+
           {/* TOTAL */}
+
           <div className="mt-14 flex justify-end">
             <div className="w-full max-w-[420px]">
               <div
                 className="
                   relative
                   overflow-hidden
+
                   rounded-[32px]
+
                   p-8
+
                   text-white
+
                   shadow-[0_20px_60px_rgba(0,0,0,0.18)]
                 "
                 style={{
                   background: `linear-gradient(135deg, ${primaryColor}, ${empresa.secondaryColor})`,
                 }}
               >
-                {/* GLOW */}
-
                 <div
                   className="
                     absolute
                     right-[-40px]
                     top-[-40px]
+
                     h-[180px]
                     w-[180px]
+
                     rounded-full
+
                     bg-white
                     opacity-10
                   "
@@ -349,7 +380,9 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               </div>
             </div>
           </div>
+
           {/* TERMS */}
+
           <div className="mt-20 border-l-2 border-zinc-200 pl-6">
             <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
               Términos y condiciones
@@ -363,7 +396,9 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
               <li>• Los precios pueden variar según disponibilidad.</li>
             </ul>
           </div>
+
           {/* FOOTER */}
+
           <div className="mt-20 flex items-end justify-between border-t border-zinc-100 pt-8">
             <div>
               <p className="text-sm text-zinc-400">Gracias por confiar en</p>

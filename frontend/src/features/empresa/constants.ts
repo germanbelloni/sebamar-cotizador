@@ -9,7 +9,7 @@ export const empresa: Empresa = {
 
   email: "info@sebamar.com",
 
-  logo: "",
+  logo: "/logos/sebamar.png",
 
   primaryColor: "#D6B400",
 
