@@ -12,7 +12,13 @@ import type { Cliente } from "@/features/clientes/types";
 
 import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 
+import { PresupuestosPage } from "@/features/presupuestos/pages/PresupuestosPage";
+
+import { usePresupuesto } from "@/features/presupuestos/hooks/usePresupuesto";
+
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
+import { PrintableBudget } from "@/features/print/components/PrintableBudget";
 
 /* RAJAS */
 
@@ -97,9 +103,15 @@ function App() {
 
   const [activeFeature, setActiveFeature] = useState("rajas");
 
+  const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
+    string | null
+  >(null);
+
   const total = useBudgetStore((state) => state.total);
 
   const items = useBudgetStore((state) => state.items);
+
+  const { data: presupuestoDetalle } = usePresupuesto(selectedPresupuestoId);
 
   /* CLIENTE */
 
@@ -433,151 +445,176 @@ function App() {
         />
 
         <main className="flex-1 overflow-auto">
-          <Header empresa={empresa} cliente={cliente} setCliente={setCliente} />
+          {activeFeature === "presupuestos" ? (
+            selectedPresupuestoId && presupuestoDetalle ? (
+              <PrintableBudget
+                empresa={empresa}
+                cliente={{
+                  nombre: presupuestoDetalle.cliente,
+                  telefono: presupuestoDetalle.telefono,
+                }}
+                items={presupuestoDetalle.items}
+              />
+            ) : (
+              <PresupuestosPage onOpenPresupuesto={setSelectedPresupuestoId} />
+            )
+          ) : (
+            <>
+              <Header
+                empresa={empresa}
+                cliente={cliente}
+                setCliente={setCliente}
+              />
 
-          <div className="grid grid-cols-2 gap-6 p-6">
-            {/* FORM */}
+              <div className="grid grid-cols-2 gap-6 p-6">
+                {/* FORM */}
 
-            {FEATURE_COMPONENTS[activeFeature]}
+                {FEATURE_COMPONENTS[activeFeature]}
 
-            {/* PREVIEW COLUMN */}
+                {/* PREVIEW COLUMN */}
 
-            <div className="flex h-full flex-col gap-4">
-              {/* SVG / PREVIEW */}
+                <div className="flex h-full flex-col gap-4">
+                  {/* SVG / PREVIEW */}
 
-              <div
-                className="
+                  <div
+                    className="
                 flex-[4]
                 rounded-2xl
                 border border-border
                 bg-card
                 p-6
               "
-              >
-                <div className="flex h-full flex-col">
-                  {/* HEADER */}
+                  >
+                    <div className="flex h-full flex-col">
+                      {/* HEADER */}
 
-                  <div>
-                    <h2 className="text-xl font-semibold">
-                      {activeFeatureLabel}
-                    </h2>
+                      <div>
+                        <h2 className="text-xl font-semibold">
+                          {activeFeatureLabel}
+                        </h2>
 
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Vista previa técnica del módulo.
-                    </p>
-                  </div>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Vista previa técnica del módulo.
+                        </p>
+                      </div>
 
-                  {/* SVG */}
+                      {/* SVG */}
 
-                  <div className="mt-6 flex-1">
-                    {activeFeature === "ventanas" && (
-                      <VentanaPreview config={ventanasConfig} />
-                    )}
+                      <div className="mt-6 flex-1">
+                        {activeFeature === "ventanas" && (
+                          <VentanaPreview config={ventanasConfig} />
+                        )}
 
-                    {activeFeature === "rajas" && (
-                      <RajasPreview config={rajasConfig} />
-                    )}
+                        {activeFeature === "rajas" && (
+                          <RajasPreview config={rajasConfig} />
+                        )}
 
-                    {activeFeature === "postigones" && (
-                      <PostigonPreview config={postigonesConfig} />
-                    )}
+                        {activeFeature === "postigones" && (
+                          <PostigonPreview config={postigonesConfig} />
+                        )}
 
-                    {activeFeature === "patagonicas" && (
-                      <PatagonicasPreview config={patagonicasConfig} />
-                    )}
+                        {activeFeature === "patagonicas" && (
+                          <PatagonicasPreview config={patagonicasConfig} />
+                        )}
 
-                    {activeFeature === "mosquiteros" && (
-                      <MosquiterosPreview config={mosquiterosConfig} />
-                    )}
+                        {activeFeature === "mosquiteros" && (
+                          <MosquiterosPreview config={mosquiterosConfig} />
+                        )}
 
-                    {activeFeature === "puertas" && (
-                      <PuertasPreview config={puertasConfig} />
-                    )}
+                        {activeFeature === "puertas" && (
+                          <PuertasPreview config={puertasConfig} />
+                        )}
 
-                    {activeFeature === "puertas-placa" && (
-                      <PuertasPlacaPreview config={puertasPlacaConfig} />
-                    )}
+                        {activeFeature === "puertas-placa" && (
+                          <PuertasPlacaPreview config={puertasPlacaConfig} />
+                        )}
 
-                    {activeFeature === "pano-fijo" && (
-                      <PanoFijoPreview config={panoFijoConfig} />
-                    )}
-                  </div>
+                        {activeFeature === "pano-fijo" && (
+                          <PanoFijoPreview config={panoFijoConfig} />
+                        )}
+                      </div>
 
-                  {activeFeature === "marcos" && (
-                    <MarcosPreview config={marcosConfig} />
-                  )}
+                      {activeFeature === "marcos" && (
+                        <MarcosPreview config={marcosConfig} />
+                      )}
 
-                  {/* TECHNICAL INFO */}
+                      {/* TECHNICAL INFO */}
 
-                  <div
-                    className="
+                      <div
+                        className="
                     mt-4
                     rounded-xl
                     border border-border
                     bg-background/50
                     p-4
                   "
-                  >
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Línea</span>
+                      >
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Línea</span>
 
-                        <span>
-                          {"linea" in activeConfig ? activeConfig.linea : "-"}
-                        </span>
-                      </div>
+                            <span>
+                              {"linea" in activeConfig
+                                ? activeConfig.linea
+                                : "-"}
+                            </span>
+                          </div>
 
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Vidrio</span>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">
+                              Vidrio
+                            </span>
 
-                        <span>
-                          {"tipoVidrio" in activeConfig
-                            ? activeConfig.tipoVidrio || "-"
-                            : "-"}
-                        </span>
-                      </div>
+                            <span>
+                              {"tipoVidrio" in activeConfig
+                                ? activeConfig.tipoVidrio || "-"
+                                : "-"}
+                            </span>
+                          </div>
 
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Color</span>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Color</span>
 
-                        <span>
-                          {"tipo" in activeConfig &&
-                          activeConfig.tipo === "premarco"
-                            ? "-"
-                            : "color" in activeConfig
-                              ? activeConfig.color
-                              : "-"}
-                        </span>
-                      </div>
+                            <span>
+                              {"tipo" in activeConfig &&
+                              activeConfig.tipo === "premarco"
+                                ? "-"
+                                : "color" in activeConfig
+                                  ? activeConfig.color
+                                  : "-"}
+                            </span>
+                          </div>
 
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Medidas</span>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">
+                              Medidas
+                            </span>
 
-                        <span>
-                          {activeConfig.ancho} x {activeConfig.alto}
-                        </span>
+                            <span>
+                              {activeConfig.ancho} x {activeConfig.alto}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              {/* CLIENT CARD */}
+                  {/* CLIENT CARD */}
 
-              <div
-                className="
+                  <div
+                    className="
                 flex-[1]
                 rounded-2xl
                 border border-border
                 bg-card
                 p-6
               "
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-semibold">Cliente</h3>
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base font-semibold">Cliente</h3>
 
-                  <span
-                    className="
+                      <span
+                        className="
                     rounded-full
                     border border-lime-400/20
                     bg-lime-400/10
@@ -588,89 +625,93 @@ function App() {
                     tracking-wider
                     text-zinc-300/70
                   "
-                  >
-                    Presupuesto
-                  </span>
-                </div>
+                      >
+                        Presupuesto
+                      </span>
+                    </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  <div
-                    className="
+                    <div className="mt-4 grid grid-cols-2 gap-4">
+                      <div
+                        className="
                     rounded-xl
                     border border-border
                     bg-background
                     px-4 py-3
                   "
-                  >
-                    <p className="text-[11px] text-muted-foreground">Nombre</p>
+                      >
+                        <p className="text-[11px] text-muted-foreground">
+                          Nombre
+                        </p>
 
-                    <p className="mt-1 text-sm font-medium text-foreground">
-                      {cliente.nombre || "-"}
-                    </p>
-                  </div>
+                        <p className="mt-1 text-sm font-medium text-foreground">
+                          {cliente.nombre || "-"}
+                        </p>
+                      </div>
 
-                  <div
-                    className="
+                      <div
+                        className="
                     rounded-xl
                     border border-border
                     bg-background
                     px-4 py-3
                   "
-                  >
-                    <p className="text-[11px] text-muted-foreground">
-                      Teléfono
-                    </p>
+                      >
+                        <p className="text-[11px] text-muted-foreground">
+                          Teléfono
+                        </p>
 
-                    <p className="mt-1 text-sm font-medium text-foreground">
-                      {cliente.telefono || "-"}
-                    </p>
-                  </div>
-                </div>
+                        <p className="mt-1 text-sm font-medium text-foreground">
+                          {cliente.telefono || "-"}
+                        </p>
+                      </div>
+                    </div>
 
-                {/* TOTAL */}
+                    {/* TOTAL */}
 
-                <div
-                  className="
+                    <div
+                      className="
                   mt-5
                   rounded-2xl
                   border border-zinc-700/40
                   bg-zinc-900/60
                   px-5 py-4
                 "
-                >
-                  <p
-                    className="
+                    >
+                      <p
+                        className="
                     text-xs
                     uppercase
                     tracking-[0.18em]
                     text-zinc-400
                   "
-                  >
-                    Total presupuesto
-                  </p>
+                      >
+                        Total presupuesto
+                      </p>
 
-                  <div
-                    className="
+                      <div
+                        className="
     mt-2
     text-3xl
     font-bold
     tracking-tight
     text-zinc-100
   "
-                  >
-                    $
-                    {(() => {
-                      const totalValue = total();
+                      >
+                        $
+                        {(() => {
+                          const totalValue = total();
 
-                      return totalValue >= 1000000
-                        ? totalValue.toLocaleString("es-AR")
-                        : totalValue;
-                    })()}
+                          return totalValue >= 1000000
+                            ? totalValue.toLocaleString("es-AR")
+                            : totalValue;
+                        })()}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </main>
 
         <BudgetPanel items={items} cliente={cliente} empresa={empresa} />

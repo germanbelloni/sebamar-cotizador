@@ -1,14 +1,30 @@
 const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
+  modulo: String,
+
+  titulo: String,
+
   descripcion: String,
+
   cantidad: Number,
-  precio: Number,
+
+  precioUnitario: Number,
+
+  subtotal: Number,
+
+  configuracion: mongoose.Schema.Types.Mixed,
+
+  metadata: mongoose.Schema.Types.Mixed,
 });
 
 const presupuestoSchema = new mongoose.Schema(
   {
     userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    ownerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },

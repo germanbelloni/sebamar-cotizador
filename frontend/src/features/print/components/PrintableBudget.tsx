@@ -9,6 +9,9 @@ import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 import { useShareWhatsApp } from "@/shared/budget/hooks/useShareWhatsApp";
+import { useGuardarPresupuesto } from "@/shared/budget/hooks/useGuardarPresupuesto";
+
+import { budgetToApi } from "@/shared/budget/serializers/budgetToApi";
 
 type Props = {
   empresa: Empresa;
@@ -41,6 +44,16 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
     telefono: cliente.telefono,
   });
 
+  const guardarMutation = useGuardarPresupuesto();
+
+  function handleGuardarPresupuesto() {
+    const payload = budgetToApi({
+      items,
+    });
+
+    guardarMutation.mutate(payload);
+  }
+
   return (
     <div className="min-h-screen bg-zinc-100 py-12 print:bg-white print:py-0">
       {/* ACTIONS */}
@@ -51,6 +64,14 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
         </h2>
 
         <div className="flex items-center gap-3">
+          <Button
+            onClick={handleGuardarPresupuesto}
+            variant="secondary"
+            className="rounded-full"
+          >
+            Guardar
+          </Button>
+
           <Button onClick={share} variant="outline" className="rounded-full">
             <MessageSquare className="mr-2 h-4 w-4" />
             WhatsApp

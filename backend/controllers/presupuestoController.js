@@ -167,6 +167,7 @@ function calcularItem(item, perfil) {
 async function crear(req, res) {
   try {
     const userId = req.user.id;
+    const ownerId = req.user.ownerId || req.user.id;
 
     const user = await User.findById(userId);
 
@@ -213,6 +214,7 @@ async function crear(req, res) {
 
     const presupuesto = new Presupuesto({
       userId,
+      ownerId,
       numero: user.contadorPresupuestos,
       cliente: req.body.cliente,
       fecha: req.body.fecha,
@@ -245,20 +247,27 @@ async function crear(req, res) {
 // =========================
 
 async function listar(req, res) {
+  const ownerId = req.user.ownerId || req.user.id;
+
   const presupuestos = await Presupuesto.find({
-    userId: req.user.id,
+    ownerId,
   }).populate("userId", "nombre");
 
   const resultado = presupuestos.map((p) => ({
     id: p._id,
+
     numero: p.numero,
+
     cliente: p.cliente,
-    usuario: p.userId.nombre,
+
+    usuario: p.userId?.nombre || "Usuario",
+
     total: p.total,
+
     fecha: p.fecha,
   }));
 
-  return res.json(sanitizarResultado(presupuesto, req.user));
+  return res.json(resultado);
 }
 
 // =========================
@@ -276,7 +285,9 @@ async function obtener(req, res) {
     });
   }
 
-  if (presupuesto.userId.toString() !== req.user.id) {
+  const ownerId = req.user.ownerId || req.user.id;
+
+  if (presupuesto.ownerId?.toString() !== ownerId) {
     return res.status(403).json({
       error: "No autorizado",
     });
@@ -305,11 +316,15 @@ async function pdf(req, res) {
       });
     }
 
-    if (presupuesto.userId.toString() !== req.user.id) {
+    const ownerId = req.user.ownerId || req.user.id;
+
+    if (presupuesto.ownerId?.toString() !== ownerId) {
       return res.status(403).json({
         error: "No autorizado",
       });
     }
+
+    const user = await User.findById(req.user.id);
 
     const html = generarHTML(presupuesto, user);
 

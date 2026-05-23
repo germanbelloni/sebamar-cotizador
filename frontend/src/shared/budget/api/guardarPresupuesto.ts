@@ -1,4 +1,4 @@
-import apiClient from "@/shared/api/apiClient";
+import apiClient from "@/lib/apiClient";
 
 type Payload = {
   items: unknown[];
@@ -7,7 +7,7 @@ type Payload = {
 };
 
 export async function guardarPresupuesto(payload: Payload) {
-  const { data } = await apiClient.post("/api/presupuestos", payload);
+  const { data } = await apiClient.post("/presupuestos", payload);
 
   return data;
 }
