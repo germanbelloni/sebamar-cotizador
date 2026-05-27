@@ -8,18 +8,17 @@ import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
-
-import { PrintableBudget } from "@/features/print/components/PrintableBudget";
-
 type Props = {
   items: BudgetItem[];
 
   cliente: Cliente;
 
   empresa: Empresa;
+
+  onGenerate: () => void;
 };
 
-export function BudgetPanel({ items, cliente, empresa }: Props) {
+export function BudgetPanel({ items, cliente, empresa, onGenerate }: Props) {
   const removeItem = useBudgetStore((state) => state.removeItem);
 
   const updateCantidad = useBudgetStore((state) => state.updateCantidad);
@@ -240,11 +239,27 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
           </div>
 
           {items.length > 0 && (
-            <PrintableBudget
-              items={items}
-              cliente={cliente}
-              empresa={empresa}
-            />
+            <button
+              className="
+      w-full
+      rounded-2xl
+
+      bg-primary
+
+      px-4 py-3
+
+      text-sm
+      font-semibold
+      text-primary-foreground
+
+      transition-opacity
+
+      hover:opacity-90
+    "
+              onClick={onGenerate}
+            >
+              Generar presupuesto
+            </button>
           )}
         </div>
       </div>

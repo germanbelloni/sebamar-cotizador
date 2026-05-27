@@ -20,6 +20,9 @@ import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 import { PrintableBudget } from "@/features/print/components/PrintableBudget";
 
+/* PRESUPUESTO */
+import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
+
 /* RAJAS */
 
 import type { RajasConfig } from "@/features/rajas/types";
@@ -102,6 +105,8 @@ function App() {
   /* ACTIVE FEATURE */
 
   const [activeFeature, setActiveFeature] = useState("rajas");
+
+  const [showPrintable, setShowPrintable] = useState(false);
 
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null
@@ -435,6 +440,12 @@ function App() {
                   : activeFeature === "pano-fijo"
                     ? panoFijoConfig
                     : portonesConfig;
+
+  if (showPrintable) {
+    return (
+      <PrintableBudget items={items} cliente={cliente} empresa={empresa} />
+    );
+  }
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div className="flex h-screen overflow-hidden">
@@ -446,14 +457,10 @@ function App() {
 
         <main className="flex-1 overflow-auto">
           {activeFeature === "presupuestos" ? (
-            selectedPresupuestoId && presupuestoDetalle ? (
-              <PrintableBudget
-                empresa={empresa}
-                cliente={{
-                  nombre: presupuestoDetalle.cliente,
-                  telefono: presupuestoDetalle.telefono,
-                }}
-                items={presupuestoDetalle.items}
+            selectedPresupuestoId ? (
+              <PresupuestoDetallePage
+                presupuestoId={selectedPresupuestoId}
+                onBack={() => setSelectedPresupuestoId(null)}
               />
             ) : (
               <PresupuestosPage onOpenPresupuesto={setSelectedPresupuestoId} />
@@ -714,7 +721,12 @@ function App() {
           )}
         </main>
 
-        <BudgetPanel items={items} cliente={cliente} empresa={empresa} />
+        <BudgetPanel
+          items={items}
+          cliente={cliente}
+          empresa={empresa}
+          onGenerate={() => setShowPrintable(true)}
+        />
       </div>
     </div>
   );

@@ -293,7 +293,41 @@ async function obtener(req, res) {
     });
   }
 
-  return res.json(sanitizarResultado(presupuesto, req.user));
+  const resultado = {
+    id: presupuesto._id,
+
+    numero: presupuesto.numero,
+
+    cliente: presupuesto.cliente,
+
+    telefono: presupuesto.telefono,
+
+    total: presupuesto.total,
+
+    fecha: presupuesto.fecha,
+
+    items: (presupuesto.items || []).map((item) => ({
+      id: item._id?.toString(),
+
+      modulo: item.modulo || item.tipo || "ventanas",
+
+      titulo: item.titulo || item.descripcion || "Producto",
+
+      descripcion: item.descripcion || "Sin descripción",
+
+      cantidad: Number(item.cantidad || 1),
+
+      precioUnitario: Number(item.precioUnitario || item.precio || 0),
+
+      subtotal: Number(item.subtotal || item.precio * item.cantidad || 0),
+
+      configuracion: item.configuracion || {},
+
+      metadata: item.metadata || {},
+    })),
+  };
+
+  return res.json(sanitizarResultado(resultado, req.user));
 }
 
 // =========================
