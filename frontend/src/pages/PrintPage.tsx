@@ -1,23 +1,21 @@
-import { useLocation, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { PrintableBudget } from "@/features/print/components/PrintableBudget";
 
 export function PrintPage() {
-  const location = useLocation();
+  const raw = sessionStorage.getItem("print-data");
 
-  const state = location.state;
-
-  console.log(state);
-
-  if (!state) {
+  if (!raw) {
     return <Navigate to="/" />;
   }
 
+  const data = JSON.parse(raw);
+
   return (
     <PrintableBudget
-      empresa={state.empresa}
-      cliente={state.cliente}
-      items={state.items}
+      empresa={data.empresa}
+      cliente={data.cliente}
+      items={data.items}
     />
   );
 }

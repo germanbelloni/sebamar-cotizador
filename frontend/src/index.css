@@ -261,4 +261,23 @@ html {
 
     print-color-adjust: exact !important;
   }
+
+  @media print {
+    body {
+      background: white !important;
+    }
+
+    html {
+      background: white !important;
+    }
+
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+
+  @page {
+    margin: 10mm;
+  }
 }

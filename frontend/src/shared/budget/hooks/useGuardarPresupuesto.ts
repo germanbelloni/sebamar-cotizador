@@ -8,10 +8,14 @@ export function useGuardarPresupuesto() {
 
     onSuccess: (data) => {
       console.log("PRESUPUESTO GUARDADO:", data);
+
+      alert("Presupuesto guardado");
     },
 
     onError: (error) => {
       console.error("ERROR GUARDANDO PRESUPUESTO:", error);
+
+      alert("Error guardando presupuesto");
     },
   });
 }

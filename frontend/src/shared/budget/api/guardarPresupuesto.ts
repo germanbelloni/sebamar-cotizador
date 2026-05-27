@@ -1,6 +1,10 @@
 import apiClient from "@/lib/apiClient";
 
 type Payload = {
+  cliente?: string;
+
+  telefono?: string;
+
   items: unknown[];
 
   total: number;

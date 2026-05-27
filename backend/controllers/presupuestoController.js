@@ -235,6 +235,9 @@ async function crear(req, res) {
   } catch (error) {
     console.error("ERROR PRESUPUESTO:", error);
 
+    console.error("BODY:", JSON.stringify(req.body, null, 2));
+    console.error("ERROR PRESUPUESTO:", error);
+
     return res.status(500).json({
       error: "Error creando presupuesto",
       detalle: error.message,

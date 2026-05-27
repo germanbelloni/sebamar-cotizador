@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 
 import { Printer, User, MessageSquare } from "lucide-react";
-
+import { useEffect } from "react";
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
 
@@ -49,13 +49,25 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
   function handleGuardarPresupuesto() {
     const payload = budgetToApi({
       items,
+
+      cliente: cliente.nombre,
+
+      telefono: cliente.telefono,
     });
 
     guardarMutation.mutate(payload);
   }
 
+  useEffect(() => {
+    document.body.style.background = "white";
+
+    return () => {
+      document.body.style.background = "";
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-zinc-100 py-12 print:bg-white print:py-0">
+    <div className="w-full bg-white py-2 print:bg-white print:py-0">
       {/* ACTIONS */}
 
       <div className="print-hidden mx-auto mb-8 flex w-[850px] items-center justify-between px-4">
@@ -65,7 +77,11 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
         <div className="flex items-center gap-3">
           <Button
-            onClick={handleGuardarPresupuesto}
+            onClick={() => {
+              console.log("GUARDANDO...");
+
+              handleGuardarPresupuesto();
+            }}
             variant="secondary"
             className="rounded-full"
           >
@@ -100,7 +116,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
           overflow-hidden
           rounded-[32px]
           bg-white
-          shadow-[0_0_50px_-12px_rgba(0,0,0,0.10)]
+          
 
           print:w-full
           print:rounded-none
@@ -137,7 +153,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
           }}
         />
 
-        <div className="p-16">
+        <div className="p-8">
           {/* HEADER */}
 
           <div className="flex items-start justify-between">
@@ -230,7 +246,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
           {/* CLIENT */}
 
-          <div className="mt-16 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
+          <div className="mt-8 grid grid-cols-2 gap-12 border-t border-zinc-100 pt-12">
             <div>
               <div className="mb-4 flex items-center gap-2 text-zinc-400">
                 <User size={14} />
@@ -240,46 +256,12 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                 </span>
               </div>
 
-              <h3 className="text-3xl font-black tracking-tight text-zinc-900">
+              <h3 className="text-xl font-bold tracking-tight text-zinc-900">
                 {cliente.nombre || "Consumidor Final"}
               </h3>
 
               <p className="mt-2 text-zinc-500">
                 {cliente.telefono || "Sin teléfono registrado"}
-              </p>
-            </div>
-
-            {/* NOTE */}
-
-            <div
-              className="
-                rounded-3xl
-
-                border border-zinc-100
-
-                bg-gradient-to-br
-                from-zinc-50
-                to-white
-
-                p-7
-
-                shadow-sm
-              "
-            >
-              <div className="mb-3 flex items-center gap-2 text-zinc-400">
-                <MessageSquare size={14} />
-
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em]">
-                  Nota rápida
-                </span>
-              </div>
-
-              <p className="text-sm leading-relaxed text-zinc-500">
-                Este documento representa una cotización formal de los productos
-                solicitados.
-                <br />
-                Los valores pueden variar según disponibilidad y costos de
-                materiales.
               </p>
             </div>
           </div>
@@ -295,7 +277,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                 grid-cols-[90px_1fr_180px_180px]
 
                 px-8
-                py-5
+                py-3
 
                 text-[11px]
                 font-bold
@@ -328,7 +310,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                     grid-cols-[90px_1fr_180px_180px]
 
                     px-8
-                    py-6
+                    py-2
 
                     transition-colors
 
@@ -344,7 +326,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                       {item.descripcion}
                     </div>
 
-                    <div className="mt-1 text-xs text-zinc-400">
+                    <div className="mt-1 text-[10px] text-zinc-400">
                       {item.titulo}
                     </div>
                   </div>
@@ -372,7 +354,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
                   rounded-[32px]
 
-                  p-8
+                  p-5
 
                   text-white
 
@@ -403,11 +385,9 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                     Total Final
                   </div>
 
-                  <div className="mt-4 text-5xl font-black tracking-tight">
+                  <div className="mt-4 text-3xl font-black tracking-tight">
                     {formatCurrency(total)}
                   </div>
-
-                  <div className="mt-4 text-sm text-white/70">IVA incluido</div>
                 </div>
               </div>
             </div>
@@ -415,36 +395,30 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
           {/* TERMS */}
 
-          <div className="mt-20 border-l-2 border-zinc-200 pl-6">
+          <div
+            className="
+    mt-8
+
+    rounded-xl
+
+    border border-zinc-200
+
+    px-5 py-2
+
+    text-xs
+  "
+          >
             <h4 className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
               Términos y condiciones
             </h4>
 
-            <ul className="space-y-2 text-[13px] leading-relaxed text-zinc-500">
+            <ul className="space-y-1 text-[13px] leading-relaxed text-zinc-500">
               <li>• Validez del presupuesto: 15 días corridos.</li>
 
               <li>• Plazo estimado de entrega: 20 a 30 días hábiles.</li>
 
               <li>• Los precios pueden variar según disponibilidad.</li>
             </ul>
-          </div>
-
-          {/* FOOTER */}
-
-          <div className="mt-20 flex items-end justify-between border-t border-zinc-100 pt-8">
-            <div>
-              <p className="text-sm text-zinc-400">Gracias por confiar en</p>
-
-              <p className="mt-1 text-xl font-bold tracking-tight text-zinc-900">
-                {empresa.nombre}
-              </p>
-            </div>
-
-            <div className="text-right text-sm text-zinc-500">
-              <p>{empresa.telefono}</p>
-
-              <p>{empresa.email}</p>
-            </div>
           </div>
         </div>
       </div>

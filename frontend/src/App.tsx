@@ -18,8 +18,6 @@ import { usePresupuesto } from "@/features/presupuestos/hooks/usePresupuesto";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
-import { PrintableBudget } from "@/features/print/components/PrintableBudget";
-
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -105,9 +103,6 @@ function App() {
   /* ACTIVE FEATURE */
 
   const [activeFeature, setActiveFeature] = useState("rajas");
-
-  const [showPrintable, setShowPrintable] = useState(false);
-
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null
   >(null);
@@ -116,7 +111,7 @@ function App() {
 
   const items = useBudgetStore((state) => state.items);
 
-  const { data: presupuestoDetalle } = usePresupuesto(selectedPresupuestoId);
+  usePresupuesto(selectedPresupuestoId);
 
   /* CLIENTE */
 
@@ -441,11 +436,6 @@ function App() {
                     ? panoFijoConfig
                     : portonesConfig;
 
-  if (showPrintable) {
-    return (
-      <PrintableBudget items={items} cliente={cliente} empresa={empresa} />
-    );
-  }
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div className="flex h-screen overflow-hidden">
@@ -721,12 +711,7 @@ function App() {
           )}
         </main>
 
-        <BudgetPanel
-          items={items}
-          cliente={cliente}
-          empresa={empresa}
-          onGenerate={() => setShowPrintable(true)}
-        />
+        <BudgetPanel items={items} cliente={cliente} empresa={empresa} />
       </div>
     </div>
   );
