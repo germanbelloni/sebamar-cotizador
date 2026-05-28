@@ -2,6 +2,8 @@ import type { PuertasConfig } from "../types";
 
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
+import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
+
 type CotizacionResponse = {
   precioVenta?: number;
 
@@ -14,38 +16,12 @@ export function createPuertasBudgetItem(
   config: PuertasConfig,
   result: CotizacionResponse,
 ): BudgetItem {
-  const precioUnitario = Number(
-    result?.precioFinal ?? result?.precioVenta ?? result?.subtotal ?? 0,
-  );
-
-  return {
-    id: crypto.randomUUID(),
-
+  return createBudgetItem({
     modulo: "puertas",
 
     titulo: buildTitle(config),
 
     descripcion: buildDescription(config),
-
-    cantidad: 1,
-
-    precioUnitario,
-
-    subtotal: precioUnitario,
-
-    groupKey: [
-      "puertas",
-      config.linea,
-      config.tipoConfiguracion,
-      config.tipoPorton,
-      config.modelo,
-      config.modeloMediaPuerta,
-      config.color,
-      config.vidrio,
-      config.ancho,
-      config.alto,
-      JSON.stringify(config.extras),
-    ].join("-"),
 
     configuracion: {
       ...config,
@@ -58,7 +34,9 @@ export function createPuertasBudgetItem(
 
       vidrio: config.vidrio,
     },
-  };
+
+    result,
+  });
 }
 
 /* ========================= */

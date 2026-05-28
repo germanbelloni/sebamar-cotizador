@@ -2,13 +2,15 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import App from "@/App";
 
-import { ProtectedRoute } from "@/guards/ProtectedRoute";
-
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 
 import { PrintPage } from "@/pages/PrintPage";
 
 import { useAuthStore } from "@/store/authStore";
+
+import { ProtectedRoute } from "./ProtectedRoute";
+
+import { AuthInitializer } from "./AuthInitializer";
 
 function RootRedirect() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -23,17 +25,21 @@ function RootRedirect() {
 export function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* 🔐 LOGIN */}
-        <Route path="/login" element={<LoginPage />} />
+      <AuthInitializer>
+        <Routes>
+          {/* LOGIN */}
 
-        {/* 🔒 APP */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/*" element={<RootRedirect />} />
+          <Route path="/login" element={<LoginPage />} />
 
-          <Route path="/print" element={<PrintPage />} />
-        </Route>
-      </Routes>
+          {/* PROTECTED */}
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/*" element={<RootRedirect />} />
+
+            <Route path="/print" element={<PrintPage />} />
+          </Route>
+        </Routes>
+      </AuthInitializer>
     </BrowserRouter>
   );
 }

@@ -67,7 +67,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
   }, []);
 
   return (
-    <div className="w-full bg-white py-2 print:bg-white print:py-0">
+    <div className="w-full bg-white py-2 print:py-1 print:bg-white print:py-0">
       {/* ACTIONS */}
 
       <div className="print-hidden mx-auto mb-8 flex w-[850px] items-center justify-between px-4">
@@ -153,7 +153,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
           }}
         />
 
-        <div className="p-8">
+        <div className="p-8 print:p-4">
           {/* HEADER */}
 
           <div className="flex items-start justify-between">
@@ -187,6 +187,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                   select-none
 
                   text-7xl
+                  print:text-5xl
                   font-black
                   tracking-tighter
 
@@ -268,7 +269,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
           {/* TABLE */}
 
-          <div className="mt-14 overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm">
+          <div className="mt-14 print:mt-6 overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm">
             {/* HEAD */}
 
             <div
@@ -310,7 +311,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
                     grid-cols-[90px_1fr_180px_180px]
 
                     px-8
-                    py-2
+                    py-2 print:py-1
 
                     transition-colors
 
@@ -345,7 +346,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
           {/* TOTAL */}
 
-          <div className="mt-14 flex justify-end">
+          <div className="mt-14 print:mt-6 flex justify-end">
             <div className="w-full max-w-[420px]">
               <div
                 className="
@@ -403,7 +404,7 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
     border border-zinc-200
 
-    px-5 py-2
+    px-5 py-2 print:py-1
 
     text-xs
   "

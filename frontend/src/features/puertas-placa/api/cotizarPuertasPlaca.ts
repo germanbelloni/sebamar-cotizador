@@ -8,10 +8,30 @@ type CotizacionPuertasPlacaResponse = {
   precioVenta: number;
 };
 
+function mapTipo(tipo: PuertasPlacaConfig["tipo"]) {
+  switch (tipo) {
+    case "abrir":
+      return "puerta";
+
+    case "embutir":
+      return "embutir";
+
+    case "granero":
+      return "granero";
+
+    default:
+      return "puerta";
+  }
+}
+
 export async function cotizarPuertasPlaca(config: PuertasPlacaConfig) {
-  return apiFetch<CotizacionPuertasPlacaResponse>("/api/puertas-placa", {
+  return apiFetch<CotizacionPuertasPlacaResponse>("/api/placas", {
     method: "POST",
 
-    body: JSON.stringify(config),
+    body: JSON.stringify({
+      ...config,
+
+      tipo: mapTipo(config.tipo),
+    }),
   });
 }

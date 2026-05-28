@@ -6,6 +6,10 @@ type CotizacionPanoFijoResponse = {
   descripcion: string;
 
   precioVenta: number;
+
+  precioFinal?: number;
+
+  subtotal?: number;
 };
 
 export async function cotizarPanoFijo(config: PanoFijoConfig) {
@@ -15,7 +19,7 @@ export async function cotizarPanoFijo(config: PanoFijoConfig) {
     body: JSON.stringify({
       ...config,
 
-      tipo: "pano-fijo",
+      tipo: "pano_fijo",
     }),
   });
 }
