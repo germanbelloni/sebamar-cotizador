@@ -32,6 +32,16 @@ export type BudgetItem = {
 
   svg?: string;
 
+  precioBase?: number;
+
+  precioLista?: number;
+
+  precioFinal?: number;
+
+  margenAplicado?: number;
+
+  perfilAplicado?: string;
+
   metadata?: {
     linea?: string;
 

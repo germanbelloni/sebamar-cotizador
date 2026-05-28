@@ -1,3 +1,4 @@
+console.log("🚨 PRODUCT CONTROLLER NUEVO");
 const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
 
 const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
@@ -28,17 +29,50 @@ const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaMo
 
 const calcularMosquiteroFijo = require("../../wrappers/mosquiteros/calcularMosquiteroFijo");
 
+const aplicarMargen = require("../utils/pricing/aplicarMargen");
+
+const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
+
+const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
 
-function runCalculation(req, res, name, callback) {
+async function runCalculation(req, res, name, callback) {
   try {
-    const result = callback();
+    // =========================
+    // 🧠 RESULTADO BASE
+    // =========================
 
-    console.log(`✅ ${name}:`, result);
+    const result = await callback();
 
-    return res.json(result);
+    // =========================
+    // 👤 PRICING USER
+    // =========================
+    console.log("REQ USER:", req.user);
+
+    const pricingUser = await resolvePricingUser(req.user);
+    console.log("PRICING USER:", pricingUser);
+    // =========================
+    // 💰 MARGEN
+    // =========================
+
+    const withMargin = aplicarMargen(
+      result,
+      Number(pricingUser?.margen || 0),
+      pricingUser?.perfil || "",
+    );
+    console.log("WITH MARGIN:", withMargin);
+
+    // =========================
+    // 🔒 SANITIZAR
+    // =========================
+
+    const sanitized = sanitizarResultado(withMargin, req.user);
+
+    console.log(`✅ ${name}:`, sanitized);
+
+    return res.json(sanitized);
   } catch (error) {
     console.error(`❌ ERROR REAL ${name}:`, error);
 

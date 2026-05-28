@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 
 import { getUsers, type User } from "@/features/users/api/getUsers";
 
+import { toggleUserActive } from "@/features/users/api/toggleUserActive";
+
 import { useUIStore } from "@/store/uiStore";
 
 import { CreateUserModal } from "./CreateUserModal";
-
-import { toggleUserActive } from "@/features/users/api/toggleUserActive";
 
 export function UserManagementPanel() {
   const usersPanelOpen = useUIStore((state) => state.usersPanelOpen);
@@ -177,159 +177,144 @@ export function UserManagementPanel() {
                   <div
                     key={user._id}
                     className="
-                        flex
-                        items-center
-                        justify-between
+                      flex
+                      items-center
+                      justify-between
 
-                        rounded-2xl
-                        border
-                        border-border
+                      rounded-2xl
+                      border
+                      border-border
 
-                        bg-card/40
+                      bg-card/40
 
-                        p-5
-                      "
+                      p-5
+                    "
                   >
+                    {/* INFO */}
+
                     <div>
                       <h3
                         className="
-                            text-lg
-                            font-semibold
-                            uppercase
-                          "
+                          text-lg
+                          font-semibold
+                          uppercase
+                        "
                       >
                         {user.nombre}
                       </h3>
 
                       <p
                         className="
-                            mt-1
-                            text-sm
-                            text-muted-foreground
-                          "
+                          mt-1
+                          text-sm
+                          text-muted-foreground
+                        "
                       >
                         {user.empresa}
                       </p>
                     </div>
 
+                    {/* ACTIONS */}
+
                     <div
-  className="
-    flex
-    items-center
-    gap-6
-  "
->
-  <div>
-    <p
-      className="
-        text-xs
-        text-muted-foreground
-      "
-    >
-      ROLE
-    </p>
+                      className="
+                        flex
+                        items-center
+                        gap-8
+                      "
+                    >
+                      {/* ROLE */}
 
-    <p
-      className="
-        font-medium
-        uppercase
-      "
-    >
-      {user.role}
-    </p>
-  </div>
-
-  <div>
-    <p
-      className="
-        text-xs
-        text-muted-foreground
-      "
-    >
-      MARGEN
-    </p>
-
-    <p
-      className="
-        font-medium
-      "
-    >
-      {Math.round(user.margen * 100)}%
-    </p>
-  </div>
-
-  <div>
-    <p
-      className="
-        text-xs
-        text-muted-foreground
-      "
-    >
-      ESTADO
-    </p>
-
-    <p
-      className={
-        user.activo
-          ? "font-medium text-lime-400"
-          : "font-medium text-red-400"
-      }
-    >
-      {user.activo ? "ACTIVO" : "INACTIVO"}
-    </p>
-  </div>
-
-  <Button
-    size="sm"
-    variant={user.activo ? "destructive" : "default"}
-    disabled={updatingUserId === user._id}
-    onClick={() => handleToggleUser(user._id)}
-  >
-    {updatingUserId === user._id
-      ? "..."
-      : user.activo
-        ? "Desactivar"
-        : "Activar"}
-  </Button>
-</div>
                       <div>
                         <p
                           className="
-                              text-xs
-                              text-muted-foreground
-                            "
+                            text-xs
+                            text-muted-foreground
+                          "
                         >
                           ROLE
                         </p>
 
                         <p
                           className="
-                              font-medium
-                              uppercase
-                            "
+                            font-medium
+                            uppercase
+                          "
                         >
                           {user.role}
                         </p>
                       </div>
 
+                      {/* MARGEN */}
+
                       <div>
                         <p
                           className="
-                              text-xs
-                              text-muted-foreground
-                            "
+                            text-xs
+                            text-muted-foreground
+                          "
                         >
                           MARGEN
                         </p>
 
                         <p
                           className="
-                              font-medium
-                            "
+                            font-medium
+                          "
                         >
                           {Math.round(user.margen * 100)}%
                         </p>
                       </div>
+
+                      {/* ESTADO */}
+
+                      <div>
+                        <p
+                          className="
+                            text-xs
+                            text-muted-foreground
+                          "
+                        >
+                          ESTADO
+                        </p>
+
+                        <div
+                          className={`
+                            rounded-full
+                            px-3
+                            py-1
+                            text-xs
+                            font-bold
+                            uppercase
+
+                            ${
+                              user.activo
+                                ? "bg-lime-500/20 text-lime-400"
+                                : "bg-red-500/20 text-red-400"
+                            }
+                          `}
+                        >
+                          {user.activo ? "ACTIVO" : "INACTIVO"}
+                        </div>
+                      </div>
+
+                      {/* BUTTON */}
+
+                      <Button
+                        size="sm"
+                        variant={user.activo ? "destructive" : "default"}
+                        disabled={updatingUserId === user._id}
+                        onClick={() => handleToggleUser(user._id)}
+                        className="
+                          rounded-xl
+                        "
+                      >
+                        {updatingUserId === user._id
+                          ? "..."
+                          : user.activo
+                            ? "Desactivar"
+                            : "Activar"}
+                      </Button>
                     </div>
                   </div>
                 ))}

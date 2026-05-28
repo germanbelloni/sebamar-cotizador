@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/lib/api";
 
 import { useAuthStore } from "@/store/authStore";
 
@@ -24,7 +24,7 @@ export function AuthInitializer({ children }: Props) {
       }
 
       try {
-        await apiClient.get("/api/auth/me");
+        await apiClient.get("/auth/me");
       } catch (error) {
         console.log("SESSION EXPIRED");
 

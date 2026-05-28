@@ -45,4 +45,11 @@ router.post(
   authController.register,
 );
 
+router.patch(
+  "/configuracion",
+  auth,
+  rolesPermitidos("admin", "superadmin"),
+  authController.actualizarConfiguracion,
+);
+
 module.exports = router;

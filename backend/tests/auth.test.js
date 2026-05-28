@@ -57,7 +57,7 @@ describe("🔐 AUTH", () => {
       password: "1234",
     });
 
-    const res = await request(app).post("/api/auth/login").send({
+    const res = await request(app).post("/auth/login").send({
       nombre,
       password: "1234",
     });
@@ -75,7 +75,7 @@ describe("🔐 AUTH", () => {
       password: "1234",
     });
 
-    const res = await request(app).post("/api/auth/login").send({
+    const res = await request(app).post("/auth/login").send({
       nombre,
       password: "wrong",
     });

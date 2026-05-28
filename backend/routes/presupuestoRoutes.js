@@ -11,4 +11,6 @@ router.get("/", auth, presupuestoController.listar);
 router.get("/:id", auth, presupuestoController.obtener);
 router.get("/:id/pdf", auth, presupuestoController.pdf);
 
+router.patch("/:id/estado", auth, presupuestoController.cambiarEstado);
+
 module.exports = router;

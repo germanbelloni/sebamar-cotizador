@@ -26,7 +26,7 @@ beforeEach(async () => {
     password: "1234",
   });
 
-  const login1 = await request(app).post("/api/auth/login").send({
+  const login1 = await request(app).post("/auth/login").send({
     nombre: nombre1,
     password: "1234",
   });
@@ -41,7 +41,7 @@ beforeEach(async () => {
     password: "1234",
   });
 
-  const login2 = await request(app).post("/api/auth/login").send({
+  const login2 = await request(app).post("/auth/login").send({
     nombre: nombre2,
     password: "1234",
   });

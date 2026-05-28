@@ -13,6 +13,16 @@ const itemSchema = new mongoose.Schema({
 
   subtotal: Number,
 
+  precioBase: Number,
+
+  precioLista: Number,
+
+  precioFinal: Number,
+
+  margenAplicado: Number,
+
+  perfilAplicado: String,
+
   configuracion: mongoose.Schema.Types.Mixed,
 
   metadata: mongoose.Schema.Types.Mixed,
@@ -24,11 +34,14 @@ const presupuestoSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+
     numero: Number,
+
     cliente: String,
 
     telefono: String,
@@ -38,11 +51,36 @@ const presupuestoSchema = new mongoose.Schema(
     observaciones: String,
 
     validez: String,
+
     fecha: String,
+
+    // =========================
+    // 🔄 ESTADO
+    // =========================
+
+    estado: {
+      type: String,
+
+      enum: ["pendiente", "enviado", "aprobado", "rechazado"],
+
+      default: "pendiente",
+    },
+
+    // =========================
+    // 📦 ITEMS
+    // =========================
+
     items: [itemSchema],
+
+    // =========================
+    // 💰 TOTAL
+    // =========================
+
     total: Number,
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
 module.exports = mongoose.model("Presupuesto", presupuestoSchema);

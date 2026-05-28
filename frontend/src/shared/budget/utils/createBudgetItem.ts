@@ -1,4 +1,5 @@
 import type { BudgetItem, BudgetModule } from "../types/budget.types";
+
 import { createGroupKey } from "../utils/createGroupKey";
 
 type Params = {
@@ -8,7 +9,7 @@ type Params = {
 
   descripcion: string;
 
-  configuracion: unknown;
+  configuracion: Record<string, unknown>;
 
   result: Record<string, unknown>;
 
@@ -46,6 +47,22 @@ export function createBudgetItem({
 
   const subtotal = precioUnitario * cantidad;
 
+  // =========================
+  // 💰 SNAPSHOT FINANCIERO
+  // =========================
+
+  const precioBase = Number(result.precioBase ?? 0);
+
+  const precioLista = Number(
+    result.precioVenta ?? result.precioLista ?? result.precioFinal ?? 0,
+  );
+
+  const precioFinal = Number(result.precioFinal ?? result.precioVenta ?? 0);
+
+  const margenAplicado = Number(result.gananciaCliente ?? 0);
+
+  const perfilAplicado = String(result.perfilAplicado ?? "");
+
   return {
     id: crypto.randomUUID(),
 
@@ -61,11 +78,26 @@ export function createBudgetItem({
 
     subtotal,
 
+    // =========================
+    // 💰 FINANCIERO
+    // =========================
+
+    precioBase,
+
+    precioLista,
+
+    precioFinal,
+
+    margenAplicado,
+
+    perfilAplicado,
+
     configuracion,
 
     svg,
 
     metadata,
+
     groupKey: createGroupKey({
       modulo,
       descripcion,

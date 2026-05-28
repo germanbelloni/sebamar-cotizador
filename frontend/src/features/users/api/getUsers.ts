@@ -14,6 +14,8 @@ export type User = {
   margen: number;
 
   ownerId: string | null;
+
+  activo: boolean;
 };
 
 export async function getUsers() {

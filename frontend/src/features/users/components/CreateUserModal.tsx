@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 
-import { apiFetch } from "@/lib/api";
+import api from "../../../lib/api";
 
 import { useUIStore } from "@/store/uiStore";
 
@@ -55,11 +55,7 @@ export function CreateUserModal({ onUserCreated }: Props) {
     try {
       setLoading(true);
 
-      await apiFetch("/api/auth/register", {
-        method: "POST",
-
-        body: JSON.stringify(form),
-      });
+      await api.post("/auth/register", form);
 
       await onUserCreated?.();
 

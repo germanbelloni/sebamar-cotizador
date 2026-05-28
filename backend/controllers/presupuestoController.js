@@ -227,6 +227,7 @@ async function crear(req, res) {
 
       validez: req.body.validez,
       total,
+      estado: "pendiente",
     });
 
     await presupuesto.save();
@@ -250,29 +251,59 @@ async function crear(req, res) {
 // =========================
 
 async function listar(req, res) {
-  const ownerId = req.user.ownerId || req.user.id;
+  try {
+    let filtros = {};
 
-  const presupuestos = await Presupuesto.find({
-    ownerId,
-  }).populate("userId", "nombre");
+    // 👑 SUPERADMIN
+    if (req.user.role === "superadmin") {
+      filtros = {};
+    }
 
-  const resultado = presupuestos.map((p) => ({
-    id: p._id,
+    // 🧑 ADMIN
+    else if (req.user.role === "admin") {
+      filtros = {
+        ownerId: req.user.id,
+      };
+    }
 
-    numero: p.numero,
+    // 👨 USER
+    else {
+      filtros = {
+        userId: req.user.id,
+      };
+    }
 
-    cliente: p.cliente,
+    const presupuestos = await Presupuesto.find(filtros)
+      .populate("userId", "nombre")
+      .sort({
+        createdAt: -1,
+      });
 
-    usuario: p.userId?.nombre || "Usuario",
+    const resultado = presupuestos.map((p) => ({
+      id: p._id,
 
-    total: p.total,
+      numero: p.numero,
 
-    fecha: p.fecha,
-  }));
+      cliente: p.cliente,
 
-  return res.json(resultado);
+      usuario: p.userId?.nombre || "Usuario",
+
+      total: p.total,
+
+      fecha: p.fecha,
+
+      estado: p.estado || "pendiente",
+    }));
+
+    return res.json(resultado);
+  } catch (error) {
+    console.log("ERROR LISTAR:", error);
+
+    return res.status(500).json({
+      error: "Error listando presupuestos",
+    });
+  }
 }
-
 // =========================
 // OBTENER
 // =========================
@@ -280,20 +311,40 @@ async function listar(req, res) {
 async function obtener(req, res) {
   const presupuesto = await Presupuesto.findById(req.params.id);
 
-  const user = await User.findById(req.user.id);
-
   if (!presupuesto) {
     return res.status(404).json({
       error: "No encontrado",
     });
   }
 
-  const ownerId = req.user.ownerId || req.user.id;
+  // =========================
+  // 👑 SUPERADMIN
+  // =========================
 
-  if (presupuesto.ownerId?.toString() !== ownerId) {
-    return res.status(403).json({
-      error: "No autorizado",
-    });
+  if (req.user.role === "superadmin") {
+    // acceso total
+  }
+
+  // =========================
+  // 🧑 ADMIN
+  // =========================
+  else if (req.user.role === "admin") {
+    if (presupuesto.ownerId?.toString() !== req.user.id) {
+      return res.status(403).json({
+        error: "No autorizado",
+      });
+    }
+  }
+
+  // =========================
+  // 👨 USER
+  // =========================
+  else {
+    if (presupuesto.userId?.toString() !== req.user.id) {
+      return res.status(403).json({
+        error: "No autorizado",
+      });
+    }
   }
 
   const resultado = {
@@ -334,6 +385,65 @@ async function obtener(req, res) {
 }
 
 // =========================
+// 🔄 CAMBIAR ESTADO
+// =========================
+
+async function cambiarEstado(req, res) {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
+
+    if (!presupuesto) {
+      return res.status(404).json({
+        error: "Presupuesto no encontrado",
+      });
+    }
+
+    // =========================
+    // 👑 SUPERADMIN
+    // =========================
+
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // =========================
+    // 🧑 ADMIN
+    // =========================
+    else if (req.user.role === "admin") {
+      if (presupuesto.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // =========================
+    // 👨 USER
+    // =========================
+    else {
+      if (presupuesto.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    presupuesto.estado = req.body.estado;
+
+    await presupuesto.save();
+
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      error: "Error actualizando estado",
+    });
+  }
+}
+// =========================
 // PDF
 // =========================
 
@@ -353,12 +463,34 @@ async function pdf(req, res) {
       });
     }
 
-    const ownerId = req.user.ownerId || req.user.id;
+    // =========================
+    // 👑 SUPERADMIN
+    // =========================
 
-    if (presupuesto.ownerId?.toString() !== ownerId) {
-      return res.status(403).json({
-        error: "No autorizado",
-      });
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // =========================
+    // 🧑 ADMIN
+    // =========================
+    else if (req.user.role === "admin") {
+      if (presupuesto.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // =========================
+    // 👨 USER
+    // =========================
+    else {
+      if (presupuesto.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
     }
 
     const user = await User.findById(req.user.id);
@@ -405,4 +537,5 @@ module.exports = {
   nuevoNumero,
   obtener,
   pdf,
+  cambiarEstado,
 };

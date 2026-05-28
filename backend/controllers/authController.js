@@ -335,10 +335,39 @@ async function toggleActivo(req, res) {
   }
 }
 
+async function actualizarConfiguracion(req, res) {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        error: "Usuario no encontrado",
+      });
+    }
+
+    user.margen = Number(req.body.margen || 0);
+
+    await user.save();
+
+    return res.json({
+      ok: true,
+
+      margen: user.margen,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      error: "Error actualizando configuración",
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   me,
   listar,
   toggleActivo,
+  actualizarConfiguracion,
 };

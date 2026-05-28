@@ -1,7 +1,7 @@
-import apiClient from "@/lib/apiClient";
+import api from "@/lib/api";
 
 export async function getPresupuestos() {
-  const { data } = await apiClient.get("/presupuestos");
+  const { data } = await api.get("/presupuestos");
 
   return data;
 }

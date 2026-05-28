@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 type LoginPayload = {
   nombre: string;
@@ -25,8 +25,7 @@ type LoginResponse = {
   };
 };
 export async function login(payload: LoginPayload) {
-  return apiFetch<LoginResponse>("/api/auth/login", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  const { data } = await api.post<LoginResponse>("/auth/login", payload);
+
+  return data;
 }

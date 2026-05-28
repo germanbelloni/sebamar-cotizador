@@ -1,4 +1,4 @@
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/lib/api";
 
 type Payload = {
   cliente?: string;

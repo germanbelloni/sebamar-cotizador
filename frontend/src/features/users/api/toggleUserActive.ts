@@ -1,7 +1,7 @@
-import { apiFetch } from "@/lib/api";
+import api from "../../../lib/api";
 
-export async function toggleUserActive(userId: string) {
-  return apiFetch(`/api/auth/users/${userId}/toggle`, {
-    method: "PATCH",
-  });
+export async function toggleUserActive(id: string) {
+  const { data } = await api.patch(`/auth/users/${id}/toggle`);
+
+  return data;
 }

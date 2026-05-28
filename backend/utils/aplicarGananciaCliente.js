@@ -3,16 +3,20 @@ function aplicarGananciaCliente(resultado, user) {
     return resultado;
   }
 
-  const margen = user.margen;
+  const margen = Number(user.margen || 0);
 
-  const base = resultado.precioVenta || resultado.total || 0;
+  const base = Number(
+    resultado.precioFinal ?? resultado.precioVenta ?? resultado.total ?? 0,
+  );
+
+  const precioFinal = Math.round(base * (1 + margen));
 
   return {
     ...resultado,
 
-    total: Math.round(base * (1 + margen)),
+    precioFinal,
 
-    gananciaCliente: Math.round(base * margen),
+    gananciaCliente: Math.round(precioFinal - base),
   };
 }
 
