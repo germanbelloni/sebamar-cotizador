@@ -10,6 +10,8 @@ import { useUIStore } from "@/store/uiStore";
 
 import { CreateUserModal } from "./CreateUserModal";
 
+import { toggleUserActive } from "@/features/users/api/toggleUserActive";
+
 export function UserManagementPanel() {
   const usersPanelOpen = useUIStore((state) => state.usersPanelOpen);
 
@@ -20,6 +22,8 @@ export function UserManagementPanel() {
   const [users, setUsers] = useState<User[]>([]);
 
   const [loading, setLoading] = useState(false);
+
+  const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
 
   const loadUsers = useCallback(async () => {
     try {
@@ -34,6 +38,22 @@ export function UserManagementPanel() {
       setLoading(false);
     }
   }, []);
+
+  async function handleToggleUser(userId: string) {
+    try {
+      setUpdatingUserId(userId);
+
+      await toggleUserActive(userId);
+
+      await loadUsers();
+    } catch (error) {
+      console.log(error);
+
+      alert("Error actualizando usuario");
+    } finally {
+      setUpdatingUserId(null);
+    }
+  }
 
   useEffect(() => {
     if (!usersPanelOpen) {
@@ -193,12 +213,85 @@ export function UserManagementPanel() {
                     </div>
 
                     <div
-                      className="
-                          flex
-                          items-center
-                          gap-6
-                        "
-                    >
+  className="
+    flex
+    items-center
+    gap-6
+  "
+>
+  <div>
+    <p
+      className="
+        text-xs
+        text-muted-foreground
+      "
+    >
+      ROLE
+    </p>
+
+    <p
+      className="
+        font-medium
+        uppercase
+      "
+    >
+      {user.role}
+    </p>
+  </div>
+
+  <div>
+    <p
+      className="
+        text-xs
+        text-muted-foreground
+      "
+    >
+      MARGEN
+    </p>
+
+    <p
+      className="
+        font-medium
+      "
+    >
+      {Math.round(user.margen * 100)}%
+    </p>
+  </div>
+
+  <div>
+    <p
+      className="
+        text-xs
+        text-muted-foreground
+      "
+    >
+      ESTADO
+    </p>
+
+    <p
+      className={
+        user.activo
+          ? "font-medium text-lime-400"
+          : "font-medium text-red-400"
+      }
+    >
+      {user.activo ? "ACTIVO" : "INACTIVO"}
+    </p>
+  </div>
+
+  <Button
+    size="sm"
+    variant={user.activo ? "destructive" : "default"}
+    disabled={updatingUserId === user._id}
+    onClick={() => handleToggleUser(user._id)}
+  >
+    {updatingUserId === user._id
+      ? "..."
+      : user.activo
+        ? "Desactivar"
+        : "Activar"}
+  </Button>
+</div>
                       <div>
                         <p
                           className="

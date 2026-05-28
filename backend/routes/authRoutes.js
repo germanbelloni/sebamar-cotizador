@@ -26,6 +26,13 @@ router.get("/me", auth, authController.me);
 
 router.get("/users", auth, authController.listar);
 
+router.patch(
+  "/users/:id/toggle",
+  auth,
+  rolesPermitidos("superadmin", "admin"),
+  authController.toggleActivo,
+);
+
 // =========================
 // 👑 REGISTER
 // SOLO SUPERADMIN

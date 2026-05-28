@@ -292,9 +292,53 @@ async function listar(req, res) {
   }
 }
 
+// =========================
+// 🔒 TOGGLE ACTIVO
+// =========================
+
+async function toggleActivo(req, res) {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        error: "Usuario no encontrado",
+      });
+    }
+
+    // 🚫 SEGURIDAD
+    // admin NO puede tocar admins
+
+    if (req.user.role === "admin" && user.role === "admin") {
+      return res.status(403).json({
+        error: "No autorizado",
+      });
+    }
+
+    user.activo = !user.activo;
+
+    await user.save();
+
+    return res.json({
+      ok: true,
+
+      activo: user.activo,
+    });
+  } catch (error) {
+    console.log("ERROR TOGGLE USER:", error.message);
+
+    return res.status(500).json({
+      error: "Error actualizando usuario",
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   me,
   listar,
+  toggleActivo,
 };
