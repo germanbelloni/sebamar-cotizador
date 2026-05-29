@@ -459,6 +459,8 @@ function App() {
             ) : (
               <PresupuestosPage onOpenPresupuesto={setSelectedPresupuestoId} />
             )
+          ) : activeFeature === "configuracion" ? (
+            <ConfiguracionPage />
           ) : (
             <>
               <Header

@@ -59,9 +59,10 @@ export function createBudgetItem({
 
   const precioFinal = Number(result.precioFinal ?? result.precioVenta ?? 0);
 
-  const margenAplicado = Number(result.gananciaCliente ?? 0);
+  const margenAplicado = Number(result.margenAplicado ?? 0);
 
   const perfilAplicado = String(result.perfilAplicado ?? "");
+  console.log("BUDGET ITEM RESULT:", result);
 
   return {
     id: crypto.randomUUID(),

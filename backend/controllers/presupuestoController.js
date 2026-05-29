@@ -179,7 +179,11 @@ async function crear(req, res) {
 
     let total = 0;
 
+    console.log("ITEM RECIBIDO:", JSON.stringify(req.body.items[0], null, 2));
+
     const itemsProcesados = req.body.items.map((item) => {
+      console.log("ITEM MAP:", JSON.stringify(item, null, 2));
+
       const cantidad = item.cantidad || 1;
 
       let precio = item.precio || 0;
@@ -200,25 +204,60 @@ async function crear(req, res) {
 
       return {
         tipo: item.tipo,
+
+        modulo: item.modulo,
+
+        titulo: item.titulo,
+
         cantidad,
+
         descripcion,
+
         precio,
+
+        precioUnitario: item.precioUnitario || precio,
+
         subtotal,
+
+        precioBase: item.precioBase || 0,
+
+        precioLista: item.precioLista || 0,
+
+        precioFinal: item.precioFinal || subtotal,
+
+        margenAplicado: item.margenAplicado || 0,
+
+        perfilAplicado: item.perfilAplicado || "",
+
+        metadata: item.metadata || {},
+
         configuracion: item,
       };
     });
+
+    console.log("ITEMS PROCESADOS:", JSON.stringify(itemsProcesados, null, 2));
 
     user.contadorPresupuestos += 1;
 
     await user.save();
 
+    console.log("SCHEMA ITEMS:");
+
+    console.log(Object.keys(Presupuesto.schema.path("items").schema.paths));
+
     const presupuesto = new Presupuesto({
       userId,
+
       ownerId,
+
       numero: user.contadorPresupuestos,
+
       cliente: req.body.cliente,
+
       fecha: req.body.fecha,
+
       items: itemsProcesados,
+
       telefono: req.body.telefono,
 
       direccion: req.body.direccion,
@@ -226,26 +265,31 @@ async function crear(req, res) {
       observaciones: req.body.observaciones,
 
       validez: req.body.validez,
+
       total,
+
       estado: "pendiente",
     });
 
+    console.log("ANTES SAVE:", JSON.stringify(presupuesto.items, null, 2));
+
     await presupuesto.save();
+
+    console.log("DESPUES SAVE:", JSON.stringify(presupuesto.items, null, 2));
 
     return res.json(sanitizarResultado(presupuesto, req.user));
   } catch (error) {
     console.error("ERROR PRESUPUESTO:", error);
 
     console.error("BODY:", JSON.stringify(req.body, null, 2));
-    console.error("ERROR PRESUPUESTO:", error);
 
     return res.status(500).json({
       error: "Error creando presupuesto",
+
       detalle: error.message,
     });
   }
 }
-
 // =========================
 // LISTAR
 // =========================
@@ -377,13 +421,33 @@ async function obtener(req, res) {
 
       subtotal: Number(item.subtotal || item.precio * item.cantidad || 0),
 
+      // =========================
+      // 💰 FINANCIERO
+      // =========================
+
+      precioBase: Number(item.precioBase || 0),
+
+      precioLista: Number(item.precioLista || 0),
+
+      precioFinal: Number(item.precioFinal || 0),
+
+      margenAplicado: Number(item.margenAplicado || 0),
+
+      perfilAplicado: item.perfilAplicado || "",
+
       configuracion: item.configuracion || {},
 
       metadata: item.metadata || {},
     })),
   };
 
-  return res.json(sanitizarResultado(resultado, req.user));
+  console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
+
+  const limpio = sanitizarResultado(resultado, req.user);
+
+  console.log("RESULTADO SANITIZADO:", JSON.stringify(limpio, null, 2));
+
+  return res.json(limpio);
 }
 
 // =========================
