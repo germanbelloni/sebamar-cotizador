@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { PatagonicasConfig } from "../types";
 
@@ -21,16 +21,12 @@ export async function cotizarPatagonicas(
 
   console.log("🚨 PAYLOAD FRONT PATAGONICAS:", payload);
 
-  const response = await apiFetch<CotizacionPatagonicasResponse>(
-    "/api/patagonicas",
-    {
-      method: "POST",
-
-      body: JSON.stringify(payload),
-    },
+  const { data } = await api.post<CotizacionPatagonicasResponse>(
+    "/patagonicas",
+    payload,
   );
 
-  console.log("✅ RESPONSE PATAGONICAS:", response);
+  console.log("✅ RESPONSE PATAGONICAS:", data);
 
-  return response;
+  return data;
 }

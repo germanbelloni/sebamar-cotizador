@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { MosquiterosConfig } from "../types";
 
@@ -11,14 +11,10 @@ type CotizacionMosquiterosResponse = {
 export async function cotizarMosquiteros(
   config: MosquiterosConfig,
 ): Promise<number> {
-  const response = await apiFetch<CotizacionMosquiterosResponse>(
-    "/api/mosquiteros",
-    {
-      method: "POST",
-
-      body: JSON.stringify(config),
-    },
+  const { data } = await api.post<CotizacionMosquiterosResponse>(
+    "/mosquiteros",
+    config,
   );
 
-  return response.precioFinal;
+  return data.precioFinal;
 }

@@ -47,6 +47,18 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
   const guardarMutation = useGuardarPresupuesto();
 
   function handleGuardarPresupuesto() {
+    if (!cliente.nombre?.trim()) {
+      alert("Debe ingresar un cliente");
+
+      return;
+    }
+
+    if (!cliente.telefono?.trim()) {
+      alert("Debe ingresar un teléfono");
+
+      return;
+    }
+
     const payload = budgetToApi({
       items,
 

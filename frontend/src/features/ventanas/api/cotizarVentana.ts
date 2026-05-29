@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { VentanaConfig } from "../types";
 
@@ -13,9 +13,7 @@ type CotizacionResponse = {
 };
 
 export async function cotizarVentana(config: VentanaConfig) {
-  return apiFetch<CotizacionResponse>("/api/ventanas", {
-    method: "POST",
+  const { data } = await api.post<CotizacionResponse>("/ventanas", config);
 
-    body: JSON.stringify(config),
-  });
+  return data;
 }

@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 export type User = {
   _id: string;
@@ -19,5 +19,7 @@ export type User = {
 };
 
 export async function getUsers() {
-  return apiFetch<User[]>("/api/auth/users");
+  const { data } = await api.get<User[]>("/auth/users");
+
+  return data;
 }

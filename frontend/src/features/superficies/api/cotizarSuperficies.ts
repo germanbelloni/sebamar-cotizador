@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { SuperficiesConfig } from "../types";
 
@@ -9,9 +9,10 @@ type CotizacionsuperficiesResponse = {
 };
 
 export async function cotizarSuperficies(config: SuperficiesConfig) {
-  return apiFetch<CotizacionsuperficiesResponse>("/api/superficies", {
-    method: "POST",
+  const { data } = await api.post<CotizacionsuperficiesResponse>(
+    "/superficies",
+    config,
+  );
 
-    body: JSON.stringify(config),
-  });
+  return data;
 }

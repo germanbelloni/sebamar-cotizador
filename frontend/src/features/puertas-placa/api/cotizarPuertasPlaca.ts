@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { PuertasPlacaConfig } from "../types";
 
@@ -25,13 +25,10 @@ function mapTipo(tipo: PuertasPlacaConfig["tipo"]) {
 }
 
 export async function cotizarPuertasPlaca(config: PuertasPlacaConfig) {
-  return apiFetch<CotizacionPuertasPlacaResponse>("/api/placas", {
-    method: "POST",
-
-    body: JSON.stringify({
-      ...config,
-
-      tipo: mapTipo(config.tipo),
-    }),
+  const { data } = await api.post<CotizacionPuertasPlacaResponse>("/placas", {
+    ...config,
+    tipo: mapTipo(config.tipo),
   });
+
+  return data;
 }

@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { PuertasConfig } from "../types";
 
@@ -69,31 +69,25 @@ export async function cotizarPuertas(
     extras: config.extras,
   };
 
-  /* PORTON */
-
   if (config.tipoConfiguracion === "porton") {
-    return apiFetch<CotizacionPuertasResponse>("/api/portones", {
-      method: "POST",
+    const { data } = await api.post<CotizacionPuertasResponse>(
+      "/portones",
+      body,
+    );
 
-      body: JSON.stringify(body),
-    });
+    return data;
   }
-
-  /* ECO */
 
   if (config.linea === "eco") {
-    return apiFetch<CotizacionPuertasResponse>("/api/puertas/eco", {
-      method: "POST",
+    const { data } = await api.post<CotizacionPuertasResponse>(
+      "/puertas/eco",
+      body,
+    );
 
-      body: JSON.stringify(body),
-    });
+    return data;
   }
 
-  /* STANDARD */
+  const { data } = await api.post<CotizacionPuertasResponse>("/puertas", body);
 
-  return apiFetch<CotizacionPuertasResponse>("/api/puertas", {
-    method: "POST",
-
-    body: JSON.stringify(body),
-  });
+  return data;
 }

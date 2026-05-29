@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { PortonesConfig } from "../types";
 
@@ -9,9 +9,10 @@ type CotizacionPortonesResponse = {
 };
 
 export async function cotizarPortones(config: PortonesConfig) {
-  return apiFetch<CotizacionPortonesResponse>("/api/portones", {
-    method: "POST",
+  const { data } = await api.post<CotizacionPortonesResponse>(
+    "/portones",
+    config,
+  );
 
-    body: JSON.stringify(config),
-  });
+  return data;
 }

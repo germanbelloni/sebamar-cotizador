@@ -360,6 +360,8 @@ async function obtener(req, res) {
 
     fecha: presupuesto.fecha,
 
+    estado: presupuesto.estado || "pendiente",
+
     items: (presupuesto.items || []).map((item) => ({
       id: item._id?.toString(),
 

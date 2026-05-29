@@ -26,7 +26,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
     try {
       await updatePresupuestoEstado(presupuestoId, estado);
 
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.log(error);
 

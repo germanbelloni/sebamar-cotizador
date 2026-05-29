@@ -18,6 +18,7 @@ import { usePresupuesto } from "@/features/presupuestos/hooks/usePresupuesto";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
+import ConfiguracionPage from "@/pages/ConfiguracionPage";
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -391,6 +392,7 @@ function App() {
         setConfig={setPostigonesConfig}
       />
     ),
+
     patagonicas: (
       <PatagonicasConfigForm
         config={patagonicasConfig}
@@ -415,6 +417,8 @@ function App() {
         setConfig={setPanoFijoConfig}
       />
     ),
+
+    configuracion: <ConfiguracionPage />,
   };
 
   const activeConfig =

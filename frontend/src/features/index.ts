@@ -63,6 +63,11 @@ export const FEATURES = [
 
     label: "Presupuestos",
   },
+  {
+    id: "configuracion",
+
+    label: "Configuración",
+  },
 ] as const;
 
 export function getFeatureLabel(featureId: string) {

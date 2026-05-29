@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import api from "@/lib/api";
 
 import type { MarcosConfig } from "../types";
 
@@ -9,9 +9,7 @@ type Response = {
 };
 
 export async function cotizarMarcos(config: MarcosConfig) {
-  return apiFetch<Response>("/api/superficies", {
-    method: "POST",
+  const { data } = await api.post<Response>("/superficies", config);
 
-    body: JSON.stringify(config),
-  });
+  return data;
 }
