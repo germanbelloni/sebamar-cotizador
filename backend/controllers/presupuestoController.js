@@ -32,7 +32,7 @@ const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
 
 const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
 
-const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
+const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 
 // =========================
 // PDF
@@ -273,11 +273,11 @@ async function crear(req, res) {
 
     console.log("ANTES SAVE:", JSON.stringify(presupuesto.items, null, 2));
 
-    await presupuesto.save();
-
     console.log("DESPUES SAVE:", JSON.stringify(presupuesto.items, null, 2));
 
-    return res.json(sanitizarResultado(presupuesto, req.user));
+    await presupuesto.save();
+
+    return res.json(presupuesto);
   } catch (error) {
     console.error("ERROR PRESUPUESTO:", error);
 
@@ -409,7 +409,7 @@ async function obtener(req, res) {
     items: (presupuesto.items || []).map((item) => ({
       id: item._id?.toString(),
 
-      modulo: item.modulo || item.tipo || "ventanas",
+      modulo: item.modulo || "ventanas",
 
       titulo: item.titulo || item.descripcion || "Producto",
 
@@ -417,9 +417,9 @@ async function obtener(req, res) {
 
       cantidad: Number(item.cantidad || 1),
 
-      precioUnitario: Number(item.precioUnitario || item.precio || 0),
+      precioUnitario: Number(item.precioUnitario || 0),
 
-      subtotal: Number(item.subtotal || item.precio * item.cantidad || 0),
+      subtotal: Number(item.subtotal || 0),
 
       // =========================
       // 💰 FINANCIERO
@@ -443,11 +443,7 @@ async function obtener(req, res) {
 
   console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
 
-  const limpio = sanitizarResultado(resultado, req.user);
-
-  console.log("RESULTADO SANITIZADO:", JSON.stringify(limpio, null, 2));
-
-  return res.json(limpio);
+  return res.json(resultado);
 }
 
 // =========================

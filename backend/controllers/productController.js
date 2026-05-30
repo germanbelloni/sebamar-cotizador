@@ -33,7 +33,7 @@ const aplicarMargen = require("../utils/pricing/aplicarMargen");
 
 const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
 
-const sanitizarResultado = require("../utils/pricing/sanitizarResultado");
+const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
@@ -68,7 +68,7 @@ async function runCalculation(req, res, name, callback) {
     // 🔒 SANITIZAR
     // =========================
 
-    const sanitized = sanitizarResultado(withMargin, req.user);
+    const sanitized = sanitizarCotizacion(withMargin, req.user);
 
     console.log(`✅ ${name}:`, sanitized);
 

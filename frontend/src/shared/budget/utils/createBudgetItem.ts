@@ -64,6 +64,10 @@ export function createBudgetItem({
   const perfilAplicado = String(result.perfilAplicado ?? "");
   console.log("BUDGET ITEM RESULT:", result);
 
+  console.log("MARGEN:", result.margenAplicado);
+
+  console.log("PERFIL:", result.perfilAplicado);
+
   return {
     id: crypto.randomUUID(),
 
