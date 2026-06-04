@@ -15,6 +15,9 @@ function sanitizarResultado(resultado, user) {
 
       gananciaCliente: resultado.gananciaCliente,
 
+      margenAplicado: resultado.margenAplicado,
+      perfilAplicado: resultado.perfilAplicado,
+
       svg: resultado.svg,
 
       configuracion: resultado.configuracion,
