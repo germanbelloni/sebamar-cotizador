@@ -52,6 +52,48 @@ export function usePatagonicasForm({
     limits: LIMITES_PATAGONICAS,
   });
 
+  function handleToggleGuia() {
+    setConfig((prev) => {
+      const nuevaGuia = !prev.guia;
+
+      return {
+        ...prev,
+
+        guia: nuevaGuia,
+
+        cajonBlock: false,
+
+        cortina: nuevaGuia ? prev.cortina : null,
+      };
+    });
+  }
+
+  function handleToggleCajonBlock() {
+    setConfig((prev) => ({
+      ...prev,
+
+      cajonBlock: !prev.cajonBlock,
+
+      guia: false,
+
+      cortina: null,
+    }));
+  }
+
+  function handleTogglePremarco() {
+    setConfig((prev) => {
+      const nuevoPremarco = !prev.premarco;
+
+      return {
+        ...prev,
+
+        premarco: nuevoPremarco,
+
+        contramarco: nuevoPremarco ? true : prev.contramarco,
+      };
+    });
+  }
+
   return {
     updateConfig,
 
@@ -64,5 +106,11 @@ export function usePatagonicasForm({
     handleAnchoChange,
 
     handleAltoChange,
+
+    handleToggleGuia,
+
+    handleToggleCajonBlock,
+
+    handleTogglePremarco,
   };
 }

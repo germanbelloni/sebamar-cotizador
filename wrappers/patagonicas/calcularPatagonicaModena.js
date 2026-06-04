@@ -1,5 +1,5 @@
 const { fromRoot } = require("../../backend/utils/path");
-console.log("🔥 WRAPPER MODENA NUEVO");
+
 const service = require(
   fromRoot("services/patagonicas/calcularPatagonicaModena"),
 );
@@ -7,7 +7,9 @@ const service = require(
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
-
+const superficies = require(
+  fromRoot("backend/data/productos/superficies.json"),
+);
 const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
 // =========================
@@ -43,8 +45,14 @@ function calcularWrapper(data) {
     ladoApertura = "derecha",
 
     tipoApertura = "abrir",
-  } = data;
 
+    premarco = false,
+    contramarco = false,
+    mosquitero = false,
+    guia = false,
+    cortina = null,
+    cajonBlock = false,
+  } = data;
   // =========================
   // 📏 NORMALIZAR
   // =========================
@@ -73,6 +81,17 @@ function calcularWrapper(data) {
 
   if (!anchoFinal || !altoFinal) {
     throw new Error("Faltan medidas");
+  }
+  // =========================
+  // ✅ VALIDACIONES EXTRAS
+  // =========================
+
+  if (cajonBlock && guia) {
+    throw new Error("No puede llevar guía y cajón block juntos");
+  }
+
+  if (!guia && cortina) {
+    throw new Error("Sin guía no puede llevar cortina");
   }
 
   const medidaFinal = `${anchoFinal}x${altoFinal}`;
@@ -116,11 +135,112 @@ function calcularWrapper(data) {
     };
   });
 
+  let costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const m2 = (anchoFinal * altoFinal) / 10000;
+
+  const ml = (anchoFinal * 2 + altoFinal * 2) / 100;
+
   // =========================
-  // 💰 COSTO BASE
+  // 🧵 MOSQUITERO
   // =========================
 
-  const costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+  if (mosquitero) {
+    const c = Number(superficies.superficies.mosquitero_fijo || 0) * m2;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "mosquitero",
+      precio: Math.round(c),
+    });
+  }
+
+  // =========================
+  // 🪚 PREMARCO
+  // =========================
+
+  if (premarco) {
+    const c = Number(superficies.superficies.premarco || 0) * ml;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "premarco",
+      precio: Math.round(c),
+    });
+  }
+
+  // =========================
+  // 🪚 CONTRAMARCO
+  // =========================
+
+  if (premarco || contramarco) {
+    const c = Number(superficies.superficies.contramarco || 0) * ml;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "contramarco",
+      precio: Math.round(c),
+    });
+  }
+
+  // =========================
+  // 📏 GUIA
+  // =========================
+
+  if (guia) {
+    const c = Number(superficies.superficies.guia || 0) * m2;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "guia",
+      precio: Math.round(c),
+    });
+  }
+
+  // =========================
+  // 🪟 CORTINAS
+  // =========================
+
+  if (cortina === "pvc") {
+    const c = Number(superficies.superficies.cortinas?.pvc || 0) * m2;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(c),
+    });
+  }
+
+  if (cortina === "aluminio") {
+    const c = Number(superficies.superficies.cortinas?.aluminio || 0) * m2;
+
+    costoBase += c;
+
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(c),
+    });
+  }
+
+  // =========================
+  // 📦 CAJON BLOCK
+  // =========================
+
+  if (cajonBlock) {
+    const c = Number(superficies.superficies.cajon_block || 0);
+
+    costoBase += c;
+
+    items.push({
+      tipo: "cajon_block",
+      precio: Math.round(c),
+    });
+  }
 
   // =========================
   // 💰 PERFIL

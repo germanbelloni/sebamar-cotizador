@@ -1,4 +1,3 @@
-console.log("🚨 PRODUCT ROUTES REAL");
 const express = require("express");
 
 const productController = require("../controllers/productController");

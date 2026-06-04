@@ -79,8 +79,30 @@ function calcularPatagonicaModena(dataInput) {
 
   let datos = medidas[medidaKey];
 
-  // 🔥 buscar medida superior automática
+  let fueraDeMedida = false;
 
+  // 🔥 FUERA DE MEDIDA MODENA
+  if (!datos && alto > 150 && alto <= 180) {
+    const medidasDisponibles = Object.keys(medidas);
+
+    const medidaBase = medidasDisponibles.find((m) => {
+      const [w, h] = m.split("x").map(Number);
+
+      return w >= ancho && h === 150;
+    });
+
+    if (medidaBase) {
+      datos = medidas[medidaBase];
+
+      fueraDeMedida = true;
+
+      console.log(
+        `⚠️ fuera de medida ${medidaKey} usando base ${medidaBase} (+30%)`,
+      );
+    }
+  }
+
+  // 🔥 buscar medida superior automática
   if (!datos) {
     const medidasDisponibles = Object.keys(medidas);
 
@@ -134,7 +156,11 @@ function calcularPatagonicaModena(dataInput) {
   // 💰 TOTAL
   // =========================
 
-  const costoBase = estructura + vidrio;
+  let costoBase = estructura + vidrio;
+
+  if (fueraDeMedida) {
+    costoBase *= 1.3;
+  }
 
   return {
     costoBase: Math.round(costoBase),

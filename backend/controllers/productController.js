@@ -1,4 +1,3 @@
-console.log("🚨 PRODUCT CONTROLLER NUEVO");
 const calcularMosquiteroVentana = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
 
 const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
@@ -49,10 +48,9 @@ async function runCalculation(req, res, name, callback) {
     // =========================
     // 👤 PRICING USER
     // =========================
-    console.log("REQ USER:", req.user);
 
     const pricingUser = await resolvePricingUser(req.user);
-    console.log("PRICING USER:", pricingUser);
+
     // =========================
     // 💰 MARGEN
     // =========================
@@ -62,15 +60,12 @@ async function runCalculation(req, res, name, callback) {
       Number(pricingUser?.margen || 0),
       pricingUser?.perfil || "",
     );
-    console.log("WITH MARGIN:", withMargin);
 
     // =========================
     // 🔒 SANITIZAR
     // =========================
 
     const sanitized = sanitizarCotizacion(withMargin, req.user);
-
-    console.log(`✅ ${name}:`, sanitized);
 
     return res.json(sanitized);
   } catch (error) {
@@ -227,7 +222,6 @@ function patagonicas(req, res) {
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
 
-  console.log("PAYLOAD PATAGONICAS:", payload);
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;

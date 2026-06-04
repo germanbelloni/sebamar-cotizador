@@ -12,7 +12,7 @@ export const LIMITES_PATAGONICAS = {
     anchoMax: 300,
 
     altoMin: 40,
-    altoMax: 220,
+    altoMax: 180,
   },
 };
 

@@ -1,9 +1,15 @@
 const { fromRoot } = require("../../backend/utils/path");
 
-console.log("🔥 WRAPPER HERRERO NUEVO");
-
 const calcularRajaHerrero = require(
   fromRoot("wrappers/rajas/calcularRajaHerrero"),
+);
+
+const superficies = require(
+  fromRoot("backend/data/productos/superficies.json"),
+);
+
+const calcularMosquiteroFijo = require(
+  fromRoot("wrappers/mosquiteros/calcularMosquiteroFijo"),
 );
 
 const calcularSuperficie = require(
@@ -21,22 +27,21 @@ const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 function calcularWrapper(data) {
   const {
     medidaTotal,
-
     tipo,
-
     color = "blanco",
-
     perfil = "amarilla",
-
     ladoApertura = "derecha",
-
     tipoApertura = "abrir",
-
     anchoRaja = 40,
-
     tipoVidrio = "4mm",
-
     linea = "Herrero",
+
+    premarco = false,
+    contramarco = false,
+    mosquitero = false,
+    guia = false,
+    cortina = null,
+    cajonBlock = false,
   } = data;
 
   // =========================
@@ -60,6 +65,17 @@ function calcularWrapper(data) {
   }
 
   // =========================
+  // ✅ VALIDACIONES EXTRAS
+  // =========================
+
+  if (cajonBlock && guia) {
+    throw new Error("No puede llevar guía y cajón block juntos");
+  }
+
+  if (!guia && cortina) {
+    throw new Error("Sin guía no puede llevar cortina");
+  }
+  // =========================
   // ⚙️ CONFIG
   // =========================
 
@@ -70,17 +86,6 @@ function calcularWrapper(data) {
   const anchoTotalRajas = anchoRajaFinal * cantidadRajas;
 
   const anchoFijo = ancho - anchoTotalRajas;
-
-  console.log("DEBUG HERRERO:", {
-    ancho,
-    alto,
-    anchoRajaFinal,
-    cantidadRajas,
-    anchoTotalRajas,
-    anchoFijo,
-    linea,
-    lineaNormalizada,
-  });
 
   if (anchoFijo <= 0 || isNaN(anchoFijo)) {
     throw new Error("Ancho fijo inválido");
@@ -105,8 +110,6 @@ function calcularWrapper(data) {
       tipoVidrio,
     });
 
-    console.log("RAJA:", raja);
-
     totalRajas += Number(raja?.costoBase || 0);
 
     items.push({
@@ -126,8 +129,6 @@ function calcularWrapper(data) {
   };
 
   try {
-    console.log("ANTES SUPERFICIE");
-
     fijo = calcularSuperficie({
       tipo: "pano_fijo",
 
@@ -144,7 +145,6 @@ function calcularWrapper(data) {
       perfil,
     });
 
-    console.log("DESPUES SUPERFICIE", fijo);
     items.push({
       tipo: "pano_fijo",
       precio: Math.round(Number(fijo?.costoBase || 0)),
@@ -154,20 +154,109 @@ function calcularWrapper(data) {
   }
 
   // =========================
+  // ➕ EXTRAS
+  // =========================
+
+  let extras = 0;
+
+  // =========================
+  // 🦟 MOSQUITERO
+  // =========================
+
+  if (mosquitero) {
+    const mosca = calcularMosquiteroFijo({
+      ancho,
+      alto,
+      color,
+      perfil,
+    });
+
+    extras += Number(mosca?.costoBase || 0);
+
+    items.push({
+      tipo: "mosquitero",
+      precio: Math.round(Number(mosca?.costoBase || 0)),
+    });
+  }
+
+  // =========================
+  // 🛤 GUIA
+  // =========================
+
+  if (guia) {
+    const m2 = (ancho * alto) / 10000;
+
+    const costoGuia = m2 * Number(superficies.superficies.guia || 0);
+
+    extras += costoGuia;
+
+    items.push({
+      tipo: "guia",
+      precio: Math.round(costoGuia),
+    });
+  }
+
+  // =========================
+  // 🪟 CORTINA PVC
+  // =========================
+
+  if (cortina === "pvc") {
+    const m2 = (ancho * alto) / 10000;
+
+    const costo = m2 * Number(superficies.superficies.cortinas?.pvc || 0);
+
+    extras += costo;
+
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(costo),
+    });
+  }
+
+  // =========================
+  // 🪟 CORTINA ALUMINIO
+  // =========================
+
+  if (cortina === "aluminio") {
+    const m2 = (ancho * alto) / 10000;
+
+    const costo = m2 * Number(superficies.superficies.cortinas?.aluminio || 0);
+
+    extras += costo;
+
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(costo),
+    });
+  }
+
+  // =========================
+  // 📦 CAJON BLOCK
+  // =========================
+
+  if (cajonBlock) {
+    const costo = Number(superficies.superficies.cajon_block || 0);
+
+    extras += costo;
+
+    items.push({
+      tipo: "cajon_block",
+      precio: Math.round(costo),
+    });
+  }
+
+  // =========================
   // 💰 COSTO BASE
   // =========================
 
-  const costoBase = Number(totalRajas || 0) + Number(fijo?.costoBase || 0);
+  const costoBase =
+    Number(totalRajas || 0) +
+    Number(fijo?.costoBase || 0) +
+    Number(extras || 0);
 
   // =========================
   // 💰 PERFIL
   // =========================
-
-  console.log("PERFIL:", perfil);
-
-  console.log("LINEA NORMALIZADA:", lineaNormalizada);
-
-  console.log("PERFILES DISPONIBLES:", perfiles?.[perfil]);
 
   const perfilData = perfiles?.[perfil]?.[lineaNormalizada] ||
     perfiles?.amarilla?.[lineaNormalizada] || {
@@ -177,8 +266,6 @@ function calcularWrapper(data) {
 
       ganancia: 0.35,
     };
-
-  console.log("PERFIL DATA:", perfilData);
 
   const costo = costoBase * (1 - Number(perfilData.descuento || 0));
 

@@ -179,11 +179,7 @@ async function crear(req, res) {
 
     let total = 0;
 
-    console.log("ITEM RECIBIDO:", JSON.stringify(req.body.items[0], null, 2));
-
     const itemsProcesados = req.body.items.map((item) => {
-      console.log("ITEM MAP:", JSON.stringify(item, null, 2));
-
       const cantidad = item.cantidad || 1;
 
       let precio = item.precio || 0;
@@ -235,15 +231,9 @@ async function crear(req, res) {
       };
     });
 
-    console.log("ITEMS PROCESADOS:", JSON.stringify(itemsProcesados, null, 2));
-
     user.contadorPresupuestos += 1;
 
     await user.save();
-
-    console.log("SCHEMA ITEMS:");
-
-    console.log(Object.keys(Presupuesto.schema.path("items").schema.paths));
 
     const presupuesto = new Presupuesto({
       userId,
@@ -270,11 +260,6 @@ async function crear(req, res) {
 
       estado: "pendiente",
     });
-
-    console.log("ANTES SAVE:", JSON.stringify(presupuesto.items, null, 2));
-
-    console.log("DESPUES SAVE:", JSON.stringify(presupuesto.items, null, 2));
-
     await presupuesto.save();
 
     return res.json(presupuesto);
@@ -440,8 +425,6 @@ async function obtener(req, res) {
       metadata: item.metadata || {},
     })),
   };
-
-  console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
 
   return res.json(resultado);
 }
