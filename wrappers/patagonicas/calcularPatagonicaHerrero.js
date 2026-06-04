@@ -129,7 +129,7 @@ function calcularWrapper(data) {
     console.log("ANTES SUPERFICIE");
 
     fijo = calcularSuperficie({
-      tipo: "pano-fijo",
+      tipo: "pano_fijo",
 
       ancho: Number(anchoFijo),
 
@@ -146,7 +146,7 @@ function calcularWrapper(data) {
 
     console.log("DESPUES SUPERFICIE", fijo);
     items.push({
-      tipo: "pano-fijo",
+      tipo: "pano_fijo",
       precio: Math.round(Number(fijo?.costoBase || 0)),
     });
   } catch (err) {

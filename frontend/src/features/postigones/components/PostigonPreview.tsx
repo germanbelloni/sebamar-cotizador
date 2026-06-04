@@ -215,7 +215,7 @@ export function PostigonPreview({ config }: Props) {
             // CORREDIZO
 
             if (config.tipo === "corredizo") {
-              xPos = i === 0 ? left : left + leafWidth - overlap;
+              xPos = i === 0 ? left : left + leafWidth;
             }
 
             // CIERRE
@@ -388,7 +388,7 @@ export function PostigonPreview({ config }: Props) {
                 {config.tipo === "corredizo" && (
                   <g
                     transform={`translate(${
-                      i === 0 ? xPos + leafWidth - 5 : xPos + 1
+                      i === 0 ? xPos + leafWidth - 12 : xPos + 8
                     }, ${top + altoView / 2 - 18})`}
                   >
                     {/* canal lateral */}
