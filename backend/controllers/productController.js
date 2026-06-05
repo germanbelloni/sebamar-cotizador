@@ -33,34 +33,41 @@ const aplicarMargen = require("../utils/pricing/aplicarMargen");
 const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
 
 const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
+
+function isValidationError(message = "") {
+  const text = String(message).toLowerCase();
+
+  return (
+    text.includes("falta") ||
+    text.includes("inválid") ||
+    text.includes("invalida") ||
+    text.includes("inválida") ||
+    text.includes("rango") ||
+    text.includes("medida") ||
+    text.includes("ancho") ||
+    text.includes("alto") ||
+    text.includes("guía") ||
+    text.includes("guia") ||
+    text.includes("cortina") ||
+    text.includes("cajón") ||
+    text.includes("cajon")
+  );
+}
 // =========================
 // 🧠 CORE GLOBAL
 // =========================
 
 async function runCalculation(req, res, name, callback) {
   try {
-    // =========================
-    // 🧠 RESULTADO BASE
-    // =========================
-
     const result = await callback();
 
-    // =========================
-    // 👤 PRICING USER
-    // =========================
     const pricingUser = await resolvePricingUser(req.user);
-    // =========================
-    // 💰 MARGEN
-    // =========================
 
     const withMargin = aplicarMargen(
       result,
       Number(pricingUser?.margen || 0),
       pricingUser?.perfil || "",
     );
-    // =========================
-    // 🔒 SANITIZAR
-    // =========================
 
     const sanitized = sanitizarCotizacion(withMargin, req.user);
 
@@ -68,9 +75,14 @@ async function runCalculation(req, res, name, callback) {
   } catch (error) {
     console.error(`❌ ERROR REAL ${name}:`, error);
 
+    if (isValidationError(error.message)) {
+      return res.status(400).json({
+        error: error.message,
+      });
+    }
+
     return res.status(500).json({
-      error: error.message,
-      stack: error.stack,
+      error: "Error interno del servidor",
     });
   }
 }

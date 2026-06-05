@@ -67,7 +67,21 @@ async function nuevoNumero(req, res) {
 // =========================
 
 function calcularItem(item, perfil) {
-  switch (item.tipo) {
+  const tipoMap = {
+    rajas: "raja",
+    ventanas: "ventana",
+    puertas: "puerta",
+    patagonicas: "patagonica",
+    portones: "porton",
+    postigones: "postigon",
+    superficies: "superficie",
+    "puertas-placa": "placa",
+    mosquiteros: "mosquitero",
+  };
+
+  const tipo = tipoMap[item.modulo] || item.tipo;
+
+  switch (tipo) {
     case "puerta":
       return calcularPuerta({
         ...item,
@@ -93,7 +107,10 @@ function calcularItem(item, perfil) {
       });
 
     case "ventana":
-      if (item.linea === "modena") {
+      if (
+        String(item.linea || item.configuracion?.linea || "").toLowerCase() ===
+        "modena"
+      ) {
         return calcularVentanaModena({
           ...item,
           perfil,
@@ -106,7 +123,10 @@ function calcularItem(item, perfil) {
       });
 
     case "raja":
-      if (item.linea === "modena") {
+      if (
+        String(item.linea || item.configuracion?.linea || "").toLowerCase() ===
+        "modena"
+      ) {
         return calcularRajaModena({
           ...item,
           perfil,
@@ -125,7 +145,10 @@ function calcularItem(item, perfil) {
       });
 
     case "patagonica":
-      if (item.linea === "modena") {
+      if (
+        String(item.linea || item.configuracion?.linea || "").toLowerCase() ===
+        "modena"
+      ) {
         return calcularPatagonicaModena({
           ...item,
           perfil,
@@ -159,7 +182,6 @@ function calcularItem(item, perfil) {
       return null;
   }
 }
-
 // =========================
 // CREAR
 // =========================
@@ -178,7 +200,7 @@ async function crear(req, res) {
     }
 
     let total = 0;
-
+    console.log("ITEM RECIBIDO:", JSON.stringify(req.body.items[0], null, 2));
     const itemsProcesados = req.body.items.map((item) => {
       const cantidad = item.cantidad || 1;
 
