@@ -1,3 +1,4 @@
+import type { PuertasPlacaConfig } from "./types";
 import type {
   PuertasPlacaMarco,
   PuertasPlacaMedida,
@@ -248,3 +249,21 @@ export const MODELOS_ALUMINIO: {
     value: "aluminio_cedro",
   },
 ];
+
+export const initialPuertasPlacaConfig: PuertasPlacaConfig = {
+  ancho: 80,
+
+  alto: 200,
+
+  tipo: "abrir",
+
+  medidaSeleccionada: "80x200",
+
+  fueraDeMedida: false,
+
+  marco: "marco_10",
+
+  modelo: "finger_pino",
+
+  mano: "derecha",
+};

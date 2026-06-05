@@ -30,6 +30,8 @@ import { RajasConfigForm } from "@/features/rajas/components/RajasConfigForm";
 
 import { RajasPreview } from "@/features/rajas/components/RajasPreview";
 
+import { initialRajasConfig } from "@/features/rajas/constants";
+
 /* VENTANAS */
 
 import type { VentanaConfig } from "@/features/ventanas/types";
@@ -38,11 +40,15 @@ import { VentanaConfigForm } from "@/features/ventanas/components/VentanaConfigF
 
 import { VentanaPreview } from "@/features/ventanas/components/VentanaPreview";
 
+import { initialVentanasConfig } from "@/features/ventanas/constants";
+
 /* PORTONES */
 
 import type { PortonesConfig } from "@/features/portones/types";
 
 import { PortonesConfigForm } from "@/features/portones/components/PortonesConfigForm";
+
+import { initialPortonesConfig } from "@/features/portones/constants";
 
 /* PUERTAS */
 
@@ -52,6 +58,8 @@ import { PuertasConfigForm } from "@/features/puertas/components/PuertasConfigFo
 
 import { PuertasPreview } from "@/features/puertas/components/PuertasPreview";
 
+import { initialPuertasConfig } from "@/features/puertas/constants";
+
 /* PUERTAS PLACA */
 
 import type { PuertasPlacaConfig } from "@/features/puertas-placa/types";
@@ -59,6 +67,8 @@ import type { PuertasPlacaConfig } from "@/features/puertas-placa/types";
 import { PuertasPlacaConfigForm } from "@/features/puertas-placa/components/PuertasPlacaConfigForm";
 
 import { PuertasPlacaPreview } from "@/features/puertas-placa/components/PuertasPlacaPreview";
+
+import { initialPuertasPlacaConfig } from "@/features/puertas-placa/constants";
 
 /* POSTIGONES */
 
@@ -78,6 +88,8 @@ import { PatagonicasConfigForm } from "@/features/patagonicas/components/Patagon
 
 import { PatagonicasPreview } from "@/features/patagonicas/components/PatagonicasPreview";
 
+import { initialPatagonicasConfig } from "@/features/patagonicas/constants";
+
 /* MARCOS */
 
 import type { MarcosConfig } from "@/features/marcos/types";
@@ -86,12 +98,16 @@ import { MarcosConfigForm } from "@/features/marcos/components/MarcosConfigForm"
 
 import { MarcosPreview } from "@/features/marcos/components/MarcosPreview";
 
+import { initialMarcosConfig } from "@/features/marcos/constants";
+
 /* PAÑO FIJO */
 import type { PanoFijoConfig } from "@/features/pano-fijo/types";
 
 import { PanoFijoConfigForm } from "@/features/pano-fijo/components/PanoFijoConfigForm";
 
 import { PanoFijoPreview } from "@/features/pano-fijo/components/PanoFijoPreview";
+
+import { initialPanoFijoConfig } from "@/features/pano-fijo/constants";
 /* MOSQUITEROS */
 
 import type { MosquiterosConfig } from "@/features/mosquiteros/types";
@@ -99,6 +115,8 @@ import type { MosquiterosConfig } from "@/features/mosquiteros/types";
 import { MosquiterosConfigForm } from "@/features/mosquiteros/components/MosquiterosConfigForm";
 
 import { MosquiterosPreview } from "@/features/mosquiteros/components/MosquiterosPreview";
+
+import { initialMosquiterosConfig } from "@/features/mosquiteros/constants";
 
 function App() {
   /* ACTIVE FEATURE */
@@ -124,130 +142,27 @@ function App() {
 
   /* RAJAS */
 
-  const [rajasConfig, setRajasConfig] = useState<RajasConfig>({
-    ancho: 60,
-    alto: 60,
-
-    linea: "Herrero",
-
-    color: "blanco",
-
-    tipoVidrio: "4mm",
-
-    mosquitero: false,
-
-    modelo: "raja",
-
-    bisagra: "izquierda",
-
-    posicionOscilo: "cerrada",
-
-    premarco: false,
-
-    contramarco: false,
-
-    herrajesBlancos: false,
-  });
+  const [rajasConfig, setRajasConfig] =
+    useState<RajasConfig>(initialRajasConfig);
 
   /* VENTANAS */
 
-  const [ventanasConfig, setVentanasConfig] = useState<VentanaConfig>({
-    ancho: 120,
-
-    alto: 100,
-
-    linea: "Herrero",
-
-    color: "blanco",
-
-    tipoVidrio: "3mm",
-
-    mosquitero: false,
-
-    guia: false,
-
-    cajonBlock: false,
-
-    cortina: null,
-    premarco: false,
-
-    contramarco: false,
-  });
+  const [ventanasConfig, setVentanasConfig] = useState<VentanaConfig>(
+    initialVentanasConfig,
+  );
 
   /* PORTONES */
-
-  const [portonesConfig, setPortonesConfig] = useState<PortonesConfig>({
-    ancho: 250,
-
-    alto: 220,
-
-    linea: "Herrero",
-
-    sistema: "corredizo",
-
-    hojas: 2,
-
-    color: "blanco",
-
-    automatizado: false,
-
-    guiaInferior: false,
-  });
-
+  const [portonesConfig, setPortonesConfig] = useState<PortonesConfig>(
+    initialPortonesConfig,
+  );
   /* PUERTAS */
 
-  const [puertasConfig, setPuertasConfig] = useState<PuertasConfig>({
-    ancho: 80,
-
-    alto: 200,
-
-    linea: "herrero",
-
-    tipoConfiguracion: "simple",
-
-    tipoPorton: "abrir",
-
-    modelo: "modelo_1",
-
-    modeloMediaPuerta: "v_entero",
-
-    color: "blanco",
-
-    mano: "derecha",
-
-    hojas: 1,
-
-    anchoPrincipal: 80,
-
-    vidrio: "4mm",
-
-    extras: {
-      barralRecto: 0,
-      barralCurvo: 0,
-      manija: false,
-      picaporte: false,
-    },
-  });
+  const [puertasConfig, setPuertasConfig] =
+    useState<PuertasConfig>(initialPuertasConfig);
 
   /* PUERTAS PLACA */
   const [puertasPlacaConfig, setPuertasPlacaConfig] =
-    useState<PuertasPlacaConfig>({
-      ancho: 80,
-
-      alto: 200,
-
-      tipo: "abrir",
-
-      medidaSeleccionada: "80x200",
-
-      fueraDeMedida: false,
-
-      marco: "marco_10",
-
-      modelo: "finger_pino",
-
-      mano: "derecha",
-    });
+    useState<PuertasPlacaConfig>(initialPuertasPlacaConfig);
   /* POSTIGONES */
 
   const [postigonesConfig, setPostigonesConfig] = useState<PostigonesConfig>(
@@ -255,110 +170,27 @@ function App() {
   );
   /* PATAGONICAS */
   const [patagonicasConfig, setPatagonicasConfig] = useState<PatagonicasConfig>(
-    {
-      // =========================
-      // 📏 MEDIDAS
-      // =========================
-
-      ancho: 120,
-
-      alto: 100,
-
-      anchoRaja: 40,
-
-      // =========================
-      // 🪟 CONFIG
-      // =========================
-
-      linea: "Herrero",
-
-      tipo: "1_raja",
-
-      cantidadRajas: 1,
-
-      // =========================
-      // 🎨 VISUAL
-      // =========================
-
-      color: "blanco",
-
-      tipoVidrio: "4mm",
-
-      // =========================
-      // 🚪 APERTURA
-      // =========================
-
-      ladoApertura: "derecha",
-
-      tipoApertura: "abrir",
-
-      bisagraRaja1: "izquierda",
-
-      bisagraRaja2: "derecha",
-
-      // =========================
-      // 🧩 OPCIONALES
-      // =========================
-
-      premarco: false,
-
-      contramarco: false,
-
-      mosquitero: false,
-
-      guia: false,
-
-      cajonBlock: false,
-
-      cortina: null,
-
-      fueraDeMedida: false,
-    },
+    initialPatagonicasConfig,
   );
   /* MARCOS */
 
-  const [marcosConfig, setMarcosConfig] = useState<MarcosConfig>({
-    ancho: 120,
-
-    alto: 100,
-
-    tipo: "premarco",
-
-    color: "blanco",
-  });
+  const [marcosConfig, setMarcosConfig] =
+    useState<MarcosConfig>(initialMarcosConfig);
 
   /* PAÑO FIJO */
-  const [panoFijoConfig, setPanoFijoConfig] = useState<PanoFijoConfig>({
-    ancho: 120,
-
-    alto: 120,
-
-    linea: "herrero",
-
-    color: "blanco",
-
-    tipoVidrio: "4mm",
-  });
+  const [panoFijoConfig, setPanoFijoConfig] = useState<PanoFijoConfig>(
+    initialPanoFijoConfig,
+  );
 
   /* MOSQUITEROS */
 
   const [mosquiterosConfig, setMosquiterosConfig] = useState<MosquiterosConfig>(
-    {
-      ancho: 100,
-
-      alto: 100,
-
-      tipo: "ventana",
-
-      color: "blanco",
-
-      ladoBisagra: "derecha",
-    },
+    initialMosquiterosConfig,
   );
 
   const activeFeatureLabel = getFeatureLabel(activeFeature);
-  console.log(activeFeature);
-  const FEATURE_COMPONENTS: Record<string, React.ReactNode> = {
+
+  const FEATURE_COMPONENTS = {
     rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,
 
     ventanas: (
@@ -421,24 +253,28 @@ function App() {
     configuracion: <ConfiguracionPage />,
   };
 
+  const CONFIGS = {
+    rajas: rajasConfig,
+
+    ventanas: ventanasConfig,
+
+    puertas: puertasConfig,
+
+    postigones: postigonesConfig,
+
+    patagonicas: patagonicasConfig,
+
+    mosquiteros: mosquiterosConfig,
+
+    marcos: marcosConfig,
+
+    "pano-fijo": panoFijoConfig,
+
+    portones: portonesConfig,
+  };
+
   const activeConfig =
-    activeFeature === "rajas"
-      ? rajasConfig
-      : activeFeature === "ventanas"
-        ? ventanasConfig
-        : activeFeature === "puertas"
-          ? puertasConfig
-          : activeFeature === "postigones"
-            ? postigonesConfig
-            : activeFeature === "patagonicas"
-              ? patagonicasConfig
-              : activeFeature === "mosquiteros"
-                ? mosquiterosConfig
-                : activeFeature === "marcos"
-                  ? marcosConfig
-                  : activeFeature === "pano-fijo"
-                    ? panoFijoConfig
-                    : portonesConfig;
+    CONFIGS[activeFeature as keyof typeof CONFIGS] || portonesConfig;
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
@@ -472,7 +308,11 @@ function App() {
               <div className="grid grid-cols-2 gap-6 p-6">
                 {/* FORM */}
 
-                {FEATURE_COMPONENTS[activeFeature]}
+                {
+                  FEATURE_COMPONENTS[
+                    activeFeature as keyof typeof FEATURE_COMPONENTS
+                  ]
+                }
 
                 {/* PREVIEW COLUMN */}
 

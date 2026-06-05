@@ -11,6 +11,9 @@ try {
     const file = fs.readFileSync(logoPath);
     logoBase64 = `data:image/png;base64,${file.toString("base64")}`;
   }
+  console.log("LOGO PATH:", logoPath);
+
+  console.log("EXISTE:", fs.existsSync(logoPath));
 } catch (e) {
   console.log("⚠ No se pudo cargar logo base64");
 }

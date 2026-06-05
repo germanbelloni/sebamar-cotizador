@@ -1,3 +1,4 @@
+import type { VentanaConfig } from "./types";
 export const coloresVentana = [
   {
     label: "blanco",
@@ -42,4 +43,27 @@ export const LIMITES_LINEA = {
     altoMin: 30,
     altoMax: 260,
   },
+};
+export const initialVentanasConfig: VentanaConfig = {
+  ancho: 120,
+
+  alto: 100,
+
+  linea: "Herrero",
+
+  color: "blanco",
+
+  tipoVidrio: "3mm",
+
+  mosquitero: false,
+
+  guia: false,
+
+  cajonBlock: false,
+
+  cortina: null,
+
+  premarco: false,
+
+  contramarco: false,
 };

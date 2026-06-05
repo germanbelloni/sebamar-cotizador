@@ -1,4 +1,5 @@
 import type { MarcoTipo, MarcoColor } from "./types";
+import type { MarcosConfig } from "./types";
 
 export const LIMITES_MARCOS = {
   anchoMin: 20,
@@ -57,3 +58,12 @@ export const COLORES_CONTRAMARCO: {
     value: "simil madera",
   },
 ];
+export const initialMarcosConfig: MarcosConfig = {
+  ancho: 120,
+
+  alto: 100,
+
+  tipo: "premarco",
+
+  color: "blanco",
+};

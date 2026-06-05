@@ -1,4 +1,5 @@
 import type { PanoFijoLinea, PanoFijoVidrio } from "./types";
+import type { PanoFijoConfig } from "./types";
 
 export const LIMITES_PANO_FIJO = {
   anchoMin: 20,
@@ -75,3 +76,14 @@ export const VIDRIOS_PANO_FIJO: {
     value: "dvh_4_9_4",
   },
 ];
+export const initialPanoFijoConfig: PanoFijoConfig = {
+  ancho: 120,
+
+  alto: 120,
+
+  linea: "herrero",
+
+  color: "blanco",
+
+  tipoVidrio: "4mm",
+};

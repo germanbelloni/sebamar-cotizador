@@ -1,3 +1,5 @@
+import type { PatagonicasConfig } from "./types";
+
 export const LIMITES_PATAGONICAS = {
   Herrero: {
     anchoMin: 80,
@@ -12,7 +14,7 @@ export const LIMITES_PATAGONICAS = {
     anchoMax: 300,
 
     altoMin: 40,
-    altoMax: 180,
+    altoMax: 220,
   },
 };
 
@@ -94,3 +96,62 @@ export const ladosPatagonicas = [
     value: "derecha",
   },
 ] as const;
+export const initialPatagonicasConfig: PatagonicasConfig = {
+  // =========================
+  // 📏 MEDIDAS
+  // =========================
+
+  ancho: 120,
+
+  alto: 100,
+
+  anchoRaja: 40,
+
+  // =========================
+  // 🪟 CONFIG
+  // =========================
+
+  linea: "Herrero",
+
+  tipo: "1_raja",
+
+  cantidadRajas: 1,
+
+  // =========================
+  // 🎨 VISUAL
+  // =========================
+
+  color: "blanco",
+
+  tipoVidrio: "4mm",
+
+  // =========================
+  // 🚪 APERTURA
+  // =========================
+
+  ladoApertura: "derecha",
+
+  tipoApertura: "abrir",
+
+  bisagraRaja1: "izquierda",
+
+  bisagraRaja2: "derecha",
+
+  // =========================
+  // 🧩 OPCIONALES
+  // =========================
+
+  premarco: false,
+
+  contramarco: false,
+
+  mosquitero: false,
+
+  guia: false,
+
+  cajonBlock: false,
+
+  cortina: null,
+
+  fueraDeMedida: false,
+};

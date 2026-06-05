@@ -1,3 +1,4 @@
+import type { RajasConfig } from "./types";
 export const LIMITES_RAJAS = {
   Herrero: {
     anchoMin: 30,
@@ -76,3 +77,28 @@ export const vidriosRaja = [
     value: "3+3",
   },
 ] as const;
+
+export const initialRajasConfig: RajasConfig = {
+  ancho: 60,
+  alto: 60,
+
+  linea: "Herrero",
+
+  color: "blanco",
+
+  tipoVidrio: "4mm",
+
+  mosquitero: false,
+
+  modelo: "raja",
+
+  bisagra: "izquierda",
+
+  posicionOscilo: "cerrada",
+
+  premarco: false,
+
+  contramarco: false,
+
+  herrajesBlancos: false,
+};

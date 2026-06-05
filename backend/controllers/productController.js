@@ -48,9 +48,7 @@ async function runCalculation(req, res, name, callback) {
     // =========================
     // 👤 PRICING USER
     // =========================
-
     const pricingUser = await resolvePricingUser(req.user);
-
     // =========================
     // 💰 MARGEN
     // =========================
@@ -60,7 +58,6 @@ async function runCalculation(req, res, name, callback) {
       Number(pricingUser?.margen || 0),
       pricingUser?.perfil || "",
     );
-
     // =========================
     // 🔒 SANITIZAR
     // =========================
@@ -221,7 +218,6 @@ function patagonicas(req, res) {
 
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
-
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;

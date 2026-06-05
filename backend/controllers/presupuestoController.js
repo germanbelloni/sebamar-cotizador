@@ -264,10 +264,6 @@ async function crear(req, res) {
 
     return res.json(presupuesto);
   } catch (error) {
-    console.error("ERROR PRESUPUESTO:", error);
-
-    console.error("BODY:", JSON.stringify(req.body, null, 2));
-
     return res.status(500).json({
       error: "Error creando presupuesto",
 
@@ -425,6 +421,8 @@ async function obtener(req, res) {
       metadata: item.metadata || {},
     })),
   };
+
+  console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
 
   return res.json(resultado);
 }

@@ -3,16 +3,7 @@ import type { PatagonicasConfig } from "../types";
 import { LIMITES_PATAGONICAS } from "../constants";
 
 export function usePatagonicasValidation(config: PatagonicasConfig) {
-  let limites = LIMITES_PATAGONICAS[config.linea];
-
-  if (config.linea === "Modena") {
-    limites = {
-      anchoMin: 120,
-      anchoMax: 200,
-      altoMin: 40,
-      altoMax: 180,
-    };
-  }
+  const limites = LIMITES_PATAGONICAS[config.linea];
 
   const anchoValido =
     config.ancho >= limites.anchoMin && config.ancho <= limites.anchoMax;

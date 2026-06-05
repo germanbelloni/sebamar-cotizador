@@ -1,3 +1,4 @@
+import type { MosquiterosConfig } from "./types";
 export const LIMITES_MOSQUITEROS = {
   ventana: {
     anchoMin: 60,
@@ -40,3 +41,14 @@ export const tiposMosquitero = [
     value: "fijo",
   },
 ] as const;
+export const initialMosquiterosConfig: MosquiterosConfig = {
+  ancho: 100,
+
+  alto: 100,
+
+  tipo: "ventana",
+
+  color: "blanco",
+
+  ladoBisagra: "derecha",
+};

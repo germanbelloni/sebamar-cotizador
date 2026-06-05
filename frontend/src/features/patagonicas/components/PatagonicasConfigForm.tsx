@@ -67,14 +67,9 @@ export function PatagonicasConfigForm({
     handleAnchoChange,
 
     handleAltoChange,
-
-    handleToggleGuia,
-
-    handleToggleCajonBlock,
-
-    handleTogglePremarco,
   } = usePatagonicasForm({
     config,
+
     setConfig,
   });
 
@@ -349,8 +344,16 @@ export function PatagonicasConfigForm({
                   mosquitero: !config.mosquitero,
                 })
               }
-              onToggleGuia={handleToggleGuia}
-              onToggleCajonBlock={handleToggleCajonBlock}
+              onToggleGuia={() =>
+                updateConfig({
+                  guia: !config.guia,
+                })
+              }
+              onToggleCajonBlock={() =>
+                updateConfig({
+                  cajonBlock: !config.cajonBlock,
+                })
+              }
             />
 
             {config.guia && (
@@ -377,7 +380,11 @@ export function PatagonicasConfigForm({
               <ModenaSection
                 premarco={config.premarco}
                 contramarco={config.contramarco}
-                onTogglePremarco={handleTogglePremarco}
+                onTogglePremarco={() =>
+                  updateConfig({
+                    premarco: !config.premarco,
+                  })
+                }
                 onToggleContramarco={() =>
                   updateConfig({
                     contramarco: !config.contramarco,

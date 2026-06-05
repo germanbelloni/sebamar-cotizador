@@ -1,3 +1,4 @@
+import type { PuertasConfig } from "./types";
 import type {
   PuertaLinea,
   PuertaTipoConfiguracion,
@@ -266,4 +267,37 @@ export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
   modena: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3", "dvh_4_9_4"],
 
   eco: ["3mm", "4mm", "fantasia"],
+};
+
+export const initialPuertasConfig: PuertasConfig = {
+  ancho: 80,
+
+  alto: 200,
+
+  linea: "herrero",
+
+  tipoConfiguracion: "simple",
+
+  tipoPorton: "abrir",
+
+  modelo: "modelo_1",
+
+  modeloMediaPuerta: "v_entero",
+
+  color: "blanco",
+
+  mano: "derecha",
+
+  hojas: 1,
+
+  anchoPrincipal: 80,
+
+  vidrio: "4mm",
+
+  extras: {
+    barralRecto: 0,
+    barralCurvo: 0,
+    manija: false,
+    picaporte: false,
+  },
 };
