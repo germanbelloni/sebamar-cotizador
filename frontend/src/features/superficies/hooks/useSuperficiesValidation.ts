@@ -2,18 +2,14 @@ import type { SuperficiesConfig } from "../types";
 
 import { LIMITES_superficies } from "../constants";
 
+import { validateDimensions } from "@/shared/utils/validateDimensions";
+
 export function useSuperficiesValidation(config: SuperficiesConfig) {
-  const anchoValido =
-    config.ancho >= LIMITES_superficies.anchoMin &&
-    config.ancho <= LIMITES_superficies.anchoMax;
-
-  const altoValido =
-    config.alto >= LIMITES_superficies.altoMin &&
-    config.alto <= LIMITES_superficies.altoMax;
-
-  const medidasValidas = anchoValido && altoValido;
-
-  const medidasInvalidas = !medidasValidas;
+  const { anchoValido, altoValido, medidasValidas } = validateDimensions({
+    ancho: config.ancho,
+    alto: config.alto,
+    limits: LIMITES_superficies,
+  });
 
   return {
     limites: LIMITES_superficies,
@@ -24,6 +20,6 @@ export function useSuperficiesValidation(config: SuperficiesConfig) {
 
     medidasValidas,
 
-    medidasInvalidas,
+    medidasInvalidas: !medidasValidas,
   };
 }

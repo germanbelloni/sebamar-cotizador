@@ -36,8 +36,6 @@ export function PostigonPreview({ config }: Props) {
   console.log(config.tipo);
   // CORREDIZO
 
-  const overlap = config.tipo === "corredizo" ? anchoView * 0.08 : 0;
-
   const leafWidth =
     config.tipo === "corredizo" ? anchoView / 2 : anchoView / cantidadHojas;
 

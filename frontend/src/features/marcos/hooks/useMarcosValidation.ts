@@ -2,14 +2,14 @@ import { LIMITES_MARCOS } from "../constants";
 
 import type { MarcosConfig } from "../types";
 
-export function useMarcosValidation(config: MarcosConfig) {
-  const anchoValido =
-    config.ancho >= LIMITES_MARCOS.anchoMin &&
-    config.ancho <= LIMITES_MARCOS.anchoMax;
+import { validateDimensions } from "@/shared/utils/validateDimensions";
 
-  const altoValido =
-    config.alto >= LIMITES_MARCOS.altoMin &&
-    config.alto <= LIMITES_MARCOS.altoMax;
+export function useMarcosValidation(config: MarcosConfig) {
+  const { anchoValido, altoValido, medidasValidas } = validateDimensions({
+    ancho: config.ancho,
+    alto: config.alto,
+    limits: LIMITES_MARCOS,
+  });
 
   return {
     limites: LIMITES_MARCOS,
@@ -18,8 +18,8 @@ export function useMarcosValidation(config: MarcosConfig) {
 
     altoValido,
 
-    medidasValidas: anchoValido && altoValido,
+    medidasValidas,
 
-    medidasInvalidas: !anchoValido || !altoValido,
+    medidasInvalidas: !medidasValidas,
   };
 }

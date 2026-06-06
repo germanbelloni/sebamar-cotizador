@@ -2,18 +2,14 @@ import type { PanoFijoConfig } from "../types";
 
 import { LIMITES_PANO_FIJO } from "../constants";
 
+import { validateDimensions } from "@/shared/utils/validateDimensions";
+
 export function usePanoFijoValidation(config: PanoFijoConfig) {
-  const anchoValido =
-    config.ancho >= LIMITES_PANO_FIJO.anchoMin &&
-    config.ancho <= LIMITES_PANO_FIJO.anchoMax;
-
-  const altoValido =
-    config.alto >= LIMITES_PANO_FIJO.altoMin &&
-    config.alto <= LIMITES_PANO_FIJO.altoMax;
-
-  const medidasValidas = anchoValido && altoValido;
-
-  const medidasInvalidas = !medidasValidas;
+  const { anchoValido, altoValido, medidasValidas } = validateDimensions({
+    ancho: config.ancho,
+    alto: config.alto,
+    limits: LIMITES_PANO_FIJO,
+  });
 
   return {
     limites: LIMITES_PANO_FIJO,
@@ -24,6 +20,6 @@ export function usePanoFijoValidation(config: PanoFijoConfig) {
 
     medidasValidas,
 
-    medidasInvalidas,
+    medidasInvalidas: !medidasValidas,
   };
 }
