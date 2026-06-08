@@ -10,8 +10,6 @@ import { GiWindow, GiDoor, GiGate } from "react-icons/gi";
 
 import { FaMosquitoNet } from "react-icons/fa6";
 
-import { useNavigate } from "react-router-dom";
-
 import { Button } from "@/components/ui/button";
 
 import { useAuthStore } from "@/store/authStore";
@@ -76,15 +74,13 @@ export function Sidebar({
 
   onSelectFeature,
 }: Props) {
-  const navigate = useNavigate();
-
   const user = useAuthStore((state) => state.user);
 
   const logout = useAuthStore((state) => state.logout);
 
   const openUsersPanel = useUIStore((state) => state.openUsersPanel);
 
-  const isSuperAdmin = user?.role === "superadmin";
+  const canManageUsers = user?.role === "superadmin" || user?.role === "admin";
 
   return (
     <aside
@@ -187,19 +183,19 @@ export function Sidebar({
         <Button
           variant="ghost"
           className="
-            h-10
-            w-full
-            justify-start
-            gap-2
-            rounded-xl
-          "
-          onClick={() => navigate("/presupuestos")}
+    h-10
+    w-full
+    justify-start
+    gap-2
+    rounded-xl
+  "
+          onClick={() => onSelectFeature("presupuestos")}
         >
           <FileText className="h-4 w-4" />
           Presupuestos
         </Button>
 
-        {isSuperAdmin && (
+        {canManageUsers && (
           <Button
             variant="ghost"
             className="
@@ -219,12 +215,13 @@ export function Sidebar({
         <Button
           variant="ghost"
           className="
-            h-10
-            w-full
-            justify-start
-            gap-2
-            rounded-xl
-          "
+    h-10
+    w-full
+    justify-start
+    gap-2
+    rounded-xl
+  "
+          onClick={() => onSelectFeature("configuracion")}
         >
           <Settings className="h-4 w-4" />
           Configuración

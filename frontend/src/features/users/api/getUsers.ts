@@ -13,7 +13,11 @@ export type User = {
 
   margen: number;
 
-  ownerId: string | null;
+  ownerId: {
+    _id: string;
+    nombre: string;
+    role: string;
+  } | null;
 
   activo: boolean;
 };

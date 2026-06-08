@@ -5,11 +5,13 @@ type UIState = {
 
   createUserModalOpen: boolean;
 
+  createUserType: "admin" | "user";
+
   openUsersPanel: () => void;
 
   closeUsersPanel: () => void;
 
-  openCreateUserModal: () => void;
+  openCreateUserModal: (type: "admin" | "user") => void;
 
   closeCreateUserModal: () => void;
 };
@@ -18,6 +20,8 @@ export const useUIStore = create<UIState>((set) => ({
   usersPanelOpen: false,
 
   createUserModalOpen: false,
+
+  createUserType: "user",
 
   openUsersPanel: () =>
     set({
@@ -29,9 +33,11 @@ export const useUIStore = create<UIState>((set) => ({
       usersPanelOpen: false,
     }),
 
-  openCreateUserModal: () =>
+  openCreateUserModal: (type) =>
     set({
       createUserModalOpen: true,
+
+      createUserType: type,
     }),
 
   closeCreateUserModal: () =>

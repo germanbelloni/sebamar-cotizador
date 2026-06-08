@@ -10,6 +10,8 @@ import api from "../../../lib/api";
 
 import { useUIStore } from "@/store/uiStore";
 
+import { useAuthStore } from "@/store/authStore";
+
 type CreateUserForm = {
   nombre: string;
 
@@ -31,9 +33,17 @@ type Props = {
 export function CreateUserModal({ onUserCreated }: Props) {
   const createUserModalOpen = useUIStore((state) => state.createUserModalOpen);
 
+  const createUserType = useUIStore((state) => state.createUserType);
+
   const closeCreateUserModal = useUIStore(
     (state) => state.closeCreateUserModal,
   );
+
+  const user = useAuthStore((state) => state.user);
+
+  const isSuperAdmin = user?.role === "superadmin";
+
+  const creandoEmpresa = isSuperAdmin && createUserType === "admin";
 
   const [loading, setLoading] = useState(false);
 
@@ -55,7 +65,25 @@ export function CreateUserModal({ onUserCreated }: Props) {
     try {
       setLoading(true);
 
-      await api.post("/auth/register", form);
+      const payload = creandoEmpresa
+        ? {
+            nombre: form.nombre,
+
+            password: form.password,
+
+            margen: form.margen,
+
+            role: "admin",
+          }
+        : {
+            nombre: form.nombre,
+
+            password: form.password,
+
+            role: "user",
+          };
+
+      await api.post("/auth/register", payload);
 
       await onUserCreated?.();
 
@@ -127,21 +155,23 @@ export function CreateUserModal({ onUserCreated }: Props) {
           <div>
             <h2
               className="
-                text-2xl
-                font-bold
-              "
+    text-2xl
+    font-bold
+  "
             >
-              Nuevo usuario
+              {creandoEmpresa ? "Nueva empresa" : "Nuevo usuario"}
             </h2>
 
             <p
               className="
-                mt-1
-                text-sm
-                text-muted-foreground
-              "
+    mt-1
+    text-sm
+    text-muted-foreground
+  "
             >
-              Crear cliente o vendedor.
+              {creandoEmpresa
+                ? "Crear administrador de empresa."
+                : "Crear vendedor."}
             </p>
           </div>
 
@@ -153,17 +183,15 @@ export function CreateUserModal({ onUserCreated }: Props) {
         {/* FORM */}
 
         <div className="mt-6 space-y-4">
-          {/* USUARIO */}
-
           <div>
             <label
               className="
-                mb-2
-                block
-                text-sm
-              "
+      mb-2
+      block
+      text-sm
+    "
             >
-              Usuario
+              {creandoEmpresa ? "Nombre empresa" : "Usuario"}
             </label>
 
             <Input
@@ -204,97 +232,33 @@ export function CreateUserModal({ onUserCreated }: Props) {
             />
           </div>
 
-          {/* EMPRESA */}
-
-          <div>
-            <label
-              className="
-                mb-2
-                block
-                text-sm
-              "
-            >
-              Empresa
-            </label>
-
-            <Input
-              value={form.empresa}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-
-                  empresa: e.target.value,
-                })
-              }
-            />
-          </div>
-
-          {/* ROLE */}
-
-          <div>
-            <label
-              className="
-                mb-2
-                block
-                text-sm
-              "
-            >
-              Role
-            </label>
-
-            <select
-              value={form.role}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-
-                  role: e.target.value as "admin" | "user",
-                })
-              }
-              className="
-                h-10
-                w-full
-
-                rounded-xl
-                border
-                border-border
-
-                bg-background
-
-                px-3
-              "
-            >
-              <option value="user">User</option>
-
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-
           {/* MARGEN */}
 
-          <div>
-            <label
-              className="
-                mb-2
-                block
-                text-sm
-              "
-            >
-              Margen (%)
-            </label>
+          {creandoEmpresa && (
+            <div>
+              <label
+                className="
+        mb-2
+        block
+        text-sm
+      "
+              >
+                Margen (%)
+              </label>
 
-            <Input
-              type="number"
-              value={form.margen}
-              onChange={(e) =>
-                setForm({
-                  ...form,
+              <Input
+                type="number"
+                value={form.margen}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
 
-                  margen: Number(e.target.value),
-                })
-              }
-            />
-          </div>
+                    margen: Number(e.target.value),
+                  })
+                }
+              />
+            </div>
+          )}
         </div>
 
         {/* ACTIONS */}

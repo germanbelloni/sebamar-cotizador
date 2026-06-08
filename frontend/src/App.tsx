@@ -19,6 +19,8 @@ import { usePresupuesto } from "@/features/presupuestos/hooks/usePresupuesto";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 import ConfiguracionPage from "@/pages/ConfiguracionPage";
+
+import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -558,6 +560,8 @@ function App() {
         </main>
 
         <BudgetPanel items={items} cliente={cliente} empresa={empresa} />
+
+        <UserManagementPanel />
       </div>
     </div>
   );

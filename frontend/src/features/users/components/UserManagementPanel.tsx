@@ -12,12 +12,18 @@ import { useUIStore } from "@/store/uiStore";
 
 import { CreateUserModal } from "./CreateUserModal";
 
+import { useAuthStore } from "@/store/authStore";
+
 export function UserManagementPanel() {
   const usersPanelOpen = useUIStore((state) => state.usersPanelOpen);
 
   const closeUsersPanel = useUIStore((state) => state.closeUsersPanel);
 
   const openCreateUserModal = useUIStore((state) => state.openCreateUserModal);
+
+  const user = useAuthStore((state) => state.user);
+
+  const isSuperAdmin = user?.role === "superadmin";
 
   const [users, setUsers] = useState<User[]>([]);
 
@@ -140,18 +146,35 @@ export function UserManagementPanel() {
                 Clientes, vendedores y permisos.
               </p>
             </div>
-
             <div className="flex gap-3">
-              <Button
-                className="
-                  gap-2
-                  rounded-xl
-                "
-                onClick={openCreateUserModal}
-              >
-                <UserPlus className="h-4 w-4" />
-                Nuevo usuario
-              </Button>
+              {isSuperAdmin ? (
+                <>
+                  <Button
+                    className="gap-2 rounded-xl"
+                    onClick={() => openCreateUserModal("admin")}
+                  >
+                    <UserPlus className="h-4 w-4" />
+                    Nueva empresa
+                  </Button>
+
+                  <Button
+                    className="gap-2 rounded-xl"
+                    variant="secondary"
+                    onClick={() => openCreateUserModal("user")}
+                  >
+                    <UserPlus className="h-4 w-4" />
+                    Usuario Sebamar
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  className="gap-2 rounded-xl"
+                  onClick={() => openCreateUserModal("user")}
+                >
+                  <UserPlus className="h-4 w-4" />
+                  Nuevo vendedor
+                </Button>
+              )}
 
               <Button variant="outline" size="icon" onClick={closeUsersPanel}>
                 <X className="h-5 w-5" />
@@ -205,12 +228,16 @@ export function UserManagementPanel() {
 
                       <p
                         className="
-                          mt-1
-                          text-sm
-                          text-muted-foreground
-                        "
+    mt-1
+    text-sm
+    text-muted-foreground
+  "
                       >
-                        {user.empresa}
+                        {user.role === "admin"
+                          ? "Empresa"
+                          : user.ownerId?.nombre
+                            ? `Vendedor de ${user.ownerId.nombre}`
+                            : "-"}
                       </p>
                     </div>
 
@@ -220,7 +247,7 @@ export function UserManagementPanel() {
                       className="
                         flex
                         items-center
-                        gap-8
+                        gap-12
                       "
                     >
                       {/* ROLE */}
@@ -242,27 +269,6 @@ export function UserManagementPanel() {
                           "
                         >
                           {user.role}
-                        </p>
-                      </div>
-
-                      {/* MARGEN */}
-
-                      <div>
-                        <p
-                          className="
-                            text-xs
-                            text-muted-foreground
-                          "
-                        >
-                          MARGEN
-                        </p>
-
-                        <p
-                          className="
-                            font-medium
-                          "
-                        >
-                          {Math.round(user.margen * 100)}%
                         </p>
                       </div>
 

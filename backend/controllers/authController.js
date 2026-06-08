@@ -266,9 +266,12 @@ async function listar(req, res) {
 
     // 👑 SUPERADMIN
     if (req.user.role === "superadmin") {
-      users = await User.find().select("-password").sort({
-        createdAt: -1,
-      });
+      users = await User.find()
+        .populate("ownerId", "nombre role")
+        .select("-password")
+        .sort({
+          createdAt: -1,
+        });
     }
 
     // 🧑 ADMIN
@@ -276,6 +279,7 @@ async function listar(req, res) {
       users = await User.find({
         ownerId: req.user.id,
       })
+        .populate("ownerId", "nombre role")
         .select("-password")
         .sort({
           createdAt: -1,
@@ -308,9 +312,6 @@ async function toggleActivo(req, res) {
       });
     }
 
-    // 🚫 SEGURIDAD
-    // admin NO puede tocar admins
-
     if (req.user.role === "admin" && user.role === "admin") {
       return res.status(403).json({
         error: "No autorizado",
@@ -323,7 +324,6 @@ async function toggleActivo(req, res) {
 
     return res.json({
       ok: true,
-
       activo: user.activo,
     });
   } catch (error) {
