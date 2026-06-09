@@ -10,6 +10,15 @@ export default function ConfiguracionPage() {
   const [margen, setMargen] = useState(user?.margen || 0);
 
   const [empresa, setEmpresa] = useState(user?.empresa || "");
+  const [nombreEmpresa, setNombreEmpresa] = useState(user?.nombreEmpresa || "");
+
+  const [colorPrimario, setColorPrimario] = useState(
+    user?.colorPrimario || "#D6B400",
+  );
+
+  const [colorSecundario, setColorSecundario] = useState(
+    user?.colorSecundario || "#1f2937",
+  );
 
   const [telefono, setTelefono] = useState(user?.telefono || "");
 
@@ -32,6 +41,8 @@ export default function ConfiguracionPage() {
 
         empresa,
 
+        nombreEmpresa,
+
         telefono,
 
         direccion,
@@ -39,6 +50,10 @@ export default function ConfiguracionPage() {
         email,
 
         observacionesPdf,
+
+        colorPrimario,
+
+        colorSecundario,
       });
 
       alert("Configuración guardada");
@@ -114,20 +129,40 @@ export default function ConfiguracionPage() {
         {/* EMPRESA */}
 
         <div className="mt-4">
-          <label className="mb-2 block text-sm">Empresa</label>
+          <label className="mb-2 block text-sm">Identificador empresa</label>
 
           <input
             value={empresa}
             onChange={(e) => setEmpresa(e.target.value)}
             className="
-              h-12
-              w-full
-              rounded-2xl
-              border
-              border-border
-              bg-background
-              px-4
-            "
+      h-12
+      w-full
+      rounded-2xl
+      border
+      border-border
+      bg-background
+      px-4
+    "
+          />
+        </div>
+
+        {/* NOMBRE COMERCIAL */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Nombre comercial</label>
+
+          <input
+            value={nombreEmpresa}
+            onChange={(e) => setNombreEmpresa(e.target.value)}
+            className="
+      h-12
+      w-full
+      rounded-2xl
+      border
+      border-border
+      bg-background
+      px-4
+    "
           />
         </div>
 
@@ -188,6 +223,42 @@ export default function ConfiguracionPage() {
               bg-background
               px-4
             "
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Color primario</label>
+
+          <input
+            value={colorPrimario}
+            onChange={(e) => setColorPrimario(e.target.value)}
+            className="
+      h-12
+      w-full
+      rounded-2xl
+      border
+      border-border
+      bg-background
+      px-4
+    "
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Color secundario</label>
+
+          <input
+            value={colorSecundario}
+            onChange={(e) => setColorSecundario(e.target.value)}
+            className="
+      h-12
+      w-full
+      rounded-2xl
+      border
+      border-border
+      bg-background
+      px-4
+    "
           />
         </div>
 

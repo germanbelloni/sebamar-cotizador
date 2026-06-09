@@ -58,16 +58,6 @@ export const FEATURES = [
 
     label: "Premarco / Contramarco",
   },
-  {
-    id: "presupuestos",
-
-    label: "Presupuestos",
-  },
-  {
-    id: "configuracion",
-
-    label: "Configuración",
-  },
 ] as const;
 
 export function getFeatureLabel(featureId: string) {

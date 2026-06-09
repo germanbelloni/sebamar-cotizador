@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
     // 🔐 LOGIN
+
     nombre: {
       type: String,
       required: true,
@@ -16,12 +17,14 @@ const userSchema = new mongoose.Schema(
     },
 
     // 📊 NUMERACIÓN PRESUPUESTOS
+
     contadorPresupuestos: {
       type: Number,
       default: 0,
     },
 
     // 🔐 ROLES
+
     role: {
       type: String,
       enum: ["superadmin", "admin", "user"],
@@ -29,39 +32,34 @@ const userSchema = new mongoose.Schema(
     },
 
     // 📊 PERFIL DE PRECIOS
+
     perfil: {
       type: String,
       enum: ["amarilla", "azul", "verde"],
       default: "amarilla",
     },
 
-    // 💰 GANANCIA
-    // ejemplo:
-    // 0.20 = 20%
+    // 💰 MARGEN
+
     margen: {
       type: Number,
       default: 0,
     },
 
     // 🏢 EMPRESA
-    empresa: {
-      type: String,
-      default: "sebamar",
-    },
 
     empresa: {
       type: String,
       default: "sebamar",
     },
 
-    logo: {
+    nombreEmpresa: {
       type: String,
       default: "",
     },
 
     // 👑 OWNER
-    // USER → apunta al ADMIN
-    // ADMIN → apunta al SUPERADMIN
+
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -69,17 +67,44 @@ const userSchema = new mongoose.Schema(
     },
 
     // 🎨 BRANDING
+
     logo: {
       type: String,
       default: "",
     },
 
-    colorTema: {
+    telefono: {
       type: String,
-      default: "#000000",
+      default: "",
+    },
+
+    direccion: {
+      type: String,
+      default: "",
+    },
+
+    email: {
+      type: String,
+      default: "",
+    },
+
+    observacionesPdf: {
+      type: String,
+      default: "",
+    },
+
+    colorPrimario: {
+      type: String,
+      default: "#D6B400",
+    },
+
+    colorSecundario: {
+      type: String,
+      default: "#1f2937",
     },
 
     // 🔒 ESTADO
+
     activo: {
       type: Boolean,
       default: true,

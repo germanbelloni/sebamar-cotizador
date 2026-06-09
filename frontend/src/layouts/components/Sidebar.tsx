@@ -212,20 +212,22 @@ export function Sidebar({
           </Button>
         )}
 
-        <Button
-          variant="ghost"
-          className="
-    h-10
-    w-full
-    justify-start
-    gap-2
-    rounded-xl
-  "
-          onClick={() => onSelectFeature("configuracion")}
-        >
-          <Settings className="h-4 w-4" />
-          Configuración
-        </Button>
+        {user?.role !== "user" && (
+          <Button
+            variant="ghost"
+            className="
+      h-10
+      w-full
+      justify-start
+      gap-2
+      rounded-xl
+    "
+            onClick={() => onSelectFeature("configuracion")}
+          >
+            <Settings className="h-4 w-4" />
+            Configuración
+          </Button>
+        )}
 
         <Button
           variant="ghost"

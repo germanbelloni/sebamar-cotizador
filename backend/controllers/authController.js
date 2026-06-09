@@ -169,7 +169,7 @@ async function login(req, res) {
 
     const user = await User.findOne({
       nombre,
-    });
+    }).populate("ownerId", "nombre empresa role");
 
     if (!user) {
       return res.status(401).json({
@@ -193,6 +193,8 @@ async function login(req, res) {
 
     const token = generarToken(user);
 
+    console.log("LOGIN USER:", JSON.stringify(user, null, 2));
+
     return res.json({
       token,
 
@@ -209,6 +211,8 @@ async function login(req, res) {
 
         empresa: user.empresa,
 
+        nombreEmpresa: user.nombreEmpresa,
+
         ownerId: user.ownerId,
 
         telefono: user.telefono,
@@ -220,6 +224,10 @@ async function login(req, res) {
         observacionesPdf: user.observacionesPdf,
 
         logo: user.logo,
+
+        colorPrimario: user.colorPrimario,
+
+        colorSecundario: user.colorSecundario,
       },
     });
   } catch (error) {
@@ -238,13 +246,16 @@ async function login(req, res) {
 
 async function me(req, res) {
   try {
-    const user = await User.findById(req.user.id).lean();
+    const user = await User.findById(req.user.id)
+      .populate("ownerId", "nombre empresa role")
+      .lean();
 
     if (!user) {
       return res.status(404).json({
         error: "Usuario no encontrado",
       });
     }
+    console.log("LOGIN USER:", JSON.stringify(user, null, 2));
 
     return res.json({
       id: user._id,
@@ -269,6 +280,11 @@ async function me(req, res) {
       observacionesPdf: user.observacionesPdf,
 
       logo: user.logo,
+      nombreEmpresa: user.nombreEmpresa,
+
+      colorPrimario: user.colorPrimario,
+
+      colorSecundario: user.colorSecundario,
     });
   } catch (error) {
     console.log("ERROR ME:", error.message);
@@ -304,7 +320,7 @@ async function listar(req, res) {
           createdAt: -1,
         });
     }
-
+    console.log("ME USER:", JSON.stringify(user, null, 2));
     return res.json(users);
   } catch (error) {
     console.log("ERROR LISTAR USERS:", error.message);
@@ -367,11 +383,22 @@ async function actualizarConfiguracion(req, res) {
     user.margen = Number(req.body.margen || 0);
 
     user.empresa = req.body.empresa || "";
+
+    user.nombreEmpresa = req.body.nombreEmpresa || "";
+
     user.telefono = req.body.telefono || "";
+
     user.direccion = req.body.direccion || "";
+
     user.email = req.body.email || "";
+
     user.observacionesPdf = req.body.observacionesPdf || "";
+
     user.logo = req.body.logo || "";
+
+    user.colorPrimario = req.body.colorPrimario || "#D6B400";
+
+    user.colorSecundario = req.body.colorSecundario || "#1f2937";
 
     await user.save();
 

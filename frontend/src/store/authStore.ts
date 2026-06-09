@@ -1,30 +1,41 @@
 import { create } from "zustand";
 
-type User = {
-  id: string;
+  type User = {
+    id: string;
 
-  nombre: string;
+    nombre: string;
 
-  role: "superadmin" | "admin" | "user";
+    role: "superadmin" | "admin" | "user";
 
-  perfil: string;
+    perfil: string;
 
-  margen: number;
+    margen: number;
 
-  empresa: string;
+    empresa: string;
 
-  telefono?: string;
+    nombreEmpresa?: string;
+    
+    colorPrimario?: string;
 
-  direccion?: string;
+    colorSecundario?: string;
 
-  email?: string;
+    telefono?: string;
 
-  observacionesPdf?: string;
+    direccion?: string;
 
-  logo?: string;
+    email?: string;
 
-  ownerId: string | null;
-};
+    observacionesPdf?: string;
+
+    logo?: string;
+
+    ownerId: {
+      _id: string;
+      nombre: string;
+      role: string;
+      empresa?: string;
+    } | null;
+  };
 
 type AuthState = {
   token: string | null;

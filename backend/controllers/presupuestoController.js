@@ -107,14 +107,24 @@ function calcularItem(item, perfil) {
       });
 
     case "ventana":
-      if (
-        String(item.linea || item.configuracion?.linea || "").toLowerCase() ===
-        "modena"
-      ) {
-        return calcularVentanaModena({
-          ...item,
+      {
+        const linea = (
+          item.linea ||
+          item.configuracion?.linea ||
+          item.metadata?.linea ||
+          ""
+        ).toLowerCase();
+
+        const payload = {
+          ...item.configuracion,
           perfil,
-        });
+        };
+
+        if (linea === "modena") {
+          return calcularVentanaModena(payload);
+        }
+
+        return calcularVentanaHerrero(payload);
       }
 
       return calcularVentanaHerrero({
@@ -189,7 +199,23 @@ function calcularItem(item, perfil) {
 async function crear(req, res) {
   try {
     const userId = req.user.id;
-    const ownerId = req.user.ownerId || req.user.id;
+
+    let ownerId;
+
+    // SUPERADMIN
+    if (req.user.role === "superadmin") {
+      ownerId = req.user.id;
+    }
+
+    // ADMIN
+    else if (req.user.role === "admin") {
+      ownerId = req.user.id;
+    }
+
+    // USER
+    else {
+      ownerId = req.user.ownerId;
+    }
 
     const user = await User.findById(userId);
 
@@ -252,10 +278,13 @@ async function crear(req, res) {
         configuracion: item,
       };
     });
+    console.log("PASO 2");
 
     user.contadorPresupuestos += 1;
+    console.log("PASO 3");
 
     await user.save();
+    console.log("PASO 4");
 
     const presupuesto = new Presupuesto({
       userId,
@@ -282,10 +311,26 @@ async function crear(req, res) {
 
       estado: "pendiente",
     });
+    console.log("PASO 5");
     await presupuesto.save();
 
+    console.log("PASO 6");
+    console.log("ID GUARDADO:", presupuesto._id);
+    console.log("CLIENTE:", presupuesto.cliente);
+    console.log("OWNER:", presupuesto.ownerId);
+    console.log("USER:", presupuesto.userId);
+    await presupuesto.save();
+
+    console.log("PASO 6");
+    console.log("ID GUARDADO:", presupuesto._id);
+    console.log("CLIENTE:", presupuesto.cliente);
+    console.log("OWNER:", presupuesto.ownerId);
+    console.log("USER:", presupuesto.userId);
     return res.json(presupuesto);
   } catch (error) {
+    console.error("ERROR CREAR PRESUPUESTO:");
+    console.error(error);
+
     return res.status(500).json({
       error: "Error creando presupuesto",
 
@@ -311,15 +356,11 @@ async function listar(req, res) {
       filtros = {
         ownerId: req.user.id,
       };
-    }
-
-    // 👨 USER
-    else {
+    } else {
       filtros = {
-        userId: req.user.id,
+        ownerId: req.user.ownerId,
       };
     }
-
     const presupuestos = await Presupuesto.find(filtros)
       .populate("userId", "nombre")
       .sort({

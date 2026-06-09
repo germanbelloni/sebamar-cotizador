@@ -138,13 +138,16 @@ export function Header({ empresa, cliente, setCliente }: Props) {
 
           <span
             className="
-              text-xs
-              uppercase
-              tracking-wide
-              text-muted-foreground
-            "
+    text-xs
+    tracking-wide
+    text-muted-foreground
+  "
           >
-            {user?.role}
+            {user?.role === "superadmin"
+              ? "Superadministrador"
+              : user?.role === "admin"
+                ? "Administrador"
+                : `Vendedor de ${user?.ownerId?.nombre || "Empresa"}`}
           </span>
         </div>
 

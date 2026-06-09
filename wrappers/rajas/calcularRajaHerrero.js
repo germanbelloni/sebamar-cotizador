@@ -90,20 +90,34 @@ function aplicarColor(items, color) {
 
 // 🚀 MAIN
 function calcularRajaHerrero(dataInput) {
-  const {
-    ancho,
-    alto,
-    color = "blanco",
-    vidrio,
-    tipoVidrio,
-    mosquitero,
-    modelo = "raja",
-    desague,
-    bisagra,
-    premarco,
-    contramarco,
-    perfil = "amarilla",
-  } = dataInput;
+  console.log("RAJA INPUT:");
+  console.log(JSON.stringify(dataInput, null, 2));
+  const ancho = dataInput.ancho ?? dataInput.configuracion?.ancho;
+
+  const alto = dataInput.alto ?? dataInput.configuracion?.alto;
+
+  const color = dataInput.color ?? dataInput.configuracion?.color ?? "blanco";
+
+  const vidrio = dataInput.vidrio ?? dataInput.configuracion?.vidrio;
+
+  const tipoVidrio =
+    dataInput.tipoVidrio ?? dataInput.configuracion?.tipoVidrio;
+
+  const mosquitero =
+    dataInput.mosquitero ?? dataInput.configuracion?.mosquitero;
+
+  const modelo = dataInput.modelo ?? dataInput.configuracion?.modelo ?? "raja";
+
+  const desague = dataInput.desague ?? dataInput.configuracion?.desague;
+
+  const bisagra = dataInput.bisagra ?? dataInput.configuracion?.bisagra;
+
+  const premarco = dataInput.premarco ?? dataInput.configuracion?.premarco;
+
+  const contramarco =
+    dataInput.contramarco ?? dataInput.configuracion?.contramarco;
+
+  const perfil = dataInput.perfil || "amarilla";
 
   if (!ancho || !alto) {
     throw new Error("Faltan medidas");
