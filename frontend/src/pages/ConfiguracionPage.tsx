@@ -9,6 +9,18 @@ export default function ConfiguracionPage() {
 
   const [margen, setMargen] = useState(user?.margen || 0);
 
+  const [empresa, setEmpresa] = useState(user?.empresa || "");
+
+  const [telefono, setTelefono] = useState(user?.telefono || "");
+
+  const [direccion, setDireccion] = useState(user?.direccion || "");
+
+  const [email, setEmail] = useState(user?.email || "");
+
+  const [observacionesPdf, setObservacionesPdf] = useState(
+    user?.observacionesPdf || "",
+  );
+
   const [loading, setLoading] = useState(false);
 
   async function handleGuardar() {
@@ -17,6 +29,16 @@ export default function ConfiguracionPage() {
 
       await api.patch("/auth/configuracion", {
         margen,
+
+        empresa,
+
+        telefono,
+
+        direccion,
+
+        email,
+
+        observacionesPdf,
       });
 
       alert("Configuración guardada");
@@ -34,13 +56,10 @@ export default function ConfiguracionPage() {
       <div
         className="
           max-w-xl
-
           rounded-3xl
           border
           border-border
-
           bg-card
-
           p-8
         "
       >
@@ -83,15 +102,112 @@ export default function ConfiguracionPage() {
             className="
               h-12
               w-full
-
               rounded-2xl
               border
               border-border
-
               bg-background
-
               px-4
             "
+          />
+        </div>
+
+        {/* EMPRESA */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Empresa</label>
+
+          <input
+            value={empresa}
+            onChange={(e) => setEmpresa(e.target.value)}
+            className="
+              h-12
+              w-full
+              rounded-2xl
+              border
+              border-border
+              bg-background
+              px-4
+            "
+          />
+        </div>
+
+        {/* TELEFONO */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Teléfono</label>
+
+          <input
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            className="
+              h-12
+              w-full
+              rounded-2xl
+              border
+              border-border
+              bg-background
+              px-4
+            "
+          />
+        </div>
+
+        {/* DIRECCION */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Dirección</label>
+
+          <input
+            value={direccion}
+            onChange={(e) => setDireccion(e.target.value)}
+            className="
+              h-12
+              w-full
+              rounded-2xl
+              border
+              border-border
+              bg-background
+              px-4
+            "
+          />
+        </div>
+
+        {/* EMAIL */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Email</label>
+
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="
+              h-12
+              w-full
+              rounded-2xl
+              border
+              border-border
+              bg-background
+              px-4
+            "
+          />
+        </div>
+
+        {/* OBSERVACIONES PDF */}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Observaciones PDF</label>
+
+          <textarea
+            value={observacionesPdf}
+            onChange={(e) => setObservacionesPdf(e.target.value)}
+            className="
+              w-full
+              rounded-2xl
+              border
+              border-border
+              bg-background
+              p-4
+            "
+            rows={4}
           />
         </div>
 
@@ -102,19 +218,13 @@ export default function ConfiguracionPage() {
           disabled={loading}
           className="
             mt-8
-
             h-12
             w-full
-
             rounded-2xl
-
             bg-lime-400
-
             font-bold
             text-black
-
             transition-opacity
-
             hover:opacity-90
           "
         >

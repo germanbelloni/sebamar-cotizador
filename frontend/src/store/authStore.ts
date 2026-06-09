@@ -2,11 +2,27 @@ import { create } from "zustand";
 
 type User = {
   id: string;
+
   nombre: string;
+
   role: "superadmin" | "admin" | "user";
+
   perfil: string;
+
   margen: number;
+
   empresa: string;
+
+  telefono?: string;
+
+  direccion?: string;
+
+  email?: string;
+
+  observacionesPdf?: string;
+
+  logo?: string;
+
   ownerId: string | null;
 };
 
@@ -18,6 +34,8 @@ type AuthState = {
   isAuthenticated: boolean;
 
   login: (data: { token: string; user: User }) => void;
+
+  refreshUser: (user: User) => void;
 
   logout: () => void;
 };
@@ -42,6 +60,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       token,
       user,
       isAuthenticated: true,
+    });
+  },
+
+  refreshUser: (user) => {
+    localStorage.setItem("user", JSON.stringify(user));
+
+    set({
+      user,
     });
   },
 

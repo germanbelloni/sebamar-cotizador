@@ -6,8 +6,6 @@ import { Header } from "@/layouts/components/Header";
 
 import { Sidebar } from "@/layouts/components/Sidebar";
 
-import { empresa } from "@/features/empresa/constants";
-
 import type { Cliente } from "@/features/clientes/types";
 
 import { BudgetPanel } from "@/layouts/components/BudgetPanel";
@@ -21,6 +19,8 @@ import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import ConfiguracionPage from "@/pages/ConfiguracionPage";
 
 import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
+
+import { useAuthStore } from "@/store/authStore";
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -122,7 +122,23 @@ import { initialMosquiterosConfig } from "@/features/mosquiteros/constants";
 
 function App() {
   /* ACTIVE FEATURE */
+  const user = useAuthStore((state) => state.user);
 
+  const empresa = {
+    nombre: user?.empresa || "Empresa",
+
+    telefono: user?.telefono || "",
+
+    direccion: user?.direccion || "",
+
+    email: user?.email || "",
+
+    logo: user?.logo || "",
+
+    primaryColor: "#D6B400",
+
+    secondaryColor: "#1f2937",
+  };
   const [activeFeature, setActiveFeature] = useState("rajas");
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null

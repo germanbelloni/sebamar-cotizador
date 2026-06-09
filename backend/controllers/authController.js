@@ -210,6 +210,16 @@ async function login(req, res) {
         empresa: user.empresa,
 
         ownerId: user.ownerId,
+
+        telefono: user.telefono,
+
+        direccion: user.direccion,
+
+        email: user.email,
+
+        observacionesPdf: user.observacionesPdf,
+
+        logo: user.logo,
       },
     });
   } catch (error) {
@@ -250,6 +260,15 @@ async function me(req, res) {
       empresa: user.empresa,
 
       ownerId: user.ownerId,
+      telefono: user.telefono,
+
+      direccion: user.direccion,
+
+      email: user.email,
+
+      observacionesPdf: user.observacionesPdf,
+
+      logo: user.logo,
     });
   } catch (error) {
     console.log("ERROR ME:", error.message);
@@ -347,12 +366,18 @@ async function actualizarConfiguracion(req, res) {
 
     user.margen = Number(req.body.margen || 0);
 
+    user.empresa = req.body.empresa || "";
+    user.telefono = req.body.telefono || "";
+    user.direccion = req.body.direccion || "";
+    user.email = req.body.email || "";
+    user.observacionesPdf = req.body.observacionesPdf || "";
+    user.logo = req.body.logo || "";
+
     await user.save();
 
     return res.json({
       ok: true,
-
-      margen: user.margen,
+      user,
     });
   } catch (error) {
     console.log(error);

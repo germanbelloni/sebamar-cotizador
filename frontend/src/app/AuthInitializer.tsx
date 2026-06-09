@@ -13,6 +13,8 @@ export function AuthInitializer({ children }: Props) {
 
   const token = useAuthStore((state) => state.token);
 
+  const refreshUser = useAuthStore((state) => state.refreshUser);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +26,9 @@ export function AuthInitializer({ children }: Props) {
       }
 
       try {
-        await apiClient.get("/auth/me");
+        const { data } = await apiClient.get("/auth/me");
+
+        refreshUser(data);
       } catch (error) {
         console.log("SESSION EXPIRED");
 
@@ -35,7 +39,7 @@ export function AuthInitializer({ children }: Props) {
     }
 
     validateSession();
-  }, [token, logout]);
+  }, [token, logout, refreshUser]);
 
   if (loading) {
     return (
