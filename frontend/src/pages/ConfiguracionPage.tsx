@@ -6,10 +6,12 @@ import { useAuthStore } from "../store/authStore";
 
 export default function ConfiguracionPage() {
   const user = useAuthStore((state) => state.user);
+  const refreshUser = useAuthStore((state) => state.refreshUser);
 
   const [margen, setMargen] = useState(user?.margen || 0);
 
   const [empresa, setEmpresa] = useState(user?.empresa || "");
+  const [logo, setLogo] = useState(user?.logo || "");
   const [nombreEmpresa, setNombreEmpresa] = useState(user?.nombreEmpresa || "");
 
   const [colorPrimario, setColorPrimario] = useState(
@@ -35,8 +37,7 @@ export default function ConfiguracionPage() {
   async function handleGuardar() {
     try {
       setLoading(true);
-
-      await api.patch("/auth/configuracion", {
+      const response = await api.patch("/auth/configuracion", {
         margen,
 
         empresa,
@@ -51,10 +52,14 @@ export default function ConfiguracionPage() {
 
         observacionesPdf,
 
+        logo,
+
         colorPrimario,
 
         colorSecundario,
       });
+
+      refreshUser(response.data.user);
 
       alert("Configuración guardada");
     } catch (error) {
@@ -225,7 +230,24 @@ export default function ConfiguracionPage() {
             "
           />
         </div>
+        <div className="mt-4">
+          <label className="mb-2 block text-sm">Logo</label>
 
+          <input
+            value={logo}
+            onChange={(e) => setLogo(e.target.value)}
+            placeholder="/logos/sebamar.png"
+            className="
+      h-12
+      w-full
+      rounded-2xl
+      border
+      border-border
+      bg-background
+      px-4
+    "
+          />
+        </div>
         <div className="mt-4">
           <label className="mb-2 block text-sm">Color primario</label>
 

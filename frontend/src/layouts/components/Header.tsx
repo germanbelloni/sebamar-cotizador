@@ -71,42 +71,42 @@ export function Header({ empresa, cliente, setCliente }: Props) {
         {/* 🎨 LOGO PLACEHOLDER */}
         <div
           className="
-            flex
-            h-14
-            w-14
-            items-center
-            justify-center
-            rounded-2xl
-            border
-            border-lime-400/20
-            bg-lime-400/10
-            text-xl
-            font-bold
-            text-lime-400
-          "
+    flex
+    h-20
+    w-20
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-2xl
+    border
+    border-border
+    bg-white
+    p-1
+  "
         >
-          S
+          {user?.logo ? (
+            <img
+              src={user.logo}
+              alt="logo"
+              className="h-full w-full object-contain"
+            />
+          ) : (
+            <span className="text-xl font-bold">
+              {user?.nombreEmpresa?.charAt(0) || "S"}
+            </span>
+          )}
         </div>
 
         <div>
           <h2
             className="
-              text-2xl
-              font-bold
-              tracking-tight
-            "
+    text-2xl
+    font-bold
+    tracking-tight
+  "
           >
-            {user?.empresa || empresa.nombre}
+            {user?.nombreEmpresa || user?.empresa || empresa.nombre}
           </h2>
-
-          <p
-            className="
-              text-sm
-              text-muted-foreground
-            "
-          >
-            {moduloActual}
-          </p>
         </div>
       </div>
 

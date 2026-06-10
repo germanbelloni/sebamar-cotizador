@@ -320,7 +320,6 @@ async function listar(req, res) {
           createdAt: -1,
         });
     }
-    console.log("ME USER:", JSON.stringify(user, null, 2));
     return res.json(users);
   } catch (error) {
     console.log("ERROR LISTAR USERS:", error.message);
