@@ -163,9 +163,17 @@ function calcularVentanaHerrero(dataInput) {
 
     costo: Math.round(costo),
 
+    precioBase: Math.round(costo),
+
     precioProveedor: Math.round(proveedor),
 
     precioVenta: Math.round(venta),
+
+    precioFinal: Math.round(venta),
+
+    margenAplicado: Math.round(perfilData.ganancia * 100),
+
+    perfilAplicado: perfil,
 
     ganancia: Math.round(venta - costo),
 

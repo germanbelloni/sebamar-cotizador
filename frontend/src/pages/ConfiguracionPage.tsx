@@ -230,6 +230,8 @@ export default function ConfiguracionPage() {
             "
           />
         </div>
+        {/* LOGO */}
+
         <div className="mt-4">
           <label className="mb-2 block text-sm">Logo</label>
 
@@ -248,42 +250,50 @@ export default function ConfiguracionPage() {
     "
           />
         </div>
+
+        {/* COLOR PRIMARIO */}
+
         <div className="mt-4">
           <label className="mb-2 block text-sm">Color primario</label>
 
           <input
+            type="color"
             value={colorPrimario}
             onChange={(e) => setColorPrimario(e.target.value)}
             className="
       h-12
       w-full
+      cursor-pointer
       rounded-2xl
       border
       border-border
       bg-background
-      px-4
+      p-1
     "
           />
         </div>
+
+        {/* COLOR SECUNDARIO */}
 
         <div className="mt-4">
           <label className="mb-2 block text-sm">Color secundario</label>
 
           <input
+            type="color"
             value={colorSecundario}
             onChange={(e) => setColorSecundario(e.target.value)}
             className="
       h-12
       w-full
+      cursor-pointer
       rounded-2xl
       border
       border-border
       bg-background
-      px-4
+      p-1
     "
           />
         </div>
-
         {/* OBSERVACIONES PDF */}
 
         <div className="mt-4">

@@ -80,7 +80,9 @@ function calcularItem(item, perfil) {
   };
 
   const tipo = tipoMap[item.modulo] || item.tipo;
-
+  console.log("TIPO:", tipo);
+  console.log("MODULO:", item.modulo);
+  console.log("LINEA:", item.metadata?.linea);
   switch (tipo) {
     case "puerta":
       return calcularPuerta({
@@ -108,18 +110,22 @@ function calcularItem(item, perfil) {
 
     case "ventana":
       {
+        console.log("ENTRO A VENTANA");
         const linea = (
           item.linea ||
           item.configuracion?.linea ||
           item.metadata?.linea ||
           ""
         ).toLowerCase();
+        console.log("LINEA DETECTADA:", linea);
 
         const payload = {
           ...item.configuracion,
           perfil,
         };
 
+        console.log("PAYLOAD:");
+        console.log(JSON.stringify(payload, null, 2));
         if (linea === "modena") {
           return calcularVentanaModena(payload);
         }
@@ -226,21 +232,19 @@ async function crear(req, res) {
     }
 
     let total = 0;
+
     console.log("ITEM RECIBIDO:", JSON.stringify(req.body.items[0], null, 2));
+
     const itemsProcesados = req.body.items.map((item) => {
       const cantidad = item.cantidad || 1;
 
-      let precio = item.precio || 0;
+      const descripcion = item.descripcion || item.tipo || "Producto";
 
-      let descripcion = item.descripcion || item.tipo || "Producto";
+      console.log("ITEM FRONT:");
+      console.log(JSON.stringify(item, null, 2));
 
-      const resultado = calcularItem(item, req.user.perfil);
-
-      if (resultado) {
-        precio = resultado.precioVenta || resultado.total || 0;
-
-        descripcion = resultado.descripcion || descripcion;
-      }
+      // ✅ USAR LOS VALORES YA CALCULADOS POR EL FRONT
+      const precio = item.precioFinal || item.subtotal || item.precio || 0;
 
       const subtotal = precio * cantidad;
 
@@ -278,13 +282,10 @@ async function crear(req, res) {
         configuracion: item,
       };
     });
-    console.log("PASO 2");
 
     user.contadorPresupuestos += 1;
-    console.log("PASO 3");
 
     await user.save();
-    console.log("PASO 4");
 
     const presupuesto = new Presupuesto({
       userId,
@@ -311,21 +312,14 @@ async function crear(req, res) {
 
       estado: "pendiente",
     });
-    console.log("PASO 5");
+
     await presupuesto.save();
 
-    console.log("PASO 6");
     console.log("ID GUARDADO:", presupuesto._id);
     console.log("CLIENTE:", presupuesto.cliente);
     console.log("OWNER:", presupuesto.ownerId);
     console.log("USER:", presupuesto.userId);
-    await presupuesto.save();
 
-    console.log("PASO 6");
-    console.log("ID GUARDADO:", presupuesto._id);
-    console.log("CLIENTE:", presupuesto.cliente);
-    console.log("OWNER:", presupuesto.ownerId);
-    console.log("USER:", presupuesto.userId);
     return res.json(presupuesto);
   } catch (error) {
     console.error("ERROR CREAR PRESUPUESTO:");
@@ -333,7 +327,6 @@ async function crear(req, res) {
 
     return res.status(500).json({
       error: "Error creando presupuesto",
-
       detalle: error.message,
     });
   }

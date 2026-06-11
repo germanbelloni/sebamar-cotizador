@@ -35,9 +35,17 @@ function sanitizarResultado(resultado, user) {
   return {
     descripcion: resultado.descripcion,
 
+    precioBase: resultado.precioBase,
+
     precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 
+    margenAplicado: resultado.margenAplicado,
+
+    perfilAplicado: resultado.perfilAplicado,
+
     svg: resultado.svg,
+
+    configuracion: resultado.configuracion,
 
     items:
       resultado.items?.map((item) => ({

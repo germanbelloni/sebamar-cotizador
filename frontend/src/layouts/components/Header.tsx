@@ -2,8 +2,6 @@ import { Moon, Sun, LogOut } from "lucide-react";
 
 import { useTheme } from "next-themes";
 
-import { useLocation } from "react-router-dom";
-
 import { Button } from "@/components/ui/button";
 
 import { ClienteForm } from "@/features/clientes/components/ClienteForm";
@@ -21,36 +19,16 @@ type Props = {
   setCliente: React.Dispatch<React.SetStateAction<Cliente>>;
 };
 
-const MODULOS: Record<string, string> = {
-  "/": "Ventanas Herrero",
-
-  "/rajas": "Rajas",
-
-  "/puertas": "Puertas",
-
-  "/postigones": "Postigones",
-
-  "/patagonicas": "Patagónicas",
-
-  "/mosquiteros": "Mosquiteros",
-
-  "/portones": "Portones",
-
-  "/superficies": "Superficies",
-};
-
 export function Header({ empresa, cliente, setCliente }: Props) {
   const { theme, setTheme } = useTheme();
-
-  const location = useLocation();
 
   const logout = useAuthStore((state) => state.logout);
 
   const user = useAuthStore((state) => state.user);
 
-  const isDark = theme === "dark";
+  const primaryColor = user?.colorPrimario || "#D6B400";
 
-  const moduloActual = MODULOS[location.pathname] || "Cotizador";
+  const isDark = theme === "dark";
 
   return (
     <header
@@ -66,23 +44,22 @@ export function Header({ empresa, cliente, setCliente }: Props) {
         backdrop-blur
       "
     >
-      {/* 🏢 EMPRESA + MODULO */}
+      {/* 🏢 EMPRESA + LOGO */}
       <div className="flex items-center gap-4">
-        {/* 🎨 LOGO PLACEHOLDER */}
         <div
           className="
-    flex
-    h-20
-    w-20
-    items-center
-    justify-center
-    overflow-hidden
-    rounded-2xl
-    border
-    border-border
-    bg-white
-    p-1
-  "
+            flex
+            h-20
+            w-20
+            items-center
+            justify-center
+            overflow-hidden
+            rounded-2xl
+            border
+            border-border
+            bg-white
+            p-1
+          "
         >
           {user?.logo ? (
             <img
@@ -91,7 +68,12 @@ export function Header({ empresa, cliente, setCliente }: Props) {
               className="h-full w-full object-contain"
             />
           ) : (
-            <span className="text-xl font-bold">
+            <span
+              className="text-xl font-bold"
+              style={{
+                color: primaryColor,
+              }}
+            >
               {user?.nombreEmpresa?.charAt(0) || "S"}
             </span>
           )}
@@ -100,10 +82,13 @@ export function Header({ empresa, cliente, setCliente }: Props) {
         <div>
           <h2
             className="
-    text-2xl
-    font-bold
-    tracking-tight
-  "
+              text-2xl
+              font-bold
+              tracking-tight
+            "
+            style={{
+              color: primaryColor,
+            }}
           >
             {user?.nombreEmpresa || user?.empresa || empresa.nombre}
           </h2>

@@ -76,6 +76,8 @@ export function Sidebar({
 }: Props) {
   const user = useAuthStore((state) => state.user);
 
+  const primaryColor = user?.colorPrimario || "#D6B400";
+
   const logout = useAuthStore((state) => state.logout);
 
   const openUsersPanel = useUIStore((state) => state.openUsersPanel);
@@ -106,19 +108,34 @@ export function Sidebar({
         <div className="flex items-center gap-3">
           <div
             className="
-              flex
-              h-10
-              w-10
-              items-center
-              justify-center
-              rounded-xl
-              bg-lime-400/10
-              text-sm
-              font-bold
-              text-lime-400
-            "
+    flex
+    h-12
+    w-12
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-xl
+    border
+    border-border
+    bg-background
+  "
           >
-            S
+            {user?.logo ? (
+              <img
+                src={user.logo}
+                alt="logo"
+                className="h-full w-full object-contain"
+              />
+            ) : (
+              <span
+                className="font-bold"
+                style={{
+                  color: primaryColor,
+                }}
+              >
+                {user?.nombreEmpresa?.charAt(0) || "S"}
+              </span>
+            )}
           </div>
 
           <div className="min-w-0">
@@ -130,8 +147,11 @@ export function Sidebar({
                 uppercase
                 tracking-wide
               "
+              style={{
+                color: primaryColor,
+              }}
             >
-              {user?.empresa || "SEBAMAR"}
+              {user?.nombreEmpresa || user?.empresa || "SEBAMAR"}
             </h1>
 
             <p

@@ -122,10 +122,11 @@ import { initialMosquiterosConfig } from "@/features/mosquiteros/constants";
 
 function App() {
   /* ACTIVE FEATURE */
+
   const user = useAuthStore((state) => state.user);
 
   const empresa = {
-    nombre: user?.empresa || "Empresa",
+    nombre: user?.nombreEmpresa || user?.empresa || "Empresa",
 
     telefono: user?.telefono || "",
 
@@ -135,11 +136,13 @@ function App() {
 
     logo: user?.logo || "",
 
-    primaryColor: "#D6B400",
+    primaryColor: user?.colorPrimario || "#D6B400",
 
-    secondaryColor: "#1f2937",
+    secondaryColor: user?.colorSecundario || "#1f2937",
   };
+
   const [activeFeature, setActiveFeature] = useState("rajas");
+
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null
   >(null);
@@ -149,7 +152,6 @@ function App() {
   const items = useBudgetStore((state) => state.items);
 
   usePresupuesto(selectedPresupuestoId);
-
   /* CLIENTE */
 
   const [cliente, setCliente] = useState<Cliente>({

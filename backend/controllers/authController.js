@@ -108,7 +108,32 @@ async function register(req, res) {
     // =========================
     // CREAR USUARIO
     // =========================
+    let empresaData = {};
 
+    if (currentUserRole === "admin") {
+      const admin = await User.findById(req.user.id);
+
+      console.log("ADMIN ENCONTRADO:");
+      console.log(JSON.stringify(admin, null, 2));
+
+      empresaData = {
+        empresa: admin.empresa,
+        nombreEmpresa: admin.nombreEmpresa,
+        logo: admin.logo,
+        telefono: admin.telefono,
+        direccion: admin.direccion,
+        email: admin.email,
+        observacionesPdf: admin.observacionesPdf,
+        colorPrimario: admin.colorPrimario,
+        colorSecundario: admin.colorSecundario,
+        margen: admin.margen,
+      };
+      console.log("EMPRESA DATA:");
+      console.log(JSON.stringify(empresaData, null, 2));
+    }
+    console.log("ROLE:", currentUserRole);
+    console.log("OWNER:", finalOwnerId);
+    console.log("DATA FINAL:", JSON.stringify(empresaData, null, 2));
     const nuevoUsuario = await User.create({
       nombre,
 
@@ -118,14 +143,32 @@ async function register(req, res) {
 
       perfil: perfil || "amarilla",
 
-      margen: Number(margen ?? 0),
+      margen:
+        currentUserRole === "admin" ? empresaData.margen : Number(margen ?? 0),
 
-      empresa: empresa || "sebamar",
-      logo: logo || "",
+      empresa:
+        currentUserRole === "admin"
+          ? empresaData.empresa
+          : empresa || "sebamar",
+
+      nombreEmpresa: empresaData.nombreEmpresa || "",
+
+      logo: empresaData.logo || "",
+
+      telefono: empresaData.telefono || "",
+
+      direccion: empresaData.direccion || "",
+
+      email: empresaData.email || "",
+
+      observacionesPdf: empresaData.observacionesPdf || "",
+
+      colorPrimario: empresaData.colorPrimario || "#D6B400",
+
+      colorSecundario: empresaData.colorSecundario || "#1f2937",
 
       ownerId: finalOwnerId,
     });
-
     // =========================
     // RESPONSE
     // =========================

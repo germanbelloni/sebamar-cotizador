@@ -21,9 +21,34 @@ type LoginResponse = {
 
     empresa: string;
 
-    ownerId: string | null;
+    nombreEmpresa?: string;
+
+    telefono?: string;
+
+    direccion?: string;
+
+    email?: string;
+
+    observacionesPdf?: string;
+
+    logo?: string;
+
+    colorPrimario?: string;
+
+    colorSecundario?: string;
+
+    ownerId: {
+      _id: string;
+
+      nombre: string;
+
+      role: string;
+
+      empresa?: string;
+    } | null;
   };
 };
+
 export async function login(payload: LoginPayload) {
   const { data } = await api.post<LoginResponse>("/auth/login", payload);
 
