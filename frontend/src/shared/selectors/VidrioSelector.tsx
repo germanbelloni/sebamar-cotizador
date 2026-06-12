@@ -1,28 +1,22 @@
 import { OptionSelector } from "./OptionSelector";
 
+type Option = {
+  label: string;
+  value: string;
+};
+
 type Props = {
   value: string;
-
-  options: string[];
-
+  options: Option[];
   onChange: (value: string) => void;
 };
 
-export function VidrioSelector({
-  value,
-
-  options,
-
-  onChange,
-}: Props) {
+export function VidrioSelector({ value, options, onChange }: Props) {
   return (
     <OptionSelector
       title="Vidrio"
       value={value}
-      options={options.map((vidrio) => ({
-        label: vidrio,
-        value: vidrio,
-      }))}
+      options={options}
       columns={2}
       onChange={onChange}
     />

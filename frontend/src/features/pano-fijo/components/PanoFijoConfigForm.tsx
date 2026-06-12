@@ -102,7 +102,7 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
         <FormSection title="Vidrio">
           <VidrioSelector
             value={config.tipoVidrio}
-            options={VIDRIOS_PANO_FIJO.map((vidrio) => vidrio.value)}
+            options={VIDRIOS_PANO_FIJO}
             onChange={(value) =>
               updateConfig({
                 tipoVidrio: value as PanoFijoConfig["tipoVidrio"],

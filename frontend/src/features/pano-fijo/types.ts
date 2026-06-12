@@ -13,18 +13,19 @@ export type PanoFijoVidrio =
   | "fantasia"
   | "esmerilado"
   | "3+3"
-  | "dvh_4_9_4";
+  | "4+4"
+  | "dvh_4_9_4"
+  | "dvh_5_9_5";
 
 export type PanoFijoConfig = {
   ancho: number;
-
   alto: number;
-
   linea: PanoFijoLinea;
-
   color: PanoFijoColor;
-
   tipoVidrio: PanoFijoVidrio;
+
+  travesanoVertical: boolean;
+  travesanoHorizontal: boolean;
 };
 
 export type PanoFijoItem = {

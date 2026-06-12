@@ -1,7 +1,7 @@
 import type { ProductUI } from "@/shared/types/ui";
 
 export const PANO_FIJO_UI: ProductUI = {
-  title: "Paño fijo",
+  title: "Configuración",
 
   sections: {
     sistema: "Sistema",

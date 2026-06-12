@@ -50,13 +50,7 @@ export function PanoFijoPreview({ config }: Props) {
 
   return (
     <div className="h-full">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-semibold text-white">Paño fijo</h3>
-
-          <p className="text-sm capitalize text-white/45">{config.linea}</p>
-        </div>
-
+      <div className="flex justify-end">
         <div className="font-mono text-sm text-white/55">
           {config.ancho} × {config.alto}
         </div>

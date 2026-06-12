@@ -21,6 +21,12 @@ import ConfiguracionPage from "@/pages/ConfiguracionPage";
 import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
 
 import { useAuthStore } from "@/store/authStore";
+
+import {
+  formatLinea,
+  formatColor,
+  formatVidrio,
+} from "@/shared/utils/displayLabels";
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -110,6 +116,7 @@ import { PanoFijoConfigForm } from "@/features/pano-fijo/components/PanoFijoConf
 import { PanoFijoPreview } from "@/features/pano-fijo/components/PanoFijoPreview";
 
 import { initialPanoFijoConfig } from "@/features/pano-fijo/constants";
+
 /* MOSQUITEROS */
 
 import type { MosquiterosConfig } from "@/features/mosquiteros/types";
@@ -418,7 +425,7 @@ function App() {
 
                             <span>
                               {"linea" in activeConfig
-                                ? activeConfig.linea
+                                ? formatLinea(activeConfig.linea)
                                 : "-"}
                             </span>
                           </div>
@@ -430,7 +437,7 @@ function App() {
 
                             <span>
                               {"tipoVidrio" in activeConfig
-                                ? activeConfig.tipoVidrio || "-"
+                                ? formatVidrio(activeConfig.tipoVidrio)
                                 : "-"}
                             </span>
                           </div>
@@ -443,7 +450,7 @@ function App() {
                               activeConfig.tipo === "premarco"
                                 ? "-"
                                 : "color" in activeConfig
-                                  ? activeConfig.color
+                                  ? formatColor(activeConfig.color)
                                   : "-"}
                             </span>
                           </div>
