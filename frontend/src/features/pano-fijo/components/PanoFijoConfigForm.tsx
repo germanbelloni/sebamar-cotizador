@@ -32,6 +32,10 @@ import { AlertBox } from "@/shared/components/AlertBox";
 
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
+import {
+  requiereTravesanoVertical,
+  requiereTravesanoHorizontal,
+} from "../utils/travesanos";
 type Props = {
   config: PanoFijoConfig;
 
@@ -43,6 +47,7 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
 
   const {
     updateConfig,
+    updateConfigWithRules,
     anchoInput,
     altoInput,
     handleAnchoChange,
@@ -62,6 +67,17 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
 
     createItem: createPanoFijoBudgetItem,
   });
+
+  const showVertical = requiereTravesanoVertical(
+    config.ancho,
+    config.tipoVidrio,
+  );
+
+  const showHorizontal = requiereTravesanoHorizontal(config.alto);
+
+  const showWarning =
+    (showVertical && !config.travesanoVertical) ||
+    (showHorizontal && !config.travesanoHorizontal);
 
   return (
     <ProductFormLayout title={PANO_FIJO_UI.title}>
@@ -104,7 +120,7 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
             value={config.tipoVidrio}
             options={VIDRIOS_PANO_FIJO}
             onChange={(value) =>
-              updateConfig({
+              updateConfigWithRules({
                 tipoVidrio: value as PanoFijoConfig["tipoVidrio"],
               })
             }
@@ -123,6 +139,46 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
+
+        {showVertical && (
+          <FormSection title="Refuerzo vertical">
+            <label className="flex items-center gap-3 text-sm text-white">
+              <input
+                type="checkbox"
+                checked={config.travesanoVertical}
+                onChange={(e) =>
+                  updateConfig({
+                    travesanoVertical: e.target.checked,
+                  })
+                }
+              />
+              Agregar travesaño vertical visible
+            </label>
+          </FormSection>
+        )}
+
+        {showHorizontal && (
+          <FormSection title="Refuerzo horizontal">
+            <label className="flex items-center gap-3 text-sm text-white">
+              <input
+                type="checkbox"
+                checked={config.travesanoHorizontal}
+                onChange={(e) =>
+                  updateConfig({
+                    travesanoHorizontal: e.target.checked,
+                  })
+                }
+              />
+              Agregar travesaño horizontal visible
+            </label>
+          </FormSection>
+        )}
+        {showWarning && (
+          <AlertBox type="warning">
+            Sin travesaño visible, pero con refuerzo estructural cobrado en el
+            precio.
+          </AlertBox>
+        )}
 
         {!medidasValidas && (
           <AlertBox type="error">

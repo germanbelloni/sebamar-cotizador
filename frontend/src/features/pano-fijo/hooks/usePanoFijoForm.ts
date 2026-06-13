@@ -1,56 +1,81 @@
 import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
-
 import { useDimensionsInputs } from "@/shared/hooks/useDimensionsInputs";
 
 import type { PanoFijoConfig } from "../types";
 
+import {
+  requiereTravesanoVertical,
+  requiereTravesanoHorizontal,
+} from "../utils/travesanos";
+
 type Params = {
   config: PanoFijoConfig;
-
   setConfig: React.Dispatch<React.SetStateAction<PanoFijoConfig>>;
 };
 
-export function usePanoFijoForm({
-  config,
-
-  setConfig,
-}: Params) {
+export function usePanoFijoForm({ config, setConfig }: Params) {
   const { updateConfig } = useConfigUpdater(setConfig);
 
-  const {
-    anchoInput,
+  function updateConfigWithRules(partial: Partial<PanoFijoConfig>) {
+    const nextConfig = {
+      ...config,
+      ...partial,
+    };
 
-    altoInput,
+    const needsVertical = requiereTravesanoVertical(
+      nextConfig.ancho,
+      nextConfig.tipoVidrio,
+    );
 
-    handleAnchoChange,
+    const needsHorizontal = requiereTravesanoHorizontal(nextConfig.alto);
 
-    handleAltoChange,
-  } = useDimensionsInputs({
-    ancho: config.ancho,
+    let travesanoVertical = config.travesanoVertical;
+    let travesanoHorizontal = config.travesanoHorizontal;
 
-    alto: config.alto,
+    // Si pasa a requerir vertical y todavía no estaba activo → activarlo
+    if (needsVertical && !config.travesanoVertical) {
+      travesanoVertical = true;
+    }
 
-    onChange: ({
-      ancho,
+    // Si deja de requerir vertical → apagarlo
+    if (!needsVertical) {
+      travesanoVertical = false;
+    }
 
-      alto,
-    }) =>
-      updateConfig({
-        ancho,
+    // Si pasa a requerir horizontal y todavía no estaba activo → activarlo
+    if (needsHorizontal && !config.travesanoHorizontal) {
+      travesanoHorizontal = true;
+    }
 
-        alto,
-      }),
-  });
+    // Si deja de requerir horizontal → apagarlo
+    if (!needsHorizontal) {
+      travesanoHorizontal = false;
+    }
+
+    updateConfig({
+      ...partial,
+      travesanoVertical,
+      travesanoHorizontal,
+    });
+  }
+
+  const { anchoInput, altoInput, handleAnchoChange, handleAltoChange } =
+    useDimensionsInputs({
+      ancho: config.ancho,
+      alto: config.alto,
+      onChange: ({ ancho, alto }) =>
+        updateConfigWithRules({
+          ancho,
+          alto,
+        }),
+    });
 
   return {
-    updateConfig,
-
+    updateConfig, // raw (checkboxes, color, línea)
+    updateConfigWithRules, // medidas y vidrio
     anchoInput,
-
     altoInput,
-
     handleAnchoChange,
-
     handleAltoChange,
   };
 }
