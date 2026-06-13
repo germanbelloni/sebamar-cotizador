@@ -2,12 +2,9 @@ import type { MarcoTipo, MarcoColor } from "./types";
 import type { MarcosConfig } from "./types";
 
 export const LIMITES_MARCOS = {
-  anchoMin: 20,
-
-  anchoMax: 500,
-
-  altoMin: 20,
-
+  anchoMin: 30,
+  anchoMax: 300,
+  altoMin: 30,
   altoMax: 300,
 };
 

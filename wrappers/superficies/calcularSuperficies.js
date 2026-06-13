@@ -80,7 +80,14 @@ function calcularsuperficiesWrapper(dataInput) {
   // 💰 PERFIL
   // ========================
 
-  const perfilData = perfiles[perfil]?.[linea];
+  let perfilLinea = linea;
+
+  // Marcos trabajan como Modena
+  if (tipo === "premarco" || tipo === "contramarco") {
+    perfilLinea = "modena";
+  }
+
+  const perfilData = perfiles[perfil]?.[perfilLinea];
 
   if (!perfilData) {
     throw new Error(`Perfil inválido: ${perfil} - ${linea}`);

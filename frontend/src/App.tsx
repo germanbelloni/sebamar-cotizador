@@ -357,16 +357,18 @@ function App() {
                   >
                     <div className="flex h-full flex-col">
                       {/* HEADER */}
+                      {activeFeature !== "marcos" &&
+                        activeFeature !== "pano-fijo" && (
+                          <div>
+                            <h2 className="text-xl font-semibold">
+                              {activeFeatureLabel}
+                            </h2>
 
-                      <div>
-                        <h2 className="text-xl font-semibold">
-                          {activeFeatureLabel}
-                        </h2>
-
-                        <p className="mt-1 text-sm text-muted-foreground">
-                          Vista previa técnica del módulo.
-                        </p>
-                      </div>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              Vista previa técnica del módulo.
+                            </p>
+                          </div>
+                        )}
 
                       {/* SVG */}
 

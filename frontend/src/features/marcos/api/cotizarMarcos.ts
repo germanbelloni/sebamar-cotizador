@@ -1,15 +1,11 @@
 import api from "@/lib/api";
-
 import type { MarcosConfig } from "../types";
 
-type Response = {
-  descripcion: string;
-
-  precioVenta: number;
-};
-
 export async function cotizarMarcos(config: MarcosConfig) {
-  const { data } = await api.post<Response>("/superficies", config);
+  const response = await api.post("/superficies", config);
 
-  return data;
+  console.log("RESPUESTA RAW MARCOS:", response);
+  console.log("DATA MARCOS:", response.data);
+
+  return response.data;
 }

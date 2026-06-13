@@ -48,6 +48,18 @@ export function PanoFijoPreview({ config }: Props) {
 
   const glassHeight = alto - frameWidth * 2;
 
+  const verticalBarWidth = esHerrero ? 10 : 14;
+
+  const verticalBarX = glassLeft + glassWidth / 2 - verticalBarWidth / 2;
+
+  const horizontalBarHeight = esHerrero ? 10 : 14;
+
+  // posición proporcional al alto real: 200 cm desde arriba
+  const horizontalRatio = Math.min(200 / config.alto, 1);
+
+  const horizontalBarY =
+    glassTop + glassHeight * horizontalRatio - horizontalBarHeight / 2;
+
   return (
     <div className="h-full">
       <div className="flex justify-end">
@@ -145,6 +157,26 @@ export function PanoFijoPreview({ config }: Props) {
                 : vidrioFill
             }
           />
+
+          {config.travesanoVertical && (
+            <rect
+              x={verticalBarX}
+              y={glassTop}
+              width={verticalBarWidth}
+              height={glassHeight}
+              fill={marcoColor}
+            />
+          )}
+
+          {config.travesanoHorizontal && (
+            <rect
+              x={glassLeft}
+              y={horizontalBarY}
+              width={glassWidth}
+              height={horizontalBarHeight}
+              fill={marcoColor}
+            />
+          )}
 
           {/* DVH */}
 

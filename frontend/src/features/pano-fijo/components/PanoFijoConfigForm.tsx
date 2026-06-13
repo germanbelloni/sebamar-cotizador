@@ -36,6 +36,7 @@ import {
   requiereTravesanoVertical,
   requiereTravesanoHorizontal,
 } from "../utils/travesanos";
+
 type Props = {
   config: PanoFijoConfig;
 
@@ -79,6 +80,13 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
     (showVertical && !config.travesanoVertical) ||
     (showHorizontal && !config.travesanoHorizontal);
 
+  const vidriosDisponibles =
+    config.linea === "herrero"
+      ? VIDRIOS_PANO_FIJO.filter(
+          (v) => !["4+4", "dvh_4_9_4", "dvh_5_9_5"].includes(v),
+        )
+      : VIDRIOS_PANO_FIJO;
+
   return (
     <ProductFormLayout title={PANO_FIJO_UI.title}>
       <div className="space-y-6">
@@ -88,11 +96,22 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
           <LineaSelector
             value={config.linea}
             options={LINEAS_PANO_FIJO}
-            onChange={(value) =>
+            onChange={(value) => {
+              const nuevaLinea = value as PanoFijoConfig["linea"];
+
+              const vidriosInvalidosHerrero = ["4+4", "dvh_4_9_4", "dvh_5_9_5"];
+
+              const vidrioInvalidoEnHerrero =
+                nuevaLinea === "herrero" &&
+                vidriosInvalidosHerrero.includes(config.tipoVidrio);
+
               updateConfig({
-                linea: value as PanoFijoConfig["linea"],
-              })
-            }
+                linea: nuevaLinea,
+                ...(vidrioInvalidoEnHerrero
+                  ? { tipoVidrio: "4mm" as PanoFijoConfig["tipoVidrio"] }
+                  : {}),
+              });
+            }}
           />
         </FormSection>
 
@@ -118,7 +137,7 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
         <FormSection title="Vidrio">
           <VidrioSelector
             value={config.tipoVidrio}
-            options={VIDRIOS_PANO_FIJO}
+            options={vidriosDisponibles}
             onChange={(value) =>
               updateConfigWithRules({
                 tipoVidrio: value as PanoFijoConfig["tipoVidrio"],
@@ -175,8 +194,8 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
         )}
         {showWarning && (
           <AlertBox type="warning">
-            Sin travesaño visible, pero con refuerzo estructural cobrado en el
-            precio.
+            Aunque no se visualice el travesaño, el refuerzo estructural está
+            incluido en el precio.
           </AlertBox>
         )}
 

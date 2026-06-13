@@ -39,8 +39,8 @@ export function createBudgetItem({
 
   const precioUnitario = Number(
     result.precioUnitario ??
-      result.precioVenta ??
       result.precioFinal ??
+      result.precioVenta ??
       result.subtotal ??
       0,
   );
