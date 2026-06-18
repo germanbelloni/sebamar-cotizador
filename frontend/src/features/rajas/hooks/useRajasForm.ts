@@ -41,13 +41,12 @@ export function useRajasForm({ config, setConfig }: Params) {
 
     setConfig((prev) => ({
       ...prev,
-
       linea: linea as RajasConfig["linea"],
 
-      apertura:
-        linea === "Herrero" && prev.apertura === "oscilobatiente"
-          ? "abrir"
-          : prev.apertura,
+      modelo:
+        linea === "Herrero" && prev.modelo === "oscilobatiente"
+          ? "raja"
+          : prev.modelo,
     }));
   }
 

@@ -66,18 +66,16 @@ export const RAJAS_UI = {
   },
 
   vidrios: [
-    "3mm",
-
-    "4mm",
-
-    "5mm",
-
-    "fantasia",
-
-    "esmerilado",
-
-    "3+3",
-  ] as VidrioType[],
+    { label: "3 mm", value: "3mm" },
+    { label: "4 mm", value: "4mm" },
+    { label: "5 mm", value: "5mm" },
+    { label: "Fantasía", value: "fantasia" },
+    { label: "Esmerilado", value: "esmerilado" },
+    { label: "3+3", value: "3+3" },
+    { label: "4+4", value: "4+4" },
+    { label: "DVH 4+9+4", value: "dvh" },
+    { label: "DVH 5+9+5", value: "dvh_5_9_5" },
+  ],
 
   messages: {
     invalidMeasures: "Las medidas están fuera de los límites permitidos.",

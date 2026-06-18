@@ -35,7 +35,9 @@
     "bipunto": 25000,
     "bipunto_con_llave": 45000,
     "oscilobatiente": 100000,
-    "cp8": 4000
+    "cp8": 4000,
+    "volcable": 4000,
+    "brazo_de_empuje": 4000
   },
 
   "barrales": {

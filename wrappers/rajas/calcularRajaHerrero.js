@@ -24,33 +24,52 @@ function normalizarAlto(alto) {
 
   return alto;
 }
-
-// 🔍 LOOKUP
 function buscarMedidaValida(ancho, alto) {
-  const objetivo = ancho * 2 + alto * 2;
+  const exacta = `${ancho}x${alto}`;
 
-  const medidas = Object.keys(data.medidas);
-
-  const medidasOrdenadas = medidas
-    .map((m) => {
-      const [a, h] = m.split("x").map(Number);
-
-      const perimetro = a * 2 + h * 2;
-
-      return {
-        key: m,
-        diferencia: Math.abs(perimetro - objetivo),
-      };
-    })
-    .sort((a, b) => a.diferencia - b.diferencia);
-
-  if (!medidasOrdenadas.length) {
-    throw new Error("No hay medida válida");
+  if (data.medidas[exacta]) {
+    return exacta;
   }
 
-  return medidasOrdenadas[0].key;
-}
+  const medidas = Object.keys(data.medidas).map((m) => {
+    const [w, h] = m.split("x").map(Number);
+    return { key: m, w, h };
+  });
 
+  const anchos = [...new Set(medidas.map((m) => m.w))].sort((a, b) => a - b);
+  const altos = [...new Set(medidas.map((m) => m.h))].sort((a, b) => a - b);
+
+  const maxAncho = anchos[anchos.length - 1];
+
+  if (ancho > maxAncho) {
+    throw new Error(
+      `Ancho fuera de rango: ${ancho}cm (máximo permitido: ${maxAncho}cm)`,
+    );
+  }
+
+  const anchoSuperior =
+    anchos.find((w) => w >= ancho) || anchos[anchos.length - 1];
+
+  const altoSuperior = altos.find((h) => h >= alto) || altos[altos.length - 1];
+
+  let medidaFinal = `${anchoSuperior}x${altoSuperior}`;
+
+  if (!data.medidas[medidaFinal]) {
+    const fallback = medidas.find(
+      (m) => m.w >= anchoSuperior && m.h >= altoSuperior,
+    );
+
+    if (!fallback) {
+      throw new Error(`No existe medida válida para ${ancho}x${alto}`);
+    }
+
+    medidaFinal = fallback.key;
+  }
+
+  console.log(`⚠️ Fuera de medida: ${ancho}x${alto} → usando ${medidaFinal}`);
+
+  return medidaFinal;
+}
 // 💰 PERFIL
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);

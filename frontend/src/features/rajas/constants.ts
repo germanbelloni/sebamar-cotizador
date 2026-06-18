@@ -2,21 +2,20 @@ import type { RajasConfig } from "./types";
 export const LIMITES_RAJAS = {
   Herrero: {
     anchoMin: 30,
-    anchoMax: 200,
+    anchoMax: 100,
 
     altoMin: 30,
-    altoMax: 200,
+    altoMax: 180,
   },
 
   Modena: {
     anchoMin: 30,
-    anchoMax: 240,
+    anchoMax: 100, // por ahora igual que Herrero; confirmar luego
 
     altoMin: 30,
-    altoMax: 200,
+    altoMax: 180, // según tablas de Modena que vimos
   },
-};
-
+} as const;
 export const modelosRajaHerrero = [
   {
     label: "Raja",

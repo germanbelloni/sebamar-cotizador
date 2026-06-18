@@ -70,16 +70,19 @@ async function runCalculation(req, res, name, callback) {
     );
 
     const sanitized = sanitizarCotizacion(withMargin, req.user);
-
+    console.log("========== BACK RESPONSE ==========");
+    console.log(JSON.stringify(sanitized, null, 2));
     return res.json(sanitized);
   } catch (error) {
-    console.error(`❌ ERROR REAL ${name}:`, error);
-
     if (isValidationError(error.message)) {
+      console.warn(`⚠️ VALIDATION ${name}: ${error.message}`);
+
       return res.status(400).json({
         error: error.message,
       });
     }
+
+    console.error(`❌ ERROR REAL ${name}:`, error);
 
     return res.status(500).json({
       error: "Error interno del servidor",

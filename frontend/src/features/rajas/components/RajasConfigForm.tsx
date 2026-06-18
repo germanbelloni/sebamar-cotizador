@@ -113,6 +113,16 @@ export function RajasConfigForm({ config, setConfig }: Props) {
     createItem: createRajasBudgetItem,
   });
 
+  const vidriosDisponibles =
+    config.linea === "Herrero"
+      ? RAJAS_UI.vidrios.filter(
+          (v) =>
+            v.value !== "4+4" &&
+            v.value !== "DVH 4+9+4" &&
+            v.value !== "DVH 5+9+5",
+        )
+      : RAJAS_UI.vidrios;
+
   return (
     <ProductFormLayout title={RAJAS_UI.title}>
       <div className="space-y-6">
@@ -192,7 +202,7 @@ export function RajasConfigForm({ config, setConfig }: Props) {
         <FormSection title={RAJAS_UI.sections.vidrio}>
           <VidrioSelector
             value={config.tipoVidrio || "4mm"}
-            options={RAJAS_UI.vidrios}
+            options={vidriosDisponibles}
             onChange={(value) =>
               updateConfig({
                 tipoVidrio: value as VidrioType,
@@ -215,6 +225,57 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             onToggleCajonBlock={() => {}}
           />
         </FormSection>
+
+        {config.linea === "Modena" && (
+          <FormSection title="Extras Modena">
+            <div className="space-y-4">
+              <OptionSelector
+                title="Premarco"
+                value={config.premarco ? "si" : "no"}
+                columns={2}
+                options={[
+                  { label: "Sí", value: "si" },
+                  { label: "No", value: "no" },
+                ]}
+                onChange={(value) =>
+                  updateConfig({
+                    premarco: value === "si",
+                  })
+                }
+              />
+
+              <OptionSelector
+                title="Contramarco"
+                value={config.contramarco ? "si" : "no"}
+                columns={2}
+                options={[
+                  { label: "Sí", value: "si" },
+                  { label: "No", value: "no" },
+                ]}
+                onChange={(value) =>
+                  updateConfig({
+                    contramarco: value === "si",
+                  })
+                }
+              />
+
+              <OptionSelector
+                title="Herrajes blancos"
+                value={config.herrajesBlancos ? "si" : "no"}
+                columns={2}
+                options={[
+                  { label: "Sí", value: "si" },
+                  { label: "No", value: "no" },
+                ]}
+                onChange={(value) =>
+                  updateConfig({
+                    herrajesBlancos: value === "si",
+                  })
+                }
+              />
+            </div>
+          </FormSection>
+        )}
 
         {cotizacionMutation.isError && (
           <AlertBox type="error">{RAJAS_UI.messages.quotationError}</AlertBox>

@@ -6,5 +6,5 @@ export type VidrioType =
   | "esmerilado"
   | "3+3"
   | "4+4"
-  | "DVH 4+9+4"
-  | "DVH 5+9+5";
+  | "dvh"
+  | "dvh_5_9_5";
