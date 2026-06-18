@@ -356,23 +356,9 @@ function App() {
               "
                   >
                     <div className="flex h-full flex-col">
-                      {/* HEADER */}
-                      {activeFeature !== "marcos" &&
-                        activeFeature !== "pano-fijo" && (
-                          <div>
-                            <h2 className="text-xl font-semibold">
-                              {activeFeatureLabel}
-                            </h2>
-
-                            <p className="mt-1 text-sm text-muted-foreground">
-                              Vista previa técnica del módulo.
-                            </p>
-                          </div>
-                        )}
-
                       {/* SVG */}
 
-                      <div className="mt-6 flex-1">
+                      <div className="mt-2 flex-1">
                         {activeFeature === "ventanas" && (
                           <VentanaPreview config={ventanasConfig} />
                         )}

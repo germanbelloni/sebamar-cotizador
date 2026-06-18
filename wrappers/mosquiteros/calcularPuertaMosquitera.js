@@ -25,7 +25,13 @@ function getColorFactor(color) {
 // =========================
 
 function calcularPuertaMosquitera(dataInput) {
-  const { ancho, alto, color = "blanco", perfil = "amarilla" } = dataInput;
+  const {
+    ancho,
+    alto,
+    color = "blanco",
+    perfil = "amarilla",
+    ladoBisagra = "derecha",
+  } = dataInput;
 
   // =========================
   // VALIDACIONES
@@ -39,6 +45,9 @@ function calcularPuertaMosquitera(dataInput) {
     throw new Error("Alto fuera de rango");
   }
 
+  if (!["izquierda", "derecha"].includes(ladoBisagra)) {
+    throw new Error("Lado de bisagra inválido");
+  }
   // =========================
   // 💰 BASE SEGÚN ANCHO
   // =========================
@@ -114,12 +123,12 @@ function calcularPuertaMosquitera(dataInput) {
       precio: Math.round(i.precio || 0),
     })),
 
-    descripcion: `Puerta mosquitera ${ancho}x${alto}`,
-
+    descripcion: `Puerta mosquitera ${ancho}x${alto} bisagra ${ladoBisagra}`,
     configuracion: {
       ancho,
       alto,
       color,
+      ladoBisagra,
     },
   };
 }

@@ -30,7 +30,6 @@ import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
 type Props = {
   config: MosquiterosConfig;
-
   setConfig: React.Dispatch<React.SetStateAction<MosquiterosConfig>>;
 };
 
@@ -43,6 +42,7 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
     altoInput,
     handleAnchoChange,
     handleAltoChange,
+    syncInputs,
   } = useMosquiterosForm({
     config,
     setConfig,
@@ -53,9 +53,7 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
-
     config,
-
     createItem: createMosquiterosBudgetItem,
   });
 
@@ -72,11 +70,11 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
               if (tipo === "puerta_mosquitera") {
                 updateConfig({
                   tipo,
-
                   ancho: 80,
-
                   alto: 200,
                 });
+
+                syncInputs(80, 200);
 
                 return;
               }
@@ -113,6 +111,23 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
+
+        {config.tipo === "puerta_mosquitera" && (
+          <FormSection title="Bisagra">
+            <LineaSelector
+              value={config.ladoBisagra}
+              options={[
+                { value: "izquierda", label: "Izquierda" },
+                { value: "derecha", label: "Derecha" },
+              ]}
+              onChange={(value) =>
+                updateConfig({
+                  ladoBisagra: value as "izquierda" | "derecha",
+                })
+              }
+            />
+          </FormSection>
+        )}
 
         {!medidasValidas && (
           <AlertBox type="error">
