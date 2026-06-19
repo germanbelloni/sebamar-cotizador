@@ -42,6 +42,40 @@ import { medidasRajaPatagonicas } from "../constants";
 
 import { Input } from "@/components/ui/input";
 
+const modelosHerrero = [
+  {
+    label: "Raja",
+    value: "raja",
+  },
+  {
+    label: "Brazo de empuje",
+    value: "brazo",
+  },
+  {
+    label: "Volcable",
+    value: "volcable",
+  },
+];
+
+const modelosModena = [
+  {
+    label: "Raja",
+    value: "raja",
+  },
+  {
+    label: "Brazo de empuje",
+    value: "brazo",
+  },
+  {
+    label: "Volcable",
+    value: "volcable",
+  },
+  {
+    label: "Oscilobatiente",
+    value: "oscilobatiente",
+  },
+];
+
 type Props = {
   config: PatagonicasConfig;
 
@@ -93,6 +127,8 @@ export function PatagonicasConfigForm({
     createItem: createPatagonicasBudgetItem,
   });
 
+  const modelos = config.linea === "Herrero" ? modelosHerrero : modelosModena;
+
   return (
     <ProductFormLayout title={PATAGONICAS_UI.title}>
       <div className="space-y-6">
@@ -124,6 +160,17 @@ export function PatagonicasConfigForm({
                   tipo: value as PatagonicasConfig["tipo"],
 
                   cantidadRajas: value === "1_raja" ? 1 : 2,
+                })
+              }
+            />
+
+            <OptionSelector
+              title="Modelo"
+              value={config.tipoRaja}
+              options={modelos}
+              onChange={(value) =>
+                updateConfig({
+                  tipoRaja: value as PatagonicasConfig["tipoRaja"],
                 })
               }
             />

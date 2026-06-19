@@ -2,6 +2,12 @@ export type PatagonicasLinea = "Herrero" | "Modena";
 
 export type PatagonicasTipo = "1_raja" | "2_rajas";
 
+export type PatagonicasTipoRaja =
+  | "raja"
+  | "brazo"
+  | "volcable"
+  | "oscilobatiente";
+
 export type PatagonicasColor =
   | "blanco"
   | "negro"
@@ -23,6 +29,8 @@ export interface PatagonicasConfig {
   linea: PatagonicasLinea;
 
   tipo: PatagonicasTipo;
+
+  tipoRaja: PatagonicasTipoRaja;
 
   ancho: number;
 
@@ -49,6 +57,8 @@ export interface PatagonicasConfig {
   premarco: boolean;
 
   contramarco: boolean;
+
+  herrajesBlancos: boolean;
 
   guia: boolean;
 

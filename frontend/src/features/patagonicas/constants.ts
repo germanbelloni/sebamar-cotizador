@@ -115,6 +115,8 @@ export const initialPatagonicasConfig: PatagonicasConfig = {
 
   tipo: "1_raja",
 
+  tipoRaja: "raja",
+
   cantidadRajas: 1,
 
   // =========================
@@ -144,6 +146,8 @@ export const initialPatagonicasConfig: PatagonicasConfig = {
   premarco: false,
 
   contramarco: false,
+
+  herrajesBlancos: false,
 
   mosquitero: false,
 
