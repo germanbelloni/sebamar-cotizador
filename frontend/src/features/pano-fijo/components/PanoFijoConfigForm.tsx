@@ -83,7 +83,7 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
   const vidriosDisponibles =
     config.linea === "herrero"
       ? VIDRIOS_PANO_FIJO.filter(
-          (v) => !["4+4", "dvh_4_9_4", "dvh_5_9_5"].includes(v),
+          (v) => !["4+4", "dvh_4_9_4", "dvh_5_9_5"].includes(v.value),
         )
       : VIDRIOS_PANO_FIJO;
 
