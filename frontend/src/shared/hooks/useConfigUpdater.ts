@@ -4,7 +4,6 @@ export function useConfigUpdater<T>(
   function updateConfig(updates: Partial<T>) {
     setConfig((prev) => ({
       ...prev,
-
       ...updates,
     }));
   }

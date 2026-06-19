@@ -14,7 +14,7 @@ export const VENTANAS_UI: ProductUI = {
 
     cortinas: "Cortinas",
 
-    modena: "Modena",
+    modena: "Utilidades",
   },
 
   selectors: {

@@ -119,6 +119,10 @@ function calcularRajaModena(dataInput) {
     perfil = "amarilla",
     bisagra,
   } = dataInput;
+  console.log("MODELO RECIBIDO:", modelo);
+  console.log("EXTRAS:", superficies.extras);
+  console.log("BRAZO EXTRA:", superficies.extras["brazo_de_empuje"]);
+  console.log("VOLCABLE EXTRA:", superficies.extras.volcable);
 
   if (!ancho || !alto) {
     throw new Error("Faltan medidas");
@@ -225,6 +229,15 @@ function calcularRajaModena(dataInput) {
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
+  const nombreModelo =
+    modelo === "oscilobatiente"
+      ? "Oscilobatiente"
+      : modelo === "volcable"
+        ? "Volcable"
+        : modelo === "brazo"
+          ? "Brazo"
+          : "Raja";
+
   return {
     costoBase: Math.round(base.costoBase),
 
@@ -238,7 +251,7 @@ function calcularRajaModena(dataInput) {
 
     items,
 
-    descripcion: `Raja Modena ${ancho}x${alto}`,
+    descripcion: `${nombreModelo} Modena ${ancho}x${alto}`,
 
     configuracion: {
       ancho,

@@ -40,6 +40,8 @@ import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { ModenaSection } from "@/shared/sections/ModenaSection";
+
 type Props = {
   config: RajasConfig;
 
@@ -225,55 +227,31 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             onToggleCajonBlock={() => {}}
           />
         </FormSection>
-
         {config.linea === "Modena" && (
-          <FormSection title="Extras Modena">
-            <div className="space-y-4">
-              <OptionSelector
-                title="Premarco"
-                value={config.premarco ? "si" : "no"}
-                columns={2}
-                options={[
-                  { label: "Sí", value: "si" },
-                  { label: "No", value: "no" },
-                ]}
-                onChange={(value) =>
-                  updateConfig({
-                    premarco: value === "si",
-                  })
-                }
-              />
+          <FormSection title="Utilidades">
+            <ModenaSection
+              premarco={config.premarco}
+              contramarco={config.contramarco}
+              herrajesBlancos={config.herrajesBlancos}
+              onTogglePremarco={() => {
+                const nuevoPremarco = !config.premarco;
 
-              <OptionSelector
-                title="Contramarco"
-                value={config.contramarco ? "si" : "no"}
-                columns={2}
-                options={[
-                  { label: "Sí", value: "si" },
-                  { label: "No", value: "no" },
-                ]}
-                onChange={(value) =>
-                  updateConfig({
-                    contramarco: value === "si",
-                  })
-                }
-              />
-
-              <OptionSelector
-                title="Herrajes blancos"
-                value={config.herrajesBlancos ? "si" : "no"}
-                columns={2}
-                options={[
-                  { label: "Sí", value: "si" },
-                  { label: "No", value: "no" },
-                ]}
-                onChange={(value) =>
-                  updateConfig({
-                    herrajesBlancos: value === "si",
-                  })
-                }
-              />
-            </div>
+                updateConfig({
+                  premarco: nuevoPremarco,
+                  contramarco: nuevoPremarco ? true : config.contramarco,
+                });
+              }}
+              onToggleContramarco={() =>
+                updateConfig({
+                  contramarco: !config.contramarco,
+                })
+              }
+              onToggleHerrajesBlancos={() =>
+                updateConfig({
+                  herrajesBlancos: !config.herrajesBlancos,
+                })
+              }
+            />
           </FormSection>
         )}
 
