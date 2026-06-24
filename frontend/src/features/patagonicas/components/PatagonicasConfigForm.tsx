@@ -42,6 +42,8 @@ import { medidasRajaPatagonicas } from "../constants";
 
 import { Input } from "@/components/ui/input";
 
+import { ColorSelector } from "@/shared/selectors/ColorSelector";
+
 const modelosHerrero = [
   {
     label: "Raja",
@@ -109,13 +111,10 @@ export function PatagonicasConfigForm({
 
   const {
     limites,
-
     anchoValido,
-
     altoValido,
-
+    anchoRajaValido,
     medidasValidas,
-
     medidasInvalidas,
   } = usePatagonicasValidation(config);
 
@@ -128,6 +127,10 @@ export function PatagonicasConfigForm({
   });
 
   const modelos = config.linea === "Herrero" ? modelosHerrero : modelosModena;
+
+  const mostrarLado = true;
+  const mostrarBisagras =
+    config.tipoRaja === "raja" || config.tipoRaja === "oscilobatiente";
 
   return (
     <ProductFormLayout title={PATAGONICAS_UI.title}>
@@ -143,15 +146,15 @@ export function PatagonicasConfigForm({
             />
 
             <OptionSelector
-              title="Tipo"
+              title="Aperturas"
               value={config.tipo}
               options={[
                 {
-                  label: "1 Raja",
+                  label: "1 Apertura",
                   value: "1_raja",
                 },
                 {
-                  label: "2 Rajas",
+                  label: "2 Aperturas",
                   value: "2_rajas",
                 },
               ]}
@@ -175,7 +178,7 @@ export function PatagonicasConfigForm({
               }
             />
 
-            {config.tipo === "1_raja" && (
+            {config.tipo === "1_raja" && mostrarLado && (
               <>
                 <OptionSelector
                   title="Ubicación de la raja"
@@ -188,29 +191,25 @@ export function PatagonicasConfigForm({
                   }
                 />
 
-                <OptionSelector
-                  title="Bisagra"
-                  value={config.bisagraRaja1}
-                  options={[
-                    {
-                      label: "Bisagra izquierda",
-                      value: "izquierda",
-                    },
-                    {
-                      label: "Bisagra derecha",
-                      value: "derecha",
-                    },
-                  ]}
-                  onChange={(value) =>
-                    updateConfig({
-                      bisagraRaja1: value as "izquierda" | "derecha",
-                    })
-                  }
-                />
+                {mostrarBisagras && (
+                  <OptionSelector
+                    title="Bisagra"
+                    value={config.bisagraRaja1}
+                    options={[
+                      { label: "Bisagra izquierda", value: "izquierda" },
+                      { label: "Bisagra derecha", value: "derecha" },
+                    ]}
+                    onChange={(value) =>
+                      updateConfig({
+                        bisagraRaja1: value as "izquierda" | "derecha",
+                      })
+                    }
+                  />
+                )}
               </>
             )}
 
-            {config.tipo === "2_rajas" && (
+            {config.tipo === "2_rajas" && mostrarBisagras && (
               <>
                 <OptionSelector
                   title="Bisagra raja izquierda"
@@ -315,27 +314,35 @@ export function PatagonicasConfigForm({
             </div>
 
             {config.fueraDeMedida && (
-              <div className="rounded-2xl border border-border bg-card/50 p-4">
-                <Input
-                  type="number"
-                  value={config.anchoRaja || ""}
-                  onChange={(e) => {
-                    const value = e.target.value;
+              <div className="space-y-3">
+                <div className="rounded-2xl border border-border bg-card/50 p-4">
+                  <Input
+                    type="number"
+                    value={config.anchoRaja || ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
 
-                    if (value === "") {
+                      if (value === "") {
+                        updateConfig({
+                          anchoRaja: "" as never,
+                        });
+
+                        return;
+                      }
+
                       updateConfig({
-                        anchoRaja: "" as never,
+                        anchoRaja: Number(value),
                       });
+                    }}
+                    placeholder="Ancho personalizado (30 a 70)"
+                  />
+                </div>
 
-                      return;
-                    }
-
-                    updateConfig({
-                      anchoRaja: Number(value),
-                    });
-                  }}
-                  placeholder="Ancho personalizado"
-                />
+                {!anchoRajaValido && (
+                  <AlertBox type="error">
+                    El ancho de raja debe estar entre 30 y 70 cm
+                  </AlertBox>
+                )}
               </div>
             )}
 
@@ -359,6 +366,17 @@ export function PatagonicasConfigForm({
             {PATAGONICAS_UI.messages?.invalidMeasures}
           </AlertBox>
         )}
+
+        <FormSection title="Color">
+          <ColorSelector
+            value={config.color}
+            onChange={(color) =>
+              updateConfig({
+                color: color as PatagonicasConfig["color"],
+              })
+            }
+          />
+        </FormSection>
 
         {/* VIDRIO */}
 
@@ -422,25 +440,33 @@ export function PatagonicasConfigForm({
                 />
               </FormSection>
             )}
-
-            {config.linea === "Modena" && (
-              <ModenaSection
-                premarco={config.premarco}
-                contramarco={config.contramarco}
-                onTogglePremarco={() =>
-                  updateConfig({
-                    premarco: !config.premarco,
-                  })
-                }
-                onToggleContramarco={() =>
-                  updateConfig({
-                    contramarco: !config.contramarco,
-                  })
-                }
-              />
-            )}
           </div>
         </FormSection>
+
+        {config.linea === "Modena" && (
+          <FormSection title="Utilidades">
+            <ModenaSection
+              premarco={config.premarco}
+              contramarco={config.contramarco}
+              herrajesBlancos={config.herrajesBlancos}
+              onTogglePremarco={() =>
+                updateConfig({
+                  premarco: !config.premarco,
+                })
+              }
+              onToggleContramarco={() =>
+                updateConfig({
+                  contramarco: !config.contramarco,
+                })
+              }
+              onToggleHerrajesBlancos={() =>
+                updateConfig({
+                  herrajesBlancos: !config.herrajesBlancos,
+                })
+              }
+            />
+          </FormSection>
+        )}
 
         {/* ERROR */}
 

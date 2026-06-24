@@ -1,4 +1,4 @@
-import type { PanoFijoLinea, PanoFijoVidrio } from "./types";
+import type { PanoFijoLinea } from "./types";
 import type { PanoFijoConfig } from "./types";
 
 export const LIMITES_PANO_FIJO = {

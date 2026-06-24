@@ -46,11 +46,23 @@ export function usePatagonicasForm({
       }),
   });
 
-  const { switchLinea } = useLineaSwitcher({
+  const { switchLinea: baseSwitchLinea } = useLineaSwitcher({
     setConfig,
-
     limits: LIMITES_PATAGONICAS,
   });
+
+  const switchLinea = (linea: string) => {
+    baseSwitchLinea(linea);
+
+    if (linea === "Herrero") {
+      setConfig((prev) => ({
+        ...prev,
+        herrajesBlancos: false,
+        premarco: false,
+        contramarco: false,
+      }));
+    }
+  };
 
   return {
     updateConfig,

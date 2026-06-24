@@ -7,6 +7,10 @@ const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
 
+const superficies = require(
+  fromRoot("backend/data/productos/superficies.json"),
+);
+
 const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
 // =========================
@@ -34,6 +38,7 @@ function calcularWrapper(data) {
     cantidadRajas = 1,
 
     tipoVidrio,
+    tipoRaja = "raja",
 
     color = "blanco",
 
@@ -42,6 +47,8 @@ function calcularWrapper(data) {
     ladoApertura = "derecha",
 
     tipoApertura = "abrir",
+
+    herrajesBlancos = false,
   } = data;
 
   // =========================
@@ -119,7 +126,62 @@ function calcularWrapper(data) {
   // 💰 COSTO BASE
   // =========================
 
-  const costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+  let costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  // 🔧 BRAZO
+  if (tipoRaja === "brazo") {
+    const extra = Number(superficies.extras["brazo_de_empuje"] || 0);
+
+    costoBase += extra;
+
+    items.push({
+      tipo: "brazo",
+      precio: Math.round(extra),
+    });
+  }
+
+  // 🔧 VOLCABLE
+  if (tipoRaja === "volcable") {
+    const extra = Number(superficies.extras.volcable || 0);
+
+    costoBase += extra;
+
+    items.push({
+      tipo: "volcable",
+      precio: Math.round(extra),
+    });
+  }
+
+  // 🔧 OSCILOBATIENTE
+  if (tipoRaja === "oscilobatiente") {
+    const extra = Number(superficies.extras.oscilobatiente || 0);
+
+    costoBase += extra;
+
+    items.push({
+      tipo: "oscilobatiente",
+      precio: Math.round(extra),
+    });
+  }
+
+  // ⚪ HERRAJES BLANCOS (solo estructura)
+  if (herrajesBlancos) {
+    const estructura = items.find((i) => i.tipo === "estructura");
+
+    if (estructura) {
+      const mult = Number(superficies.recargos?.herraje_blanco || 1.05);
+
+      const extra = Math.round(estructura.precio * (mult - 1));
+
+      costoBase += extra;
+
+      items.push({
+        tipo: "extra",
+        descripcion: "Herrajes blancos",
+        precio: extra,
+      });
+    }
+  }
 
   // =========================
   // 💰 PERFIL
@@ -152,6 +214,9 @@ function calcularWrapper(data) {
     medida: medidaFinal,
 
     cantidadRajas,
+
+    tipoRaja,
+    herrajesBlancos,
 
     tipo,
 

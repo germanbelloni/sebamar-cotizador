@@ -24,6 +24,8 @@ function calcularWrapper(data) {
 
     color = "blanco",
 
+    tipoRaja = "raja",
+
     perfil = "amarilla",
 
     ladoApertura = "derecha",
@@ -84,20 +86,17 @@ function calcularWrapper(data) {
   for (let i = 0; i < cantidadRajas; i++) {
     const raja = calcularRajaHerrero({
       ancho: anchoRajaFinal,
-
       alto: Number(alto),
-
       color,
-
       tipoVidrio,
+      modelo: tipoRaja,
     });
 
-    totalRajas += Number(raja?.costoBase || 0);
+    totalRajas += Number(raja?.costo || 0);
 
     items.push({
       tipo: "raja",
-
-      precio: Math.round(Number(raja?.costoBase || 0)),
+      precio: Math.round(Number(raja?.costo || 0)),
     });
   }
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { FEATURES, getFeatureLabel } from "@/features";
+import { FEATURES } from "@/features";
 
 import { Header } from "@/layouts/components/Header";
 
@@ -215,7 +215,7 @@ function App() {
     initialMosquiterosConfig,
   );
 
-  const activeFeatureLabel = getFeatureLabel(activeFeature);
+  //const activeFeatureLabel = getFeatureLabel(activeFeature);
 
   const FEATURE_COMPONENTS = {
     rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,

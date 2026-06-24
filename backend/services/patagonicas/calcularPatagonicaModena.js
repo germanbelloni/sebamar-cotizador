@@ -25,43 +25,38 @@ function normalizarMedida(medida) {
 // =========================
 
 function calcularVidrio(datos, ancho, alto, tipoVidrio) {
-  if (!tipoVidrio) {
-    return 0;
-  }
+  if (!tipoVidrio) return 0;
+  const vidrioNormalizado = String(tipoVidrio).toLowerCase().trim();
 
-  // DVH clásico
-  // DVH 4+9+4
-  if (tipoVidrio === "dvh" || tipoVidrio === "DVH 4+9+4") {
-    const vidrio4 = datos.vidrios?.["4mm"] || 0;
+  const vidrio = String(tipoVidrio).trim().toLowerCase();
 
-    const camara = datos.camara || 0;
-
-    return vidrio4 * 2 + camara;
-  }
-
-  // DVH 5+9+5
-  if (tipoVidrio === "dvh_5_9_5" || tipoVidrio === "DVH 5+9+5") {
+  if (["dvh", "dvh 4+9+4", "dvh_4_9_4"].includes(vidrioNormalizado)) {
     const m2 = (ancho * alto) / 10000;
+    const ml = ((ancho + alto) * 2) / 100;
 
+    const vidrio4 = superficies.vidrios["4mm"] || 0;
+    const camara = superficies.vidrios["dvh"] || 0;
+
+    return m2 * vidrio4 * 2 + ml * camara;
+  }
+
+  if (["dvh 5+9+5", "dvh_5_9_5"].includes(vidrioNormalizado)) {
+    const m2 = (ancho * alto) / 10000;
     const ml = ((ancho + alto) * 2) / 100;
 
     const vidrio5 = superficies.vidrios["5mm"] || 0;
-
     const camara = superficies.vidrios["dvh"] || 0;
 
     return m2 * vidrio5 * 2 + ml * camara;
   }
 
-  // Laminado
-  if (tipoVidrio === "4+4") {
+  if (vidrioNormalizado === "4+4") {
     const m2 = (ancho * alto) / 10000;
-
     return m2 * (superficies.vidrios["4+4"] || 0);
   }
 
   return datos.vidrios?.[tipoVidrio] || 0;
 }
-
 // =========================
 // 🚀 MAIN
 // =========================

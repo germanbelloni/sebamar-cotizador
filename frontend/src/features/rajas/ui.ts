@@ -1,5 +1,3 @@
-import type { VidrioType } from "@/shared/types/vidrios";
-
 export const RAJAS_UI = {
   title: "Rajas",
 

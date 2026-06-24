@@ -10,11 +10,17 @@ import { Marco } from "@/features/ventanas/svg/Marco";
 import { Cotas } from "@/features/ventanas/svg/Cotas";
 
 import { MetalGradient } from "@/shared/svg/components/MetalGradient";
+import { getAnchoRajaVisual } from "../utils/getAnchoRajaVisual";
 
 import { SVG_COLORS } from "@/shared/svg/constants/colors";
 
 import { calculateScale } from "@/shared/svg/utils/calculateScale";
 import { calculateCenter } from "@/shared/svg/utils/calculateCenter";
+
+import { RajaAbrir } from "@/features/rajas/svg/RajaAbrir";
+import { RajaBrazo } from "@/features/rajas/svg/RajaBrazo";
+import { RajaVolcable } from "@/features/rajas/svg/RajaVolcable";
+import { RajaOscilo } from "@/features/rajas/svg/RajaOscilo";
 
 type Props = {
   config: PatagonicasConfig;
@@ -39,11 +45,7 @@ function GlassPanel({ x, y, width, height, tipoVidrio }: GlassPanelProps) {
       ? "rgba(125,211,252,0.28)"
       : "rgba(255,255,255,0.12)";
 
-  const fillVidrio = esDVH
-    ? "url(#glassDvhGradient)"
-    : esLaminado
-      ? "url(#glassLaminadoGradient)"
-      : "url(#glassGradient)";
+  const fillVidrio = esDVH ? "url(#glassDvhGradient)" : "url(#glassGradient)";
 
   return (
     <g>
@@ -115,8 +117,8 @@ type RajaProps = {
   ladoBisagra: "izquierda" | "derecha";
   aluminioColor: string;
   esHerrero: boolean;
-  mosquitero: boolean;
   tipoVidrio: PatagonicasConfig["tipoVidrio"];
+  tipoRaja: PatagonicasConfig["tipoRaja"];
 };
 
 function Raja({
@@ -127,216 +129,67 @@ function Raja({
   ladoBisagra,
   aluminioColor,
   esHerrero,
-  mosquitero,
   tipoVidrio,
+  tipoRaja,
 }: RajaProps) {
-  const hojaPadding = esHerrero ? 15 : 12;
+  if (tipoRaja === "brazo") {
+    return (
+      <RajaBrazo
+        left={x}
+        top={y}
+        ancho={ancho}
+        alto={alto}
+        color={aluminioColor}
+        esHerrero={esHerrero}
+        tipoVidrio={tipoVidrio}
+        bisagra={ladoBisagra}
+      />
+    );
+  }
 
-  const vidrioPadding = esHerrero ? 14 : 12;
+  if (tipoRaja === "volcable") {
+    return (
+      <RajaVolcable
+        left={x}
+        top={y}
+        ancho={ancho}
+        alto={alto}
+        color={aluminioColor}
+        esHerrero={esHerrero}
+        tipoVidrio={tipoVidrio}
+        bisagra={ladoBisagra}
+      />
+    );
+  }
 
-  const frameWidth = esHerrero
-    ? Math.max(8, ancho * 0.08)
-    : Math.max(5, ancho * 0.045);
-
-  const hojaX = x + hojaPadding;
-
-  const hojaY = y + hojaPadding;
-
-  const hojaAncho = Math.max(0, ancho - hojaPadding * 2);
-
-  const hojaAlto = Math.max(0, alto - hojaPadding * 2);
-
-  const vidrioX = hojaX + vidrioPadding;
-
-  const vidrioY = hojaY + vidrioPadding;
-
-  const vidrioAncho = Math.max(0, hojaAncho - vidrioPadding * 2);
-
-  const vidrioAlto = Math.max(0, hojaAlto - vidrioPadding * 2);
-
-  const bisagraX =
-    ladoBisagra === "izquierda"
-      ? hojaX + hojaAncho - frameWidth / 2
-      : hojaX - frameWidth / 2;
-
-  const manijaX = ladoBisagra === "izquierda" ? x + 12 : x + ancho - 22;
-
-  const aperturaPath =
-    ladoBisagra === "izquierda"
-      ? `
-        M ${x + 13} ${y + 18}
-        L ${x + ancho - 28} ${y + alto / 2}
-        L ${x + 13} ${y + alto - 18}
-      `
-      : `
-        M ${x + ancho - 13} ${y + 18}
-        L ${x + 28} ${y + alto / 2}
-        L ${x + ancho - 13} ${y + alto - 18}
-      `;
+  if (tipoRaja === "oscilobatiente") {
+    return (
+      <RajaOscilo
+        left={x}
+        top={y}
+        ancho={ancho}
+        alto={alto}
+        color={aluminioColor}
+        esHerrero={esHerrero}
+        tipoVidrio={tipoVidrio}
+        bisagra={ladoBisagra}
+      />
+    );
+  }
 
   return (
-    <g>
-      <rect
-        x={hojaX + 2}
-        y={hojaY + 3}
-        width={hojaAncho}
-        height={hojaAlto}
-        fill="none"
-        stroke="rgba(0,0,0,0.26)"
-        strokeWidth={frameWidth + 1}
-        opacity={0.75}
-      />
-
-      <rect
-        x={hojaX}
-        y={hojaY}
-        width={hojaAncho}
-        height={hojaAlto}
-        fill="rgba(255,255,255,0.025)"
-        stroke={aluminioColor}
-        strokeWidth={frameWidth}
-        strokeLinejoin="round"
-        className="transition-all duration-300"
-      />
-
-      <rect
-        x={hojaX}
-        y={hojaY}
-        width={hojaAncho}
-        height={hojaAlto}
-        fill="none"
-        stroke="url(#aluminumGradient)"
-        strokeWidth={Math.max(1, frameWidth - 1)}
-        strokeLinejoin="round"
-        opacity={0.92}
-      />
-
-      <rect
-        x={hojaX + frameWidth / 2}
-        y={hojaY + frameWidth / 2}
-        width={Math.max(0, hojaAncho - frameWidth)}
-        height={Math.max(0, hojaAlto - frameWidth)}
-        fill="none"
-        stroke="rgba(0,0,0,0.24)"
-        strokeWidth={2}
-      />
-
-      <GlassPanel
-        x={vidrioX}
-        y={vidrioY}
-        width={vidrioAncho}
-        height={vidrioAlto}
-        tipoVidrio={tipoVidrio}
-      />
-
-      {mosquitero && (
-        <rect
-          x={vidrioX}
-          y={vidrioY}
-          width={vidrioAncho}
-          height={vidrioAlto}
-          fill="url(#mosquiteroPattern)"
-          opacity={0.28}
-        />
-      )}
-
-      <rect
-        x={bisagraX}
-        y={y + 35}
-        width={7}
-        height={36}
-        rx={1.5}
-        fill="#18181B"
-      />
-
-      <rect
-        x={bisagraX + 1}
-        y={y + 38}
-        width={1}
-        height={30}
-        fill="rgba(255,255,255,0.24)"
-      />
-
-      <rect
-        x={bisagraX}
-        y={y + alto - 71}
-        width={7}
-        height={36}
-        rx={1.5}
-        fill="#18181B"
-      />
-
-      <rect
-        x={bisagraX + 1}
-        y={y + alto - 68}
-        width={1}
-        height={30}
-        fill="rgba(255,255,255,0.24)"
-      />
-
-      <g transform={`translate(${manijaX}, ${y + alto / 2 - 24})`}>
-        <rect x={0} y={0} width={10} height={48} rx={2} fill="#18181B" />
-
-        <rect
-          x={2}
-          y={3}
-          width={1.5}
-          height={42}
-          fill="rgba(255,255,255,0.22)"
-        />
-
-        <path
-          d={
-            ladoBisagra === "izquierda"
-              ? `
-                M 5 15
-                L -10 15
-                Q -16 15 -16 22
-                L -16 42
-              `
-              : `
-                M 5 15
-                L 20 15
-                Q 26 15 26 22
-                L 26 42
-              `
-          }
-          fill="none"
-          stroke="#18181B"
-          strokeWidth={6}
-          strokeLinecap="round"
-        />
-
-        <path
-          d={
-            ladoBisagra === "izquierda"
-              ? `
-                M 2 13
-                L -10 13
-              `
-              : `
-                M 8 13
-                L 20 13
-              `
-          }
-          fill="none"
-          stroke="rgba(255,255,255,0.18)"
-          strokeWidth={1.2}
-          strokeLinecap="round"
-        />
-      </g>
-
-      <path
-        d={aperturaPath}
-        fill="none"
-        stroke="rgba(255,255,255,0.18)"
-        strokeWidth={1.5}
-        strokeDasharray="5 4"
-      />
-    </g>
+    <RajaAbrir
+      left={x}
+      top={y}
+      ancho={ancho}
+      alto={alto}
+      color={aluminioColor}
+      esHerrero={esHerrero}
+      tipoVidrio={tipoVidrio}
+      bisagra={ladoBisagra}
+    />
   );
 }
-
 type FixedPanelProps = {
   x: number;
   y: number;
@@ -448,10 +301,12 @@ export function PatagonicasPreview({ config }: Props) {
 
   const separacion = esHerrero ? 10 : 8;
 
-  const anchoRajaValue =
+  const anchoRajaReal =
     typeof config.anchoRaja === "number" ? config.anchoRaja : 40;
 
-  const anchoRaja = Math.min(anchoRajaValue * escala, ancho * 0.42);
+  const anchoRajaVisual = getAnchoRajaVisual(anchoRajaReal);
+
+  const anchoRaja = Math.min(anchoRajaVisual * escala, ancho * 0.42);
 
   const rajaIzquierda = config.ladoApertura === "izquierda";
 
@@ -650,8 +505,8 @@ export function PatagonicasPreview({ config }: Props) {
                 ladoBisagra={config.bisagraRaja1}
                 aluminioColor={aluminioColor}
                 esHerrero={esHerrero}
-                mosquitero={config.mosquitero}
                 tipoVidrio={config.tipoVidrio}
+                tipoRaja={config.tipoRaja}
               />
 
               <FixedPanel
@@ -716,8 +571,8 @@ export function PatagonicasPreview({ config }: Props) {
                 ladoBisagra={config.bisagraRaja1}
                 aluminioColor={aluminioColor}
                 esHerrero={esHerrero}
-                mosquitero={config.mosquitero}
                 tipoVidrio={config.tipoVidrio}
+                tipoRaja={config.tipoRaja}
               />
 
               <FixedPanel
@@ -738,8 +593,8 @@ export function PatagonicasPreview({ config }: Props) {
                 ladoBisagra={config.bisagraRaja2}
                 aluminioColor={aluminioColor}
                 esHerrero={esHerrero}
-                mosquitero={config.mosquitero}
                 tipoVidrio={config.tipoVidrio}
+                tipoRaja={config.tipoRaja}
               />
             </>
           )}

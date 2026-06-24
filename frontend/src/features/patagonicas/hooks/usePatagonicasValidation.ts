@@ -1,7 +1,5 @@
 import type { PatagonicasConfig } from "../types";
-
 import { LIMITES_PATAGONICAS } from "../constants";
-
 import { validateDimensions } from "@/shared/utils/validateDimensions";
 
 export function usePatagonicasValidation(config: PatagonicasConfig) {
@@ -13,15 +11,23 @@ export function usePatagonicasValidation(config: PatagonicasConfig) {
     limits: limites,
   });
 
+  // NUEVO 👇
+  const anchoRajaValido =
+    !config.fueraDeMedida ||
+    (typeof config.anchoRaja === "number" &&
+      config.anchoRaja >= 30 &&
+      config.anchoRaja <= 70);
+
+  const validacionFinal = medidasValidas && anchoRajaValido;
+
   return {
     limites,
-
     anchoValido,
-
     altoValido,
 
-    medidasValidas,
+    anchoRajaValido, // NUEVO
 
-    medidasInvalidas: !medidasValidas,
+    medidasValidas: validacionFinal,
+    medidasInvalidas: !validacionFinal,
   };
 }

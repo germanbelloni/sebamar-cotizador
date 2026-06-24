@@ -105,7 +105,7 @@ function calcularsuperficiesWrapper(dataInput) {
 
   let descripcion = "";
 
-  if (tipo === "pano-fijo") {
+  if (tipo === "pano_fijo") {
     descripcion = `Paño fijo ${linea} ${ancho}x${alto}`;
 
     if (tipoVidrio) {
@@ -139,7 +139,7 @@ function calcularsuperficiesWrapper(dataInput) {
     alto,
   };
 
-  if (tipo === "pano-fijo") {
+  if (tipo === "pano_fijo") {
     configuracion.linea = linea;
     configuracion.color = color;
     configuracion.tipoVidrio = tipoVidrio;

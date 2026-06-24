@@ -1,5 +1,3 @@
-type Primitive = string | number | boolean | null | undefined;
-
 type Params = {
   modulo: string;
 
