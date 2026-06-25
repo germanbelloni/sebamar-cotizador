@@ -11,7 +11,7 @@ type CotizacionPuertasPlacaResponse = {
 function mapTipo(tipo: PuertasPlacaConfig["tipo"]) {
   switch (tipo) {
     case "abrir":
-      return "puerta";
+      return "placa";
 
     case "embutir":
       return "embutir";

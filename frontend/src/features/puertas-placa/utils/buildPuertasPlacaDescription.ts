@@ -8,6 +8,9 @@ function getTipoLabel(tipo: PuertasPlacaConfig["tipo"]) {
     case "embutir":
       return "De embutir";
 
+    case "granero":
+      return "Granero";
+
     default:
       return tipo;
   }
@@ -22,7 +25,7 @@ function getMarcoLabel(marco: PuertasPlacaConfig["marco"]) {
       return "Marco 15";
 
     case "aluminio":
-      return "Aluminio";
+      return "Marco aluminio";
 
     default:
       return marco;
@@ -37,8 +40,8 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
     case "finger_cedro":
       return "Finger / Cedro";
 
-    case "cedro_pino":
-      return "Cedro / Pino";
+    case "pino_cedro":
+      return "Pino / Cedro";
 
     case "cedro_cedro":
       return "Cedro / Cedro";
@@ -56,10 +59,10 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
 
 export function buildPuertasPlacaDescription(config: PuertasPlacaConfig) {
   const tipo = getTipoLabel(config.tipo);
-
   const marco = getMarcoLabel(config.marco);
-
   const modelo = getModeloLabel(config.modelo);
+
+  const manoTexto = config.tipo !== "embutir" ? ` mano ${config.mano}` : "";
 
   return `
     Puerta placa
@@ -67,7 +70,7 @@ export function buildPuertasPlacaDescription(config: PuertasPlacaConfig) {
     ${modelo}
     ${config.ancho}x${config.alto}
     ${marco}
-    mano ${config.mano}
+    ${manoTexto}
     ${config.fueraDeMedida ? "fuera de medida" : ""}
   `
     .replace(/\s+/g, " ")

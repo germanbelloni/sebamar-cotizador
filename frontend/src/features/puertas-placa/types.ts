@@ -5,18 +5,11 @@ export type PuertasPlacaMarco = "marco_10" | "marco_15" | "aluminio";
 export type PuertasPlacaModelo =
   | "finger_pino"
   | "finger_cedro"
-  | "cedro_pino"
   | "cedro_cedro"
   | "aluminio_pino"
   | "aluminio_cedro";
 
-export type PuertasPlacaMedida =
-  | "60x200"
-  | "70x200"
-  | "80x200"
-  | "140x200"
-  | "160x200"
-  | "180x200";
+export type PuertasPlacaMedida = "60x200" | "70x200" | "80x200";
 
 export type PuertasPlacaConfig = {
   ancho: number;

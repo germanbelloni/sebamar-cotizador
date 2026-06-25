@@ -13,8 +13,8 @@ export function usePuertasPlacaValidation(config: PuertasPlacaConfig) {
           altoMax: 210,
         }
       : {
-          anchoMin: 140,
-          anchoMax: 180,
+          anchoMin: 60,
+          anchoMax: 80,
 
           altoMin: 150,
           altoMax: 210,

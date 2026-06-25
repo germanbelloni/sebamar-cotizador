@@ -66,6 +66,13 @@ function calcularWrapper(dataInput) {
   } = dataInput;
 
   // ========================
+  // 🔧 NORMALIZAR MODELOS LEGACY
+  // ========================
+  if (tipo === "placa" && modelo === "finger_cedro") {
+    modelo = "pino_cedro";
+  }
+
+  // ========================
   // 📏 PARSEO
   // ========================
   if (medida && medida !== "fuera_medida") {
@@ -83,7 +90,13 @@ function calcularWrapper(dataInput) {
   const altoNorm = normalizarAlto(alto);
 
   const medidaBase = `${String(anchoNorm.lookup).padStart(3, "0")}x200`;
-
+  console.log("DEBUG PLACAS:", {
+    tipo,
+    modelo,
+    marco,
+    ancho,
+    alto,
+  });
   // ========================
   // 🧠 SERVICE
   // ========================

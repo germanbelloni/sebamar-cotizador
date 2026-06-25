@@ -23,7 +23,7 @@ export function PuertasPlacaPreview({ config }: Props) {
 
   const esAluminio = config.marco === "aluminio";
 
-  const anchoVisual = esEmbutir ? config.ancho / 2 : config.ancho;
+  const anchoVisual = config.ancho;
 
   const escala = calculateScale(anchoVisual, config.alto, 380);
 

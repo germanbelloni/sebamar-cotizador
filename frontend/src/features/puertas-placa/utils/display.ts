@@ -44,9 +44,6 @@ export function getPuertaPlacaModeloLabel(modelo: PuertasPlacaModelo) {
     case "finger_cedro":
       return "Finger / Cedro";
 
-    case "cedro_pino":
-      return "Cedro / Pino";
-
     case "cedro_cedro":
       return "Cedro / Cedro";
 

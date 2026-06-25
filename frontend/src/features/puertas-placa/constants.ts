@@ -98,36 +98,35 @@ export const MEDIDAS_EMBUTIR: {
   alto: number;
 }[] = [
   {
-    label: "140 × 200",
+    label: "60 × 200 (final 125)",
 
-    value: "140x200",
+    value: "60x200",
 
-    ancho: 140,
-
-    alto: 200,
-  },
-
-  {
-    label: "160 × 200",
-
-    value: "160x200",
-
-    ancho: 160,
+    ancho: 60,
 
     alto: 200,
   },
 
   {
-    label: "180 × 200",
+    label: "70 × 200 (final 145)",
 
-    value: "180x200",
+    value: "70x200",
 
-    ancho: 180,
+    ancho: 70,
+
+    alto: 200,
+  },
+
+  {
+    label: "80 × 200 (final 165)",
+
+    value: "80x200",
+
+    ancho: 80,
 
     alto: 200,
   },
 ];
-
 export const MEDIDAS_GRANERO = MEDIDAS_ABRIR;
 
 export const MARCOS_ABRIR: {
@@ -217,12 +216,6 @@ export const MODELOS_MARCO_15: {
     label: "Finger / Cedro",
 
     value: "finger_cedro",
-  },
-
-  {
-    label: "Cedro / Pino",
-
-    value: "cedro_pino",
   },
 
   {
