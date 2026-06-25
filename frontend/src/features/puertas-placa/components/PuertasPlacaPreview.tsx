@@ -19,6 +19,14 @@ export function PuertasPlacaPreview({ config }: Props) {
 
   const esGranero = config.tipo === "granero";
 
+  const graneroEsZ = config.modelo === "granero_z";
+
+  const graneroEsAluminio =
+    config.modelo === "granero_aluminio" ||
+    config.modelo === "granero_aluminio_sin_herrajes";
+
+  const graneroSinHerrajes = config.modelo === "granero_aluminio_sin_herrajes";
+
   const abreIzquierda = config.mano === "izquierda";
 
   const esAluminio = config.marco === "aluminio";
@@ -185,15 +193,13 @@ export function PuertasPlacaPreview({ config }: Props) {
 
           {/* GRANERO */}
 
-          {/* GRANERO */}
-
-          {esGranero && (
+          {esGranero && !graneroSinHerrajes && (
             <>
               {/* GUIA SUPERIOR */}
 
               <rect
                 x={left - 55}
-                y={top - 34}
+                y={top - 18}
                 width={ancho + 110}
                 height={10}
                 rx={999}
@@ -204,29 +210,29 @@ export function PuertasPlacaPreview({ config }: Props) {
 
               <rect
                 x={left + 22}
-                y={top - 26}
+                y={top - 10}
                 width={6}
-                height={32}
+                height={24}
                 rx={999}
                 fill="#121212"
               />
 
               <rect
                 x={left + ancho - 28}
-                y={top - 26}
+                y={top - 10}
                 width={6}
-                height={32}
+                height={24}
                 rx={999}
                 fill="#121212"
               />
 
               {/* RUEDAS */}
 
-              <circle cx={left + 25} cy={top - 29} r={10} fill="#0F0F0F" />
+              <circle cx={left + 25} cy={top - 14} r={10} fill="#0F0F0F" />
 
               <circle
                 cx={left + ancho - 25}
-                cy={top - 29}
+                cy={top - 14}
                 r={10}
                 fill="#0F0F0F"
               />
@@ -235,14 +241,14 @@ export function PuertasPlacaPreview({ config }: Props) {
 
               <circle
                 cx={left + 25}
-                cy={top - 29}
+                cy={top - 14}
                 r={3}
                 fill="rgba(255,255,255,0.12)"
               />
 
               <circle
                 cx={left + ancho - 25}
-                cy={top - 29}
+                cy={top - 14}
                 r={3}
                 fill="rgba(255,255,255,0.12)"
               />
@@ -304,27 +310,32 @@ export function PuertasPlacaPreview({ config }: Props) {
             width={ancho - 20}
             height={alto - 20}
             rx={6}
-            fill="url(#woodGradient)"
+            fill={
+              esGranero && graneroEsAluminio
+                ? "url(#aluminumGradient)"
+                : "url(#woodGradient)"
+            }
           />
 
           {/* VETAS */}
 
-          {Array.from({
-            length: 10,
-          }).map((_, index) => (
-            <rect
-              key={index}
-              x={left + 22 + index * 16}
-              y={top + 16}
-              width={2}
-              height={alto - 32}
-              fill="rgba(255,255,255,0.045)"
-            />
-          ))}
+          {!(esGranero && graneroEsAluminio) &&
+            Array.from({
+              length: 10,
+            }).map((_, index) => (
+              <rect
+                key={index}
+                x={left + 22 + index * 16}
+                y={top + 16}
+                width={2}
+                height={alto - 32}
+                fill="rgba(255,255,255,0.045)"
+              />
+            ))}
 
           {/* Z GRANERO */}
 
-          {esGranero && (
+          {esGranero && graneroEsZ && (
             <>
               <line
                 x1={left + 24}

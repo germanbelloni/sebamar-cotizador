@@ -40,9 +40,6 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
     case "finger_cedro":
       return "Finger / Cedro";
 
-    case "pino_cedro":
-      return "Pino / Cedro";
-
     case "cedro_cedro":
       return "Cedro / Cedro";
 
@@ -51,6 +48,18 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
 
     case "aluminio_cedro":
       return "Aluminio / Cedro";
+
+    case "granero_z":
+      return "Z";
+
+    case "granero_finger":
+      return "Finger";
+
+    case "granero_aluminio":
+      return "Aluminio";
+
+    case "granero_aluminio_sin_herrajes":
+      return "Aluminio sin herrajes";
 
     default:
       return modelo;

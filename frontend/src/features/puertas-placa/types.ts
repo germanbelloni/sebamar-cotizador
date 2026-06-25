@@ -7,7 +7,11 @@ export type PuertasPlacaModelo =
   | "finger_cedro"
   | "cedro_cedro"
   | "aluminio_pino"
-  | "aluminio_cedro";
+  | "aluminio_cedro"
+  | "granero_z"
+  | "granero_finger"
+  | "granero_aluminio"
+  | "granero_aluminio_sin_herrajes";
 
 export type PuertasPlacaMedida = "60x200" | "70x200" | "80x200";
 

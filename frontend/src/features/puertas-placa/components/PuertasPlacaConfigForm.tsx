@@ -10,6 +10,7 @@ import {
   MODELOS_MARCO_10,
   MODELOS_MARCO_15,
   TIPOS_PUERTA_PLACA,
+  MODELOS_GRANERO,
 } from "../constants";
 
 import { PUERTAS_PLACA_UI } from "../ui";
@@ -58,8 +59,7 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
     setConfig,
   });
 
-  const { medidasValidas, medidasInvalidas } =
-    usePuertasPlacaValidation(config);
+  const { medidasValidas } = usePuertasPlacaValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
@@ -84,7 +84,7 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
     value: PuertasPlacaConfig["modelo"];
   }[] =
     config.tipo === "granero"
-      ? MODELOS_MARCO_15
+      ? MODELOS_GRANERO
       : config.marco === "aluminio"
         ? MODELOS_ALUMINIO
         : config.marco === "marco_10"
@@ -119,10 +119,10 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
                       tipo.value === "embutir"
                         ? "marco_15"
                         : tipo.value === "granero"
-                          ? "marco_15"
+                          ? "marco_15" // dummy, granero no usa marco
                           : "marco_10",
-
-                    modelo: "finger_pino",
+                    modelo:
+                      tipo.value === "granero" ? "granero_z" : "finger_pino",
                   })
                 }
               >

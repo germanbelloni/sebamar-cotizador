@@ -243,6 +243,28 @@ export const MODELOS_ALUMINIO: {
   },
 ];
 
+export const MODELOS_GRANERO: {
+  label: string;
+  value: PuertasPlacaModelo;
+}[] = [
+  {
+    label: "Z",
+    value: "granero_z",
+  },
+  {
+    label: "Finger",
+    value: "granero_finger",
+  },
+  {
+    label: "Aluminio",
+    value: "granero_aluminio",
+  },
+  {
+    label: "Aluminio sin herrajes",
+    value: "granero_aluminio_sin_herrajes",
+  },
+];
+
 export const initialPuertasPlacaConfig: PuertasPlacaConfig = {
   ancho: 80,
 
