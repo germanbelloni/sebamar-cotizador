@@ -184,8 +184,17 @@ function App() {
   );
   /* PUERTAS */
 
-  const [puertasConfig, setPuertasConfig] =
+  const [puertasConfig, setPuertasConfigState] =
     useState<PuertasConfig>(initialPuertasConfig);
+
+  const setPuertasConfig = (
+    value: PuertasConfig | ((prev: PuertasConfig) => PuertasConfig),
+  ) => {
+    console.log("SET PUERTAS CONFIG:", value);
+
+    setPuertasConfigState(value);
+  };
+  console.log("APP puertasConfig:", puertasConfig);
 
   /* PUERTAS PLACA */
   const [puertasPlacaConfig, setPuertasPlacaConfig] =

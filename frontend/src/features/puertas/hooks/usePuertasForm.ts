@@ -30,13 +30,13 @@ export function usePuertasForm({ config, setConfig }: Props) {
 
     return "3mm";
   }
-
   const switchLinea = (linea: PuertasConfig["linea"]) => {
+    console.log("SWITCH LINEA:", linea);
+
     updateConfig({
       linea,
       modelo: getDefaultModelo(linea),
       vidrio: getDefaultVidrio(linea) as PuertasConfig["vidrio"],
-
       extras: {
         barralRecto: 0,
         barralCurvo: 0,
