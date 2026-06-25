@@ -6,9 +6,7 @@ import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 
 type CotizacionResponse = {
   precioVenta?: number;
-
   precioFinal?: number;
-
   subtotal?: number;
 };
 
@@ -29,9 +27,7 @@ export function createPuertasBudgetItem(
 
     metadata: {
       linea: config.linea,
-
       color: config.color,
-
       vidrio: config.vidrio,
     },
 
@@ -86,21 +82,29 @@ function buildDescription(config: PuertasConfig) {
 
     case "porton":
       parts.push("Portón");
+      parts.push(`(${capitalize(config.tipoPorton)})`);
       break;
   }
 
-  parts.push(config.modelo.replaceAll("_", " ").toUpperCase());
+  parts.push(formatModelo(config.modelo));
 
-  if (config.tipoConfiguracion === "porton") {
-    parts.push(`(${config.tipoPorton})`);
+  if (
+    config.tipoConfiguracion === "puerta_y_media" &&
+    config.modeloMediaPuerta
+  ) {
+    parts.push(`Media: ${formatModelo(config.modeloMediaPuerta)}`);
   }
 
   const modeloSinVidrio =
-    config.modelo === "modelo_5" || config.modelo === "modelo_panel";
+    config.modelo === "modelo_5" ||
+    config.modelo === "modelo_panel" ||
+    config.modelo === "modelo_c_panel";
 
   if (!modeloSinVidrio && config.vidrio) {
-    parts.push(`Vidrio ${config.vidrio}`);
+    parts.push(`Vidrio ${formatVidrio(config.vidrio)}`);
   }
+
+  parts.push(`Mano ${capitalize(config.mano)}`);
 
   parts.push(capitalize(config.color));
 
@@ -115,4 +119,20 @@ function buildDescription(config: PuertasConfig) {
 
 function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function formatModelo(modelo: string) {
+  return modelo.replaceAll("_", " ");
+}
+
+function formatVidrio(vidrio: string) {
+  if (vidrio === "dvh_4_9_4") {
+    return "DVH 4+9+4";
+  }
+
+  if (vidrio === "dvh_5_9_5") {
+    return "DVH 5+9+5";
+  }
+
+  return vidrio;
 }

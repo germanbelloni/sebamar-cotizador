@@ -66,10 +66,6 @@ export function buildPuertasDescription(config: PuertasConfig) {
     parts.push("Media manija");
   }
 
-  if (config.extras.manija) {
-    parts.push("Manija");
-  }
-
   if (config.extras.picaporte) {
     parts.push("Picaporte");
   }

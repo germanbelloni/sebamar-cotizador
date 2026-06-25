@@ -280,7 +280,7 @@ export const initialPuertasConfig: PuertasConfig = {
 
   tipoPorton: "abrir",
 
-  modelo: "modelo_1",
+  modelo: "modelo_4",
 
   modeloMediaPuerta: "v_entero",
 
@@ -292,12 +292,11 @@ export const initialPuertasConfig: PuertasConfig = {
 
   anchoPrincipal: 80,
 
-  vidrio: "4mm",
+  vidrio: "3mm",
 
   extras: {
     barralRecto: 0,
     barralCurvo: 0,
-    manija: false,
     picaporte: false,
   },
 };

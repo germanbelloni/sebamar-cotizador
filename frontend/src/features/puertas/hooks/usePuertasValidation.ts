@@ -12,47 +12,42 @@ function getLimits(config: PuertasConfig): Limits {
   switch (config.tipoConfiguracion) {
     case "simple":
       return {
-        anchoMin: 70,
-        anchoMax: 110,
-
-        altoMin: 190,
-        altoMax: 250,
+        anchoMin: 60,
+        anchoMax: 100,
+        altoMin: 150,
+        altoMax: 210,
       };
 
     case "puerta_y_media":
       return {
-        anchoMin: 110,
-        anchoMax: 160,
-
-        altoMin: 190,
-        altoMax: 250,
+        anchoMin: 100,
+        anchoMax: 130,
+        altoMin: 150,
+        altoMax: 210,
       };
 
     case "doble":
       return {
         anchoMin: 140,
-        anchoMax: 220,
-
-        altoMin: 190,
-        altoMax: 250,
+        anchoMax: 180,
+        altoMin: 150,
+        altoMax: 210,
       };
 
     case "porton":
       return {
-        anchoMin: 180,
+        anchoMin: 210,
         anchoMax: 400,
-
-        altoMin: 180,
-        altoMax: 300,
+        altoMin: 150,
+        altoMax: 210,
       };
 
     default:
       return {
-        anchoMin: 70,
+        anchoMin: 60,
         anchoMax: 400,
-
-        altoMin: 180,
-        altoMax: 300,
+        altoMin: 150,
+        altoMax: 210,
       };
   }
 }

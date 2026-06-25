@@ -17,33 +17,26 @@ export type PuertaVidrio =
   | "fantasia"
   | "esmerilado"
   | "3+3"
-  | "dvh_4_9_4";
+  | "dvh_4_9_4"
+  | "dvh_5_9_5";
 
 export type PuertasExtras = {
   barralRecto?: number;
-
   barralCurvo?: number;
-
   mediaManija?: boolean;
-
-  manija?: boolean;
-
   picaporte?: boolean;
 };
 
 export type PuertasConfig = {
   ancho: number;
-
   alto: number;
 
   linea: PuertaLinea;
 
   tipoConfiguracion: PuertaTipoConfiguracion;
-
   tipoPorton: PuertaTipoPorton;
 
   modelo: string;
-
   modeloMediaPuerta?: string;
 
   color: "blanco" | "negro" | "bronce colonial" | "simil madera";
@@ -51,7 +44,6 @@ export type PuertasConfig = {
   mano: PuertaMano;
 
   hojas: number;
-
   anchoPrincipal: number;
 
   vidrio?: PuertaVidrio;
@@ -68,7 +60,6 @@ export type PuertasItem = {
 
   medidas: {
     ancho: number;
-
     alto: number;
   };
 
@@ -78,17 +69,14 @@ export type PuertasItem = {
 
   configuracion: {
     tipoConfiguracion: PuertaTipoConfiguracion;
-
     tipoPorton: PuertaTipoPorton;
 
     modelo: string;
-
     modeloMediaPuerta?: string;
 
     mano: PuertaMano;
 
     hojas: number;
-
     anchoPrincipal: number;
 
     vidrio?: PuertaVidrio;

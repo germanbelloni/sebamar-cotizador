@@ -39,7 +39,7 @@ function calcularVidrio(producto, tipoVidrio) {
   if (tipoVidrio === "dvh") {
     const vidrio4 = producto.vidrios?.["4mm"] || 0;
 
-    const camara = producto.camara || 0;
+    const camara = producto.dvh?.camara || 0;
 
     return vidrio4 * 2 + camara;
   }
@@ -77,13 +77,14 @@ function calcularVidrio(producto, tipoVidrio) {
 
 function calcularPuertas(dataInput) {
   const {
-    tipo = "simple",
+    configuracion = "simple",
     linea,
     modelo,
-    modeloPuerta,
     modeloMedia,
     tipoVidrio,
   } = dataInput;
+
+  const tipo = configuracion;
 
   const data = require(
     fromRoot(`backend/data/productos/puertas_${linea}.json`),
@@ -99,12 +100,8 @@ function calcularPuertas(dataInput) {
 
   let hojas = 1;
 
-  if (tipo === "doble") {
+  if (tipo === "doble" || tipo === "puerta_y_media") {
     hojas = 2;
-  }
-
-  if (tipo === "porton") {
-    hojas = Number(dataInput.hojas) || 2;
   }
 
   // ========================
@@ -112,7 +109,7 @@ function calcularPuertas(dataInput) {
   // ========================
 
   if (tipo === "puerta_y_media") {
-    const puerta = buscarModelo(data.modelos, modeloPuerta);
+    const puerta = buscarModelo(data.modelos, modelo);
 
     let media = null;
 
@@ -141,7 +138,7 @@ function calcularPuertas(dataInput) {
     items.push(
       {
         tipo: "estructura",
-        descripcion: modeloPuerta,
+        descripcion: modelo,
         precio: Math.round(puerta.base),
       },
 
@@ -220,9 +217,7 @@ function calcularPuertas(dataInput) {
     precioVenta: Math.round(costoBase),
 
     items,
-
-    descripcion: tipo === "porton" ? "Portón" : `Puerta ${linea}`,
-
+    descripcion: `Puerta ${linea}`,
     configuracion: {
       tipo,
 

@@ -27,17 +27,19 @@ export function LineaSelector({
 }: Props) {
   return (
     <div className="space-y-4">
-      <div>
-        <h3
-          className="
-            text-sm
-            font-medium
-            text-foreground
-          "
-        >
-          {label}
-        </h3>
-      </div>
+      {label && (
+        <div>
+          <h3
+            className="
+        text-sm
+        font-medium
+        text-foreground
+      "
+          >
+            {label}
+          </h3>
+        </div>
+      )}
 
       <div className="flex justify-center">
         <SegmentedControl value={value} onChange={onChange} options={options} />

@@ -5,8 +5,6 @@ type Props = {
 
   barralCurvo?: number;
 
-  manija?: boolean;
-
   picaporte?: boolean;
 
   mediaManija?: boolean;
@@ -14,8 +12,6 @@ type Props = {
   onToggleBarralRecto: () => void;
 
   onToggleBarralCurvo: () => void;
-
-  onToggleManija: () => void;
 
   onTogglePicaporte: () => void;
 
@@ -25,12 +21,10 @@ type Props = {
 export function PuertasExtrasSection({
   barralRecto,
   barralCurvo,
-  manija,
   picaporte,
   mediaManija,
   onToggleBarralRecto,
   onToggleBarralCurvo,
-  onToggleManija,
   onTogglePicaporte,
   onToggleMediaManija,
 }: Props) {
@@ -132,7 +126,11 @@ export function PuertasExtrasSection({
 
       {/* PICAPORTE */}
 
-      <SelectableCard selected={!!picaporte} onClick={onTogglePicaporte}>
+      <SelectableCard
+        disabled={tieneBarral}
+        selected={!!picaporte}
+        onClick={onTogglePicaporte}
+      > 
         <div className="space-y-2">
           <div
             className="
@@ -160,42 +158,6 @@ export function PuertasExtrasSection({
           </div>
 
           <div className="text-sm font-medium">Picaporte</div>
-        </div>
-      </SelectableCard>
-
-      {/* MANIJA */}
-
-      <SelectableCard selected={!!manija} onClick={onToggleManija}>
-        <div className="space-y-2">
-          <div
-            className="
-              flex
-              h-16
-              items-center
-              justify-center
-              rounded-xl
-              border border-white/5
-              bg-black/20
-            "
-          >
-            <svg width="38" height="38">
-              <path
-                d="M 14 10 L 14 28"
-                stroke="rgba(255,255,255,0.8)"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-
-              <path
-                d="M 14 19 L 26 19"
-                stroke="rgba(255,255,255,0.8)"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-
-          <div className="text-sm font-medium">Manija</div>
         </div>
       </SelectableCard>
     </div>

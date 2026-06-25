@@ -1,12 +1,10 @@
 import api from "@/lib/api";
 
 import type { PuertasConfig } from "../types";
-
 import { BACKEND_MODEL_MAPPINGS } from "../models/backendMappings";
 
 type CotizacionPuertasResponse = {
   precioVenta?: number;
-
   precioFinal?: number;
 };
 
@@ -21,47 +19,37 @@ function normalizeModelo(modelo?: string) {
 export async function cotizarPuertas(
   config: PuertasConfig,
 ): Promise<CotizacionPuertasResponse> {
-  const backendMappings =
-    BACKEND_MODEL_MAPPINGS[config.linea as keyof typeof BACKEND_MODEL_MAPPINGS];
+  const backendMappings = BACKEND_MODEL_MAPPINGS[config.linea];
 
   const backendModelo =
     backendMappings?.[config.modelo as keyof typeof backendMappings] ||
     normalizeModelo(config.modelo);
 
-  const backendModeloMedia =
-    backendMappings?.[
-      config.modeloMediaPuerta as keyof typeof backendMappings
-    ] || normalizeModelo(config.modeloMediaPuerta);
+  const backendModeloMedia = config.modeloMediaPuerta
+    ? backendMappings?.[
+        config.modeloMediaPuerta as keyof typeof backendMappings
+      ] || normalizeModelo(config.modeloMediaPuerta)
+    : undefined;
 
   const modeloSinVidrio =
     config.modelo === "modelo_5" || config.modelo === "modelo_panel";
 
   const body = {
     ancho: config.ancho,
-
     alto: config.alto,
 
     linea: config.linea,
 
-    tipo:
-      config.tipoConfiguracion === "porton"
-        ? config.tipoPorton
-        : config.tipoConfiguracion,
+    configuracion: config.tipoConfiguracion,
+    tipoPorton: config.tipoPorton,
 
     modelo: backendModelo,
-
-    modeloPuerta: backendModelo,
-
     modeloMedia: backendModeloMedia,
 
     color: config.color,
-
-    apertura: config.mano,
-
     mano: config.mano,
 
-    hojas: config.hojas || 1,
-
+    hojas: config.hojas,
     anchoPrincipal: config.anchoPrincipal,
 
     tipoVidrio: modeloSinVidrio ? undefined : config.vidrio,

@@ -111,7 +111,8 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       <div className="space-y-6">
         <FormSection title="Línea">
           <LineaSelector
-            value={config.linea}
+            label=""
+            value="herrero"
             options={PUERTAS_LINEAS}
             onChange={(value) => switchLinea(value as PuertasConfig["linea"])}
           />
@@ -119,6 +120,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Configuración">
           <LineaSelector
+            label=""
             value={config.tipoConfiguracion}
             options={PUERTAS_TIPOS}
             onChange={(value) => {
@@ -155,7 +157,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         </FormSection>
 
         <FormSection title="Medidas estándar">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {presets
               .filter((preset) => !preset.custom)
               .map((preset) => (
@@ -184,12 +186,14 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                     })
                   }
                 >
-                  <div className="text-sm font-medium">{preset.label}</div>
+                  <div className="flex h-14 items-center justify-center text-base font-semibold">
+                    {preset.label}
+                  </div>
                 </SelectableCard>
               ))}
           </div>
 
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             <SelectableCard
               selected={esFueraDeMedida}
               onClick={() =>
@@ -207,9 +211,22 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                 })
               }
             >
-              <div className="text-sm font-medium">Fuera de medida</div>
+              <div className="flex h-14 items-center justify-center text-base font-semibold">
+                Fuera de medida
+              </div>
             </SelectableCard>
           </div>
+        </FormSection>
+
+        <FormSection title="Mano">
+          <BisagraSelector
+            value={config.mano}
+            onChange={(value) =>
+              updateConfig({
+                mano: value as PuertasConfig["mano"],
+              })
+            }
+          />
         </FormSection>
 
         {esFueraDeMedida && (
@@ -265,7 +282,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
-        {esPuertaYMedia && (
+        {esPuertaYMedia && config.linea !== "eco" && (
           <FormSection title="Modelo media puerta">
             <div className="grid grid-cols-2 gap-3">
               {[
@@ -319,20 +336,10 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        <FormSection title="Mano">
-          <BisagraSelector
-            value={config.mano}
-            onChange={(value) =>
-              updateConfig({
-                mano: value as PuertasConfig["mano"],
-              })
-            }
-          />
-        </FormSection>
-
         {esPorton && (
           <FormSection title="Sistema">
             <LineaSelector
+              label=""
               value={config.tipoPorton}
               options={TIPOS_PORTON}
               onChange={(value) =>
@@ -348,17 +355,15 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           <PuertasExtrasSection
             barralRecto={config.extras.barralRecto}
             barralCurvo={config.extras.barralCurvo}
-            manija={config.extras.manija}
             picaporte={config.extras.picaporte}
             mediaManija={config.extras.mediaManija}
             onToggleBarralRecto={() =>
               updateConfig({
                 extras: {
                   ...config.extras,
-
                   barralRecto: config.extras.barralRecto ? 0 : 1,
-
                   barralCurvo: 0,
+                  picaporte: false,
                 },
               })
             }
@@ -366,19 +371,9 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
               updateConfig({
                 extras: {
                   ...config.extras,
-
                   barralCurvo: config.extras.barralCurvo ? 0 : 1,
-
                   barralRecto: 0,
-                },
-              })
-            }
-            onToggleManija={() =>
-              updateConfig({
-                extras: {
-                  ...config.extras,
-
-                  manija: !config.extras.manija,
+                  picaporte: false,
                 },
               })
             }
@@ -386,20 +381,28 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
               updateConfig({
                 extras: {
                   ...config.extras,
-
                   picaporte: !config.extras.picaporte,
+                  barralRecto: 0,
+                  barralCurvo: 0,
+                  mediaManija: false,
                 },
               })
             }
-            onToggleMediaManija={() =>
+            onToggleMediaManija={() => {
+              const tieneBarral =
+                !!config.extras.barralRecto || !!config.extras.barralCurvo;
+
+              if (!tieneBarral) {
+                return;
+              }
+
               updateConfig({
                 extras: {
                   ...config.extras,
-
                   mediaManija: !config.extras.mediaManija,
                 },
-              })
-            }
+              });
+            }}
           />
         </FormSection>
 

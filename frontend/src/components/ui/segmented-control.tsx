@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 type Option = {
   label: string;
 
@@ -8,19 +6,11 @@ type Option = {
 
 type Props = {
   value: string;
-
   options: Option[];
-
   onChange: (value: string) => void;
 };
 
-export function SegmentedControl({
-  value,
-
-  options,
-
-  onChange,
-}: Props) {
+export function SegmentedControl({ value, options, onChange }: Props) {
   return (
     <div
       className="
@@ -51,73 +41,28 @@ export function SegmentedControl({
             type="button"
             onClick={() => onChange(option.value)}
             className="
-              group
-
-              relative
-              z-10
-
-              min-w-[200px]
-
-              overflow-hidden
-
-              rounded-[26px]
-
-              px-10
-              py-6
-
-              transition-all
-              duration-300
-            "
+  group
+  relative
+  z-10
+  min-w-[200px]
+  overflow-hidden
+  rounded-[26px]
+  border border-yellow-500
+  px-10
+  py-6
+"
           >
             {/* Glow */}
             {active && (
-              <>
-                <motion.div
-                  layoutId="segmented-pill"
-                  transition={{
-                    type: "spring",
-
-                    stiffness: 280,
-
-                    damping: 24,
-                  }}
-                  className="
-                    absolute inset-0
-
-                    rounded-[26px]
-
-                    border border-[#39FF14]/25
-
-                    bg-gradient-to-br
-                    from-[#39FF14]/20
-                    via-[#39FF14]/10
-                    to-[#39FF14]/5
-
-                    shadow-[0_0_40px_rgba(57,255,20,0.28)]
-                  "
-                />
-
-                <motion.div
-                  layoutId="segmented-shine"
-                  transition={{
-                    duration: 0.45,
-                  }}
-                  className="
-                    absolute
-
-                    inset-y-0
-                    left-0
-
-                    w-[45%]
-
-                    skew-x-[-18deg]
-
-                    bg-white/10
-
-                    blur-xl
-                  "
-                />
-              </>
+              <div
+                className="
+      absolute
+      inset-0
+      rounded-[26px]
+      bg-lime-500
+      z-0
+    "
+              />
             )}
 
             {/* Hover glow */}
@@ -154,7 +99,7 @@ export function SegmentedControl({
                 ${
                   active
                     ? `
-                      text-white
+      text-black
 
                       drop-shadow-[0_0_12px_rgba(255,255,255,0.45)]
                     `

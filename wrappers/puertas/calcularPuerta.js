@@ -39,6 +39,43 @@ function aplicarPerfil(costo, p) {
   };
 }
 
+function aplicarRecargoMedidas(costo, dataInput) {
+  const { ancho, alto, configuracion = "simple" } = dataInput;
+
+  const limites = {
+    simple: { min: 60, max: 100 },
+    puerta_y_media: { min: 100, max: 130 },
+    doble: { min: 140, max: 180 },
+    porton: { min: 210, max: 400 },
+  };
+
+  const regla = limites[configuracion];
+
+  if (!regla) {
+    throw new Error("Configuración inválida");
+  }
+
+  if (ancho < regla.min || ancho > regla.max) {
+    throw new Error(
+      `Ancho inválido para ${configuracion}: ${regla.min}-${regla.max}`,
+    );
+  }
+
+  if (alto < 150 || alto > 210) {
+    throw new Error("Alto inválido: 150-210");
+  }
+
+  if (alto <= 200) {
+    return costo;
+  }
+
+  if (alto <= 205) {
+    return costo * 1.05;
+  }
+
+  return costo * 1.1;
+}
+
 // ========================
 // 🚀 WRAPPER
 // ========================
@@ -53,11 +90,26 @@ function calcularPuertaWrapper(dataInput) {
     extras = {},
     color = "blanco",
     linea,
-    tipo = "simple",
+    configuracion = "simple",
     modelo,
-    apertura,
-    hojas = 1,
+    mano = "derecha",
   } = dataInput;
+
+  const tipo = configuracion;
+
+  const tieneBarral = !!extras.barralRecto || !!extras.barralCurvo;
+
+  if (extras.picaporte && tieneBarral) {
+    throw new Error("Picaporte y barral no son compatibles");
+  }
+
+  if (extras.mediaManija && !tieneBarral) {
+    throw new Error("Media manija requiere barral");
+  }
+
+  if (extras.barralRecto && extras.barralCurvo) {
+    throw new Error("Solo puede elegirse un barral");
+  }
 
   // ========================
   // 🚪 BASE
@@ -65,7 +117,7 @@ function calcularPuertaWrapper(dataInput) {
 
   const base = calcularPuertas(dataInput);
 
-  let costo = Number(base.costoBase || 0);
+  costo = aplicarRecargoMedidas(costo, dataInput);
 
   const items = [...base.items];
 
@@ -97,8 +149,7 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
 
   if (extras.barralRecto) {
-    const extra =
-      (superficies.herrajes?.barral_recto || 0) * extras.barralRecto;
+    const extra = (superficies.barrales?.recto || 0) * extras.barralRecto;
 
     costo += extra;
 
@@ -109,24 +160,12 @@ function calcularPuertaWrapper(dataInput) {
   }
 
   if (extras.barralCurvo) {
-    const extra =
-      (superficies.herrajes?.barral_curvo || 0) * extras.barralCurvo;
+    const extra = (superficies.barrales?.curvo || 0) * extras.barralCurvo;
 
     costo += extra;
 
     items.push({
       tipo: "barral_curvo",
-      precio: Math.round(extra),
-    });
-  }
-
-  if (extras.manija) {
-    const extra = superficies.herrajes?.manija_metalica || 0;
-
-    costo += extra;
-
-    items.push({
-      tipo: "manija",
       precio: Math.round(extra),
     });
   }
@@ -138,6 +177,17 @@ function calcularPuertaWrapper(dataInput) {
 
     items.push({
       tipo: "picaporte",
+      precio: Math.round(extra),
+    });
+  }
+
+  if (extras.mediaManija) {
+    const extra = superficies.herrajes?.picaporte?.media_manija || 0;
+
+    costo += extra;
+
+    items.push({
+      tipo: "media_manija",
       precio: Math.round(extra),
     });
   }
@@ -217,17 +267,11 @@ function calcularPuertaWrapper(dataInput) {
       svg: {
         tipo: "puerta",
 
-        apertura: apertura || "derecha",
+        apertura: mano,
 
         hojas: base.configuracion?.hojas || hojas || 1,
 
-        manija: extras.manija
-          ? {
-              tipo: "manija",
-              svgKey: "manija_standard",
-            }
-          : null,
-
+        manija: null,
         barral: extras.barralRecto
           ? {
               tipo: "recto",

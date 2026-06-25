@@ -42,17 +42,19 @@
 
   "barrales": {
     "recto": 16500,
-    "curvo": 22000,
-    "manija": 12000
+    "curvo": 22000
   },
-
   "herrajes": {
     "corredizo": 550000,
     "plegadizo": 400000,
+
     "picaporte": {
       "herrero": 4000,
       "modena": 12000
     },
+
+    "media_manija": 11500,
+
     "cerradura": {
       "herrero": 0,
       "modena": 0
