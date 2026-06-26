@@ -112,7 +112,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         <FormSection title="Línea">
           <LineaSelector
             label=""
-            value="herrero"
+            value={config.linea}
             options={PUERTAS_LINEAS}
             onChange={(value) => switchLinea(value as PuertasConfig["linea"])}
           />

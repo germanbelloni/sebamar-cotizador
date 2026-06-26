@@ -3,40 +3,35 @@ import type { PortonesConfig } from "../types";
 import { PORTONES_UI } from "../ui";
 
 import { usePortonesForm } from "../hooks/usePortonesForm";
-
 import { usePortonesValidation } from "../hooks/usePortonesValidation";
-
 import { useCotizarPortones } from "../hooks/useCotizarPortones";
-
 import { createPortonesBudgetItem } from "../utils/createPortonesBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
-
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
-
 import { FormSection } from "@/shared/sections/FormSection";
-
 import { FormFooter } from "@/shared/sections/FormFooter";
-
 import { DimensionsSection } from "@/shared/sections/DimensionsSection";
-
 import { LineaSelector } from "@/shared/selectors/LineaSelector";
-
 import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
-
 import { ColorSelector } from "@/shared/selectors/ColorSelector";
-
 import { AlertBox } from "@/shared/components/AlertBox";
-
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
-
 import { SelectableCard } from "@/components/ui/selectable-card";
 
 type Props = {
   config: PortonesConfig;
-
   setConfig: React.Dispatch<React.SetStateAction<PortonesConfig>>;
 };
+
+const MODELOS = [
+  "modelo 1",
+  "modelo 2",
+  "modelo 3",
+  "modelo 4",
+  "modelo 4 vr",
+  "modelo 5",
+];
 
 export function PortonesConfigForm({ config, setConfig }: Props) {
   const cotizacionMutation = useCotizarPortones();
@@ -48,6 +43,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
     altoInput,
     handleAnchoChange,
     handleAltoChange,
+    hojasDisponibles,
   } = usePortonesForm({
     config,
     setConfig,
@@ -58,16 +54,21 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
-
     config,
-
     createItem: createPortonesBudgetItem,
   });
 
+  const tieneBarral =
+    !!config.extras?.barralRecto || !!config.extras?.barralCurvo;
+
+  const permiteDobleTravesano =
+    config.sistema === "abrir" &&
+    ["modelo 4", "modelo 4 vr", "modelo 5"].includes(config.modelo);
+
   return (
-    <ProductFormLayout title={PORTONES_UI.title}>
+    <ProductFormLayout title="Portones">
       <div className="space-y-6">
-        <FormSection title={PORTONES_UI.sections.sistema}>
+        <FormSection title="Sistema">
           <div className="space-y-4">
             <LineaSelector
               value={config.linea}
@@ -77,7 +78,11 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
 
             <LineaSelector
               value={config.sistema}
-              options={PORTONES_UI.selectors?.sistemas || []}
+              options={[
+                { label: "Abrir", value: "abrir" },
+                { label: "Corredizo", value: "corredizo" },
+                { label: "Plegadizo", value: "plegadizo" },
+              ]}
               onChange={(value) =>
                 updateConfig({
                   sistema: value as PortonesConfig["sistema"],
@@ -87,7 +92,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
-        <FormSection title={PORTONES_UI.sections.medidas}>
+        <FormSection title="Medidas">
           <DimensionsSection
             anchoInput={anchoInput}
             altoInput={altoInput}
@@ -102,13 +107,39 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        {!medidasValidas && (
-          <AlertBox type="error">
-            {PORTONES_UI.messages?.invalidMeasures}
-          </AlertBox>
-        )}
+        <FormSection title="Cantidad de hojas">
+          <div className="grid grid-cols-4 gap-3">
+            {hojasDisponibles.map((hojas) => (
+              <SelectableCard
+                key={hojas}
+                selected={config.hojas === hojas}
+                onClick={() =>
+                  updateConfig({
+                    hojas: hojas as PortonesConfig["hojas"],
+                  })
+                }
+              >
+                {hojas} hojas
+              </SelectableCard>
+            ))}
+          </div>
+        </FormSection>
 
-        <FormSection title={PORTONES_UI.sections.vidrio}>
+        <FormSection title="Modelo">
+          <div className="grid grid-cols-2 gap-3">
+            {MODELOS.map((modelo) => (
+              <SelectableCard
+                key={modelo}
+                selected={config.modelo === modelo}
+                onClick={() => updateConfig({ modelo })}
+              >
+                {modelo}
+              </SelectableCard>
+            ))}
+          </div>
+        </FormSection>
+
+        <FormSection title="Vidrio">
           <VidrioSelector
             value={config.tipoVidrio || "4mm"}
             options={["3mm", "4mm", "5mm", "3+3", "DVH 4+9+4", "DVH 5+9+5"]}
@@ -120,29 +151,104 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        <FormSection title={PORTONES_UI.sections.extras}>
+        <FormSection title="Extras">
           <div className="grid grid-cols-2 gap-3">
             <SelectableCard
-              selected={config.automatizado}
+              selected={!!config.extras.barralRecto}
               onClick={() =>
                 updateConfig({
-                  automatizado: !config.automatizado,
+                  extras: {
+                    ...config.extras,
+                    barralRecto: config.extras.barralRecto ? 0 : 1,
+                    barralCurvo: 0,
+                    picaporte: false,
+                    mediaManija: false,
+                  },
                 })
               }
             >
-              Automatizado
+              Barral recto
             </SelectableCard>
 
             <SelectableCard
-              selected={config.guiaInferior}
+              selected={!!config.extras.barralCurvo}
               onClick={() =>
                 updateConfig({
-                  guiaInferior: !config.guiaInferior,
+                  extras: {
+                    ...config.extras,
+                    barralCurvo: config.extras.barralCurvo ? 0 : 1,
+                    barralRecto: 0,
+                    picaporte: false,
+                    mediaManija: false,
+                  },
                 })
               }
             >
-              Guía inferior
+              Barral curvo
             </SelectableCard>
+
+            <SelectableCard
+              selected={!!config.extras.picaporte}
+              onClick={() =>
+                updateConfig({
+                  extras: {
+                    ...config.extras,
+                    picaporte: !config.extras.picaporte,
+                    barralRecto: 0,
+                    barralCurvo: 0,
+                    mediaManija: false,
+                  },
+                })
+              }
+            >
+              Picaporte
+            </SelectableCard>
+
+            {tieneBarral && (
+              <SelectableCard
+                selected={!!config.extras.mediaManija}
+                onClick={() =>
+                  updateConfig({
+                    extras: {
+                      ...config.extras,
+                      mediaManija: !config.extras.mediaManija,
+                    },
+                  })
+                }
+              >
+                Media manija
+              </SelectableCard>
+            )}
+
+            <SelectableCard
+              selected={!!config.extras.cartelprohibido}
+              onClick={() =>
+                updateConfig({
+                  extras: {
+                    ...config.extras,
+                    cartelprohibido: !config.extras.cartelprohibido,
+                  },
+                })
+              }
+            >
+              Cartel prohibido
+            </SelectableCard>
+
+            {permiteDobleTravesano && (
+              <SelectableCard
+                selected={!!config.extras.dobleTravesano}
+                onClick={() =>
+                  updateConfig({
+                    extras: {
+                      ...config.extras,
+                      dobleTravesano: !config.extras.dobleTravesano,
+                    },
+                  })
+                }
+              >
+                Doble travesaño
+              </SelectableCard>
+            )}
           </div>
         </FormSection>
 
@@ -157,10 +263,12 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
+        {!medidasValidas && (
+          <AlertBox type="error">Medidas / sistema / hojas inválidos.</AlertBox>
+        )}
+
         {cotizacionMutation.isError && (
-          <AlertBox type="error">
-            {PORTONES_UI.messages?.quotationError}
-          </AlertBox>
+          <AlertBox type="error">Error al cotizar portón.</AlertBox>
         )}
 
         <FormFooter>
@@ -169,12 +277,12 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PORTONES_UI.actions?.addToBudget}
+            Agregar al presupuesto
           </PrimaryButton>
 
           {medidasInvalidas && (
             <AlertBox type="error">
-              {PORTONES_UI.messages?.reviewLimits}
+              Revisá medidas y cantidad de hojas.
             </AlertBox>
           )}
         </FormFooter>

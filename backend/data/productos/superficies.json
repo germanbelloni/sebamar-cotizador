@@ -37,7 +37,8 @@
     "oscilobatiente": 100000,
     "cp8": 4000,
     "volcable": 4000,
-    "brazo_de_empuje": 4000
+    "brazo_de_empuje": 4000,
+    "cartelprohibido": 5000
   },
 
   "barrales": {
@@ -47,6 +48,9 @@
   "herrajes": {
     "corredizo": 550000,
     "plegadizo": 400000,
+    "corredizo_mas_3": 850000,
+    "plegadizo_mas_3": 800000,
+    "bisagra_extra": 4000,
 
     "picaporte": {
       "herrero": 4000,

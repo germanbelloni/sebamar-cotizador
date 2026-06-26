@@ -114,13 +114,13 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
   // 🚪 BASE
   // ========================
-
   const base = calcularPuertas(dataInput);
+
+  let costo = Number(base.costoBase || 0);
 
   costo = aplicarRecargoMedidas(costo, dataInput);
 
   const items = [...base.items];
-
   // ========================
   // 🎨 COLOR
   // SOLO ESTRUCTURA
@@ -171,7 +171,7 @@ function calcularPuertaWrapper(dataInput) {
   }
 
   if (extras.picaporte) {
-    const extra = superficies.herrajes?.picaporte?.[linea] || 0;
+    const extra = superficies.herrajes?.media_manija || 0;
 
     costo += extra;
 
@@ -188,38 +188,6 @@ function calcularPuertaWrapper(dataInput) {
 
     items.push({
       tipo: "media_manija",
-      precio: Math.round(extra),
-    });
-  }
-
-  // ========================
-  // 🚪 HERRAJE CORREDIZO
-  // SOLO PORTONES 3+ HOJAS
-  // ========================
-
-  if (tipo === "corredizo" && Number(hojas) >= 3) {
-    const extra = superficies.herrajes?.corredizo || 0;
-
-    costo += extra;
-
-    items.push({
-      tipo: "herraje_corredizo",
-      precio: Math.round(extra),
-    });
-  }
-
-  // ========================
-  // 🚪 HERRAJE PLEGADIZO
-  // SOLO PORTONES 3+ HOJAS
-  // ========================
-
-  if (tipo === "plegadizo" && Number(hojas) >= 3) {
-    const extra = superficies.herrajes?.plegadizo || 0;
-
-    costo += extra;
-
-    items.push({
-      tipo: "herraje_plegadizo",
       precio: Math.round(extra),
     });
   }
@@ -256,7 +224,7 @@ function calcularPuertaWrapper(dataInput) {
     configuracion: {
       tipo,
 
-      hojas: base.configuracion?.hojas || hojas || 1,
+      hojas: base.configuracion?.hojas || 1,
 
       linea,
 
@@ -269,7 +237,7 @@ function calcularPuertaWrapper(dataInput) {
 
         apertura: mano,
 
-        hojas: base.configuracion?.hojas || hojas || 1,
+        hojas: base.configuracion?.hojas || 1,
 
         manija: null,
         barral: extras.barralRecto

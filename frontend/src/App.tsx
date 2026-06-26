@@ -195,6 +195,7 @@ function App() {
     setPuertasConfigState(value);
   };
   console.log("APP puertasConfig:", puertasConfig);
+  console.log("APP puertas linea:", puertasConfig.linea);
 
   /* PUERTAS PLACA */
   const [puertasPlacaConfig, setPuertasPlacaConfig] =

@@ -120,7 +120,23 @@ function calcularPuertas(dataInput) {
 
       media = buscarModelo(mediasData.medias, modeloMedia);
     } else {
-      media = puerta;
+      const factor70 = 0.93; // 70 = 80 - 7%
+
+      media = {
+        ...puerta,
+        base: Math.round((puerta.base || 0) * factor70),
+        vidrios: Object.fromEntries(
+          Object.entries(puerta.vidrios || {}).map(([key, value]) => [
+            key,
+            Math.round(Number(value || 0) * factor70),
+          ]),
+        ),
+        dvh: puerta.dvh
+          ? {
+              camara: Math.round(Number(puerta.dvh.camara || 0) * factor70),
+            }
+          : undefined,
+      };
     }
 
     if (!puerta || !media) {
