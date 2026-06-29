@@ -81,8 +81,10 @@ function calcularPuertas(dataInput) {
     linea,
     modelo,
     modeloMedia,
+    modeloMediaPuerta,
     tipoVidrio,
   } = dataInput;
+  const modeloMediaFinal = modeloMediaPuerta || modeloMedia;
 
   const tipo = configuracion;
 
@@ -114,11 +116,39 @@ function calcularPuertas(dataInput) {
     let media = null;
 
     if (linea === "herrero") {
-      const mediasData = require(
-        fromRoot("backend/data/productos/puertas_media_herrero.json"),
-      );
+      if (modeloMediaFinal === "ciega") {
+        const modeloCiego = buscarModelo(data.modelos, "modelo 5");
 
-      media = buscarModelo(mediasData.medias, modeloMedia);
+        if (!modeloCiego) {
+          throw new Error("Modelo 5 no encontrado para media ciega");
+        }
+
+        const factor70 = 0.93;
+
+        media = {
+          ...modeloCiego,
+          base: Math.round((modeloCiego.base || 0) * factor70),
+          vidrios: Object.fromEntries(
+            Object.entries(modeloCiego.vidrios || {}).map(([key, value]) => [
+              key,
+              Math.round(Number(value || 0) * factor70),
+            ]),
+          ),
+          dvh: modeloCiego.dvh
+            ? {
+                camara: Math.round(
+                  Number(modeloCiego.dvh.camara || 0) * factor70,
+                ),
+              }
+            : undefined,
+        };
+      } else {
+        const mediasData = require(
+          fromRoot("backend/data/productos/puertas_media_herrero.json"),
+        );
+
+        media = buscarModelo(mediasData.medias, modeloMediaFinal);
+      }
     } else {
       const factor70 = 0.93; // 70 = 80 - 7%
 
@@ -166,7 +196,7 @@ function calcularPuertas(dataInput) {
 
       {
         tipo: "estructura",
-        descripcion: modeloMedia,
+        descripcion: modeloMediaFinal,
         precio: Math.round(media.base),
       },
 

@@ -46,12 +46,13 @@ import { PuertasExtrasSection } from "./sections/PuertasExtrasSection";
 
 import { getAvailableDoorModels } from "../models/utils/getAvailableDoorModels";
 
-import { MODELOS_PUERTAS_CONFIG } from "../models/registry";
+import { ModelImageCard } from "./ModelImageCard";
 
-import { DoorRenderer } from "../svg/components/DoorRenderer";
+import { PUERTAS_IMAGE_REGISTRY } from "../models/imageRegistry";
 
-import { DoorPreviewCard } from "../svg/components/DoorPreviewCard";
+import { MEDIA_DOOR_REGISTRY } from "../models/mediaDoorRegistry";
 
+import { MediaDoorPreview } from "./MediaDoorPreview";
 type Props = {
   config: PuertasConfig;
 
@@ -85,6 +86,18 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
   });
 
   const modelos = getAvailableDoorModels(config.linea);
+  const modelosVisuales = [...modelos];
+
+  const indexPanel = modelosVisuales.indexOf("modelo_panel");
+
+  if (indexPanel !== -1) {
+    modelosVisuales.splice(
+      indexPanel + 1,
+      0,
+      "modelo_panel_barral_recto",
+      "modelo_panel_barral_curvo",
+    );
+  }
 
   const vidrios = VIDRIOS_POR_LINEA[config.linea];
 
@@ -93,6 +106,90 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
   const esPorton = config.tipoConfiguracion === "porton";
 
   const esPuertaYMedia = config.tipoConfiguracion === "puerta_y_media";
+
+  const getImageSrc = (modelo: string) => {
+    let normalized = modelo
+      .replace("modelo_", "m")
+      .replaceAll(" ", "")
+      .replaceAll("_", "");
+
+    // ========================
+    // HACK PANEL + BARRAL
+    // ========================
+    if (modelo === "modelo_panel") {
+      if (config.extras?.barralRecto) {
+        normalized = "mpanelbarralrecto";
+      }
+
+      if (config.extras?.barralCurvo) {
+        normalized = "mpanelbarralcurvo";
+      }
+
+      if (!config.extras?.barralRecto && !config.extras?.barralCurvo) {
+        normalized = "mpanel";
+      }
+    }
+
+    let folder: "simples" | "dobles" | "portones" = "simples";
+
+    if (config.tipoConfiguracion === "doble") {
+      folder = "dobles";
+    }
+
+    if (config.tipoConfiguracion === "porton") {
+      folder = "portones";
+    }
+
+    const filename =
+      PUERTAS_IMAGE_REGISTRY[folder][
+        normalized as keyof (typeof PUERTAS_IMAGE_REGISTRY)[typeof folder]
+      ];
+
+    if (!filename) {
+      return "";
+    }
+
+    return `/src/assets/puertas/${folder}/${filename}.png`;
+  };
+
+  const getModeloLabel = (modelo: string) => {
+    if (modelo === "modelo_panel") {
+      return "Panel";
+    }
+
+    if (modelo === "modelo_panel_barral_recto") {
+      return "Panel + Barral Recto";
+    }
+
+    if (modelo === "modelo_panel_barral_curvo") {
+      return "Panel + Barral Curvo";
+    }
+
+    return modelo
+      .replace("modelo_", "M")
+      .replaceAll("_vr", " VR")
+      .replaceAll("_", " ");
+  };
+
+  const isModeloSelected = (modelo: string) => {
+    if (modelo === "modelo_panel") {
+      return (
+        config.modelo === "modelo_panel" &&
+        !config.extras?.barralRecto &&
+        !config.extras?.barralCurvo
+      );
+    }
+
+    if (modelo === "modelo_panel_barral_recto") {
+      return config.modelo === "modelo_panel" && !!config.extras?.barralRecto;
+    }
+
+    if (modelo === "modelo_panel_barral_curvo") {
+      return config.modelo === "modelo_panel" && !!config.extras?.barralCurvo;
+    }
+
+    return config.modelo === modelo;
+  };
 
   const modeloSinVidrio =
     config.modelo === "modelo_5" ||
@@ -218,6 +315,10 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
+        <AlertBox type="warning">
+          Vista exterior: mano y apertura siempre se interpretan desde AFUERA
+          EMPUJANDO.
+        </AlertBox>
         <FormSection title="Mano">
           <BisagraSelector
             value={config.mano}
@@ -247,64 +348,106 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         )}
 
         <FormSection title="Modelo">
-          <div className="grid grid-cols-2 gap-3">
-            {modelos.map((modelo: string) => (
-              <DoorPreviewCard
+          <div className="grid grid-cols-4 gap-3">
+            {modelosVisuales.map((modelo: string) => (
+              <ModelImageCard
                 key={modelo}
-                label={modelo.replaceAll("_", " ")}
-                selected={config.modelo === modelo}
-                onClick={() =>
+                imageSrc={getImageSrc(modelo)}
+                label={getModeloLabel(modelo)}
+                selected={isModeloSelected(modelo)}
+                onClick={() => {
+                  if (modelo === "modelo_panel") {
+                    updateConfig({
+                      modelo: "modelo_panel",
+                      extras: {
+                        ...config.extras,
+                        barralRecto: 0,
+                        barralCurvo: 0,
+                        picaporte: false,
+                        mediaManija: false,
+                      },
+                    });
+                    return;
+                  }
+
+                  if (modelo === "modelo_panel_barral_recto") {
+                    updateConfig({
+                      modelo: "modelo_panel",
+                      extras: {
+                        ...config.extras,
+                        barralRecto: 1,
+                        barralCurvo: 0,
+                        picaporte: false,
+                        mediaManija: false,
+                      },
+                    });
+                    return;
+                  }
+
+                  if (modelo === "modelo_panel_barral_curvo") {
+                    updateConfig({
+                      modelo: "modelo_panel",
+                      extras: {
+                        ...config.extras,
+                        barralRecto: 0,
+                        barralCurvo: 1,
+                        picaporte: false,
+                        mediaManija: false,
+                      },
+                    });
+                    return;
+                  }
+
                   updateConfig({
                     modelo,
-                  })
-                }
-              >
-                <svg
-                  viewBox="0 0 140 240"
-                  className="h-full w-full pointer-events-none"
-                >
-                  <DoorRenderer
-                    config={config}
-                    model={
-                      MODELOS_PUERTAS_CONFIG[
-                        modelo as keyof typeof MODELOS_PUERTAS_CONFIG
-                      ]
-                    }
-                    color="#D6D3D1"
-                    x={38}
-                    y={14}
-                    width={64}
-                    height={210}
-                  />
-                </svg>
-              </DoorPreviewCard>
+                  });
+                }}
+              />
             ))}
           </div>
         </FormSection>
 
         {esPuertaYMedia && config.linea !== "eco" && (
           <FormSection title="Modelo media puerta">
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                "v_entero",
-                "v_repartido",
-                "3_4_v_entero",
-                "3_4_v_repartido",
-                "1_2_v_entero",
-                "1_2_v_repartido",
-                "4_travesanos",
-                "1_travesano",
-              ].map((modelo) => (
+            <div className="grid grid-cols-3 gap-3">
+              {Object.entries(MEDIA_DOOR_REGISTRY).map(([key, item]) => (
                 <SelectableCard
-                  key={modelo}
-                  selected={config.modeloMediaPuerta === modelo}
+                  key={key}
+                  selected={config.modeloMediaPuerta === key}
                   onClick={() =>
                     updateConfig({
-                      modeloMediaPuerta: modelo,
+                      modeloMediaPuerta: key,
                     })
                   }
                 >
-                  {modelo.replaceAll("_", " ")}
+                  <div className="flex min-h-[180px] flex-col items-center justify-center gap-3">
+                    <div
+                      className="
+        flex
+        h-32
+        w-full
+        items-center
+        justify-center
+        rounded-xl
+        border
+        border-white/10
+        bg-black/20
+        p-2
+      "
+                    >
+                      <MediaDoorPreview
+                        model={
+                          key as React.ComponentProps<
+                            typeof MediaDoorPreview
+                          >["model"]
+                        }
+                      />
+                    </div>
+
+                    <div className="text-center text-xs font-medium">
+                      {item.label}
+                    </div>
+                  </div>
                 </SelectableCard>
               ))}
             </div>
@@ -353,6 +496,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Extras">
           <PuertasExtrasSection
+            esModeloPanel={config.modelo === "modelo_panel"}
             barralRecto={config.extras.barralRecto}
             barralCurvo={config.extras.barralCurvo}
             picaporte={config.extras.picaporte}

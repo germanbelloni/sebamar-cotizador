@@ -1,5 +1,9 @@
 import type { LineaAluminio } from "@/shared/types/lineas";
 
+export type PortonMano = "izquierda" | "derecha";
+
+export type PortonHojaPrincipal = 1 | 2 | 3 | 4 | 5 | 6;
+
 export type PortonSistema = "abrir" | "corredizo" | "plegadizo";
 
 export type PortonVidrio = "3mm" | "4mm" | "5mm" | "3+3" | "dvh" | "dvh_5_9_5";
@@ -23,6 +27,10 @@ export type PortonesConfig = {
   sistema: PortonSistema;
 
   hojas: 3 | 4 | 5 | 6;
+
+  mano: PortonMano;
+
+  hojaPrincipal: PortonHojaPrincipal;
 
   modelo: string;
 
@@ -53,6 +61,10 @@ export type PortonesItem = {
     sistema: PortonSistema;
 
     hojas: 3 | 4 | 5 | 6;
+
+    mano: PortonMano;
+
+    hojaPrincipal: PortonHojaPrincipal;
 
     modelo: string;
 

@@ -189,7 +189,10 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             />
           </FormSection>
         )}
-
+        <AlertBox type="warning">
+          Vista interior: la apertura de rajas siempre se interpreta desde
+          adentro.
+        </AlertBox>
         <FormSection title={RAJAS_UI.sections.colores}>
           <ColorSelector
             value={config.color}
