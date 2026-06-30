@@ -235,7 +235,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                 tipoConfiguracion: tipo,
 
                 hojas,
-
                 ancho:
                   tipo === "simple"
                     ? 80

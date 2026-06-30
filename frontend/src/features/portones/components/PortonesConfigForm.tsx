@@ -18,7 +18,7 @@ import { ColorSelector } from "@/shared/selectors/ColorSelector";
 import { AlertBox } from "@/shared/components/AlertBox";
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 import { SelectableCard } from "@/components/ui/selectable-card";
-import { PortonManoSelector } from "./PortonManoSelector";
+import { PortonBlueprintSelector } from "./PortonBlueprintSelector";
 
 type Props = {
   config: PortonesConfig;
@@ -67,6 +67,19 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
   const permiteDobleTravesano =
     config.sistema === "abrir" &&
     ["modelo 4", "modelo 4 vr", "modelo 5"].includes(config.modelo);
+
+  const opcionesHojaPrincipal = Array.from(
+    { length: config.hojas },
+    (_, i) => ({
+      value: (i + 1) as PortonesConfig["hojaPrincipal"],
+      label:
+        config.hojas === 3
+          ? ["Izquierda", "Centro", "Derecha"][i]
+          : config.hojas === 4
+            ? ["Ext. Izq.", "Centro Izq.", "Centro Der.", "Ext. Der."][i]
+            : `Hoja ${i + 1}`,
+    }),
+  );
 
   return (
     <ProductFormLayout title="Portones">
@@ -119,6 +132,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
                 onClick={() =>
                   updateConfig({
                     hojas: hojas as PortonesConfig["hojas"],
+                    hojaPrincipal: 1,
                   })
                 }
               >
@@ -128,17 +142,19 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
-        <FormSection title="Mano">
-          <PortonManoSelector
-            value={config.mano}
-            onChange={(value) =>
+        <FormSection title="Apertura">
+          <PortonBlueprintSelector
+            hojas={config.hojas}
+            mano={config.mano}
+            hojaPrincipal={config.hojaPrincipal}
+            onChange={({ mano, hojaPrincipal }) =>
               updateConfig({
-                mano: value,
+                mano,
+                hojaPrincipal,
               })
             }
           />
         </FormSection>
-
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 gap-3">
             {MODELOS.map((modelo) => (

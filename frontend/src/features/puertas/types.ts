@@ -10,6 +10,9 @@ export type PuertaTipoPorton = "abrir" | "plegadizo" | "corredizo";
 
 export type PuertaMano = "izquierda" | "derecha";
 
+/* Solo aplica a portón */
+export type PuertaHojaPrincipal = 1 | 2 | 3 | 4 | 5 | 6;
+
 export type PuertaVidrio =
   | "3mm"
   | "4mm"
@@ -43,6 +46,9 @@ export type PuertasConfig = {
 
   mano: PuertaMano;
 
+  /* Solo para portón */
+  hojaPrincipal?: PuertaHojaPrincipal;
+
   hojas: number;
   anchoPrincipal: number;
 
@@ -75,6 +81,9 @@ export type PuertasItem = {
     modeloMediaPuerta?: string;
 
     mano: PuertaMano;
+
+    /* Solo para portón */
+    hojaPrincipal?: PuertaHojaPrincipal;
 
     hojas: number;
     anchoPrincipal: number;

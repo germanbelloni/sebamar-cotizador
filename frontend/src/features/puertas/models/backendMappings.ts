@@ -51,5 +51,15 @@ export const BACKEND_MODEL_MAPPINGS = {
     m1vr: "modelo 1 vr",
 
     m2: "modelo 2",
+
+    m3: "modelo 3",
+
+    m3vr: "modelo 3vr", // legacy raro del json
+
+    m4: "modelo 4",
+
+    m4vr: "modelo 4 vr",
+
+    m5: "modelo 5",
   },
 };

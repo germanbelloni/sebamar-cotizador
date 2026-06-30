@@ -2,7 +2,7 @@ import type { LineaAluminio } from "@/shared/types/lineas";
 
 export type PortonMano = "izquierda" | "derecha";
 
-export type PortonHojaPrincipal = 1 | 2 | 3 | 4;
+export type PortonHojaPrincipal = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type PortonSistema = "abrir" | "corredizo" | "plegadizo";
 
@@ -19,7 +19,6 @@ export type PortonesExtras = {
 
 export type PortonesConfig = {
   ancho: number;
-
   alto: number;
 
   linea: LineaAluminio;

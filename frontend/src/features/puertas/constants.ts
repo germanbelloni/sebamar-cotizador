@@ -269,27 +269,30 @@ export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
   eco: ["3mm", "4mm", "fantasia"],
 };
 
+/* ========================= */
+/* INITIAL CONFIG */
+/* ========================= */
+
 export const initialPuertasConfig: PuertasConfig = {
   ancho: 80,
-
   alto: 200,
 
   linea: "herrero",
 
   tipoConfiguracion: "simple",
-
   tipoPorton: "abrir",
 
   modelo: "modelo_4",
-
   modeloMediaPuerta: "v_entero",
 
   color: "blanco",
 
   mano: "derecha",
 
-  hojas: 1,
+  // Solo aplica a portón
+  hojaPrincipal: 1,
 
+  hojas: 1,
   anchoPrincipal: 80,
 
   vidrio: "3mm",
