@@ -21,6 +21,8 @@ function getColorFactor(color) {
 }
 
 function calcularPortonWrapper(dataInput) {
+  console.log("REQ BODY PORTONES:", dataInput);
+  console.log("SISTEMA RECIBIDO:", dataInput.sistema);
   const {
     perfil = "amarilla",
     linea,

@@ -49,6 +49,9 @@ export const initialPortonesConfig: PortonesConfig = {
 
   hojas: 3,
 
+  mano: "izquierda",
+  hojaPrincipal: 1,
+
   modelo: "modelo 1",
 
   color: "blanco",

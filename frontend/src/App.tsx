@@ -68,6 +68,8 @@ import { PuertasPreview } from "@/features/puertas/components/PuertasPreview";
 
 import { initialPuertasConfig } from "@/features/puertas/constants";
 
+import { PuertasBlueprint } from "@/features/puertas/components/PuertasBlueprint";
+
 /* PUERTAS PLACA */
 
 import type { PuertasPlacaConfig } from "@/features/puertas-placa/types";
@@ -148,7 +150,7 @@ function App() {
     secondaryColor: user?.colorSecundario || "#1f2937",
   };
 
-  const [activeFeature, setActiveFeature] = useState("rajas");
+  const [activeFeature, setActiveFeature] = useState("ventanas");
 
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null
@@ -190,12 +192,8 @@ function App() {
   const setPuertasConfig = (
     value: PuertasConfig | ((prev: PuertasConfig) => PuertasConfig),
   ) => {
-    console.log("SET PUERTAS CONFIG:", value);
-
     setPuertasConfigState(value);
   };
-  console.log("APP puertasConfig:", puertasConfig);
-  console.log("APP puertas linea:", puertasConfig.linea);
 
   /* PUERTAS PLACA */
   const [puertasPlacaConfig, setPuertasPlacaConfig] =
@@ -390,7 +388,19 @@ function App() {
                         )}
 
                         {activeFeature === "puertas" && (
-                          <PuertasPreview config={puertasConfig} />
+                          <PuertasBlueprint
+                            tipo={
+                              puertasConfig.tipoConfiguracion === "simple"
+                                ? "simple"
+                                : puertasConfig.tipoConfiguracion === "doble"
+                                  ? "doble"
+                                  : puertasConfig.tipoConfiguracion ===
+                                      "puerta_y_media"
+                                    ? "puerta_y_media"
+                                    : "simple"
+                            }
+                            mano={puertasConfig.mano}
+                          />
                         )}
 
                         {activeFeature === "puertas-placa" && (
@@ -434,9 +444,13 @@ function App() {
                             </span>
 
                             <span>
-                              {"tipoVidrio" in activeConfig
+                              {"tipoVidrio" in activeConfig &&
+                              activeConfig.tipoVidrio
                                 ? formatVidrio(activeConfig.tipoVidrio)
-                                : "-"}
+                                : "vidrio" in activeConfig &&
+                                    activeConfig.vidrio
+                                  ? formatVidrio(activeConfig.vidrio)
+                                  : "-"}
                             </span>
                           </div>
 

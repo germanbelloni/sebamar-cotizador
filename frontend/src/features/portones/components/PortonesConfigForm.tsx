@@ -18,6 +18,7 @@ import { ColorSelector } from "@/shared/selectors/ColorSelector";
 import { AlertBox } from "@/shared/components/AlertBox";
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 import { SelectableCard } from "@/components/ui/selectable-card";
+import { PortonManoSelector } from "./PortonManoSelector";
 
 type Props = {
   config: PortonesConfig;
@@ -51,6 +52,8 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
 
   const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
     usePortonesValidation(config);
+
+  console.log("PORTONES CONFIG:", config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
@@ -123,6 +126,17 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
               </SelectableCard>
             ))}
           </div>
+        </FormSection>
+
+        <FormSection title="Mano">
+          <PortonManoSelector
+            value={config.mano}
+            onChange={(value) =>
+              updateConfig({
+                mano: value,
+              })
+            }
+          />
         </FormSection>
 
         <FormSection title="Modelo">

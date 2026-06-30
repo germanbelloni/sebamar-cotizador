@@ -1,14 +1,14 @@
 export const FEATURES = [
   {
-    id: "rajas",
-
-    label: "Rajas",
-  },
-
-  {
     id: "ventanas",
 
     label: "Ventanas",
+  },
+
+  {
+    id: "rajas",
+
+    label: "Rajas",
   },
 
   {

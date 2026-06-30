@@ -34,7 +34,7 @@ import { ColorSelector } from "@/shared/selectors/ColorSelector";
 
 import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
 
-import { BisagraSelector } from "@/shared/selectors/BisagraSelector";
+import { ManoSelector } from "./ManoSelector";
 
 import { AlertBox } from "@/shared/components/AlertBox";
 
@@ -53,6 +53,7 @@ import { PUERTAS_IMAGE_REGISTRY } from "../models/imageRegistry";
 import { MEDIA_DOOR_REGISTRY } from "../models/mediaDoorRegistry";
 
 import { MediaDoorPreview } from "./MediaDoorPreview";
+
 type Props = {
   config: PuertasConfig;
 
@@ -144,14 +145,11 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       PUERTAS_IMAGE_REGISTRY[folder][
         normalized as keyof (typeof PUERTAS_IMAGE_REGISTRY)[typeof folder]
       ];
-
     if (!filename) {
       return "";
     }
-
     return `/src/assets/puertas/${folder}/${filename}.png`;
   };
-
   const getModeloLabel = (modelo: string) => {
     if (modelo === "modelo_panel") {
       return "Panel";
@@ -316,15 +314,15 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         </FormSection>
 
         <AlertBox type="warning">
-          Vista exterior: mano y apertura siempre se interpretan desde AFUERA
-          EMPUJANDO.
+          ⚠️ Mano y apertura siempre se interpretan desde la vista EXTERIOR
+          (empujando).
         </AlertBox>
         <FormSection title="Mano">
-          <BisagraSelector
+          <ManoSelector
             value={config.mano}
             onChange={(value) =>
               updateConfig({
-                mano: value as PuertasConfig["mano"],
+                mano: value,
               })
             }
           />
@@ -348,7 +346,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         )}
 
         <FormSection title="Modelo">
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => (
               <ModelImageCard
                 key={modelo}
@@ -496,7 +494,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Extras">
           <PuertasExtrasSection
-            esModeloPanel={config.modelo === "modelo_panel"}
             barralRecto={config.extras.barralRecto}
             barralCurvo={config.extras.barralCurvo}
             picaporte={config.extras.picaporte}
