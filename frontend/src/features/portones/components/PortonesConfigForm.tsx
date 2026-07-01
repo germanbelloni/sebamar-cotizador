@@ -68,19 +68,6 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
     config.sistema === "abrir" &&
     ["modelo 4", "modelo 4 vr", "modelo 5"].includes(config.modelo);
 
-  const opcionesHojaPrincipal = Array.from(
-    { length: config.hojas },
-    (_, i) => ({
-      value: (i + 1) as PortonesConfig["hojaPrincipal"],
-      label:
-        config.hojas === 3
-          ? ["Izquierda", "Centro", "Derecha"][i]
-          : config.hojas === 4
-            ? ["Ext. Izq.", "Centro Izq.", "Centro Der.", "Ext. Der."][i]
-            : `Hoja ${i + 1}`,
-    }),
-  );
-
   return (
     <ProductFormLayout title="Portones">
       <div className="space-y-6">

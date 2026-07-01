@@ -64,8 +64,6 @@ import type { PuertasConfig } from "@/features/puertas/types";
 
 import { PuertasConfigForm } from "@/features/puertas/components/PuertasConfigForm";
 
-import { PuertasPreview } from "@/features/puertas/components/PuertasPreview";
-
 import { initialPuertasConfig } from "@/features/puertas/constants";
 
 import { PuertasBlueprint } from "@/features/puertas/components/PuertasBlueprint";
