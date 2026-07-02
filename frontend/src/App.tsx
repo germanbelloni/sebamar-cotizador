@@ -58,6 +58,8 @@ import { PortonesConfigForm } from "@/features/portones/components/PortonesConfi
 
 import { initialPortonesConfig } from "@/features/portones/constants";
 
+import { PortonBlueprintSelector } from "@/features/portones/components/PortonBlueprintSelector";
+
 /* PUERTAS */
 
 import type { PuertasConfig } from "@/features/puertas/types";
@@ -308,7 +310,7 @@ function App() {
 
   const activeConfig =
     CONFIGS[activeFeature as keyof typeof CONFIGS] || portonesConfig;
-
+  console.log("ACTIVE FEATURE:", activeFeature);
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div className="flex h-screen overflow-hidden">
@@ -380,6 +382,20 @@ function App() {
 
                         {activeFeature === "mosquiteros" && (
                           <MosquiterosPreview config={mosquiterosConfig} />
+                        )}
+
+                        {activeFeature === "portones" && (
+                          <PortonBlueprintSelector
+                            hojas={portonesConfig.hojas}
+                            mano={portonesConfig.mano}
+                            sistema={portonesConfig.sistema}
+                            onChange={({ mano }) =>
+                              setPortonesConfig((prev) => ({
+                                ...prev,
+                                mano,
+                              }))
+                            }
+                          />
                         )}
 
                         {activeFeature === "puertas" && (

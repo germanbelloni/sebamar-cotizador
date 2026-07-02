@@ -34,8 +34,6 @@ import { ColorSelector } from "@/shared/selectors/ColorSelector";
 
 import { VidrioSelector } from "@/shared/selectors/VidrioSelector";
 
-import { ManoSelector } from "./ManoSelector";
-
 import { AlertBox } from "@/shared/components/AlertBox";
 
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
@@ -201,11 +199,18 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       preset.alto === config.alto,
   );
 
+  console.log("RENDER PUERTAS", {
+    linea: config.linea,
+    tipoConfiguracion: config.tipoConfiguracion,
+    tipoPorton: config.tipoPorton,
+  });
+
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
         <FormSection title="Línea">
           <LineaSelector
+            id="puertas-linea"
             label=""
             value={config.linea}
             options={PUERTAS_LINEAS}
@@ -215,6 +220,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Configuración">
           <LineaSelector
+            id="puertas-config"
             label=""
             value={config.tipoConfiguracion}
             options={PUERTAS_TIPOS}
@@ -312,20 +318,25 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
+        {esPorton && (
+          <FormSection title="Sistema">
+            <LineaSelector
+              label=""
+              value={config.tipoPorton}
+              options={TIPOS_PORTON}
+              onChange={(value) =>
+                updateConfig({
+                  tipoPorton: value as PuertasConfig["tipoPorton"],
+                })
+              }
+            />
+          </FormSection>
+        )}
+
         <AlertBox type="warning">
           ⚠️ Mano y apertura siempre se interpretan desde la vista EXTERIOR
           (empujando).
         </AlertBox>
-        <FormSection title="Mano">
-          <ManoSelector
-            value={config.mano}
-            onChange={(value) =>
-              updateConfig({
-                mano: value,
-              })
-            }
-          />
-        </FormSection>
 
         {esFueraDeMedida && (
           <FormSection title="Medidas">
@@ -475,21 +486,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
-
-        {esPorton && (
-          <FormSection title="Sistema">
-            <LineaSelector
-              label=""
-              value={config.tipoPorton}
-              options={TIPOS_PORTON}
-              onChange={(value) =>
-                updateConfig({
-                  tipoPorton: value as PuertasConfig["tipoPorton"],
-                })
-              }
-            />
-          </FormSection>
-        )}
 
         <FormSection title="Extras">
           <PuertasExtrasSection

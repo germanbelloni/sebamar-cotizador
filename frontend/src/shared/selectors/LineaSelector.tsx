@@ -7,22 +7,18 @@ type Option = {
 };
 
 type Props = {
+  id: string;
   label?: string;
-
   value: string;
-
   options: Option[];
-
   onChange: (value: string) => void;
 };
 
 export function LineaSelector({
+  id,
   label = "Línea",
-
   value,
-
   options,
-
   onChange,
 }: Props) {
   return (
@@ -42,7 +38,12 @@ export function LineaSelector({
       )}
 
       <div className="flex justify-center">
-        <SegmentedControl value={value} onChange={onChange} options={options} />
+        <SegmentedControl
+          id={id}
+          value={value}
+          onChange={onChange}
+          options={options}
+        />
       </div>
     </div>
   );

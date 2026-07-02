@@ -133,11 +133,10 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           <PortonBlueprintSelector
             hojas={config.hojas}
             mano={config.mano}
-            hojaPrincipal={config.hojaPrincipal}
-            onChange={({ mano, hojaPrincipal }) =>
+            sistema={config.sistema}
+            onChange={({ mano }) =>
               updateConfig({
                 mano,
-                hojaPrincipal,
               })
             }
           />

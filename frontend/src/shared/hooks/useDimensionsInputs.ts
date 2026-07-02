@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Params = {
   ancho: number;
@@ -9,6 +9,14 @@ type Params = {
 export function useDimensionsInputs({ ancho, alto, onChange }: Params) {
   const [anchoInput, setAnchoInput] = useState(String(ancho));
   const [altoInput, setAltoInput] = useState(String(alto));
+
+  useEffect(() => {
+    setAnchoInput(String(ancho));
+  }, [ancho]);
+
+  useEffect(() => {
+    setAltoInput(String(alto));
+  }, [alto]);
 
   function syncInputs(newAncho: number, newAlto: number) {
     setAnchoInput(String(newAncho));
