@@ -148,7 +148,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     if (!filename) {
       return "";
     }
-    return `/src/assets/puertas/${folder}/${filename}.png`;
+    return `/assets/puertas/${folder}/${filename}.png`;
   };
   const getModeloLabel = (modelo: string) => {
     if (modelo === "modelo_panel") {
