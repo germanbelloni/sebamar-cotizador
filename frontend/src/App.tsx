@@ -348,22 +348,19 @@ function App() {
                 }
 
                 {/* PREVIEW COLUMN */}
-
                 <div className="flex h-full flex-col gap-4">
                   {/* SVG / PREVIEW */}
-
                   <div
                     className="
-                flex-[4]
-                rounded-2xl
-                border border-border
-                bg-card
-                p-6
-              "
+      flex-[4]
+      rounded-2xl
+      border border-border
+      bg-card
+      p-6
+    "
                   >
                     <div className="flex h-full flex-col">
                       {/* SVG */}
-
                       <div className="mt-2 flex-1">
                         {activeFeature === "ventanas" && (
                           <VentanaPreview config={ventanasConfig} />
@@ -387,17 +384,8 @@ function App() {
 
                         {activeFeature === "puertas" && (
                           <PuertasBlueprint
-                            tipo={
-                              puertasConfig.tipoConfiguracion === "simple"
-                                ? "simple"
-                                : puertasConfig.tipoConfiguracion === "doble"
-                                  ? "doble"
-                                  : puertasConfig.tipoConfiguracion ===
-                                      "puerta_y_media"
-                                    ? "puerta_y_media"
-                                    : "simple"
-                            }
-                            mano={puertasConfig.mano}
+                            config={puertasConfig}
+                            onChange={setPuertasConfig}
                           />
                         )}
 
@@ -415,67 +403,72 @@ function App() {
                       )}
 
                       {/* TECHNICAL INFO */}
+                      {activeFeature !== "puertas" && (
+                        <div
+                          className="
+            mt-4
+            rounded-xl
+            border border-border
+            bg-background/50
+            p-4
+          "
+                        >
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">
+                                Línea
+                              </span>
 
-                      <div
-                        className="
-                    mt-4
-                    rounded-xl
-                    border border-border
-                    bg-background/50
-                    p-4
-                  "
-                      >
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">Línea</span>
-
-                            <span>
-                              {"linea" in activeConfig
-                                ? formatLinea(activeConfig.linea)
-                                : "-"}
-                            </span>
-                          </div>
-
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">
-                              Vidrio
-                            </span>
-
-                            <span>
-                              {"tipoVidrio" in activeConfig &&
-                              activeConfig.tipoVidrio
-                                ? formatVidrio(activeConfig.tipoVidrio)
-                                : "vidrio" in activeConfig &&
-                                    activeConfig.vidrio
-                                  ? formatVidrio(activeConfig.vidrio)
+                              <span>
+                                {"linea" in activeConfig
+                                  ? formatLinea(activeConfig.linea)
                                   : "-"}
-                            </span>
-                          </div>
+                              </span>
+                            </div>
 
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">Color</span>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">
+                                Vidrio
+                              </span>
 
-                            <span>
-                              {"tipo" in activeConfig &&
-                              activeConfig.tipo === "premarco"
-                                ? "-"
-                                : "color" in activeConfig
-                                  ? formatColor(activeConfig.color)
-                                  : "-"}
-                            </span>
-                          </div>
+                              <span>
+                                {"tipoVidrio" in activeConfig &&
+                                activeConfig.tipoVidrio
+                                  ? formatVidrio(activeConfig.tipoVidrio)
+                                  : "vidrio" in activeConfig &&
+                                      activeConfig.vidrio
+                                    ? formatVidrio(activeConfig.vidrio)
+                                    : "-"}
+                              </span>
+                            </div>
 
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">
-                              Medidas
-                            </span>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">
+                                Color
+                              </span>
 
-                            <span>
-                              {activeConfig.ancho} x {activeConfig.alto}
-                            </span>
+                              <span>
+                                {"tipo" in activeConfig &&
+                                activeConfig.tipo === "premarco"
+                                  ? "-"
+                                  : "color" in activeConfig
+                                    ? formatColor(activeConfig.color)
+                                    : "-"}
+                              </span>
+                            </div>
+
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">
+                                Medidas
+                              </span>
+
+                              <span>
+                                {activeConfig.ancho} x {activeConfig.alto}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
 

@@ -6,7 +6,6 @@ import { MosquiterosPreview } from "@/features/mosquiteros/components/Mosquitero
 import { PuertasPlacaPreview } from "@/features/puertas-placa/components/PuertasPlacaPreview";
 import { PanoFijoPreview } from "@/features/pano-fijo/components/PanoFijoPreview";
 import { MarcosPreview } from "@/features/marcos/components/MarcosPreview";
-import { PuertasBlueprint } from "@/features/puertas/components/PuertasBlueprint";
 
 export function getPreview(
   activeFeature: string,
@@ -28,23 +27,8 @@ export function getPreview(
     case "mosquiteros":
       return <MosquiterosPreview config={configs.mosquiteros as never} />;
 
-    case "puertas": {
-      const config = configs.puertas as {
-        tipoConfiguracion: "simple" | "doble" | "puerta_y_media" | "porton";
-        mano: "izquierda" | "derecha";
-      };
-
-      const tipo =
-        config.tipoConfiguracion === "simple"
-          ? "simple"
-          : config.tipoConfiguracion === "doble"
-            ? "doble"
-            : config.tipoConfiguracion === "puerta_y_media"
-              ? "puerta_y_media"
-              : "simple";
-
-      return <PuertasBlueprint tipo={tipo} mano={config.mano} />;
-    }
+    case "puertas":
+      return null;
 
     case "puertas-placa":
       return <PuertasPlacaPreview config={configs.puertasPlaca as never} />;
