@@ -172,6 +172,7 @@ export function PuertasBlueprint({ config, onChange }: Props) {
   }
 
   return (
+    
     <div className="space-y-5">
       <div className="space-y-3 text-center">
         <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">

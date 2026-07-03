@@ -59,6 +59,7 @@ type Props = {
 };
 
 export function PuertasConfigForm({ config, setConfig }: Props) {
+  console.log("PUERTAS CONFIG FORM CARGADO");
   const cotizacionMutation = useCotizarPuertas();
 
   const {
@@ -198,6 +199,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       preset.ancho === config.ancho &&
       preset.alto === config.alto,
   );
+  console.log("DEBUG FUERA MEDIDA", {
+    ancho: config.ancho,
+    alto: config.alto,
+    esFueraDeMedida,
+    presets,
+  });
 
   console.log("RENDER PUERTAS", {
     linea: config.linea,
@@ -210,6 +217,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     return Math.max(3, Math.min(6, hojas));
   }
   console.log("RENDER PUERTAS:", config.ancho, config.alto);
+  console.log("PUERTAS CONFIG FORM VERSION NUEVA");
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -297,35 +305,36 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                 </SelectableCard>
               ))}
           </div>
+          <div className="mt-3 w-full">
+            <SelectableCard
+              selected={esFueraDeMedida}
+              onClick={() => {
+                const medidas =
+                  config.tipoConfiguracion === "simple"
+                    ? { ancho: 85, alto: 205 }
+                    : config.tipoConfiguracion === "puerta_y_media"
+                      ? { ancho: 125, alto: 205 }
+                      : config.tipoConfiguracion === "doble"
+                        ? { ancho: 170, alto: 205 }
+                        : { ancho: 260, alto: 210 };
 
-          <SelectableCard
-            selected={esFueraDeMedida}
-            onClick={() => {
-              const nuevoAncho =
-                config.tipoConfiguracion === "simple"
-                  ? 80
-                  : config.tipoConfiguracion === "puerta_y_media"
-                    ? 120
-                    : config.tipoConfiguracion === "doble"
-                      ? 160
-                      : 240;
-
-              updateConfig({
-                ancho: nuevoAncho,
-                alto: 200,
-                hojas:
-                  config.tipoConfiguracion === "porton"
-                    ? calcularHojasPorton(nuevoAncho)
-                    : config.tipoConfiguracion === "doble"
-                      ? 2
-                      : 1,
-              });
-            }}
-          >
-            <div className="flex h-14 items-center justify-center text-base font-semibold">
-              Fuera de medida
-            </div>
-          </SelectableCard>
+                updateConfig({
+                  ancho: medidas.ancho,
+                  alto: medidas.alto,
+                  hojas:
+                    config.tipoConfiguracion === "porton"
+                      ? calcularHojasPorton(medidas.ancho)
+                      : config.tipoConfiguracion === "doble"
+                        ? 2
+                        : 1,
+                });
+              }}
+            >
+              <div className="flex h-14 items-center justify-center text-base font-semibold">
+                Fuera de medida
+              </div>
+            </SelectableCard>
+          </div>
         </FormSection>
 
         <AlertBox type="warning">
