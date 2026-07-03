@@ -12,16 +12,8 @@ export function useDimensionsInputs({ ancho, alto, onChange }: Params) {
 
   useEffect(() => {
     setAnchoInput(String(ancho));
-  }, [ancho]);
-
-  useEffect(() => {
     setAltoInput(String(alto));
-  }, [alto]);
-
-  function syncInputs(newAncho: number, newAlto: number) {
-    setAnchoInput(String(newAncho));
-    setAltoInput(String(newAlto));
-  }
+  }, [ancho, alto]);
 
   function handleAnchoChange(value: string) {
     setAnchoInput(value);
@@ -46,6 +38,5 @@ export function useDimensionsInputs({ ancho, alto, onChange }: Params) {
     altoInput,
     handleAnchoChange,
     handleAltoChange,
-    syncInputs,
   };
 }

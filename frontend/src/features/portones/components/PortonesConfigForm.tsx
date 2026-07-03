@@ -53,8 +53,6 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
   const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
     usePortonesValidation(config);
 
-  console.log("PORTONES CONFIG:", config);
-
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
     config,
@@ -74,12 +72,14 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
         <FormSection title="Sistema">
           <div className="space-y-4">
             <LineaSelector
+              id="portones-linea"
               value={config.linea}
               options={PORTONES_UI.selectors?.lineas || []}
               onChange={(value) => switchLinea(value)}
             />
 
             <LineaSelector
+              id="portones-sistema"
               value={config.sistema}
               options={[
                 { label: "Abrir", value: "abrir" },
@@ -112,20 +112,27 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Cantidad de hojas">
           <div className="grid grid-cols-4 gap-3">
-            {hojasDisponibles.map((hojas) => (
-              <SelectableCard
-                key={hojas}
-                selected={config.hojas === hojas}
-                onClick={() =>
-                  updateConfig({
-                    hojas: hojas as PortonesConfig["hojas"],
-                    hojaPrincipal: 1,
-                  })
-                }
-              >
-                {hojas} hojas
-              </SelectableCard>
-            ))}
+            {[3, 4, 5, 6].map((hojas) => {
+              const enabled = hojasDisponibles.includes(hojas as 3 | 4 | 5 | 6);
+
+              return (
+                <SelectableCard
+                  key={hojas}
+                  disabled={!enabled}
+                  selected={config.hojas === hojas}
+                  onClick={() => {
+                    if (!enabled) return;
+
+                    updateConfig({
+                      hojas: hojas as PortonesConfig["hojas"],
+                      hojaPrincipal: 1,
+                    });
+                  }}
+                >
+                  {hojas} hojas
+                </SelectableCard>
+              );
+            })}
           </div>
         </FormSection>
 
@@ -140,6 +147,13 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
               })
             }
           />
+
+          <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center text-sm text-zinc-400">
+            Actualmente:
+            <span className="ml-2 font-bold text-lime-400">
+              {config.hojas} hojas
+            </span>
+          </div>
         </FormSection>
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 gap-3">

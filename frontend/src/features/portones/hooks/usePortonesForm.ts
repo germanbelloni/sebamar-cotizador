@@ -1,7 +1,7 @@
 import type { PortonesConfig } from "../types";
 
 import { LIMITES_PORTONES } from "../constants";
-
+import { useEffect } from "react";
 import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
 import { useDimensionsInputs } from "@/shared/hooks/useDimensionsInputs";
 import { useLineaSwitcher } from "@/shared/hooks/useLineaSwitcher";
@@ -18,11 +18,17 @@ export function usePortonesForm({ config, setConfig }: Params) {
     useDimensionsInputs({
       ancho: config.ancho,
       alto: config.alto,
-      onChange: ({ ancho, alto }) =>
+      onChange: ({ ancho, alto }) => {
+        const hojasDisponibles = getHojasDisponibles(ancho);
+
         updateConfig({
           ancho,
           alto,
-        }),
+          hojas: hojasDisponibles.includes(config.hojas)
+            ? config.hojas
+            : hojasDisponibles[0] || 3,
+        });
+      },
     });
 
   const { switchLinea } = useLineaSwitcher({
@@ -40,6 +46,13 @@ export function usePortonesForm({ config, setConfig }: Params) {
   }
 
   const hojasDisponibles = getHojasDisponibles(config.ancho);
+  useEffect(() => {
+    if (!hojasDisponibles.includes(config.hojas)) {
+      updateConfig({
+        hojas: hojasDisponibles[0] || 3,
+      });
+    }
+  }, [config.hojas, hojasDisponibles, updateConfig]);
 
   return {
     updateConfig,
