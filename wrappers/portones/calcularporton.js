@@ -1,5 +1,9 @@
 const { fromRoot } = require("../../backend/utils/path");
 
+const { necesitaDobleTravesano, necesitaBisagrasExtra } = require(
+  fromRoot("backend/utils/portonRules"),
+);
+
 const calcularPortones = require(
   fromRoot("backend/services/portones/calcularPortones"),
 );
@@ -157,14 +161,7 @@ function calcularPortonWrapper(dataInput) {
       });
     }
   }
-
-  const modelosDobleTravesano = ["modelo 4", "modelo 4 vr", "modelo 5"];
-
-  if (
-    extras.dobleTravesano &&
-    sistema === "abrir" &&
-    modelosDobleTravesano.includes(modelo)
-  ) {
+  if (necesitaDobleTravesano({ sistema, hojas, modelo })) {
     const anchoCobrado = resultado.configuracion.anchoCobrado;
 
     const anchoMetros = anchoCobrado / 100;
@@ -172,19 +169,25 @@ function calcularPortonWrapper(dataInput) {
     const travesano =
       (superficies.superficies?.travesano?.[linea] || 0) * anchoMetros;
 
-    const bisagra = (superficies.herrajes?.bisagra_extra || 0) * hojas;
+    const costoTravesano = travesano * hojas;
 
-    costo += travesano * hojas;
-    costo += bisagra;
+    costo += costoTravesano;
 
     items.push({
       tipo: "doble_travesano",
-      precio: Math.round(travesano * hojas),
+      precio: Math.round(costoTravesano),
     });
+  }
+
+  if (necesitaBisagrasExtra({ sistema, hojas })) {
+    const bisagras = (superficies.herrajes?.bisagra_extra || 0) * 4;
+
+    costo += bisagras;
 
     items.push({
-      tipo: "bisagra_extra",
-      precio: Math.round(bisagra),
+      tipo: "bisagras_extra",
+      descripcion: "4 bisagras",
+      precio: Math.round(bisagras),
     });
   }
 

@@ -1,4 +1,5 @@
 import type { PuertasConfig } from "../types";
+import { necesitaDobleTravesano } from "../utils/portonRules";
 
 type Props = {
   config: PuertasConfig;
@@ -10,6 +11,14 @@ export function PuertasBlueprint({ config, onChange }: Props) {
     onChange((prev) => ({
       ...prev,
       mano,
+    }));
+  }
+
+  function setHojaPrincipal(hojaPrincipal: 1 | 2 | 3 | 4) {
+    onChange((prev) => ({
+      ...prev,
+      hojaPrincipal,
+      mano: hojaPrincipal <= 2 ? "izquierda" : "derecha",
     }));
   }
 
@@ -102,9 +111,15 @@ export function PuertasBlueprint({ config, onChange }: Props) {
 
   function renderPorton(side: "izquierda" | "derecha") {
     const hojas = config.tipoConfiguracion === "porton" ? config.hojas || 3 : 1;
-
+    const mostrarDobleTravesano = necesitaDobleTravesano(config);
     return (
-      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
+      <div className="relative flex h-[220px] border-2 border-white/40 bg-black/40">
+        {mostrarDobleTravesano && (
+          <>
+            <div className="absolute left-0 right-0 top-[34%] h-[2px] bg-zinc-400" />
+            <div className="absolute left-0 right-0 top-[66%] h-[2px] bg-zinc-400" />
+          </>
+        )}
         {Array.from({ length: hojas }).map((_, i) => {
           let symbol = "";
           const isFirst = i === 0;
@@ -172,7 +187,6 @@ export function PuertasBlueprint({ config, onChange }: Props) {
   }
 
   return (
-    
     <div className="space-y-5">
       <div className="space-y-3 text-center">
         <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">
@@ -329,35 +343,177 @@ export function PuertasBlueprint({ config, onChange }: Props) {
 
       {/* PORTON */}
       {config.tipoConfiguracion === "porton" && (
-        <div className="grid grid-cols-2 gap-5">
-          <Card
-            selected={config.mano === "izquierda"}
-            onClick={() => setMano("izquierda")}
-          >
-            <div className="space-y-5">
-              <div className="text-center text-sm font-bold text-lime-400">
-                APERTURA IZQUIERDA
+        <>
+          {config.hojas <= 4 ? (
+            <>
+              {config.tipoPorton === "abrir" && config.hojas === 4 ? (
+                <div className="grid grid-cols-2 gap-5">
+                  <Card
+                    selected={config.hojaPrincipal === 1}
+                    onClick={() => setHojaPrincipal(1)}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        PUERTA IZQUIERDA
+                      </div>
+
+                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↷
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↷
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↷
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card
+                    selected={config.hojaPrincipal === 2}
+                    onClick={() => setHojaPrincipal(2)}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        PUERTA MEDIO IZQ.
+                      </div>
+
+                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↷
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↷
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card
+                    selected={config.hojaPrincipal === 3}
+                    onClick={() => setHojaPrincipal(3)}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        PUERTA MEDIO DER.
+                      </div>
+
+                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↷
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↷
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card
+                    selected={config.hojaPrincipal === 4}
+                    onClick={() => setHojaPrincipal(4)}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        PUERTA DERECHA
+                      </div>
+
+                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
+                          ↶
+                        </div>
+
+                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
+                          ↷
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-5">
+                  <Card
+                    selected={config.mano === "izquierda"}
+                    onClick={() => setMano("izquierda")}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        APERTURA IZQUIERDA
+                      </div>
+
+                      {renderPorton("izquierda")}
+                    </div>
+                  </Card>
+
+                  <Card
+                    selected={config.mano === "derecha"}
+                    onClick={() => setMano("derecha")}
+                  >
+                    <div className="space-y-5">
+                      <div className="text-center text-sm font-bold text-lime-400">
+                        APERTURA DERECHA
+                      </div>
+
+                      {renderPorton("derecha")}
+                    </div>
+                  </Card>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-8 text-center">
+              <div className="text-xl font-semibold text-red-400">
+                Configuración especial
               </div>
 
-              {renderPorton("izquierda")}
-            </div>
-          </Card>
+              <p className="mt-3 text-zinc-300">
+                Los portones de <strong>{config.hojas} hojas</strong> requieren
+                una configuración manual de la apertura.
+              </p>
 
-          <Card
-            selected={config.mano === "derecha"}
-            onClick={() => setMano("derecha")}
-          >
-            <div className="space-y-5">
-              <div className="text-center text-sm font-bold text-lime-400">
-                APERTURA DERECHA
+              <div className="mt-5 rounded-xl border border-red-500/30 bg-black/20 p-4">
+                <p className="text-lg font-bold uppercase tracking-wider text-red-300">
+                  CONSULTAR
+                </p>
               </div>
-
-              {renderPorton("derecha")}
             </div>
-          </Card>
-        </div>
+          )}
+        </>
       )}
-
       <TechnicalInfo />
     </div>
   );

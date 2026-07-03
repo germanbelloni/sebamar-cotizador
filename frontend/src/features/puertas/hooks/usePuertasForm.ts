@@ -57,6 +57,7 @@ export function usePuertasForm({ config, setConfig }: Props) {
         };
 
         if (config.tipoConfiguracion === "porton") {
+          
           updates.hojas = calcularHojasPorton(ancho);
         }
 

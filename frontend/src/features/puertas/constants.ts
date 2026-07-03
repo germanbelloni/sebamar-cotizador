@@ -289,8 +289,7 @@ export const initialPuertasConfig: PuertasConfig = {
 
   mano: "derecha",
 
-  // Solo aplica a portón
-  hojaPrincipal: 1,
+  hojaPrincipal: 4,
 
   hojas: 1,
   anchoPrincipal: 80,

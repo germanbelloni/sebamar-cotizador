@@ -52,6 +52,8 @@ import { MEDIA_DOOR_REGISTRY } from "../models/mediaDoorRegistry";
 
 import { MediaDoorPreview } from "./MediaDoorPreview";
 
+import { calcularHojasPorton } from "../utils/calcularHojasPorton";
+
 type Props = {
   config: PuertasConfig;
 
@@ -59,7 +61,6 @@ type Props = {
 };
 
 export function PuertasConfigForm({ config, setConfig }: Props) {
-  console.log("PUERTAS CONFIG FORM CARGADO");
   const cotizacionMutation = useCotizarPuertas();
 
   const {
@@ -199,25 +200,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       preset.ancho === config.ancho &&
       preset.alto === config.alto,
   );
-  console.log("DEBUG FUERA MEDIDA", {
-    ancho: config.ancho,
-    alto: config.alto,
-    esFueraDeMedida,
-    presets,
-  });
 
-  console.log("RENDER PUERTAS", {
-    linea: config.linea,
-    tipoConfiguracion: config.tipoConfiguracion,
-    tipoPorton: config.tipoPorton,
-  });
-
-  function calcularHojasPorton(ancho: number) {
-    const hojas = Math.ceil(ancho / 90);
-    return Math.max(3, Math.min(6, hojas));
-  }
-  console.log("RENDER PUERTAS:", config.ancho, config.alto);
-  console.log("PUERTAS CONFIG FORM VERSION NUEVA");
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -337,11 +320,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           </div>
         </FormSection>
 
-        <AlertBox type="warning">
-          ⚠️ Mano y apertura siempre se interpretan desde la vista EXTERIOR
-          (empujando).
-        </AlertBox>
-
         {esFueraDeMedida && (
           <FormSection title="Medidas">
             <DimensionsSection
@@ -374,6 +352,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             />
           </FormSection>
         )}
+
+        <AlertBox type="warning">
+          ⚠️ Mano y apertura siempre se interpretan desde la vista EXTERIOR
+          (empujando).
+        </AlertBox>
+
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => (
