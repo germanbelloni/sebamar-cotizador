@@ -205,6 +205,11 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     tipoPorton: config.tipoPorton,
   });
 
+  function calcularHojasPorton(ancho: number) {
+    const hojas = Math.ceil(ancho / 90);
+    return Math.max(3, Math.min(6, hojas));
+  }
+
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -274,7 +279,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
                       hojas:
                         config.tipoConfiguracion === "porton"
-                          ? 3
+                          ? calcularHojasPorton(preset.ancho)
                           : config.tipoConfiguracion === "doble"
                             ? 2
                             : 1,
@@ -296,20 +301,27 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           <div className="mt-3 w-full">
             <SelectableCard
               selected={esFueraDeMedida}
-              onClick={() =>
-                updateConfig({
-                  ancho:
-                    config.tipoConfiguracion === "simple"
-                      ? 85
-                      : config.tipoConfiguracion === "puerta_y_media"
-                        ? 125
-                        : config.tipoConfiguracion === "doble"
-                          ? 170
-                          : 260,
+              onClick={() => {
+                const nuevoAncho =
+                  config.tipoConfiguracion === "simple"
+                    ? 85
+                    : config.tipoConfiguracion === "puerta_y_media"
+                      ? 125
+                      : config.tipoConfiguracion === "doble"
+                        ? 170
+                        : 260;
 
+                updateConfig({
+                  ancho: nuevoAncho,
                   alto: config.tipoConfiguracion === "porton" ? 210 : 205,
-                })
-              }
+                  hojas:
+                    config.tipoConfiguracion === "porton"
+                      ? calcularHojasPorton(nuevoAncho)
+                      : config.tipoConfiguracion === "doble"
+                        ? 2
+                        : 1,
+                });
+              }}
             >
               <div className="flex h-14 items-center justify-center text-base font-semibold">
                 Fuera de medida
@@ -321,6 +333,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         {esPorton && (
           <FormSection title="Sistema">
             <LineaSelector
+              id="puertas-sistema"
               label=""
               value={config.tipoPorton}
               options={TIPOS_PORTON}
