@@ -140,7 +140,9 @@ function calcularVentanaModena(dataInput) {
 
     precioProveedor: Math.round(proveedor),
 
-    precioVenta: Math.round(venta),
+    precioLista: Math.round(venta),
+
+    precioVenta: Math.round(venta), // Compatibilidad temporal
 
     ganancia: Math.round(venta - costo),
 
