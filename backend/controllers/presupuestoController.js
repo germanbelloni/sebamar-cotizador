@@ -39,6 +39,7 @@ const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 // =========================
 
 const generarHTML = require("../services/pdf/generarPDF");
+const crearPresupuesto = require("../services/presupuestos/crearPresupuesto");
 
 // =========================
 // NUEVO NUMERO
@@ -204,126 +205,21 @@ function calcularItem(item, perfil) {
 
 async function crear(req, res) {
   try {
-    const userId = req.user.id;
-
-    let ownerId;
-
-    // SUPERADMIN
-    if (req.user.role === "superadmin") {
-      ownerId = req.user.id;
-    }
-
-    // ADMIN
-    else if (req.user.role === "admin") {
-      ownerId = req.user.id;
-    }
-
-    // USER
-    else {
-      ownerId = req.user.ownerId;
-    }
-
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({
-        error: "Usuario no encontrado",
-      });
-    }
-
-    let total = 0;
-
-    console.log("ITEM RECIBIDO:", JSON.stringify(req.body.items[0], null, 2));
-
-    const itemsProcesados = req.body.items.map((item) => {
-      const cantidad = item.cantidad || 1;
-
-      const descripcion = item.descripcion || item.tipo || "Producto";
-
-      console.log("ITEM FRONT:");
-      console.log(JSON.stringify(item, null, 2));
-
-      // ✅ USAR LOS VALORES YA CALCULADOS POR EL FRONT
-      const precio = item.precioFinal || item.subtotal || item.precio || 0;
-
-      const subtotal = precio * cantidad;
-
-      total += subtotal;
-
-      return {
-        tipo: item.tipo,
-
-        modulo: item.modulo,
-
-        titulo: item.titulo,
-
-        cantidad,
-
-        descripcion,
-
-        precio,
-
-        precioUnitario: item.precioUnitario || precio,
-
-        subtotal,
-
-        precioBase: item.precioBase || 0,
-
-        precioLista: item.precioLista || 0,
-
-        precioFinal: item.precioFinal || subtotal,
-
-        margenAplicado: item.margenAplicado || 0,
-
-        perfilAplicado: item.perfilAplicado || "",
-
-        metadata: item.metadata || {},
-
-        configuracion: item,
-      };
+    const presupuesto = await crearPresupuesto({
+      user: req.user,
+      body: req.body,
     });
-
-    user.contadorPresupuestos += 1;
-
-    await user.save();
-
-    const presupuesto = new Presupuesto({
-      userId,
-
-      ownerId,
-
-      numero: user.contadorPresupuestos,
-
-      cliente: req.body.cliente,
-
-      fecha: req.body.fecha,
-
-      items: itemsProcesados,
-
-      telefono: req.body.telefono,
-
-      direccion: req.body.direccion,
-
-      observaciones: req.body.observaciones,
-
-      validez: req.body.validez,
-
-      total,
-
-      estado: "pendiente",
-    });
-
-    await presupuesto.save();
-
-    console.log("ID GUARDADO:", presupuesto._id);
-    console.log("CLIENTE:", presupuesto.cliente);
-    console.log("OWNER:", presupuesto.ownerId);
-    console.log("USER:", presupuesto.userId);
 
     return res.json(presupuesto);
   } catch (error) {
     console.error("ERROR CREAR PRESUPUESTO:");
     console.error(error);
+
+    if (error.message === "Usuario no encontrado") {
+      return res.status(404).json({
+        error: error.message,
+      });
+    }
 
     return res.status(500).json({
       error: "Error creando presupuesto",
