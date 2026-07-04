@@ -1,4 +1,4 @@
-import type { PuertasConfig } from "../models/types";
+import type { PuertasConfig } from "../types";
 
 export function necesitaDobleTravesano(config: PuertasConfig) {
   if (config.tipoConfiguracion !== "porton") {
