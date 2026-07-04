@@ -3,17 +3,14 @@ function aplicarMargen(resultado, margen = 0, perfilAplicado = "") {
 
   const margenDecimal = margenNumero / 100;
 
-  const base = resultado.precioVenta || resultado.total || 0;
+  const base = Number(resultado.precioVenta || resultado.precioFinal || 0);
 
   const precioFinal = Math.round(base * (1 + margenDecimal));
 
   return {
     ...resultado,
 
-    precioBase: base,
-
-    precioLista: base,
-
+    // NO tocar el snapshot financiero original
     precioFinal,
 
     margenAplicado: margenNumero,

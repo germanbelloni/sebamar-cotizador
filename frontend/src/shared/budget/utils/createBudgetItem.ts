@@ -50,18 +50,37 @@ export function createBudgetItem({
   // =========================
   // 💰 SNAPSHOT FINANCIERO
   // =========================
-
   const precioBase = Number(result.precioBase ?? 0);
 
+  const precioProveedor = Number(result.precioProveedor ?? result.costo ?? 0);
+
   const precioLista = Number(
-    result.precioVenta ?? result.precioLista ?? result.precioFinal ?? 0,
+    result.precioLista ??
+      result.precioVenta ??
+      result.precioProveedor ??
+      result.precioFinal ??
+      0,
   );
 
-  const precioFinal = Number(result.precioFinal ?? result.precioVenta ?? 0);
+  const precioFinal = Number(
+    result.precioFinal ??
+      result.precioLista ??
+      result.precioVenta ??
+      result.precioProveedor ??
+      0,
+  );
+
+  const descuentoAplicado = Number(result.descuentoAplicado ?? 0);
+
+  const fleteAplicado = Number(result.fleteAplicado ?? 0);
+
+  const gananciaAplicada = Number(result.gananciaAplicada ?? 0);
 
   const margenAplicado = Number(result.margenAplicado ?? 0);
 
   const perfilAplicado = String(result.perfilAplicado ?? "");
+
+  const audit = result.audit;
 
   return {
     id: crypto.randomUUID(),
@@ -84,13 +103,23 @@ export function createBudgetItem({
 
     precioBase,
 
+    precioProveedor,
+
     precioLista,
 
     precioFinal,
 
+    descuentoAplicado,
+
+    fleteAplicado,
+
+    gananciaAplicada,
+
     margenAplicado,
 
     perfilAplicado,
+
+    audit,
 
     configuracion,
 

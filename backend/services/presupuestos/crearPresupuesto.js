@@ -1,23 +1,22 @@
 const Presupuesto = require("../../models/Presupuesto");
 const User = require("../../models/User");
+
 const calcularItem = require("./calcularItem");
+
 async function crearPresupuesto({ user, body }) {
   const userId = user.id;
 
   let ownerId;
 
-  // SUPERADMIN
+  // =========================
+  // OWNER
+  // =========================
+
   if (user.role === "superadmin") {
     ownerId = user.id;
-  }
-
-  // ADMIN
-  else if (user.role === "admin") {
+  } else if (user.role === "admin") {
     ownerId = user.id;
-  }
-
-  // USER
-  else {
+  } else {
     ownerId = user.ownerId;
   }
 
@@ -30,32 +29,63 @@ async function crearPresupuesto({ user, body }) {
   let total = 0;
 
   const itemsProcesados = body.items.map((item) => {
-    const cantidad = item.cantidad || 1;
+    const cantidad = Number(item.cantidad || 1);
 
     const descripcion = item.descripcion || item.tipo || "Producto";
 
-    const precio = item.precioFinal || item.subtotal || item.precio || 0;
+    const precioUnitario = Number(
+      item.precioFinal ??
+        item.precioLista ??
+        item.precioProveedor ??
+        item.precio ??
+        item.subtotal ??
+        0,
+    );
 
-    const subtotal = precio * cantidad;
+    const subtotal = precioUnitario * cantidad;
 
     total += subtotal;
 
     return {
       tipo: item.tipo,
+
       modulo: item.modulo,
+
       titulo: item.titulo,
+
       cantidad,
+
       descripcion,
+
       precio,
+
       precioUnitario: item.precioUnitario || precio,
+
       subtotal,
+
+      // =========================
+      // SNAPSHOT FINANCIERO
+      // =========================
+
       precioBase: item.precioBase || 0,
+
       precioLista: item.precioLista || 0,
+
       precioFinal: item.precioFinal || subtotal,
+
       margenAplicado: item.margenAplicado || 0,
+
       perfilAplicado: item.perfilAplicado || "",
+
+      // =========================
+      // AUDITORÍA
+      // =========================
+
+      audit: item.audit || null,
+
       metadata: item.metadata || {},
-      configuracion: item,
+
+      configuracion: item.configuracion || item,
     };
   });
 
@@ -72,10 +102,6 @@ async function crearPresupuesto({ user, body }) {
 
     cliente: body.cliente,
 
-    fecha: body.fecha,
-
-    items: itemsProcesados,
-
     telefono: body.telefono,
 
     direccion: body.direccion,
@@ -84,9 +110,13 @@ async function crearPresupuesto({ user, body }) {
 
     validez: body.validez,
 
-    total,
+    fecha: body.fecha,
 
     estado: "pendiente",
+
+    items: itemsProcesados,
+
+    total,
   });
 
   await presupuesto.save();

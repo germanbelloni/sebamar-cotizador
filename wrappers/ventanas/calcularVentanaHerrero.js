@@ -2,6 +2,12 @@
 
 const { fromRoot } = require("../../backend/utils/path");
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
@@ -80,6 +86,7 @@ function aplicarColor(items, color) {
 
 // 🚀 WRAPPER
 function calcularVentanaHerrero(dataInput) {
+  const audit = new AuditBuilder();
   const {
     ancho,
     alto,
@@ -106,17 +113,89 @@ function calcularVentanaHerrero(dataInput) {
 
   const medida = buscarMedidaValida(ancho, alto > 200 ? 200 : alto);
 
+  audit.add({
+    etapa: "Lookup",
+
+    tipo: "lookup",
+
+    origen: "ventanas_herrero.json",
+
+    referencia: medida,
+
+    metadata: {
+      anchoSolicitado: ancho,
+      altoSolicitado: alto,
+      medidaUtilizada: medida,
+    },
+  });
+
   const base = calcularVentana({
     medida,
     incluirGuia: guia,
     incluirMosquitero: mosquitero,
     linea: "herrero",
   });
+  audit.add({
+    etapa: "Costo Base",
+    tipo: "base",
+    origen: "ventanas_herrero.json",
+
+    valorAntes: 0,
+    valorAplicado: base.costoBase,
+    valorDespues: base.costoBase,
+
+    metadata: {
+      medida,
+    },
+  });
 
   // 🎨 COLOR SOLO ESTRUCTURA
+
+  const estructuraOriginal =
+    base.items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const vidrio = base.items.find((i) => i.tipo === "vidrio")?.precio || 0;
+
   const items = aplicarColor([...base.items], color);
 
+  const estructuraColor =
+    items.find((i) => i.tipo === "estructura")?.precio || 0;
+
   let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const colorData = colores.find((c) => c.nombre === color);
+
+  const porcentajeColor = Number(colorData?.valor || 0);
+
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: porcentajeColor,
+
+    valorAntes: base.costoBase,
+
+    valorAplicado: costo - base.costoBase,
+
+    valorDespues: costo,
+
+    metadata: {
+      estructuraOriginal,
+
+      estructuraColor,
+
+      vidrio,
+
+      costoBase: base.costoBase,
+    },
+  });
 
   const m2 = calcularM2(ancho, alto);
 
@@ -125,6 +204,20 @@ function calcularVentanaHerrero(dataInput) {
     const c = Number(superficies.cortinas?.pvc || 0) * m2;
 
     costo += c;
+
+    audit.add({
+      etapa: "Cortina PVC",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
 
     items.push({
       tipo: "cortina_pvc",
@@ -138,6 +231,19 @@ function calcularVentanaHerrero(dataInput) {
 
     costo += c;
 
+    audit.add({
+      etapa: "Cortina Aluminio",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
     items.push({
       tipo: "cortina_aluminio",
       precio: Math.round(c),
@@ -158,30 +264,90 @@ function calcularVentanaHerrero(dataInput) {
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
-  return {
-    costoBase: Math.round(base.costoBase),
+  audit.add({
+    etapa: "Perfil",
 
-    costo: Math.round(costo),
+    tipo: "perfil",
 
-    precioBase: Math.round(costo),
+    origen: "perfiles.js",
 
-    precioProveedor: Math.round(proveedor),
+    referencia: perfil,
 
-    precioLista: Math.round(venta),
+    valorAntes: costo,
 
-    precioVenta: Math.round(venta), // Compatibilidad temporal
+    valorAplicado: venta - costo,
 
-    precioFinal: Math.round(venta),
+    valorDespues: venta,
 
-    margenAplicado: Math.round(perfilData.ganancia * 100),
+    porcentaje: perfilData.ganancia,
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
+  console.log("===== VALORES WRAPPER =====");
+  console.log({
+    costo,
+    proveedor,
+    venta,
+  });
+  // return buildWrapperResponse({
+  const response = buildWrapperResponse({
+    // =========================
+    // IDENTIDAD
+    // =========================
+
+    modulo: "ventanas",
+
+    linea: "herrero",
+
+    // =========================
+    // COSTOS
+    // =========================
+
+    costoBase: base.costoBase,
+
+    costo,
+
+    // =========================
+    // PRECIOS
+    // =========================
+
+    precioBase: costo,
+
+    precioProveedor: proveedor,
+
+    precioLista: venta,
+
+    precioFinal: venta,
+
+    // =========================
+    // PERFIL
+    // =========================
 
     perfilAplicado: perfil,
 
-    ganancia: Math.round(venta - costo),
+    descuentoAplicado: perfilData.descuento,
 
-    items,
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: Math.round(perfilData.ganancia * 100),
+
+    // =========================
+    // RESULTADO
+    // =========================
+
+    ganancia: venta - costo,
 
     descripcion: `Ventana herrero ${ancho}x${alto}`,
+
+    items,
 
     configuracion: {
       ancho,
@@ -207,7 +373,15 @@ function calcularVentanaHerrero(dataInput) {
         cortina: cortina || null,
       },
     },
-  };
+    //   audit: audit.getSteps(),
+    // });
+    audit: audit.getSteps(),
+  });
+
+  console.log("===== RESPONSE WRAPPER =====");
+  console.dir(response, { depth: null });
+
+  return response;
 }
 
 module.exports = calcularVentanaHerrero;

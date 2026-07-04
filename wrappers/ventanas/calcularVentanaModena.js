@@ -1,6 +1,9 @@
 // wrappers/ventanas/calcularVentanaModena.js
 
 const { fromRoot } = require("../../backend/utils/path");
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
 
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
@@ -133,22 +136,58 @@ function calcularVentanaModena(dataInput) {
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
-  return {
-    costoBase: Math.round(base.costoBase),
+  return buildWrapperResponse({
+    // =========================
+    // IDENTIDAD
+    // =========================
 
-    costo: Math.round(costo),
+    modulo: "ventanas",
 
-    precioProveedor: Math.round(proveedor),
+    linea: "modena",
 
-    precioLista: Math.round(venta),
+    // =========================
+    // COSTOS
+    // =========================
 
-    precioVenta: Math.round(venta), // Compatibilidad temporal
+    costoBase: base.costoBase,
 
-    ganancia: Math.round(venta - costo),
+    costo,
 
-    items,
+    // =========================
+    // PRECIOS
+    // =========================
+
+    precioBase: costo,
+
+    precioProveedor: proveedor,
+
+    precioLista: venta,
+
+    precioFinal: venta,
+
+    // =========================
+    // PERFIL
+    // =========================
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: Math.round(perfilData.ganancia * 100),
+
+    // =========================
+    // RESULTADO
+    // =========================
+
+    ganancia: venta - costo,
 
     descripcion: `Ventana modena ${ancho}x${alto}`,
+
+    items,
 
     configuracion: {
       ancho,
@@ -172,7 +211,7 @@ function calcularVentanaModena(dataInput) {
         contramarco: !!contramarco,
       },
     },
-  };
+  });
 }
 
 module.exports = calcularVentanaModena;

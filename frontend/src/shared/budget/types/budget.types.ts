@@ -34,13 +34,23 @@ export type BudgetItem = {
 
   precioBase?: number;
 
+  precioProveedor?: number;
+
   precioLista?: number;
 
   precioFinal?: number;
 
+  descuentoAplicado?: number;
+
+  fleteAplicado?: number;
+
+  gananciaAplicada?: number;
+
   margenAplicado?: number;
 
   perfilAplicado?: string;
+
+  audit?: unknown;
 
   metadata?: {
     linea?: string;

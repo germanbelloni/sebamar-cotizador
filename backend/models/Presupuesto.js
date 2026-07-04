@@ -15,13 +15,23 @@ const itemSchema = new mongoose.Schema({
 
   precioBase: Number,
 
+  precioProveedor: Number,
+
   precioLista: Number,
 
   precioFinal: Number,
 
+  descuentoAplicado: Number,
+
+  fleteAplicado: Number,
+
+  gananciaAplicada: Number,
+
   margenAplicado: Number,
 
   perfilAplicado: String,
+
+  audit: mongoose.Schema.Types.Mixed,
 
   configuracion: mongoose.Schema.Types.Mixed,
 

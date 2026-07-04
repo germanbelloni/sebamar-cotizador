@@ -4,6 +4,10 @@ const calcularPostigon = require(
   fromRoot("services/postigones/calcularPostigon"),
 );
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -274,23 +278,25 @@ function calcularWrapper(data) {
     }),
   };
 
-  return {
-    costoBase: Math.round(costoBase),
+  return buildWrapperResponse({
+    costoBase,
 
-    costo: Math.round(costo),
+    costo,
 
-    precioProveedor: Math.round(proveedor),
+    proveedor,
 
-    precioVenta: Math.round(venta),
+    venta,
 
-    ganancia: Math.round(venta - costo),
+    perfil,
+
+    perfilData,
 
     items,
 
     descripcion: `Postigón ${tipo} ${ancho}x${altoOriginal}`,
 
     configuracion,
-  };
+  });
 }
 
 module.exports = calcularWrapper;

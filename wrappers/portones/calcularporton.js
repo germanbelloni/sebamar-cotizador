@@ -4,6 +4,10 @@ const { necesitaDobleTravesano, necesitaBisagrasExtra } = require(
   fromRoot("backend/utils/portonRules"),
 );
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
 const calcularPortones = require(
   fromRoot("backend/services/portones/calcularPortones"),
 );
@@ -197,22 +201,35 @@ function calcularPortonWrapper(dataInput) {
   const proveedor = costoFinal * (1 + perfilData.flete);
   const venta = proveedor * (1 + perfilData.ganancia);
 
-  return {
-    costoBase: Math.round(resultado.costoBase || 0),
-    costo: Math.round(costoFinal),
-    precioProveedor: Math.round(proveedor),
-    precioVenta: Math.round(venta),
-    ganancia: Math.round(venta - costoFinal),
+  return buildWrapperResponse({
+    costoBase: resultado.costoBase || 0,
+
+    costo: costoFinal,
+
+    proveedor,
+
+    venta,
+
+    perfil,
+
+    perfilData,
+
     items,
+
     descripcion: `Portón ${hojas} hojas`,
+
     configuracion: {
       ...resultado.configuracion,
+
       linea,
+
       color,
+
       sistema,
+
       hojas,
     },
-  };
+  });
 }
 
 module.exports = calcularPortonWrapper;

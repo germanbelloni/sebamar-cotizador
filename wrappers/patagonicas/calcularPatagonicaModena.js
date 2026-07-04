@@ -1,6 +1,11 @@
 const { fromRoot } = require("../../backend/utils/path");
+
 const service = require(
   fromRoot("services/patagonicas/calcularPatagonicaModena"),
+);
+
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
 );
 
 const perfiles = require(fromRoot("config/perfiles"));
@@ -237,25 +242,25 @@ function calcularWrapper(data) {
   // ✅ RESPONSE
   // =========================
 
-  return {
-    costoBase: Math.round(costoBase),
+  return buildWrapperResponse({
+    costoBase,
 
-    costo: Math.round(costo),
+    costo,
 
-    precioProveedor: Math.round(proveedor),
+    proveedor,
 
-    precioVenta: Math.round(venta),
+    venta,
 
-    precioFinal: Math.round(venta),
+    perfil,
 
-    ganancia: Math.round(venta - costo),
+    perfilData,
 
     items,
 
     descripcion: `Patagónica Modena ${medidaFinal}`,
 
     configuracion,
-  };
+  });
 }
 
 module.exports = calcularWrapper;

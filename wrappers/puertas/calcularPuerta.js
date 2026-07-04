@@ -4,6 +4,9 @@ const calcularPuertas = require(
   fromRoot("backend/services/puertas/calcularPuertas"),
 );
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
@@ -200,22 +203,22 @@ function calcularPuertaWrapper(dataInput) {
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
-  return {
-    costoBase: Math.round(base.costoBase),
+  return buildWrapperResponse({
+    costoBase: base.costoBase,
 
-    costo: Math.round(costo),
+    costo,
 
-    precioProveedor: Math.round(proveedor),
+    proveedor,
 
-    precioVenta: Math.round(venta),
+    venta,
 
-    ganancia: Math.round(venta - costo),
+    perfil,
+
+    perfilData,
 
     items: items.map((i) => ({
       tipo: i.tipo,
-
       descripcion: i.descripcion,
-
       precio: Math.round(i.precio || 0),
     })),
 
@@ -240,6 +243,7 @@ function calcularPuertaWrapper(dataInput) {
         hojas: base.configuracion?.hojas || 1,
 
         manija: null,
+
         barral: extras.barralRecto
           ? {
               tipo: "recto",
@@ -253,7 +257,7 @@ function calcularPuertaWrapper(dataInput) {
             : null,
       },
     },
-  };
+  });
 }
 
 module.exports = calcularPuertaWrapper;

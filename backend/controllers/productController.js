@@ -34,6 +34,8 @@ const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
 
 const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 
+const auditarResultado = require("../auditor/auditarResultado");
+
 function isValidationError(message = "") {
   const text = String(message).toLowerCase();
 
@@ -70,6 +72,28 @@ async function runCalculation(req, res, name, callback) {
     );
 
     const sanitized = sanitizarCotizacion(withMargin, req.user);
+
+    const auditoria = auditarResultado(withMargin);
+
+    console.log("========== AUDITOR ==========");
+    console.dir(auditoria, { depth: null });
+    console.log("");
+    console.log("======================================");
+    console.log(`AUDITOR ${name}`);
+    console.log("======================================");
+
+    auditoria.ok.forEach((m) => console.log(m));
+
+    auditoria.advertencias.forEach((m) => console.log("⚠", m));
+
+    auditoria.errores.forEach((m) => console.log("❌", m));
+
+    console.log("--------------------------------------");
+    console.log(
+      auditoria.valido ? "✅ RESULTADO: APROBADO" : "❌ RESULTADO: RECHAZADO",
+    );
+    console.log("======================================");
+    console.log("");
     console.log("========== BACK RESPONSE ==========");
     console.log(JSON.stringify(sanitized, null, 2));
     return res.json(sanitized);

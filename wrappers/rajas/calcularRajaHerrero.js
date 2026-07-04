@@ -3,7 +3,9 @@
 const { fromRoot } = require("../../backend/utils/path");
 
 const calcularRaja = require(fromRoot("backend/services/rajas/calcularRaja"));
-
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
@@ -192,16 +194,18 @@ function calcularRajaHerrero(dataInput) {
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
-  return {
-    costoBase: Math.round(base.costoBase),
+  return buildWrapperResponse({
+    costoBase: base.costoBase,
 
-    costo: Math.round(costo),
+    costo,
 
-    precioProveedor: Math.round(proveedor),
+    proveedor,
 
-    precioVenta: Math.round(venta),
+    venta,
 
-    ganancia: Math.round(venta - costo),
+    perfil,
+
+    perfilData,
 
     items,
 
@@ -236,7 +240,6 @@ function calcularRajaHerrero(dataInput) {
         bisagra: bisagra
           ? {
               tipo: bisagra,
-
               svgKey:
                 bisagra === "izquierda"
                   ? "bisagra_izquierda"
@@ -245,7 +248,7 @@ function calcularRajaHerrero(dataInput) {
           : null,
       },
     },
-  };
+  });
 }
 
 module.exports = calcularRajaHerrero;

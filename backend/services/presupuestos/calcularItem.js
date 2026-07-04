@@ -1,33 +1,64 @@
+const { fromRoot } = require("../../utils/path");
+
 // =========================
 // WRAPPERS
 // =========================
 
-const calcularMosquitero = require("../../wrappers/mosquiteros/calcularMosquiteroVentana");
+const calcularMosquitero = require(
+  fromRoot("wrappers/mosquiteros/calcularMosquiteroVentana"),
+);
 
-const calcularPuerta = require("../../wrappers/puertas/calcularPuerta");
+const calcularPuerta = require(fromRoot("wrappers/puertas/calcularPuerta"));
 
-const calcularVentanaHerrero = require("../../wrappers/ventanas/calcularVentanaHerrero");
-const calcularVentanaModena = require("../../wrappers/ventanas/calcularVentanaModena");
+const calcularVentanaHerrero = require(
+  fromRoot("wrappers/ventanas/calcularVentanaHerrero"),
+);
 
-const calcularRajaHerrero = require("../../wrappers/rajas/calcularRajaHerrero");
-const calcularRajaModena = require("../../wrappers/rajas/calcularRajaModena");
+const calcularVentanaModena = require(
+  fromRoot("wrappers/ventanas/calcularVentanaModena"),
+);
 
-const calcularPostigones = require("../../wrappers/postigones/calcularPostigones");
+const calcularRajaHerrero = require(
+  fromRoot("wrappers/rajas/calcularRajaHerrero"),
+);
 
-const calcularPatagonicaHerrero = require("../../wrappers/patagonicas/calcularPatagonicaHerrero");
-const calcularPatagonicaModena = require("../../wrappers/patagonicas/calcularPatagonicaModena");
+const calcularRajaModena = require(
+  fromRoot("wrappers/rajas/calcularRajaModena"),
+);
 
-const calcularporton = require("../../wrappers/portones/calcularporton");
+const calcularPostigones = require(
+  fromRoot("wrappers/postigones/calcularPostigones"),
+);
 
-const calcularsuperficies = require("../../wrappers/superficies/calcularSuperficies");
+const calcularPatagonicaHerrero = require(
+  fromRoot("wrappers/patagonicas/calcularPatagonicaHerrero"),
+);
 
-const calcularPuertaPlaca = require("../../wrappers/placas/calcularPuertaPlaca");
+const calcularPatagonicaModena = require(
+  fromRoot("wrappers/patagonicas/calcularPatagonicaModena"),
+);
 
-const calcularPuertaEco = require("../../wrappers/puertas/calcularPuertaEco");
+const calcularPorton = require(fromRoot("wrappers/portones/calcularporton"));
 
-const calcularPuertaMosquitera = require("../../wrappers/mosquiteros/calcularPuertaMosquitera");
+const calcularSuperficies = require(
+  fromRoot("wrappers/superficies/calcularSuperficies"),
+);
 
-const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
+const calcularPuertaPlaca = require(
+  fromRoot("wrappers/placas/calcularPuertaPlaca"),
+);
+
+const calcularPuertaEco = require(
+  fromRoot("wrappers/puertas/calcularPuertaEco"),
+);
+
+const calcularPuertaMosquitera = require(
+  fromRoot("wrappers/mosquiteros/calcularPuertaMosquitera"),
+);
+
+// =========================
+// CALCULADOR GLOBAL
+// =========================
 
 function calcularItem(item, perfil) {
   const tipoMap = {
@@ -43,9 +74,7 @@ function calcularItem(item, perfil) {
   };
 
   const tipo = tipoMap[item.modulo] || item.tipo;
-  console.log("TIPO:", tipo);
-  console.log("MODULO:", item.modulo);
-  console.log("LINEA:", item.metadata?.linea);
+
   switch (tipo) {
     case "puerta":
       return calcularPuerta({
@@ -71,35 +100,25 @@ function calcularItem(item, perfil) {
         perfil,
       });
 
-    case "ventana":
-      {
-        console.log("ENTRO A VENTANA");
-        const linea = (
-          item.linea ||
-          item.configuracion?.linea ||
-          item.metadata?.linea ||
-          ""
-        ).toLowerCase();
-        console.log("LINEA DETECTADA:", linea);
+    case "ventana": {
+      const linea = (
+        item.linea ||
+        item.configuracion?.linea ||
+        item.metadata?.linea ||
+        ""
+      ).toLowerCase();
 
-        const payload = {
-          ...item.configuracion,
-          perfil,
-        };
+      const payload = {
+        ...item.configuracion,
+        perfil,
+      };
 
-        console.log("PAYLOAD:");
-        console.log(JSON.stringify(payload, null, 2));
-        if (linea === "modena") {
-          return calcularVentanaModena(payload);
-        }
-
-        return calcularVentanaHerrero(payload);
+      if (linea === "modena") {
+        return calcularVentanaModena(payload);
       }
 
-      return calcularVentanaHerrero({
-        ...item,
-        perfil,
-      });
+      return calcularVentanaHerrero(payload);
+    }
 
     case "raja":
       if (
@@ -140,13 +159,13 @@ function calcularItem(item, perfil) {
       });
 
     case "porton":
-      return calcularporton({
+      return calcularPorton({
         ...item,
         perfil,
       });
 
     case "superficie":
-      return calcularsuperficies({
+      return calcularSuperficies({
         ...item,
         perfil,
       });
@@ -158,7 +177,8 @@ function calcularItem(item, perfil) {
       });
 
     default:
-      return null;
+      throw new Error(`Tipo de producto no soportado: ${tipo}`);
   }
 }
+
 module.exports = calcularItem;

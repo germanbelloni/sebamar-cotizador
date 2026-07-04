@@ -39,13 +39,23 @@ export function budgetToApi({ items, cliente, telefono }: Params) {
 
       precioBase: item.precioBase,
 
+      precioProveedor: item.precioProveedor,
+
       precioLista: item.precioLista,
 
       precioFinal: item.precioFinal,
 
+      descuentoAplicado: item.descuentoAplicado,
+
+      fleteAplicado: item.fleteAplicado,
+
+      gananciaAplicada: item.gananciaAplicada,
+
       margenAplicado: item.margenAplicado,
 
       perfilAplicado: item.perfilAplicado,
+
+      audit: item.audit,
 
       configuracion: item.configuracion,
 

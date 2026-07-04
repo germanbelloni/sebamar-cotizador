@@ -4,6 +4,10 @@ const calcularBase = require(
   fromRoot("backend/services/placas/calcularPuertaPlaca"),
 );
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
 // ========================
@@ -165,16 +169,25 @@ function calcularWrapper(dataInput) {
     svg: buildPuertaSVG({ mano }),
   };
 
-  return {
-    costoBase: Math.round(costoBase),
-    costo: Math.round(costo),
-    precioProveedor: Math.round(proveedor),
-    precioVenta: Math.round(venta),
-    ganancia: Math.round(venta - costo),
+  return buildWrapperResponse({
+    costoBase,
+
+    costo,
+
+    proveedor,
+
+    venta,
+
+    perfil,
+
+    perfilData,
+
     items,
+
     descripcion,
+
     configuracion,
-  };
+  });
 }
 
 module.exports = calcularWrapper;

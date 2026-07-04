@@ -1,7 +1,13 @@
 const { fromRoot } = require("../../backend/utils/path");
+
 const calcularSuperficie = require(
   fromRoot("services/superficies/superficies"),
 );
+
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -153,16 +159,18 @@ function calcularsuperficiesWrapper(dataInput) {
   // ✅ RESPONSE
   // ========================
 
-  return {
-    costoBase: Math.round(resultado.costoBase || 0),
+  return buildWrapperResponse({
+    costoBase: resultado.costoBase || 0,
 
-    costo: Math.round(costoFinal),
+    costo: costoFinal,
 
-    precioProveedor: Math.round(proveedor),
+    proveedor,
 
-    precioVenta: Math.round(venta),
+    venta,
 
-    ganancia: Math.round(venta - costoFinal),
+    perfil,
+
+    perfilData,
 
     items: items.map((i) => ({
       tipo: i.tipo,
@@ -173,7 +181,7 @@ function calcularsuperficiesWrapper(dataInput) {
     descripcion,
 
     configuracion,
-  };
+  });
 }
 
 module.exports = calcularsuperficiesWrapper;
