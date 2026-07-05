@@ -3,7 +3,10 @@ const { fromRoot } = require("../../backend/utils/path");
 const calcularMosquitero = require(
   fromRoot("services/mosquiteros/calcularMosquitero"),
 );
-
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -55,9 +58,23 @@ function buscarMedidaValida(anchoInput, altoInput) {
 // =========================
 
 function calcularMosquiteroVentana(dataInput) {
+  const audit = new AuditBuilder();
   const { ancho, alto, color = "blanco", perfil = "amarilla" } = dataInput;
 
   const medidaValida = buscarMedidaValida(ancho, alto);
+
+  audit.add({
+    etapa: "Lookup",
+    tipo: "lookup",
+    origen: "mosquiteros.json",
+    referencia: medidaValida.key,
+
+    metadata: {
+      anchoSolicitado: ancho,
+      altoSolicitado: alto,
+      medidaUtilizada: medidaValida.key,
+    },
+  });
 
   // =========================
   // 🧠 SERVICE
@@ -65,6 +82,20 @@ function calcularMosquiteroVentana(dataInput) {
 
   const base = calcularMosquitero({
     medida: medidaValida.key,
+  });
+
+  audit.add({
+    etapa: "Costo Base",
+    tipo: "base",
+    origen: "mosquiteros.json",
+
+    valorAntes: 0,
+    valorAplicado: base.costoBase,
+    valorDespues: base.costoBase,
+
+    metadata: {
+      medida: medidaValida.key,
+    },
   });
 
   let costo = Number(base.costoBase || 0);
@@ -93,6 +124,32 @@ function calcularMosquiteroVentana(dataInput) {
     });
   }
 
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: base.costoBase,
+
+    valorAplicado: costoColor,
+
+    valorDespues: costo,
+
+    metadata: {
+      estructuraOriginal: estructura,
+      estructuraColor: estructura + costoColor,
+      incremento: costoColor,
+      porcentajeColor: colorFactor,
+    },
+  });
   // =========================
   // 💰 PERFIL
   // =========================
@@ -106,26 +163,68 @@ function calcularMosquiteroVentana(dataInput) {
 
   const venta = costoFinal * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      aumento1: perfilData.aumento1,
+      aumento2: perfilData.aumento2,
+      ganancia: perfilData.ganancia,
+
+      proveedor: costo,
+      venta,
+    },
+  });
+
+  const costoBase = Math.round(costo);
   // =========================
   // ✅ RESPONSE
   // =========================
 
-  return {
-    costoBase: Math.round(costo),
+  return buildWrapperResponse({
+    modulo: "mosquiteros",
 
-    costo: Math.round(costoFinal),
+    linea: "moscas",
 
-    precioProveedor: Math.round(costoFinal),
+    costoBase,
 
-    precioVenta: Math.round(venta),
+    costo,
 
-    ganancia: Math.round(venta - costoFinal),
+    precioBase: costo,
 
-    items: items.map((i) => ({
-      tipo: i.tipo,
-      descripcion: i.descripcion,
-      precio: Math.round(i.precio || 0),
-    })),
+    precioProveedor: costo,
+
+    precioLista: venta,
+
+    precioFinal: venta,
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: 0,
+
+    fleteAplicado: 0,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - costo,
+
+    items,
 
     descripcion: `Mosquitero ventana ${ancho}x${alto}`,
 
@@ -135,7 +234,9 @@ function calcularMosquiteroVentana(dataInput) {
       medidaUsada: medidaValida.key,
       color,
     },
-  };
+
+    audit: audit.getSteps(),
+  });
 }
 
 module.exports = calcularMosquiteroVentana;

@@ -8,6 +8,8 @@ const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
 
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -29,6 +31,7 @@ function getColorFactor(color) {
 // ========================
 
 function calcularsuperficiesWrapper(dataInput) {
+  const audit = new AuditBuilder();
   const {
     tipo,
     ancho,
@@ -55,32 +58,100 @@ function calcularsuperficiesWrapper(dataInput) {
     tipoVidrio,
   });
 
+  audit.add({
+    etapa: "Lookup",
+    tipo: "lookup",
+    origen: "superficies.json",
+    referencia: tipo,
+    metadata: {
+      ancho,
+      alto,
+      linea,
+      tipoVidrio,
+    },
+  });
+
   let costo = Number(resultado.costoBase || 0);
 
   const items = [...resultado.items];
+
+  const estructuraOriginal =
+    items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const vidrio = items.find((i) => i.tipo === "vidrio")?.precio || 0;
+
+  audit.add({
+    etapa: "Estructura",
+    tipo: "estructura",
+    origen: "superficies.json",
+
+    valorAntes: 0,
+    valorAplicado: estructuraOriginal,
+    valorDespues: estructuraOriginal,
+  });
+
+  if (vidrio > 0) {
+    audit.add({
+      etapa: "Vidrio",
+      tipo: "vidrio",
+      origen: "superficies.json",
+
+      valorAntes: estructuraOriginal,
+      valorAplicado: vidrio,
+      valorDespues: estructuraOriginal + vidrio,
+
+      referencia: tipoVidrio,
+    });
+  }
 
   // ========================
   // 🎨 COLOR
   // SOLO ESTRUCTURA
   // ========================
 
-  const estructura = items
-    .filter((i) => i.tipo === "estructura")
-    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
-
   const colorFactor = getColorFactor(color);
 
-  const costoColor = estructura * colorFactor;
+  if (colorFactor > 0) {
+    const estructura = items.find((i) => i.tipo === "estructura");
 
-  if (costoColor > 0) {
-    costo += costoColor;
+    if (estructura) {
+      const original = estructura.precio;
 
-    items.push({
-      tipo: "color",
-      descripcion: color,
-      precio: Math.round(costoColor),
-    });
+      estructura.precio = Math.round(original * (1 + colorFactor));
+
+      audit.add({
+        etapa: "Color",
+
+        tipo: "color",
+
+        descripcion: `Recargo color ${color}`,
+
+        origen: "colores.json",
+
+        referencia: color,
+
+        porcentaje: colorFactor,
+
+        valorAntes: resultado.costoBase,
+
+        valorAplicado: estructura.precio - original,
+
+        valorDespues: resultado.items
+          .filter((i) => i.tipo !== "estructura")
+          .reduce((a, i) => a + Number(i.precio || 0), estructura.precio),
+
+        metadata: {
+          estructuraOriginal: original,
+          estructuraColor: estructura.precio,
+        },
+      });
+    }
   }
+
+  const costoBase = items.reduce(
+    (acc, item) => acc + Number(item.precio || 0),
+    0,
+  );
 
   // ========================
   // 💰 PERFIL
@@ -105,6 +176,32 @@ function calcularsuperficiesWrapper(dataInput) {
 
   const venta = proveedor * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costoBase,
+
+    valorAplicado: venta - costoBase,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
   // ========================
   // 🧾 DESCRIPCIÓN
   // ========================
@@ -160,27 +257,41 @@ function calcularsuperficiesWrapper(dataInput) {
   // ========================
 
   return buildWrapperResponse({
-    costoBase: resultado.costoBase || 0,
+    modulo: "superficies",
+
+    linea,
+
+    costoBase,
 
     costo: costoFinal,
 
-    proveedor,
+    precioBase: costoFinal,
 
-    venta,
+    precioProveedor: proveedor,
 
-    perfil,
+    precioLista: venta,
 
-    perfilData,
+    precioFinal: venta,
 
-    items: items.map((i) => ({
-      tipo: i.tipo,
-      descripcion: i.descripcion,
-      precio: Math.round(i.precio || 0),
-    })),
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - costoFinal,
+
+    items,
 
     descripcion,
 
     configuracion,
+
+    audit: audit.getSteps(),
   });
 }
 

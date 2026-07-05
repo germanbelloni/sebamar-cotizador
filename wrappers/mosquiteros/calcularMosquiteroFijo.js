@@ -5,6 +5,10 @@ const perfiles = require(fromRoot("config/perfiles"));
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
 
@@ -25,6 +29,7 @@ function getColorFactor(color) {
 // =========================
 
 function calcularMosquiteroFijo(dataInput) {
+  const audit = new AuditBuilder();
   const { ancho, alto, color = "blanco", perfil = "amarilla" } = dataInput;
 
   if (!ancho || !alto) {
@@ -57,6 +62,26 @@ function calcularMosquiteroFijo(dataInput) {
     },
   ];
 
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "superficies.json",
+
+    valorAntes: 0,
+
+    valorAplicado: costoBase,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      ancho,
+      alto,
+      precioM2,
+    },
+  });
+
   // =========================
   // 🎨 COLOR
   // =========================
@@ -75,6 +100,33 @@ function calcularMosquiteroFijo(dataInput) {
     });
   }
 
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: costoBase - costoColor,
+
+    valorAplicado: costoColor,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      estructuraOriginal: costoBase - costoColor,
+      estructuraColor: costoBase,
+      incremento: costoColor,
+      porcentajeColor: colorFactor,
+    },
+  });
+
   // =========================
   // 💰 PERFIL
   // =========================
@@ -88,20 +140,65 @@ function calcularMosquiteroFijo(dataInput) {
 
   const venta = costo * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      aumento1: perfilData.aumento1,
+      aumento2: perfilData.aumento2,
+      ganancia: perfilData.ganancia,
+
+      proveedor: costo,
+      venta,
+    },
+  });
+
   // =========================
   // ✅ RESPONSE
   // =========================
 
-  return {
-    costoBase: Math.round(costoBase),
+  return buildWrapperResponse({
+    modulo: "mosquiteros",
 
-    costo: Math.round(costo),
+    linea: "moscas",
 
-    precioProveedor: Math.round(costo),
+    costoBase,
 
-    precioVenta: Math.round(venta),
+    costo,
 
-    ganancia: Math.round(venta - costo),
+    precioBase: costo,
+
+    precioProveedor: costo,
+
+    precioLista: venta,
+
+    precioFinal: venta,
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: 0,
+
+    fleteAplicado: 0,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - costo,
 
     items,
 
@@ -112,7 +209,9 @@ function calcularMosquiteroFijo(dataInput) {
       alto,
       color,
     },
-  };
+
+    audit: audit.getSteps(),
+  });
 }
 
 module.exports = calcularMosquiteroFijo;

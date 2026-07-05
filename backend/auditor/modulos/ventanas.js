@@ -180,12 +180,6 @@ function auditarVentanas(resultado) {
   // REGLAS
   // =========================
 
-  if (resultado.precioProveedor > resultado.costo) {
-    advertencias.push(
-      "El proveedor es mayor que el costo. Revisar descuentos.",
-    );
-  }
-
   if (resultado.precioLista < resultado.precioProveedor) {
     advertencias.push("La lista es menor que el proveedor.");
   }

@@ -7,6 +7,7 @@ const calcularPuertas = require(
 const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
@@ -84,6 +85,7 @@ function aplicarRecargoMedidas(costo, dataInput) {
 // ========================
 
 function calcularPuertaWrapper(dataInput) {
+  const audit = new AuditBuilder();
   if (!dataInput.medida && dataInput.ancho && dataInput.alto) {
     dataInput.medida = `${dataInput.ancho}x${dataInput.alto}`;
   }
@@ -121,9 +123,57 @@ function calcularPuertaWrapper(dataInput) {
 
   let costo = Number(base.costoBase || 0);
 
+  const items = [...base.items];
+
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "calcularPuertas",
+
+    valorAntes: 0,
+
+    valorAplicado: costo,
+
+    valorDespues: costo,
+
+    metadata: {
+      linea,
+      configuracion,
+      modelo,
+      hojas: base.configuracion?.hojas || 1,
+      tipoVidrio: base.configuracion?.tipoVidrio,
+    },
+  });
+
+  const costoAntesRecargo = costo;
+
   costo = aplicarRecargoMedidas(costo, dataInput);
 
-  const items = [...base.items];
+  if (Math.round(costo) !== Math.round(costoAntesRecargo)) {
+    audit.add({
+      etapa: "Recargo Alto",
+
+      tipo: "recargo",
+
+      origen: "wrapper",
+
+      referencia: `${dataInput.alto}cm`,
+
+      porcentaje: costoAntesRecargo ? costo / costoAntesRecargo - 1 : 0,
+
+      valorAntes: costoAntesRecargo,
+
+      valorAplicado: costo - costoAntesRecargo,
+
+      valorDespues: costo,
+
+      metadata: {
+        alto: dataInput.alto,
+      },
+    });
+  }
   // ========================
   // 🎨 COLOR
   // SOLO ESTRUCTURA
@@ -147,6 +197,33 @@ function calcularPuertaWrapper(dataInput) {
     });
   }
 
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: estructura,
+
+    valorAplicado: costoColor,
+
+    valorDespues: estructura + costoColor,
+
+    metadata: {
+      estructuraOriginal: estructura,
+      estructuraColor: estructura + costoColor,
+      incremento: costoColor,
+      porcentajeColor: colorFactor,
+    },
+  });
+
   // ========================
   // ➕ EXTRAS
   // ========================
@@ -160,6 +237,19 @@ function calcularPuertaWrapper(dataInput) {
       tipo: "barral_recto",
       precio: Math.round(extra),
     });
+    audit.add({
+      etapa: "Barral Recto",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.barralCurvo) {
@@ -171,10 +261,22 @@ function calcularPuertaWrapper(dataInput) {
       tipo: "barral_curvo",
       precio: Math.round(extra),
     });
-  }
+    audit.add({
+      etapa: "Barral Curvo",
 
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
+  }
   if (extras.picaporte) {
-    const extra = superficies.herrajes?.media_manija || 0;
+    const extra = superficies.herrajes?.picaporte?.[linea] || 0;
 
     costo += extra;
 
@@ -182,16 +284,46 @@ function calcularPuertaWrapper(dataInput) {
       tipo: "picaporte",
       precio: Math.round(extra),
     });
+
+    audit.add({
+      etapa: "Picaporte",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      referencia: linea,
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.mediaManija) {
-    const extra = superficies.herrajes?.picaporte?.media_manija || 0;
+    const extra = superficies.herrajes?.media_manija || 0;
 
     costo += extra;
 
     items.push({
       tipo: "media_manija",
       precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Media Manija",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
     });
   }
 
@@ -202,6 +334,32 @@ function calcularPuertaWrapper(dataInput) {
   const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
 
   return buildWrapperResponse({
     costoBase: base.costoBase,
@@ -257,6 +415,7 @@ function calcularPuertaWrapper(dataInput) {
             : null,
       },
     },
+    audit: audit.getSteps(),
   });
 }
 

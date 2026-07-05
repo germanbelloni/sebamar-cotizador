@@ -8,6 +8,8 @@ const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
 
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const perfiles = require(fromRoot("config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -103,6 +105,7 @@ function buildSVG({ tipo, hojas, apertura }) {
 // =========================
 
 function calcularWrapper(data) {
+  const audit = new AuditBuilder();
   let {
     medida,
     ancho,
@@ -149,6 +152,22 @@ function calcularWrapper(data) {
 
   const medidaValida = buscarMedidaValida(dataJson.medidas, ancho, alto);
 
+  audit.add({
+    etapa: "Lookup",
+
+    tipo: "lookup",
+
+    origen: "postigones.json",
+
+    referencia: medidaValida,
+
+    metadata: {
+      anchoSolicitado: ancho,
+      altoSolicitado: altoOriginal,
+      medidaUtilizada: medidaValida,
+    },
+  });
+
   if (!medidaValida) {
     throw new Error("No hay medida válida");
   }
@@ -160,6 +179,25 @@ function calcularWrapper(data) {
   const base = calcularPostigon({
     medida: medidaValida,
     tipo,
+  });
+
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "postigones.json",
+
+    valorAntes: 0,
+
+    valorAplicado: base.costoBase,
+
+    valorDespues: base.costoBase,
+
+    metadata: {
+      medida: medidaValida,
+      tipo,
+    },
   });
 
   // =========================
@@ -188,6 +226,38 @@ function calcularWrapper(data) {
 
   let costoBase = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
+  const estructuraOriginal =
+    base.items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const estructuraColor =
+    items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: base.costoBase,
+
+    valorAplicado: estructuraColor - estructuraOriginal,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      estructuraOriginal,
+      estructuraColor,
+      incremento: estructuraColor - estructuraOriginal,
+      porcentajeColor: colorFactor,
+    },
+  });
   // =========================
   // 📏 ALTURA
   // =========================
@@ -223,10 +293,39 @@ function calcularWrapper(data) {
 
     costoBase += extra;
 
+    audit.add({
+      etapa: "Extra",
+
+      tipo: "microperforado",
+
+      origen: "wrapper",
+
+      valorAntes: costoBase - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costoBase,
+    });
     items.push({
       tipo: "extra",
       descripcion: "Herraje blanco",
       precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Extra",
+
+      tipo: "herraje_blanco",
+
+      origen: "superficies.json",
+
+      valorAntes: costoBase - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costoBase,
+
+      porcentaje: mult - 1,
     });
   }
 
@@ -243,6 +342,33 @@ function calcularWrapper(data) {
   const perfilData = perfiles[perfil]?.[linea] || perfiles["amarilla"][linea];
 
   const { costo, proveedor, venta } = aplicarPerfil(costoBase, perfilData);
+
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costoBase,
+
+    valorAplicado: venta - costoBase,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
 
   // =========================
   // 🧠 CONFIG
@@ -277,25 +403,38 @@ function calcularWrapper(data) {
       apertura,
     }),
   };
-
   return buildWrapperResponse({
-    costoBase,
+    // IDENTIDAD
+    modulo: "postigones",
+    linea,
 
+    // COSTOS
+    costoBase,
     costo,
 
-    proveedor,
+    // PRECIOS
+    precioBase: costo,
+    precioProveedor: proveedor,
+    precioLista: venta,
+    precioFinal: venta,
 
-    venta,
+    // PERFIL
+    perfilAplicado: perfil,
+    descuentoAplicado: perfilData.descuento,
+    fleteAplicado: perfilData.flete,
+    gananciaAplicada: perfilData.ganancia,
+    margenAplicado: Math.round(perfilData.ganancia * 100),
 
-    perfil,
-
-    perfilData,
+    // RESULTADO
+    ganancia: venta - costo,
 
     items,
 
     descripcion: `Postigón ${tipo} ${ancho}x${altoOriginal}`,
 
     configuracion,
+
+    audit: audit.getSteps(),
   });
 }
 

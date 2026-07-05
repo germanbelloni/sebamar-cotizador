@@ -13,16 +13,16 @@ function calcularMosquitero(dataInput) {
     throw new Error(`Medida no encontrada: ${medida}`);
   }
 
-  const base = datos.base || datos.precio || 0;
+  const precioBase = datos.base || datos.precio || 0;
 
   return {
-    costoBase: Math.round(base),
+    costoBase: Math.round(precioBase),
 
     items: [
       {
         tipo: "estructura",
         descripcion: medida,
-        precio: Math.round(base),
+        precio: Math.round(precioBase),
       },
     ],
 

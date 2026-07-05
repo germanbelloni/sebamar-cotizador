@@ -7,6 +7,7 @@ const { necesitaDobleTravesano, necesitaBisagrasExtra } = require(
 const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
 
 const calcularPortones = require(
   fromRoot("backend/services/portones/calcularPortones"),
@@ -29,6 +30,7 @@ function getColorFactor(color) {
 }
 
 function calcularPortonWrapper(dataInput) {
+  const audit = new AuditBuilder();
   console.log("REQ BODY PORTONES:", dataInput);
   console.log("SISTEMA RECIBIDO:", dataInput.sistema);
   const {
@@ -73,12 +75,64 @@ function calcularPortonWrapper(dataInput) {
   let costo = Number(resultado.costoBase || 0);
   const items = [...(resultado.items || [])];
 
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "calcularPortones",
+
+    valorAntes: 0,
+
+    valorAplicado: costo,
+
+    valorDespues: costo,
+
+    metadata: {
+      hojas,
+      sistema,
+      modelo,
+      linea,
+    },
+  });
+
+  const costoAntesRecargo = costo;
+
+  let factorRecargo = 1;
+
   if (alto > 210) {
-    costo *= 1.4;
+    factorRecargo = 1.4;
   } else if (alto > 205) {
-    costo *= 1.1;
+    factorRecargo = 1.1;
   } else if (alto > 200) {
-    costo *= 1.05;
+    factorRecargo = 1.05;
+  }
+
+  costo *= factorRecargo;
+
+  if (factorRecargo !== 1) {
+    audit.add({
+      etapa: "Recargo Alto",
+
+      tipo: "recargo",
+
+      origen: "wrapper",
+
+      referencia: `${alto}cm`,
+
+      porcentaje: factorRecargo - 1,
+
+      valorAntes: costoAntesRecargo,
+
+      valorAplicado: costo - costoAntesRecargo,
+
+      valorDespues: costo,
+
+      metadata: {
+        alto,
+        factor: factorRecargo,
+      },
+    });
   }
 
   const estructura = items
@@ -98,34 +152,126 @@ function calcularPortonWrapper(dataInput) {
     });
   }
 
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: estructura,
+
+    valorAplicado: costoColor,
+
+    valorDespues: estructura + costoColor,
+
+    metadata: {
+      estructuraOriginal: estructura,
+      estructuraColor: estructura + costoColor,
+      incremento: costoColor,
+      porcentajeColor: colorFactor,
+    },
+  });
+
   if (extras.barralRecto) {
     const extra = superficies.barrales?.recto || 0;
     costo += extra;
     items.push({ tipo: "barral_recto", precio: Math.round(extra) });
+    audit.add({
+      etapa: "Barral Recto",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.barralCurvo) {
     const extra = superficies.barrales?.curvo || 0;
     costo += extra;
     items.push({ tipo: "barral_curvo", precio: Math.round(extra) });
+    audit.add({
+      etapa: "Barral Curvo",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.picaporte) {
     const extra = superficies.herrajes?.picaporte?.[linea] || 0;
     costo += extra;
     items.push({ tipo: "picaporte", precio: Math.round(extra) });
+    audit.add({
+      etapa: "Picaporte",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.mediaManija) {
     const extra = superficies.herrajes?.media_manija || 0;
     costo += extra;
     items.push({ tipo: "media_manija", precio: Math.round(extra) });
+    audit.add({
+      etapa: "Media Manija",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (extras.cartelprohibido) {
     const extra = superficies.extras?.cartelprohibido || 0;
     costo += extra;
     items.push({ tipo: "cartel_prohibido", precio: Math.round(extra) });
+    audit.add({
+      etapa: "Cartel",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
   }
 
   if (hojas > 3) {
@@ -145,6 +291,19 @@ function calcularPortonWrapper(dataInput) {
         tipo: "herraje_plegadizo_mas_3",
         precio: Math.round(extra),
       });
+      audit.add({
+        etapa: "Herraje Plegadizo",
+
+        tipo: "extra",
+
+        origen: "superficies.json",
+
+        valorAntes: costo - extra,
+
+        valorAplicado: extra,
+
+        valorDespues: costo,
+      });
     }
   } else {
     if (sistema === "corredizo") {
@@ -154,6 +313,20 @@ function calcularPortonWrapper(dataInput) {
         tipo: "herraje_corredizo",
         precio: Math.round(extra),
       });
+
+      audit.add({
+        etapa: "Herraje Corredizo",
+
+        tipo: "extra",
+
+        origen: "superficies.json",
+
+        valorAntes: costo - extra,
+
+        valorAplicado: extra,
+
+        valorDespues: costo,
+      });
     }
 
     if (sistema === "plegadizo") {
@@ -162,6 +335,19 @@ function calcularPortonWrapper(dataInput) {
       items.push({
         tipo: "herraje_plegadizo",
         precio: Math.round(extra),
+      });
+      audit.add({
+        etapa: "Herraje Plegadizo",
+
+        tipo: "extra",
+
+        origen: "superficies.json",
+
+        valorAntes: costo - extra,
+
+        valorAplicado: extra,
+
+        valorDespues: costo,
       });
     }
   }
@@ -181,6 +367,19 @@ function calcularPortonWrapper(dataInput) {
       tipo: "doble_travesano",
       precio: Math.round(costoTravesano),
     });
+    audit.add({
+      etapa: "Doble Travesaño",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - costoTravesano,
+
+      valorAplicado: costoTravesano,
+
+      valorDespues: costo,
+    });
   }
 
   if (necesitaBisagrasExtra({ sistema, hojas })) {
@@ -193,6 +392,19 @@ function calcularPortonWrapper(dataInput) {
       descripcion: "4 bisagras",
       precio: Math.round(bisagras),
     });
+    audit.add({
+      etapa: "Bisagras Extra",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - bisagras,
+
+      valorAplicado: bisagras,
+
+      valorDespues: costo,
+    });
   }
 
   const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
@@ -201,6 +413,32 @@ function calcularPortonWrapper(dataInput) {
   const proveedor = costoFinal * (1 + perfilData.flete);
   const venta = proveedor * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costoFinal,
+
+    valorAplicado: venta - costoFinal,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
   return buildWrapperResponse({
     costoBase: resultado.costoBase || 0,
 
@@ -229,6 +467,7 @@ function calcularPortonWrapper(dataInput) {
 
       hojas,
     },
+    audit: audit.getSteps(),
   });
 }
 

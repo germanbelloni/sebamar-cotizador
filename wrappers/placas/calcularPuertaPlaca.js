@@ -8,6 +8,8 @@ const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
 
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
 // ========================
@@ -58,6 +60,7 @@ function buildPuertaSVG({ mano = "derecha" }) {
 // 🧠 MAIN
 // ========================
 function calcularWrapper(dataInput) {
+  const audit = new AuditBuilder();
   let {
     medida,
     ancho,
@@ -94,6 +97,18 @@ function calcularWrapper(dataInput) {
   const altoNorm = normalizarAlto(alto);
 
   const medidaBase = `${String(anchoNorm.lookup).padStart(3, "0")}x200`;
+  audit.add({
+    etapa: "Lookup",
+    tipo: "lookup",
+    origen: "puertas_placa.json",
+    referencia: medidaBase,
+    metadata: {
+      anchoSolicitado: ancho,
+      altoSolicitado: alto,
+      anchoLookup: anchoNorm.lookup,
+      altoLookup: altoNorm.lookup,
+    },
+  });
   console.log("DEBUG PLACAS:", {
     tipo,
     modelo,
@@ -113,13 +128,81 @@ function calcularWrapper(dataInput) {
 
   const costoBase = base.base;
 
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "puertas_placa.json",
+
+    valorAntes: 0,
+
+    valorAplicado: costoBase,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      tipo,
+      modelo,
+      marco,
+      medida: medidaBase,
+    },
+  });
+
   // ========================
   // 📐 RECARGOS
   // ========================
   let costoConRecargos = costoBase;
-  costoConRecargos *= anchoNorm.recargo;
-  costoConRecargos *= altoNorm.recargo;
 
+  if (anchoNorm.recargo !== 1) {
+    const antes = costoConRecargos;
+
+    costoConRecargos *= anchoNorm.recargo;
+
+    audit.add({
+      etapa: "Recargo Ancho",
+      tipo: "recargo",
+      origen: "wrapper",
+
+      referencia: `${ancho}px`,
+
+      porcentaje: anchoNorm.recargo - 1,
+
+      valorAntes: antes,
+      valorAplicado: costoConRecargos - antes,
+      valorDespues: costoConRecargos,
+
+      metadata: {
+        ancho,
+        lookup: anchoNorm.lookup,
+      },
+    });
+  }
+
+  if (altoNorm.recargo !== 1) {
+    const antes = costoConRecargos;
+
+    costoConRecargos *= altoNorm.recargo;
+
+    audit.add({
+      etapa: "Recargo Alto",
+      tipo: "recargo",
+      origen: "wrapper",
+
+      referencia: `${alto}px`,
+
+      porcentaje: altoNorm.recargo - 1,
+
+      valorAntes: antes,
+      valorAplicado: costoConRecargos - antes,
+      valorDespues: costoConRecargos,
+
+      metadata: {
+        alto,
+        lookup: altoNorm.lookup,
+      },
+    });
+  }
   // ========================
   // 💰 PERFIL + AUMENTO
   // ========================
@@ -133,6 +216,32 @@ function calcularWrapper(dataInput) {
   const proveedor = costo; // 👈 placas no tiene flete
   const venta = proveedor * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costoConRecargos,
+
+    valorAplicado: venta - costoConRecargos,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      aumento,
+      descuento: perfilData.descuento,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
   // ========================
   // 🧾 ITEMS
   // ========================
@@ -170,23 +279,36 @@ function calcularWrapper(dataInput) {
   };
 
   return buildWrapperResponse({
-    costoBase,
+    // IDENTIDAD
+    modulo: "placas",
+    linea: "placa",
 
+    // COSTOS
+    costoBase,
     costo,
 
-    proveedor,
+    // PRECIOS
+    precioBase: costo,
+    precioProveedor: proveedor,
+    precioLista: venta,
+    precioFinal: venta,
 
-    venta,
+    // PERFIL
+    perfilAplicado: perfil,
+    descuentoAplicado: perfilData.descuento,
+    gananciaAplicada: perfilData.ganancia,
+    margenAplicado: 0,
 
-    perfil,
-
-    perfilData,
+    // RESULTADO
+    ganancia: venta - costo,
 
     items,
 
     descripcion,
 
     configuracion,
+
+    audit: audit.getSteps(),
   });
 }
 

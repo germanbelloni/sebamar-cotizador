@@ -176,9 +176,6 @@ function auditarPatagonicas(resultado) {
   // REGLAS
   // =========================
 
-  if (resultado.precioProveedor > resultado.costo) {
-    advertencias.push("El proveedor es mayor que el costo.");
-  }
 
   if (resultado.precioLista < resultado.precioProveedor) {
     advertencias.push("La lista es menor que el proveedor.");

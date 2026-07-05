@@ -6,6 +6,12 @@ const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
 
+const buildWrapperResponse = require(
+  fromRoot("backend/utils/buildWrapperResponse"),
+);
+
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const colores = require(fromRoot("backend/data/colores.json"));
 
 // =========================
@@ -25,6 +31,7 @@ function getColorFactor(color) {
 // =========================
 
 function calcularPuertaMosquitera(dataInput) {
+  const audit = new AuditBuilder();
   const {
     ancho,
     alto,
@@ -69,6 +76,25 @@ function calcularPuertaMosquitera(dataInput) {
       precio: Math.round(costoBase),
     },
   ];
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "superficies.json",
+
+    valorAntes: 0,
+
+    valorAplicado: costoBase,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      ancho,
+      alto,
+      anchoBase,
+    },
+  });
 
   // =========================
   // 🎨 COLOR
@@ -89,6 +115,33 @@ function calcularPuertaMosquitera(dataInput) {
     });
   }
 
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: colorFactor,
+
+    valorAntes: costoBase - costoColor,
+
+    valorAplicado: costoColor,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      estructuraOriginal: costoBase - costoColor,
+      estructuraColor: costoBase,
+      incremento: costoColor,
+      porcentajeColor: colorFactor,
+    },
+  });
+
   // =========================
   // 💰 PERFIL
   // =========================
@@ -102,35 +155,79 @@ function calcularPuertaMosquitera(dataInput) {
 
   const venta = costo * (1 + perfilData.ganancia);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      aumento1: perfilData.aumento1,
+      aumento2: perfilData.aumento2,
+      ganancia: perfilData.ganancia,
+
+      proveedor: costo,
+      venta,
+    },
+  });
+
   // =========================
   // ✅ RESPONSE
   // =========================
 
-  return {
-    costoBase: Math.round(costoBase),
+  return buildWrapperResponse({
+    modulo: "mosquiteros",
 
-    costo: Math.round(costo),
+    linea: "moscas",
 
-    precioProveedor: Math.round(costo),
+    costoBase,
 
-    precioVenta: Math.round(venta),
+    costo,
 
-    ganancia: Math.round(venta - costo),
+    precioBase: costo,
 
-    items: items.map((i) => ({
-      tipo: i.tipo,
-      descripcion: i.descripcion,
-      precio: Math.round(i.precio || 0),
-    })),
+    precioProveedor: costo,
+
+    precioLista: venta,
+
+    precioFinal: venta,
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: 0,
+
+    fleteAplicado: 0,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - costo,
+
+    items,
 
     descripcion: `Puerta mosquitera ${ancho}x${alto} bisagra ${ladoBisagra}`,
+
     configuracion: {
       ancho,
       alto,
       color,
       ladoBisagra,
     },
-  };
+
+    audit: audit.getSteps(),
+  });
 }
 
 module.exports = calcularPuertaMosquitera;
