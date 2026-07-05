@@ -2,14 +2,13 @@ const puppeteer = require("puppeteer");
 const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrintable");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
-
+const { renderBudget } = require("../pdf/render/renderBudget");
 const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 
 // =========================
 // PDF
 // =========================
 
-const generarHTML = require("../services/pdf/generarPDF");
 const crearPresupuesto = require("../services/presupuestos/crearPresupuesto");
 // const generarPresupuestoPdf = require("../services/pdf/generarPresupuestoPdf");
 // =========================
@@ -289,6 +288,7 @@ async function cambiarEstado(req, res) {
 // =========================
 
 async function pdf(req, res) {
+  console.log("===== ENTRE AL PDF NUEVO =====");
   try {
     if (!req.params.id) {
       return res.status(400).json({
@@ -335,7 +335,12 @@ async function pdf(req, res) {
 
     const user = await User.findById(req.user.id);
 
-    const html = generarHTML(presupuesto, user);
+    const printable = mapPresupuestoToPrintable(presupuesto, user);
+
+    console.log("===== PRINTABLE =====");
+    console.log(JSON.stringify(printable, null, 2));
+
+    const html = await renderBudget(printable);
 
     const browser = await puppeteer.launch({
       headless: true,

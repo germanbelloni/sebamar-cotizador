@@ -52,7 +52,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
       );
     })
     .sort((a: Presupuesto, b: Presupuesto) => b.numero - a.numero);
-
+  console.log(presupuestosFiltrados);
   return (
     <div className="p-10">
       <div className="mb-8">

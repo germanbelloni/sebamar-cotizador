@@ -92,25 +92,20 @@ async function crearPresupuesto({ user, body }) {
   usuario.contadorPresupuestos += 1;
 
   await usuario.save();
-
   const presupuesto = new Presupuesto({
     userId,
-
     ownerId,
 
     numero: usuario.contadorPresupuestos,
 
     cliente: body.cliente,
-
     telefono: body.telefono,
-
     direccion: body.direccion,
 
     observaciones: body.observaciones,
-
     validez: body.validez,
 
-    fecha: body.fecha,
+    fecha: new Date(),
 
     estado: "pendiente",
 

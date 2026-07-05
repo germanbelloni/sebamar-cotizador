@@ -27,6 +27,8 @@ function mapPresupuestoToPrintable(presupuesto, user) {
       precioUnitario: item.precioUnitario,
 
       subtotal: item.subtotal,
+      fecha: presupuesto.fecha,
+      numero: presupuesto.numero,
     })),
   };
 }

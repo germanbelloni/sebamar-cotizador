@@ -1,3 +1,3 @@
 require("esbuild-register/dist/node").register({
-  extensions: [".ts", ".tsx"],
+  extensions: [".js", ".jsx", ".ts", ".tsx"],
 });
