@@ -8,6 +8,8 @@ const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
 
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const calcularSuperficie = require(
   fromRoot("wrappers/superficies/calcularSuperficies"),
 );
@@ -21,6 +23,7 @@ const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 // =========================
 
 function calcularWrapper(data) {
+  const audit = new AuditBuilder();
   const {
     medidaTotal,
 
@@ -79,6 +82,32 @@ function calcularWrapper(data) {
     throw new Error("Ancho fijo inválido");
   }
 
+  audit.add({
+    etapa: "Lookup",
+
+    tipo: "lookup",
+
+    origen: "wrapper",
+
+    referencia: medidaTotal,
+
+    metadata: {
+      medidaSolicitada: medidaTotal,
+
+      ancho,
+
+      alto,
+
+      cantidadRajas,
+
+      anchoRaja: anchoRajaFinal,
+
+      anchoFijo,
+
+      linea: lineaNormalizada,
+    },
+  });
+
   // =========================
   // 🪟 RAJAS
   // =========================
@@ -96,11 +125,37 @@ function calcularWrapper(data) {
       modelo: tipoRaja,
     });
 
-    totalRajas += Number(raja?.costo || 0);
+    const costoRaja = Number(raja?.costo || 0);
+
+    totalRajas += costoRaja;
 
     items.push({
       tipo: "raja",
-      precio: Math.round(Number(raja?.costo || 0)),
+      precio: Math.round(costoRaja),
+    });
+
+    audit.add({
+      etapa: `Raja ${i + 1}`,
+
+      tipo: "componente",
+
+      origen: "calcularRajaHerrero",
+
+      referencia: `${anchoRajaFinal}x${alto}`,
+
+      valorAntes: totalRajas - costoRaja,
+
+      valorAplicado: costoRaja,
+
+      valorDespues: totalRajas,
+
+      metadata: {
+        ancho: anchoRajaFinal,
+
+        alto,
+
+        modelo: tipoRaja,
+      },
     });
   }
 
@@ -129,9 +184,37 @@ function calcularWrapper(data) {
 
       perfil,
     });
+    const costoFijo = Number(fijo?.costoBase || 0);
+
     items.push({
       tipo: "pano_fijo",
-      precio: Math.round(Number(fijo?.costoBase || 0)),
+      precio: Math.round(costoFijo),
+    });
+
+    audit.add({
+      etapa: "Paño Fijo",
+
+      tipo: "componente",
+
+      origen: "calcularSuperficies",
+
+      referencia: `${anchoFijo}x${alto}`,
+
+      valorAntes: totalRajas,
+
+      valorAplicado: costoFijo,
+
+      valorDespues: totalRajas + costoFijo,
+
+      metadata: {
+        ancho: anchoFijo,
+
+        alto,
+
+        tipo: "pano_fijo",
+
+        linea: lineaNormalizada,
+      },
     });
   } catch (err) {
     console.error("ERROR SUPERFICIE:", err);
@@ -142,6 +225,26 @@ function calcularWrapper(data) {
   // =========================
 
   const costoBase = Number(totalRajas || 0) + Number(fijo?.costoBase || 0);
+
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "wrapper",
+
+    valorAntes: 0,
+
+    valorAplicado: costoBase,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      totalRajas,
+
+      panoFijo: Number(fijo?.costoBase || 0),
+    },
+  });
 
   // =========================
   // 💰 PERFIL
@@ -162,26 +265,91 @@ function calcularWrapper(data) {
 
   const venta = proveedor * (1 + Number(perfilData.ganancia || 0));
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+
+      flete: perfilData.flete,
+
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+
+      venta,
+    },
+  });
+
   // =========================
   // ✅ RESPONSE
   // =========================
-
   return buildWrapperResponse({
+    // =========================
+    // IDENTIDAD
+    // =========================
+
+    modulo: "patagonicas",
+
+    linea: lineaNormalizada,
+
+    // =========================
+    // COSTOS
+    // =========================
+
     costoBase,
 
     costo,
 
-    proveedor,
+    // =========================
+    // PRECIOS
+    // =========================
 
-    venta,
+    precioBase: costo,
 
-    perfil,
+    precioProveedor: proveedor,
 
-    perfilData,
+    precioLista: venta,
 
-    items,
+    precioFinal: venta,
+
+    // =========================
+    // PERFIL
+    // =========================
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: Math.round(perfilData.ganancia * 100),
+
+    // =========================
+    // RESULTADO
+    // =========================
+
+    ganancia: venta - costo,
 
     descripcion: `Patagónica Herrero ${medidaTotal}`,
+
+    items,
 
     configuracion: {
       medidaTotal,
@@ -206,6 +374,8 @@ function calcularWrapper(data) {
         tipoApertura,
       }),
     },
+
+    audit: audit.getSteps(),
   });
 }
 

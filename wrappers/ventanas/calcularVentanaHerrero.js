@@ -182,7 +182,7 @@ function calcularVentanaHerrero(dataInput) {
 
     valorAntes: base.costoBase,
 
-    valorAplicado: costo - base.costoBase,
+    valorAplicado: estructuraColor - estructuraOriginal,
 
     valorDespues: costo,
 
@@ -192,6 +192,10 @@ function calcularVentanaHerrero(dataInput) {
       estructuraColor,
 
       vidrio,
+
+      porcentajeColor,
+
+      incremento: estructuraColor - estructuraOriginal,
 
       costoBase: base.costoBase,
     },
@@ -219,15 +223,16 @@ function calcularVentanaHerrero(dataInput) {
       valorDespues: costo,
     });
 
-    items.push({
-      tipo: "cortina_pvc",
-      precio: Math.round(c),
-    });
+    if (c > 0) {
+      items.push({
+        tipo: "cortina_pvc",
+        precio: Math.round(c),
+      });
+    }
   }
-
   // 🪟 CORTINA ALUMINIO
   if (cortina === "aluminio") {
-    const c = Number(superficies.cortinas?.aluminio?.blanco || 0) * m2;
+    const c = Number(superficies.cortinas?.aluminio || 0) * m2;
 
     costo += c;
 
@@ -244,10 +249,13 @@ function calcularVentanaHerrero(dataInput) {
 
       valorDespues: costo,
     });
-    items.push({
-      tipo: "cortina_aluminio",
-      precio: Math.round(c),
-    });
+
+    if (c > 0) {
+      items.push({
+        tipo: "cortina_aluminio",
+        precio: Math.round(c),
+      });
+    }
   }
 
   // 📦 CAJON BLOCK

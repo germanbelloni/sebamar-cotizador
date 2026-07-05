@@ -8,6 +8,8 @@ const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
 );
 
+const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
+
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
@@ -110,6 +112,7 @@ function aplicarColor(items, color) {
 
 // 🚀 MAIN
 function calcularRajaModena(dataInput) {
+  const audit = new AuditBuilder();
   const {
     ancho,
     alto,
@@ -134,6 +137,22 @@ function calcularRajaModena(dataInput) {
 
   const medida = buscarMedidaValida(ancho, alto);
 
+  audit.add({
+    etapa: "Lookup",
+
+    tipo: "lookup",
+
+    origen: "rajas_modena.json",
+
+    referencia: medida,
+
+    metadata: {
+      anchoSolicitado: ancho,
+      altoSolicitado: alto,
+      medidaUtilizada: medida,
+    },
+  });
+
   const vidrioFinal = vidrio || "4mm";
 
   const base = calcularRaja({
@@ -142,10 +161,70 @@ function calcularRajaModena(dataInput) {
     linea: "modena",
   });
 
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "rajas_modena.json",
+
+    valorAntes: 0,
+
+    valorAplicado: base.costoBase,
+
+    valorDespues: base.costoBase,
+
+    metadata: {
+      medida,
+    },
+  });
+
   // 🎨 COLOR SOLO ESTRUCTURA
+
+  const estructuraOriginal =
+    base.items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const vidrioCosto = base.items.find((i) => i.tipo === "vidrio")?.precio || 0;
+
   const items = aplicarColor([...base.items], color);
 
+  const estructuraColor =
+    items.find((i) => i.tipo === "estructura")?.precio || 0;
+
   let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const colorData = colores.find((c) => c.nombre === color);
+
+  const porcentajeColor = Number(colorData?.valor || 0);
+
+  audit.add({
+    etapa: "Color",
+
+    tipo: "color",
+
+    descripcion: `Recargo color ${color}`,
+
+    origen: "colores.json",
+
+    referencia: color,
+
+    porcentaje: porcentajeColor,
+
+    valorAntes: base.costoBase,
+
+    valorAplicado: estructuraColor - estructuraOriginal,
+
+    valorDespues: costo,
+
+    metadata: {
+      estructuraOriginal,
+      estructuraColor,
+      vidrio: vidrioCosto,
+      porcentajeColor,
+      incremento: estructuraColor - estructuraOriginal,
+      costoBase: base.costoBase,
+    },
+  });
 
   const m2 = calcularM2(ancho, alto);
 
@@ -157,10 +236,26 @@ function calcularRajaModena(dataInput) {
 
     costo += c;
 
-    items.push({
-      tipo: "mosquitero",
-      precio: Math.round(c),
+    audit.add({
+      etapa: "Mosquitero",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
     });
+
+    if (c > 0) {
+      items.push({
+        tipo: "mosquitero",
+        precio: Math.round(c),
+      });
+    }
   }
 
   // 🔧 OSCILOBATIENTE
@@ -169,6 +264,21 @@ function calcularRajaModena(dataInput) {
 
     costo += c;
 
+    audit.add({
+      etapa: "Oscilobatiente",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      referencia: "oscilobatiente",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
     items.push({
       tipo: "oscilobatiente",
       precio: Math.round(c),
@@ -180,6 +290,22 @@ function calcularRajaModena(dataInput) {
     const c = Number(superficies.extras["brazo_de_empuje"] || 0);
 
     costo += c;
+
+    audit.add({
+      etapa: "Brazo",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      referencia: "brazo_de_empuje",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
 
     items.push({
       tipo: "brazo",
@@ -193,34 +319,79 @@ function calcularRajaModena(dataInput) {
 
     costo += c;
 
+    audit.add({
+      etapa: "Volcable",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      referencia: "volcable",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
     items.push({
       tipo: "volcable",
       precio: Math.round(c),
     });
   }
 
-  // 🪚 PREMARCO
   if (premarco) {
     const c = Number(superficies.superficies.premarco || 0) * ml;
 
     costo += c;
 
-    items.push({
-      tipo: "premarco",
-      precio: Math.round(c),
+    audit.add({
+      etapa: "Premarco",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
     });
+
+    if (c > 0) {
+      items.push({
+        tipo: "premarco",
+        precio: Math.round(c),
+      });
+    }
   }
 
-  // 🪚 CONTRAMARCO
   if (premarco || contramarco) {
     const c = Number(superficies.superficies.contramarco || 0) * ml;
 
     costo += c;
 
-    items.push({
-      tipo: "contramarco",
-      precio: Math.round(c),
+    audit.add({
+      etapa: "Contramarco",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
     });
+
+    if (c > 0) {
+      items.push({
+        tipo: "contramarco",
+        precio: Math.round(c),
+      });
+    }
   }
 
   // 📏 ALTURA
@@ -228,11 +399,51 @@ function calcularRajaModena(dataInput) {
     costo *= 1.3;
   }
 
+  audit.add({
+    etapa: "Recargo Altura",
+
+    tipo: "recargo",
+
+    origen: "wrapper",
+
+    valorAntes: costo / 1.3,
+
+    valorAplicado: costo - costo / 1.3,
+
+    valorDespues: costo,
+  });
+
   // 💰 PERFIL
   const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
 
+  audit.add({
+    etapa: "Perfil",
+
+    tipo: "perfil",
+
+    origen: "perfiles.js",
+
+    referencia: perfil,
+
+    valorAntes: costo,
+
+    valorAplicado: venta - costo,
+
+    valorDespues: venta,
+
+    porcentaje: perfilData.ganancia,
+
+    metadata: {
+      descuento: perfilData.descuento,
+      flete: perfilData.flete,
+      ganancia: perfilData.ganancia,
+
+      proveedor,
+      venta,
+    },
+  });
   const nombreModelo =
     modelo === "oscilobatiente"
       ? "Oscilobatiente"
@@ -243,21 +454,57 @@ function calcularRajaModena(dataInput) {
           : "Raja";
 
   return buildWrapperResponse({
+    // =========================
+    // IDENTIDAD
+    // =========================
+
+    modulo: "rajas",
+
+    linea: "modena",
+
+    // =========================
+    // COSTOS
+    // =========================
+
     costoBase: base.costoBase,
 
     costo,
 
-    proveedor,
+    // =========================
+    // PRECIOS
+    // =========================
 
-    venta,
+    precioBase: costo,
 
-    perfil,
+    precioProveedor: proveedor,
 
-    perfilData,
+    precioLista: venta,
 
-    items,
+    precioFinal: venta,
+
+    // =========================
+    // PERFIL
+    // =========================
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: Math.round(perfilData.ganancia * 100),
+
+    // =========================
+    // RESULTADO
+    // =========================
+
+    ganancia: venta - costo,
 
     descripcion: `${nombreModelo} Modena ${ancho}x${alto}`,
+
+    items,
 
     configuracion: {
       ancho,
@@ -295,6 +542,8 @@ function calcularRajaModena(dataInput) {
           : null,
       },
     },
+
+    audit: audit.getSteps(),
   });
 }
 

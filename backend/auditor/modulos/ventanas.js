@@ -78,15 +78,43 @@ function auditarVentanas(resultado) {
       advertencias.push("La ventana no posee vidrio");
     }
 
-    const costoCalculado =
-      estructura + vidrio + mosquitero + guia + cortinaPVC + cortinaAluminio;
+    const pasoCostoBase = resultado.audit?.find(
+      (p) => p.etapa === "Costo Base",
+    );
 
-    if (costoCalculado !== Number(resultado.costoBase)) {
-      errores.push(
-        `Costo Base incorrecto. Esperado ${costoCalculado}, obtenido ${resultado.costoBase}`,
+    if (pasoCostoBase) {
+      if (Number(pasoCostoBase.valorDespues) === Number(resultado.costoBase)) {
+        ok.push("✔ Costo Base correcto");
+      } else {
+        errores.push(
+          `Costo Base incorrecto. Audit=${pasoCostoBase.valorDespues} Resultado=${resultado.costoBase}`,
+        );
+      }
+    }
+
+    const pasoColor = resultado.audit?.find((p) => p.etapa === "Color");
+    if (pasoColor) {
+      const esperado = resultado.items.reduce(
+        (acc, item) => acc + Number(item.precio || 0),
+        0,
       );
-    } else {
-      ok.push("✔ Costo Base correcto");
+
+      if (esperado === Number(resultado.costo)) {
+        ok.push("✔ Suma de items");
+      } else {
+        errores.push(
+          `Suma de items incorrecta. Esperado ${esperado}, obtenido ${resultado.costo}`,
+        );
+      }
+
+      if (
+        Number(pasoColor.metadata?.incremento || 0) ===
+        Number(pasoColor.valorAplicado)
+      ) {
+        ok.push("✔ Incremento de color");
+      } else {
+        errores.push("Incremento de color incorrecto");
+      }
     }
 
     if (mosquitero > 0) {
