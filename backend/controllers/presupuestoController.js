@@ -109,6 +109,9 @@ async function listar(req, res) {
       fecha: p.fecha,
 
       estado: p.estado || "pendiente",
+      cantidadItems: p.items?.length || 0,
+
+      telefono: p.telefono || "",
     }));
 
     return res.json(resultado);
@@ -365,11 +368,98 @@ async function pdf(req, res) {
   }
 }
 
+// =========================
+// 🗑 ELIMINAR
+// =========================
+
+async function eliminar(req, res) {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
+
+    if (!presupuesto) {
+      return res.status(404).json({
+        error: "Presupuesto no encontrado",
+      });
+    }
+
+    // 👑 SUPERADMIN
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // 🧑 ADMIN
+    else if (req.user.role === "admin") {
+      if (presupuesto.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // 👨 USER
+    else {
+      if (presupuesto.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    await presupuesto.deleteOne();
+
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      error: "Error eliminando presupuesto",
+    });
+  }
+}
+
+// =========================
+// ACTUALIZAR
+// =========================
+
+async function actualizar(req, res) {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
+
+    if (!presupuesto) {
+      return res.status(404).json({
+        error: "Presupuesto no encontrado",
+      });
+    }
+
+    presupuesto.cliente = req.body.cliente;
+    presupuesto.telefono = req.body.telefono;
+    presupuesto.direccion = req.body.direccion;
+    presupuesto.observaciones = req.body.observaciones;
+    presupuesto.validez = req.body.validez;
+
+    await presupuesto.save();
+
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      error: "Error actualizando presupuesto",
+    });
+  }
+}
+
 module.exports = {
   crear,
   listar,
   nuevoNumero,
   obtener,
   pdf,
+  eliminar,
+  actualizar,
   cambiarEstado,
 };

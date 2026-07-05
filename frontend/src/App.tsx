@@ -326,6 +326,7 @@ function App() {
               <PresupuestoDetallePage
                 presupuestoId={selectedPresupuestoId}
                 onBack={() => setSelectedPresupuestoId(null)}
+                onOpenPresupuesto={setSelectedPresupuestoId}
               />
             ) : (
               <PresupuestosPage onOpenPresupuesto={setSelectedPresupuestoId} />

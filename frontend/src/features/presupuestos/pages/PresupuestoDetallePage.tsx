@@ -1,4 +1,6 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Check, Trash2 } from "lucide-react";
+
+import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
@@ -8,29 +10,83 @@ import { useAuthStore } from "@/store/authStore";
 
 import { updatePresupuestoEstado } from "../api/updatePresupuestoEstado";
 
+import { deletePresupuesto } from "../api/deletePresupuesto";
+
+import { toast } from "sonner";
+
+import { usePresupuestoPdf } from "../hooks/usePresupuestoPdf";
+
+import { CompartirPresupuestoDialog } from "../components/CompartirPresupuestoDialog";
+
+import type { PresupuestoItem } from "../types/presupuesto.types";
+
+import { duplicarPresupuesto } from "../api/duplicarPresupuesto";
+
 type Props = {
   presupuestoId: string;
 
   onBack: () => void;
+
+  onOpenPresupuesto?: (id: string) => void;
 };
 
-export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
-  const { data, isLoading } = usePresupuesto(presupuestoId);
+export function PresupuestoDetallePage({
+  presupuestoId,
+  onBack,
+  onOpenPresupuesto,
+}: Props) {
+  const { data, isLoading, refetch } = usePresupuesto(presupuestoId);
 
   const user = useAuthStore((state) => state.user);
 
   const canViewFinancial =
     user?.role === "admin" || user?.role === "superadmin";
 
+  const { download } = usePresupuestoPdf();
+
   async function handleEstadoChange(estado: string) {
     try {
       await updatePresupuestoEstado(presupuestoId, estado);
 
-      //window.location.reload();
-    } catch (error) {
-      console.log(error);
+      await refetch();
 
-      alert("Error actualizando estado");
+      if (estado === "aprobado") {
+        toast.success("Presupuesto aprobado.");
+      } else {
+        toast.success("El presupuesto volvió a pendiente.");
+      }
+    } catch (error) {
+      console.error(error);
+
+      toast.error("No se pudo actualizar el estado.");
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await deletePresupuesto(presupuestoId);
+
+      toast.success("Presupuesto eliminado correctamente.");
+
+      onBack();
+    } catch (error) {
+      console.error(error);
+
+      toast.error("No se pudo eliminar el presupuesto.");
+    }
+  }
+
+  async function handleDuplicar() {
+    try {
+      const data = await duplicarPresupuesto(presupuestoId);
+
+      if (onOpenPresupuesto) {
+        onOpenPresupuesto(data.id);
+      } else {
+        onBack();
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -56,7 +112,8 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
   const totalCosto =
     data.items?.reduce(
-      (acc: number, item: any) => acc + (item.precioBase || 0) * item.cantidad,
+      (acc: number, item: PresupuestoItem) =>
+        acc + (item.precioBase || 0) * item.cantidad,
       0,
     ) || 0;
 
@@ -110,36 +167,95 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
       ${data.estado === "pendiente" ? "bg-yellow-500/10 text-yellow-400" : ""}
 
-      ${data.estado === "enviado" ? "bg-blue-500/10 text-blue-400" : ""}
-
       ${data.estado === "aprobado" ? "bg-lime-500/10 text-lime-400" : ""}
 
-      ${data.estado === "rechazado" ? "bg-red-500/10 text-red-400" : ""}
     `}
             >
               {data.estado}
             </span>
 
-            <select
-              value={data.estado}
-              onChange={(e) => handleEstadoChange(e.target.value)}
-              className="
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button
+                onClick={handleDuplicar}
+                className="
+    rounded-xl
+    border
+    border-sky-500
+    px-4
+    py-2
+    text-sm
+    font-semibold
+    text-sky-400
+    transition
+    hover:bg-sky-500/10
+  "
+              >
+                📄 Duplicar presupuesto
+              </button>
+              {data.estado === "pendiente" ? (
+                <button
+                  onClick={() => handleEstadoChange("aprobado")}
+                  className="
+        rounded-xl
+        bg-lime-500
+        px-4
+        py-2
+        text-sm
+        font-semibold
+        text-black
+        transition
+        hover:bg-lime-400
+      "
+                >
+                  ✔ Aprobar presupuesto
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleEstadoChange("pendiente")}
+                  className="
+        rounded-xl
+        border
+        border-yellow-500
+        px-4
+        py-2
+        text-sm
+        font-semibold
+        text-yellow-400
+        transition
+        hover:bg-yellow-500/10
+      "
+                >
+                  ↩ Volver a pendiente
+                </button>
+              )}
+
+              <button
+                onClick={() => download(presupuestoId)}
+                className="
       rounded-xl
-      border border-border
-      bg-card
-      px-3
+      border
+      border-border
+      px-4
       py-2
       text-sm
+      font-semibold
+      transition
+      hover:bg-muted
     "
-            >
-              <option value="pendiente">Pendiente</option>
-
-              <option value="enviado">Enviado</option>
-
-              <option value="aprobado">Aprobado</option>
-
-              <option value="rechazado">Rechazado</option>
-            </select>
+              >
+                📄 PDF
+              </button>
+              <CompartirPresupuestoDialog
+                presupuesto={{
+                  cliente: data.cliente,
+                  telefono: data.telefono,
+                  items: data.items,
+                  total: data.total,
+                }}
+                onPdf={() => download(presupuestoId)}
+              />
+              <DeletePresupuestoDialog onConfirm={handleDelete} />
+            </div>
           </div>
         </div>
 
@@ -243,7 +359,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
       {/* ITEMS */}
 
       <div className="space-y-4">
-        {data.items?.map((item: any) => (
+        {data.items?.map((item: PresupuestoItem) => (
           <div
             key={item.id}
             className="

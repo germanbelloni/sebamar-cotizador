@@ -71,7 +71,7 @@ const presupuestoSchema = new mongoose.Schema(
     estado: {
       type: String,
 
-      enum: ["pendiente", "enviado", "aprobado", "rechazado"],
+      enum: ["pendiente", "aprobado"],
 
       default: "pendiente",
     },

@@ -169,7 +169,6 @@ function auditarPuertas(resultado) {
   if (resultado.precioFinal < resultado.precioLista) {
     advertencias.push("El precio final es menor que la lista.");
   }
-  errores.push("ERROR DE PRUEBA");
   return {
     ok,
     advertencias,
