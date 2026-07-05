@@ -35,6 +35,7 @@ const resolvePricingUser = require("../utils/pricing/resolvePricingUser");
 const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 
 const auditarResultado = require("../auditor/auditarResultado");
+const logAuditoria = require("../auditor/logAuditoria");
 
 function isValidationError(message = "") {
   const text = String(message).toLowerCase();
@@ -74,6 +75,8 @@ async function runCalculation(req, res, name, callback) {
     const sanitized = sanitizarCotizacion(withMargin, req.user);
 
     const auditoria = auditarResultado(withMargin);
+
+    logAuditoria(name, req.user, req.body, sanitized, auditoria);
 
     console.log("========== AUDITOR ==========");
     console.dir(auditoria, { depth: null });

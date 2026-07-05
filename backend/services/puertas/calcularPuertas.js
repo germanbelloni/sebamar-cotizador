@@ -243,8 +243,6 @@ function calcularPuertas(dataInput) {
   // 💰 TOTAL
   // ========================
 
-  let costoBase = estructura + vidrioTotal;
-
   // ========================
   // 📏 AJUSTES MEDIDAS
   // ========================
@@ -254,8 +252,22 @@ function calcularPuertas(dataInput) {
   const ajuste = ajustes[key];
 
   if (typeof ajuste === "number") {
-    costoBase = costoBase * (1 + ajuste);
+    const factor = 1 + ajuste;
+
+    items.forEach((item) => {
+      item.precio = Math.round(item.precio * factor);
+    });
+
+    estructura = items
+      .filter((i) => i.tipo === "estructura")
+      .reduce((acc, i) => acc + i.precio, 0);
+
+    vidrioTotal = items
+      .filter((i) => i.tipo === "vidrio")
+      .reduce((acc, i) => acc + i.precio, 0);
   }
+
+  const costoBase = estructura + vidrioTotal;
 
   return {
     costoBase: Math.round(costoBase),

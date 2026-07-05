@@ -362,17 +362,33 @@ function calcularPuertaWrapper(dataInput) {
   });
 
   return buildWrapperResponse({
+    modulo: "puertas",
+
+    linea,
+
     costoBase: base.costoBase,
 
     costo,
 
-    proveedor,
+    precioBase: costo,
 
-    venta,
+    precioProveedor: proveedor,
 
-    perfil,
+    precioLista: venta,
 
-    perfilData,
+    precioFinal: venta,
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - proveedor,
 
     items: items.map((i) => ({
       tipo: i.tipo,
@@ -415,6 +431,7 @@ function calcularPuertaWrapper(dataInput) {
             : null,
       },
     },
+
     audit: audit.getSteps(),
   });
 }
