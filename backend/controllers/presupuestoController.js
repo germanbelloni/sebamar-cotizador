@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-
+const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrintable");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
 
@@ -11,13 +11,17 @@ const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 
 const generarHTML = require("../services/pdf/generarPDF");
 const crearPresupuesto = require("../services/presupuestos/crearPresupuesto");
-
+// const generarPresupuestoPdf = require("../services/pdf/generarPresupuestoPdf");
 // =========================
 // NUEVO NUMERO
 // =========================
 
 async function nuevoNumero(req, res) {
   const user = await User.findById(req.user.id);
+  const printableData = mapPresupuestoToPrintable(presupuesto, user);
+
+  console.log("PRINTABLE DATA");
+  console.log(JSON.stringify(printableData, null, 2));
 
   if (!user) {
     return res.status(404).json({
@@ -303,7 +307,6 @@ async function pdf(req, res) {
     // =========================
     // 👑 SUPERADMIN
     // =========================
-
     if (req.user.role === "superadmin") {
       // acceso total
     }
@@ -335,7 +338,7 @@ async function pdf(req, res) {
     const html = generarHTML(presupuesto, user);
 
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -367,7 +370,6 @@ async function pdf(req, res) {
     });
   }
 }
-
 // =========================
 // 🗑 ELIMINAR
 // =========================

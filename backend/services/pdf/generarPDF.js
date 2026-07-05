@@ -1,3 +1,5 @@
+// LEGACY
+// Se eliminará cuando PrintableBudgetDocument genere el PDF mediante ReactDOMServer.
 const fs = require("fs");
 const path = require("path");
 

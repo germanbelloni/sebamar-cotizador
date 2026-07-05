@@ -7,11 +7,11 @@ type Payload = {
 };
 
 export async function generarPdf(payload: Payload) {
-  const { data } = await api.post("/pdf/preview", payload, {
+  const response = await api.post("/pdf/preview", payload, {
     responseType: "blob",
   });
 
-  const url = window.URL.createObjectURL(data);
+  const url = window.URL.createObjectURL(response.data);
 
   window.open(url, "_blank");
 }

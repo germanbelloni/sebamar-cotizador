@@ -9,6 +9,7 @@ import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
+import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudget";
 type Props = {
   items: BudgetItem[];
 
@@ -240,14 +241,9 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
           {items.length > 0 && (
             <button
               onClick={() => {
-                sessionStorage.setItem(
-                  "print-data",
-                  JSON.stringify({
-                    empresa,
-                    cliente,
-                    items,
-                  }),
-                );
+                const data = buildPrintableBudget(empresa, cliente, items);
+
+                sessionStorage.setItem("print-data", JSON.stringify(data));
 
                 window.open("/print", "_blank");
               }}
