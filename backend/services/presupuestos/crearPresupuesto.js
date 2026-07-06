@@ -57,9 +57,7 @@ async function crearPresupuesto({ user, body }) {
 
       descripcion,
 
-      precio,
-
-      precioUnitario: item.precioUnitario || precio,
+      precioUnitario,
 
       subtotal,
 

@@ -17,10 +17,6 @@ const crearPresupuesto = require("../services/presupuestos/crearPresupuesto");
 
 async function nuevoNumero(req, res) {
   const user = await User.findById(req.user.id);
-  const printableData = mapPresupuestoToPrintable(presupuesto, user);
-
-  console.log("PRINTABLE DATA");
-  console.log(JSON.stringify(printableData, null, 2));
 
   if (!user) {
     return res.status(404).json({
@@ -28,12 +24,8 @@ async function nuevoNumero(req, res) {
     });
   }
 
-  user.contadorPresupuestos += 1;
-
-  await user.save();
-
   return res.json({
-    numero: user.contadorPresupuestos,
+    numero: user.contadorPresupuestos + 1,
   });
 }
 
@@ -339,7 +331,8 @@ async function pdf(req, res) {
 
     console.log("===== PRINTABLE =====");
     console.log(JSON.stringify(printable, null, 2));
-
+    console.log("PRINTABLE COMPLETO");
+    console.log(printable);
     const html = await renderBudget(printable);
 
     const browser = await puppeteer.launch({

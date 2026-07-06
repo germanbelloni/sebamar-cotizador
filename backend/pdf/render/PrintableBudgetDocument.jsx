@@ -9,6 +9,11 @@ function formatCurrency(value) {
 }
 
 function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
+  console.log("PRINTABLE VERSION NUEVA");
+  console.log({
+    fecha,
+    numero,
+  });
   const total = items.reduce((a, i) => a + i.subtotal, 0);
 
   const fechaFormateada = fecha
@@ -94,9 +99,27 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
                 fontSize: 12,
               }}
             >
-              <div>N° #{numero}</div>
+              {/* <div>N° #{numero}</div>
 
-              <div style={{ marginTop: 8 }}>{fechaFormateada}</div>
+              <div style={{ marginTop: 8 }}>{fechaFormateada}</div> */}
+              <div
+                style={{
+                  fontSize: 40,
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
+                NUMERO={String(numero)}
+              </div>
+
+              <div
+                style={{
+                  fontSize: 28,
+                  color: "blue",
+                }}
+              >
+                FECHA={String(fechaFormateada)}
+              </div>
             </div>
           </div>
         </div>{" "}

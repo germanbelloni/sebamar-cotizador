@@ -18,12 +18,21 @@ import { PrintableBudgetRenderer } from "../render/PrintableBudgetRenderer";
 import { generarPdf } from "../api/generarPdf";
 
 type Props = {
+  numero: number;
+  fecha: string;
+
   empresa: Empresa;
   cliente: Cliente;
   items: BudgetItem[];
 };
 
-export function PrintableBudget({ empresa, cliente, items }: Props) {
+export function PrintableBudget({
+  numero,
+  fecha,
+  empresa,
+  cliente,
+  items,
+}: Props) {
   const primaryColor = empresa.primaryColor || "#111827";
 
   const { share } = useShareWhatsApp({
@@ -64,8 +73,6 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
 
   return (
     <div className="w-full bg-white py-2 print:bg-white print:py-0">
-      {/* Toolbar */}
-
       <div className="print-hidden mx-auto mb-8 flex w-[850px] items-center justify-between px-4">
         <h2 className="font-medium text-zinc-500">
           Vista previa del presupuesto
@@ -92,6 +99,8 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
             }}
             onClick={() =>
               generarPdf({
+                numero,
+                fecha,
                 empresa,
                 cliente,
                 items,
@@ -105,6 +114,8 @@ export function PrintableBudget({ empresa, cliente, items }: Props) {
       </div>
 
       <PrintableBudgetRenderer
+        numero={numero}
+        fecha={fecha}
         empresa={empresa}
         cliente={cliente}
         items={items}

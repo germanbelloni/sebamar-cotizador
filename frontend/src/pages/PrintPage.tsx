@@ -13,6 +13,8 @@ export function PrintPage() {
 
   return (
     <PrintableBudget
+      numero={data.numero}
+      fecha={data.fecha}
       empresa={data.empresa}
       cliente={data.cliente}
       items={data.items}

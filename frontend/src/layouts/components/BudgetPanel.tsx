@@ -240,8 +240,18 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
 
           {items.length > 0 && (
             <button
-              onClick={() => {
-                const data = buildPrintableBudget(empresa, cliente, items);
+              onClick={async () => {
+                const { getNuevoNumero } =
+                  await import("@/features/presupuestos/api/getNuevoNumero");
+
+                const numero = await getNuevoNumero();
+
+                const data = buildPrintableBudget(
+                  numero,
+                  empresa,
+                  cliente,
+                  items,
+                );
 
                 sessionStorage.setItem("print-data", JSON.stringify(data));
 

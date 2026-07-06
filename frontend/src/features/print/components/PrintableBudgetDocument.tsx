@@ -8,25 +8,32 @@ import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
 type Props = {
+  numero: number;
+  fecha: string;
+
   empresa: Empresa;
   cliente: Cliente;
   items: BudgetItem[];
 };
 
-export function PrintableBudgetDocument({ empresa, cliente, items }: Props) {
+export function PrintableBudgetDocument({
+  numero,
+  fecha,
+  empresa,
+  cliente,
+  items,
+}: Props) {
   const total = items.reduce((acc, item) => acc + item.subtotal, 0);
 
-  const today = new Date();
+  const formattedDate = fecha
+    ? new Date(fecha).toLocaleDateString("es-AR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "-";
 
-  const formattedDate = today.toLocaleDateString("es-AR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
-  const presupuestoId = `${today.getDate()}${
-    today.getMonth() + 1
-  }${today.getFullYear().toString().slice(-2)}`;
+  const presupuestoId = numero || "-";
 
   const primaryColor = empresa.primaryColor || "#111827";
 
