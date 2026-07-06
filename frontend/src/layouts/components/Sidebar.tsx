@@ -44,6 +44,9 @@ function getFeatureIcon(featureId: string) {
     case "rajas":
       return <TbWindow className="h-4 w-4" />;
 
+    case "ventanas-abrir":
+      return <TbWindow className="h-4 w-4" />;
+
     case "postigones":
       return <TbWindowMaximize className="h-4 w-4" />;
 

@@ -36,6 +36,7 @@ router.post("/mosquiteros", productController.mosquiteros);
 // =========================
 
 router.post("/ventanas", productController.ventanas);
+router.post("/ventanas-abrir", productController.ventanasAbrir);
 
 // =========================
 // 🔩 RAJAS

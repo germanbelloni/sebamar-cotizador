@@ -39,5 +39,9 @@ run("Ventanas Modena", "impVentanasModena.js");
 // ⚠️ Superficies y colores tienen ubicación especial
 // Colores -> backend/generated/colores.json
 // Superficies -> backend/generated/productos/superficies.json
+// ⚠️ IMPORTANTE
+// superficies.json NO se importa desde Excel.
+// Se mantiene manualmente.
+// Nunca crear impSuperficies.js sin revisar el flujo completo.
 
 console.log("\n🎯 IMPORTACIÓN COMPLETA\n");

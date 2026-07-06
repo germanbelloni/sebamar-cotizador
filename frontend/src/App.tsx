@@ -40,6 +40,16 @@ import { RajasPreview } from "@/features/rajas/components/RajasPreview";
 
 import { initialRajasConfig } from "@/features/rajas/constants";
 
+/* VENTANAS ABRIR */
+
+import type { VentanasAbrirConfig } from "@/features/ventanasAbrir/types";
+
+import { VentanasAbrirConfigForm } from "@/features/ventanasAbrir/components/VentanasAbrirConfigForm";
+
+import { VentanasAbrirPreview } from "@/features/ventanasAbrir/components/VentanasAbrirPreview";
+
+import { initialVentanasAbrirConfig } from "@/features/ventanasAbrir/constants";
+
 /* VENTANAS */
 
 import type { VentanaConfig } from "@/features/ventanas/types";
@@ -180,6 +190,10 @@ function App() {
     initialVentanasConfig,
   );
 
+  /* VENTANAS DE ABRIR */
+  const [ventanasAbrirConfig, setVentanasAbrirConfig] =
+    useState<VentanasAbrirConfig>(initialVentanasAbrirConfig);
+
   /* PORTONES */
   const [portonesConfig, setPortonesConfig] = useState<PortonesConfig>(
     initialPortonesConfig,
@@ -253,6 +267,13 @@ function App() {
       />
     ),
 
+    "ventanas-abrir": (
+      <VentanasAbrirConfigForm
+        config={ventanasAbrirConfig}
+        setConfig={setVentanasAbrirConfig}
+      />
+    ),
+
     postigones: (
       <PostigonesConfigForm
         config={postigonesConfig}
@@ -302,6 +323,8 @@ function App() {
     mosquiteros: mosquiterosConfig,
 
     marcos: marcosConfig,
+
+    "ventanas-abrir": ventanasAbrirConfig,
 
     "pano-fijo": panoFijoConfig,
 
@@ -397,6 +420,10 @@ function App() {
                               }))
                             }
                           />
+                        )}
+
+                        {activeFeature === "ventanas-abrir" && (
+                          <VentanasAbrirPreview config={ventanasAbrirConfig} />
                         )}
 
                         {activeFeature === "puertas" && (

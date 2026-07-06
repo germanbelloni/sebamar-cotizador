@@ -6,9 +6,9 @@ export const FEATURES = [
   },
 
   {
-    id: "rajas",
+    id: "ventanas-abrir",
 
-    label: "Rajas",
+    label: "Ventanas de Abrir",
   },
 
   {
@@ -42,9 +42,9 @@ export const FEATURES = [
   },
 
   {
-    id: "portones",
+    id: "ventanas-abrir",
 
-    label: "Portones",
+    label: "Ventanas de abrir",
   },
 
   {

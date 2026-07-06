@@ -37,6 +37,8 @@ const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 const auditarResultado = require("../auditor/auditarResultado");
 const logAuditoria = require("../auditor/logAuditoria");
 
+const calcularVentanaAbrir = require("../services/ventanasAbrir/calcularVentanaAbrir");
+
 function isValidationError(message = "") {
   const text = String(message).toLowerCase();
 
@@ -183,6 +185,12 @@ function ventanas(req, res) {
   );
 }
 
+function ventanasAbrir(req, res) {
+  return runCalculation(req, res, "VENTANAS ABRIR", () =>
+    calcularVentanaAbrir(req.body),
+  );
+}
+
 // =========================
 // 🔩 RAJAS
 // =========================
@@ -285,6 +293,8 @@ module.exports = {
   rajas,
 
   ventanas,
+
+  ventanasAbrir,
 
   superficies,
 };

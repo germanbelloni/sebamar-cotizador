@@ -21,8 +21,17 @@ function copyRecursive(src, dest) {
     return;
   }
 
+  const rel = path.relative(GENERATED, src).replace(/\\/g, "/");
+
+  // Nunca publicar superficies.json porque se mantiene manualmente
+  if (rel === "productos/superficies.json") {
+    console.log("⏭️", rel, "(omitido)");
+    return;
+  }
+
   fs.copyFileSync(src, dest);
-  console.log("📄", path.relative(GENERATED, src).replace(/\\/g, "/"));
+
+  console.log("📄", rel);
 }
 
 copyRecursive(GENERATED, DATA);
