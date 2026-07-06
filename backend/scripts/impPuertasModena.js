@@ -1,95 +1,86 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hojaNombre = "puertas modena";
+// Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// HELPERS
-const norm = (t) => t?.toString().toLowerCase().trim();
-const num = (v) => {
-  if (typeof v === "string") v = v.replace(",", ".");
-  const n = Number(v);
-  return isNaN(n) ? 0 : Math.round(n);
-};
+// Hoja
+const sheet = workbook.Sheets["PUERTAS_MODENA"];
 
-// LEER
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hojaNombre];
-
-if (!sheet) throw new Error("Hoja no encontrada");
-
-const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-// 🔥 BUSCAR INICIO TABLA IZQUIERDA
-const start = data.findIndex((row) =>
-  row[0]?.toString().toLowerCase().includes("modelo 1"),
-);
-
-if (start === -1) {
-  throw new Error("No se encontró tabla de modelos");
+if (!sheet) {
+  throw new Error("Hoja PUERTAS_MODENA no encontrada");
 }
 
-// RESULTADO
-const modelos = {};
-
-// 🔥 RECORRER FILAS
-for (let i = start; i < data.length; i++) {
-  const row = data[i];
-
-  if (!row || !row[0]) continue;
-
-  const nombre = norm(row[0]);
-
-  // cortar cuando termina tabla
-  if (nombre.includes("adicionales")) break;
-  if (!nombre.includes("modelo")) continue;
-
-  modelos[nombre] = {
-    base: num(row[1]),
-    vidrios: {
-      "3mm": num(row[2]),
-      "4mm": num(row[3]),
-      "5mm": num(row[4]),
-      fantasia: num(row[5]),
-      esmerilado: num(row[6]),
-      "3+3": num(row[7]),
-    },
-    dvh: {
-      camara: num(row[8]),
-    },
-  };
-}
-
-// 🔥 ADICIONALES
-const adicionales = {};
-
-data.forEach((row) => {
-  if (!row[0]) return;
-
-  const t = norm(row[0]);
-
-  if (t.includes("barral") && t.includes("curvo"))
-    adicionales["barral_curvo"] = num(row[1]);
-
-  if (t.includes("barral") && t.includes("recto"))
-    adicionales["barral_recto"] = num(row[1]);
-
-  if (t.includes("manija")) adicionales["manija_metalica"] = num(row[1]);
+// Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
 });
+console.log(Object.keys(rows[0]));
 
-// OUTPUT
+// Helper para buscar columnas sin depender del nombre exacto
+function get(row, posibles) {
+  const keys = Object.keys(row);
+
+  for (const posible of posibles) {
+    const key = keys.find(
+      (k) => k.toString().trim().toUpperCase() === posible.toUpperCase(),
+    );
+
+    if (key) {
+      return Math.round(Number(row[key]) || 0);
+    }
+  }
+
+  return 0;
+}
+
+// Resultado
 const resultado = {
   linea: "modena",
-  modelos,
-  adicionales,
+
+  modelos: {},
+
+  // Valores fijos
+  adicionales: {
+    barral_curvo: 16500,
+    barral_recto: 16500,
+    manija_metalica: 14000,
+  },
 };
 
+rows.forEach((row) => {
+  if (!row.MODELO) return;
+
+  const modelo = row.MODELO.toString().trim().toLowerCase();
+  if (modelo === "modelo 1") {
+    console.log(row);
+    console.log("DVH:", row.DVH);
+  }
+  resultado.modelos[modelo] = {
+    base: get(row, ["BASE"]),
+
+    vidrios: {
+      "3mm": get(row, ["3MM"]),
+      "4mm": get(row, ["4MM"]),
+      "5mm": get(row, ["5MM"]),
+      fantasia: get(row, ["FANTASIA"]),
+      esmerilado: get(row, ["ESMERILADO"]),
+      "3+3": get(row, ["3+3"]),
+    },
+
+    dvh: {
+      camara: get(row, ["CAMARA DVH"]),
+    },
+  };
+});
+
+// Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/puertas_modena.json"),
+  fromRoot("backend/generated/productos/puertas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ PUERTAS MODENA OK");
-console.log("📊 Modelos:", Object.keys(modelos).length);
+console.log("✅ puertas_modena.json generado correctamente");
+console.log("📊 Modelos:", Object.keys(resultado.modelos).length);

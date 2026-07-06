@@ -1,0 +1,18 @@
+[
+  {
+    "nombre": "negro",
+    "valor": 0.3
+  },
+  {
+    "nombre": "blanco",
+    "valor": 0
+  },
+  {
+    "nombre": "bronce colonial",
+    "valor": 0.45
+  },
+  {
+    "nombre": "simil madera",
+    "valor": 2.8
+  }
+]

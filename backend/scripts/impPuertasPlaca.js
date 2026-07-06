@@ -1,113 +1,65 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hojaNombre = "placas";
+// 📂 Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// HELPERS
-const limpiar = (txt) => txt?.toString().toLowerCase().trim();
-
-const normalizarModelo = (marco, hoja) => {
-  const m = limpiar(marco).replace("marco", "").trim();
-  const h = limpiar(hoja).replace("hoja", "").trim();
-  return `${m}_${h}`.replace(/\s+/g, "_");
-};
-
-const toNumber = (v) => {
-  const n = Number(v);
-  return isNaN(n) ? 0 : n;
-};
-
-// LEER EXCEL
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hojaNombre];
+// 📄 Hoja
+const sheet = workbook.Sheets["PUERTAS_PLACA"];
 
 if (!sheet) {
-  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
+  throw new Error("Hoja PUERTAS_PLACA no encontrada");
 }
 
-const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+// 📊 Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
+});
 
-// RESULTADO
+// Resultado
 const resultado = {
   placa: {},
   embutir: {},
 };
 
-// ESTADO
-let tipoActual = "placa";
-let modeloActual = null;
+rows.forEach((row) => {
+  if (!row.TIPO || !row.MODELO || !row.MEDIDA) return;
 
-// RECORRER
-for (let i = 0; i < data.length; i++) {
-  const row = data[i] || [];
+  const tipo = row.TIPO.toString().trim().toLowerCase();
+  const modelo = row.MODELO.toString().trim().toLowerCase();
+  const medida = row.MEDIDA.toString().trim();
 
-  const colA = row[0];
-  const colB = row[1];
-  const colC = row[2];
-  const colD = row[3];
+  if (!resultado[tipo]) return;
 
-  // CAMBIO A EMBUTIR
-  if (
-    typeof colA === "string" &&
-    colA.toLowerCase().includes("puertas embutir")
-  ) {
-    tipoActual = "embutir";
-    modeloActual = null;
-    continue;
+  if (!resultado[tipo][modelo]) {
+    resultado[tipo][modelo] = {};
   }
 
-  // DETECTAR MODELO
-  if (typeof colA === "string" && colA.toLowerCase().includes("marco")) {
-    const marco = colA;
-    const hoja = data[i + 2]?.[0];
+  resultado[tipo][modelo][medida] = {};
 
-    if (!hoja) continue;
+  if (row.ALUMINIO !== null && row.ALUMINIO !== "") {
+    resultado[tipo][modelo][medida].aluminio = Math.round(
+      Number(row.ALUMINIO) || 0,
+    );
+  } else {
+    resultado[tipo][modelo][medida].marco_10 = Math.round(
+      Number(row.MARCO_10) || 0,
+    );
 
-    modeloActual = normalizarModelo(marco, hoja);
-
-    if (!resultado[tipoActual][modeloActual]) {
-      resultado[tipoActual][modeloActual] = {};
-    }
-
-    continue;
+    resultado[tipo][modelo][medida].marco_15 = Math.round(
+      Number(row.MARCO_15) || 0,
+    );
   }
+});
 
-  // MEDIDAS
-  if (typeof colB === "string" && colB.includes("x")) {
-    if (!modeloActual) continue;
-
-    const medida = colB.trim();
-
-    if (!resultado[tipoActual][modeloActual][medida]) {
-      resultado[tipoActual][modeloActual][medida] = {};
-    }
-
-    if (colD === undefined || colD === "") {
-      resultado[tipoActual][modeloActual][medida]["aluminio"] = toNumber(colC);
-    } else {
-      resultado[tipoActual][modeloActual][medida]["marco_10"] = toNumber(colC);
-
-      resultado[tipoActual][modeloActual][medida]["marco_15"] = toNumber(colD);
-    }
-
-    if (tipoActual === "embutir") {
-      const val = toNumber(colD);
-
-      resultado[tipoActual][modeloActual][medida]["marco_10"] = val;
-      resultado[tipoActual][modeloActual][medida]["marco_15"] = val;
-    }
-  }
-}
-
-// GUARDAR
+// 💾 Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/puertas_placa.json"),
+  fromRoot("backend/generated/productos/puertas_placa.json"),
   JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ JSON PUERTAS PLACA generado correctamente");
+console.log("✅ puertas_placa.json generado correctamente");
 console.log("📊 Modelos placa:", Object.keys(resultado.placa).length);
 console.log("📊 Modelos embutir:", Object.keys(resultado.embutir).length);

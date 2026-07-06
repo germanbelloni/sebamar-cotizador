@@ -4,54 +4,42 @@ const fs = require("fs");
 const { fromRoot } = require("../utils/path");
 
 // 📂 Excel
-const workbook = xlsx.readFile(fromRoot("backend/excel/calculadora.xlsx"));
+const workbook = xlsx.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// 📄 hoja CONFIG
-const sheet = workbook.Sheets["CONFIG"];
+// 📄 Hoja
+const sheet = workbook.Sheets["COLORES"];
 
 if (!sheet) {
-  throw new Error("Hoja CONFIG no encontrada en el Excel");
+  throw new Error("Hoja COLORES no encontrada en catalogo.xlsx");
 }
 
-// 🔧 helpers
+// 🔧 Helpers
 const normalizar = (txt) => txt?.toString().toLowerCase().trim();
 
 const toNumber = (v) => {
   if (typeof v === "string") {
     v = v.replace(",", ".");
   }
+
   const n = Number(v);
   return isNaN(n) ? 0 : n;
 };
 
-// 🔥 rango
-const rango = xlsx.utils.sheet_to_json(sheet, {
-  range: "A10:B13",
-  header: ["COLOR", "VALOR"],
-  defval: null,
+// 📋 Leer hoja completa
+const filas = xlsx.utils.sheet_to_json(sheet, {
+  defval: "",
 });
 
-// 🔧 evitar duplicados
-const mapa = {};
+// 🔧 Construir JSON
+const colores = filas
+  .filter((row) => row.NOMBRE)
+  .map((row) => ({
+    nombre: normalizar(row.NOMBRE),
+    valor: toNumber(row.VALOR),
+  }));
 
-rango.forEach((row) => {
-  const nombreRaw = row["COLOR"];
-  if (!nombreRaw) return;
-
-  const nombre = normalizar(nombreRaw);
-  const valor = toNumber(row["VALOR"]);
-
-  mapa[nombre] = {
-    nombre,
-    valor,
-  };
-});
-
-// 👉 convertir a array
-const colores = Object.values(mapa);
-
-// 💾 guardar
-const outputPath = fromRoot("backend/data/colores.json");
+// 💾 Guardar
+const outputPath = fromRoot("backend/generated/colores.json");
 
 fs.writeFileSync(outputPath, JSON.stringify(colores, null, 2));
 

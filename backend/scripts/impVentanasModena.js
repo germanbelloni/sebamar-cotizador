@@ -1,106 +1,75 @@
-const xlsx = require("xlsx");
+const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const workbook = xlsx.readFile(archivo);
+// Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-const CONFIG = {
-  hoja: "ventanas modena",
-
-  detectarHeaderPor: ["medida"],
-
-  columnas: {
-    medida: ["medida", "medidas"],
-    base: ["sin vidrio", "s/vidrio"],
-    guia: ["guia"],
-    mosq: ["mosq", "mosquitero"],
-  },
-
-  vidrios: {
-    "3mm": ["3mm"],
-    "4mm": ["4mm"],
-    "5mm": ["5mm"],
-    "3+3": ["3+3"],
-    dvh: ["dvh"],
-  },
-};
-
-const sheet = workbook.Sheets[CONFIG.hoja];
+// Hoja
+const sheet = workbook.Sheets["VENTANAS_MODENA"];
 
 if (!sheet) {
-  throw new Error(`Hoja "${CONFIG.hoja}" no encontrada`);
+  throw new Error("Hoja VENTANAS_MODENA no encontrada");
 }
 
-const raw = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+// Helpers
+function normalizarMedida(medida) {
+  if (!medida) return "";
 
-// HEADER
-const headerIndex = raw.findIndex((row) =>
-  row.some((cell) =>
-    CONFIG.detectarHeaderPor.some((p) =>
-      cell?.toString().toLowerCase().includes(p),
-    ),
-  ),
-);
+  const [ancho, altoRaw] = medida.toString().trim().split("x");
 
-if (headerIndex === -1) {
-  throw new Error("No se encontró encabezado");
-}
+  const alto = Number(altoRaw);
 
-const headers = raw[headerIndex].map((h) =>
-  h ? h.toString().toLowerCase().trim() : "",
-);
-
-// DATA
-const filas = raw.slice(headerIndex + 1);
-
-// HELPERS
-function get(row, posibles) {
-  for (let nombre of posibles) {
-    const idx = headers.findIndex((h) => h.includes(nombre));
-    if (idx !== -1) {
-      const v = Number(row[idx]);
-      return isNaN(v) ? 0 : Math.round(v);
-    }
-  }
-  return 0;
-}
-
-// RESULTADO
-const resultado = { medidas: {} };
-
-filas.forEach((row) => {
-  function getText(row, posibles) {
-    for (let nombre of posibles) {
-      const idx = headers.findIndex((h) => h.includes(nombre));
-      if (idx !== -1) return (row[idx] || "").toString().trim();
-    }
-    return "";
+  if (isNaN(alto)) {
+    return medida.toString().trim();
   }
 
-  const medida = getText(row, CONFIG.columnas.medida);
-  if (!medida) return;
+  if (alto < 100) {
+    return `${ancho}x0,${alto}`;
+  }
 
-  const key = medida.toString().trim();
+  return `${ancho}x${alto}`;
+}
 
-  resultado.medidas[key] = {
-    base: get(row, CONFIG.columnas.base),
-    guia: get(row, CONFIG.columnas.guia),
-    mosquitero: get(row, CONFIG.columnas.mosq),
+// Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
+});
+
+console.log(rows.length);
+console.log(rows[rows.length - 3]);
+console.log(rows[rows.length - 2]);
+console.log(rows[rows.length - 1]);
+
+// Resultado
+const resultado = {
+  medidas: {},
+};
+
+rows.forEach((row) => {
+  if (!row.MEDIDA) return;
+
+  const medida = normalizarMedida(row.MEDIDA);
+
+  resultado.medidas[medida] = {
+    base: Math.round(Number(row.BASE) || 0),
+    guia: Math.round(Number(row.GUIA) || 0),
+    mosquitero: Math.round(Number(row.MOSQUITERO) || 0),
 
     vidrios: {
-      "3mm": get(row, CONFIG.vidrios["3mm"]),
-      "4mm": get(row, CONFIG.vidrios["4mm"]),
-      "5mm": get(row, CONFIG.vidrios["5mm"]),
-      "3+3": get(row, CONFIG.vidrios["3+3"]),
-      dvh: get(row, CONFIG.vidrios["dvh"]),
+      "3mm": Math.round(Number(row["3MM"]) || 0),
+      "4mm": Math.round(Number(row["4MM"]) || 0),
+      "5mm": Math.round(Number(row["5MM"]) || 0),
+      "3+3": Math.round(Number(row["3+3"]) || 0),
+      dvh: Math.round(Number(row.DVH) || 0),
     },
   };
 });
 
-// OUTPUT
+// Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/ventanas_modena.json"),
+  fromRoot("backend/generated/productos/ventanas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 

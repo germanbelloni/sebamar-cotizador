@@ -1,0 +1,248 @@
+{
+  "linea": "modena",
+  "modelos": {
+    "modelo 1": {
+      "base": 262845,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 25839,
+        "5mm": 34030,
+        "fantasia": 28439,
+        "esmerilado": 73636,
+        "3+3": 110191
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 1 vr": {
+      "base": 290723,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 25839,
+        "5mm": 0,
+        "fantasia": 28439,
+        "esmerilado": 73636,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 2": {
+      "base": 272881,
+      "vidrios": {
+        "3mm": 20196,
+        "4mm": 24486,
+        "5mm": 32234,
+        "fantasia": 26941,
+        "esmerilado": 69762,
+        "3+3": 104386
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 3": {
+      "base": 323060,
+      "vidrios": {
+        "3mm": 10098,
+        "4mm": 12243,
+        "5mm": 16117,
+        "fantasia": 13471,
+        "esmerilado": 34881,
+        "3+3": 52193
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 3 vr": {
+      "base": 338672,
+      "vidrios": {
+        "3mm": 10098,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 13471,
+        "esmerilado": 34881,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 4": {
+      "base": 339787,
+      "vidrios": {
+        "3mm": 5643,
+        "4mm": 6798,
+        "5mm": 8956,
+        "fantasia": 7484,
+        "esmerilado": 19378,
+        "3+3": 28995
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 4 vr": {
+      "base": 348708,
+      "vidrios": {
+        "3mm": 5643,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 7484,
+        "esmerilado": 19378,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 5": {
+      "base": 363204,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 6": {
+      "base": 348708,
+      "vidrios": {
+        "3mm": 10098,
+        "4mm": 12243,
+        "5mm": 16117,
+        "fantasia": 13471,
+        "esmerilado": 34881,
+        "3+3": 52193
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 7": {
+      "base": 349823,
+      "vidrios": {
+        "3mm": 5643,
+        "4mm": 6798,
+        "5mm": 8956,
+        "fantasia": 7484,
+        "esmerilado": 19378,
+        "3+3": 28995
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 8": {
+      "base": 292953,
+      "vidrios": {
+        "3mm": 22572,
+        "4mm": 27192,
+        "5mm": 35825,
+        "fantasia": 29938,
+        "esmerilado": 77510,
+        "3+3": 115980
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 9": {
+      "base": 357629,
+      "vidrios": {
+        "3mm": 7108,
+        "4mm": 8613,
+        "5mm": 11345,
+        "fantasia": 9504,
+        "esmerilado": 24552,
+        "3+3": 36733
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 10": {
+      "base": 365210,
+      "vidrios": {
+        "3mm": 3927,
+        "4mm": 5438,
+        "5mm": 7161,
+        "fantasia": 5986,
+        "esmerilado": 15503,
+        "3+3": 23190
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 10 vr": {
+      "base": 416021,
+      "vidrios": {
+        "3mm": 3927,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 5986,
+        "esmerilado": 15503,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 11": {
+      "base": 335002,
+      "vidrios": {
+        "3mm": 15715,
+        "4mm": 20394,
+        "5mm": 26862,
+        "fantasia": 22453,
+        "esmerilado": 58139,
+        "3+3": 86993
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo 12": {
+      "base": 301874,
+      "vidrios": {
+        "3mm": 15715,
+        "4mm": 20394,
+        "5mm": 26862,
+        "fantasia": 22453,
+        "esmerilado": 58139,
+        "3+3": 86993
+      },
+      "dvh": {
+        "camara": 0
+      }
+    },
+    "modelo c/panel": {
+      "base": 391082,
+      "vidrios": {
+        "3mm": 0,
+        "4mm": 0,
+        "5mm": 0,
+        "fantasia": 0,
+        "esmerilado": 0,
+        "3+3": 0
+      },
+      "dvh": {
+        "camara": 0
+      }
+    }
+  },
+  "adicionales": {
+    "barral_curvo": 16500,
+    "barral_recto": 16500,
+    "manija_metalica": 14000
+  }
+}

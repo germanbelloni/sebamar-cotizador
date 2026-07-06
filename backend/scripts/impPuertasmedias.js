@@ -1,73 +1,50 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hoja = "medias puertas herrero";
+// 📂 Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hoja];
+// 📄 Hoja
+const sheet = workbook.Sheets["MEDIA_PUERTA_HERRERO"];
 
 if (!sheet) {
-  throw new Error(`No se encontró la hoja: ${hoja}`);
+  throw new Error("Hoja MEDIA_PUERTA no encontrada");
 }
 
-// LEER DATA
-const data = XLSX.utils.sheet_to_json(sheet, {
-  range: 5,
+// 📊 Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
   defval: null,
 });
 
-// HELPERS
-function normalizar(texto) {
-  return texto?.toString().toLowerCase().trim().replace(/\s+/g, " ");
-}
-
-function num(v) {
-  const n = Number(v);
-  return isNaN(n) ? 0 : n;
-}
-
-function get(row, posibles) {
-  for (let key in row) {
-    const k = normalizar(key);
-    if (posibles.some((p) => k.includes(p))) {
-      return row[key];
-    }
-  }
-  return 0;
-}
-
-// RESULTADO
+// Resultado
 const resultado = {
   medias: {},
 };
 
-data.forEach((row) => {
-  const modeloOriginal = get(row, ["modelo"]) || get(row, ["empty"]);
+rows.forEach((row) => {
+  if (!row.MODELO) return;
 
-  if (!modeloOriginal) return;
-
-  const modelo = normalizar(modeloOriginal);
+  const modelo = row.MODELO.toString().trim().toLowerCase();
 
   resultado.medias[modelo] = {
-    base: num(get(row, ["s/vidrio", "sin vidrio"])),
+    base: Math.round(Number(row.BASE) || 0),
 
     vidrios: {
-      "4mm": num(get(row, ["4mm"])),
-      "3+3": num(get(row, ["3+3"])),
-      fantasia: num(get(row, ["fantasia"])),
-      esmerilado: num(get(row, ["esmerilado"])),
+      "4mm": Math.round(Number(row["4MM"]) || 0),
+      "3+3": Math.round(Number(row["3+3"]) || 0),
+      fantasia: Math.round(Number(row.FANTASIA) || 0),
+      esmerilado: Math.round(Number(row.ESMERILADO) || 0),
     },
   };
 });
 
-// OUTPUT
+// 💾 Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/puertas_media_herrero.json"),
+  fromRoot("backend/generated/productos/puertas_media_herrero.json"),
   JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ JSON puertas MEDIA generado");
+console.log("✅ puertas_media_herrero.json generado correctamente");
 console.log("📊 Modelos:", Object.keys(resultado.medias).length);

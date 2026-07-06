@@ -1,86 +1,52 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hojaNombre = "rajas herrero";
+// 📂 Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// HELPERS
-const normalizar = (txt) =>
-  txt?.toString().toLowerCase().trim().replace(/\s+/g, "_");
-
-const toNumber = (v) => {
-  const n = Number(v);
-  return isNaN(n) ? 0 : n;
-};
-
-// LEER EXCEL
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hojaNombre];
+// 📄 Hoja
+const sheet = workbook.Sheets["RAJAS_HERRERO"];
 
 if (!sheet) {
-  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
+  throw new Error("Hoja RAJAS_HERRERO no encontrada");
 }
 
-const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+// 📊 Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
+});
 
-// HEADER
-const headerIndex = data.findIndex(
-  (row) =>
-    row[0]?.toString().toLowerCase().includes("medida") && row[1] !== undefined,
-);
+// Resultado
+const resultado = {
+  medidas: {},
+};
 
-if (headerIndex === -1) {
-  throw new Error("No se encontró encabezado válido");
-}
+rows.forEach((row) => {
+  if (!row.MEDIDA) return;
 
-const headers = data[headerIndex].slice(0, 8).map(normalizar);
+  const medida = row.MEDIDA.toString().trim();
 
-// RESULTADO
-const medidas = {};
+  resultado.medidas[medida] = {
+    base: Math.round(Number(row.BASE) || 0),
 
-for (let i = headerIndex + 1; i < data.length; i++) {
-  const row = (data[i] || []).slice(0, 8);
-
-  if (!row[0]) continue;
-
-  const medida = row[0].toString().trim();
-
-  let base = 0;
-  const vidrios = {};
-
-  headers.forEach((hOriginal, index) => {
-    if (index === 0) return;
-
-    let h = hOriginal;
-    const valor = Math.round(toNumber(row[index]));
-
-    if (h === "sin_vidrio" || h === "s/vidrio") {
-      base = valor;
-      return;
-    }
-
-    h = h.replace("vid/", "").replace("v/", "").trim();
-
-    if (!h) return;
-
-    vidrios[h] = valor;
-  });
-
-  medidas[medida] = {
-    base,
-    vidrios,
+    vidrios: {
+      "3mm": Math.round(Number(row["3MM"]) || 0),
+      "4mm": Math.round(Number(row["4MM"]) || 0),
+      "5mm": Math.round(Number(row["5MM"]) || 0),
+      fantasia: Math.round(Number(row.FANTASIA) || 0),
+      esmerilado: Math.round(Number(row.ESMERILADO) || 0),
+      "3+3": Math.round(Number(row["3+3"]) || 0),
+    },
   };
-}
+});
 
-// OUTPUT
-const resultado = { medidas };
-
+// 💾 Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/rajas_herrero.json"),
+  fromRoot("backend/generated/productos/rajas_herrero.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ rajas_herrero.json generado correctamente");
-console.log("📊 Medidas procesadas:", Object.keys(medidas).length);
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);

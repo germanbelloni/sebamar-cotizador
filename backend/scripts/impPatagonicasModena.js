@@ -1,111 +1,64 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hojaNombre = "patagonicas modena";
+// 📂 Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// HELPERS
-const normalizar = (txt) =>
-  txt?.toString().toLowerCase().trim().replace(/\s+/g, "_");
-
-const limpiarHeader = (h) => {
-  if (!h) return "";
-
-  h = normalizar(h);
-
-  if (h.includes("sin") || h.includes("s/vidrio")) return "base";
-  if (h.includes("camara")) return "camara";
-  if (h.includes("3mm")) return "3mm";
-  if (h.includes("4mm")) return "4mm";
-  if (h.includes("5mm")) return "5mm";
-  if (h.includes("3+3")) return "3+3";
-
-  return "";
-};
-
-const toNumber = (v) => {
-  const n = Number(v);
-  return isNaN(n) ? 0 : n;
-};
-
-// LEER EXCEL
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hojaNombre];
+// 📄 Hoja
+const sheet = workbook.Sheets["PATAGONICAS_MODENA"];
 
 if (!sheet) {
-  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
+  throw new Error("Hoja PATAGONICAS_MODENA no encontrada");
 }
 
-const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+// 📊 Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
+});
 
-// HEADER
-const headerIndex = data.findIndex(
-  (row) =>
-    row[0]?.toString().toLowerCase().includes("medida") &&
-    row[1]?.toString().toLowerCase().includes("vidrio"),
-);
-
-if (headerIndex === -1) {
-  throw new Error("No se encontró encabezado válido");
-}
-
-const headers = data[headerIndex].slice(0, 5).map(limpiarHeader);
-
-// PROCESO
-function procesar(desde, hasta) {
-  const medidas = {};
-
-  for (let i = desde; i <= hasta; i++) {
-    const row = (data[i] || []).slice(0, 5);
-
-    // ✅ FILTRO CORRECTO (ADENTRO DEL LOOP)
-    if (
-      !row[0] ||
-      row[0].toString().toLowerCase().includes("medida") ||
-      row[0].toString().toLowerCase().includes("modelo")
-    ) {
-      continue;
-    }
-
-    const medida = row[0].toString().trim();
-
-    let base = 0;
-    let camara = 0;
-    const vidrios = {};
-
-    headers.forEach((h, index) => {
-      if (index === 0) return;
-
-      const valor = Math.round(toNumber(row[index]));
-
-      if (h === "base") base = valor;
-      else if (h === "camara") camara = valor;
-      else if (h) vidrios[h] = valor;
-    });
-
-    medidas[medida] = { base, vidrios, camara };
-  }
-
-  return medidas;
-}
-
-// BLOQUES
-const unaRaja = procesar(headerIndex + 1, headerIndex + 30);
-const dosRajas = procesar(headerIndex + 35, headerIndex + 38);
-
-// OUTPUT
 const resultado = {
   tipos: {
-    "1_raja": { medidas: unaRaja },
-    "2_rajas": { medidas: dosRajas },
+    "1_raja": {
+      medidas: {},
+    },
+    "2_rajas": {
+      medidas: {},
+    },
   },
 };
 
+rows.forEach((row) => {
+  if (!row.TIPO || !row.MEDIDA) return;
+
+  const tipo =
+    row.TIPO.toString().trim().toUpperCase() === "1_RAJA"
+      ? "1_raja"
+      : "2_rajas";
+
+  resultado.tipos[tipo].medidas[row.MEDIDA.toString().trim()] = {
+    base: Math.round(Number(row.BASE) || 0),
+    vidrios: {
+      "4mm": Math.round(Number(row.VIDRIO_4MM) || 0),
+      "3+3": Math.round(Number(row["VIDRIO_3+3"]) || 0),
+    },
+    camara: Math.round(Number(row.CAMARA) || 0),
+  };
+});
+
+// 💾 Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/patagonicas_modena.json"),
+  fromRoot("backend/generated/productos/patagonicas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ patagonicas_modena.json generado correctamente");
+console.log(
+  "📊 1 Raja:",
+  Object.keys(resultado.tipos["1_raja"].medidas).length,
+);
+console.log(
+  "📊 2 Rajas:",
+  Object.keys(resultado.tipos["2_rajas"].medidas).length,
+);

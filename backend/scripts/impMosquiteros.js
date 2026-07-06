@@ -1,57 +1,63 @@
 const xlsx = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// 📂 Excel
-const workbook = xlsx.readFile(fromRoot("backend/excel/calculadora.xlsx"));
+// Excel
+const workbook = xlsx.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// 🔍 hoja dinámica
-const sheetName = workbook.SheetNames.find((n) =>
-  n.toLowerCase().includes("mosquiteros"),
-);
+// Hoja
+const sheet = workbook.Sheets["MOSQUITEROS_VENTANA"];
 
-if (!sheetName) {
-  throw new Error("Hoja mosquiteros no encontrada");
+if (!sheet) {
+  throw new Error("Hoja MOSQUITEROS_VENTANA no encontrada");
 }
 
-const sheet = workbook.Sheets[sheetName];
+// Helpers
+function normalizarMedida(medida) {
+  if (!medida) return "";
 
-// 📊 leer crudo
-const raw = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+  const [ancho, altoRaw] = medida.toString().trim().split("x");
 
-// 🔍 encontrar header (fila que tiene "Medidas")
-const headerIndex = raw.findIndex((row) =>
-  row.some((cell) => cell?.toString().toLowerCase().includes("medidas")),
-);
+  const alto = Number(altoRaw);
 
-if (headerIndex === -1) {
-  throw new Error("No se encontró encabezado");
+  if (isNaN(alto)) {
+    return medida.toString().trim();
+  }
+
+  // Mantener exactamente el formato del JSON actual
+  if (alto < 100) {
+    return `${ancho}x0,${alto}`;
+  }
+
+  return `${ancho}x${alto}`;
 }
 
-// RESULTADO
+// Leer datos
+const rows = xlsx.utils.sheet_to_json(sheet, {
+  defval: null,
+});
+
+// Resultado
 const resultado = {
   medidas: {},
 };
 
-// 🔥 recorrer filas
-for (let i = headerIndex + 1; i < raw.length; i++) {
-  const row = raw[i];
+rows.forEach((row) => {
+  if (!row.MEDIDA) return;
 
-  const medida = row[0];
-  const precio = row[1];
+  const medida = normalizarMedida(row.MEDIDA);
 
-  if (!medida) continue;
-
-  resultado.medidas[medida.toString().trim()] = {
-    base: Math.round(Number(precio) || 0),
+  resultado.medidas[medida] = {
+    base: Math.round(Number(row.BASE) || 0),
   };
-}
+});
 
-// 💾 guardar
+// Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/mosquiteros.json"),
+  fromRoot("backend/generated/productos/mosquiteros.json"),
   JSON.stringify(resultado, null, 2),
 );
 
-console.log("✅ mosquiteros generados");
+console.log("✅ Mosquiteros generados");
 console.log("📊 Medidas:", Object.keys(resultado.medidas).length);

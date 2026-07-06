@@ -1,77 +1,54 @@
 const XLSX = require("xlsx");
 const fs = require("fs");
+
 const { fromRoot } = require("../utils/path");
 
-// CONFIG
-const archivo = fromRoot("backend/excel/calculadora.xlsx");
-const hojaNombre = "rajas modena";
+// 📂 Excel
+const workbook = XLSX.readFile(fromRoot("backend/excel/catalogo.xlsx"));
 
-// HELPERS
-const norm = (txt) => txt?.toString().toLowerCase().trim().replace(/\s+/g, " ");
-
-const toNumber = (v) => {
-  if (typeof v === "string") v = v.replace(",", ".");
-  const n = Number(v);
-  return isNaN(n) ? 0 : Math.round(n);
-};
-
-// LEER EXCEL
-const workbook = XLSX.readFile(archivo);
-const sheet = workbook.Sheets[hojaNombre];
+// 📄 Hoja
+const sheet = workbook.Sheets["RAJAS_MODENA"];
 
 if (!sheet) {
-  throw new Error(`No se encontró la hoja: ${hojaNombre}`);
+  throw new Error("Hoja RAJAS_MODENA no encontrada");
 }
 
-const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+// 📊 Leer datos
+const rows = XLSX.utils.sheet_to_json(sheet, {
+  defval: null,
+});
 
-// 🔍 HEADER REAL (tabla izquierda)
-const headerIndex = data.findIndex(
-  (row) =>
-    row[0]?.toString().toLowerCase().includes("medidas") &&
-    row[1]?.toString().toLowerCase().includes("vidrio"),
-);
-
-if (headerIndex === -1) {
-  throw new Error("No se encontró encabezado de rajas modena");
-}
-
-// RESULTADO
-const medidas = {};
-
-for (let i = headerIndex + 1; i < data.length; i++) {
-  const row = data[i];
-
-  if (!row || !row[0]) continue;
-
-  const medida = row[0].toString().trim();
-
-  // cortar si empieza cualquier bloque raro
-  if (!medida.includes("x")) continue;
-
-  medidas[medida] = {
-    base: toNumber(row[1]),
-    vidrios: {
-      "3mm": toNumber(row[2]),
-      "4mm": toNumber(row[3]),
-      "5mm": toNumber(row[4]),
-      esmerilado: toNumber(row[5]),
-      fantasia: toNumber(row[6]),
-      "3+3": toNumber(row[7]),
-    },
-    camara: toNumber(row[8]),
-  };
-}
-
-// OUTPUT
+// Resultado
 const resultado = {
-  medidas,
+  medidas: {},
 };
 
+rows.forEach((row) => {
+  if (!row.MEDIDA) return;
+
+  const medida = row.MEDIDA.toString().trim();
+
+  resultado.medidas[medida] = {
+    base: Math.round(Number(row.BASE) || 0),
+
+    vidrios: {
+      "3mm": Math.round(Number(row["3MM"]) || 0),
+      "4mm": Math.round(Number(row["4MM"]) || 0),
+      "5mm": Math.round(Number(row["5MM"]) || 0),
+      esmerilado: Math.round(Number(row.ESMERILADO) || 0),
+      fantasia: Math.round(Number(row.FANTASIA) || 0),
+      "3+3": Math.round(Number(row["3+3"]) || 0),
+    },
+
+    camara: Math.round(Number(row.CAMARA) || 0),
+  };
+});
+
+// 💾 Guardar
 fs.writeFileSync(
-  fromRoot("backend/data/productos/rajas_modena.json"),
+  fromRoot("backend/generated/productos/rajas_modena.json"),
   JSON.stringify(resultado, null, 2),
 );
 
 console.log("✅ rajas_modena.json generado correctamente");
-console.log("📊 Medidas:", Object.keys(medidas).length);
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
