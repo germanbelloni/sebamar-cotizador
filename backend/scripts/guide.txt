@@ -1,0 +1,165 @@
+=========================================
+IMPORTACIÓN DE LISTAS DE PRECIOS
+SEBAMAR COTIZADOR
+=========================================
+
+OBJETIVO
+--------
+
+El sistema utiliza como fuente de datos el archivo:
+
+backend/excel/catalogo.xlsx
+
+Cada vez que se actualiza la lista de precios, NO se modifican los JSON manualmente.
+
+Todo el proceso se realiza automáticamente.
+
+
+FLUJO
+-----
+
+1) Abrir:
+
+backend/excel/catalogo.xlsx
+
+2) Actualizar los valores necesarios.
+
+3) Guardar el Excel.
+
+4) Ejecutar:
+
+node importar.js
+
+
+¿QUÉ HACE IMPORTAR.JS?
+----------------------
+
+El proceso tiene tres etapas.
+
+1. IMPORTAR
+
+Ejecuta todos los scripts de importación.
+
+Genera los JSON nuevos en:
+
+backend/generated
+
+
+2. VALIDAR
+
+Compara todos los JSON generados contra los JSON oficiales.
+
+Se verifica:
+
+- misma estructura
+- mismas claves
+- mismos tipos de datos
+- mismos valores
+
+Si existe cualquier diferencia:
+
+- se detiene el proceso
+- NO se modifica backend/data
+
+
+3. PUBLICAR
+
+Si toda la validación fue correcta:
+
+los JSON de
+
+backend/generated
+
+se copian automáticamente a
+
+backend/data
+
+reemplazando los anteriores.
+
+
+ESTRUCTURA DEL PROYECTO
+-----------------------
+
+backend/
+
+    excel/
+        catalogo.xlsx
+
+    generated/
+        JSON generados automáticamente
+
+    data/
+        JSON oficiales utilizados por el sistema
+
+    scripts/
+        runExcel.js
+        compareGenerated.js
+        publishGenerated.js
+        importar.js
+
+
+REGLAS
+------
+
+✔ Nunca editar archivos dentro de backend/data.
+
+✔ Nunca editar archivos dentro de backend/generated.
+
+✔ Toda modificación de precios debe hacerse únicamente en:
+
+backend/excel/catalogo.xlsx
+
+Luego ejecutar:
+
+node importar.js
+
+
+Si la validación falla, corregir el Excel y volver a ejecutar.
+
+Nunca copiar archivos manualmente.
+
+
+PIPELINE
+--------
+
+catalogo.xlsx
+
+      │
+
+      ▼
+
+runExcel.js
+
+      │
+
+      ▼
+
+backend/generated
+
+      │
+
+      ▼
+
+compareGenerated.js
+
+      │
+
+      ├── ERROR
+      │      │
+      │      └── Se cancela la publicación
+      │
+      ▼
+
+publishGenerated.js
+
+      │
+
+      ▼
+
+backend/data
+
+      │
+
+      ▼
+
+Sistema listo para utilizar.

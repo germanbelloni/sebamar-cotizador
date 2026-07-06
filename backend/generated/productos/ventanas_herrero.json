@@ -180,6 +180,18 @@
       "mosquitero": 32592,
       "vidrio": 28920
     },
+    "220x110": {
+      "base": 81200,
+      "guia": 18929,
+      "mosquitero": 39514,
+      "vidrio": 35718
+    },
+    "240x110": {
+      "base": 81200,
+      "guia": 18929,
+      "mosquitero": 39514,
+      "vidrio": 39120
+    },
     "100x120": {
       "base": 59233,
       "guia": 20650,

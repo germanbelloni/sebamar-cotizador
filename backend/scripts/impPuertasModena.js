@@ -17,7 +17,6 @@ if (!sheet) {
 const rows = XLSX.utils.sheet_to_json(sheet, {
   defval: null,
 });
-console.log(Object.keys(rows[0]));
 
 // Helper para buscar columnas sin depender del nombre exacto
 function get(row, posibles) {
@@ -54,10 +53,7 @@ rows.forEach((row) => {
   if (!row.MODELO) return;
 
   const modelo = row.MODELO.toString().trim().toLowerCase();
-  if (modelo === "modelo 1") {
-    console.log(row);
-    console.log("DVH:", row.DVH);
-  }
+
   resultado.modelos[modelo] = {
     base: get(row, ["BASE"]),
 
@@ -71,7 +67,7 @@ rows.forEach((row) => {
     },
 
     dvh: {
-      camara: get(row, ["CAMARA DVH"]),
+      camara: get(row, ["DVH"]),
     },
   };
 });

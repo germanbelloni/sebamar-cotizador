@@ -36,12 +36,6 @@ function normalizarMedida(medida) {
 const rows = XLSX.utils.sheet_to_json(sheet, {
   defval: null,
 });
-
-console.log(rows.length);
-console.log(rows[rows.length - 3]);
-console.log(rows[rows.length - 2]);
-console.log(rows[rows.length - 1]);
-
 // Resultado
 const resultado = {
   medidas: {},
