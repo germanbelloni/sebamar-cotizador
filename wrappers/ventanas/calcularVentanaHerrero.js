@@ -269,7 +269,6 @@ function calcularVentanaHerrero(dataInput) {
 
   // 💰 PERFIL
   console.log("PERFIL:", perfil);
-  console.log("LINEA:", linea);
   console.log("PERFILES:", Object.keys(perfiles));
   console.log("PERFIL DATA:", perfiles[perfil]);
   const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;

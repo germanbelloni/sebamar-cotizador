@@ -29,6 +29,11 @@ export const useBudgetStore = create<BudgetState>()(
 
       addItem: (item) =>
         set((state) => {
+          console.log("=================================");
+          console.log("ITEM QUE QUIERE ENTRAR AL STORE");
+          console.dir(item, { depth: null });
+          console.log("=================================");
+
           const existingItem = state.items.find(
             (i) => i.groupKey === item.groupKey,
           );
@@ -38,6 +43,12 @@ export const useBudgetStore = create<BudgetState>()(
           // =========================
 
           if (existingItem) {
+            console.log("⚠ ITEM EXISTENTE");
+            console.dir(existingItem, { depth: null });
+
+            console.log("⚠ ITEM NUEVO");
+            console.dir(item, { depth: null });
+
             return {
               items: state.items.map((i) => {
                 if (i.groupKey !== item.groupKey) {
@@ -60,6 +71,8 @@ export const useBudgetStore = create<BudgetState>()(
           // =========================
           // NUEVO
           // =========================
+
+          console.log("✅ ITEM NUEVO, SE AGREGA AL STORE");
 
           return {
             items: [...state.items, item],

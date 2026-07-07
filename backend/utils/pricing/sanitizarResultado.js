@@ -5,31 +5,9 @@ function sanitizarResultado(resultado, user) {
   }
 
   // 🧑 ADMIN
+  // 🧑 ADMIN
   if (user.role === "admin") {
-    return {
-      descripcion: resultado.descripcion,
-
-      precioBase: resultado.precioBase,
-
-      precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
-
-      gananciaCliente: resultado.gananciaCliente,
-
-      margenAplicado: resultado.margenAplicado,
-
-      perfilAplicado: resultado.perfilAplicado,
-
-      svg: resultado.svg,
-
-      configuracion: resultado.configuracion,
-
-      items:
-        resultado.items?.map((item) => ({
-          ...item,
-
-          subtotal: item.subtotal || item.precio || 0,
-        })) || [],
-    };
+    return resultado;
   }
 
   // 👨 USER
