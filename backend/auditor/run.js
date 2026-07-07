@@ -8,6 +8,7 @@ console.log("");
 
 const modulos = [
   "./tests/testVentanas",
+  "./tests/testVentanasAbrir",
   "./tests/testPuertas",
   "./tests/testRajas",
   "./tests/testPostigones",

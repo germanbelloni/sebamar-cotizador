@@ -37,7 +37,7 @@ const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 const auditarResultado = require("../auditor/auditarResultado");
 const logAuditoria = require("../auditor/logAuditoria");
 
-const calcularVentanaAbrir = require("../services/ventanasAbrir/calcularVentanaAbrir");
+const calcularVentanaAbrir = require("../../wrappers/ventanasAbrir/calcularVentanaAbrir");
 
 function isValidationError(message = "") {
   const text = String(message).toLowerCase();

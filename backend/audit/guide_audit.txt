@@ -1,0 +1,176 @@
+=========================================================
+SEBAMAR - SISTEMA DE AUDITORÍA
+=========================================================
+
+El sistema NO compara contra Excel.
+
+El sistema NO compara contra un JSON de prueba.
+
+Lo que hace es validar que la cotización generada sea consistente.
+
+---------------------------------------------------------
+¿CUÁNDO SE EJECUTA?
+---------------------------------------------------------
+
+Cada vez que un wrapper termina una cotización.
+
+Flujo:
+
+Request
+   ↓
+Service
+   ↓
+Wrapper
+   ↓
+buildWrapperResponse()
+   ↓
+auditarResultado()
+   ↓
+Si encuentra errores:
+      ↓
+logs/auditor/auditor-AAAA-MM-DD.jsonl
+
+---------------------------------------------------------
+¿QUÉ REVISA EL AUDITOR?
+---------------------------------------------------------
+
+Cada módulo tiene su propio auditor.
+
+Ejemplo:
+
+modulos/
+    ventanas.js
+    ventanasAbrir.js
+    puertas.js
+    rajas.js
+    etc.
+
+Cada auditor verifica cosas como:
+
+✓ Existe costoBase
+
+✓ Existe costo
+
+✓ Existe precioProveedor
+
+✓ Existe precioLista
+
+✓ Existe precioFinal
+
+✓ Existe el array de items
+
+✓ La suma de los items coincide con el costo
+
+✓ Existe el paso "Costo Base"
+
+✓ Existe el paso "Color"
+
+✓ Existe el paso "Perfil"
+
+✓ El precio final coincide con el calculado
+
+✓ Existen todos los pasos de auditoría
+
+Además puede validar reglas específicas del módulo.
+
+Ejemplo:
+
+- CP8 presente
+- Mosquitero presente
+- Premarco
+- Contramarco
+- etc.
+
+---------------------------------------------------------
+¿QUÉ PASA SI FALLA?
+---------------------------------------------------------
+
+NO rompe la cotización.
+
+La cotización se devuelve normalmente.
+
+Pero se guarda un registro completo en:
+
+backend/logs/auditor/
+
+con toda la información necesaria para investigar.
+
+---------------------------------------------------------
+¿QUÉ CONTIENE CADA REGISTRO?
+---------------------------------------------------------
+
+Cada línea del archivo .jsonl contiene:
+
+- Fecha
+
+- Módulo
+
+- Usuario
+
+- Empresa
+
+- Perfil
+
+- Request recibido
+
+- Resultado completo
+
+- Pasos de auditoría
+
+- Resultado del auditor
+
+Ejemplo:
+
+{
+
+  request: {...},
+
+  resultado: {...},
+
+  auditoria: {
+
+      valido: false,
+
+      errores: [...],
+
+      advertencias: [...],
+
+      ok: [...]
+
+  }
+
+}
+
+---------------------------------------------------------
+¿PARA QUÉ SIRVE?
+---------------------------------------------------------
+
+Permite detectar errores como:
+
+- faltó cobrar un item
+
+- un precio quedó en cero
+
+- el costo no coincide con la suma de items
+
+- desapareció un paso del cálculo
+
+- el perfil calculó mal
+
+- un wrapper olvidó devolver un campo obligatorio
+
+Todo queda registrado para poder reproducir el problema.
+
+---------------------------------------------------------
+IMPORTANTE
+---------------------------------------------------------
+
+El auditor NO valida que un precio sea igual al Excel.
+
+Valida que la cotización sea internamente consistente.
+
+Si cambia una regla de negocio (por ejemplo un descuento o un recargo),
+el auditor seguirá pasando siempre que todos los cálculos sean coherentes.
+
+Si en el futuro se quiere validar contra Excel,
+se implementará un comparador independiente.

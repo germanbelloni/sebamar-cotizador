@@ -3,17 +3,11 @@
 // =========================
 
 import type { VentanasAbrirConfig } from "../types";
-
-import { RajaAbrir } from "../svg/RajaAbrir";
-import { RajaBrazo } from "../svg/RajaBrazo";
-import { RajaVolcable } from "../svg/RajaVolcable";
-import { RajaOscilo } from "../svg/RajaOscilo";
-
+import { VentanaAbrir } from "../svg/VentanaAbrir";
 import { Premarco } from "@/features/ventanas/svg/Premarco";
 import { Contramarco } from "@/features/ventanas/svg/Contramarco";
 import { Marco } from "@/features/ventanas/svg/Marco";
 import { Cotas } from "@/features/ventanas/svg/Cotas";
-
 import { MetalGradient } from "@/shared/svg/components/MetalGradient";
 import { SVG_COLORS } from "@/shared/svg/constants/colors";
 import { calculateScale } from "@/shared/svg/utils/calculateScale";
@@ -154,58 +148,16 @@ export function VentanasAbrirPreview({ config }: Props) {
             frameWidth={frameWidth}
           />
 
-          {config.modelo === "raja" && (
-            <RajaAbrir
-              left={left}
-              top={top}
-              ancho={ancho}
-              alto={alto}
-              color={aluminioColor}
-              esHerrero={esHerrero}
-              tipoVidrio={config.tipoVidrio}
-              bisagra={config.bisagra}
-            />
-          )}
-
-          {config.modelo === "brazo" && (
-            <RajaBrazo
-              left={left}
-              top={top}
-              ancho={ancho}
-              alto={alto}
-              color={aluminioColor}
-              esHerrero={esHerrero}
-              tipoVidrio={config.tipoVidrio}
-              bisagra={config.bisagra}
-            />
-          )}
-
-          {config.modelo === "volcable" && (
-            <RajaVolcable
-              left={left}
-              top={top}
-              ancho={ancho}
-              alto={alto}
-              color={aluminioColor}
-              esHerrero={esHerrero}
-              tipoVidrio={config.tipoVidrio}
-              bisagra={config.bisagra}
-            />
-          )}
-
-          {config.modelo === "oscilobatiente" && (
-            <RajaOscilo
-              left={left}
-              top={top}
-              ancho={ancho}
-              alto={alto}
-              color={aluminioColor}
-              esHerrero={esHerrero}
-              tipoVidrio={config.tipoVidrio}
-              bisagra={config.bisagra}
-              posicion={config.posicionOscilo}
-            />
-          )}
+          <VentanaAbrir
+            left={left}
+            top={top}
+            ancho={ancho}
+            alto={alto}
+            color={aluminioColor}
+            esHerrero={esHerrero}
+            tipoVidrio={config.tipoVidrio}
+            bisagra={config.bisagra}
+          />
 
           <line
             x1={left + 30}
@@ -277,8 +229,6 @@ export function VentanasAbrirPreview({ config }: Props) {
           {" · "}
           {config.color}
           {config.tipoVidrio && ` · ${config.tipoVidrio}`}
-          {" · "}
-          {config.modelo}
           {config.bisagra && ` · bisagra ${config.bisagra}`}
           {config.mosquitero && " · mosquitero"}
           {config.premarco && " · premarco"}
