@@ -95,4 +95,35 @@ module.exports = {
       aumento: 0.05,
     },
   },
+  papu: {
+    herrero: {
+      descuento: 0,
+      flete: 0,
+      ganancia: 0,
+    },
+
+    modena: {
+      descuento: 0,
+      flete: 0,
+      ganancia: 0,
+    },
+
+    mosquiteros: {
+      descuento: 0,
+      flete: 0,
+      ganancia: 0,
+    },
+
+    moscas: {
+      aumento1: 0,
+      aumento2: 0,
+      ganancia: 0,
+    },
+
+    placa: {
+      descuento: 0,
+      ganancia: 0,
+      aumento: 0,
+    },
+  },
 };

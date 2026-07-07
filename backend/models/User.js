@@ -35,7 +35,6 @@ const userSchema = new mongoose.Schema(
 
     perfil: {
       type: String,
-      enum: ["amarilla", "azul", "verde"],
       default: "amarilla",
     },
 

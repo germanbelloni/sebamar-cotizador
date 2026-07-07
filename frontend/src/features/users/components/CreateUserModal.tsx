@@ -68,18 +68,15 @@ export function CreateUserModal({ onUserCreated }: Props) {
       const payload = creandoEmpresa
         ? {
             nombre: form.nombre,
-
             password: form.password,
-
             margen: form.margen,
-
+            perfil: form.perfil,
             role: "admin",
           }
         : {
             nombre: form.nombre,
-
             password: form.password,
-
+            perfil: form.perfil,
             role: "user",
           };
 
@@ -230,6 +227,35 @@ export function CreateUserModal({ onUserCreated }: Props) {
                 })
               }
             />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm">Perfil</label>
+
+            <select
+              value={form.perfil}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  perfil: e.target.value,
+                })
+              }
+              className="
+      w-full
+      rounded-md
+      border
+      border-input
+      bg-background
+      px-3
+      py-2
+      text-sm
+    "
+            >
+              <option value="amarilla">Amarilla</option>
+              <option value="azul">Azul</option>
+              <option value="verde">Verde</option>
+              <option value="papu">Papu</option>
+            </select>
           </div>
 
           {/* MARGEN */}

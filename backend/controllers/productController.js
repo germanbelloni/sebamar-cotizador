@@ -64,7 +64,12 @@ function isValidationError(message = "") {
 
 async function runCalculation(req, res, name, callback) {
   try {
-    const result = await callback();
+    const payload = {
+      ...req.body,
+      perfil: req.user.perfil,
+    };
+
+    const result = await callback(payload);
 
     const pricingUser = await resolvePricingUser(req.user);
 
@@ -124,12 +129,14 @@ async function runCalculation(req, res, name, callback) {
 // =========================
 
 function puertas(req, res) {
-  return runCalculation(req, res, "PUERTAS", () => calcularPuerta(req.body));
+  return runCalculation(req, res, "PUERTAS", (payload) =>
+    calcularPuerta(payload),
+  );
 }
 
 function puertasEco(req, res) {
-  return runCalculation(req, res, "PUERTAS ECO", () =>
-    calcularPuertaEco(req.body),
+  return runCalculation(req, res, "PUERTAS ECO", (payload) =>
+    calcularPuertaEco(payload),
   );
 }
 
@@ -138,8 +145,8 @@ function puertasEco(req, res) {
 // =========================
 
 function placas(req, res) {
-  return runCalculation(req, res, "PLACAS", () =>
-    calcularPuertaPlaca(req.body),
+  return runCalculation(req, res, "PLACAS", (payload) =>
+    calcularPuertaPlaca(payload),
   );
 }
 
@@ -151,19 +158,19 @@ function mosquiteros(req, res) {
   const tipo = req.body.tipo;
 
   if (tipo === "puerta_mosquitera") {
-    return runCalculation(req, res, "PUERTA MOSQUITERA", () =>
-      calcularPuertaMosquitera(req.body),
+    return runCalculation(req, res, "PUERTA MOSQUITERA", (payload) =>
+      calcularPuertaMosquitera(payload),
     );
   }
 
   if (tipo === "fijo") {
-    return runCalculation(req, res, "MOSQUITERO FIJO", () =>
-      calcularMosquiteroFijo(req.body),
+    return runCalculation(req, res, "MOSQUITERO FIJO", (payload) =>
+      calcularMosquiteroFijo(payload),
     );
   }
 
-  return runCalculation(req, res, "MOSQUITEROS", () =>
-    calcularMosquiteroVentana(req.body),
+  return runCalculation(req, res, "MOSQUITEROS", (payload) =>
+    calcularMosquiteroVentana(payload),
   );
 }
 
@@ -175,19 +182,19 @@ function ventanas(req, res) {
   const linea = req.body.linea?.toLowerCase();
 
   if (linea === "modena") {
-    return runCalculation(req, res, "VENTANAS MODENA", () =>
-      calcularVentanaModena(req.body),
+    return runCalculation(req, res, "VENTANAS MODENA", (payload) =>
+      calcularVentanaModena(payload),
     );
   }
 
-  return runCalculation(req, res, "VENTANAS HERRERO", () =>
-    calcularVentanaHerrero(req.body),
+  return runCalculation(req, res, "VENTANAS HERRERO", (payload) =>
+    calcularVentanaHerrero(payload),
   );
 }
 
 function ventanasAbrir(req, res) {
-  return runCalculation(req, res, "VENTANAS ABRIR", () =>
-    calcularVentanaAbrir(req.body),
+  return runCalculation(req, res, "VENTANAS ABRIR", (payload) =>
+    calcularVentanaAbrir(payload),
   );
 }
 
@@ -207,12 +214,12 @@ function rajas(req, res) {
   };
 
   if (linea === "modena") {
-    return runCalculation(req, res, "RAJAS MODENA", () =>
+    return runCalculation(req, res, "RAJAS MODENA", (payload) =>
       calcularRajaModena(payload),
     );
   }
 
-  return runCalculation(req, res, "RAJAS HERRERO", () =>
+  return runCalculation(req, res, "RAJAS HERRERO", (payload) =>
     calcularRajaHerrero(payload),
   );
 }
@@ -222,8 +229,8 @@ function rajas(req, res) {
 // =========================
 
 function postigones(req, res) {
-  return runCalculation(req, res, "POSTIGONES", () =>
-    calcularPostigones(req.body),
+  return runCalculation(req, res, "POSTIGONES", (payload) =>
+    calcularPostigones(payload),
   );
 }
 
@@ -232,7 +239,9 @@ function postigones(req, res) {
 // =========================
 
 function portones(req, res) {
-  return runCalculation(req, res, "PORTONES", () => calcularporton(req.body));
+  return runCalculation(req, res, "PORTONES", (payload) =>
+    calcularporton(payload),
+  );
 }
 
 // =========================
@@ -240,8 +249,8 @@ function portones(req, res) {
 // =========================
 
 function superficies(req, res) {
-  return runCalculation(req, res, "SUPERFICIES", () =>
-    calcularsuperficies(req.body),
+  return runCalculation(req, res, "SUPERFICIES", (payload) =>
+    calcularsuperficies(payload),
   );
 }
 
@@ -272,7 +281,9 @@ function patagonicas(req, res) {
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
 
-  return runCalculation(req, res, "PATAGONICAS", () => calculadora(payload));
+  return runCalculation(req, res, "PATAGONICAS", (payload) =>
+    calculadora(payload),
+  );
 }
 
 module.exports = {
