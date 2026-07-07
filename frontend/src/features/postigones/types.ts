@@ -4,7 +4,9 @@ export type HojaCierrePostigon =
   | "izquierda"
   | "derecha"
   | "centro-izquierda"
-  | "centro-derecha";
+  | "centro-derecha"
+  | "hoja-izquierda"
+  | "hoja-derecha";
 
 export type TipoPostigon = "abrir" | "corredizo";
 

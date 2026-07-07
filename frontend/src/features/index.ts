@@ -42,12 +42,6 @@ export const FEATURES = [
   },
 
   {
-    id: "ventanas-abrir",
-
-    label: "Ventanas de abrir",
-  },
-
-  {
     id: "pano-fijo",
 
     label: "Paño fijo",

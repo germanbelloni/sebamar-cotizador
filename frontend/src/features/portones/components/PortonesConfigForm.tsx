@@ -155,6 +155,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
             </span>
           </div>
         </FormSection>
+
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 gap-3">
             {MODELOS.map((modelo) => (
@@ -168,6 +169,21 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
             ))}
           </div>
         </FormSection>
+        {permiteDobleTravesano && (
+          <SelectableCard
+            selected={!!config.extras.dobleTravesano}
+            onClick={() =>
+              updateConfig({
+                extras: {
+                  ...config.extras,
+                  dobleTravesano: !config.extras.dobleTravesano,
+                },
+              })
+            }
+          >
+            Doble travesaño
+          </SelectableCard>
+        )}
 
         <FormSection title="Vidrio">
           <VidrioSelector
@@ -263,22 +279,6 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
             >
               Cartel prohibido
             </SelectableCard>
-
-            {permiteDobleTravesano && (
-              <SelectableCard
-                selected={!!config.extras.dobleTravesano}
-                onClick={() =>
-                  updateConfig({
-                    extras: {
-                      ...config.extras,
-                      dobleTravesano: !config.extras.dobleTravesano,
-                    },
-                  })
-                }
-              >
-                Doble travesaño
-              </SelectableCard>
-            )}
           </div>
         </FormSection>
 

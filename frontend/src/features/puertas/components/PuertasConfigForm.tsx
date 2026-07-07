@@ -200,7 +200,21 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       preset.ancho === config.ancho &&
       preset.alto === config.alto,
   );
-
+  console.log("CONFIG", config.ancho, config.alto);
+  console.log(
+    "PRESETS",
+    presets.map((p) => ({
+      label: p.label,
+      ancho: p.ancho,
+      alto: p.alto,
+    })),
+  );
+  console.log("CONFIG PUERTAS", {
+    ancho: config.ancho,
+    alto: config.alto,
+    anchoType: typeof config.ancho,
+    altoType: typeof config.alto,
+  });
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -256,38 +270,41 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           <div className="grid grid-cols-3 gap-3">
             {presets
               .filter((preset) => !preset.custom)
-              .map((preset) => (
-                <SelectableCard
-                  key={preset.label}
-                  selected={
-                    config.ancho === preset.ancho && config.alto === preset.alto
-                  }
-                  onClick={() =>
-                    updateConfig({
-                      ancho: preset.ancho,
+              .map((preset) => {
+                const isSelected =
+                  config.ancho === preset.ancho && config.alto === preset.alto;
 
-                      alto: preset.alto,
+                console.log(preset.label, isSelected);
 
-                      hojas:
-                        config.tipoConfiguracion === "porton"
-                          ? calcularHojasPorton(preset.ancho)
-                          : config.tipoConfiguracion === "doble"
-                            ? 2
-                            : 1,
-
-                      anchoPrincipal:
-                        "principal" in preset
-                          ? Number(preset.principal ?? preset.ancho)
-                          : preset.ancho,
-                    })
-                  }
-                >
-                  <div className="flex h-14 items-center justify-center text-base font-semibold">
-                    {preset.label}
-                  </div>
-                </SelectableCard>
-              ))}
+                return (
+                  <SelectableCard
+                    key={preset.label}
+                    selected={isSelected}
+                    onClick={() =>
+                      updateConfig({
+                        ancho: preset.ancho,
+                        alto: preset.alto,
+                        hojas:
+                          config.tipoConfiguracion === "porton"
+                            ? calcularHojasPorton(preset.ancho)
+                            : config.tipoConfiguracion === "doble"
+                              ? 2
+                              : 1,
+                        anchoPrincipal:
+                          "principal" in preset
+                            ? Number(preset.principal ?? preset.ancho)
+                            : preset.ancho,
+                      })
+                    }
+                  >
+                    <div className="flex h-14 items-center justify-center text-base font-semibold">
+                      {preset.label}
+                    </div>
+                  </SelectableCard>
+                );
+              })}
           </div>
+
           <div className="mt-3 w-full">
             <SelectableCard
               selected={esFueraDeMedida}

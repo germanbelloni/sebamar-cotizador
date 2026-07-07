@@ -92,13 +92,13 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
       <div className="space-y-6">
         <FormSection title={POSTIGONES_UI.sections.tipo}>
           <LineaSelector
+            id="postigones-tipo"
             value={config.tipo}
             options={[
               {
                 label: "De abrir",
                 value: "abrir",
               },
-
               {
                 label: "Corredizo",
                 value: "corredizo",
@@ -107,7 +107,6 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
             onChange={(value) =>
               updateConfig({
                 tipo: value as PostigonesConfig["tipo"],
-
                 marco: value === "corredizo" ? "ancho" : config.marco,
               })
             }
@@ -158,26 +157,43 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
                   config.cantidadHojas === 2
                     ? [
                         {
-                          label: "Izquierda",
+                          label: "Hoja izquierda",
                           value: "izquierda",
                         },
-
                         {
-                          label: "Derecha",
+                          label: "Hoja derecha",
                           value: "derecha",
                         },
                       ]
-                    : [
-                        {
-                          label: "Centro izquierda",
-                          value: "centro-izquierda",
-                        },
-
-                        {
-                          label: "Centro derecha",
-                          value: "centro-derecha",
-                        },
-                      ]
+                    : config.cantidadHojas === 3
+                      ? [
+                          {
+                            label: "Hoja izquierda",
+                            value: "hoja-izquierda",
+                          },
+                          {
+                            label: "Centro izquierda",
+                            value: "centro-izquierda",
+                          },
+                          {
+                            label: "Centro derecha",
+                            value: "centro-derecha",
+                          },
+                          {
+                            label: "Hoja derecha",
+                            value: "hoja-derecha",
+                          },
+                        ]
+                      : [
+                          {
+                            label: "Centro izquierda",
+                            value: "centro-izquierda",
+                          },
+                          {
+                            label: "Centro derecha",
+                            value: "centro-derecha",
+                          },
+                        ]
                 }
                 onChange={(value) =>
                   updateConfig({
@@ -186,7 +202,9 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
                 }
               />
             )}
-
+            <AlertBox type="warning">
+              MIRANDO DESDE EL INTERIOR, SIEMPRE EMPUJANDO.
+            </AlertBox>
             <OptionSelector
               title="Color"
               value={config.color}

@@ -11,12 +11,6 @@ type Props = {
 };
 
 export function SegmentedControl({ id, value, options, onChange }: Props) {
-  console.log("SEGMENT", {
-    id,
-    value,
-    options: options.map((x) => x.value),
-  });
-
   return (
     <div
       className="
@@ -33,15 +27,11 @@ export function SegmentedControl({ id, value, options, onChange }: Props) {
     >
       {options.map((option) => {
         const active = option.value === value;
-
-        console.log(`[${id}] option=${option.value} active=${active}`);
-
         return (
           <button
             key={`${id}-${option.value}`}
             type="button"
             onClick={() => {
-              console.log("CLICK:", id, option.value);
               onChange(option.value);
             }}
             className={`
@@ -56,17 +46,18 @@ export function SegmentedControl({ id, value, options, onChange }: Props) {
               transition-all
               duration-300
 
-              ${
-                active
-                  ? `
-                    border border-lime-400
-                    bg-lime-400/20
-                    shadow-[0_0_25px_rgba(57,255,20,0.25)]
-                  `
-                  : `
-                    hover:bg-white/[0.05]
-                  `
-              }
+             ${
+               active
+                 ? `
+      border border-[#39FF14]/70
+      bg-[#39FF14]/[0.18]
+      shadow-[0_0_40px_rgba(57,255,20,0.45)]
+    `
+                 : `
+      hover:bg-white/[0.05]
+      hover:border-[#39FF14]/20
+    `
+             }
             `}
           >
             <div

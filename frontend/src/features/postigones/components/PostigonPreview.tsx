@@ -244,23 +244,37 @@ export function PostigonPreview({ config }: Props) {
               // 3 HOJAS
 
               if (cantidadHojas === 3) {
-                if (config.hojaCierre === "centro-izquierda") {
+                if (config.hojaCierre === "hoja-izquierda") {
                   return {
-                    hojaIndex: 1,
-
+                    hojaIndex: 0,
                     lado: "derecha",
-
                     direccion: "izquierda",
                   };
                 }
 
-                return {
-                  hojaIndex: 1,
+                if (config.hojaCierre === "centro-izquierda") {
+                  return {
+                    hojaIndex: 1,
+                    lado: "derecha",
+                    direccion: "izquierda",
+                  };
+                }
 
-                  lado: "izquierda",
+                if (config.hojaCierre === "centro-derecha") {
+                  return {
+                    hojaIndex: 1,
+                    lado: "izquierda",
+                    direccion: "derecha",
+                  };
+                }
 
-                  direccion: "derecha",
-                };
+                if (config.hojaCierre === "hoja-derecha") {
+                  return {
+                    hojaIndex: 2,
+                    lado: "izquierda",
+                    direccion: "derecha",
+                  };
+                }
               }
 
               // 4 HOJAS
