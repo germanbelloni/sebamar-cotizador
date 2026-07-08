@@ -331,7 +331,13 @@ function calcularPuertaWrapper(dataInput) {
   // 💰 PERFIL
   // ========================
 
-  const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
+  const lineaPerfil = linea === "eco" ? "herrero" : linea;
+
+  const perfilData =
+    perfiles[perfil]?.[lineaPerfil] || perfiles.amarilla[lineaPerfil];
+  if (!perfilData) {
+    throw new Error(`No existe perfil para la línea "${linea}".`);
+  }
 
   const { proveedor, venta } = aplicarPerfil(costo, perfilData);
   audit.add({

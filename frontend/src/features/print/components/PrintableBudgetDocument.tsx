@@ -82,7 +82,7 @@ export function PrintableBudgetDocument({
         }}
       />
 
-      <div className="p-8 print:p-4">
+      <div className="p-8 print:p-6">
         {/* HEADER */}
         <div className="flex items-start justify-between">
           {/* EMPRESA */}
@@ -105,23 +105,23 @@ export function PrintableBudgetDocument({
 
           {/* INFO */}
 
-          <div className="text-right">
+          <div className="relative text-right">
             <h2
               className="
-                absolute
-                right-16
-                top-12
+    absolute
+    right-0
+    top-0
 
-                select-none
+    select-none
 
-                text-7xl
-                font-black
-                tracking-tighter
+    text-6xl
+    font-black
+    tracking-tighter
 
-                opacity-[0.04]
+    opacity-[0.04]
 
-                print:text-5xl
-              "
+    print:hidden
+  "
             >
               PRESUPUESTO
             </h2>
@@ -150,13 +150,13 @@ export function PrintableBudgetDocument({
               Presupuesto
             </div>
 
-            <div className="mt-10 space-y-4">
+            <div className="mt-8 space-y-3">
               <div className="flex flex-col items-end">
                 <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
                   Número
                 </span>
 
-                <span className="font-mono text-2xl font-black">
+                <span className="text-2xl font-black tracking-tight">
                   #{presupuestoId}
                 </span>
               </div>
@@ -166,7 +166,7 @@ export function PrintableBudgetDocument({
                   Fecha de emisión
                 </span>
 
-                <span className="font-medium text-zinc-700">
+                <span className="text-sm font-medium text-zinc-700">
                   {formattedDate}
                 </span>
               </div>
@@ -251,7 +251,7 @@ export function PrintableBudgetDocument({
 
                 <div>
                   <div className="font-semibold leading-relaxed text-zinc-800">
-                    {item.descripcion}
+                    {item.descripcion.toUpperCase()}
                   </div>
 
                   <div className="mt-1 text-[10px] text-zinc-400">

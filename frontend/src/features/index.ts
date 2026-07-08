@@ -6,9 +6,8 @@ export const FEATURES = [
   },
 
   {
-    id: "ventanas-abrir",
-
-    label: "Ventanas de Abrir",
+    id: "rajas",
+    label: "Rajas",
   },
 
   {
@@ -51,6 +50,11 @@ export const FEATURES = [
     id: "marcos",
 
     label: "Premarco / Contramarco",
+  },
+  {
+    id: "ventanas-abrir",
+
+    label: "Ventanas de Abrir",
   },
 ] as const;
 

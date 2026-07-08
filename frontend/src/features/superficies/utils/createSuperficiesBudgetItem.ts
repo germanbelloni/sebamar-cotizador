@@ -1,18 +1,12 @@
 import type { SuperficiesConfig } from "../types";
-
-import type { BudgetItem } from "@/shared/budget/types/budget.types";
-
-import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
-
 import { buildSuperficiesDescription } from "./buildSuperficiesDescription";
 
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
+
 type Result = {
-  descripcion?: string;
-
   precioVenta?: number;
-
   precioFinal?: number;
-
   subtotal?: number;
 };
 
@@ -25,7 +19,7 @@ export function createSuperficiesBudgetItem(
 
     titulo: "Superficie",
 
-    descripcion: result?.descripcion || buildSuperficiesDescription(config),
+    descripcion: buildSuperficiesDescription(config),
 
     configuracion: {
       ...config,
@@ -33,7 +27,6 @@ export function createSuperficiesBudgetItem(
 
     metadata: {
       linea: config.linea,
-
       vidrio: config.tipoVidrio,
     },
 

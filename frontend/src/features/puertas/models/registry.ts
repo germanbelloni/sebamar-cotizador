@@ -287,4 +287,29 @@ export const MODELOS_PUERTAS_CONFIG: Record<string, PuertaModeloConfig> = {
       },
     ],
   },
+  modelo_c_panel: {
+    label: "Modelo C/Panel",
+
+    travesanos: [
+      {
+        y: 0.2,
+        height: 0.025,
+      },
+
+      {
+        y: 0.4,
+        height: 0.025,
+      },
+
+      {
+        y: 0.6,
+        height: 0.025,
+      },
+
+      {
+        y: 0.8,
+        height: 0.025,
+      },
+    ],
+  },
 };

@@ -1,6 +1,7 @@
 export const VIDRIOS_HERRERO = ["3mm", "4mm", "3+3", "fantasia"] as const;
 
 export const VIDRIOS_MODENA = [
+  "3mm",
   "4mm",
   "5mm",
   "esmerilado",

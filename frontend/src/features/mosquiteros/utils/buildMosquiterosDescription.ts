@@ -1,24 +1,39 @@
 import type { MosquiterosConfig } from "../types";
 
 export function buildMosquiterosDescription(config: MosquiterosConfig) {
-  const tipo =
-    config.tipo === "ventana"
-      ? "Mosquitero Ventana"
-      : config.tipo === "fijo"
-        ? "Mosquitero Fijo"
-        : "Puerta Mosquitera";
+  const parts: string[] = [];
 
-  return [
-    tipo,
+  // CORREDIZO
+  if (config.tipo === "ventana") {
+    parts.push("Mosquitero corredizo");
+    parts.push("para ventana");
+    parts.push("de");
+    parts.push(`${config.ancho}x${config.alto}`);
+    parts.push("aluminio");
+    parts.push(config.color);
 
-    `${config.ancho}x${config.alto}`,
+    return parts.join(" ");
+  }
 
-    config.color,
+  // FIJO
+  if (config.tipo === "fijo") {
+    parts.push("Mosquitero fijo");
+    parts.push(`${config.ancho}x${config.alto}`);
+    parts.push("aluminio");
+    parts.push(config.color);
 
-    config.tipo === "puerta_mosquitera"
-      ? `Bisagra ${config.ladoBisagra}`
-      : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+    return parts.join(" ");
+  }
+
+  // PUERTA MOSQUITERA
+  parts.push("Puerta mosquitera");
+  parts.push(`${config.ancho}x${config.alto}`);
+  parts.push("aluminio");
+  parts.push(config.color);
+
+  if (config.ladoBisagra) {
+    parts.push(`bisagra ${config.ladoBisagra}`);
+  }
+
+  return parts.join(" ");
 }

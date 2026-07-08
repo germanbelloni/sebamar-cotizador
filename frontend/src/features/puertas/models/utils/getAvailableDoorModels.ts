@@ -1,7 +1,6 @@
-import { MODELOS_PUERTAS_CONFIG } from "../registry";
-
+import { MODELOS_PUERTAS } from "../../constants";
 import type { PuertaLinea } from "../../types";
 
-export function getAvailableDoorModels(_linea: PuertaLinea) {
-  return Object.keys(MODELOS_PUERTAS_CONFIG);
+export function getAvailableDoorModels(linea: PuertaLinea) {
+  return MODELOS_PUERTAS[linea];
 }

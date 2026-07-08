@@ -1,53 +1,13 @@
 import type { PuertasPlacaConfig } from "../types";
 
-function getTipoLabel(tipo: PuertasPlacaConfig["tipo"]) {
-  switch (tipo) {
-    case "abrir":
-      return "De abrir";
-
-    case "embutir":
-      return "De embutir";
-
-    case "granero":
-      return "Granero";
-
-    default:
-      return tipo;
-  }
-}
-
-function getMarcoLabel(marco: PuertasPlacaConfig["marco"]) {
-  switch (marco) {
-    case "marco_10":
-      return "Marco 10";
-
-    case "marco_15":
-      return "Marco 15";
-
-    case "aluminio":
-      return "Marco aluminio";
-
-    default:
-      return marco;
-  }
-}
-
 function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
   switch (modelo) {
     case "finger_pino":
-      return "Finger / Pino";
-
     case "finger_cedro":
-      return "Finger / Cedro";
+      return "finger";
 
     case "cedro_cedro":
-      return "Cedro / Cedro";
-
-    case "aluminio_pino":
-      return "Aluminio / Pino";
-
-    case "aluminio_cedro":
-      return "Aluminio / Cedro";
+      return "cedro";
 
     case "granero_z":
       return "Z";
@@ -62,24 +22,60 @@ function getModeloLabel(modelo: PuertasPlacaConfig["modelo"]) {
       return "Aluminio sin herrajes";
 
     default:
-      return modelo;
+      return "";
   }
 }
 
 export function buildPuertasPlacaDescription(config: PuertasPlacaConfig) {
-  const tipo = getTipoLabel(config.tipo);
-  const marco = getMarcoLabel(config.marco);
+  //
+  // GRANERO
+  //
+  if (config.tipo === "granero") {
+    return `Puerta granero ${config.ancho}x${config.alto} estilo ${getModeloLabel(config.modelo)}`
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  //
+  // MARCO ALUMINIO
+  //
+  if (config.marco === "aluminio") {
+    return `
+      Puerta placa
+      ${config.ancho}x${config.alto}
+      marco aluminio
+      ${config.mano}
+      ${config.fueraDeMedida ? "fuera de medida" : ""}
+    `
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  const espesor = config.marco === "marco_10" ? "10" : "15";
   const modelo = getModeloLabel(config.modelo);
 
-  const manoTexto = config.tipo !== "embutir" ? ` mano ${config.mano}` : "";
+  //
+  // EMBUTIR
+  //
+  if (config.tipo === "embutir") {
+    return `
+      Puerta embutir
+      ${config.ancho}x${config.alto}x${espesor}
+      marco ${modelo}
+      ${config.fueraDeMedida ? "fuera de medida" : ""}
+    `
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
+  //
+  // TRADICIONAL
+  //
   return `
     Puerta placa
-    ${tipo}
-    ${modelo}
-    ${config.ancho}x${config.alto}
-    ${marco}
-    ${manoTexto}
+    ${config.ancho}x${config.alto}x${espesor}
+    marco ${modelo}
+    ${config.mano}
     ${config.fueraDeMedida ? "fuera de medida" : ""}
   `
     .replace(/\s+/g, " ")

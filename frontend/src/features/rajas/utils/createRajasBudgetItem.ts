@@ -1,10 +1,10 @@
 import type { RajasConfig } from "../types";
-import type { BudgetItem } from "@/shared/budget/types/budget.types";
-import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 import { buildRajasDescription } from "./buildRajasDescription";
 
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
+
 type CotizacionRajasResponse = {
-  descripcion?: string;
   precioVenta?: number;
   precioFinal?: number;
   subtotal?: number;
@@ -20,7 +20,7 @@ export function createRajasBudgetItem(
 
     titulo: `${config.linea} ${config.modelo}`,
 
-    descripcion: result.descripcion || buildRajasDescription(config),
+    descripcion: buildRajasDescription(config),
 
     configuracion: {
       ...config,

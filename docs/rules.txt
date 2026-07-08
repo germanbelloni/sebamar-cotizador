@@ -1,0 +1,272 @@
+FORMATO DE DESCRIPCIONES - SEBAMAR COTIZADOR
+Filosofía general
+
+Las descripciones son la representación comercial del producto y deben ser:
+
+legibles por el cliente;
+consistentes entre módulos;
+reutilizables en WhatsApp, PDF y presupuestos guardados.
+Formato de almacenamiento
+
+Las descripciones se guardan en formato normal.
+
+Ejemplo:
+
+Ventana 120x110 aluminio blanco Herrero vidrio DVH 4+9+4
+Formato de presentación
+Lugar	Formato
+Budget Panel	Normal
+WhatsApp	Normal
+Presupuesto guardado	MAYÚSCULAS
+PDF	MAYÚSCULAS
+Debug	Normal
+Convención general
+
+Siempre que sea posible:
+
+Producto + Medida + Material + Color + Línea + Vidrio + Extras
+
+El material siempre se expresa como:
+
+aluminio
+VENTANAS
+
+Formato:
+
+Ventana {ancho}x{alto} aluminio {color} {linea} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Ventana 120x110 aluminio blanco Herrero vidrio DVH 4+9+4 c/guía c/cajón block PVC
+
+Extras:
+
+c/guía
+c/mosq
+c/cajón block
+PVC
+cortina aluminio
+c/premarco
+c/contramarco
+VENTANAS DE ABRIR
+
+Formato:
+
+Ventana de abrir {ancho}x{alto} aluminio {color} {linea} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Ventana de abrir 120x110 aluminio blanco Herrero vidrio 4mm c/mosquitero
+
+Extras:
+
+c/mosquitero
+c/premarco
+c/contramarco
+herrajes blancos
+PUERTAS
+Puerta simple
+
+Formato:
+
+Puerta {ancho}x{alto} aluminio {color} {linea} {mano} modelo {modelo} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Puerta 80x200 aluminio negro Modena derecha modelo 4 vidrio 3mm barral recto
+Puerta doble
+
+Formato:
+
+Puerta doble {ancho}x{alto} aluminio {color} {linea} modelo {modelo} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Puerta doble 160x200 aluminio blanco Herrero modelo 3 vidrio 4mm picaporte
+Puerta y media
+
+Formato:
+
+Puerta y media {ancho}x{alto} aluminio {color} {linea} {mano} modelo {modelo} media {modeloMedia} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Puerta y media 120x200 aluminio blanco Modena derecha modelo 4 media vidrio entero vidrio 4mm barral curvo
+Portón
+
+Formato:
+
+Porton {ancho}x{alto} aluminio {color} {linea} {hojas} hojas de {tipo} modelo {modelo} vidrio {vidrio} {extras}
+
+Ejemplo:
+
+Porton 240x200 aluminio blanco Herrero 3 hojas de abrir modelo 5 vidrio 4mm picaporte
+
+Extras:
+
+barral recto
+barral curvo
+media manija
+picaporte
+doble travesaño
+cartel prohibido
+POSTIGOS
+
+(SIN N)
+
+Formato:
+
+Postigo {ancho}x{alto} aluminio {color} {hojas} hojas {tipo} cierre {cierre} {extras}
+
+Ejemplo:
+
+Postigo 150x120 aluminio blanco 3 hojas de abrir cierre centro derecha tablillas microperforadas
+
+Extras:
+
+tablillas microperforadas
+herrajes blancos
+PATAGÓNICAS
+
+Formato:
+
+Patagonica {ancho}x{alto} aluminio {color} {linea} vidrio {vidrio} ({composicion}) {extras}
+
+Ejemplos:
+
+Patagonica 150x120 aluminio blanco Modena vidrio 4mm (Raja bis izquierda 40 + Paño fijo 110)
+Patagonica 150x120 aluminio blanco Modena vidrio 4mm (Paño fijo 110 + Raja bis derecha 40)
+Patagonica 200x120 aluminio blanco Modena vidrio 4mm (Raja bis izquierda 50 + Paño fijo 100 + Raja bis derecha 50)
+
+Reglas:
+
+Si la bisagra está a la izquierda, la raja se escribe primero.
+Si la bisagra está a la derecha, el paño fijo se escribe primero.
+
+Extras:
+
+c/mosquitero fijo
+c/guia
+c/cajon block
+PVC
+cortina aluminio
+c/premarco
+c/contramarco
+MOSQUITEROS
+Corredizo
+Mosquitero corredizo para ventana de 120x110 aluminio blanco
+Fijo
+Mosquitero fijo 120x110 aluminio blanco
+Puerta mosquitera
+Puerta mosquitera 80x200 aluminio blanco bisagra derecha
+
+No poseen línea.
+
+No poseen extras.
+
+PAÑO FIJO
+
+Formato:
+
+Paño fijo 120x110 aluminio blanco Herrero vidrio laminado 3+3
+
+Orden:
+
+Producto + medida + aluminio + color + línea + vidrio + extras
+
+Extras:
+
+c/premarco
+c/contramarco
+PREMARCO / CONTRAMARCO
+
+Producto independiente:
+
+Premarco aluminio blanco para 120x110
+Contramarco aluminio blanco para 120x110
+
+Como extra dentro de otro producto:
+
+c/premarco blanco
+c/contramarco blanco
+
+Siempre al final de la descripción.
+
+RAJAS
+
+Formato:
+
+Raja 40x120 aluminio blanco bisagra izquierda Herrero vidrio 4mm
+
+Orden:
+
+Producto + medida + aluminio + color + bisagra + línea + vidrio + extras
+
+Extras:
+
+mosquitero fijo
+c/premarco
+c/contramarco
+herrajes blancos
+PUERTAS PLACA
+Puerta placa tradicional
+
+Formato:
+
+Puerta placa {ancho}x{alto}x{marco} marco {estiloMarco} {mano}
+
+Ejemplo:
+
+Puerta placa 70x200x15 marco finger derecha
+Puerta embutir
+
+Formato:
+
+Puerta embutir {ancho}x{alto}x{marco} marco {estiloMarco}
+
+Ejemplo:
+
+Puerta embutir 70x200x15 marco finger
+
+No posee mano.
+
+Puerta placa con marco de aluminio
+
+Formato:
+
+Puerta placa {ancho}x{alto} marco aluminio {mano}
+
+Ejemplo:
+
+Puerta placa 70x200 marco aluminio derecha
+
+No se informa medida de marco.
+
+Puerta granero
+
+Formato:
+
+Puerta granero {ancho}x{alto} estilo {modelo}
+
+Ejemplo:
+
+Puerta granero 70x200 estilo Z
+
+No posee mano.
+
+REGLA GENERAL MODENA
+
+Todo producto de línea Modena que permita:
+
+premarco
+contramarco
+
+debe incluirlos al final de la descripción:
+
+c/premarco
+c/contramarco
+NOTAS IMPORTANTES
+Las descripciones son una parte fundamental del presupuesto y del PDF.
+Mantener siempre el mismo orden de palabras.
+Evitar abreviaturas nuevas sin documentarlas.
+Si un módulo agrega nuevos extras, actualizar este documento antes de implementar la descripción.

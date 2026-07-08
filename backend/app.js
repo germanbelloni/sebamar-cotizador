@@ -12,6 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/img", express.static(path.join(__dirname, "../frontend/assets/img")));
+app.use(
+  "/logos",
+  express.static(path.join(__dirname, "../frontend/public/logos")),
+);
 
 //me hiciste comentarla
 //app.use(express.static(path.join(__dirname, "../frontend")));

@@ -113,6 +113,9 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       .replace("modelo_", "m")
       .replaceAll(" ", "")
       .replaceAll("_", "");
+    if (modelo === "modelo_c_panel") {
+      normalized = "mpanel";
+    }
 
     // ========================
     // HACK PANEL + BARRAL

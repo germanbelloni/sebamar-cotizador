@@ -1,5 +1,6 @@
 export type BudgetModule =
   | "ventanas"
+  | "ventanas-abrir"
   | "rajas"
   | "puertas"
   | "puertas-placa"
@@ -10,7 +11,6 @@ export type BudgetModule =
   | "marcos"
   | "pano-fijo"
   | "superficies";
-
 export type BudgetItem = {
   id: string;
 

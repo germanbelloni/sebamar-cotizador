@@ -1,18 +1,13 @@
 import type { MarcosConfig } from "../types";
+import { buildMarcosDescription } from "./buildMarcosDescription";
 
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
-
 import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 
 type Result = {
-  descripcion?: string;
-
   precioVenta?: number;
-
   precioFinal?: number;
-
   precio?: number;
-
   subtotal?: number;
 };
 
@@ -25,8 +20,7 @@ export function createMarcosBudgetItem(
 
     titulo: config.tipo === "premarco" ? "Premarco" : "Contramarco",
 
-    descripcion:
-      result?.descripcion || `${config.tipo} ${config.ancho}x${config.alto}`,
+    descripcion: buildMarcosDescription(config),
 
     configuracion: {
       ...config,

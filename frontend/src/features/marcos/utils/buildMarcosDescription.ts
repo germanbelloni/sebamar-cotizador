@@ -1,19 +1,23 @@
 import type { MarcosConfig } from "../types";
 
 export function buildMarcosDescription(config: MarcosConfig) {
-  let description = "";
+  const parts: string[] = [];
 
   if (config.tipo === "premarco") {
-    description = `Premarco ${config.ancho}x${config.alto}`;
+    parts.push("Premarco");
   }
 
   if (config.tipo === "contramarco") {
-    description = `Contramarco ${config.ancho}x${config.alto}`;
-
-    if (config.color && config.color !== "blanco") {
-      description += ` ${config.color}`;
-    }
+    parts.push("Contramarco");
   }
 
-  return description;
+  parts.push("aluminio");
+
+  parts.push(config.color || "blanco");
+
+  parts.push("para");
+
+  parts.push(`${config.ancho}x${config.alto}`);
+
+  return parts.join(" ");
 }

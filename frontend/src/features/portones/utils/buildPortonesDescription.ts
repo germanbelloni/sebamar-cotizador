@@ -1,10 +1,59 @@
 import type { PortonesConfig } from "../types";
 
 export function buildPortonesDescription(config: PortonesConfig) {
-  return `
-Portón ${config.sistema}
-${config.linea}
-${config.ancho}x${config.alto}
-${config.color}
-  `.trim();
+  const parts: string[] = [];
+
+  // PRODUCTO
+  parts.push("Porton");
+
+  // MEDIDAS
+  parts.push(`${config.ancho}x${config.alto}`);
+
+  // MATERIAL
+  parts.push("aluminio");
+
+  // COLOR
+  parts.push(config.color);
+
+  // LINEA
+  parts.push(config.linea);
+
+  // HOJAS
+  parts.push(`${config.hojas} hojas`);
+
+  // SISTEMA
+  parts.push(`de ${config.sistema}`);
+
+  // MODELO
+  parts.push(config.modelo.replaceAll("_", " "));
+
+  // VIDRIO
+  parts.push(`vidrio ${config.tipoVidrio || "4mm"}`);
+
+  // EXTRAS
+  if (config.extras.barralRecto) {
+    parts.push("barral recto");
+  }
+
+  if (config.extras.barralCurvo) {
+    parts.push("barral curvo");
+  }
+
+  if (config.extras.mediaManija) {
+    parts.push("media manija");
+  }
+
+  if (config.extras.picaporte) {
+    parts.push("picaporte");
+  }
+
+  if (config.extras.cartelprohibido) {
+    parts.push("cartel prohibido");
+  }
+
+  if (config.extras.dobleTravesano) {
+    parts.push("doble travesaño");
+  }
+
+  return parts.join(" ");
 }

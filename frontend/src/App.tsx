@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { FEATURES } from "@/features";
 
@@ -11,8 +11,6 @@ import type { Cliente } from "@/features/clientes/types";
 import { BudgetPanel } from "@/layouts/components/BudgetPanel";
 
 import { PresupuestosPage } from "@/features/presupuestos/pages/PresupuestosPage";
-
-import { usePresupuesto } from "@/features/presupuestos/hooks/usePresupuesto";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
@@ -143,6 +141,15 @@ function App() {
   /* ACTIVE FEATURE */
 
   const user = useAuthStore((state) => state.user);
+  useEffect(() => {
+    if (user?.nombreEmpresa || user?.empresa) {
+      document.title = `${
+        user.nombreEmpresa || user.empresa
+      } - Cotizador Online`;
+    } else {
+      document.title = "Cotizador Online";
+    }
+  }, [user]);
 
   const empresa = {
     nombre: user?.nombreEmpresa || user?.empresa || "Empresa",
@@ -170,7 +177,6 @@ function App() {
 
   const items = useBudgetStore((state) => state.items);
 
-  usePresupuesto(selectedPresupuestoId);
   /* CLIENTE */
 
   const [cliente, setCliente] = useState<Cliente>({
@@ -236,8 +242,6 @@ function App() {
   const [mosquiterosConfig, setMosquiterosConfig] = useState<MosquiterosConfig>(
     initialMosquiterosConfig,
   );
-
-  //const activeFeatureLabel = getFeatureLabel(activeFeature);
 
   const FEATURE_COMPONENTS = {
     rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,
@@ -333,7 +337,7 @@ function App() {
 
   const activeConfig =
     CONFIGS[activeFeature as keyof typeof CONFIGS] || portonesConfig;
-  console.log("ACTIVE FEATURE:", activeFeature);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
       <div className="flex h-screen overflow-hidden">

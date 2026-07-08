@@ -1,6 +1,6 @@
 import type { RajasConfig } from "../types";
 
-function getModeloLabel(modelo: RajasConfig["modelo"]) {
+function getProductoLabel(modelo: RajasConfig["modelo"]) {
   switch (modelo) {
     case "brazo":
       return "Brazo de empuje";
@@ -18,13 +18,14 @@ function getModeloLabel(modelo: RajasConfig["modelo"]) {
 
 export function buildRajasDescription(config: RajasConfig) {
   return `
-    ${getModeloLabel(config.modelo)}
-    ${config.linea}
+    ${getProductoLabel(config.modelo)}
     ${config.ancho}x${config.alto}
+    aluminio
     ${config.color}
-    vidrio ${config.tipoVidrio || "4mm"}
     ${config.bisagra ? `bisagra ${config.bisagra}` : ""}
-    ${config.mosquitero ? "c/mosquitero" : ""}
+    ${config.linea}
+    vidrio ${config.tipoVidrio || "4mm"}
+    ${config.mosquitero ? "mosquitero fijo" : ""}
     ${config.premarco ? "c/premarco" : ""}
     ${config.contramarco ? "c/contramarco" : ""}
     ${config.herrajesBlancos ? "herrajes blancos" : ""}

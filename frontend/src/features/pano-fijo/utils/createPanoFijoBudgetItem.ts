@@ -1,20 +1,13 @@
 import type { PanoFijoConfig } from "../types";
-
-import type { BudgetItem } from "@/shared/budget/types/budget.types";
-
-import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
-
 import { buildPanoFijoDescription } from "./buildPanoFijoDescription";
 
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
+
 type CotizacionResult = {
-  descripcion?: string;
-
   precioVenta?: number;
-
   precioFinal?: number;
-
   precio?: number;
-
   subtotal?: number;
 };
 
@@ -27,7 +20,7 @@ export function createPanoFijoBudgetItem(
 
     titulo: "Paño fijo",
 
-    descripcion: result?.descripcion || buildPanoFijoDescription(config),
+    descripcion: buildPanoFijoDescription(config),
 
     configuracion: {
       ...config,
@@ -35,9 +28,7 @@ export function createPanoFijoBudgetItem(
 
     metadata: {
       linea: config.linea,
-
       color: config.color,
-
       vidrio: config.tipoVidrio,
     },
 

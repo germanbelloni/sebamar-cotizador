@@ -374,7 +374,9 @@ export function PresupuestoDetallePage({
               <div>
                 <h3 className="text-lg font-bold">{item.titulo}</h3>
 
-                <p className="mt-2 text-sm text-zinc-400">{item.descripcion}</p>
+                <p className="mt-2 text-sm text-zinc-400">
+                  {item.descripcion.toUpperCase()}
+                </p>
               </div>
 
               <div className="text-right">

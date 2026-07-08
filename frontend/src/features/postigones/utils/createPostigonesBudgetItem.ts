@@ -1,4 +1,5 @@
 import type { PostigonesConfig, PostigonesResponse } from "../types";
+
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 import { buildPostigonesDescription } from "./buildPostigonesDescription";
@@ -13,7 +14,7 @@ export function createPostigonesBudgetItem(
     titulo:
       config.tipo === "abrir" ? "Postigón de abrir" : "Postigón corredizo",
 
-    descripcion: result.descripcion || buildPostigonesDescription(config),
+    descripcion: buildPostigonesDescription(config),
 
     configuracion: {
       ...config,

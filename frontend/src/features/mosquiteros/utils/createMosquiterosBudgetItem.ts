@@ -1,4 +1,6 @@
 import type { MosquiterosConfig } from "../types";
+import { buildMosquiterosDescription } from "./buildMosquiterosDescription";
+
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 
@@ -28,7 +30,7 @@ export function createMosquiterosBudgetItem(
     titulo:
       config.tipo === "puerta_mosquitera" ? "Puerta Mosquitera" : "Mosquitero",
 
-    descripcion: String(result.descripcion ?? "Mosquitero"),
+    descripcion: buildMosquiterosDescription(config),
 
     configuracion,
 

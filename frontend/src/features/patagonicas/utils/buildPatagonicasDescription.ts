@@ -1,53 +1,108 @@
 import type { PatagonicasConfig } from "../types";
 
+function getRajaLabel(tipo: PatagonicasConfig["tipoRaja"]) {
+  switch (tipo) {
+    case "brazo":
+      return "Brazo de empuje";
+
+    case "volcable":
+      return "Volcable";
+
+    case "oscilobatiente":
+      return "Oscilobatiente";
+
+    default:
+      return "Raja bis";
+  }
+}
+
 export function buildPatagonicasDescription(config: PatagonicasConfig) {
-  const tipoLabel = config.tipo === "1_raja" ? "1 Raja" : "2 Rajas";
+  const parts: string[] = [];
 
-  const ubicacionRaja =
-    config.tipo === "1_raja"
-      ? config.ladoApertura === "izquierda"
-        ? "Raja a la izquierda"
-        : "Raja a la derecha"
-      : null;
+  parts.push("Patagonica");
+  parts.push(`${config.ancho}x${config.alto}`);
+  parts.push("aluminio");
+  parts.push(config.color);
+  parts.push(config.linea);
+  parts.push(`vidrio ${config.tipoVidrio}`);
 
-  const anchoRajaLabel =
-    typeof config.anchoRaja === "number" ? `Raja ${config.anchoRaja}cm` : null;
+  const rajaLabel = getRajaLabel(config.tipoRaja);
 
-  return [
-    "Patagónica",
+  let composicion = "";
 
-    config.linea,
+  // =========================
+  // UNA RAJA
+  // =========================
 
-    tipoLabel,
+  if (config.tipo === "1_raja") {
+    const anchoRaja = Number(config.anchoRaja);
+    const anchoPano = config.ancho - anchoRaja;
 
-    `${config.ancho}x${config.alto}`,
+    if (config.ladoApertura === "izquierda") {
+      composicion = `(
+${rajaLabel} izquierda ${anchoRaja} + Paño fijo ${anchoPano}
+)`;
+    } else {
+      composicion = `(
+Paño fijo ${anchoPano} + ${rajaLabel} derecha ${anchoRaja}
+)`;
+    }
+  }
 
-    config.color,
+  // =========================
+  // DOS RAJAS
+  // =========================
 
-    `vidrio ${config.tipoVidrio}`,
+  if (config.tipo === "2_rajas") {
+    const anchoRaja = Number(config.anchoRaja);
+    const anchoPano = config.ancho - anchoRaja * 2;
 
-    anchoRajaLabel,
+    composicion = `(
+${rajaLabel} izquierda ${anchoRaja} + Paño fijo ${anchoPano} + ${rajaLabel} derecha ${anchoRaja}
+)`;
+  }
 
-    ubicacionRaja,
+  if (composicion) {
+    parts.push(
+      composicion.replace(/\s+/g, " ").replace("( ", "(").replace(" )", ")"),
+    );
+  }
 
-    config.fueraDeMedida ? "Fuera de medida" : null,
+  // =========================
+  // EXTRAS
+  // =========================
 
-    config.mosquitero ? "Mosquitero" : null,
+  if (config.mosquitero) {
+    parts.push("c/mosquitero fijo");
+  }
 
-    config.premarco ? "Premarco" : null,
+  if (config.guia) {
+    parts.push("c/guia");
+  }
 
-    config.contramarco ? "Contramarco" : null,
+  if (config.cajonBlock) {
+    parts.push("c/cajon block");
+  }
 
-    config.guia ? "Guía" : null,
+  if (config.cortina === "pvc") {
+    parts.push("PVC");
+  }
 
-    config.cajonBlock ? "Cajón Block" : null,
+  if (config.cortina === "aluminio") {
+    parts.push("cortina aluminio");
+  }
 
-    config.cortina === "pvc"
-      ? "Cortina PVC"
-      : config.cortina === "aluminio"
-        ? "Cortina Aluminio"
-        : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  if (config.premarco) {
+    parts.push("c/premarco");
+  }
+
+  if (config.contramarco) {
+    parts.push("c/contramarco");
+  }
+
+  if (config.herrajesBlancos) {
+    parts.push("herrajes blancos");
+  }
+
+  return parts.join(" ");
 }

@@ -1,18 +1,12 @@
 import type { PuertasPlacaConfig } from "../types";
-
-import type { BudgetItem } from "@/shared/budget/types/budget.types";
-
-import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
-
 import { buildPuertasPlacaDescription } from "./buildPuertasPlacaDescription";
 
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
+
 type Result = {
-  descripcion?: string;
-
   precioVenta?: number;
-
   precioFinal?: number;
-
   subtotal?: number;
 };
 
@@ -25,7 +19,7 @@ export function createPuertasPlacaBudgetItem(
 
     titulo: "Puerta placa",
 
-    descripcion: result?.descripcion || buildPuertasPlacaDescription(config),
+    descripcion: buildPuertasPlacaDescription(config),
 
     configuracion: {
       ...config,

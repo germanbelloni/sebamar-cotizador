@@ -1,7 +1,10 @@
-import { Trash2 } from "lucide-react";
-
+import { Trash2, MessageSquare } from "lucide-react";
+import { useState } from "react";
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
+import { useShareWhatsApp } from "@/shared/budget/hooks/useShareWhatsApp";
+import { budgetToWhatsApp } from "@/shared/budget/serializers/budgetToWhatsApp";
+import { toast } from "sonner";
 
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
@@ -26,23 +29,39 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
   const clearBudget = useBudgetStore((state) => state.clearBudget);
 
   const total = useBudgetStore((state) => state.total);
+  const { share } = useShareWhatsApp({
+    empresa: empresa.nombre,
+    cliente: cliente.nombre,
+    telefono: cliente.telefono,
+  });
+  function handleCopyWhatsapp() {
+    const text = budgetToWhatsApp({
+      empresa: empresa.nombre,
+      cliente: cliente.nombre,
+      items,
+      total: total(),
+    });
 
+    navigator.clipboard.writeText(text);
+
+    toast.success("Texto copiado al portapapeles.");
+  }
+  const [showWhatsappMenu, setShowWhatsappMenu] = useState(false);
   return (
     <aside
       className="
-        w-[420px]
-        border-l border-border
-        bg-card
-      "
+      w-[420px]
+      border-l border-border
+      bg-card
+    "
     >
       <div className="flex h-full flex-col">
         {/* HEADER */}
-
         <div
           className="
-            border-b border-border
-            px-6 py-5
-          "
+          border-b border-border
+          px-6 py-5
+        "
         >
           <div className="flex items-center justify-between">
             <div>
@@ -57,23 +76,19 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
               <button
                 onClick={clearBudget}
                 className="
-                  text-xs
-                  font-medium
-                  text-red-400
-
-                  transition-colors
-
-                  hover:text-red-300
-                "
+                text-xs
+                font-medium
+                text-red-400
+                transition-colors
+                hover:text-red-300
+              "
               >
                 Vaciar
               </button>
             )}
           </div>
         </div>
-
         {/* ITEMS */}
-
         <div className="flex-1 overflow-auto">
           {items.length === 0 ? (
             <div
@@ -221,14 +236,12 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
             </div>
           )}
         </div>
-
         {/* FOOTER */}
-
         <div
           className="
-            border-t border-border
-            p-5
-          "
+    border-t border-border
+    p-5
+  "
         >
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Total</span>
@@ -239,45 +252,123 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
           </div>
 
           {items.length > 0 && (
-            <button
-              onClick={async () => {
-                const { getNuevoNumero } =
-                  await import("@/features/presupuestos/api/getNuevoNumero");
+            <div className="space-y-3">
+              <button
+                onClick={async () => {
+                  const { getNuevoNumero } =
+                    await import("@/features/presupuestos/api/getNuevoNumero");
 
-                const numero = await getNuevoNumero();
+                  const numero = await getNuevoNumero();
 
-                const data = buildPrintableBudget(
-                  numero,
-                  empresa,
-                  cliente,
-                  items,
-                );
+                  const data = buildPrintableBudget(
+                    numero,
+                    empresa,
+                    cliente,
+                    items,
+                  );
 
-                sessionStorage.setItem("print-data", JSON.stringify(data));
+                  sessionStorage.setItem("print-data", JSON.stringify(data));
 
-                window.open("/print", "_blank");
-              }}
-              className="
-                w-full
-                rounded-2xl
+                  window.open("/print", "_blank");
+                }}
+                className="
+          w-full
+          rounded-2xl
+          bg-primary
+          px-4 py-3
+          text-sm
+          font-semibold
+          text-primary-foreground
+          transition-opacity
+          hover:opacity-90
+        "
+              >
+                Generar presupuesto
+              </button>
 
-                bg-primary
+              <div className="relative">
+                <button
+                  onClick={() => setShowWhatsappMenu((v) => !v)}
+                  className="
+            flex
+            w-full
+            items-center
+            justify-center
+            gap-2
 
-                px-4 py-3
+            rounded-2xl
+            border
+            border-border
 
-                text-sm
-                font-semibold
-                text-primary-foreground
+            px-4
+            py-3
 
-                transition-opacity
+            text-sm
+            font-semibold
+          "
+                >
+                  <MessageSquare size={18} />
+                  WhatsApp
+                </button>
 
-                hover:opacity-90
-              "
-            >
-              Generar presupuesto
-            </button>
+                {showWhatsappMenu && (
+                  <div
+                    className="
+              absolute
+              bottom-full
+              left-0
+              mb-2
+              w-full
+
+              overflow-hidden
+              rounded-xl
+              border
+              border-border
+              bg-card
+              shadow-lg
+            "
+                  >
+                    <button
+                      onClick={() => {
+                        share();
+                        setShowWhatsappMenu(false);
+                      }}
+                      className="
+    w-full
+    px-4
+    py-3
+    text-left
+    text-sm
+    hover:bg-muted
+  "
+                    >
+                      Enviar por WhatsApp
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        handleCopyWhatsapp();
+                        setShowWhatsappMenu(false);
+                      }}
+                      className="
+    w-full
+    border-t
+    border-border
+    px-4
+    py-3
+    text-left
+    text-sm
+    hover:bg-muted
+  "
+                    >
+                      Copiar texto
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
-        </div>
+        </div>{" "}
       </div>
     </aside>
   );

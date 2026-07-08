@@ -12,6 +12,7 @@ function normalizar(txt) {
   return txt
     ?.toString()
     .toLowerCase()
+    .replace(/_/g, " ")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
@@ -215,6 +216,10 @@ function calcularPuertas(dataInput) {
   // ========================
   else {
     const producto = buscarModelo(data.modelos, modelo);
+
+    if (!producto) {
+      throw new Error(`Modelo "${modelo}" no existe para la línea "${linea}".`);
+    }
 
     if (!producto) {
       throw new Error("Modelo no encontrado");

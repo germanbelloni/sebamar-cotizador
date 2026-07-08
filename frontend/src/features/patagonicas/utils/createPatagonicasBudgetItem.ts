@@ -1,16 +1,12 @@
 import type { PatagonicasConfig } from "../types";
+import { buildPatagonicasDescription } from "./buildPatagonicasDescription";
 
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
-
 import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 
 type Result = {
-  descripcion?: string;
-
   precioVenta?: number;
-
   precioFinal?: number;
-
   subtotal?: number;
 };
 
@@ -23,8 +19,7 @@ export function createPatagonicasBudgetItem(
 
     titulo: "Ventana patagónica",
 
-    descripcion:
-      result.descripcion ?? `${config.tipo} ${config.ancho}x${config.alto}`,
+    descripcion: buildPatagonicasDescription(config),
 
     configuracion: {
       ...config,
@@ -32,9 +27,7 @@ export function createPatagonicasBudgetItem(
 
     metadata: {
       linea: config.linea,
-
       color: config.color,
-
       vidrio: config.tipoVidrio,
     },
 

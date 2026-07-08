@@ -9,11 +9,15 @@ function formatCurrency(value) {
 }
 
 function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
-  console.log("PRINTABLE VERSION NUEVA");
-  console.log({
-    fecha,
-    numero,
-  });
+  const baseUrl =
+    process.env.APP_URL || `http://localhost:${process.env.PORT || 3000}`;
+
+  let logo = empresa.logo;
+
+  if (logo?.startsWith("/")) {
+    logo = `${baseUrl}${logo}`;
+  }
+
   const total = items.reduce((a, i) => a + i.subtotal, 0);
 
   const fechaFormateada = fecha
@@ -23,6 +27,8 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
   const color1 = empresa.primaryColor || "#f5cc00";
   const color2 = empresa.secondaryColor || "#1f2937";
 
+  console.log("LOGO PDF:");
+  console.log(logo);
   return (
     <div
       style={{
@@ -50,9 +56,9 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
           }}
         >
           <div>
-            {empresa.logo && (
+            {logo && (
               <img
-                src={empresa.logo}
+                src={logo}
                 alt=""
                 style={{
                   height: 70,
@@ -60,7 +66,6 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
                 }}
               />
             )}
-
             <div
               style={{
                 color: "#666",
@@ -99,27 +104,16 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
                 fontSize: 12,
               }}
             >
-              {/* <div>N° #{numero}</div>
+              <div>N° #{numero}</div>
 
-              <div style={{ marginTop: 8 }}>{fechaFormateada}</div> */}
+              <div style={{ marginTop: 8 }}>{fechaFormateada}</div>
               <div
                 style={{
-                  fontSize: 40,
-                  color: "red",
-                  fontWeight: "bold",
+                  marginTop: 30,
+                  color: "#888",
+                  fontSize: 12,
                 }}
-              >
-                NUMERO={String(numero)}
-              </div>
-
-              <div
-                style={{
-                  fontSize: 28,
-                  color: "blue",
-                }}
-              >
-                FECHA={String(fechaFormateada)}
-              </div>
+              ></div>
             </div>
           </div>
         </div>{" "}

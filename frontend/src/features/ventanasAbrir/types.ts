@@ -41,7 +41,6 @@ export type VentanasAbrirItem = {
 
   medidas: {
     ancho: number;
-
     alto: number;
   };
 

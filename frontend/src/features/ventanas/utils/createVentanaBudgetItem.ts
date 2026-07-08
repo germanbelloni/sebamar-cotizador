@@ -7,12 +7,8 @@ import { createBudgetItem } from "@/shared/budget/utils/createBudgetItem";
 import { buildVentanaDescription } from "./buildVentanaDescription";
 
 type CotizacionResponse = {
-  descripcion: string;
-
   precioVenta: number;
-
   precioFinal?: number;
-
   subtotal?: number;
 };
 
@@ -20,9 +16,6 @@ export function createVentanaBudgetItem(
   config: VentanaConfig,
   result: CotizacionResponse,
 ): BudgetItem {
-  console.log("RESULT VENTANA:");
-  console.log(result);
-  
   return createBudgetItem({
     modulo: "ventanas",
 
