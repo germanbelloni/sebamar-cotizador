@@ -111,7 +111,8 @@ function generar() {
                   cajonBlock,
                   perfil,
                 };
-
+                if (cajonBlock && guia) return;
+                if (!guia && cortina) return;
                 try {
                   const output = calcularVentanaHerrero(input);
 

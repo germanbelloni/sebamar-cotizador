@@ -9,6 +9,12 @@ export function buildVentanaDescription(config: VentanaConfig) {
     config.mosquitero && "c/mosq",
     config.premarco && "c/premarco",
     config.contramarco && "c/contramarco",
+
+    config.bipuntoIzquierda === "normal" && "bipunto izq.",
+    config.bipuntoIzquierda === "llave" && "bipunto c/llave izq.",
+
+    config.bipuntoDerecha === "normal" && "bipunto der.",
+    config.bipuntoDerecha === "llave" && "bipunto c/llave der.",
   ]
     .filter(Boolean)
     .join(" ");

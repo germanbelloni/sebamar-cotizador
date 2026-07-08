@@ -38,13 +38,30 @@ function calcularVentana(dataInput) {
 
   return calcularHerrero(dataInput);
 }
+//Helper
+function buscarMedidaHerrero(medida) {
+  if (dataHerrero.medidas[medida]) {
+    return dataHerrero.medidas[medida];
+  }
 
+  const [ancho, alto] = medida.split("x").map(Number);
+
+  if (alto < 100) {
+    const medidaVieja = `${ancho}x0,${alto}`;
+
+    if (dataHerrero.medidas[medidaVieja]) {
+      return dataHerrero.medidas[medidaVieja];
+    }
+  }
+
+  return null;
+}
 // =========================
 // 🪟 HERRERO
 // =========================
 
 function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
-  const d = dataHerrero.medidas?.[medida];
+  const d = buscarMedidaHerrero(medida);
 
   if (!d) {
     throw new Error("Medida no encontrada");

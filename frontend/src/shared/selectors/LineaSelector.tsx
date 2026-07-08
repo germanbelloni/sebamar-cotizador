@@ -7,7 +7,7 @@ type Option = {
 };
 
 type Props = {
-  id: string;
+  id?: string;
   label?: string;
   value: string;
   options: Option[];
@@ -39,7 +39,7 @@ export function LineaSelector({
 
       <div className="flex justify-center">
         <SegmentedControl
-          id={id}
+          id={id || "linea-selector"}
           value={value}
           onChange={onChange}
           options={options}

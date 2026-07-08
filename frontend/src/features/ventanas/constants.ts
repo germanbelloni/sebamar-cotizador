@@ -66,4 +66,6 @@ export const initialVentanasConfig: VentanaConfig = {
   premarco: false,
 
   contramarco: false,
+  bipuntoIzquierda: "ninguno",
+  bipuntoDerecha: "ninguno",
 };

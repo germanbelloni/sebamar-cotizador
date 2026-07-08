@@ -25,24 +25,18 @@ export function createVentanaBudgetItem(
 
     configuracion: {
       ancho: config.ancho,
-
       alto: config.alto,
-
       color: config.color,
-
       tipoVidrio: config.tipoVidrio,
-
       mosquitero: config.mosquitero,
-
       guia: config.guia,
-
       cajonBlock: config.cajonBlock,
-
       cortina: config.cortina,
-
       premarco: config.premarco,
-
       contramarco: config.contramarco,
+
+      bipuntoIzquierda: config.bipuntoIzquierda,
+      bipuntoDerecha: config.bipuntoDerecha,
     },
 
     metadata: {

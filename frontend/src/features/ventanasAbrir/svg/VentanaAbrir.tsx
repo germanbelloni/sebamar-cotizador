@@ -1,4 +1,5 @@
 import type { VidrioType } from "@/shared/types/vidrios";
+import type { VentanasAbrirBisagra } from "../types";
 
 type Props = {
   left: number;
@@ -8,6 +9,7 @@ type Props = {
   color: string;
   esHerrero: boolean;
   tipoVidrio?: VidrioType;
+  bisagra?: VentanasAbrirBisagra;
 };
 
 export function VentanaAbrir({
@@ -17,7 +19,10 @@ export function VentanaAbrir({
   alto,
   color,
   esHerrero,
+  bisagra,
 }: Props) {
+  void bisagra;
+
   const grosorMarco = esHerrero ? 12 : 8;
 
   const hojaPadding = esHerrero ? 16 : 14;
@@ -46,7 +51,6 @@ export function VentanaAbrir({
     return (
       <g key={x}>
         {/* hoja */}
-
         <rect
           x={hojaLeft}
           y={hojaTop}
@@ -58,7 +62,6 @@ export function VentanaAbrir({
         />
 
         {/* vidrio */}
-
         <rect
           x={hojaLeft + vidrioPadding}
           y={hojaTop + vidrioPadding}
@@ -68,7 +71,6 @@ export function VentanaAbrir({
         />
 
         {/* bisagras */}
-
         <rect
           x={bisagraIzquierda ? x + 2 : x + anchoHoja - 9}
           y={top + 34}
@@ -86,7 +88,6 @@ export function VentanaAbrir({
         />
 
         {/* manija */}
-
         <rect
           x={manijaX}
           y={top + alto / 2 - 20}
@@ -97,7 +98,6 @@ export function VentanaAbrir({
         />
 
         {/* apertura */}
-
         <path
           d={
             abreHaciaCentro
@@ -123,7 +123,6 @@ export function VentanaAbrir({
   return (
     <>
       {dibujarHoja(left, true, true)}
-
       {dibujarHoja(left + anchoHoja, false, false)}
     </>
   );

@@ -62,6 +62,8 @@ export type VentanaConfig = {
   premarco: boolean;
 
   contramarco: boolean;
+  bipuntoIzquierda: "ninguno" | "normal" | "llave";
+  bipuntoDerecha: "ninguno" | "normal" | "llave";
 };
 
 export type BudgetItem = {

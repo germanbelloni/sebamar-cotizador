@@ -31,13 +31,20 @@ const calcularM2 = (a, h) => (a * h) / 10000;
 function buscarMedidaValida(ancho, alto) {
   const medidas = Object.keys(ventanas.medidas);
 
-  const anchos = [...new Set(medidas.map((m) => +m.split("x")[0]))].sort(
-    (a, b) => a - b,
-  );
+  const anchos = [
+    ...new Set(medidas.map((m) => Number(m.split("x")[0].replace(",", ".")))),
+  ].sort((a, b) => a - b);
 
-  const altos = [...new Set(medidas.map((m) => +m.split("x")[1]))].sort(
-    (a, b) => a - b,
-  );
+  const altos = [
+    ...new Set(
+      medidas.map((m) => {
+        const valor = Number(m.split("x")[1].replace(",", "."));
+
+        // los viejos vienen como 0,40 / 0,60 / 0,80
+        return valor < 1 ? valor * 100 : valor;
+      }),
+    ),
+  ].sort((a, b) => a - b);
 
   const a = anchos.find((x) => x >= ancho);
 
@@ -49,7 +56,6 @@ function buscarMedidaValida(ancho, alto) {
 
   return `${a}x${h}`;
 }
-
 // 💰 PERFIL
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);

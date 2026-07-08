@@ -25,8 +25,6 @@ export function useMosquiterosForm({
     handleAnchoChange,
 
     handleAltoChange,
-
-    syncInputs,
   } = useDimensionsInputs({
     ancho: config.ancho,
 
@@ -54,7 +52,5 @@ export function useMosquiterosForm({
     handleAnchoChange,
 
     handleAltoChange,
-
-    syncInputs,
   };
 }

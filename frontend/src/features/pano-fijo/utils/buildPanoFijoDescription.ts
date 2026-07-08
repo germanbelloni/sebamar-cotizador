@@ -8,8 +8,7 @@ export function buildPanoFijoDescription(config: PanoFijoConfig) {
     ${config.color}
     ${config.linea}
     vidrio ${config.tipoVidrio}
-    ${config.premarco ? "c/premarco" : ""}
-    ${config.contramarco ? "c/contramarco" : ""}
+    
   `
     .replace(/\s+/g, " ")
     .trim();

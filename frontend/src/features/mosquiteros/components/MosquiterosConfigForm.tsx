@@ -42,7 +42,6 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
     altoInput,
     handleAnchoChange,
     handleAltoChange,
-    syncInputs,
   } = useMosquiterosForm({
     config,
     setConfig,
@@ -73,8 +72,6 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
                   ancho: 80,
                   alto: 200,
                 });
-
-                syncInputs(80, 200);
 
                 return;
               }

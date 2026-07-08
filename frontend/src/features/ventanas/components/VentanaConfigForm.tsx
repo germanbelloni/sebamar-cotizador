@@ -37,7 +37,7 @@ import { CortinasSection } from "@/shared/sections/CortinasSection";
 import { ModenaSection } from "@/shared/sections/ModenaSection";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
-
+import { BipuntosSection } from "../components/BipuntosSection";
 type Props = {
   config: VentanaConfig;
 
@@ -106,6 +106,7 @@ export function VentanaConfigForm({
       <div className="space-y-6">
         <FormSection title={VENTANAS_UI.sections.sistema}>
           <LineaSelector
+            id="linea"
             value={config.linea}
             options={VENTANAS_UI.selectors?.lineas || []}
             onChange={(value) => switchLinea(value)}
@@ -202,6 +203,25 @@ export function VentanaConfigForm({
           </FormSection>
         )}
 
+        {config.linea === "Modena" && (
+          <FormSection title="Bipuntos">
+            <BipuntosSection
+              izquierda={config.bipuntoIzquierda}
+              derecha={config.bipuntoDerecha}
+              onChangeIzquierda={(value) =>
+                updateConfig({
+                  bipuntoIzquierda: value,
+                })
+              }
+              onChangeDerecha={(value) =>
+                updateConfig({
+                  bipuntoDerecha: value,
+                })
+              }
+            />
+          </FormSection>
+        )}
+
         {cotizacionMutation.isError && (
           <AlertBox type="error">
             {VENTANAS_UI.messages?.quotationError}
@@ -211,7 +231,6 @@ export function VentanaConfigForm({
         <FormFooter>
           <PrimaryButton
             onClick={handleAdd}
-            disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
             {VENTANAS_UI.actions?.addToBudget}

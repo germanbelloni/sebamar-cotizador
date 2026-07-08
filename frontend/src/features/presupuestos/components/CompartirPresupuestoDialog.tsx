@@ -2,7 +2,6 @@ import { Share2 } from "lucide-react";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
@@ -12,12 +11,13 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { useSharePresupuesto } from "../hooks/useSharePresupuesto";
+import type { PresupuestoItem } from "../types/presupuesto.types";
 
 type Props = {
   presupuesto: {
     cliente?: string;
     telefono?: string;
-    items: any[];
+    items: PresupuestoItem[];
     total: number;
   };
 

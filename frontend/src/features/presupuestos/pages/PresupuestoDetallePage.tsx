@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Trash2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
 

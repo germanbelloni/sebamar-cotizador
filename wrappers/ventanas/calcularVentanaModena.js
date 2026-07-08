@@ -57,10 +57,20 @@ function aplicarColor(items, color) {
     };
   });
 }
+//Helper
+function formatearMedida(valor) {
+  const n = Number(valor);
 
+  if (n < 10) {
+    return n.toFixed(2).replace(".", ",");
+  }
+
+  return String(Math.round(n));
+}
 // 🚀 WRAPPER
 function calcularVentanaModena(dataInput) {
   const audit = new AuditBuilder();
+
   const {
     ancho,
     alto,
@@ -72,6 +82,8 @@ function calcularVentanaModena(dataInput) {
     cajonBlock,
     premarco,
     contramarco,
+    bipuntoIzquierda = "ninguno",
+    bipuntoDerecha = "ninguno",
     perfil = "amarilla",
   } = dataInput;
 
@@ -79,7 +91,21 @@ function calcularVentanaModena(dataInput) {
     throw new Error("Faltan medidas");
   }
 
-  const medida = `${ancho}x${alto > 200 ? 200 : alto}`;
+  let bipunto = 0;
+  let bipuntoConLlave = 0;
+
+  [bipuntoIzquierda, bipuntoDerecha].forEach((v) => {
+    if (v === "normal") {
+      bipunto++;
+    }
+
+    if (v === "llave") {
+      bipuntoConLlave++;
+    }
+  });
+  const medida = `${formatearMedida(ancho)}x${formatearMedida(
+    alto > 200 ? 200 : alto,
+  )}`;
   audit.add({
     etapa: "Lookup",
 
@@ -232,6 +258,58 @@ function calcularVentanaModena(dataInput) {
     }
   }
 
+  if (bipunto > 0) {
+    const c = Number(superficies.extras.bipunto || 0) * Number(bipunto);
+
+    costo += c;
+
+    items.push({
+      tipo: "extra",
+      descripcion: `Bipunto x${bipunto}`,
+      cantidad: bipunto,
+      precio: c,
+    });
+
+    audit.add({
+      etapa: "Bipunto",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+      metadata: {
+        cantidad: bipunto,
+      },
+    });
+  }
+
+  if (bipuntoConLlave > 0) {
+    const c =
+      Number(superficies.extras.bipunto_con_llave || 0) *
+      Number(bipuntoConLlave);
+
+    costo += c;
+
+    items.push({
+      tipo: "extra",
+      descripcion: `Bipunto con llave x${bipuntoConLlave}`,
+      cantidad: bipuntoConLlave,
+      precio: c,
+    });
+
+    audit.add({
+      etapa: "Bipunto con llave",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+      metadata: {
+        cantidad: bipuntoConLlave,
+      },
+    });
+  }
+
   // 📏 ALTURA
   if (alto > 200) {
     costo *= 1.1;
@@ -341,23 +419,23 @@ function calcularVentanaModena(dataInput) {
     configuracion: {
       ancho,
       alto,
-
       color,
-
       tipoVidrio,
-
       mosquitero: !!mosquitero,
-
       premarco: !!premarco,
-
       contramarco: !!contramarco,
 
+      bipuntoIzquierda,
+      bipuntoDerecha,
       svg: {
         tipo: "ventana_modena",
         hojas: ancho > 240 ? 2 : 1,
         mosquitero: !!mosquitero,
         premarco: !!premarco,
         contramarco: !!contramarco,
+
+        bipuntoIzquierda,
+        bipuntoDerecha,
       },
     },
     audit: audit.getSteps(),
