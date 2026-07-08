@@ -1,7 +1,6 @@
 // backend/tests/generators/puertaYMedia.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 // 🔧 PATH
@@ -21,9 +20,9 @@ const CONFIG = {
 
   lineas: ["herrero", "modena"],
 
-  medida: "120x200",
+  medidas: ["120x200", "130x200"],
 
-  perfil: "amarilla",
+  perfiles: ["amarilla"],
 };
 
 // =========================
@@ -53,11 +52,7 @@ function loadData(linea) {
 }
 
 function getModelosPuerta(data) {
-  if (!data?.modelos) {
-    throw new Error("modelos no existe");
-  }
-
-  return Object.keys(data.modelos);
+  return Object.keys(data?.modelos || {});
 }
 
 function getModelosMedia(data, linea) {
@@ -76,91 +71,138 @@ function getModelosMedia(data, linea) {
 // 🚀 GENERADOR
 // =========================
 
-function generar() {
-  const { colores, vidrios, lineas, medida, perfil } = CONFIG;
+CONFIG.lineas.forEach((linea) => {
+  let data;
+  let modelosPuerta;
+  let modelosMedia;
 
-  lineas.forEach((linea) => {
-    let data;
+  try {
+    data = loadData(linea);
 
-    let modelosPuerta;
+    modelosPuerta = getModelosPuerta(data);
 
-    let modelosMedia;
+    modelosMedia = getModelosMedia(data, linea);
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      linea,
+      error: error.message,
+    });
 
-    try {
-      data = loadData(linea);
+    return;
+  }
 
-      modelosPuerta = getModelosPuerta(data);
-
-      modelosMedia = getModelosMedia(data, linea);
-    } catch (error) {
-      console.log(`❌ ${error.message}`);
-
-      return;
-    }
-
-    console.log(`\n🔧 LINEA: ${linea}`);
-
-    colores.forEach((color) => {
+  CONFIG.medidas.forEach((medida) => {
+    CONFIG.colores.forEach((color) => {
       modelosPuerta.forEach((modeloPuerta) => {
         modelosMedia.forEach((modeloMedia) => {
-          vidrios.forEach((tipoVidrio) => {
-            const input = {
-              tipo: "puerta_y_media",
+          CONFIG.vidrios.forEach((tipoVidrio) => {
+            CONFIG.perfiles.forEach((perfil) => {
+              const input = {
+                tipo: "puerta_y_media",
 
-              linea,
+                linea,
 
-              modeloPuerta,
+                modeloPuerta,
 
-              modeloMedia,
+                modeloMedia,
 
-              medida,
+                medida,
 
-              color,
+                color,
 
-              tipoVidrio,
+                tipoVidrio,
 
-              perfil,
-            };
+                perfil,
+              };
 
-            try {
-              const output = calcularPuerta(input);
+              try {
+                const output = calcularPuerta(input);
 
-              resultados.push({
-                ok: true,
+                resultados.push({
+                  ok: true,
+                  input,
+                  output,
+                });
 
-                input,
+                console.log(
+                  `✔ ${linea} | ${medida} | ${modeloPuerta} + ${modeloMedia}`,
+                );
+              } catch (error) {
+                resultados.push({
+                  ok: false,
+                  input,
+                  error: error.message,
+                });
 
-                output,
-              });
+                console.log(`❌ ${linea} | ${modeloPuerta} + ${modeloMedia}`);
 
-              console.log(
-                `✔ ${linea} → ${modeloPuerta} + ${modeloMedia} → $${output?.precioVenta}`,
-              );
-            } catch (error) {
-              resultados.push({
-                ok: false,
-
-                input,
-
-                error: error.message,
-              });
-
-              console.log(`❌ ${linea} ${modeloPuerta} + ${modeloMedia}`);
-
-              console.log(`👉 ${error.message}`);
-            }
+                console.log(`👉 ${error.message}`);
+              }
+            });
           });
         });
       });
     });
   });
-}
+});
 
 // =========================
-// 🚀 RUN
+// 🧪 CASOS INVÁLIDOS
 // =========================
 
-generar();
+const casosInvalidos = [
+  {
+    tipo: "puerta_y_media",
+    linea: "herrero",
+    modeloPuerta: "modelo_inexistente",
+    modeloMedia: "v/entero",
+    medida: "120x200",
+    color: "blanco",
+    tipoVidrio: "4mm",
+    perfil: "amarilla",
+  },
+
+  {
+    tipo: "puerta_y_media",
+    linea: "herrero",
+    modeloPuerta: "modelo_1",
+    modeloMedia: "modelo_inexistente",
+    medida: "120x200",
+    color: "blanco",
+    tipoVidrio: "4mm",
+    perfil: "amarilla",
+  },
+
+  {
+    tipo: "puerta_y_media",
+    linea: "modena",
+    modeloPuerta: "modelo_1",
+    modeloMedia: "modelo_1",
+    medida: "999x999",
+    color: "blanco",
+    tipoVidrio: "4mm",
+    perfil: "amarilla",
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularPuerta(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
+});
 
 // =========================
 // 💾 SAVE
@@ -170,18 +212,32 @@ const fileName = `puerta_y_media_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Puerta y Media OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Puerta y Media OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

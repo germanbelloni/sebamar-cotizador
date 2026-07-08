@@ -1,12 +1,11 @@
-// backend/tests/generators/superficies.generator.js
+// backend/tests/generators/superficies.gen.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
-const calcularsuperficies = require(
+const calcularSuperficies = require(
   fromRoot("wrappers/superficies/calcularSuperficies"),
 );
 
@@ -18,27 +17,16 @@ const CONFIG = {
   tipos: ["pano_fijo", "premarco", "contramarco"],
 
   medidas: [
-    {
-      ancho: 100,
-      alto: 100,
-    },
-
-    {
-      ancho: 150,
-      alto: 120,
-    },
-
-    {
-      ancho: 200,
-      alto: 150,
-    },
+    { ancho: 100, alto: 100 },
+    { ancho: 150, alto: 120 },
+    { ancho: 200, alto: 150 },
   ],
 
   lineas: ["herrero", "modena"],
 
-  colores: ["blanco", "negro"],
+  colores: ["blanco", "negro", "simil madera"],
 
-  vidrios: ["3mm", "4mm", "3+3", "dvh"],
+  vidrios: ["3mm", "4mm", "3+3", "4+4", "dvh"],
 
   perfiles: ["amarilla"],
 };
@@ -69,45 +57,37 @@ CONFIG.tipos.forEach((tipo) => {
   CONFIG.medidas.forEach(({ ancho, alto }) => {
     CONFIG.colores.forEach((color) => {
       CONFIG.lineas.forEach((linea) => {
-        CONFIG.vidrios.forEach((tipoVidrio) => {
-          CONFIG.perfiles.forEach((perfil) => {
+        CONFIG.perfiles.forEach((perfil) => {
+          const vidrios = tipo === "pano_fijo" ? CONFIG.vidrios : [null];
+
+          vidrios.forEach((tipoVidrio) => {
             const input = {
               tipo,
-
               ancho,
-
               alto,
-
               linea,
-
               color,
-
               perfil,
             };
 
-            // 🪟 SOLO PAÑO FIJO
             if (tipo === "pano_fijo") {
               input.tipoVidrio = tipoVidrio;
             }
 
             try {
-              const output = calcularsuperficies(input);
+              const output = calcularSuperficies(input);
 
               resultados.push({
                 ok: true,
-
                 input,
-
                 output,
               });
 
-              console.log(`✔ ${tipo} | ${ancho}x${alto} | ${linea}`);
+              console.log(`✔ ${tipo} | ${ancho}x${alto}`);
             } catch (error) {
               resultados.push({
                 ok: false,
-
                 input,
-
                 error: error.message,
               });
 
@@ -130,17 +110,13 @@ const fileName = `superficies_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
-
-  JSON.stringify(resultados, null, 2),
-);
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator superficies OK`);
+console.log("\n✅ Generator Superficies OK");
 
 console.log(`📁 Archivo: ${outputPath}`);
 

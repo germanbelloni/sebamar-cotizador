@@ -176,7 +176,7 @@ validar("Porton", calcularporton, {
   ancho: 240,
   alto: 200,
   hojas: 3,
-  tipo: "abrir",
+  sistema: "abrir",
   modelo: "modelo 4",
   linea: "herrero",
   color: "blanco",

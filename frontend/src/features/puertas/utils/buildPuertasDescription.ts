@@ -105,11 +105,13 @@ export function buildPuertasDescription(config: PuertasConfig) {
   // =========================
   // VIDRIO
   // =========================
-
-  if (config.vidrio) {
+  const llevaVidrio =
+    config.modelo !== "modelo_5" &&
+    config.modelo !== "modelo_panel" &&
+    config.modelo !== "modelo_c_panel";
+  if (llevaVidrio && config.vidrio) {
     parts.push(`vidrio ${formatVidrio(config.vidrio)}`);
   }
-
   // =========================
   // EXTRAS
   // =========================

@@ -1,7 +1,6 @@
 // backend/tests/generators/puertas.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 // 🔧 PATH
@@ -76,6 +75,12 @@ function getModelos(data) {
   );
 }
 
+function modeloSinVidrio(data, modelo) {
+  const item = data.modelos?.[modelo];
+
+  return item?.sinVidrio === true;
+}
+
 // =========================
 // 🚀 GENERADOR
 // =========================
@@ -94,20 +99,18 @@ function generar() {
       Object.keys(medidas).forEach((tipo) => {
         medidas[tipo].forEach((medida) => {
           colores.forEach((color) => {
-            vidrios.forEach((tipoVidrio) => {
+            const listaVidrios = modeloSinVidrio(data, modelo)
+              ? [null]
+              : vidrios;
+
+            listaVidrios.forEach((tipoVidrio) => {
               const input = {
                 tipo,
-
                 linea,
-
                 modelo,
-
                 medida,
-
                 color,
-
                 tipoVidrio,
-
                 perfil,
               };
 
@@ -116,21 +119,15 @@ function generar() {
 
                 resultados.push({
                   ok: true,
-
                   input,
-
                   output,
                 });
 
-                console.log(
-                  `✔ ${linea} | ${tipo} | ${modelo} → $${output?.precioVenta}`,
-                );
+                console.log(`✔ ${linea} | ${tipo} | ${modelo} | ${medida}`);
               } catch (error) {
                 resultados.push({
                   ok: false,
-
                   input,
-
                   error: error.message,
                 });
 
@@ -147,6 +144,70 @@ function generar() {
 }
 
 // =========================
+// 🧪 CASOS INVÁLIDOS
+// =========================
+
+const casosInvalidos = [
+  {
+    tipo: "simple",
+    linea: "herrero",
+    modelo: "modelo_inexistente",
+    medida: "80x200",
+    color: "blanco",
+    tipoVidrio: "4mm",
+    perfil: "amarilla",
+  },
+
+  {
+    tipo: "simple",
+    linea: "herrero",
+    modelo: "modelo 1",
+    medida: "999x999",
+    color: "blanco",
+    tipoVidrio: "4mm",
+    perfil: "amarilla",
+  },
+
+  {
+    tipo: "simple",
+    linea: "modena",
+    modelo: "modelo 1",
+    medida: "80x200",
+    color: "blanco",
+    tipoVidrio: "vidrio_inexistente",
+    perfil: "amarilla",
+  },
+
+  {
+    tipo: "doble",
+    linea: "eco",
+    modelo: "modelo 1",
+    medida: "180x200",
+    color: "blanco",
+    tipoVidrio: "3+3",
+    perfil: "amarilla",
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularPuerta(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
+});
+
+// =========================
 // 🚀 RUN
 // =========================
 
@@ -160,18 +221,32 @@ const fileName = `puertas_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Puertas OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Puertas OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

@@ -77,18 +77,23 @@ function calcularVidrio(producto, tipoVidrio) {
 // ========================
 
 function calcularPuertas(dataInput) {
+  console.log(dataInput);
+  //process.exit();
   const {
-    configuracion = "simple",
+    configuracion,
+    tipo,
     linea,
     modelo,
+    modeloPuerta,
     modeloMedia,
     modeloMediaPuerta,
     tipoVidrio,
   } = dataInput;
+  const tipoFinal = configuracion || tipo || "simple";
+
+  const modeloFinal = modeloPuerta || modelo;
+
   const modeloMediaFinal = modeloMediaPuerta || modeloMedia;
-
-  const tipo = configuracion;
-
   const data = require(
     fromRoot(`backend/data/productos/puertas_${linea}.json`),
   );
@@ -112,7 +117,7 @@ function calcularPuertas(dataInput) {
   // ========================
 
   if (tipo === "puerta_y_media") {
-    const puerta = buscarModelo(data.modelos, modelo);
+    const puerta = buscarModelo(data.modelos, modeloFinal);
 
     let media = null;
 
@@ -185,7 +190,7 @@ function calcularPuertas(dataInput) {
     items.push(
       {
         tipo: "estructura",
-        descripcion: modelo,
+        descripcion: modeloFinal,
         precio: Math.round(puerta.base),
       },
 
@@ -215,10 +220,12 @@ function calcularPuertas(dataInput) {
   // 🚪 SIMPLE / DOBLE / PORTON
   // ========================
   else {
-    const producto = buscarModelo(data.modelos, modelo);
+    const producto = buscarModelo(data.modelos, modeloFinal);
 
     if (!producto) {
-      throw new Error(`Modelo "${modelo}" no existe para la línea "${linea}".`);
+      throw new Error(
+        `Modelo "${modeloFinal}" no existe para la línea "${linea}".`,
+      );
     }
 
     if (!producto) {

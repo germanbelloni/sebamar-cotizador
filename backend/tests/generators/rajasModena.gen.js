@@ -1,7 +1,6 @@
 // backend/tests/generators/rajasModena.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
@@ -19,7 +18,7 @@ const data = require(fromRoot("backend/data/productos/rajas_modena.json"));
 const CONFIG = {
   colores: ["blanco", "negro", "simil madera"],
 
-  vidrios: ["4mm", "3+3", "4+4", "dvh", "dvh_5_9_5"],
+  vidrios: ["4mm", "3+3", "dvh", "dvh_5_9_5"],
 
   modelos: ["raja", "oscilobatiente"],
 
@@ -60,7 +59,7 @@ Object.keys(data.medidas).forEach((medida) => {
   const [ancho, alto] = medida.split("x").map(Number);
 
   CONFIG.colores.forEach((color) => {
-    CONFIG.vidrios.forEach((vidrio) => {
+    CONFIG.vidrios.forEach((tipoVidrio) => {
       CONFIG.modelos.forEach((modelo) => {
         CONFIG.perfiles.forEach((perfil) => {
           CONFIG.bisagras.forEach((bisagra) => {
@@ -69,23 +68,14 @@ Object.keys(data.medidas).forEach((medida) => {
                 CONFIG.contramarco.forEach((contramarco) => {
                   const input = {
                     ancho,
-
                     alto,
-
                     color,
-
-                    vidrio,
-
+                    tipoVidrio,
                     modelo,
-
                     perfil,
-
                     bisagra,
-
                     mosquitero,
-
                     premarco,
-
                     contramarco,
                   };
 
@@ -94,19 +84,17 @@ Object.keys(data.medidas).forEach((medida) => {
 
                     resultados.push({
                       ok: true,
-
                       input,
-
                       output,
                     });
 
-                    console.log(`✔ ${medida} | ${modelo} | ${color}`);
+                    console.log(
+                      `✔ ${medida} | ${modelo} | ${tipoVidrio} | ${color}`,
+                    );
                   } catch (error) {
                     resultados.push({
                       ok: false,
-
                       input,
-
                       error: error.message,
                     });
 
@@ -125,6 +113,69 @@ Object.keys(data.medidas).forEach((medida) => {
 });
 
 // =========================
+// 🧪 CASOS INVÁLIDOS
+// =========================
+
+const casosInvalidos = [
+  {
+    ancho: 999,
+    alto: 999,
+    color: "blanco",
+    tipoVidrio: "4mm",
+    modelo: "raja",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+    mosquitero: false,
+    premarco: false,
+    contramarco: false,
+  },
+
+  {
+    ancho: 40,
+    alto: 40,
+    color: "blanco",
+    tipoVidrio: "vidrio_inexistente",
+    modelo: "raja",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+    mosquitero: false,
+    premarco: false,
+    contramarco: false,
+  },
+
+  {
+    ancho: 40,
+    alto: 40,
+    color: "blanco",
+    tipoVidrio: "4mm",
+    modelo: "modelo_inexistente",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+    mosquitero: false,
+    premarco: false,
+    contramarco: false,
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularRajaModena(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
+});
+
+// =========================
 // 💾 SAVE
 // =========================
 
@@ -132,18 +183,32 @@ const fileName = `rajas_modena_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Rajas Modena OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Rajas Modena OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

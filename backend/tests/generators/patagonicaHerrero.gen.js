@@ -1,7 +1,6 @@
 // backend/tests/generators/patagonicaHerrero.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
@@ -15,28 +14,15 @@ const calcularPatagonicaHerrero = require(
 // =========================
 
 const CONFIG = {
-  medidas: ["120x100", "150x100", "200x100"],
+  medidas: ["120x100", "150x100", "200x100", "240x150"],
 
   tipos: ["1_raja", "2_rajas"],
 
   colores: ["blanco", "negro", "simil madera"],
 
-  rajas: [
-    {
-      ancho: 40,
-      tipoVidrio: "4mm",
-    },
+  anchosRaja: [40, 50, 60],
 
-    {
-      ancho: 50,
-      tipoVidrio: "4+4",
-    },
-
-    {
-      ancho: 60,
-      tipoVidrio: "dvh",
-    },
-  ],
+  vidrios: ["4mm", "4+4", "dvh"],
 
   aperturas: ["abrir"],
 
@@ -52,51 +38,94 @@ const resultados = [];
 CONFIG.tipos.forEach((tipo) => {
   CONFIG.medidas.forEach((medidaTotal) => {
     CONFIG.colores.forEach((color) => {
-      CONFIG.rajas.forEach((raja) => {
-        CONFIG.aperturas.forEach((tipoApertura) => {
-          CONFIG.lados.forEach((ladoApertura) => {
-            const input = {
-              medidaTotal,
+      CONFIG.anchosRaja.forEach((ancho) => {
+        CONFIG.vidrios.forEach((tipoVidrio) => {
+          CONFIG.aperturas.forEach((tipoApertura) => {
+            CONFIG.lados.forEach((ladoApertura) => {
+              const input = {
+                medidaTotal,
 
-              tipo,
+                tipo,
 
-              raja,
+                raja: {
+                  ancho,
+                  tipoVidrio,
+                },
 
-              color,
+                color,
 
-              tipoApertura,
+                tipoApertura,
 
-              ladoApertura,
-            };
+                ladoApertura,
+              };
 
-            try {
-              const output = calcularPatagonicaHerrero(input);
+              try {
+                const output = calcularPatagonicaHerrero(input);
 
-              resultados.push({
-                ok: true,
+                resultados.push({
+                  ok: true,
+                  input,
+                  output,
+                });
 
-                input,
+                console.log(
+                  `✔ ${medidaTotal} | ${tipo} | ${ancho} | ${tipoVidrio}`,
+                );
+              } catch (error) {
+                resultados.push({
+                  ok: false,
+                  input,
+                  error: error.message,
+                });
 
-                output,
-              });
+                console.log(
+                  `❌ ${medidaTotal} | ${tipo} | ${ancho} | ${tipoVidrio}`,
+                );
 
-              console.log(`✔ ${medidaTotal} | ${tipo} | ${color}`);
-            } catch (error) {
-              resultados.push({
-                ok: false,
-
-                input,
-
-                error: error.message,
-              });
-
-              console.log(`❌ ${medidaTotal} | ${tipo}`);
-            }
+                console.log(`👉 ${error.message}`);
+              }
+            });
           });
         });
       });
     });
   });
+});
+
+// =========================
+// 🧪 CASOS INVÁLIDOS
+// =========================
+
+const casosInvalidos = [
+  {
+    medidaTotal: "100x100",
+    tipo: "2_rajas",
+    raja: {
+      ancho: 60,
+      tipoVidrio: "dvh",
+    },
+    color: "blanco",
+    tipoApertura: "abrir",
+    ladoApertura: "derecha",
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularPatagonicaHerrero(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
 });
 
 // =========================
@@ -119,18 +148,32 @@ const outputPath = path.join(outputDir, fileName);
 // 💾 SAVE
 // =========================
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Patagónica Herrero OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Patagónica Herrero OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

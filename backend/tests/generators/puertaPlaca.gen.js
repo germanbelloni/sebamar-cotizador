@@ -1,7 +1,6 @@
 // backend/tests/generators/puertaPlaca.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
@@ -35,9 +34,9 @@ if (!fs.existsSync(outputDir)) {
 // =========================
 
 Object.keys(data).forEach((tipo) => {
-  Object.keys(data[tipo]).forEach((modelo) => {
-    Object.keys(data[tipo][modelo]).forEach((medida) => {
-      Object.keys(data[tipo][modelo][medida]).forEach((marco) => {
+  Object.keys(data[tipo] || {}).forEach((modelo) => {
+    Object.keys(data[tipo][modelo] || {}).forEach((medida) => {
+      Object.keys(data[tipo][modelo][medida] || {}).forEach((marco) => {
         let input = null;
 
         try {
@@ -45,13 +44,9 @@ Object.keys(data).forEach((tipo) => {
 
           input = {
             ancho,
-
             alto,
-
             tipo,
-
             modelo,
-
             marco,
           };
 
@@ -59,39 +54,134 @@ Object.keys(data).forEach((tipo) => {
 
           resultados.push({
             ok: true,
-
             input,
-
             output,
           });
 
-          console.log(
-            `✔ ${tipo} | ${modelo} | ${medida} → $${output?.precioVenta}`,
-          );
+          console.log(`✔ ${tipo} | ${modelo} | ${medida} | ${marco}`);
         } catch (error) {
           resultados.push({
             ok: false,
-
             input: input || {
               tipo,
-
               modelo,
-
               medida,
-
               marco,
             },
-
             error: error.message,
           });
 
-          console.log(`❌ ${tipo} | ${modelo} | ${medida}`);
+          console.log(`❌ ${tipo} | ${modelo} | ${medida} | ${marco}`);
 
           console.log(`👉 ${error.message}`);
         }
       });
     });
   });
+});
+
+// =========================
+// 🧪 FUERA DE MEDIDA
+// =========================
+
+const fueraDeMedida = [
+  {
+    ancho: 90,
+    alto: 200,
+    tipo: "placa",
+    modelo: "finger_pino",
+    marco: "marco_10",
+  },
+
+  {
+    ancho: 100,
+    alto: 205,
+    tipo: "placa",
+    modelo: "finger_pino",
+    marco: "marco_15",
+  },
+
+  {
+    ancho: 90,
+    alto: 205,
+    tipo: "placa",
+    modelo: "pino_cedro",
+    marco: "marco_10",
+  },
+];
+
+fueraDeMedida.forEach((input) => {
+  try {
+    const output = calcularPuertaPlaca(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
+});
+
+// =========================
+// 🧪 CASOS INVÁLIDOS
+// =========================
+
+const casosInvalidos = [
+  {
+    ancho: 50,
+    alto: 200,
+    tipo: "placa",
+    modelo: "finger_pino",
+    marco: "marco_10",
+  },
+
+  {
+    ancho: 120,
+    alto: 250,
+    tipo: "placa",
+    modelo: "finger_pino",
+    marco: "marco_10",
+  },
+
+  {
+    ancho: 80,
+    alto: 200,
+    tipo: "placa",
+    modelo: "modelo_inexistente",
+    marco: "marco_10",
+  },
+
+  {
+    ancho: 80,
+    alto: 200,
+    tipo: "placa",
+    modelo: "finger_pino",
+    marco: "marco_inexistente",
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularPuertaPlaca(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
 });
 
 // =========================
@@ -102,18 +192,32 @@ const fileName = `puertaPlaca_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Puerta Placa OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Puerta Placa OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

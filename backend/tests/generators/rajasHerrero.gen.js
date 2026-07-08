@@ -1,7 +1,6 @@
 // backend/tests/generators/rajasHerrero.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
@@ -19,7 +18,7 @@ const data = require(fromRoot("backend/data/productos/rajas_herrero.json"));
 const CONFIG = {
   colores: ["blanco", "negro", "simil madera"],
 
-  vidrios: ["4mm", "3+3", "4+4", "dvh"],
+  vidrios: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
 
   modelos: ["raja", "brazo", "volcable"],
 
@@ -60,17 +59,11 @@ Object.keys(data.medidas).forEach((medida) => {
           CONFIG.bisagras.forEach((bisagra) => {
             const input = {
               ancho,
-
               alto,
-
               color,
-
               tipoVidrio,
-
               modelo,
-
               perfil,
-
               bisagra,
             };
 
@@ -79,19 +72,15 @@ Object.keys(data.medidas).forEach((medida) => {
 
               resultados.push({
                 ok: true,
-
                 input,
-
                 output,
               });
 
-              console.log(`✔ ${medida} | ${modelo} | ${color}`);
+              console.log(`✔ ${medida} | ${modelo} | ${tipoVidrio} | ${color}`);
             } catch (error) {
               resultados.push({
                 ok: false,
-
                 input,
-
                 error: error.message,
               });
 
@@ -107,6 +96,60 @@ Object.keys(data.medidas).forEach((medida) => {
 });
 
 // =========================
+// 🧪 CASOS INVÁLIDOS
+// =========================
+
+const casosInvalidos = [
+  {
+    ancho: 999,
+    alto: 999,
+    color: "blanco",
+    tipoVidrio: "4mm",
+    modelo: "raja",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+  },
+
+  {
+    ancho: 40,
+    alto: 40,
+    color: "blanco",
+    tipoVidrio: "vidrio_inexistente",
+    modelo: "raja",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+  },
+
+  {
+    ancho: 40,
+    alto: 40,
+    color: "blanco",
+    tipoVidrio: "4mm",
+    modelo: "modelo_inexistente",
+    perfil: "amarilla",
+    bisagra: "izquierda",
+  },
+];
+
+casosInvalidos.forEach((input) => {
+  try {
+    const output = calcularRajaHerrero(input);
+
+    resultados.push({
+      ok: true,
+      input,
+      output,
+    });
+  } catch (error) {
+    resultados.push({
+      ok: false,
+      input,
+      error: error.message,
+    });
+  }
+});
+
+// =========================
 // 💾 SAVE
 // =========================
 
@@ -114,18 +157,32 @@ const fileName = `rajas_herrero_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Rajas Herrero OK`);
+console.log("\n================================");
+
+console.log("✅ Generator Rajas Herrero OK");
+
+console.log("================================");
 
 console.log(`📁 Archivo: ${outputPath}`);
 
 console.log(`📦 Casos generados: ${resultados.length}`);
+
+console.log(`✅ OK: ${ok}`);
+
+console.log(`❌ Errores: ${errores}`);
+
+console.log("================================");

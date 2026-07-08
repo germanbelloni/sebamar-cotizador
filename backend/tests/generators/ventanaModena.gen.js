@@ -1,7 +1,6 @@
 // backend/tests/generators/ventanaModena.generator.js
 
 const fs = require("fs");
-
 const path = require("path");
 
 // 🔧 PATH
@@ -59,6 +58,15 @@ function getMedidas() {
   return Object.keys(data.medidas || {});
 }
 
+function parseMedida(medida) {
+  const [anchoStr, altoStr] = medida.split("x");
+
+  return {
+    ancho: Number(String(anchoStr).replace(",", ".")),
+    alto: Number(String(altoStr).replace(",", ".")),
+  };
+}
+
 // =========================
 // 🚀 GENERADOR
 // =========================
@@ -67,7 +75,19 @@ function generar() {
   const medidas = getMedidas();
 
   medidas.forEach((medida) => {
-    const [ancho, alto] = medida.split("x").map(Number);
+    const { ancho, alto } = parseMedida(medida);
+
+    if (Number.isNaN(ancho) || Number.isNaN(alto)) {
+      resultados.push({
+        ok: false,
+        input: { medida },
+        error: "Medida inválida en JSON",
+      });
+
+      console.log(`❌ medida inválida: ${medida}`);
+
+      return;
+    }
 
     CONFIG.colores.forEach((color) => {
       CONFIG.vidrios.forEach((tipoVidrio) => {
@@ -77,19 +97,12 @@ function generar() {
               CONFIG.contramarcos.forEach((contramarco) => {
                 const input = {
                   ancho,
-
                   alto,
-
                   color,
-
                   tipoVidrio,
-
                   perfil,
-
                   mosquitero,
-
                   premarco,
-
                   contramarco,
                 };
 
@@ -98,9 +111,7 @@ function generar() {
 
                   resultados.push({
                     ok: true,
-
                     input,
-
                     output,
                   });
 
@@ -110,9 +121,7 @@ function generar() {
                 } catch (error) {
                   resultados.push({
                     ok: false,
-
                     input,
-
                     error: error.message,
                   });
 
@@ -145,18 +154,25 @@ const fileName = `ventana_modena_${Date.now()}.json`;
 
 const outputPath = path.join(outputDir, fileName);
 
-fs.writeFileSync(
-  outputPath,
+fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-  JSON.stringify(resultados, null, 2),
-);
+// =========================
+// 📊 STATS
+// =========================
+
+const ok = resultados.filter((r) => r.ok).length;
+
+const errores = resultados.length - ok;
 
 // =========================
 // ✅ LOG
 // =========================
 
-console.log(`\n✅ Generator Ventana Modena OK`);
-
+console.log("\n================================");
+console.log("✅ Generator Ventana Modena OK");
+console.log("================================");
 console.log(`📁 Archivo: ${outputPath}`);
-
 console.log(`📦 Casos generados: ${resultados.length}`);
+console.log(`✅ OK: ${ok}`);
+console.log(`❌ Errores: ${errores}`);
+console.log("================================");

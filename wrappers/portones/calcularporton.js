@@ -440,17 +440,33 @@ function calcularPortonWrapper(dataInput) {
     },
   });
   return buildWrapperResponse({
+    modulo: "portones",
+
+    linea,
+
     costoBase: resultado.costoBase || 0,
 
     costo: costoFinal,
 
-    proveedor,
+    precioBase: costoFinal,
 
-    venta,
+    precioProveedor: proveedor,
 
-    perfil,
+    precioLista: venta,
 
-    perfilData,
+    precioFinal: venta,
+
+    perfilAplicado: perfil,
+
+    descuentoAplicado: perfilData.descuento,
+
+    fleteAplicado: perfilData.flete,
+
+    gananciaAplicada: perfilData.ganancia,
+
+    margenAplicado: 0,
+
+    ganancia: venta - proveedor,
 
     items,
 
@@ -458,15 +474,12 @@ function calcularPortonWrapper(dataInput) {
 
     configuracion: {
       ...resultado.configuracion,
-
       linea,
-
       color,
-
       sistema,
-
       hojas,
     },
+
     audit: audit.getSteps(),
   });
 }

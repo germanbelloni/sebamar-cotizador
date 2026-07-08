@@ -1,6 +1,7 @@
-// generators/mosquiteros.js
+// backend/tests/generators/mosquiteros.generator.js
 
 const fs = require("fs");
+const path = require("path");
 
 const { fromRoot } = require("../../utils/path");
 
@@ -8,67 +9,84 @@ const calcularMosquiteroVentana = require(
   fromRoot("wrappers/mosquiteros/calcularMosquiteroVentana"),
 );
 
-// =========================
-// 🧪 CASOS
-// =========================
+const data = require(fromRoot("backend/data/productos/mosquiteros.json"));
 
-const casos = [
-  {
-    ancho: 100,
-    alto: 100,
-  },
+const resultados = [];
 
-  {
-    ancho: 120,
-    alto: 120,
-    color: "negro",
-  },
+const outputDir = fromRoot("backend/tests/generated/mosquiteros");
 
-  {
-    ancho: 150,
-    alto: 120,
-    color: "blanco",
-  },
-];
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, {
+    recursive: true,
+  });
+}
 
-// =========================
-// 🚀 GENERAR
-// =========================
+const colores = ["blanco", "negro", "bronce", "simil madera"];
 
-const resultados = casos.map((input) => {
-  try {
-    const output = calcularMosquiteroVentana(input);
+function parseMedida(medida) {
+  const [anchoStr, altoStr] = medida.split("x");
 
-    return {
-      ok: true,
+  return {
+    ancho: Number(anchoStr.replace(",", ".")),
+    alto: Number(altoStr.replace(",", ".")),
+  };
+}
 
-      input,
+Object.keys(data.medidas || {}).forEach((medida) => {
+  const { ancho, alto } = parseMedida(medida);
 
-      output,
-    };
-  } catch (error) {
-    return {
+  if (Number.isNaN(ancho) || Number.isNaN(alto)) {
+    resultados.push({
       ok: false,
+      input: { medida },
+      error: "Medida inválida",
+    });
 
-      input,
-
-      error: error.message,
-    };
+    return;
   }
+
+  colores.forEach((color) => {
+    const input = {
+      ancho,
+      alto,
+      color,
+    };
+
+    try {
+      const output = calcularMosquiteroVentana(input);
+
+      resultados.push({
+        ok: true,
+        input,
+        output,
+      });
+
+      console.log(`✔ ${medida} | ${color}`);
+    } catch (error) {
+      resultados.push({
+        ok: false,
+        input,
+        error: error.message,
+      });
+
+      console.log(`❌ ${medida} | ${color}`);
+    }
+  });
 });
 
-// =========================
-// 💾 SAVE
-// =========================
+const fileName = `mosquiteros_${Date.now()}.json`;
 
-const outputPath = fromRoot("backend/tests/generated/mosquiteros.json");
+const outputPath = path.join(outputDir, fileName);
 
 fs.writeFileSync(outputPath, JSON.stringify(resultados, null, 2));
 
-// =========================
-// ✅ LOG
-// =========================
+const ok = resultados.filter((r) => r.ok).length;
 
-console.log(`✅ Mosquiteros generados: ${resultados.length}`);
+const errores = resultados.length - ok;
 
-console.log(`📁 Archivo: ${outputPath}`);
+console.log("\n✅ Generator Mosquiteros OK");
+
+console.log(`📁 ${outputPath}`);
+console.log(`📦 Casos: ${resultados.length}`);
+console.log(`✅ OK: ${ok}`);
+console.log(`❌ Errores: ${errores}`);
