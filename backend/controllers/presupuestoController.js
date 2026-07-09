@@ -337,6 +337,9 @@ async function pdf(req, res) {
 
     const html = await renderBudget(printable);
     console.log("CHROMIUM EXEC:", await chromium.executablePath());
+    console.log("CHROMIUM:", chromium);
+    console.log("TYPE executablePath:", typeof chromium.executablePath);
+    console.log("KEYS:", Object.keys(chromium));
     const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
