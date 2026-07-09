@@ -68,6 +68,8 @@ async function runCalculation(req, res, name, callback) {
       ...req.body,
       perfil: req.user.perfil,
     };
+    console.log("PAYLOAD RUNCALC:");
+console.log(payload);
 
     const result = await callback(payload);
 
@@ -259,6 +261,9 @@ function superficies(req, res) {
 // =========================
 
 function patagonicas(req, res) {
+  console.log("REQ BODY PATAGONICAS:");
+  console.log(req.body);
+
   const linea = (req.body.linea || "Herrero").toLowerCase();
 
   const medida = `${req.body.ancho}x${req.body.alto}`;
@@ -273,10 +278,24 @@ function patagonicas(req, res) {
     medidaTotal: medida,
 
     cantidadRajas:
-      Number(req.body.cantidadRajas) || (req.body.tipo === "2_rajas" ? 2 : 1),
+      Number(req.body.cantidadRajas) ||
+      (req.body.tipo === "2_rajas" ? 2 : 1),
 
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
+
+  console.log("PAYLOAD ARMADO:");
+  console.log(payload);
+
+  const calculadora =
+    linea === "herrero"
+      ? calcularPatagonicaHerrero
+      : calcularPatagonicaModena;
+
+  return runCalculation(req, res, "PATAGONICAS", (payload) =>
+    calculadora(payload),
+  );
+}
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
