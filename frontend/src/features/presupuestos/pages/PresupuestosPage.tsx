@@ -187,7 +187,11 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                   onClick={(e) => {
                     e.stopPropagation();
 
-                    openPdf(presupuesto.id);
+                    openPdf(
+                      presupuesto.id,
+                      presupuesto.cliente || "SIN CLIENTE",
+                      presupuesto.fecha ?? new Date().toISOString(),
+                    );
                   }}
                   className="
     mt-3

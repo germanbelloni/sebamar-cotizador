@@ -23,5 +23,9 @@ export async function generarPdf(payload: Payload) {
 
   const url = window.URL.createObjectURL(response.data);
 
-  window.open(url, "_blank");
+  const win = window.open();
+
+  if (win) {
+    win.location.href = url;
+  }
 }
