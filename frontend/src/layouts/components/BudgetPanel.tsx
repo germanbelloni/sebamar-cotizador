@@ -13,6 +13,7 @@ import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
 import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudget";
+import { useNavigate } from "react-router-dom";
 type Props = {
   items: BudgetItem[];
 
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export function BudgetPanel({ items, cliente, empresa }: Props) {
+  const navigate = useNavigate();
   const removeItem = useBudgetStore((state) => state.removeItem);
 
   const updateCantidad = useBudgetStore((state) => state.updateCantidad);
@@ -269,7 +271,7 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
 
                   sessionStorage.setItem("print-data", JSON.stringify(data));
 
-                  window.open("/print", "_blank");
+                  navigate("/print");
                 }}
                 className="
           w-full

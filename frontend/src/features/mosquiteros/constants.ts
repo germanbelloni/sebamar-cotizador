@@ -1,4 +1,4 @@
-import type { MosquiterosConfig } from "./types";
+import type { MosquiterosConfig, MosquiteroTipo } from "./types";
 export const LIMITES_MOSQUITEROS = {
   ventana: {
     anchoMin: 60,
@@ -52,3 +52,26 @@ export const initialMosquiterosConfig: MosquiterosConfig = {
 
   ladoBisagra: "derecha",
 };
+
+export function getDefaultMosquiteroMeasures(tipo: MosquiteroTipo) {
+  switch (tipo) {
+    case "puerta_mosquitera":
+      return {
+        ancho: 80,
+        alto: 200,
+      };
+
+    case "fijo":
+      return {
+        ancho: 100,
+        alto: 100,
+      };
+
+    case "ventana":
+    default:
+      return {
+        ancho: 100,
+        alto: 100,
+      };
+  }
+}

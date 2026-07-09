@@ -40,6 +40,8 @@ function calcularsuperficiesWrapper(dataInput) {
     color = "blanco",
     tipoVidrio,
     perfil = "amarilla",
+    premarco = false,
+    contramarco = false,
   } = dataInput;
 
   if (!tipo || !ancho || !alto) {
@@ -56,6 +58,8 @@ function calcularsuperficiesWrapper(dataInput) {
     alto,
     linea,
     tipoVidrio,
+    premarco,
+    contramarco,
   });
 
   audit.add({
@@ -70,8 +74,6 @@ function calcularsuperficiesWrapper(dataInput) {
       tipoVidrio,
     },
   });
-
-  let costo = Number(resultado.costoBase || 0);
 
   const items = [...resultado.items];
 
@@ -170,7 +172,7 @@ function calcularsuperficiesWrapper(dataInput) {
     throw new Error(`Perfil inválido: ${perfil} - ${linea}`);
   }
 
-  const costoFinal = costo * (1 - perfilData.descuento);
+  const costoFinal = costoBase * (1 - perfilData.descuento);
 
   const proveedor = costoFinal * (1 + perfilData.flete);
 
@@ -215,6 +217,14 @@ function calcularsuperficiesWrapper(dataInput) {
       descripcion += ` vidrio ${tipoVidrio}`;
     }
 
+    if (premarco) {
+      descripcion += " c/premarco";
+    }
+
+    if (contramarco) {
+      descripcion += " c/contramarco";
+    }
+
     if (color !== "blanco") {
       descripcion += ` ${color}`;
     }
@@ -231,7 +241,6 @@ function calcularsuperficiesWrapper(dataInput) {
       descripcion += ` ${color}`;
     }
   }
-
   // ========================
   // 🧠 CONFIG
   // ========================
@@ -246,6 +255,8 @@ function calcularsuperficiesWrapper(dataInput) {
     configuracion.linea = linea;
     configuracion.color = color;
     configuracion.tipoVidrio = tipoVidrio;
+    configuracion.premarco = premarco;
+    configuracion.contramarco = contramarco;
   }
 
   if (tipo === "contramarco") {

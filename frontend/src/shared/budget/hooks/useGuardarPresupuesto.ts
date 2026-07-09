@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-
+import { toast } from "sonner";
 import { guardarPresupuesto } from "../api/guardarPresupuesto";
 
 export function useGuardarPresupuesto() {
@@ -9,13 +9,13 @@ export function useGuardarPresupuesto() {
     onSuccess: (data) => {
       console.log("PRESUPUESTO GUARDADO:", data);
 
-      alert("Presupuesto guardado");
+      toast.success("Presupuesto guardado");
     },
 
     onError: (error) => {
       console.error("ERROR GUARDANDO PRESUPUESTO:", error);
 
-      alert("Error guardando presupuesto");
+      toast.error("Error guardando presupuesto");
     },
   });
 }

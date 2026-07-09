@@ -14,18 +14,20 @@ type Payload = {
 };
 
 export async function generarPdf(payload: Payload) {
-  console.log("ENVIANDO PDF");
-  console.log(payload);
-
   const response = await api.post("/pdf/preview", payload, {
     responseType: "blob",
   });
 
   const url = window.URL.createObjectURL(response.data);
 
-  const win = window.open();
+  const a = document.createElement("a");
 
-  if (win) {
-    win.location.href = url;
-  }
+  a.href = url;
+  a.download = "Presupuesto.pdf";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  window.URL.revokeObjectURL(url);
 }
