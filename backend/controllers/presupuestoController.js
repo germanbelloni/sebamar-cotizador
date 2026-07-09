@@ -333,9 +333,15 @@ async function pdf(req, res) {
     console.log(JSON.stringify(printable, null, 2));
     console.log("PRINTABLE COMPLETO");
     console.log(printable);
+
     const html = await renderBudget(printable);
     console.log("PUPPETEER EXEC:", puppeteer.executablePath());
     console.log("ENV EXEC:", process.env.PUPPETEER_EXECUTABLE_PATH);
+    const fs = require("fs");
+
+    console.log("CHROME EXISTS:", fs.existsSync(puppeteer.executablePath()));
+
+    console.log("CHROME PATH:", puppeteer.executablePath());
     const browser = await puppeteer.launch({
       headless: true,
       executablePath:
