@@ -29,7 +29,7 @@ export function SelectableCard({
         bg-white/[0.03]
         backdrop-blur-xl
         p-3
-        text-left
+        text-center
         transition-all
         duration-300
 
