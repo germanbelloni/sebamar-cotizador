@@ -294,13 +294,6 @@ function patagonicas(req, res) {
   );
 }
 
-const calculadora =
-  linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
-
-return runCalculation(req, res, "PATAGONICAS", (payload) =>
-  calculadora(payload),
-);
-
 module.exports = {
   mosquiteros,
 
