@@ -1,5 +1,9 @@
-const puppeteer = require("puppeteer-core");
 const chromium = require("@sparticuz/chromium");
+
+const puppeteer =
+  process.env.NODE_ENV === "production"
+    ? require("puppeteer-core")
+    : require("puppeteer");
 const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrintable");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
@@ -337,18 +341,24 @@ async function pdf(req, res) {
 
     const html = await renderBudget(printable);
 
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    });
+    let browser;
+
+    if (process.env.NODE_ENV === "production") {
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
+    } else {
+      browser = await puppeteer.launch({
+        headless: true,
+      });
+    }
 
     const page = await browser.newPage();
 
-    await page.setContent(html, {
-      waitUntil: "networkidle0",
-    });
+    await page.setContent(html);
 
     const pdfBuffer = await page.pdf({
       format: "A4",
