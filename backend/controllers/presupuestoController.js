@@ -336,17 +336,19 @@ async function pdf(req, res) {
     console.log(printable);
 
     const html = await renderBudget(printable);
-    console.log("CHROMIUM EXEC:", await chromium.executablePath());
+
+    console.log("========== CHROMIUM DEBUG ==========");
     console.log("CHROMIUM:", chromium);
-    console.log("TYPE executablePath:", typeof chromium.executablePath);
+    console.log("TYPE executablePath:", typeof chromium?.executablePath);
+    console.log("TYPE default:", typeof chromium?.default);
+    console.log(
+      "DEFAULT KEYS:",
+      chromium?.default ? Object.keys(chromium.default) : [],
+    );
     console.log("KEYS:", Object.keys(chromium));
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: "shell",
-    });
-    const page = await browser.newPage();
+    console.log("===================================");
+
+    throw new Error("STOP DEBUG");
 
     await page.setContent(html, {
       waitUntil: "networkidle0",
