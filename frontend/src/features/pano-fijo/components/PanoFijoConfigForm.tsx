@@ -32,6 +32,7 @@ import { AlertBox } from "@/shared/components/AlertBox";
 
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 
+import { ModenaSection } from "@/shared/sections/ModenaSection";
 import {
   requiereTravesanoVertical,
   requiereTravesanoHorizontal,
@@ -158,6 +159,28 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
             }
           />
         </FormSection>
+
+        {config.linea === "modena" && (
+          <FormSection title="Extras">
+            <ModenaSection
+              premarco={config.premarco}
+              contramarco={config.contramarco}
+              onTogglePremarco={() => {
+                const nuevoPremarco = !config.premarco;
+
+                updateConfig({
+                  premarco: nuevoPremarco,
+                  contramarco: nuevoPremarco ? true : config.contramarco,
+                });
+              }}
+              onToggleContramarco={() =>
+                updateConfig({
+                  contramarco: !config.contramarco,
+                })
+              }
+            />
+          </FormSection>
+        )}
 
         {showVertical && (
           <FormSection title="Refuerzo vertical">

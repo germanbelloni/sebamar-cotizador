@@ -50,4 +50,6 @@ export const initialPanoFijoConfig: PanoFijoConfig = {
 
   travesanoVertical: false,
   travesanoHorizontal: false,
+  premarco: false,
+  contramarco: false,
 };
