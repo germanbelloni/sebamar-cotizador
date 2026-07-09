@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrintable");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
@@ -335,22 +336,12 @@ async function pdf(req, res) {
     console.log(printable);
 
     const html = await renderBudget(printable);
-    const fs = require("fs");
-
-    console.log("CHROMIUM 1:", fs.existsSync("/usr/bin/chromium"));
-
-    console.log("CHROMIUM 2:", fs.existsSync("/usr/bin/chromium-browser"));
-
-    console.log("CHROMIUM 3:", fs.existsSync("/usr/bin/google-chrome"));
+    console.log("CHROMIUM EXEC:", await chromium.executablePath());
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath:
-        process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-      ],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: "shell",
     });
     const page = await browser.newPage();
 
