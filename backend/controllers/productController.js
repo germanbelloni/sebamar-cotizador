@@ -270,21 +270,19 @@ function patagonicas(req, res) {
 
   const payload = {
     ...req.body,
-
     linea,
-
     medida,
-
     medidaTotal: medida,
-
     cantidadRajas:
       Number(req.body.cantidadRajas) || (req.body.tipo === "2_rajas" ? 2 : 1),
-
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
 
   console.log("PAYLOAD ARMADO:");
   console.log(payload);
+
+  // 👇 IMPORTANTE
+  req.body = payload;
 
   const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
