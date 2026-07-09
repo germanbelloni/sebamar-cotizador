@@ -334,12 +334,12 @@ async function pdf(req, res) {
     console.log("PRINTABLE COMPLETO");
     console.log(printable);
     const html = await renderBudget(printable);
-
+    console.log("PUPPETEER EXEC:", puppeteer.executablePath());
+    console.log("ENV EXEC:", process.env.PUPPETEER_EXECUTABLE_PATH);
     const browser = await puppeteer.launch({
       headless: true,
       executablePath:
-        process.env.PUPPETEER_EXECUTABLE_PATH ||
-        "/opt/render/.cache/puppeteer/chrome/linux-148.0.7778.97/chrome-linux64/chrome",
+        process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
