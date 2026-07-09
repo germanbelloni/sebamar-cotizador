@@ -69,7 +69,7 @@ async function runCalculation(req, res, name, callback) {
       perfil: req.user.perfil,
     };
     console.log("PAYLOAD RUNCALC:");
-console.log(payload);
+    console.log(payload);
 
     const result = await callback(payload);
 
@@ -278,8 +278,7 @@ function patagonicas(req, res) {
     medidaTotal: medida,
 
     cantidadRajas:
-      Number(req.body.cantidadRajas) ||
-      (req.body.tipo === "2_rajas" ? 2 : 1),
+      Number(req.body.cantidadRajas) || (req.body.tipo === "2_rajas" ? 2 : 1),
 
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
@@ -288,22 +287,19 @@ function patagonicas(req, res) {
   console.log(payload);
 
   const calculadora =
-    linea === "herrero"
-      ? calcularPatagonicaHerrero
-      : calcularPatagonicaModena;
-
-  return runCalculation(req, res, "PATAGONICAS", (payload) =>
-    calculadora(payload),
-  );
-}
-
-  const calculadora =
     linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
 
   return runCalculation(req, res, "PATAGONICAS", (payload) =>
     calculadora(payload),
   );
 }
+
+const calculadora =
+  linea === "herrero" ? calcularPatagonicaHerrero : calcularPatagonicaModena;
+
+return runCalculation(req, res, "PATAGONICAS", (payload) =>
+  calculadora(payload),
+);
 
 module.exports = {
   mosquiteros,
