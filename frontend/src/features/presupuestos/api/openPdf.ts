@@ -7,5 +7,13 @@ export async function openPdf(id: string) {
 
   const url = window.URL.createObjectURL(data);
 
-  window.open(url, "_blank");
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `presupuesto-${id}.pdf`;
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  window.URL.revokeObjectURL(url);
 }

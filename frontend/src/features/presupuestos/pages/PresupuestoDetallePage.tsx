@@ -230,7 +230,13 @@ export function PresupuestoDetallePage({
               )}
 
               <button
-                onClick={() => download(presupuestoId)}
+                onClick={() =>
+                  download(
+                    presupuestoId,
+                    data.cliente || "SIN CLIENTE",
+                    data.fecha ?? new Date().toISOString(),
+                  )
+                }
                 className="
       rounded-xl
       border
@@ -252,7 +258,13 @@ export function PresupuestoDetallePage({
                   items: data.items,
                   total: data.total,
                 }}
-                onPdf={() => download(presupuestoId)}
+                onPdf={() =>
+                  download(
+                    presupuestoId,
+                    data.cliente || "SIN CLIENTE",
+                    data.fecha ?? new Date().toISOString(),
+                  )
+                }
               />
               <DeletePresupuestoDialog onConfirm={handleDelete} />
             </div>
