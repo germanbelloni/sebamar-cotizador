@@ -103,15 +103,8 @@ export function PortonBlueprintSelector({
             const isFirst = i === 0;
             const isLast = i === hojas - 1;
 
-            let symbol = "";
-
-            if (side === "left") {
-              if (isFirst) symbol = "↶";
-              else symbol = "→";
-            } else {
-              if (isLast) symbol = "↷";
-              else symbol = "←";
-            }
+            const symbol =
+              side === "left" ? (isFirst ? "↶" : "→") : isLast ? "↷" : "←";
 
             return (
               <div

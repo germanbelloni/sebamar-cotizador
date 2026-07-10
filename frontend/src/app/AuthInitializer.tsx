@@ -29,7 +29,7 @@ export function AuthInitializer({ children }: Props) {
         const { data } = await apiClient.get("/auth/me");
 
         refreshUser(data);
-      } catch (error) {
+      } catch {
         console.log("SESSION EXPIRED");
 
         logout();
