@@ -2,6 +2,10 @@
 
 const { fromRoot } = require("../../utils/path");
 
+const superficies = require(
+  fromRoot("backend/data/productos/superficies.json"),
+);
+
 const dataHerrero = require(
   fromRoot("backend/data/productos/ventanas_herrero.json"),
 );
@@ -59,8 +63,12 @@ function buscarMedidaHerrero(medida) {
 // =========================
 // 🪟 HERRERO
 // =========================
-
-function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
+function calcularHerrero({
+  medida,
+  tipoVidrio = "3mm",
+  incluirGuia,
+  incluirMosquitero,
+}) {
   const d = buscarMedidaHerrero(medida);
 
   if (!d) {
@@ -75,7 +83,21 @@ function calcularHerrero({ medida, incluirGuia, incluirMosquitero }) {
 
   items.push(crearItem("estructura", Number(d.base || 0)));
 
-  items.push(crearItem("vidrio", Number(d.vidrio || 0)));
+  let precioVidrio = Number(d.vidrio || 0);
+
+  if (tipoVidrio !== "3mm") {
+    const [ancho, alto] = medida
+      .split("x")
+      .map((n) => Number(String(n).replace(",", ".")));
+
+    const altoReal = alto < 1 ? alto * 100 : alto;
+
+    const m2 = (ancho * altoReal) / 10000;
+
+    precioVidrio = m2 * Number(superficies.vidrios?.[tipoVidrio] || 0);
+  }
+
+  items.push(crearItem("vidrio", Math.round(precioVidrio)));
 
   if (incluirGuia) {
     items.push(crearItem("guia", Number(d.guia || 0)));
@@ -127,7 +149,31 @@ function calcularModena({
 
   items.push(crearItem("estructura", Number(d.base || 0)));
 
-  items.push(crearItem("vidrio", Number(d.vidrios?.[tipoVidrio] || 0)));
+  let precioVidrio = Number(d.vidrios?.[tipoVidrio] || 0);
+
+  if (tipoVidrio === "4+4") {
+    const [ancho, alto] = medida
+      .split("x")
+      .map((n) => Number(String(n).replace(",", ".")));
+
+    const altoReal = alto < 1 ? alto * 100 : alto;
+
+    const m2 = (ancho * altoReal) / 10000;
+
+    precioVidrio = m2 * Number(superficies.vidrios?.["4+4"] || 0);
+  }
+
+  if (tipoVidrio === "DVH 4+9+4") {
+    precioVidrio =
+      Number(d.vidrios?.["4mm"] || 0) * 2 + Number(d.vidrios?.dvh || 0);
+  }
+
+  if (tipoVidrio === "DVH 5+9+5") {
+    precioVidrio =
+      Number(d.vidrios?.["5mm"] || 0) * 2 + Number(d.vidrios?.dvh || 0);
+  }
+
+  items.push(crearItem("vidrio", Math.round(precioVidrio)));
 
   if (incluirGuia) {
     items.push(crearItem("guia", Number(d.guia || 0)));

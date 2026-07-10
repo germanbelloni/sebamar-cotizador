@@ -97,6 +97,7 @@ function calcularVentanaHerrero(dataInput) {
     ancho,
     alto,
     color = "blanco",
+    tipoVidrio = "3mm",
     guia,
     mosquitero,
     cortina,
@@ -137,6 +138,7 @@ function calcularVentanaHerrero(dataInput) {
 
   const base = calcularVentana({
     medida,
+    tipoVidrio,
     incluirGuia: guia,
     incluirMosquitero: mosquitero,
     linea: "herrero",
