@@ -103,14 +103,22 @@ async function crearPresupuesto({ user, body }) {
     };
   });
 
-  usuario.contadorPresupuestos += 1;
-
-  await usuario.save();
+  const usuarioActualizado = await User.findByIdAndUpdate(
+    userId,
+    {
+      $inc: {
+        contadorPresupuestos: 1,
+      },
+    },
+    {
+      new: true,
+    },
+  );
   const presupuesto = new Presupuesto({
     userId,
     ownerId,
 
-    numero: usuario.contadorPresupuestos,
+    numero: usuarioActualizado.contadorPresupuestos,
 
     cliente: body.cliente,
     telefono: body.telefono,

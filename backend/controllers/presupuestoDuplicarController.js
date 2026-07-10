@@ -11,6 +11,28 @@ async function duplicar(req, res) {
       });
     }
 
+    // 👑 SUPERADMIN
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // 🧑 ADMIN
+    else if (req.user.role === "admin") {
+      if (original.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // 👨 USER
+    else {
+      if (original.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
     const usuario = await User.findById(req.user.id);
 
     if (!usuario) {

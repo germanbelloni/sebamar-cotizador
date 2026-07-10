@@ -9,6 +9,7 @@ const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
 const { renderBudget } = require("../pdf/render/renderBudget");
 const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
+const calcularItem = require("../services/presupuestos/calcularItem");
 
 // =========================
 // PDF
@@ -292,7 +293,13 @@ async function cambiarEstado(req, res) {
         });
       }
     }
+    const estadosPermitidos = ["pendiente", "aprobado"];
 
+    if (!estadosPermitidos.includes(req.body.estado)) {
+      return res.status(400).json({
+        error: "Estado inválido",
+      });
+    }
     presupuesto.estado = req.body.estado;
 
     await presupuesto.save();
@@ -308,12 +315,15 @@ async function cambiarEstado(req, res) {
     });
   }
 }
-// =========================
+/// =========================
 // PDF
 // =========================
 
 async function pdf(req, res) {
   console.log("===== ENTRE AL PDF NUEVO =====");
+
+  let browser;
+
   try {
     if (!req.params.id) {
       return res.status(400).json({
@@ -369,8 +379,6 @@ async function pdf(req, res) {
 
     const html = await renderBudget(printable);
 
-    let browser;
-
     if (process.env.NODE_ENV === "production") {
       browser = await puppeteer.launch({
         args: chromium.args,
@@ -393,8 +401,6 @@ async function pdf(req, res) {
       printBackground: true,
     });
 
-    await browser.close();
-
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "inline; filename=presupuesto.pdf",
@@ -408,6 +414,14 @@ async function pdf(req, res) {
       error: "Error generando PDF",
       detalle: error.message,
     });
+  } finally {
+    if (browser) {
+      try {
+        await browser.close();
+      } catch (error) {
+        console.error("Error cerrando Chromium:", error);
+      }
+    }
   }
 }
 // =========================
@@ -518,6 +532,126 @@ async function actualizar(req, res) {
   }
 }
 
+//actualizaritems
+async function actualizarItems(req, res) {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
+
+    if (!presupuesto) {
+      return res.status(404).json({
+        error: "Presupuesto no encontrado",
+      });
+    }
+
+    // 👑 SUPERADMIN
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // 🧑 ADMIN
+    else if (req.user.role === "admin") {
+      if (presupuesto.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // 👨 USER
+    else {
+      if (presupuesto.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    const usuario = await User.findById(req.user.id);
+
+    let total = 0;
+
+    const itemsProcesados = req.body.items.map((item) => {
+      const cantidad = Number(item.cantidad || 1);
+
+      let recalculado = null;
+
+      try {
+        recalculado = calcularItem(
+          {
+            ...item.configuracion,
+            modulo: item.modulo,
+            tipo: item.tipo,
+            linea:
+              item.linea || item.metadata?.linea || item.configuracion?.linea,
+            metadata: item.metadata,
+            configuracion: item.configuracion,
+          },
+          usuario.perfil,
+        );
+      } catch (error) {
+        console.warn("No se pudo recalcular item:", item.modulo, error.message);
+      }
+
+      const descripcion = item.descripcion || item.tipo || "Producto";
+
+      const precioUnitario = Number(
+        recalculado?.precioFinal ??
+          item.precioFinal ??
+          item.precioLista ??
+          item.precioProveedor ??
+          item.precio ??
+          item.subtotal ??
+          0,
+      );
+
+      const subtotal = precioUnitario * cantidad;
+
+      total += subtotal;
+
+      return {
+        tipo: item.tipo,
+        modulo: item.modulo,
+        titulo: item.titulo,
+        cantidad,
+        descripcion,
+        precioUnitario,
+        subtotal,
+
+        precioBase: recalculado?.precioBase ?? item.precioBase ?? 0,
+
+        precioLista: recalculado?.precioLista ?? item.precioLista ?? 0,
+
+        precioFinal: recalculado?.precioFinal ?? item.precioFinal ?? subtotal,
+
+        perfilAplicado:
+          recalculado?.perfilAplicado ?? item.perfilAplicado ?? "",
+
+        audit: recalculado?.audit ?? item.audit ?? null,
+
+        metadata: item.metadata || {},
+
+        configuracion: item.configuracion || item,
+      };
+    });
+
+    presupuesto.items = itemsProcesados;
+    presupuesto.total = total;
+    presupuesto.cliente = req.body.cliente;
+    presupuesto.telefono = req.body.telefono;
+
+    await presupuesto.save();
+
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      error: "Error actualizando presupuesto",
+    });
+  }
+}
 module.exports = {
   crear,
   listar,

@@ -45,6 +45,7 @@ export function PrintableBudget({
 
   const guardarMutation = useGuardarPresupuesto();
   const updateMutation = useUpdatePresupuestoCompleto();
+  const isSaving = guardarMutation.isPending || updateMutation.isPending;
   const editingPresupuestoId = useBudgetStore(
     (state) => state.editingPresupuestoId,
   );
@@ -63,6 +64,7 @@ export function PrintableBudget({
   } | null>(null);
 
   function handleGuardarPresupuesto() {
+    if (guardarMutation.isPending) return;
     if (!cliente.nombre?.trim()) {
       toast.error("Debe ingresar un cliente");
       return;
@@ -95,6 +97,7 @@ export function PrintableBudget({
   }
 
   async function handleActualizarPresupuesto() {
+    if (updateMutation.isPending) return;
     if (!editingPresupuestoId) return;
 
     try {
@@ -195,6 +198,7 @@ export function PrintableBudget({
         <div className="flex items-center gap-3">
           <Button
             variant="secondary"
+            disabled={isSaving}
             className="rounded-full bg-zinc-200 text-black hover:bg-zinc-300"
             onClick={
               editingPresupuestoId
