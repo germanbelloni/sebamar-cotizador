@@ -27,14 +27,36 @@ async function crearPresupuesto({ user, body }) {
   }
 
   let total = 0;
-
+  console.log("ITEM GUARDADO:");
+  console.log(JSON.stringify(body.items[0], null, 2));
+  console.log(JSON.stringify(body.items[0], null, 2));
   const itemsProcesados = body.items.map((item) => {
     const cantidad = Number(item.cantidad || 1);
+
+    let recalculado = null;
+
+    try {
+      recalculado = calcularItem(
+        {
+          ...item.configuracion,
+          modulo: item.modulo,
+          tipo: item.tipo,
+          linea:
+            item.linea || item.metadata?.linea || item.configuracion?.linea,
+          metadata: item.metadata,
+          configuracion: item.configuracion,
+        },
+        usuario.perfil,
+      );
+    } catch (error) {
+      console.warn("No se pudo recalcular item:", item.modulo, error.message);
+    }
 
     const descripcion = item.descripcion || item.tipo || "Producto";
 
     const precioUnitario = Number(
-      item.precioFinal ??
+      recalculado?.precioFinal ??
+        item.precioFinal ??
         item.precioLista ??
         item.precioProveedor ??
         item.precio ??
@@ -65,21 +87,15 @@ async function crearPresupuesto({ user, body }) {
       // SNAPSHOT FINANCIERO
       // =========================
 
-      precioBase: item.precioBase || 0,
+      precioBase: recalculado?.precioBase ?? item.precioBase ?? 0,
 
-      precioLista: item.precioLista || 0,
+      precioLista: recalculado?.precioLista ?? item.precioLista ?? 0,
 
-      precioFinal: item.precioFinal || subtotal,
+      precioFinal: recalculado?.precioFinal ?? item.precioFinal ?? subtotal,
 
-      margenAplicado: item.margenAplicado || 0,
+      perfilAplicado: recalculado?.perfilAplicado ?? item.perfilAplicado ?? "",
 
-      perfilAplicado: item.perfilAplicado || "",
-
-      // =========================
-      // AUDITORÍA
-      // =========================
-
-      audit: item.audit || null,
+      audit: recalculado?.audit ?? item.audit ?? null,
 
       metadata: item.metadata || {},
 
