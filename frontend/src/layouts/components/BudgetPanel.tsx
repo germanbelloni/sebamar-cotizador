@@ -13,6 +13,7 @@ import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 
 import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudget";
+import { useNavigate } from "react-router-dom";
 type Props = {
   items: BudgetItem[];
 
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export function BudgetPanel({ items, cliente, empresa }: Props) {
+  const navigate = useNavigate();
   const removeItem = useBudgetStore((state) => state.removeItem);
 
   const updateCantidad = useBudgetStore((state) => state.updateCantidad);
@@ -29,6 +31,11 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
   const clearBudget = useBudgetStore((state) => state.clearBudget);
 
   const total = useBudgetStore((state) => state.total);
+  const editingPresupuestoId = useBudgetStore(
+    (state) => state.editingPresupuestoId,
+  );
+
+  const editingFecha = useBudgetStore((state) => state.editingFecha);
   const { share } = useShareWhatsApp({
     empresa: empresa.nombre,
     cliente: cliente.nombre,
@@ -65,6 +72,24 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
         >
           <div className="flex items-center justify-between">
             <div>
+              {editingPresupuestoId && (
+                <div
+                  className="
+      mb-3
+      rounded-xl
+      border border-amber-500/30
+      bg-amber-500/10
+      p-3
+      text-xs
+      font-semibold
+      text-amber-300
+    "
+                >
+                  ✏ EDITANDO PRESUPUESTO
+                  <br />
+                  Al guardar se reemplazará el presupuesto original.
+                </div>
+              )}
               <h2 className="text-lg font-semibold">Presupuesto</h2>
 
               <p className="text-sm text-muted-foreground">
@@ -265,11 +290,12 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
                     empresa,
                     cliente,
                     items,
+                    editingFecha ?? undefined,
                   );
 
                   sessionStorage.setItem("print-data", JSON.stringify(data));
 
-                  window.open("/print", "_blank");
+                  navigate("/print");
                 }}
                 className="
           w-full

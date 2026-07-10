@@ -26,6 +26,9 @@ export type PanoFijoConfig = {
 
   travesanoVertical: boolean;
   travesanoHorizontal: boolean;
+
+  premarco: boolean;
+  contramarco: boolean;
 };
 
 export type PanoFijoItem = {

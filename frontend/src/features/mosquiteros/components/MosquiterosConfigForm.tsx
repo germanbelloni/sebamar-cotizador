@@ -1,6 +1,7 @@
 import type { MosquiterosConfig } from "../types";
-
 import { MOSQUITEROS_UI } from "../ui";
+
+import { getDefaultMosquiteroMeasures } from "../constants";
 
 import { useMosquiterosForm } from "../hooks/useMosquiterosForm";
 
@@ -66,18 +67,11 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
             onChange={(value) => {
               const tipo = value as MosquiterosConfig["tipo"];
 
-              if (tipo === "puerta_mosquitera") {
-                updateConfig({
-                  tipo,
-                  ancho: 80,
-                  alto: 200,
-                });
-
-                return;
-              }
+              const medidas = getDefaultMosquiteroMeasures(tipo);
 
               updateConfig({
                 tipo,
+                ...medidas,
               });
             }}
           />

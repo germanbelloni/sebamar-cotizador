@@ -92,5 +92,27 @@ const presupuestoSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+// =========================
+// 📈 ÍNDICES
+// =========================
 
+presupuestoSchema.index({
+  ownerId: 1,
+  createdAt: -1,
+});
+
+presupuestoSchema.index({
+  userId: 1,
+  createdAt: -1,
+});
+
+presupuestoSchema.index({
+  ownerId: 1,
+  numero: -1,
+});
+
+presupuestoSchema.index({
+  ownerId: 1,
+  estado: 1,
+});
 module.exports = mongoose.model("Presupuesto", presupuestoSchema);

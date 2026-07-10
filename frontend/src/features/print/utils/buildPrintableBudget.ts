@@ -16,10 +16,11 @@ export function buildPrintableBudget(
   empresa: Empresa,
   cliente: Cliente,
   items: BudgetItem[],
+  fecha?: string,
 ): PrintableBudgetData {
   return {
     numero,
-    fecha: new Date().toISOString(),
+    fecha: fecha || new Date().toISOString(),
 
     empresa,
     cliente,

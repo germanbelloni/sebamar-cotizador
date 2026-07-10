@@ -22,26 +22,16 @@ export function DeletePresupuestoDialog({ onConfirm }: Props) {
       <AlertDialogTrigger asChild>
         <button
           className="
-            flex
-            items-center
-            gap-2
-
             rounded-xl
             bg-red-500
-            px-4
-            py-2
-
-            text-sm
-            font-semibold
+            p-2
             text-white
-
             transition
-
             hover:bg-red-600
           "
+          title="Eliminar presupuesto"
         >
           <Trash2 size={16} />
-          Eliminar
         </button>
       </AlertDialogTrigger>
 

@@ -23,8 +23,8 @@ export function BipuntosSection({
 }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-      <div className="space-y-2">
-        <label className="text-base font-semibold">
+      <div>
+        <label className="mb-4 block text-base font-semibold">
           Bipunto hoja izquierda
         </label>
 
@@ -32,7 +32,7 @@ export function BipuntosSection({
           value={izquierda}
           onValueChange={(value) => onChangeIzquierda(value as Valor)}
         >
-          <SelectTrigger className="h-12 text-base">
+          <SelectTrigger className="h-12 text-base leading-loose">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
 
@@ -47,7 +47,9 @@ export function BipuntosSection({
       </div>
 
       <div className="space-y-2">
-        <label className="text-base font-semibold">Bipunto hoja derecha</label>
+        <label className="mb-4 block text-base font-semibold">
+          Bipunto hoja derecha
+        </label>
 
         <Select
           value={derecha}

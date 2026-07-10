@@ -10,7 +10,19 @@ const apiRoutes = require("./routes");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+
+app.use(
+  express.json({
+    limit: "1mb",
+  }),
+);
+
+app.use(
+  express.urlencoded({
+    extended: true,
+    limit: "1mb",
+  }),
+);
 app.use("/img", express.static(path.join(__dirname, "../frontend/assets/img")));
 app.use(
   "/logos",

@@ -13,5 +13,9 @@ export async function generarPdfPreview(payload: Payload) {
 
   const url = window.URL.createObjectURL(response.data);
 
-  window.open(url, "_blank");
+  const win = window.open();
+
+  if (win) {
+    win.location.href = url;
+  }
 }

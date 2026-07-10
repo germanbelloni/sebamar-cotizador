@@ -114,4 +114,12 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+// =========================
+// 📈 ÍNDICES
+// =========================
+
+userSchema.index({
+  ownerId: 1,
+});
+
 module.exports = mongoose.model("User", userSchema);

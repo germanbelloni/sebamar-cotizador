@@ -19,7 +19,15 @@ function calcularM2(ancho, alto) {
 // ======================
 
 function calcularSuperficie(dataInput) {
-  const { tipo, ancho, alto, linea, tipoVidrio } = dataInput;
+  const {
+    tipo,
+    ancho,
+    alto,
+    linea,
+    tipoVidrio,
+    premarco = false,
+    contramarco = false,
+  } = dataInput;
 
   if (!tipo || !ancho || !alto) {
     throw new Error("Faltan datos");
@@ -37,6 +45,29 @@ function calcularSuperficie(dataInput) {
   // ======================
 
   if (tipo === "pano_fijo") {
+    if (premarco) {
+      const precioPremarco = perimetro * data.superficies.premarco;
+
+      costoPerfil += precioPremarco;
+
+      items.push({
+        tipo: "premarco",
+        descripcion: "premarco",
+        precio: Math.round(precioPremarco),
+      });
+    }
+
+    if (contramarco) {
+      const precioContramarco = perimetro * data.superficies.contramarco;
+
+      costoPerfil += precioContramarco;
+
+      items.push({
+        tipo: "contramarco",
+        descripcion: "contramarco",
+        precio: Math.round(precioContramarco),
+      });
+    }
     if (!linea || !tipoVidrio) {
       throw new Error("Faltan datos para paño fijo");
     }

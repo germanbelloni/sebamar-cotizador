@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
 
@@ -22,6 +23,13 @@ import type { PresupuestoItem } from "../types/presupuesto.types";
 
 import { duplicarPresupuesto } from "../api/duplicarPresupuesto";
 
+import { useUpdatePresupuesto } from "../hooks/useUpdatePresupuesto";
+
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+import { useNavigate } from "react-router-dom";
+
+import type { BudgetItem } from "@/shared/budget/types/budget.types";
+
 type Props = {
   presupuestoId: string;
 
@@ -43,6 +51,29 @@ export function PresupuestoDetallePage({
     user?.role === "admin" || user?.role === "superadmin";
 
   const { download } = usePresupuestoPdf();
+
+  const navigate = useNavigate();
+
+  const clearBudget = useBudgetStore((state) => state.clearBudget);
+
+  const setItems = useBudgetStore((state) => state.setItems);
+
+  const setEditingPresupuestoId = useBudgetStore(
+    (state) => state.setEditingPresupuestoId,
+  );
+
+  const setEditingCliente = useBudgetStore((state) => state.setEditingCliente);
+
+  const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
+  const [editing, setEditing] = useState(false);
+
+  const [cliente, setCliente] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [observaciones, setObservaciones] = useState("");
+  const [validez, setValidez] = useState("");
+
+  const updateMutation = useUpdatePresupuesto();
 
   async function handleEstadoChange(estado: string) {
     try {
@@ -90,6 +121,67 @@ export function PresupuestoDetallePage({
     }
   }
 
+  function handleEditarPresupuesto() {
+    console.log("CLICK EDITAR");
+    console.log(data);
+
+    if (!data) return;
+
+    clearBudget();
+
+    setItems(
+      data.items.map((item) => ({
+        ...item,
+        id: item.id ?? crypto.randomUUID(),
+        groupKey: crypto.randomUUID(),
+      })) as BudgetItem[],
+    );
+
+    setEditingPresupuestoId(data.id);
+
+    setEditingCliente({
+      nombre: data.cliente || "",
+      telefono: data.telefono || "",
+    });
+
+    setEditingFecha(data.fecha ?? null);
+
+    navigate("/");
+  }
+
+  async function handleSave() {
+    try {
+      await updateMutation.mutateAsync({
+        id: presupuestoId,
+        payload: {
+          cliente,
+          telefono,
+          direccion,
+          observaciones,
+          validez,
+        },
+      });
+
+      toast.success("Presupuesto actualizado.");
+
+      setEditing(false);
+
+      await refetch();
+    } catch (error) {
+      console.error(error);
+
+      toast.error("No se pudo actualizar.");
+    }
+  }
+  useEffect(() => {
+    if (!data) return;
+
+    setCliente(data.cliente || "");
+    setTelefono(data.telefono || "");
+    setDireccion(data.direccion || "");
+    setObservaciones(data.observaciones || "");
+    setValidez(data.validez || "");
+  }, [data]);
   if (isLoading) {
     return (
       <div className="p-10">
@@ -154,7 +246,106 @@ export function PresupuestoDetallePage({
             Presupuesto #{data.numero}
           </h1>
 
-          <p className="mt-2 text-zinc-500">{data.cliente || "Sin cliente"}</p>
+          {editing ? (
+            <div className="mt-4 max-w-md space-y-3">
+              <input
+                value={cliente}
+                onChange={(e) => setCliente(e.target.value)}
+                placeholder="Cliente"
+                className="
+        w-full
+        rounded-xl
+        border border-border
+        bg-card
+        p-3
+      "
+              />
+
+              <input
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                placeholder="Teléfono"
+                className="
+        w-full
+        rounded-xl
+        border border-border
+        bg-card
+        p-3
+      "
+              />
+
+              <input
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+                placeholder="Dirección"
+                className="
+        w-full
+        rounded-xl
+        border border-border
+        bg-card
+        p-3
+      "
+              />
+
+              <input
+                value={validez}
+                onChange={(e) => setValidez(e.target.value)}
+                placeholder="Validez"
+                className="
+        w-full
+        rounded-xl
+        border border-border
+        bg-card
+        p-3
+      "
+              />
+
+              <textarea
+                value={observaciones}
+                onChange={(e) => setObservaciones(e.target.value)}
+                placeholder="Observaciones"
+                className="
+        w-full
+        rounded-xl
+        border border-border
+        bg-card
+        p-3
+      "
+              />
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSave}
+                  className="
+          rounded-xl
+          bg-lime-500
+          px-4
+          py-2
+          font-semibold
+          text-black
+        "
+                >
+                  💾 Guardar
+                </button>
+
+                <button
+                  onClick={() => setEditing(false)}
+                  className="
+          rounded-xl
+          border border-border
+          px-4
+          py-2
+        "
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="mt-2 text-zinc-500">
+              {data.cliente || "Sin cliente"}
+            </p>
+          )}
           <div className="mt-4 flex items-center gap-3">
             <span
               className={`
@@ -175,6 +366,23 @@ export function PresupuestoDetallePage({
             </span>
 
             <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button
+                onClick={handleEditarPresupuesto}
+                className="
+    rounded-xl
+    border
+    border-blue-500
+    px-4
+    py-2
+    text-sm
+    font-semibold
+    text-blue-400
+    transition
+    hover:bg-blue-500/10
+  "
+              >
+                ✏ Editar presupuesto
+              </button>
               <button
                 onClick={handleDuplicar}
                 className="
@@ -228,9 +436,31 @@ export function PresupuestoDetallePage({
                   ↩ Volver a pendiente
                 </button>
               )}
-
               <button
-                onClick={() => download(presupuestoId)}
+                onClick={() => setEditing(!editing)}
+                className="
+    rounded-xl
+    border
+    border-blue-500
+    px-4
+    py-2
+    text-sm
+    font-semibold
+    text-blue-400
+    transition
+    hover:bg-blue-500/10
+  "
+              >
+                📝 Editar datos
+              </button>
+              <button
+                onClick={() =>
+                  download(
+                    presupuestoId,
+                    data.cliente || "SIN CLIENTE",
+                    data.fecha ?? new Date().toISOString(),
+                  )
+                }
                 className="
       rounded-xl
       border
@@ -252,7 +482,13 @@ export function PresupuestoDetallePage({
                   items: data.items,
                   total: data.total,
                 }}
-                onPdf={() => download(presupuestoId)}
+                onPdf={() =>
+                  download(
+                    presupuestoId,
+                    data.cliente || "SIN CLIENTE",
+                    data.fecha ?? new Date().toISOString(),
+                  )
+                }
               />
               <DeletePresupuestoDialog onConfirm={handleDelete} />
             </div>

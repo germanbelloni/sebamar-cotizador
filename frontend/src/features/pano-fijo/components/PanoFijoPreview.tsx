@@ -6,6 +6,9 @@ import { calculateScale } from "@/shared/svg/utils/calculateScale";
 
 import { SVG_COLORS } from "@/shared/svg/constants/colors";
 
+import { Premarco } from "@/features/ventanas/svg/Premarco";
+import { Contramarco } from "@/features/ventanas/svg/Contramarco";
+
 type Props = {
   config: PanoFijoConfig;
 };
@@ -352,6 +355,24 @@ export function PanoFijoPreview({ config }: Props) {
               </>
             )}
           </g>
+
+          {/* PREMARCO */}
+
+          {config.premarco && (
+            <Premarco left={left} top={top} ancho={ancho} alto={alto} />
+          )}
+
+          {/* CONTRAMARCO */}
+
+          {config.contramarco && (
+            <Contramarco
+              left={left}
+              top={top}
+              ancho={ancho}
+              alto={alto}
+              color={config.color}
+            />
+          )}
 
           {/* ====================================== */}
           {/* REFLEJOS */}

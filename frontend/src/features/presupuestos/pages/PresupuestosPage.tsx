@@ -3,6 +3,11 @@ import { useState } from "react";
 import { FileText } from "lucide-react";
 import { openPdf } from "../api/openPdf";
 
+import { useDeletePresupuesto } from "../hooks/useDeletePresupuesto";
+import { useUpdatePresupuestoEstado } from "../hooks/useUpdatePresupuestoEstado";
+
+import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
+import { AprobarPresupuestoDialog } from "../components/AprobarPresupuestoDialog";
 type Presupuesto = {
   id: string;
 
@@ -30,6 +35,8 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
   const { data, isLoading } = usePresupuestos();
   const [filtro, setFiltro] = useState("pendiente");
   const [busqueda, setBusqueda] = useState("");
+  const deleteMutation = useDeletePresupuesto();
+  const estadoMutation = useUpdatePresupuestoEstado();
 
   if (isLoading) {
     return (
@@ -183,37 +190,46 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                     ? new Date(presupuesto.fecha).toLocaleDateString("es-AR")
                     : "-"}
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-
-                    openPdf(presupuesto.id);
-                  }}
-                  className="
-    mt-3
-    inline-flex
-    items-center
-    gap-2
-
-    rounded-xl
-
-    border
-    border-border
-
-    px-3
-    py-2
-
-    text-xs
-    font-semibold
-
-    transition
-
-    hover:bg-muted
-  "
+                <div
+                  className="mt-3 flex items-center justify-end gap-2"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <FileText size={14} />
-                  PDF
-                </button>
+                  <button
+                    onClick={() =>
+                      openPdf(
+                        presupuesto.id,
+                        presupuesto.cliente || "SIN CLIENTE",
+                        presupuesto.fecha ?? new Date().toISOString(),
+                      )
+                    }
+                    className="
+      rounded-xl
+      border
+      border-border
+      p-2
+      transition
+      hover:bg-muted
+    "
+                    title="Descargar PDF"
+                  >
+                    <FileText size={14} />
+                  </button>
+
+                  {presupuesto.estado !== "aprobado" && (
+                    <AprobarPresupuestoDialog
+                      onConfirm={() =>
+                        estadoMutation.mutate({
+                          id: presupuesto.id,
+                          estado: "aprobado",
+                        })
+                      }
+                    />
+                  )}
+
+                  <DeletePresupuestoDialog
+                    onConfirm={() => deleteMutation.mutate(presupuesto.id)}
+                  />
+                </div>
               </div>
             </div>
           ))}

@@ -21,6 +21,8 @@ export default defineConfig([
 
     rules: {
       "react-hooks/static-components": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-refresh/only-export-components": "off",
     },
   },
 ]);

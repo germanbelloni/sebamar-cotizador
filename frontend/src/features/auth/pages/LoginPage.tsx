@@ -166,13 +166,13 @@ export function LoginPage() {
 
           <div className="mt-8 flex justify-center">
             <img
-              src="/logo.png"
+              src="/logos/sebamar.png"
               alt="Sebamar"
               className="
-                h-24
-                object-contain
-                drop-shadow-[0_0_25px_rgba(255,255,255,0.18)]
-              "
+    h-24
+    object-contain
+    drop-shadow-[0_0_25px_rgba(255,255,255,0.18)]
+  "
             />
           </div>
 
