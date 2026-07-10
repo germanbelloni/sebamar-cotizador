@@ -47,7 +47,7 @@ function aplicarColor(items, color) {
   const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
-    if (item.tipo !== "estructura") {
+    if (!["estructura", "mosquitero", "contramarco"].includes(item.tipo)) {
       return item;
     }
 
@@ -332,10 +332,29 @@ function calcularVentanaModena(dataInput) {
   }
 
   // 💰 PERFIL
-  const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  const perfilMosquitero =
+    perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
 
+  const costoMosquitero =
+    items.find((i) => i.tipo === "mosquitero")?.precio || 0;
+
+  const costoModena = costo - costoMosquitero;
+
+  const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
+    costoModena,
+    perfilModena,
+  );
+
+  const { proveedor: proveedorMosquitero, venta: ventaMosquitero } =
+    aplicarPerfil(costoMosquitero, perfilMosquitero);
+
+  const proveedor = proveedorModena + proveedorMosquitero;
+
+  const venta = ventaModena + ventaMosquitero;
+
+  const perfilData = perfilModena;
   audit.add({
     etapa: "Perfil",
 

@@ -79,7 +79,7 @@ function aplicarColor(items, color) {
   const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
-    if (item.tipo !== "estructura") {
+    if (!["estructura", "mosquitero"].includes(item.tipo)) {
       return item;
     }
 
@@ -277,9 +277,29 @@ function calcularVentanaHerrero(dataInput) {
   console.log("PERFIL:", perfil);
   console.log("PERFILES:", Object.keys(perfiles));
   console.log("PERFIL DATA:", perfiles[perfil]);
-  const perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
+  const perfilHerrero = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  const perfilMosquitero =
+    perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
+
+  const costoMosquitero =
+    items.find((i) => i.tipo === "mosquitero")?.precio || 0;
+
+  const costoHerrero = costo - costoMosquitero;
+
+  const { proveedor: proveedorHerrero, venta: ventaHerrero } = aplicarPerfil(
+    costoHerrero,
+    perfilHerrero,
+  );
+
+  const { proveedor: proveedorMosquitero, venta: ventaMosquitero } =
+    aplicarPerfil(costoMosquitero, perfilMosquitero);
+
+  const proveedor = proveedorHerrero + proveedorMosquitero;
+
+  const venta = ventaHerrero + ventaMosquitero;
+
+  const perfilData = perfilHerrero;
 
   audit.add({
     etapa: "Perfil",

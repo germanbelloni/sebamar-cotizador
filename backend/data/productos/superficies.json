@@ -11,7 +11,7 @@
   "superficies": {
     "pano_fijo": {
       "herrero": 10685,
-      "modena": 20505
+      "modena": 18080
     },
     "premarco": 7400,
     "contramarco": 4200,
@@ -26,7 +26,7 @@
     "cajon_block": 200000,
 
     "cortinas": {
-      "pvc": 18500,
+      "pvc": 37410,
       "aluminio": 42000
     }
   },
