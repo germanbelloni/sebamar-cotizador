@@ -52,4 +52,5 @@ export type Presupuesto = {
   total: number;
 
   items: PresupuestoItem[];
+  validez?: string;
 };

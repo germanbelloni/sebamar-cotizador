@@ -37,7 +37,35 @@ async function nuevoNumero(req, res) {
 // =========================
 // CALCULADOR GLOBAL
 // =========================
+//ACTUALIZAR
+async function actualizarItems(req, res) {
+  try {
+    const presupuesto = await Presupuesto.findById(req.params.id);
 
+    if (!presupuesto) {
+      return res.status(404).json({
+        error: "Presupuesto no encontrado",
+      });
+    }
+
+    presupuesto.items = req.body.items;
+    presupuesto.total = req.body.total;
+    presupuesto.cliente = req.body.cliente;
+    presupuesto.telefono = req.body.telefono;
+
+    await presupuesto.save();
+
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      error: "Error actualizando presupuesto",
+    });
+  }
+}
 // =========================
 // CREAR
 // =========================
@@ -447,6 +475,29 @@ async function actualizar(req, res) {
       });
     }
 
+    // 👑 SUPERADMIN
+    if (req.user.role === "superadmin") {
+      // acceso total
+    }
+
+    // 🧑 ADMIN
+    else if (req.user.role === "admin") {
+      if (presupuesto.ownerId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
+    // 👨 USER
+    else {
+      if (presupuesto.userId?.toString() !== req.user.id) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
+
     presupuesto.cliente = req.body.cliente;
     presupuesto.telefono = req.body.telefono;
     presupuesto.direccion = req.body.direccion;
@@ -470,10 +521,11 @@ async function actualizar(req, res) {
 module.exports = {
   crear,
   listar,
-  nuevoNumero,
   obtener,
-  pdf,
-  eliminar,
   actualizar,
+  actualizarItems,
+  eliminar,
+  pdf,
   cambiarEstado,
+  nuevoNumero,
 };

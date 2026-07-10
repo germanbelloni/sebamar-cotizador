@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { budgetToWhatsApp } from "@/shared/budget/serializers/budgetToWhatsApp";
 import { openPdf } from "@/features/presupuestos/api/openPdf";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+import { useUpdatePresupuestoCompleto } from "@/features/presupuestos/hooks/useUpdatePresupuestoCompleto";
 
 type Props = {
   numero: number;
@@ -42,6 +44,19 @@ export function PrintableBudget({
   const primaryColor = empresa.primaryColor || "#111827";
 
   const guardarMutation = useGuardarPresupuesto();
+  const updateMutation = useUpdatePresupuestoCompleto();
+  const editingPresupuestoId = useBudgetStore(
+    (state) => state.editingPresupuestoId,
+  );
+
+  const setEditingPresupuestoId = useBudgetStore(
+    (state) => state.setEditingPresupuestoId,
+  );
+  const setEditingCliente = useBudgetStore((state) => state.setEditingCliente);
+
+  const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
+
+  const clearBudget = useBudgetStore((state) => state.clearBudget);
   const [presupuestoGuardado, setPresupuestoGuardado] = useState<{
     id: string;
     numero?: number;
@@ -79,6 +94,37 @@ export function PrintableBudget({
     );
   }
 
+  async function handleActualizarPresupuesto() {
+    if (!editingPresupuestoId) return;
+
+    try {
+      await updateMutation.mutateAsync({
+        id: editingPresupuestoId,
+        cliente: cliente.nombre,
+        telefono: cliente.telefono,
+        items,
+        total: items.reduce((acc, item) => acc + item.subtotal, 0),
+      });
+
+      setPresupuestoGuardado({
+        id: editingPresupuestoId,
+      });
+
+      clearBudget();
+
+      setEditingPresupuestoId(null);
+      setEditingCliente(null);
+      setEditingFecha(null);
+
+      toast.success("Presupuesto actualizado.");
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+
+      toast.error("No se pudo actualizar el presupuesto.");
+    }
+  }
   function handleCopyText() {
     const text = budgetToWhatsApp({
       empresa: empresa.nombre,
@@ -102,6 +148,36 @@ export function PrintableBudget({
 
   return (
     <div className="w-full bg-white py-2 print:bg-white print:py-0">
+      {editingPresupuestoId && (
+        <div
+          className="
+      mx-auto
+      mb-6
+      flex
+      w-[850px]
+      items-center
+      justify-between
+      rounded-2xl
+      border
+      border-amber-400
+      bg-amber-50
+      px-6
+      py-4
+      text-amber-700
+      print:hidden
+    "
+        >
+          <div>
+            <p className="font-bold">
+              ✏ Estás editando un presupuesto existente
+            </p>
+
+            <p className="text-sm">
+              Los cambios reemplazarán el presupuesto original.
+            </p>
+          </div>
+        </div>
+      )}
       <div className="print-hidden mx-auto mb-8 flex w-[850px] items-center justify-between px-4">
         {/* IZQUIERDA */}
         <div className="flex items-center gap-3">
@@ -120,9 +196,13 @@ export function PrintableBudget({
           <Button
             variant="secondary"
             className="rounded-full bg-zinc-200 text-black hover:bg-zinc-300"
-            onClick={handleGuardarPresupuesto}
+            onClick={
+              editingPresupuestoId
+                ? handleActualizarPresupuesto
+                : handleGuardarPresupuesto
+            }
           >
-            Guardar
+            {editingPresupuestoId ? "Actualizar presupuesto" : "Guardar"}
           </Button>
 
           <Button

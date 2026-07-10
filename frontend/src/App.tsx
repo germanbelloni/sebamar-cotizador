@@ -177,6 +177,8 @@ function App() {
 
   const items = useBudgetStore((state) => state.items);
 
+  const editingCliente = useBudgetStore((state) => state.editingCliente);
+
   /* CLIENTE */
 
   const [cliente, setCliente] = useState<Cliente>({
@@ -185,6 +187,11 @@ function App() {
     telefono: "",
   });
 
+  useEffect(() => {
+    if (!editingCliente) return;
+
+    setCliente(editingCliente);
+  }, [editingCliente]);
   /* RAJAS */
 
   const [rajasConfig, setRajasConfig] =
