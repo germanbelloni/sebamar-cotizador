@@ -108,7 +108,7 @@ function calcularPuertas(dataInput) {
 
   let hojas = 1;
 
-  if (tipo === "doble" || tipo === "puerta_y_media") {
+  if (tipoFinal === "doble" || tipoFinal === "puerta_y_media") {
     hojas = 2;
   }
 
@@ -116,7 +116,7 @@ function calcularPuertas(dataInput) {
   // 🚪 PUERTA Y MEDIA
   // ========================
 
-  if (tipo === "puerta_y_media") {
+  if (tipoFinal === "puerta_y_media") {
     const puerta = buscarModelo(data.modelos, modeloFinal);
 
     let media = null;
@@ -280,7 +280,12 @@ function calcularPuertas(dataInput) {
   }
 
   const costoBase = estructura + vidrioTotal;
-
+  console.log({
+    tipo,
+    configuracion,
+    tipoFinal,
+    hojas,
+  });
   return {
     costoBase: Math.round(costoBase),
 
@@ -289,7 +294,7 @@ function calcularPuertas(dataInput) {
     items,
     descripcion: `Puerta ${linea}`,
     configuracion: {
-      tipo,
+      tipo: tipoFinal,
 
       hojas,
 
