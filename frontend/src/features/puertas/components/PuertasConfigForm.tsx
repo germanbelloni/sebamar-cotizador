@@ -100,8 +100,16 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     );
   }
 
-  const vidrios = VIDRIOS_POR_LINEA[config.linea];
+  let vidrios = [...VIDRIOS_POR_LINEA[config.linea]];
 
+  if (
+    config.linea === "herrero" &&
+    config.tipoConfiguracion === "puerta_y_media" &&
+    config.modeloMediaPuerta === "v_entero"
+  ) {
+    vidrios = vidrios.filter((v) => v !== "3mm");
+  }
+  console.log("VIDRIOS", vidrios);
   const presets = PRESETS_PUERTAS[config.tipoConfiguracion];
 
   const esPorton = config.tipoConfiguracion === "porton";
@@ -191,11 +199,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
     return config.modelo === modelo;
   };
-
   const modeloSinVidrio =
     config.modelo === "modelo_5" ||
     config.modelo === "modelo_panel" ||
     config.modelo === "modelo_c_panel";
+
+  console.log("VIDRIO ACTUAL", config.vidrio);
 
   const esFueraDeMedida = !presets.some(
     (preset) =>
@@ -488,7 +497,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         {!modeloSinVidrio && (
           <FormSection title="Vidrio">
             <VidrioSelector
-              value={config.vidrio || "3mm"}
+              key={`${config.linea}-${config.tipoConfiguracion}-${config.modeloMediaPuerta}`}
+              value={
+                vidrios.includes(config.vidrio)
+                  ? config.vidrio
+                  : (vidrios[0] ?? "4mm")
+              }
               options={vidrios}
               onChange={(value) =>
                 updateConfig({
