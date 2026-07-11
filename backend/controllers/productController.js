@@ -39,6 +39,8 @@ const logAuditoria = require("../auditor/logAuditoria");
 
 const calcularVentanaAbrir = require("../../wrappers/ventanasAbrir/calcularVentanaAbrir");
 
+const calcularCortinas = require("../../wrappers/cortinas/calcularCortinas");
+
 function isValidationError(message = "") {
   const text = String(message).toLowerCase();
 
@@ -255,6 +257,14 @@ function superficies(req, res) {
     calcularsuperficies(payload),
   );
 }
+// =========================
+// CORTINAS
+// =========================
+function cortinas(req, res) {
+  return runCalculation(req, res, "CORTINAS", (payload) =>
+    calcularCortinas(payload),
+  );
+}
 
 // =========================
 // 🏔 PATAGONICAS
@@ -294,24 +304,15 @@ function patagonicas(req, res) {
 
 module.exports = {
   mosquiteros,
-
   patagonicas,
-
   placas,
-
   postigones,
-
   portones,
-
   puertas,
-
   puertasEco,
-
   rajas,
-
   ventanas,
-
   ventanasAbrir,
-
   superficies,
+  cortinas,
 };

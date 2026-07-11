@@ -35,6 +35,11 @@ module.exports = {
       flete: 0.06,
       ganancia: 0.1,
     },
+    cortinas: {
+      descuento: 0,
+      flete: 0.15,
+      ganancia: 0.3,
+    },
   },
 
   azul: {
@@ -71,6 +76,11 @@ module.exports = {
       descuento: 0.07,
       flete: 0.06,
       ganancia: 0.1,
+    },
+    cortinas: {
+      descuento: 0,
+      flete: 0.15,
+      ganancia: 0.3,
     },
   },
 
@@ -109,6 +119,11 @@ module.exports = {
       flete: 0.06,
       ganancia: 0.1,
     },
+    cortinas: {
+      descuento: 0,
+      flete: 0.15,
+      ganancia: 0.3,
+    },
   },
   papu: {
     herrero: {
@@ -145,6 +160,11 @@ module.exports = {
       descuento: 0,
       ganancia: 0,
       aumento: 0,
+    },
+    cortinas: {
+      descuento: 0,
+      flete: 0,
+      ganancia: 0,
     },
   },
 };

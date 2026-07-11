@@ -22,12 +22,39 @@
     "perfil_acople": 5905,
 
     "mosquitero_fijo": 48364,
-
     "cajon_block": 200000,
 
-    "cortinas": {
-      "pvc": 37410,
-      "aluminio": 42000
+    "cajon_block_precios": {
+      "pvc": 0,
+      "aluminio": 0
+    },
+
+    "cortinas_modulo": {
+      "pvc": {
+        "liviana": {
+          "completa": 0,
+          "pano_solo": 0
+        },
+        "reforzada": {
+          "completa": 37410,
+          "pano_solo": 0
+        },
+        "super_reforzada": {
+          "completa": 0,
+          "pano_solo": 0
+        }
+      },
+
+      "aluminio": {
+        "blanco": {
+          "completa": 42000,
+          "pano_solo": 0
+        },
+        "simil_madera": {
+          "completa": 0,
+          "pano_solo": 0
+        }
+      }
     }
   },
 

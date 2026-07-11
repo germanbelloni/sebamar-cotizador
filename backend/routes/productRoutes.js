@@ -56,5 +56,6 @@ router.post("/patagonicas", productController.patagonicas);
 // =========================
 
 router.post("/superficies", productController.superficies);
+router.post("/cortinas", productController.cortinas);
 
 module.exports = router;
