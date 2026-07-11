@@ -54,6 +54,9 @@ export async function cotizarPuertas(
 
     tipoVidrio: modeloSinVidrio ? undefined : config.vidrio,
 
+    premarco: config.premarco,
+    contramarco: config.contramarco,
+
     extras: config.extras,
   };
 

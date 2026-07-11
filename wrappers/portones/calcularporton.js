@@ -32,17 +32,26 @@ function getColorFactor(color) {
 function calcularPortonWrapper(dataInput) {
   const audit = new AuditBuilder();
   console.log("REQ BODY PORTONES:", dataInput);
+
   console.log("SISTEMA RECIBIDO:", dataInput.sistema);
   const {
     perfil = "amarilla",
     linea,
     color = "blanco",
-    sistema,
+    sistema: sistemaInput,
+    tipoPorton,
     hojas = 3,
     modelo,
     extras = {},
     alto,
+    premarco = false,
+    contramarco = false,
   } = dataInput;
+
+  const sistema = sistemaInput || tipoPorton;
+  console.log("SISTEMA RECIBIDO:", sistema);
+  console.log("PREMARCO:", premarco);
+  console.log("CONTRAMARCO:", contramarco);
 
   if (!["abrir", "corredizo", "plegadizo"].includes(sistema)) {
     throw new Error("Sistema inválido");
@@ -407,12 +416,94 @@ function calcularPortonWrapper(dataInput) {
     });
   }
 
-  const perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
+  if (linea === "modena") {
+    const ml = (dataInput.ancho * 2 + dataInput.alto * 2) / 100;
 
-  const costoFinal = costo * (1 - perfilData.descuento);
-  const proveedor = costoFinal * (1 + perfilData.flete);
-  const venta = proveedor * (1 + perfilData.ganancia);
+    if (premarco) {
+      const c = Number(superficies.superficies.premarco || 0) * ml;
 
+      costo += c;
+
+      items.push({
+        tipo: "premarco",
+        precio: Math.round(c),
+      });
+
+      audit.add({
+        etapa: "Premarco",
+        tipo: "extra",
+        origen: "superficies.json",
+        valorAntes: costo - c,
+        valorAplicado: c,
+        valorDespues: costo,
+      });
+    }
+
+    if (premarco || contramarco) {
+      const c = Number(superficies.superficies.contramarco || 0) * ml;
+
+      costo += c;
+
+      items.push({
+        tipo: "contramarco",
+        precio: Math.round(c),
+      });
+
+      audit.add({
+        etapa: "Contramarco",
+        tipo: "extra",
+        origen: "superficies.json",
+        valorAntes: costo - c,
+        valorAplicado: c,
+        valorDespues: costo,
+      });
+    }
+  }
+
+  let proveedor;
+  let venta;
+  let perfilData;
+  let costoFinal;
+
+  if (linea === "modena") {
+    const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+
+    const perfilPremarcos =
+      perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+    const costoPremarcos = items
+      .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const costoPorton = costo - costoPremarcos;
+
+    const proveedorPorton = costoPorton * (1 - perfilModena.descuento);
+
+    const ventaPorton =
+      proveedorPorton * (1 + perfilModena.flete) * (1 + perfilModena.ganancia);
+
+    const proveedorPremarcos = costoPremarcos * (1 - perfilPremarcos.descuento);
+
+    const ventaPremarcos =
+      proveedorPremarcos *
+      (1 + perfilPremarcos.flete) *
+      (1 + perfilPremarcos.ganancia);
+
+    proveedor = proveedorPorton + proveedorPremarcos;
+    venta = ventaPorton + ventaPremarcos;
+
+    costoFinal = costo;
+
+    perfilData = perfilModena;
+  } else {
+    perfilData = perfiles[perfil]?.[linea] || perfiles.amarilla[linea];
+
+    costoFinal = costo * (1 - perfilData.descuento);
+
+    proveedor = costoFinal * (1 + perfilData.flete);
+
+    venta = proveedor * (1 + perfilData.ganancia);
+  }
   audit.add({
     etapa: "Perfil",
 
@@ -478,6 +569,8 @@ function calcularPortonWrapper(dataInput) {
       color,
       sistema,
       hojas,
+      premarco,
+      contramarco,
     },
 
     audit: audit.getSteps(),

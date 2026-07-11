@@ -41,6 +41,8 @@ export type PuertasConfig = {
 
   modelo: string;
   modeloMediaPuerta?: string;
+  premarco: boolean;
+  contramarco: boolean;
 
   color: "blanco" | "negro" | "bronce colonial" | "simil madera";
 

@@ -7,10 +7,16 @@ type Props = {
   picaporte?: boolean;
   mediaManija?: boolean;
 
+  premarco?: boolean;
+  contramarco?: boolean;
+  linea?: string;
+
   onToggleBarralRecto: () => void;
   onToggleBarralCurvo: () => void;
   onTogglePicaporte: () => void;
   onToggleMediaManija: () => void;
+  onTogglePremarco: () => void;
+  onToggleContramarco: () => void;
 };
 
 export function PuertasExtrasSection({
@@ -18,10 +24,17 @@ export function PuertasExtrasSection({
   barralCurvo,
   picaporte,
   mediaManija,
+
+  premarco,
+  contramarco,
+  linea,
+
   onToggleBarralRecto,
   onToggleBarralCurvo,
   onTogglePicaporte,
   onToggleMediaManija,
+  onTogglePremarco,
+  onToggleContramarco,
 }: Props) {
   const tieneBarral = !!barralRecto || !!barralCurvo;
 
@@ -150,6 +163,25 @@ export function PuertasExtrasSection({
           <div className="text-sm font-medium">Picaporte</div>
         </div>
       </SelectableCard>
+
+      {linea === "modena" && (
+        <>
+          <SelectableCard selected={!!premarco} onClick={onTogglePremarco}>
+            <div className="flex h-full items-center justify-center text-sm font-medium">
+              Premarco
+            </div>
+          </SelectableCard>
+
+          <SelectableCard
+            selected={!!contramarco}
+            onClick={onToggleContramarco}
+          >
+            <div className="flex h-full items-center justify-center text-sm font-medium">
+              Contramarco
+            </div>
+          </SelectableCard>
+        </>
+      )}
     </div>
   );
 }

@@ -376,50 +376,55 @@ function calcularPuertaWrapper(dataInput) {
   // ========================
   // 💰 PERFIL
   // ========================
-
   const lineaPerfil = linea === "eco" ? "herrero" : linea;
+  let proveedor;
+  let venta;
+  let perfilData;
 
-  const perfilData =
-    perfiles[perfil]?.[lineaPerfil] || perfiles.amarilla[lineaPerfil];
-  if (!perfilData) {
-    throw new Error(`No existe perfil para la línea "${linea}".`);
+  if (linea === "modena") {
+    const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+
+    const perfilPremarcos =
+      perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+    const costoPremarcos = items
+      .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const costoModena = costo - costoPremarcos;
+
+    const r1 = aplicarPerfil(costoModena, perfilModena);
+    const r2 = aplicarPerfil(costoPremarcos, perfilPremarcos);
+
+    proveedor = r1.proveedor + r2.proveedor;
+    venta = r1.venta + r2.venta;
+
+    perfilData = perfilModena;
+
+    console.log("COSTOS", {
+      costo,
+      costoModena,
+      costoPremarcos,
+    });
+
+    console.log("VENTAS", {
+      ventaModena: r1.venta,
+      ventaPremarcos: r2.venta,
+    });
+  } else {
+    perfilData =
+      perfiles[perfil]?.[lineaPerfil] || perfiles.amarilla[lineaPerfil];
+
+    if (!perfilData) {
+      throw new Error(`No existe perfil para la línea "${linea}".`);
+    }
+
+    const r = aplicarPerfil(costo, perfilData);
+
+    proveedor = r.proveedor;
+    venta = r.venta;
   }
 
-  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
-
-  const perfilPremarcos =
-    perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
-
-  const costoPremarcos = items
-    .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
-    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
-
-  const costoModena = costo - costoPremarcos;
-
-  const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
-    costoModena,
-    perfilModena,
-  );
-
-  const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
-    aplicarPerfil(costoPremarcos, perfilPremarcos);
-
-  const proveedor = proveedorModena + proveedorPremarcos;
-
-  const venta = ventaModena + ventaPremarcos;
-
-  const perfilData = perfilModena;
-
-  console.log("COSTOS", {
-    costo,
-    costoModena,
-    costoPremarcos,
-  });
-
-  console.log("VENTAS", {
-    ventaModena,
-    ventaPremarcos,
-  });
   audit.add({
     etapa: "Perfil",
 

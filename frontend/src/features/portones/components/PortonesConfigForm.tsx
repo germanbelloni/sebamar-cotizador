@@ -197,6 +197,34 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
+        {config.linea === "modena" && (
+          <FormSection title="Premarcos">
+            <div className="grid grid-cols-2 gap-3">
+              <SelectableCard
+                selected={!!config.premarco}
+                onClick={() =>
+                  updateConfig({
+                    premarco: !config.premarco,
+                  })
+                }
+              >
+                Premarco
+              </SelectableCard>
+
+              <SelectableCard
+                selected={!!config.contramarco}
+                onClick={() =>
+                  updateConfig({
+                    contramarco: !config.contramarco,
+                  })
+                }
+              >
+                Contramarco
+              </SelectableCard>
+            </div>
+          </FormSection>
+        )}
+
         <FormSection title="Extras">
           <div className="grid grid-cols-2 gap-3">
             <SelectableCard

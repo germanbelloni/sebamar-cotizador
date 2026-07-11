@@ -320,11 +320,37 @@ function calcularVentanaAbrir(dataInput) {
   // PERFIL
   // ======================================
 
-  const perfilData =
-    perfiles[perfil]?.[esHerrero ? "herrero" : "modena"] ||
-    perfiles.amarilla[esHerrero ? "herrero" : "modena"];
+  let proveedor;
+  let venta;
+  let perfilData;
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  if (!esHerrero) {
+    const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+
+    const perfilPremarcos =
+      perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+    const costoPremarcos = items
+      .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const costoVentana = costo - costoPremarcos;
+
+    const r1 = aplicarPerfil(costoVentana, perfilModena);
+    const r2 = aplicarPerfil(costoPremarcos, perfilPremarcos);
+
+    proveedor = r1.proveedor + r2.proveedor;
+    venta = r1.venta + r2.venta;
+
+    perfilData = perfilModena;
+  } else {
+    perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
+
+    const r = aplicarPerfil(costo, perfilData);
+
+    proveedor = r.proveedor;
+    venta = r.venta;
+  }
   audit.add({
     etapa: "Perfil",
 

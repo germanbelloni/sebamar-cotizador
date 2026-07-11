@@ -38,6 +38,9 @@ export type PortonesConfig = {
   tipoVidrio?: PortonVidrio;
 
   extras: PortonesExtras;
+
+  premarco?: boolean;
+  contramarco?: boolean;
 };
 
 export type PortonesItem = {

@@ -512,6 +512,20 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
         <FormSection title="Extras">
           <PuertasExtrasSection
+            linea={config.linea}
+            premarco={config.premarco}
+            contramarco={config.contramarco}
+            onTogglePremarco={() =>
+              updateConfig({
+                premarco: !config.premarco,
+                contramarco: !config.premarco ? true : config.contramarco,
+              })
+            }
+            onToggleContramarco={() =>
+              updateConfig({
+                contramarco: !config.contramarco,
+              })
+            }
             barralRecto={config.extras.barralRecto}
             barralCurvo={config.extras.barralCurvo}
             picaporte={config.extras.picaporte}
