@@ -161,9 +161,8 @@ function calcularsuperficiesWrapper(dataInput) {
 
   let perfilLinea = linea;
 
-  // Marcos trabajan como Modena
   if (tipo === "premarco" || tipo === "contramarco") {
-    perfilLinea = "modena";
+    perfilLinea = "premarcos";
   }
 
   const perfilData = perfiles[perfil]?.[perfilLinea];

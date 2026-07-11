@@ -30,6 +30,11 @@ module.exports = {
       ganancia: 0.3,
       aumento: 0.05, // 🔥 NUEVO
     },
+    premarcos: {
+      descuento: 0.07,
+      flete: 0.06,
+      ganancia: 0.1,
+    },
   },
 
   azul: {
@@ -61,6 +66,11 @@ module.exports = {
       descuento: 0.09,
       ganancia: 0.3,
       aumento: 0.05,
+    },
+    premarcos: {
+      descuento: 0.07,
+      flete: 0.06,
+      ganancia: 0.1,
     },
   },
 
@@ -94,6 +104,11 @@ module.exports = {
       ganancia: 0.3,
       aumento: 0.05,
     },
+    premarcos: {
+      descuento: 0.07,
+      flete: 0.06,
+      ganancia: 0.1,
+    },
   },
   papu: {
     herrero: {
@@ -103,6 +118,12 @@ module.exports = {
     },
 
     modena: {
+      descuento: 0,
+      flete: 0,
+      ganancia: 0,
+    },
+
+    premarcos: {
       descuento: 0,
       flete: 0,
       ganancia: 0,

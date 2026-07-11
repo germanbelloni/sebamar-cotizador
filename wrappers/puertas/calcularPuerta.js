@@ -31,6 +31,7 @@ function getColorFactor(color) {
 // ========================
 // 💰 PERFIL
 // ========================
+const calcularML = (a, h) => (a * 2 + h * 2) / 100;
 
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);
@@ -98,6 +99,8 @@ function calcularPuertaWrapper(dataInput) {
     configuracion = "simple",
     modelo,
     mano = "derecha",
+    premarco = false,
+    contramarco = false,
   } = dataInput;
 
   const tipo = configuracion;
@@ -326,6 +329,49 @@ function calcularPuertaWrapper(dataInput) {
       valorDespues: costo,
     });
   }
+  if (linea === "modena") {
+    const ml = calcularML(dataInput.ancho, dataInput.alto);
+
+    if (premarco) {
+      const c = Number(superficies.superficies.premarco || 0) * ml;
+
+      costo += c;
+
+      items.push({
+        tipo: "premarco",
+        precio: Math.round(c),
+      });
+
+      audit.add({
+        etapa: "Premarco",
+        tipo: "extra",
+        origen: "superficies.json",
+        valorAntes: costo - c,
+        valorAplicado: c,
+        valorDespues: costo,
+      });
+    }
+
+    if (premarco || contramarco) {
+      const c = Number(superficies.superficies.contramarco || 0) * ml;
+
+      costo += c;
+
+      items.push({
+        tipo: "contramarco",
+        precio: Math.round(c),
+      });
+
+      audit.add({
+        etapa: "Contramarco",
+        tipo: "extra",
+        origen: "superficies.json",
+        valorAntes: costo - c,
+        valorAplicado: c,
+        valorDespues: costo,
+      });
+    }
+  }
 
   // ========================
   // 💰 PERFIL
@@ -339,7 +385,41 @@ function calcularPuertaWrapper(dataInput) {
     throw new Error(`No existe perfil para la línea "${linea}".`);
   }
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+
+  const perfilPremarcos =
+    perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+  const costoPremarcos = items
+    .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const costoModena = costo - costoPremarcos;
+
+  const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
+    costoModena,
+    perfilModena,
+  );
+
+  const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
+    aplicarPerfil(costoPremarcos, perfilPremarcos);
+
+  const proveedor = proveedorModena + proveedorPremarcos;
+
+  const venta = ventaModena + ventaPremarcos;
+
+  const perfilData = perfilModena;
+
+  console.log("COSTOS", {
+    costo,
+    costoModena,
+    costoPremarcos,
+  });
+
+  console.log("VENTAS", {
+    ventaModena,
+    ventaPremarcos,
+  });
   audit.add({
     etapa: "Perfil",
 
@@ -414,6 +494,9 @@ function calcularPuertaWrapper(dataInput) {
       color,
 
       modelo,
+
+      premarco: !!premarco,
+      contramarco: !!contramarco,
 
       svg: {
         tipo: "puerta",

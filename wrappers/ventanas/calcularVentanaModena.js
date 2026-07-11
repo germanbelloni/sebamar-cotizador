@@ -336,23 +336,31 @@ function calcularVentanaModena(dataInput) {
 
   const perfilMosquitero =
     perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
+  const perfilPremarcos =
+    perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
 
   const costoMosquitero =
     items.find((i) => i.tipo === "mosquitero")?.precio || 0;
 
-  const costoModena = costo - costoMosquitero;
+  const costoPremarcos = items
+    .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+  const costoModena = costo - costoMosquitero - costoPremarcos;
 
   const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
     costoModena,
     perfilModena,
   );
 
+  const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
+    aplicarPerfil(costoPremarcos, perfilPremarcos);
+
   const { proveedor: proveedorMosquitero, venta: ventaMosquitero } =
     aplicarPerfil(costoMosquitero, perfilMosquitero);
 
-  const proveedor = proveedorModena + proveedorMosquitero;
+  const proveedor = proveedorModena + proveedorMosquitero + proveedorPremarcos;
 
-  const venta = ventaModena + ventaMosquitero;
+  const venta = ventaModena + ventaMosquitero + ventaPremarcos;
 
   const perfilData = perfilModena;
   audit.add({

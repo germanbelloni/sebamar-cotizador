@@ -416,7 +416,48 @@ function calcularRajaModena(dataInput) {
   // 💰 PERFIL
   const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  const perfilMosquitero =
+    perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
+
+  const perfilPremarcos =
+    perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+  const costoMosquitero =
+    items.find((i) => i.tipo === "mosquitero")?.precio || 0;
+
+  const costoPremarcos = items
+    .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const costoModena = costo - costoMosquitero - costoPremarcos;
+
+  const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
+    costoModena,
+    perfilData,
+  );
+
+  const { proveedor: proveedorMosquitero, venta: ventaMosquitero } =
+    aplicarPerfil(costoMosquitero, perfilMosquitero);
+
+  const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
+    aplicarPerfil(costoPremarcos, perfilPremarcos);
+
+  const proveedor = proveedorModena + proveedorMosquitero + proveedorPremarcos;
+
+  const venta = ventaModena + ventaMosquitero + ventaPremarcos;
+
+  console.log("COSTOS", {
+    costo,
+    costoModena,
+    costoMosquitero,
+    costoPremarcos,
+  });
+
+  console.log("VENTAS", {
+    ventaModena,
+    ventaMosquitero,
+    ventaPremarcos,
+  });
 
   audit.add({
     etapa: "Perfil",

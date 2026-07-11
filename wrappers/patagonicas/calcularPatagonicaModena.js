@@ -51,6 +51,9 @@ function aplicarColor(items, color) {
   });
 }
 
+const calcularM2 = (a, h) => (a * h) / 10000;
+const calcularML = (a, h) => (a * 2 + h * 2) / 100;
+
 // =========================
 // 🚀 WRAPPER
 // =========================
@@ -79,6 +82,10 @@ function calcularWrapper(dataInput) {
     tipoApertura = "abrir",
 
     herrajesBlancos = false,
+
+    mosquitero = false,
+    premarco = false,
+    contramarco = false,
   } = dataInput;
 
   // =========================
@@ -138,6 +145,29 @@ function calcularWrapper(dataInput) {
     tipoVidrio,
   });
 
+  const costoBase = base.costoBase;
+
+  audit.add({
+    etapa: "Costo Base",
+
+    tipo: "base",
+
+    origen: "patagonicas_modena.json",
+
+    referencia: "",
+
+    valorAntes: 0,
+
+    valorAplicado: costoBase,
+
+    valorDespues: costoBase,
+
+    metadata: {
+      medida: medidaFinal,
+      tipo,
+    },
+  });
+
   // =========================
   // 🎨 COLOR
   // =========================
@@ -186,6 +216,69 @@ function calcularWrapper(dataInput) {
       costoBase: base.costoBase,
     },
   });
+
+  const m2 = calcularM2(ancho, alto);
+  const ml = calcularML(ancho, alto);
+
+  if (mosquitero) {
+    const c = Number(superficies.superficies.mosquitero_fijo || 0) * m2;
+
+    costo += c;
+
+    items.push({
+      tipo: "mosquitero",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Mosquitero",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
+
+  if (premarco) {
+    const c = Number(superficies.superficies.premarco || 0) * ml;
+
+    costo += c;
+
+    items.push({
+      tipo: "premarco",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Premarco",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
+
+  if (premarco || contramarco) {
+    const c = Number(superficies.superficies.contramarco || 0) * ml;
+
+    costo += c;
+
+    items.push({
+      tipo: "contramarco",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Contramarco",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
 
   // =========================
   // 🔧 BRAZO
@@ -326,37 +419,54 @@ function calcularWrapper(dataInput) {
     }
   }
 
-  // 👇 ESTA LÍNEA FALTABA
-  const costoBase = costo;
-
-  audit.add({
-    etapa: "Costo Base",
-
-    tipo: "base",
-
-    origen: "patagonicas_modena.json",
-
-    referencia: "",
-
-    valorAntes: 0,
-
-    valorAplicado: costoBase,
-
-    valorDespues: costoBase,
-
-    metadata: {
-      medida: medidaFinal,
-      tipo,
-    },
-  });
-
   // =========================
   // 💰 PERFIL
   // =========================
+  const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  const perfilData = perfiles[perfil]?.modena || perfiles.amarilla.modena;
+  const perfilMosquitero =
+    perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
 
-  const { proveedor, venta } = aplicarPerfil(costo, perfilData);
+  const perfilPremarcos =
+    perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+
+  const costoMosquitero =
+    items.find((i) => i.tipo === "mosquitero")?.precio || 0;
+
+  const costoPremarcos = items
+    .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  const costoModena = costo - costoMosquitero - costoPremarcos;
+
+  const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
+    costoModena,
+    perfilModena,
+  );
+
+  const { proveedor: proveedorMosquitero, venta: ventaMosquitero } =
+    aplicarPerfil(costoMosquitero, perfilMosquitero);
+
+  const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
+    aplicarPerfil(costoPremarcos, perfilPremarcos);
+
+  const proveedor = proveedorModena + proveedorMosquitero + proveedorPremarcos;
+
+  const venta = ventaModena + ventaMosquitero + ventaPremarcos;
+
+  const perfilData = perfilModena;
+  console.log("COSTOS", {
+    costo,
+    costoModena,
+    costoMosquitero,
+    costoPremarcos,
+  });
+
+  console.log("VENTAS", {
+    ventaModena,
+    ventaMosquitero,
+    ventaPremarcos,
+  });
   audit.add({
     etapa: "Perfil",
 
@@ -406,6 +516,10 @@ function calcularWrapper(dataInput) {
 
     herrajesBlancos,
 
+    mosquitero: !!mosquitero,
+    premarco: !!premarco,
+    contramarco: !!contramarco,
+
     svg: buildPatagonicaSVG({
       cantidadRajas,
 
@@ -433,8 +547,7 @@ function calcularWrapper(dataInput) {
     // =========================
 
     costoBase,
-
-    costo: costoBase,
+    costo,
 
     // =========================
     // PRECIOS
