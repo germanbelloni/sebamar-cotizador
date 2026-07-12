@@ -499,7 +499,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             <VidrioSelector
               key={`${config.linea}-${config.tipoConfiguracion}-${config.modeloMediaPuerta}`}
               value={
-                vidrios.includes(config.vidrio)
+                config.vidrio && vidrios.includes(config.vidrio)
                   ? config.vidrio
                   : (vidrios[0] ?? "4mm")
               }

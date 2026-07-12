@@ -110,6 +110,8 @@ async function runCalculation(req, res, name, callback) {
     console.log("");
     console.log("========== BACK RESPONSE ==========");
     console.log(JSON.stringify(sanitized, null, 2));
+    console.log("ROL:", req.user.role);
+    console.log("MARGEN:", sanitized.margenAplicado);
     return res.json(sanitized);
   } catch (error) {
     if (isValidationError(error.message)) {

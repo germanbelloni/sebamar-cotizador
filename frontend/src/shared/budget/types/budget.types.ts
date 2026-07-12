@@ -10,7 +10,9 @@ export type BudgetModule =
   | "portones"
   | "marcos"
   | "pano-fijo"
-  | "superficies";
+  | "superficies"
+  | "cortinas";
+
 export type BudgetItem = {
   id: string;
 

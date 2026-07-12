@@ -37,7 +37,9 @@ function buildAuditStep({
 
     porcentaje,
 
-    diferencia: Number(valorDespues || 0) - Number(valorAntes || 0),
+    diferencia: Number(
+      (Number(valorDespues || 0) - Number(valorAntes || 0)).toFixed(2),
+    ),
 
     metadata,
   };

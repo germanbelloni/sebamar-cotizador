@@ -41,6 +41,10 @@ export const FEATURES = [
   },
 
   {
+    id: "cortinas",
+    label: "Cortinas",
+  },
+  {
     id: "pano-fijo",
 
     label: "Paño fijo",

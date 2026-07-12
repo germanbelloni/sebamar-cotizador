@@ -296,6 +296,9 @@ export const initialPuertasConfig: PuertasConfig = {
 
   vidrio: "3mm",
 
+  premarco: false,
+  contramarco: false,
+
   extras: {
     barralRecto: 0,
     barralCurvo: 0,

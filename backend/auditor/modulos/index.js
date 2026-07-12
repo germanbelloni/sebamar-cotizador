@@ -8,6 +8,8 @@ const placas = require("./placas");
 const mosquiteros = require("./mosquiteros");
 const superficies = require("./superficies");
 const ventanasAbrir = require("./ventanasAbrir");
+const cortinas = require("./cortinas");
+
 module.exports = {
   ventanas,
   "ventanas-abrir": ventanasAbrir,
@@ -19,4 +21,5 @@ module.exports = {
   placas,
   mosquiteros,
   superficies,
+  cortinas,
 };

@@ -137,6 +137,14 @@ import { MosquiterosPreview } from "@/features/mosquiteros/components/Mosquitero
 
 import { initialMosquiterosConfig } from "@/features/mosquiteros/constants";
 
+/* CORTINAS */
+
+import type { CortinaConfig } from "@/features/cortinas/types";
+
+import { CortinaConfigForm } from "@/features/cortinas/components/CortinaConfigForm";
+
+import { initialCortinaConfig } from "@/features/cortinas/constants";
+
 function App() {
   /* ACTIVE FEATURE */
 
@@ -250,6 +258,11 @@ function App() {
     initialMosquiterosConfig,
   );
 
+  /* CORTINAS */
+
+  const [cortinaConfig, setCortinaConfig] =
+    useState<CortinaConfig>(initialCortinaConfig);
+
   const FEATURE_COMPONENTS = {
     rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,
 
@@ -317,6 +330,10 @@ function App() {
       />
     ),
 
+    cortinas: (
+      <CortinaConfigForm config={cortinaConfig} setConfig={setCortinaConfig} />
+    ),
+
     configuracion: <ConfiguracionPage />,
   };
 
@@ -340,6 +357,8 @@ function App() {
     "pano-fijo": panoFijoConfig,
 
     portones: portonesConfig,
+
+    cortinas: cortinaConfig,
   };
 
   const activeConfig =

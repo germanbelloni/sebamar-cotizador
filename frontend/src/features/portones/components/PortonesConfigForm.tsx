@@ -197,7 +197,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
           />
         </FormSection>
 
-        {config.linea === "modena" && (
+        {config.linea === "Modena" && (
           <FormSection title="Premarcos">
             <div className="grid grid-cols-2 gap-3">
               <SelectableCard

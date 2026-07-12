@@ -25,34 +25,34 @@
     "cajon_block": 200000,
 
     "cajon_block_precios": {
-      "pvc": 0,
-      "aluminio": 0
+      "pvc": 10,
+      "aluminio": 20
     },
 
     "cortinas_modulo": {
       "pvc": {
         "liviana": {
-          "completa": 0,
-          "pano_solo": 0
+          "completa": 10,
+          "pano_solo": 5
         },
         "reforzada": {
           "completa": 37410,
-          "pano_solo": 0
+          "pano_solo": 5
         },
         "super_reforzada": {
-          "completa": 0,
-          "pano_solo": 0
+          "completa": 10,
+          "pano_solo": 5
         }
       },
 
       "aluminio": {
         "blanco": {
           "completa": 42000,
-          "pano_solo": 0
+          "pano_solo": 5
         },
         "simil_madera": {
-          "completa": 0,
-          "pano_solo": 0
+          "completa": 10,
+          "pano_solo": 5
         }
       }
     }

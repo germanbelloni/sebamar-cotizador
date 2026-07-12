@@ -10,12 +10,11 @@ function aplicarMargen(resultado, margen = 0, perfilAplicado = "") {
   return {
     ...resultado,
 
-    // NO tocar el snapshot financiero original
     precioFinal,
 
-    margenAplicado: margenNumero,
+    margenAplicado: margenNumero || resultado.margenAplicado,
 
-    perfilAplicado,
+    perfilAplicado: perfilAplicado || resultado.perfilAplicado,
 
     gananciaCliente: precioFinal - base,
   };
