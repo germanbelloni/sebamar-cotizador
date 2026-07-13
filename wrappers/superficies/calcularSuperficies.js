@@ -42,6 +42,8 @@ function calcularsuperficiesWrapper(dataInput) {
     perfil = "amarilla",
     premarco = false,
     contramarco = false,
+    travesanoVertical = false,
+    travesanoHorizontal = false,
   } = dataInput;
 
   if (!tipo || !ancho || !alto) {
@@ -60,6 +62,8 @@ function calcularsuperficiesWrapper(dataInput) {
     tipoVidrio,
     premarco,
     contramarco,
+    travesanoVertical,
+    travesanoHorizontal,
   });
 
   audit.add({
@@ -272,6 +276,8 @@ function calcularsuperficiesWrapper(dataInput) {
     configuracion.tipoVidrio = tipoVidrio;
     configuracion.premarco = premarco;
     configuracion.contramarco = contramarco;
+    configuracion.travesanoVertical = travesanoVertical;
+    configuracion.travesanoHorizontal = travesanoHorizontal;
   }
 
   if (tipo === "contramarco") {

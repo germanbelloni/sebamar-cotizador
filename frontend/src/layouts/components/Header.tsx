@@ -1,4 +1,6 @@
-import { Moon, Sun, LogOut } from "lucide-react";
+import { Moon, Sun, LogOut, Maximize2, Minimize2 } from "lucide-react";
+
+import { useEffect, useState } from "react";
 
 import { useTheme } from "next-themes";
 
@@ -29,6 +31,32 @@ export function Header({ empresa, cliente, setCliente }: Props) {
   const primaryColor = user?.colorPrimario || "#D6B400";
 
   const isDark = theme === "dark";
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.error("Error fullscreen:", error);
+    }
+  };
 
   return (
     <header
@@ -143,6 +171,22 @@ export function Header({ empresa, cliente, setCliente }: Props) {
           onClick={() => setTheme(isDark ? "light" : "dark")}
         >
           {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </Button>
+
+        {/* FULLWIDTH */}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleFullscreen}
+          title={
+            isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"
+          }
+        >
+          {isFullscreen ? (
+            <Minimize2 className="h-5 w-5" />
+          ) : (
+            <Maximize2 className="h-5 w-5" />
+          )}
         </Button>
 
         {/* 🚪 LOGOUT */}

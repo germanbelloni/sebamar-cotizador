@@ -408,12 +408,12 @@ function App() {
                   {/* SVG / PREVIEW */}
                   <div
                     className="
-      flex-[4]
-      rounded-2xl
-      border border-border
-      bg-card
-      p-6
-    "
+        flex-[4]
+        rounded-2xl
+        border border-border
+        bg-card
+        p-6
+      "
                   >
                     <div className="flex h-full flex-col">
                       {/* SVG */}
@@ -480,12 +480,12 @@ function App() {
                       {activeFeature !== "puertas" && (
                         <div
                           className="
-            mt-4
-            rounded-xl
-            border border-border
-            bg-background/50
-            p-4
-          "
+              mt-4
+              rounded-xl
+              border border-border
+              bg-background/50
+              p-4
+            "
                         >
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
@@ -550,28 +550,28 @@ function App() {
 
                   <div
                     className="
-                flex-[1]
-                rounded-2xl
-                border border-border
-                bg-card
-                p-6
-              "
+                  flex-[1]
+                  rounded-2xl
+                  border border-border
+                  bg-card
+                  p-6
+                "
                   >
                     <div className="flex items-center justify-between">
                       <h3 className="text-base font-semibold">Cliente</h3>
 
                       <span
                         className="
-                    rounded-full
-                    border border-lime-400/20
-                    bg-lime-400/10
-                    px-2 py-1
-                    text-[10px]
-                    font-medium
-                    uppercase
-                    tracking-wider
-                    text-zinc-300/70
-                  "
+                      rounded-full
+                      border border-lime-400/20
+                      bg-lime-400/10
+                      px-2 py-1
+                      text-[10px]
+                      font-medium
+                      uppercase
+                      tracking-wider
+                      text-zinc-300/70
+                    "
                       >
                         Presupuesto
                       </span>
@@ -580,11 +580,11 @@ function App() {
                     <div className="mt-4 grid grid-cols-2 gap-4">
                       <div
                         className="
-                    rounded-xl
-                    border border-border
-                    bg-background
-                    px-4 py-3
-                  "
+                      rounded-xl
+                      border border-border
+                      bg-background
+                      px-4 py-3
+                    "
                       >
                         <p className="text-[11px] text-muted-foreground">
                           Nombre
@@ -597,11 +597,11 @@ function App() {
 
                       <div
                         className="
-                    rounded-xl
-                    border border-border
-                    bg-background
-                    px-4 py-3
-                  "
+                      rounded-xl
+                      border border-border
+                      bg-background
+                      px-4 py-3
+                    "
                       >
                         <p className="text-[11px] text-muted-foreground">
                           Teléfono
@@ -617,32 +617,32 @@ function App() {
 
                     <div
                       className="
-                  mt-5
-                  rounded-2xl
-                  border border-zinc-700/40
-                  bg-zinc-900/60
-                  px-5 py-4
-                "
+                    mt-5
+                    rounded-2xl
+                    border border-zinc-700/40
+                    bg-zinc-900/60
+                    px-5 py-4
+                  "
                     >
                       <p
                         className="
-                    text-xs
-                    uppercase
-                    tracking-[0.18em]
-                    text-zinc-400
-                  "
+                      text-xs
+                      uppercase
+                      tracking-[0.18em]
+                      text-zinc-400
+                    "
                       >
                         Total presupuesto
                       </p>
 
                       <div
                         className="
-    mt-2
-    text-3xl
-    font-bold
-    tracking-tight
-    text-zinc-100
-  "
+      mt-2
+      text-3xl
+      font-bold
+      tracking-tight
+      text-zinc-100
+    "
                       >
                         $
                         {(() => {

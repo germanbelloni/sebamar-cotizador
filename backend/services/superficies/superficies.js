@@ -27,6 +27,8 @@ function calcularSuperficie(dataInput) {
     tipoVidrio,
     premarco = false,
     contramarco = false,
+    travesanoVertical = false,
+    travesanoHorizontal = false,
   } = dataInput;
 
   if (!tipo || !ancho || !alto) {
@@ -101,6 +103,32 @@ function calcularSuperficie(dataInput) {
       descripcion: tipoVidrio,
       precio: Math.round(costoVidrio),
     });
+
+    if (travesanoVertical) {
+      const costoTravesano =
+        (data.superficies.travesano?.[linea] || 0) * (alto / 100);
+
+      costoPerfil += costoTravesano;
+
+      items.push({
+        tipo: "travesano_vertical",
+        descripcion: "travesaño vertical",
+        precio: Math.round(costoTravesano),
+      });
+    }
+
+    if (travesanoHorizontal) {
+      const costoTravesano =
+        (data.superficies.travesano?.[linea] || 0) * (ancho / 100);
+
+      costoPerfil += costoTravesano;
+
+      items.push({
+        tipo: "travesano_horizontal",
+        descripcion: "travesaño horizontal",
+        precio: Math.round(costoTravesano),
+      });
+    }
   }
 
   // ======================
@@ -113,7 +141,7 @@ function calcularSuperficie(dataInput) {
       throw new Error("No existe precio de premarco");
     }
 
-    costoPerfil = perimetro * base;
+    costoPerfil += perimetro * base;
 
     items.push({
       tipo: "estructura",

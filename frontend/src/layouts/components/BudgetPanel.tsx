@@ -101,13 +101,21 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
               <button
                 onClick={clearBudget}
                 className="
-                text-xs
-                font-medium
-                text-red-400
-                transition-colors
-                hover:text-red-300
-              "
+    flex
+    items-center
+    gap-2
+    rounded-xl
+    px-3
+    py-2
+    text-base
+    font-bold
+    text-red-400
+    transition-all
+    hover:bg-red-500/10
+    hover:text-red-300
+  "
               >
+                <Trash2 size={28} />
                 Vaciar
               </button>
             )}
@@ -204,18 +212,15 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
                           updateCantidad(item.id, Number(e.target.value))
                         }
                         className="
-                          h-9
-                          w-20
-
-                          rounded-xl
-                          border border-border
-
-                          bg-card
-
-                          px-3
-
-                          text-sm
-                        "
+    h-10
+    w-24
+    rounded-xl
+    border border-border
+    bg-card
+    px-3
+    text-base
+    font-semibold
+  "
                       />
                     </div>
 

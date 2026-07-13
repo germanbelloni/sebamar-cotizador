@@ -31,23 +31,13 @@ export function usePanoFijoForm({ config, setConfig }: Params) {
 
     let travesanoVertical = config.travesanoVertical;
     let travesanoHorizontal = config.travesanoHorizontal;
+    // Si deja de aplicar el requisito, apagarlo.
+    // Si aplica, dejar la decisión al usuario.
 
-    // Si pasa a requerir vertical y todavía no estaba activo → activarlo
-    if (needsVertical && !config.travesanoVertical) {
-      travesanoVertical = true;
-    }
-
-    // Si deja de requerir vertical → apagarlo
     if (!needsVertical) {
       travesanoVertical = false;
     }
 
-    // Si pasa a requerir horizontal y todavía no estaba activo → activarlo
-    if (needsHorizontal && !config.travesanoHorizontal) {
-      travesanoHorizontal = true;
-    }
-
-    // Si deja de requerir horizontal → apagarlo
     if (!needsHorizontal) {
       travesanoHorizontal = false;
     }

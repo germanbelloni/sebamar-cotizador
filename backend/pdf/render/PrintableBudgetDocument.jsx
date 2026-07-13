@@ -309,7 +309,7 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
         >
           <div
             style={{
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: "bold",
               color: "#888",
               letterSpacing: 2,
@@ -322,14 +322,14 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
           <div
             style={{
               color: "#666",
-              lineHeight: 1.8,
-              fontSize: 13,
+              lineHeight: 1.6,
+              fontSize: 9,
             }}
           >
-            • Validez del presupuesto: 15 días corridos.
+            • Validez del presupuesto: 7 días.
             <br />
-            • Plazo estimado de entrega: 20 a 30 días hábiles.
-            <br />• Los precios pueden variar según disponibilidad.
+            • Plazo estimado de entrega: 15/20 días hábiles.
+            <br />• Consultar envío.
           </div>
         </div>{" "}
       </div>
