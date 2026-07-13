@@ -207,7 +207,7 @@ async function obtener(req, res) {
       });
     }
   }
-
+  const esAdmin = req.user.role === "admin";
   const resultado = {
     id: presupuesto._id,
 
@@ -242,7 +242,11 @@ async function obtener(req, res) {
       // 💰 FINANCIERO
       // =========================
 
-      precioBase: Number(item.precioBase || 0),
+      precioBase: Number(
+        esAdmin
+          ? (item.precioLista ?? item.precioProveedor ?? item.precioBase ?? 0)
+          : (item.precioBase ?? 0),
+      ),
 
       precioLista: Number(item.precioLista || 0),
 
@@ -259,7 +263,7 @@ async function obtener(req, res) {
   };
 
   console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
-
+  console.log(JSON.stringify(resultado.items, null, 2));
   return res.json(resultado);
 }
 

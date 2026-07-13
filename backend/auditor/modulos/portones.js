@@ -131,9 +131,18 @@ module.exports = function auditarPortones(resultado) {
   if (buscarPaso("Bisagras Extra")) {
     ok.push("✔ Bisagras Extra");
   }
+  const pasoPerfil = buscarPaso("Perfil");
 
-  if (buscarPaso("Perfil")) {
+  if (pasoPerfil) {
     ok.push("✔ Paso Perfil");
+
+    const precioEsperado = Number(
+      resultado.precioLista || resultado.precioFinal,
+    );
+
+    if (Math.round(pasoPerfil.valorDespues) !== Math.round(precioEsperado)) {
+      errores.push("Precio final distinto al calculado en Perfil");
+    }
   } else {
     errores.push("Falta paso Perfil");
   }

@@ -115,13 +115,15 @@ function auditarSuperficies(resultado) {
   const pasoPerfil = resultado.audit?.find((p) => p.etapa === "Perfil");
 
   if (!pasoPerfil) {
-    advertencias.push("No existe paso Perfil");
+    errores.push("No existe paso Perfil");
   } else {
     ok.push("✔ Paso Perfil");
 
-    if (
-      Math.round(pasoPerfil.valorDespues) !== Math.round(resultado.precioFinal)
-    ) {
+    const precioEsperado = Number(
+      resultado.precioLista || resultado.precioFinal,
+    );
+
+    if (Math.round(pasoPerfil.valorDespues) !== Math.round(precioEsperado)) {
       errores.push("Precio final distinto al calculado en Perfil");
     }
   }

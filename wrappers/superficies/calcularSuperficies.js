@@ -155,6 +155,22 @@ function calcularsuperficiesWrapper(dataInput) {
     0,
   );
 
+  audit.add({
+    etapa: "Costo Base",
+    tipo: "base",
+    origen: "superficies.json",
+
+    valorAntes: 0,
+    valorAplicado: costoBase,
+    valorDespues: costoBase,
+
+    metadata: {
+      tipo,
+      ancho,
+      alto,
+    },
+  });
+
   // ========================
   // 💰 PERFIL
   // ========================

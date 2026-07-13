@@ -9,7 +9,11 @@ function sanitizarResultado(resultado, user) {
     return {
       descripcion: resultado.descripcion,
 
-      precioBase: resultado.precioBase,
+      precioBase:
+        resultado.precioLista ||
+        resultado.precioProveedor ||
+        resultado.precioBase ||
+        0,
 
       precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 

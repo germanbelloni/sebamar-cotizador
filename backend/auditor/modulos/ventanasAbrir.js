@@ -130,7 +130,6 @@ function auditarVentanasAbrir(resultado) {
   // =========================
   // PERFIL
   // =========================
-
   const pasoPerfil = resultado.audit?.find((p) => p.etapa === "Perfil");
 
   if (!pasoPerfil) {
@@ -138,9 +137,11 @@ function auditarVentanasAbrir(resultado) {
   } else {
     ok.push("✔ Paso Perfil");
 
-    if (
-      Math.round(pasoPerfil.valorDespues) !== Math.round(resultado.precioFinal)
-    ) {
+    const precioEsperado = Number(
+      resultado.precioLista || resultado.precioFinal,
+    );
+
+    if (Math.round(pasoPerfil.valorDespues) !== Math.round(precioEsperado)) {
       errores.push("Precio final distinto al calculado en Perfil");
     }
   }

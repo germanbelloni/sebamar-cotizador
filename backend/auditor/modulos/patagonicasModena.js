@@ -68,15 +68,21 @@ function auditarPatagonicasModena(resultado) {
   // PERFIL
   // =========================
 
-  const pasoPerfil = resultado.audit.find((p) => p.etapa === "Perfil");
+  const pasoPerfil = resultado.audit?.find((p) => p.etapa === "Perfil");
 
-  if (
-    pasoPerfil &&
-    Math.round(pasoPerfil.valorDespues) !== Math.round(resultado.precioFinal)
-  ) {
-    errores.push("Precio final distinto al Perfil");
+  if (!pasoPerfil) {
+    errores.push("No existe paso Perfil");
+  } else {
+    ok.push("✔ Paso Perfil");
+
+    const precioEsperado = Number(
+      resultado.precioLista || resultado.precioFinal,
+    );
+
+    if (Math.round(pasoPerfil.valorDespues) !== Math.round(precioEsperado)) {
+      errores.push("Precio final distinto al calculado en Perfil");
+    }
   }
-
   return {
     ok,
     advertencias,
