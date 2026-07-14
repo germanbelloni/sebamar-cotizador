@@ -56,7 +56,29 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
     config,
     createItem: createMosquiterosBudgetItem,
   });
-
+  const coloresMosquiteros =
+    config.tipo === "fijo"
+      ? undefined
+      : config.tipo === "ventana"
+        ? [
+            {
+              value: "blanco",
+              label: "Blanco",
+              preview: "bg-white",
+            },
+            {
+              value: "negro",
+              label: "Negro",
+              preview: "bg-background",
+            },
+          ]
+        : [
+            {
+              value: "blanco",
+              label: "Blanco",
+              preview: "bg-white",
+            },
+          ];
   return (
     <ProductFormLayout title={MOSQUITEROS_UI.title}>
       <div className="space-y-6">
@@ -69,8 +91,21 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
 
               const medidas = getDefaultMosquiteroMeasures(tipo);
 
+              let color = config.color;
+
+              if (tipo === "ventana") {
+                if (!["blanco", "negro"].includes(color)) {
+                  color = "blanco";
+                }
+              }
+
+              if (tipo === "puerta_mosquitera") {
+                color = "blanco";
+              }
+
               updateConfig({
                 tipo,
+                color,
                 ...medidas,
               });
             }}
@@ -95,6 +130,7 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
         <FormSection title={MOSQUITEROS_UI.sections.color}>
           <ColorSelector
             value={config.color}
+            options={coloresMosquiteros}
             onChange={(color) =>
               updateConfig({
                 color: color as MosquiterosConfig["color"],

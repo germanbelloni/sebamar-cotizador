@@ -297,7 +297,7 @@ function calcularWrapper(dataInput) {
     perfilAplicado: perfil,
     descuentoAplicado: perfilData.descuento,
     gananciaAplicada: perfilData.ganancia,
-    margenAplicado: 0,
+    margenAplicado: Math.round(perfilData.ganancia * 100),
 
     // RESULTADO
     ganancia: venta - costo,

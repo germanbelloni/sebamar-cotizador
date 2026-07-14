@@ -1,0 +1,8 @@
+Caso,Descripcion,CostoBase,PrecioFinal,Items,Valido,Error
+"Ventana Blanco","Mosquitero ventana 120x110","27630","27630","1","true",""
+"Ventana Negro","Mosquitero ventana 120x110","35919","35919","2","true",""
+"Fijo Blanco","Mosquitero fijo 100x100","48364","48364","1","true",""
+"Fijo Negro","Mosquitero fijo 100x100","62873","62873","2","true",""
+"Fijo Simil Madera","Mosquitero fijo 100x100","48364","48364","1","true",""
+"Fijo Bronce Colonial","Mosquitero fijo 100x100","48364","48364","1","true",""
+"Puerta Mosquitera Blanco","Puerta mosquitera 80x200 bisagra derecha","101970","101970","1","true",""

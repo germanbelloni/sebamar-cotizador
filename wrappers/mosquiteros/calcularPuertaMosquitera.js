@@ -40,6 +40,10 @@ function calcularPuertaMosquitera(dataInput) {
     ladoBisagra = "derecha",
   } = dataInput;
 
+  if (color !== "blanco") {
+    throw new Error("La puerta mosquitera solo admite color blanco");
+  }
+
   // =========================
   // VALIDACIONES
   // =========================
