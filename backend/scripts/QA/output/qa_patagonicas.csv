@@ -1,321 +1,321 @@
 ﻿modulo;perfil;medida;color;extras;costo;proveedor;precio;ganancia
-PATAGONICA_HERRERO;amarilla;150x110;blanco;raja;114923;121818;158364;43441
-PATAGONICA_HERRERO;amarilla;150x110;blanco;brazo;118523;125634;163324;44802
-PATAGONICA_HERRERO;amarilla;150x110;blanco;volcable;118523;125634;163324;44802
-PATAGONICA_HERRERO;amarilla;200x150;blanco;raja;207500;219949;285934;78435
-PATAGONICA_HERRERO;amarilla;200x150;blanco;brazo;214700;227581;295856;81156
-PATAGONICA_HERRERO;amarilla;200x150;blanco;volcable;214700;227581;295856;81156
-PATAGONICA_HERRERO;amarilla;150x110;negro;raja;139787;148174;192627;52840
-PATAGONICA_HERRERO;amarilla;150x110;negro;brazo;143387;151990;197587;54200
-PATAGONICA_HERRERO;amarilla;150x110;negro;volcable;143387;151990;197587;54200
-PATAGONICA_HERRERO;amarilla;200x150;negro;raja;251947;267064;347183;95236
-PATAGONICA_HERRERO;amarilla;200x150;negro;brazo;259147;274696;357104;97958
-PATAGONICA_HERRERO;amarilla;200x150;negro;volcable;259147;274696;357104;97958
-PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;raja;152220;161353;209759;57539
-PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;brazo;155820;165169;214720;58900
-PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;volcable;155820;165169;214720;58900
-PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;raja;274171;290621;377807;103636
-PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;brazo;281371;298253;387729;106358
-PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;volcable;281371;298253;387729;106358
-PATAGONICA_HERRERO;amarilla;150x110;simil madera;raja;346992;367812;478155;131163
-PATAGONICA_HERRERO;amarilla;150x110;simil madera;brazo;350592;371628;483116;132524
-PATAGONICA_HERRERO;amarilla;150x110;simil madera;volcable;350592;371628;483116;132524
-PATAGONICA_HERRERO;amarilla;200x150;simil madera;raja;622339;659680;857583;235244
-PATAGONICA_HERRERO;amarilla;200x150;simil madera;brazo;629539;667312;867505;237966
-PATAGONICA_HERRERO;amarilla;200x150;simil madera;volcable;629539;667312;867505;237966
-PATAGONICA_HERRERO;azul;150x110;blanco;raja;112369;123606;160688;48319
-PATAGONICA_HERRERO;azul;150x110;blanco;brazo;115889;127478;165721;49832
-PATAGONICA_HERRERO;azul;150x110;blanco;volcable;115889;127478;165721;49832
-PATAGONICA_HERRERO;azul;200x150;blanco;raja;202888;223177;290130;87242
-PATAGONICA_HERRERO;azul;200x150;blanco;brazo;209928;230921;300198;90269
-PATAGONICA_HERRERO;azul;200x150;blanco;volcable;209928;230921;300198;90269
-PATAGONICA_HERRERO;azul;150x110;negro;raja;136681;150349;195453;58773
-PATAGONICA_HERRERO;azul;150x110;negro;brazo;140201;154221;200487;60286
-PATAGONICA_HERRERO;azul;150x110;negro;volcable;140201;154221;200487;60286
-PATAGONICA_HERRERO;azul;200x150;negro;raja;246348;270983;352278;105930
-PATAGONICA_HERRERO;azul;200x150;negro;brazo;253388;278727;362345;108957
-PATAGONICA_HERRERO;azul;200x150;negro;volcable;253388;278727;362345;108957
-PATAGONICA_HERRERO;azul;150x110;bronce colonial;raja;148837;163721;212837;64000
-PATAGONICA_HERRERO;azul;150x110;bronce colonial;brazo;152357;167593;217871;65514
-PATAGONICA_HERRERO;azul;150x110;bronce colonial;volcable;152357;167593;217871;65514
-PATAGONICA_HERRERO;azul;200x150;bronce colonial;raja;268078;294886;383351;115274
-PATAGONICA_HERRERO;azul;200x150;bronce colonial;brazo;275118;302630;393419;118301
-PATAGONICA_HERRERO;azul;200x150;bronce colonial;volcable;275118;302630;393419;118301
-PATAGONICA_HERRERO;azul;150x110;simil madera;raja;339281;373209;485172;145891
-PATAGONICA_HERRERO;azul;150x110;simil madera;brazo;342801;377081;490206;147405
-PATAGONICA_HERRERO;azul;150x110;simil madera;volcable;342801;377081;490206;147405
-PATAGONICA_HERRERO;azul;200x150;simil madera;raja;608509;669360;870168;261659
-PATAGONICA_HERRERO;azul;200x150;simil madera;brazo;615549;677104;880236;264686
-PATAGONICA_HERRERO;azul;200x150;simil madera;volcable;615549;677104;880236;264686
-PATAGONICA_HERRERO;verde;150x110;blanco;raja;112369;129224;174453;62084
-PATAGONICA_HERRERO;verde;150x110;blanco;brazo;115889;133272;179918;64029
-PATAGONICA_HERRERO;verde;150x110;blanco;volcable;115889;133272;179918;64029
-PATAGONICA_HERRERO;verde;200x150;blanco;raja;202888;233322;314984;112096
-PATAGONICA_HERRERO;verde;200x150;blanco;brazo;209928;241418;325914;115985
-PATAGONICA_HERRERO;verde;200x150;blanco;volcable;209928;241418;325914;115985
-PATAGONICA_HERRERO;verde;150x110;negro;raja;136681;157183;212197;75516
-PATAGONICA_HERRERO;verde;150x110;negro;brazo;140201;161231;217662;77461
-PATAGONICA_HERRERO;verde;150x110;negro;volcable;140201;161231;217662;77461
-PATAGONICA_HERRERO;verde;200x150;negro;raja;246348;283300;382455;136107
-PATAGONICA_HERRERO;verde;200x150;negro;brazo;253388;291396;393385;139997
-PATAGONICA_HERRERO;verde;200x150;negro;volcable;253388;291396;393385;139997
-PATAGONICA_HERRERO;verde;150x110;bronce colonial;raja;148837;171163;231070;82232
-PATAGONICA_HERRERO;verde;150x110;bronce colonial;brazo;152357;175211;236534;84177
-PATAGONICA_HERRERO;verde;150x110;bronce colonial;volcable;152357;175211;236534;84177
-PATAGONICA_HERRERO;verde;200x150;bronce colonial;raja;268078;308290;416191;148113
-PATAGONICA_HERRERO;verde;200x150;bronce colonial;brazo;275118;316386;427121;152003
-PATAGONICA_HERRERO;verde;200x150;bronce colonial;volcable;275118;316386;427121;152003
-PATAGONICA_HERRERO;verde;150x110;simil madera;raja;339281;390174;526734;187453
-PATAGONICA_HERRERO;verde;150x110;simil madera;brazo;342801;394222;532199;189398
-PATAGONICA_HERRERO;verde;150x110;simil madera;volcable;342801;394222;532199;189398
-PATAGONICA_HERRERO;verde;200x150;simil madera;raja;608509;699786;944711;336201
-PATAGONICA_HERRERO;verde;200x150;simil madera;brazo;615549;707882;955641;340091
-PATAGONICA_HERRERO;verde;200x150;simil madera;volcable;615549;707882;955641;340091
-PATAGONICA_HERRERO;papu;150x110;blanco;raja;127692;127692;127692;0
-PATAGONICA_HERRERO;papu;150x110;blanco;brazo;131692;131692;131692;0
-PATAGONICA_HERRERO;papu;150x110;blanco;volcable;131692;131692;131692;0
-PATAGONICA_HERRERO;papu;200x150;blanco;raja;230555;230555;230555;0
-PATAGONICA_HERRERO;papu;200x150;blanco;brazo;238555;238555;238555;0
-PATAGONICA_HERRERO;papu;200x150;blanco;volcable;238555;238555;238555;0
-PATAGONICA_HERRERO;papu;150x110;negro;raja;155319;155319;155319;0
-PATAGONICA_HERRERO;papu;150x110;negro;brazo;159319;159319;159319;0
-PATAGONICA_HERRERO;papu;150x110;negro;volcable;159319;159319;159319;0
-PATAGONICA_HERRERO;papu;200x150;negro;raja;279941;279941;279941;0
-PATAGONICA_HERRERO;papu;200x150;negro;brazo;287941;287941;287941;0
-PATAGONICA_HERRERO;papu;200x150;negro;volcable;287941;287941;287941;0
-PATAGONICA_HERRERO;papu;150x110;bronce colonial;raja;169133;169133;169133;0
-PATAGONICA_HERRERO;papu;150x110;bronce colonial;brazo;173133;173133;173133;0
-PATAGONICA_HERRERO;papu;150x110;bronce colonial;volcable;173133;173133;173133;0
-PATAGONICA_HERRERO;papu;200x150;bronce colonial;raja;304634;304634;304634;0
-PATAGONICA_HERRERO;papu;200x150;bronce colonial;brazo;312634;312634;312634;0
-PATAGONICA_HERRERO;papu;200x150;bronce colonial;volcable;312634;312634;312634;0
-PATAGONICA_HERRERO;papu;150x110;simil madera;raja;385547;385547;385547;0
-PATAGONICA_HERRERO;papu;150x110;simil madera;brazo;389547;389547;389547;0
-PATAGONICA_HERRERO;papu;150x110;simil madera;volcable;389547;389547;389547;0
-PATAGONICA_HERRERO;papu;200x150;simil madera;raja;691488;691488;691488;0
-PATAGONICA_HERRERO;papu;200x150;simil madera;brazo;699488;699488;699488;0
-PATAGONICA_HERRERO;papu;200x150;simil madera;volcable;699488;699488;699488;0
-PATAGONICA_MODENA;amarilla;150x110;blanco;raja;225616;209823;289136;63520
-PATAGONICA_MODENA;amarilla;150x110;blanco;brazo;229616;213543;294262;64646
-PATAGONICA_MODENA;amarilla;150x110;blanco;volcable;229616;213543;294262;64646
-PATAGONICA_MODENA;amarilla;150x110;blanco;oscilobatiente;325616;302823;417290;91674
-PATAGONICA_MODENA;amarilla;150x110;blanco;mosquitero;305417;281643;410944;105527
-PATAGONICA_MODENA;amarilla;150x110;blanco;premarco;285936;265920;354546;68610
-PATAGONICA_MODENA;amarilla;150x110;blanco;herrajes_blancos;235243;218776;301473;66230
-ERROR;amarilla;200x150;blanco;raja;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;brazo;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;volcable;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;mosquitero;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;premarco;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;blanco;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;amarilla;150x110;negro;raja;283379;263542;363162;79783
-PATAGONICA_MODENA;amarilla;150x110;negro;brazo;287379;267262;368288;80909
-PATAGONICA_MODENA;amarilla;150x110;negro;volcable;287379;267262;368288;80909
-PATAGONICA_MODENA;amarilla;150x110;negro;oscilobatiente;383379;356542;491316;107937
-PATAGONICA_MODENA;amarilla;150x110;negro;mosquitero;363180;335363;484969;121790
-PATAGONICA_MODENA;amarilla;150x110;negro;premarco;343699;319640;428571;84872
-PATAGONICA_MODENA;amarilla;150x110;negro;herrajes_blancos;295894;275181;379200;83306
-ERROR;amarilla;200x150;negro;raja;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;brazo;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;volcable;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;mosquitero;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;premarco;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;negro;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;raja;312260;290402;400174;87914
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;brazo;316260;294122;405300;89040
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;volcable;316260;294122;405300;89040
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;oscilobatiente;412260;383402;528328;116068
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;mosquitero;392061;362222;521981;129921
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;premarco;372580;346499;465583;93003
-PATAGONICA_MODENA;amarilla;150x110;bronce colonial;herrajes_blancos;326219;303384;418063;91844
-ERROR;amarilla;200x150;bronce colonial;raja;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;brazo;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;volcable;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;mosquitero;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;premarco;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;bronce colonial;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;amarilla;150x110;simil madera;raja;764736;711204;980040;215304
-PATAGONICA_MODENA;amarilla;150x110;simil madera;brazo;768736;714924;985166;216430
-PATAGONICA_MODENA;amarilla;150x110;simil madera;volcable;768736;714924;985166;216430
-PATAGONICA_MODENA;amarilla;150x110;simil madera;oscilobatiente;864736;804204;1108194;243458
-PATAGONICA_MODENA;amarilla;150x110;simil madera;mosquitero;844537;783025;1101848;257311
-PATAGONICA_MODENA;amarilla;150x110;simil madera;premarco;825056;767302;1045450;220394
-PATAGONICA_MODENA;amarilla;150x110;simil madera;herrajes_blancos;801319;745227;1026922;225603
-ERROR;amarilla;200x150;simil madera;raja;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;brazo;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;volcable;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;mosquitero;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;premarco;;;;No existe medida superior para 200x150
-ERROR;amarilla;200x150;simil madera;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;azul;150x110;blanco;raja;225616;209823;300047;74431
-PATAGONICA_MODENA;azul;150x110;blanco;brazo;229616;213543;305366;75750
-PATAGONICA_MODENA;azul;150x110;blanco;volcable;229616;213543;305366;75750
-PATAGONICA_MODENA;azul;150x110;blanco;oscilobatiente;325616;302823;433037;107421
-PATAGONICA_MODENA;azul;150x110;blanco;mosquitero;305417;280047;423642;118225
-PATAGONICA_MODENA;azul;150x110;blanco;premarco;285936;265920;365457;79521
-PATAGONICA_MODENA;azul;150x110;blanco;herrajes_blancos;235243;218776;312850;77607
-ERROR;azul;200x150;blanco;raja;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;brazo;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;volcable;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;mosquitero;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;premarco;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;blanco;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;azul;150x110;negro;raja;283379;263542;376866;93487
-PATAGONICA_MODENA;azul;150x110;negro;brazo;287379;267262;382185;94806
-PATAGONICA_MODENA;azul;150x110;negro;volcable;287379;267262;382185;94806
-PATAGONICA_MODENA;azul;150x110;negro;oscilobatiente;383379;356542;509856;126477
-PATAGONICA_MODENA;azul;150x110;negro;mosquitero;363180;333767;500461;137281
-PATAGONICA_MODENA;azul;150x110;negro;premarco;343699;319640;442276;98577
-PATAGONICA_MODENA;azul;150x110;negro;herrajes_blancos;295894;275181;393509;97615
-ERROR;azul;200x150;negro;raja;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;brazo;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;volcable;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;mosquitero;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;premarco;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;negro;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;azul;150x110;bronce colonial;raja;312260;290402;415275;103015
-PATAGONICA_MODENA;azul;150x110;bronce colonial;brazo;316260;294122;420594;104334
-PATAGONICA_MODENA;azul;150x110;bronce colonial;volcable;316260;294122;420594;104334
-PATAGONICA_MODENA;azul;150x110;bronce colonial;oscilobatiente;412260;383402;548265;136005
-PATAGONICA_MODENA;azul;150x110;bronce colonial;mosquitero;392061;360626;538870;146809
-PATAGONICA_MODENA;azul;150x110;bronce colonial;premarco;372580;346499;480684;108104
-PATAGONICA_MODENA;azul;150x110;bronce colonial;herrajes_blancos;326219;303384;433839;107620
-ERROR;azul;200x150;bronce colonial;raja;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;brazo;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;volcable;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;mosquitero;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;premarco;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;bronce colonial;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;azul;150x110;simil madera;raja;764736;711204;1017022;252286
-PATAGONICA_MODENA;azul;150x110;simil madera;brazo;768736;714924;1022342;253606
-PATAGONICA_MODENA;azul;150x110;simil madera;volcable;768736;714924;1022342;253606
-PATAGONICA_MODENA;azul;150x110;simil madera;oscilobatiente;864736;804204;1150012;285276
-PATAGONICA_MODENA;azul;150x110;simil madera;mosquitero;844537;781429;1140618;296081
-PATAGONICA_MODENA;azul;150x110;simil madera;premarco;825056;767302;1082432;257376
-PATAGONICA_MODENA;azul;150x110;simil madera;herrajes_blancos;801319;745227;1065674;264355
-ERROR;azul;200x150;simil madera;raja;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;brazo;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;volcable;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;mosquitero;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;premarco;;;;No existe medida superior para 200x150
-ERROR;azul;200x150;simil madera;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;verde;150x110;blanco;raja;225616;209823;325750;100134
-PATAGONICA_MODENA;verde;150x110;blanco;brazo;229616;213543;331525;101909
-PATAGONICA_MODENA;verde;150x110;blanco;volcable;229616;213543;331525;101909
-PATAGONICA_MODENA;verde;150x110;blanco;oscilobatiente;325616;302823;470133;144517
-PATAGONICA_MODENA;verde;150x110;blanco;mosquitero;305417;280047;454963;149547
-PATAGONICA_MODENA;verde;150x110;blanco;premarco;285936;265920;391160;105224
-PATAGONICA_MODENA;verde;150x110;blanco;herrajes_blancos;235243;218776;339650;104407
-ERROR;verde;200x150;blanco;raja;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;brazo;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;volcable;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;mosquitero;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;premarco;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;blanco;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;verde;150x110;negro;raja;283379;263542;409150;125771
-PATAGONICA_MODENA;verde;150x110;negro;brazo;287379;267262;414925;127546
-PATAGONICA_MODENA;verde;150x110;negro;volcable;287379;267262;414925;127546
-PATAGONICA_MODENA;verde;150x110;negro;oscilobatiente;383379;356542;553532;170153
-PATAGONICA_MODENA;verde;150x110;negro;mosquitero;363180;333767;538363;175183
-PATAGONICA_MODENA;verde;150x110;negro;premarco;343699;319640;474559;130860
-PATAGONICA_MODENA;verde;150x110;negro;herrajes_blancos;295894;275181;427219;131325
-ERROR;verde;200x150;negro;raja;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;brazo;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;volcable;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;mosquitero;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;premarco;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;negro;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;verde;150x110;bronce colonial;raja;312260;290402;450849;138589
-PATAGONICA_MODENA;verde;150x110;bronce colonial;brazo;316260;294122;456624;140364
-PATAGONICA_MODENA;verde;150x110;bronce colonial;volcable;316260;294122;456624;140364
-PATAGONICA_MODENA;verde;150x110;bronce colonial;oscilobatiente;412260;383402;595231;182971
-PATAGONICA_MODENA;verde;150x110;bronce colonial;mosquitero;392061;360626;580062;188001
-PATAGONICA_MODENA;verde;150x110;bronce colonial;premarco;372580;346499;516259;143679
-PATAGONICA_MODENA;verde;150x110;bronce colonial;herrajes_blancos;326219;303384;471003;144784
-ERROR;verde;200x150;bronce colonial;raja;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;brazo;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;volcable;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;mosquitero;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;premarco;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;bronce colonial;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;verde;150x110;simil madera;raja;764736;711204;1104145;339409
-PATAGONICA_MODENA;verde;150x110;simil madera;brazo;768736;714924;1109920;341184
-PATAGONICA_MODENA;verde;150x110;simil madera;volcable;768736;714924;1109920;341184
-PATAGONICA_MODENA;verde;150x110;simil madera;oscilobatiente;864736;804204;1248527;383791
-PATAGONICA_MODENA;verde;150x110;simil madera;mosquitero;844537;781429;1233358;388822
-PATAGONICA_MODENA;verde;150x110;simil madera;premarco;825056;767302;1169555;344499
-PATAGONICA_MODENA;verde;150x110;simil madera;herrajes_blancos;801319;745227;1156964;355645
-ERROR;verde;200x150;simil madera;raja;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;brazo;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;volcable;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;mosquitero;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;premarco;;;;No existe medida superior para 200x150
-ERROR;verde;200x150;simil madera;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;papu;150x110;blanco;raja;225616;225616;225616;0
-PATAGONICA_MODENA;papu;150x110;blanco;brazo;229616;229616;229616;0
-PATAGONICA_MODENA;papu;150x110;blanco;volcable;229616;229616;229616;0
-PATAGONICA_MODENA;papu;150x110;blanco;oscilobatiente;325616;325616;325616;0
-PATAGONICA_MODENA;papu;150x110;blanco;mosquitero;305417;305417;305417;0
-PATAGONICA_MODENA;papu;150x110;blanco;premarco;285936;285936;285936;0
-PATAGONICA_MODENA;papu;150x110;blanco;herrajes_blancos;235243;235243;235243;0
-ERROR;papu;200x150;blanco;raja;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;brazo;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;volcable;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;mosquitero;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;premarco;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;blanco;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;papu;150x110;negro;raja;283379;283379;283379;0
-PATAGONICA_MODENA;papu;150x110;negro;brazo;287379;287379;287379;0
-PATAGONICA_MODENA;papu;150x110;negro;volcable;287379;287379;287379;0
-PATAGONICA_MODENA;papu;150x110;negro;oscilobatiente;383379;383379;383379;0
-PATAGONICA_MODENA;papu;150x110;negro;mosquitero;363180;363180;363180;0
-PATAGONICA_MODENA;papu;150x110;negro;premarco;343699;343699;343699;0
-PATAGONICA_MODENA;papu;150x110;negro;herrajes_blancos;295894;295894;295894;0
-ERROR;papu;200x150;negro;raja;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;brazo;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;volcable;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;mosquitero;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;premarco;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;negro;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;papu;150x110;bronce colonial;raja;312260;312260;312260;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;brazo;316260;316260;316260;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;volcable;316260;316260;316260;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;oscilobatiente;412260;412260;412260;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;mosquitero;392061;392061;392061;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;premarco;372580;372580;372580;0
-PATAGONICA_MODENA;papu;150x110;bronce colonial;herrajes_blancos;326219;326219;326219;0
-ERROR;papu;200x150;bronce colonial;raja;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;brazo;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;volcable;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;mosquitero;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;premarco;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;bronce colonial;herrajes_blancos;;;;No existe medida superior para 200x150
-PATAGONICA_MODENA;papu;150x110;simil madera;raja;764736;764736;764736;0
-PATAGONICA_MODENA;papu;150x110;simil madera;brazo;768736;768736;768736;0
-PATAGONICA_MODENA;papu;150x110;simil madera;volcable;768736;768736;768736;0
-PATAGONICA_MODENA;papu;150x110;simil madera;oscilobatiente;864736;864736;864736;0
-PATAGONICA_MODENA;papu;150x110;simil madera;mosquitero;844537;844537;844537;0
-PATAGONICA_MODENA;papu;150x110;simil madera;premarco;825056;825056;825056;0
-PATAGONICA_MODENA;papu;150x110;simil madera;herrajes_blancos;801319;801319;801319;0
-ERROR;papu;200x150;simil madera;raja;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;brazo;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;volcable;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;oscilobatiente;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;mosquitero;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;premarco;;;;No existe medida superior para 200x150
-ERROR;papu;200x150;simil madera;herrajes_blancos;;;;No existe medida superior para 200x150
+PATAGONICA_HERRERO;amarilla;150x110;blanco;raja;119166;126316;164211;45045
+PATAGONICA_HERRERO;amarilla;150x110;blanco;brazo;122766;130132;169172;46406
+PATAGONICA_HERRERO;amarilla;150x110;blanco;volcable;122766;130132;169172;46406
+PATAGONICA_HERRERO;amarilla;200x150;blanco;raja;216571;229565;298434;81864
+PATAGONICA_HERRERO;amarilla;200x150;blanco;brazo;223771;237197;308356;84585
+PATAGONICA_HERRERO;amarilla;200x150;blanco;volcable;223771;237197;308356;84585
+PATAGONICA_HERRERO;amarilla;150x110;negro;raja;144726;153410;199433;54707
+PATAGONICA_HERRERO;amarilla;150x110;negro;brazo;148326;157226;204394;56067
+PATAGONICA_HERRERO;amarilla;150x110;negro;volcable;148326;157226;204394;56067
+PATAGONICA_HERRERO;amarilla;200x150;negro;raja;262669;278429;361957;99289
+PATAGONICA_HERRERO;amarilla;200x150;negro;brazo;269869;286061;371879;102010
+PATAGONICA_HERRERO;amarilla;200x150;negro;volcable;269869;286061;371879;102010
+PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;raja;157506;166957;217044;59537
+PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;brazo;161106;170773;222004;60898
+PATAGONICA_HERRERO;amarilla;150x110;bronce colonial;volcable;161106;170773;222004;60898
+PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;raja;285717;302860;393718;108001
+PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;brazo;292917;310492;403639;110723
+PATAGONICA_HERRERO;amarilla;200x150;bronce colonial;volcable;292917;310492;403639;110723
+PATAGONICA_HERRERO;amarilla;150x110;simil madera;raja;357727;379190;492947;135221
+PATAGONICA_HERRERO;amarilla;150x110;simil madera;brazo;361327;383006;497908;136581
+PATAGONICA_HERRERO;amarilla;150x110;simil madera;volcable;361327;383006;497908;136581
+PATAGONICA_HERRERO;amarilla;200x150;simil madera;raja;646808;685616;891301;244493
+PATAGONICA_HERRERO;amarilla;200x150;simil madera;brazo;654008;693248;901222;247215
+PATAGONICA_HERRERO;amarilla;200x150;simil madera;volcable;654008;693248;901222;247215
+PATAGONICA_HERRERO;azul;150x110;blanco;raja;116518;128170;166621;50103
+PATAGONICA_HERRERO;azul;150x110;blanco;brazo;120038;132042;171655;51616
+PATAGONICA_HERRERO;azul;150x110;blanco;volcable;120038;132042;171655;51616
+PATAGONICA_HERRERO;azul;200x150;blanco;raja;211758;232934;302814;91056
+PATAGONICA_HERRERO;azul;200x150;blanco;brazo;218798;240678;312881;94083
+PATAGONICA_HERRERO;azul;200x150;blanco;volcable;218798;240678;312881;94083
+PATAGONICA_HERRERO;azul;150x110;negro;raja;141510;155661;202360;60849
+PATAGONICA_HERRERO;azul;150x110;negro;brazo;145030;159533;207393;62363
+PATAGONICA_HERRERO;azul;150x110;negro;volcable;145030;159533;207393;62363
+PATAGONICA_HERRERO;azul;200x150;negro;raja;256832;282515;367269;110438
+PATAGONICA_HERRERO;azul;200x150;negro;brazo;263872;290259;377336;113465
+PATAGONICA_HERRERO;azul;200x150;negro;volcable;263872;290259;377336;113465
+PATAGONICA_HERRERO;azul;150x110;bronce colonial;raja;154006;169407;220229;66223
+PATAGONICA_HERRERO;azul;150x110;bronce colonial;brazo;157526;173279;225262;67736
+PATAGONICA_HERRERO;azul;150x110;bronce colonial;volcable;157526;173279;225262;67736
+PATAGONICA_HERRERO;azul;200x150;bronce colonial;raja;279367;307304;399495;120128
+PATAGONICA_HERRERO;azul;200x150;bronce colonial;brazo;286407;315048;409563;123155
+PATAGONICA_HERRERO;azul;200x150;bronce colonial;volcable;286407;315048;409563;123155
+PATAGONICA_HERRERO;azul;150x110;simil madera;raja;349777;384755;500181;150404
+PATAGONICA_HERRERO;azul;150x110;simil madera;brazo;353297;388627;505215;151918
+PATAGONICA_HERRERO;azul;150x110;simil madera;volcable;353297;388627;505215;151918
+PATAGONICA_HERRERO;azul;200x150;simil madera;raja;632434;695677;904381;271947
+PATAGONICA_HERRERO;azul;200x150;simil madera;brazo;639474;703421;914448;274974
+PATAGONICA_HERRERO;azul;200x150;simil madera;volcable;639474;703421;914448;274974
+PATAGONICA_HERRERO;verde;150x110;blanco;raja;116518;133996;180894;64376
+PATAGONICA_HERRERO;verde;150x110;blanco;brazo;120038;138044;186359;66321
+PATAGONICA_HERRERO;verde;150x110;blanco;volcable;120038;138044;186359;66321
+PATAGONICA_HERRERO;verde;200x150;blanco;raja;211758;243522;328754;116996
+PATAGONICA_HERRERO;verde;200x150;blanco;brazo;218798;251618;339684;120886
+PATAGONICA_HERRERO;verde;200x150;blanco;volcable;218798;251618;339684;120886
+PATAGONICA_HERRERO;verde;150x110;negro;raja;141510;162737;219695;78184
+PATAGONICA_HERRERO;verde;150x110;negro;brazo;145030;166785;225159;80129
+PATAGONICA_HERRERO;verde;150x110;negro;volcable;145030;166785;225159;80129
+PATAGONICA_HERRERO;verde;200x150;negro;raja;256832;295356;398731;141899
+PATAGONICA_HERRERO;verde;200x150;negro;brazo;263872;303452;409661;145789
+PATAGONICA_HERRERO;verde;200x150;negro;volcable;263872;303452;409661;145789
+PATAGONICA_HERRERO;verde;150x110;bronce colonial;raja;154006;177107;239095;85088
+PATAGONICA_HERRERO;verde;150x110;bronce colonial;brazo;157526;181155;244559;87033
+PATAGONICA_HERRERO;verde;150x110;bronce colonial;volcable;157526;181155;244559;87033
+PATAGONICA_HERRERO;verde;200x150;bronce colonial;raja;279367;321273;433718;154351
+PATAGONICA_HERRERO;verde;200x150;bronce colonial;brazo;286407;329369;444648;158240
+PATAGONICA_HERRERO;verde;200x150;bronce colonial;volcable;286407;329369;444648;158240
+PATAGONICA_HERRERO;verde;150x110;simil madera;raja;349777;402244;543029;193252
+PATAGONICA_HERRERO;verde;150x110;simil madera;brazo;353297;406292;548494;195197
+PATAGONICA_HERRERO;verde;150x110;simil madera;volcable;353297;406292;548494;195197
+PATAGONICA_HERRERO;verde;200x150;simil madera;raja;632434;727299;981854;349420
+PATAGONICA_HERRERO;verde;200x150;simil madera;brazo;639474;735395;992783;353309
+PATAGONICA_HERRERO;verde;200x150;simil madera;volcable;639474;735395;992783;353309
+PATAGONICA_HERRERO;papu;150x110;blanco;raja;132407;132407;132407;0
+PATAGONICA_HERRERO;papu;150x110;blanco;brazo;136407;136407;136407;0
+PATAGONICA_HERRERO;papu;150x110;blanco;volcable;136407;136407;136407;0
+PATAGONICA_HERRERO;papu;200x150;blanco;raja;240634;240634;240634;0
+PATAGONICA_HERRERO;papu;200x150;blanco;brazo;248634;248634;248634;0
+PATAGONICA_HERRERO;papu;200x150;blanco;volcable;248634;248634;248634;0
+PATAGONICA_HERRERO;papu;150x110;negro;raja;160807;160807;160807;0
+PATAGONICA_HERRERO;papu;150x110;negro;brazo;164807;164807;164807;0
+PATAGONICA_HERRERO;papu;150x110;negro;volcable;164807;164807;164807;0
+PATAGONICA_HERRERO;papu;200x150;negro;raja;291854;291854;291854;0
+PATAGONICA_HERRERO;papu;200x150;negro;brazo;299854;299854;299854;0
+PATAGONICA_HERRERO;papu;200x150;negro;volcable;299854;299854;299854;0
+PATAGONICA_HERRERO;papu;150x110;bronce colonial;raja;175007;175007;175007;0
+PATAGONICA_HERRERO;papu;150x110;bronce colonial;brazo;179007;179007;179007;0
+PATAGONICA_HERRERO;papu;150x110;bronce colonial;volcable;179007;179007;179007;0
+PATAGONICA_HERRERO;papu;200x150;bronce colonial;raja;317463;317463;317463;0
+PATAGONICA_HERRERO;papu;200x150;bronce colonial;brazo;325463;325463;325463;0
+PATAGONICA_HERRERO;papu;200x150;bronce colonial;volcable;325463;325463;325463;0
+PATAGONICA_HERRERO;papu;150x110;simil madera;raja;397474;397474;397474;0
+PATAGONICA_HERRERO;papu;150x110;simil madera;brazo;401474;401474;401474;0
+PATAGONICA_HERRERO;papu;150x110;simil madera;volcable;401474;401474;401474;0
+PATAGONICA_HERRERO;papu;200x150;simil madera;raja;718675;718675;718675;0
+PATAGONICA_HERRERO;papu;200x150;simil madera;brazo;726675;726675;726675;0
+PATAGONICA_HERRERO;papu;200x150;simil madera;volcable;726675;726675;726675;0
+PATAGONICA_MODENA;amarilla;150x110;blanco;raja;227069;211174;290998;63929
+PATAGONICA_MODENA;amarilla;150x110;blanco;brazo;231069;214894;296124;65055
+PATAGONICA_MODENA;amarilla;150x110;blanco;volcable;231069;214894;296124;65055
+PATAGONICA_MODENA;amarilla;150x110;blanco;oscilobatiente;327069;304174;419152;92083
+PATAGONICA_MODENA;amarilla;150x110;blanco;mosquitero;306870;282995;412806;105936
+PATAGONICA_MODENA;amarilla;150x110;blanco;premarco;287389;267272;356408;69019
+PATAGONICA_MODENA;amarilla;150x110;blanco;herrajes_blancos;236696;220127;303335;66639
+PATAGONICA_MODENA;amarilla;200x150;blanco;raja;436806;406230;559784;122978
+PATAGONICA_MODENA;amarilla;200x150;blanco;brazo;440806;409950;564911;124105
+PATAGONICA_MODENA;amarilla;200x150;blanco;volcable;440806;409950;564911;124105
+PATAGONICA_MODENA;amarilla;200x150;blanco;oscilobatiente;536806;499230;687938;151132
+PATAGONICA_MODENA;amarilla;200x150;blanco;mosquitero;581898;536812;781253;199355
+PATAGONICA_MODENA;amarilla;200x150;blanco;premarco;518006;481746;647836;129830
+PATAGONICA_MODENA;amarilla;200x150;blanco;herrajes_blancos;455097;423240;583225;128128
+PATAGONICA_MODENA;amarilla;150x110;negro;raja;284832;264894;365024;80192
+PATAGONICA_MODENA;amarilla;150x110;negro;brazo;288832;268614;370150;81318
+PATAGONICA_MODENA;amarilla;150x110;negro;volcable;288832;268614;370150;81318
+PATAGONICA_MODENA;amarilla;150x110;negro;oscilobatiente;384832;357894;493178;108346
+PATAGONICA_MODENA;amarilla;150x110;negro;mosquitero;364633;336714;486831;122199
+PATAGONICA_MODENA;amarilla;150x110;negro;premarco;345152;320991;430433;85281
+PATAGONICA_MODENA;amarilla;150x110;negro;herrajes_blancos;297347;276533;381062;83715
+PATAGONICA_MODENA;amarilla;200x150;negro;raja;546554;508295;700431;153877
+PATAGONICA_MODENA;amarilla;200x150;negro;brazo;550554;512015;705557;155003
+PATAGONICA_MODENA;amarilla;200x150;negro;volcable;550554;512015;705557;155003
+PATAGONICA_MODENA;amarilla;200x150;negro;oscilobatiente;646554;601295;828585;182031
+PATAGONICA_MODENA;amarilla;200x150;negro;mosquitero;691646;638878;921899;230253
+PATAGONICA_MODENA;amarilla;200x150;negro;premarco;627754;583811;788482;160728
+PATAGONICA_MODENA;amarilla;200x150;negro;herrajes_blancos;570333;530410;730905;160572
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;raja;313713;291753;402036;88323
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;brazo;317713;295473;407162;89449
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;volcable;317713;295473;407162;89449
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;oscilobatiente;413713;384753;530190;116477
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;mosquitero;393514;363574;523843;130330
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;premarco;374033;347851;467446;93413
+PATAGONICA_MODENA;amarilla;150x110;bronce colonial;herrajes_blancos;327672;304735;419925;92253
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;raja;601427;559327;770753;169326
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;brazo;605427;563047;775879;170452
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;volcable;605427;563047;775879;170452
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;oscilobatiente;701427;652327;898907;197480
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;mosquitero;746519;689910;992221;245702
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;premarco;682627;634843;858804;176177
+PATAGONICA_MODENA;amarilla;200x150;bronce colonial;herrajes_blancos;627949;583993;804742;176793
+PATAGONICA_MODENA;amarilla;150x110;simil madera;raja;766189;712556;981902;215713
+PATAGONICA_MODENA;amarilla;150x110;simil madera;brazo;770189;716276;987028;216839
+PATAGONICA_MODENA;amarilla;150x110;simil madera;volcable;770189;716276;987028;216839
+PATAGONICA_MODENA;amarilla;150x110;simil madera;oscilobatiente;866189;805556;1110056;243867
+PATAGONICA_MODENA;amarilla;150x110;simil madera;mosquitero;845990;784376;1103710;257720
+PATAGONICA_MODENA;amarilla;150x110;simil madera;premarco;826509;768653;1047312;220803
+PATAGONICA_MODENA;amarilla;150x110;simil madera;herrajes_blancos;802772;746578;1028784;226012
+PATAGONICA_MODENA;amarilla;200x150;simil madera;raja;1461116;1358838;1872479;411363
+PATAGONICA_MODENA;amarilla;200x150;simil madera;brazo;1465116;1362558;1877605;412489
+PATAGONICA_MODENA;amarilla;200x150;simil madera;volcable;1465116;1362558;1877605;412489
+PATAGONICA_MODENA;amarilla;200x150;simil madera;oscilobatiente;1561116;1451838;2000633;439517
+PATAGONICA_MODENA;amarilla;200x150;simil madera;mosquitero;1606208;1489421;2093947;487739
+PATAGONICA_MODENA;amarilla;200x150;simil madera;premarco;1542316;1434354;1960530;418214
+PATAGONICA_MODENA;amarilla;200x150;simil madera;herrajes_blancos;1530623;1423479;1961555;430932
+PATAGONICA_MODENA;azul;150x110;blanco;raja;227069;211174;301979;74910
+PATAGONICA_MODENA;azul;150x110;blanco;brazo;231069;214894;307299;76230
+PATAGONICA_MODENA;azul;150x110;blanco;volcable;231069;214894;307299;76230
+PATAGONICA_MODENA;azul;150x110;blanco;oscilobatiente;327069;304174;434969;107900
+PATAGONICA_MODENA;azul;150x110;blanco;mosquitero;306870;281399;425574;118705
+PATAGONICA_MODENA;azul;150x110;blanco;premarco;287389;267272;367389;80000
+PATAGONICA_MODENA;azul;150x110;blanco;herrajes_blancos;236696;220127;314782;78086
+PATAGONICA_MODENA;azul;200x150;blanco;raja;436806;406230;580908;144102
+PATAGONICA_MODENA;azul;200x150;blanco;brazo;440806;409950;586228;145422
+PATAGONICA_MODENA;azul;200x150;blanco;volcable;440806;409950;586228;145422
+PATAGONICA_MODENA;azul;200x150;blanco;oscilobatiente;536806;499230;713898;177092
+PATAGONICA_MODENA;azul;200x150;blanco;mosquitero;581898;533911;805627;223729
+PATAGONICA_MODENA;azul;200x150;blanco;premarco;518006;481746;668960;150954
+PATAGONICA_MODENA;azul;200x150;blanco;herrajes_blancos;455097;423240;605234;150137
+PATAGONICA_MODENA;azul;150x110;negro;raja;284832;264894;378798;93966
+PATAGONICA_MODENA;azul;150x110;negro;brazo;288832;268614;384118;95286
+PATAGONICA_MODENA;azul;150x110;negro;volcable;288832;268614;384118;95286
+PATAGONICA_MODENA;azul;150x110;negro;oscilobatiente;384832;357894;511788;126956
+PATAGONICA_MODENA;azul;150x110;negro;mosquitero;364633;335118;502393;137761
+PATAGONICA_MODENA;azul;150x110;negro;premarco;345152;320991;444208;99056
+PATAGONICA_MODENA;azul;150x110;negro;herrajes_blancos;297347;276533;395442;98095
+PATAGONICA_MODENA;azul;200x150;negro;raja;546554;508295;726862;180308
+PATAGONICA_MODENA;azul;200x150;negro;brazo;550554;512015;732182;181628
+PATAGONICA_MODENA;azul;200x150;negro;volcable;550554;512015;732182;181628
+PATAGONICA_MODENA;azul;200x150;negro;oscilobatiente;646554;601295;859852;213298
+PATAGONICA_MODENA;azul;200x150;negro;mosquitero;691646;635976;951581;259935
+PATAGONICA_MODENA;azul;200x150;negro;premarco;627754;583811;814914;187160
+PATAGONICA_MODENA;azul;200x150;negro;herrajes_blancos;570333;530410;758486;188153
+PATAGONICA_MODENA;azul;150x110;bronce colonial;raja;313713;291753;417207;103494
+PATAGONICA_MODENA;azul;150x110;bronce colonial;brazo;317713;295473;422527;104814
+PATAGONICA_MODENA;azul;150x110;bronce colonial;volcable;317713;295473;422527;104814
+PATAGONICA_MODENA;azul;150x110;bronce colonial;oscilobatiente;413713;384753;550197;136484
+PATAGONICA_MODENA;azul;150x110;bronce colonial;mosquitero;393514;361978;540802;147289
+PATAGONICA_MODENA;azul;150x110;bronce colonial;premarco;374033;347851;482617;108584
+PATAGONICA_MODENA;azul;150x110;bronce colonial;herrajes_blancos;327672;304735;435771;108099
+PATAGONICA_MODENA;azul;200x150;bronce colonial;raja;601427;559327;799838;198411
+PATAGONICA_MODENA;azul;200x150;bronce colonial;brazo;605427;563047;805157;199730
+PATAGONICA_MODENA;azul;200x150;bronce colonial;volcable;605427;563047;805157;199730
+PATAGONICA_MODENA;azul;200x150;bronce colonial;oscilobatiente;701427;652327;932828;231401
+PATAGONICA_MODENA;azul;200x150;bronce colonial;mosquitero;746519;687008;1024556;278037
+PATAGONICA_MODENA;azul;200x150;bronce colonial;premarco;682627;634843;887889;205262
+PATAGONICA_MODENA;azul;200x150;bronce colonial;herrajes_blancos;627949;583993;835109;207160
+PATAGONICA_MODENA;azul;150x110;simil madera;raja;766189;712556;1018955;252766
+PATAGONICA_MODENA;azul;150x110;simil madera;brazo;770189;716276;1024274;254085
+PATAGONICA_MODENA;azul;150x110;simil madera;volcable;770189;716276;1024274;254085
+PATAGONICA_MODENA;azul;150x110;simil madera;oscilobatiente;866189;805556;1151945;285756
+PATAGONICA_MODENA;azul;150x110;simil madera;mosquitero;845990;782780;1142550;296560
+PATAGONICA_MODENA;azul;150x110;simil madera;premarco;826509;768653;1084365;257856
+PATAGONICA_MODENA;azul;150x110;simil madera;herrajes_blancos;802772;746578;1067606;264834
+PATAGONICA_MODENA;azul;200x150;simil madera;raja;1461116;1358838;1943138;482022
+PATAGONICA_MODENA;azul;200x150;simil madera;brazo;1465116;1362558;1948458;483342
+PATAGONICA_MODENA;azul;200x150;simil madera;volcable;1465116;1362558;1948458;483342
+PATAGONICA_MODENA;azul;200x150;simil madera;oscilobatiente;1561116;1451838;2076128;515012
+PATAGONICA_MODENA;azul;200x150;simil madera;mosquitero;1606208;1486519;2167857;561649
+PATAGONICA_MODENA;azul;200x150;simil madera;premarco;1542316;1434354;2031190;488874
+PATAGONICA_MODENA;azul;200x150;simil madera;herrajes_blancos;1530623;1423479;2035576;504953
+PATAGONICA_MODENA;verde;150x110;blanco;raja;227069;211174;327848;100779
+PATAGONICA_MODENA;verde;150x110;blanco;brazo;231069;214894;333623;102554
+PATAGONICA_MODENA;verde;150x110;blanco;volcable;231069;214894;333623;102554
+PATAGONICA_MODENA;verde;150x110;blanco;oscilobatiente;327069;304174;472230;145161
+PATAGONICA_MODENA;verde;150x110;blanco;mosquitero;306870;281399;457061;150192
+PATAGONICA_MODENA;verde;150x110;blanco;premarco;287389;267272;393258;105869
+PATAGONICA_MODENA;verde;150x110;blanco;herrajes_blancos;236696;220127;341748;105052
+PATAGONICA_MODENA;verde;200x150;blanco;raja;436806;406230;630671;193865
+PATAGONICA_MODENA;verde;200x150;blanco;brazo;440806;409950;636447;195641
+PATAGONICA_MODENA;verde;200x150;blanco;volcable;440806;409950;636447;195641
+PATAGONICA_MODENA;verde;200x150;blanco;oscilobatiente;536806;499230;775054;238248
+PATAGONICA_MODENA;verde;200x150;blanco;mosquitero;581898;533911;865604;283706
+PATAGONICA_MODENA;verde;200x150;blanco;premarco;518006;481746;718723;200717
+PATAGONICA_MODENA;verde;200x150;blanco;herrajes_blancos;455097;423240;657080;201983
+PATAGONICA_MODENA;verde;150x110;negro;raja;284832;264894;411248;126416
+PATAGONICA_MODENA;verde;150x110;negro;brazo;288832;268614;417023;128191
+PATAGONICA_MODENA;verde;150x110;negro;volcable;288832;268614;417023;128191
+PATAGONICA_MODENA;verde;150x110;negro;oscilobatiente;384832;357894;555630;170798
+PATAGONICA_MODENA;verde;150x110;negro;mosquitero;364633;335118;540461;175828
+PATAGONICA_MODENA;verde;150x110;negro;premarco;345152;320991;476657;131505
+PATAGONICA_MODENA;verde;150x110;negro;herrajes_blancos;297347;276533;429317;131970
+PATAGONICA_MODENA;verde;200x150;negro;raja;546554;508295;789128;242574
+PATAGONICA_MODENA;verde;200x150;negro;brazo;550554;512015;794904;244350
+PATAGONICA_MODENA;verde;200x150;negro;volcable;550554;512015;794904;244350
+PATAGONICA_MODENA;verde;200x150;negro;oscilobatiente;646554;601295;933511;286957
+PATAGONICA_MODENA;verde;200x150;negro;mosquitero;691646;635976;1024061;332415
+PATAGONICA_MODENA;verde;200x150;negro;premarco;627754;583811;877180;249426
+PATAGONICA_MODENA;verde;200x150;negro;herrajes_blancos;570333;530410;823461;253128
+PATAGONICA_MODENA;verde;150x110;bronce colonial;raja;313713;291753;452947;139234
+PATAGONICA_MODENA;verde;150x110;bronce colonial;brazo;317713;295473;458722;141009
+PATAGONICA_MODENA;verde;150x110;bronce colonial;volcable;317713;295473;458722;141009
+PATAGONICA_MODENA;verde;150x110;bronce colonial;oscilobatiente;413713;384753;597329;183616
+PATAGONICA_MODENA;verde;150x110;bronce colonial;mosquitero;393514;361978;582160;188646
+PATAGONICA_MODENA;verde;150x110;bronce colonial;premarco;374033;347851;518356;144323
+PATAGONICA_MODENA;verde;150x110;bronce colonial;herrajes_blancos;327672;304735;473101;145429
+PATAGONICA_MODENA;verde;200x150;bronce colonial;raja;601427;559327;868355;266928
+PATAGONICA_MODENA;verde;200x150;bronce colonial;brazo;605427;563047;874131;268704
+PATAGONICA_MODENA;verde;200x150;bronce colonial;volcable;605427;563047;874131;268704
+PATAGONICA_MODENA;verde;200x150;bronce colonial;oscilobatiente;701427;652327;1012738;311311
+PATAGONICA_MODENA;verde;200x150;bronce colonial;mosquitero;746519;687008;1103288;356769
+PATAGONICA_MODENA;verde;200x150;bronce colonial;premarco;682627;634843;956407;273780
+PATAGONICA_MODENA;verde;200x150;bronce colonial;herrajes_blancos;627949;583993;906648;278699
+PATAGONICA_MODENA;verde;150x110;simil madera;raja;766189;712556;1106243;340054
+PATAGONICA_MODENA;verde;150x110;simil madera;brazo;770189;716276;1112018;341829
+PATAGONICA_MODENA;verde;150x110;simil madera;volcable;770189;716276;1112018;341829
+PATAGONICA_MODENA;verde;150x110;simil madera;oscilobatiente;866189;805556;1250625;384436
+PATAGONICA_MODENA;verde;150x110;simil madera;mosquitero;845990;782780;1235456;389466
+PATAGONICA_MODENA;verde;150x110;simil madera;premarco;826509;768653;1171653;345144
+PATAGONICA_MODENA;verde;150x110;simil madera;herrajes_blancos;802772;746578;1159062;356290
+PATAGONICA_MODENA;verde;200x150;simil madera;raja;1461116;1358838;2109596;648480
+PATAGONICA_MODENA;verde;200x150;simil madera;brazo;1465116;1362558;2115371;650255
+PATAGONICA_MODENA;verde;200x150;simil madera;volcable;1465116;1362558;2115371;650255
+PATAGONICA_MODENA;verde;200x150;simil madera;oscilobatiente;1561116;1451838;2253978;692862
+PATAGONICA_MODENA;verde;200x150;simil madera;mosquitero;1606208;1486519;2344529;738321
+PATAGONICA_MODENA;verde;200x150;simil madera;premarco;1542316;1434354;2197647;655331
+PATAGONICA_MODENA;verde;200x150;simil madera;herrajes_blancos;1530623;1423479;2209952;679329
+PATAGONICA_MODENA;papu;150x110;blanco;raja;227069;227069;227069;0
+PATAGONICA_MODENA;papu;150x110;blanco;brazo;231069;231069;231069;0
+PATAGONICA_MODENA;papu;150x110;blanco;volcable;231069;231069;231069;0
+PATAGONICA_MODENA;papu;150x110;blanco;oscilobatiente;327069;327069;327069;0
+PATAGONICA_MODENA;papu;150x110;blanco;mosquitero;306870;306870;306870;0
+PATAGONICA_MODENA;papu;150x110;blanco;premarco;287389;287389;287389;0
+PATAGONICA_MODENA;papu;150x110;blanco;herrajes_blancos;236696;236696;236696;0
+PATAGONICA_MODENA;papu;200x150;blanco;raja;436806;436806;436806;0
+PATAGONICA_MODENA;papu;200x150;blanco;brazo;440806;440806;440806;0
+PATAGONICA_MODENA;papu;200x150;blanco;volcable;440806;440806;440806;0
+PATAGONICA_MODENA;papu;200x150;blanco;oscilobatiente;536806;536806;536806;0
+PATAGONICA_MODENA;papu;200x150;blanco;mosquitero;581898;581898;581898;0
+PATAGONICA_MODENA;papu;200x150;blanco;premarco;518006;518006;518006;0
+PATAGONICA_MODENA;papu;200x150;blanco;herrajes_blancos;455097;455097;455097;0
+PATAGONICA_MODENA;papu;150x110;negro;raja;284832;284832;284832;0
+PATAGONICA_MODENA;papu;150x110;negro;brazo;288832;288832;288832;0
+PATAGONICA_MODENA;papu;150x110;negro;volcable;288832;288832;288832;0
+PATAGONICA_MODENA;papu;150x110;negro;oscilobatiente;384832;384832;384832;0
+PATAGONICA_MODENA;papu;150x110;negro;mosquitero;364633;364633;364633;0
+PATAGONICA_MODENA;papu;150x110;negro;premarco;345152;345152;345152;0
+PATAGONICA_MODENA;papu;150x110;negro;herrajes_blancos;297347;297347;297347;0
+PATAGONICA_MODENA;papu;200x150;negro;raja;546554;546554;546554;0
+PATAGONICA_MODENA;papu;200x150;negro;brazo;550554;550554;550554;0
+PATAGONICA_MODENA;papu;200x150;negro;volcable;550554;550554;550554;0
+PATAGONICA_MODENA;papu;200x150;negro;oscilobatiente;646554;646554;646554;0
+PATAGONICA_MODENA;papu;200x150;negro;mosquitero;691646;691646;691646;0
+PATAGONICA_MODENA;papu;200x150;negro;premarco;627754;627754;627754;0
+PATAGONICA_MODENA;papu;200x150;negro;herrajes_blancos;570333;570333;570333;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;raja;313713;313713;313713;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;brazo;317713;317713;317713;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;volcable;317713;317713;317713;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;oscilobatiente;413713;413713;413713;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;mosquitero;393514;393514;393514;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;premarco;374033;374033;374033;0
+PATAGONICA_MODENA;papu;150x110;bronce colonial;herrajes_blancos;327672;327672;327672;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;raja;601427;601427;601427;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;brazo;605427;605427;605427;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;volcable;605427;605427;605427;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;oscilobatiente;701427;701427;701427;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;mosquitero;746519;746519;746519;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;premarco;682627;682627;682627;0
+PATAGONICA_MODENA;papu;200x150;bronce colonial;herrajes_blancos;627949;627949;627949;0
+PATAGONICA_MODENA;papu;150x110;simil madera;raja;766189;766189;766189;0
+PATAGONICA_MODENA;papu;150x110;simil madera;brazo;770189;770189;770189;0
+PATAGONICA_MODENA;papu;150x110;simil madera;volcable;770189;770189;770189;0
+PATAGONICA_MODENA;papu;150x110;simil madera;oscilobatiente;866189;866189;866189;0
+PATAGONICA_MODENA;papu;150x110;simil madera;mosquitero;845990;845990;845990;0
+PATAGONICA_MODENA;papu;150x110;simil madera;premarco;826509;826509;826509;0
+PATAGONICA_MODENA;papu;150x110;simil madera;herrajes_blancos;802772;802772;802772;0
+PATAGONICA_MODENA;papu;200x150;simil madera;raja;1461116;1461116;1461116;0
+PATAGONICA_MODENA;papu;200x150;simil madera;brazo;1465116;1465116;1465116;0
+PATAGONICA_MODENA;papu;200x150;simil madera;volcable;1465116;1465116;1465116;0
+PATAGONICA_MODENA;papu;200x150;simil madera;oscilobatiente;1561116;1561116;1561116;0
+PATAGONICA_MODENA;papu;200x150;simil madera;mosquitero;1606208;1606208;1606208;0
+PATAGONICA_MODENA;papu;200x150;simil madera;premarco;1542316;1542316;1542316;0
+PATAGONICA_MODENA;papu;200x150;simil madera;herrajes_blancos;1530623;1530623;1530623;0

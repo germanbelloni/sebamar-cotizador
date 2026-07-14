@@ -47,12 +47,12 @@
 
       "aluminio": {
         "blanco": {
-          "completa": 42000,
-          "pano_solo": 5
+          "completa": 188750,
+          "pano_solo": 139851
         },
         "simil_madera": {
-          "completa": 10,
-          "pano_solo": 5
+          "completa": 204007,
+          "pano_solo": 155108
         }
       }
     }
