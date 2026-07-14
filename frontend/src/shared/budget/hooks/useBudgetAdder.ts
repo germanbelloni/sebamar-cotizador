@@ -1,6 +1,6 @@
 import type { BudgetItem } from "../types/budget.types";
-
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+import { useGlobalLoadingStore } from "@/shared/loading/useGlobalLoadingStore";
 
 type Params<TConfig, TResult = unknown> = {
   mutation: {
@@ -19,8 +19,16 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
 }: Params<TConfig, TResult>) {
   const addItem = useBudgetStore((state) => state.addItem);
 
+  const setLoading = useGlobalLoadingStore((state) => state.setLoading);
+
   async function handleAdd() {
+    let timer: number | undefined;
+
     try {
+      timer = window.setTimeout(() => {
+        setLoading(true);
+      }, 2000);
+
       const result = await mutation.mutateAsync(config);
 
       const item = createItem(config, result);
@@ -28,6 +36,9 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
       addItem(item);
     } catch (error) {
       console.error("ERROR AGREGANDO ITEM:", error);
+    } finally {
+      clearTimeout(timer);
+      setLoading(false);
     }
   }
 
