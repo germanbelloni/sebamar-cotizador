@@ -1,0 +1,209 @@
+﻿modulo;perfil;medida;color;descripcion;extras;costo;proveedor;precio;ganancia
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Raja;raja;56923;51231;70596;13673
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;81105;72995;100586;19481
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Brazo;brazo;60923;54831;75557;14634
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Brazo + Mosquitero;brazo+mosquitero;85105;76595;105547;20442
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Volcable;volcable;60923;54831;75557;14634
+RAJA_HERRERO;amarilla;50x100;blanco;50x100 | blanco | Volcable + Mosquitero;volcable+mosquitero;85105;76595;105547;20442
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Raja;raja;70446;63401;87367;16921
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;94628;85165;117358;22730
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Brazo;brazo;74446;67001;92328;17882
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Brazo + Mosquitero;brazo+mosquitero;98628;88765;122318;23690
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Volcable;volcable;74446;67001;92328;17882
+RAJA_HERRERO;amarilla;50x100;negro;50x100 | negro | Volcable + Mosquitero;volcable+mosquitero;98628;88765;122318;23690
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;77208;69487;95753;18545
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;101390;91251;125744;24354
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;81208;73087;100714;19506
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Brazo + Mosquitero;brazo+mosquitero;105390;94851;130705;25315
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;81208;73087;100714;19506
+RAJA_HERRERO;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Volcable + Mosquitero;volcable+mosquitero;105390;94851;130705;25315
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Raja;raja;183139;164825;227129;43990
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;207321;186589;257120;49799
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Brazo;brazo;187139;168425;232090;44951
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Brazo + Mosquitero;brazo+mosquitero;211321;190189;262080;50759
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Volcable;volcable;187139;168425;232090;44951
+RAJA_HERRERO;amarilla;50x100;simil madera;50x100 | simil madera | Volcable + Mosquitero;volcable+mosquitero;211321;190189;262080;50759
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Raja;raja;56923;50092;71632;14709
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;81105;71372;102063;20958
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Brazo;brazo;60923;53612;76666;15743
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Brazo + Mosquitero;brazo+mosquitero;85105;74892;107096;21991
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Volcable;volcable;60923;53612;76666;15743
+RAJA_HERRERO;azul;50x100;blanco;50x100 | blanco | Volcable + Mosquitero;volcable+mosquitero;85105;74892;107096;21991
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Raja;raja;70446;61992;88649;18203
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;94628;83273;119080;24452
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Brazo;brazo;74446;65512;93683;19237
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Brazo + Mosquitero;brazo+mosquitero;98628;86793;124113;25485
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Volcable;volcable;74446;65512;93683;19237
+RAJA_HERRERO;azul;50x100;negro;50x100 | negro | Volcable + Mosquitero;volcable+mosquitero;98628;86793;124113;25485
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;77208;67943;97159;19951
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;101390;89223;127589;26199
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;81208;71463;102192;20984
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Brazo + Mosquitero;brazo+mosquitero;105390;92743;132623;27233
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;81208;71463;102192;20984
+RAJA_HERRERO;azul;50x100;bronce colonial;50x100 | bronce colonial | Volcable + Mosquitero;volcable+mosquitero;105390;92743;132623;27233
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Raja;raja;183139;161162;230462;47323
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;207321;182442;260893;53572
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Brazo;brazo;187139;164682;235496;48357
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Brazo + Mosquitero;brazo+mosquitero;211321;185962;265926;54605
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Volcable;volcable;187139;164682;235496;48357
+RAJA_HERRERO;azul;50x100;simil madera;50x100 | simil madera | Volcable + Mosquitero;volcable+mosquitero;211321;185962;265926;54605
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Raja;raja;56923;50092;77768;20845
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;81105;71372;110806;29701
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Brazo;brazo;60923;53612;83233;22310
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Brazo + Mosquitero;brazo+mosquitero;85105;74892;116270;31165
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Volcable;volcable;60923;53612;83233;22310
+RAJA_HERRERO;verde;50x100;blanco;50x100 | blanco | Volcable + Mosquitero;volcable+mosquitero;85105;74892;116270;31165
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Raja;raja;70446;61992;96243;25797
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;94628;83273;129281;34653
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Brazo;brazo;74446;65512;101708;27262
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Brazo + Mosquitero;brazo+mosquitero;98628;86793;134746;36118
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Volcable;volcable;74446;65512;101708;27262
+RAJA_HERRERO;verde;50x100;negro;50x100 | negro | Volcable + Mosquitero;volcable+mosquitero;98628;86793;134746;36118
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;77208;67943;105482;28274
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;101390;89223;138519;37129
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;81208;71463;110946;29738
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Brazo + Mosquitero;brazo+mosquitero;105390;92743;143984;38594
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;81208;71463;110946;29738
+RAJA_HERRERO;verde;50x100;bronce colonial;50x100 | bronce colonial | Volcable + Mosquitero;volcable+mosquitero;105390;92743;143984;38594
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Raja;raja;183139;161162;250205;67066
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;207321;182442;283242;75921
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Brazo;brazo;187139;164682;255669;68530
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Brazo + Mosquitero;brazo+mosquitero;211321;185962;288707;77386
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Volcable;volcable;187139;164682;255669;68530
+RAJA_HERRERO;verde;50x100;simil madera;50x100 | simil madera | Volcable + Mosquitero;volcable+mosquitero;211321;185962;288707;77386
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Raja;raja;56923;56923;56923;0
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;81105;81105;81105;0
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Brazo;brazo;60923;60923;60923;0
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Brazo + Mosquitero;brazo+mosquitero;85105;85105;85105;0
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Volcable;volcable;60923;60923;60923;0
+RAJA_HERRERO;papu;50x100;blanco;50x100 | blanco | Volcable + Mosquitero;volcable+mosquitero;85105;85105;85105;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Raja;raja;70446;70446;70446;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;94628;94628;94628;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Brazo;brazo;74446;74446;74446;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Brazo + Mosquitero;brazo+mosquitero;98628;98628;98628;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Volcable;volcable;74446;74446;74446;0
+RAJA_HERRERO;papu;50x100;negro;50x100 | negro | Volcable + Mosquitero;volcable+mosquitero;98628;98628;98628;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;77208;77208;77208;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;101390;101390;101390;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;81208;81208;81208;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Brazo + Mosquitero;brazo+mosquitero;105390;105390;105390;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;81208;81208;81208;0
+RAJA_HERRERO;papu;50x100;bronce colonial;50x100 | bronce colonial | Volcable + Mosquitero;volcable+mosquitero;105390;105390;105390;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Raja;raja;183139;183139;183139;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;207321;207321;207321;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Brazo;brazo;187139;187139;187139;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Brazo + Mosquitero;brazo+mosquitero;211321;211321;211321;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Volcable;volcable;187139;187139;187139;0
+RAJA_HERRERO;papu;50x100;simil madera;50x100 | simil madera | Volcable + Mosquitero;volcable+mosquitero;211321;211321;211321;0
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Raja;raja;139122;129383;178290;39168
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;163304;151147;215202;51898
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Contramarco;contramarco;151722;141101;191954;40232
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Premarco + Contramarco;premarco+contramarco;173922;161747;216027;42105
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Brazo;brazo;143122;133103;183417;40295
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Volcable;volcable;143122;133103;183417;40295
+RAJA_MODENA;amarilla;50x100;blanco;50x100 | blanco | Oscilobatiente;oscilobatiente;239122;222383;306444;67322
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Raja;raja;177305;164894;227223;49918
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;201487;186657;264135;62648
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Contramarco;contramarco;189905;176612;240887;50982
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Premarco + Contramarco;premarco+contramarco;212105;197258;264960;52855
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Brazo;brazo;181305;168614;232350;51045
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Volcable;volcable;181305;168614;232350;51045
+RAJA_MODENA;amarilla;50x100;negro;50x100 | negro | Oscilobatiente;oscilobatiente;277305;257894;355377;78072
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;196396;182648;251689;55293
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;220578;204412;288601;68023
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Contramarco;contramarco;208996;194366;265353;56357
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Premarco + Contramarco;premarco+contramarco;231196;215012;289426;58230
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;200396;186368;256815;56419
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;200396;186368;256815;56419
+RAJA_MODENA;amarilla;50x100;bronce colonial;50x100 | bronce colonial | Oscilobatiente;oscilobatiente;296396;275648;379843;83447
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Raja;raja;495495;460810;634997;139502
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;519677;482574;671908;152231
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Contramarco;contramarco;508095;472528;648660;140565
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Premarco + Contramarco;premarco+contramarco;530295;493174;672733;142438
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Brazo;brazo;499495;464530;640123;140628
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Volcable;volcable;499495;464530;640123;140628
+RAJA_MODENA;amarilla;50x100;simil madera;50x100 | simil madera | Oscilobatiente;oscilobatiente;595495;553810;763151;167656
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Raja;raja;139122;129383;185018;45896
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;163304;150664;222471;59167
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Contramarco;contramarco;151722;141101;198682;46960
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Premarco + Contramarco;premarco+contramarco;173922;161747;222755;48833
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Brazo;brazo;143122;133103;190338;47216
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Volcable;volcable;143122;133103;190338;47216
+RAJA_MODENA;azul;50x100;blanco;50x100 | blanco | Oscilobatiente;oscilobatiente;239122;222383;318008;78886
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Raja;raja;177305;164894;235798;58493
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;201487;186174;273251;71764
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Contramarco;contramarco;189905;176612;249461;59556
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Premarco + Contramarco;premarco+contramarco;212105;197258;273534;61429
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Brazo;brazo;181305;168614;241118;59813
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Volcable;volcable;181305;168614;241118;59813
+RAJA_MODENA;azul;50x100;negro;50x100 | negro | Oscilobatiente;oscilobatiente;277305;257894;368788;91483
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;196396;182648;261187;64791
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;220578;203928;298640;78062
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Contramarco;contramarco;208996;194366;274850;65854
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Premarco + Contramarco;premarco+contramarco;231196;215012;298923;67727
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;200396;186368;266507;66111
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;200396;186368;266507;66111
+RAJA_MODENA;azul;50x100;bronce colonial;50x100 | bronce colonial | Oscilobatiente;oscilobatiente;296396;275648;394177;97781
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Raja;raja;495495;460810;658959;163464
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;519677;482091;696412;176735
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Contramarco;contramarco;508095;472528;672622;164527
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Premarco + Contramarco;premarco+contramarco;530295;493174;696695;166400
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Brazo;brazo;499495;464530;664278;164783
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Volcable;volcable;499495;464530;664278;164783
+RAJA_MODENA;azul;50x100;simil madera;50x100 | simil madera | Oscilobatiente;oscilobatiente;595495;553810;791949;196454
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Raja;raja;139122;129383;200868;61746
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;163304;150664;240023;76719
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Contramarco;contramarco;151722;141101;214531;62809
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Premarco + Contramarco;premarco+contramarco;173922;161747;238604;64682
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Brazo;brazo;143122;133103;206643;63521
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Volcable;volcable;143122;133103;206643;63521
+RAJA_MODENA;verde;50x100;blanco;50x100 | blanco | Oscilobatiente;oscilobatiente;239122;222383;345250;106128
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Raja;raja;177305;164894;255997;78692
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;201487;186174;295153;93666
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Contramarco;contramarco;189905;176612;269661;79756
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Premarco + Contramarco;premarco+contramarco;212105;197258;293734;81629
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Brazo;brazo;181305;168614;261773;80468
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Volcable;volcable;181305;168614;261773;80468
+RAJA_MODENA;verde;50x100;negro;50x100 | negro | Oscilobatiente;oscilobatiente;277305;257894;400380;123075
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;196396;182648;283561;87165
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;220578;203928;322717;102139
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Contramarco;contramarco;208996;194366;297225;88229
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Premarco + Contramarco;premarco+contramarco;231196;215012;321298;90102
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;200396;186368;289337;88941
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;200396;186368;289337;88941
+RAJA_MODENA;verde;50x100;bronce colonial;50x100 | bronce colonial | Oscilobatiente;oscilobatiente;296396;275648;427944;131548
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Raja;raja;495495;460810;715408;219913
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;519677;482091;754564;234887
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Contramarco;contramarco;508095;472528;729071;220976
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Premarco + Contramarco;premarco+contramarco;530295;493174;753144;222849
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Brazo;brazo;499495;464530;721183;221688
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Volcable;volcable;499495;464530;721183;221688
+RAJA_MODENA;verde;50x100;simil madera;50x100 | simil madera | Oscilobatiente;oscilobatiente;595495;553810;859791;264296
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Raja;raja;139122;139122;139122;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Mosquitero;raja+mosquitero;163304;163304;163304;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Contramarco;contramarco;151722;151722;151722;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Premarco + Contramarco;premarco+contramarco;173922;173922;173922;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Brazo;brazo;143122;143122;143122;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Volcable;volcable;143122;143122;143122;0
+RAJA_MODENA;papu;50x100;blanco;50x100 | blanco | Oscilobatiente;oscilobatiente;239122;239122;239122;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Raja;raja;177305;177305;177305;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Mosquitero;raja+mosquitero;201487;201487;201487;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Contramarco;contramarco;189905;189905;189905;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Premarco + Contramarco;premarco+contramarco;212105;212105;212105;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Brazo;brazo;181305;181305;181305;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Volcable;volcable;181305;181305;181305;0
+RAJA_MODENA;papu;50x100;negro;50x100 | negro | Oscilobatiente;oscilobatiente;277305;277305;277305;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Raja;raja;196396;196396;196396;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Mosquitero;raja+mosquitero;220578;220578;220578;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Contramarco;contramarco;208996;208996;208996;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Premarco + Contramarco;premarco+contramarco;231196;231196;231196;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Brazo;brazo;200396;200396;200396;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Volcable;volcable;200396;200396;200396;0
+RAJA_MODENA;papu;50x100;bronce colonial;50x100 | bronce colonial | Oscilobatiente;oscilobatiente;296396;296396;296396;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Raja;raja;495495;495495;495495;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Mosquitero;raja+mosquitero;519677;519677;519677;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Contramarco;contramarco;508095;508095;508095;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Premarco + Contramarco;premarco+contramarco;530295;530295;530295;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Brazo;brazo;499495;499495;499495;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Volcable;volcable;499495;499495;499495;0
+RAJA_MODENA;papu;50x100;simil madera;50x100 | simil madera | Oscilobatiente;oscilobatiente;595495;595495;595495;0

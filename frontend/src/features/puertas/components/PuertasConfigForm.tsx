@@ -129,17 +129,15 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     // HACK PANEL + BARRAL
     // ========================
     if (modelo === "modelo_panel") {
-      if (config.extras?.barralRecto) {
-        normalized = "mpanelbarralrecto";
-      }
+      normalized = "mpanel";
+    }
 
-      if (config.extras?.barralCurvo) {
-        normalized = "mpanelbarralcurvo";
-      }
+    if (modelo === "modelo_panel_barral_recto") {
+      normalized = "mpanelbarralrecto";
+    }
 
-      if (!config.extras?.barralRecto && !config.extras?.barralCurvo) {
-        normalized = "mpanel";
-      }
+    if (modelo === "modelo_panel_barral_curvo") {
+      normalized = "mpanelbarralcurvo";
     }
 
     let folder: "simples" | "dobles" | "portones" = "simples";

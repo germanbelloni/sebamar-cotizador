@@ -1,0 +1,145 @@
+modulo	perfil	linea	configuracion	medida	color	descripcion	costo	proveedor	precio	ganancia
+PUERTA	amarilla	herrero	simple	80x200	blanco	modelo_4	191983	172785	238097	65313
+PUERTA	amarilla	modena	simple	80x200	blanco	modelo_4	339787	316002	435451	119449
+PUERTA	amarilla	herrero	simple	80x200	blanco	modelo_5	206271	185644	255817	70173
+PUERTA	amarilla	modena	simple	80x200	blanco	modelo_5	363204	337780	465460	127681
+PUERTA	amarilla	herrero	simple	80x200	blanco	modelo_panel	299539	269585	371488	101903
+ERROR	amarilla	modena	simple	80x200	blanco	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	amarilla	herrero	simple	80x200	negro	modelo_4	249578	224620	309527	84906
+PUERTA	amarilla	modena	simple	80x200	negro	modelo_4	441723	410802	566086	155283
+PUERTA	amarilla	herrero	simple	80x200	negro	modelo_5	268152	241337	332562	91225
+PUERTA	amarilla	modena	simple	80x200	negro	modelo_5	472165	439114	605099	165985
+PUERTA	amarilla	herrero	simple	80x200	negro	modelo_panel	384451	346006	476796	130790
+ERROR	amarilla	modena	simple	80x200	negro	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	amarilla	herrero	simple	80x200	bronce colonial	modelo_4	278375	250538	345241	94703
+PUERTA	amarilla	modena	simple	80x200	bronce colonial	modelo_4	492691	458203	631403	173201
+PUERTA	amarilla	herrero	simple	80x200	bronce colonial	modelo_5	299093	269184	370935	101751
+PUERTA	amarilla	modena	simple	80x200	bronce colonial	modelo_5	526646	489781	674918	185137
+PUERTA	amarilla	herrero	simple	80x200	bronce colonial	modelo_panel	426907	384216	529450	145234
+ERROR	amarilla	modena	simple	80x200	bronce colonial	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	amarilla	herrero	simple	80x200	simil madera	modelo_4	729535	656582	904770	248188
+PUERTA	amarilla	modena	simple	80x200	simil madera	modelo_4	1291191	1200807	1654712	453905
+PUERTA	amarilla	herrero	simple	80x200	simil madera	modelo_5	783830	705447	972106	266659
+PUERTA	amarilla	modena	simple	80x200	simil madera	modelo_5	1380175	1283563	1768750	485187
+PUERTA	amarilla	herrero	simple	80x200	simil madera	modelo_panel	1092048	982843	1354358	371515
+ERROR	amarilla	modena	simple	80x200	simil madera	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	azul	herrero	simple	80x200	blanco	modelo_4	191983	168945	241591	72646
+PUERTA	azul	modena	simple	80x200	blanco	modelo_4	339787	316002	451883	135881
+PUERTA	azul	herrero	simple	80x200	blanco	modelo_5	206271	181518	259571	78053
+PUERTA	azul	modena	simple	80x200	blanco	modelo_5	363204	337780	483025	145245
+PUERTA	azul	herrero	simple	80x200	blanco	modelo_panel	299539	263594	376940	113346
+ERROR	azul	modena	simple	80x200	blanco	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	azul	herrero	simple	80x200	negro	modelo_4	249578	219629	314069	94440
+PUERTA	azul	modena	simple	80x200	negro	modelo_4	441723	410802	587448	176645
+PUERTA	azul	herrero	simple	80x200	negro	modelo_5	268152	235974	337443	101469
+PUERTA	azul	modena	simple	80x200	negro	modelo_5	472165	439114	627932	188819
+PUERTA	azul	herrero	simple	80x200	negro	modelo_panel	384451	338317	483793	145476
+ERROR	azul	modena	simple	80x200	negro	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	azul	herrero	simple	80x200	bronce colonial	modelo_4	278375	244970	350308	105337
+PUERTA	azul	modena	simple	80x200	bronce colonial	modelo_4	492691	458203	655230	197027
+PUERTA	azul	herrero	simple	80x200	bronce colonial	modelo_5	299093	263202	376379	113177
+PUERTA	azul	modena	simple	80x200	bronce colonial	modelo_5	526646	489781	700386	210606
+PUERTA	azul	herrero	simple	80x200	bronce colonial	modelo_panel	426907	375678	537219	161541
+ERROR	azul	modena	simple	80x200	bronce colonial	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	azul	herrero	simple	80x200	simil madera	modelo_4	729535	641991	918047	276056
+PUERTA	azul	modena	simple	80x200	simil madera	modelo_4	1291191	1200807	1717154	516347
+PUERTA	azul	herrero	simple	80x200	simil madera	modelo_5	783830	689770	986371	296601
+PUERTA	azul	modena	simple	80x200	simil madera	modelo_5	1380175	1283563	1835495	551932
+PUERTA	azul	herrero	simple	80x200	simil madera	modelo_panel	1092048	961002	1374233	413231
+ERROR	azul	modena	simple	80x200	simil madera	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	verde	herrero	simple	80x200	blanco	modelo_4	191983	168945	262287	93342
+PUERTA	verde	modena	simple	80x200	blanco	modelo_4	339787	316002	490593	174591
+PUERTA	verde	herrero	simple	80x200	blanco	modelo_5	206271	181518	281807	100289
+PUERTA	verde	modena	simple	80x200	blanco	modelo_5	363204	337780	524403	186623
+PUERTA	verde	herrero	simple	80x200	blanco	modelo_panel	299539	263594	409230	145636
+ERROR	verde	modena	simple	80x200	blanco	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	verde	herrero	simple	80x200	negro	modelo_4	249578	219629	340973	121345
+PUERTA	verde	modena	simple	80x200	negro	modelo_4	441723	410802	637771	226968
+PUERTA	verde	herrero	simple	80x200	negro	modelo_5	268152	235974	366350	130376
+PUERTA	verde	modena	simple	80x200	negro	modelo_5	472165	439114	681724	242610
+PUERTA	verde	herrero	simple	80x200	negro	modelo_panel	384451	338317	525237	186920
+ERROR	verde	modena	simple	80x200	negro	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	verde	herrero	simple	80x200	bronce colonial	modelo_4	278375	244970	380316	135346
+PUERTA	verde	modena	simple	80x200	bronce colonial	modelo_4	492691	458203	711360	253157
+PUERTA	verde	herrero	simple	80x200	bronce colonial	modelo_5	299093	263202	408621	145419
+PUERTA	verde	modena	simple	80x200	bronce colonial	modelo_5	526646	489781	760384	270604
+PUERTA	verde	herrero	simple	80x200	bronce colonial	modelo_panel	426907	375678	583240	207562
+ERROR	verde	modena	simple	80x200	bronce colonial	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	verde	herrero	simple	80x200	simil madera	modelo_4	729535	641991	996691	354700
+PUERTA	verde	modena	simple	80x200	simil madera	modelo_4	1291191	1200807	1864253	663446
+PUERTA	verde	herrero	simple	80x200	simil madera	modelo_5	783830	689770	1070868	381098
+PUERTA	verde	modena	simple	80x200	simil madera	modelo_5	1380175	1283563	1992731	709169
+PUERTA	verde	herrero	simple	80x200	simil madera	modelo_panel	1092048	961002	1491956	530954
+ERROR	verde	modena	simple	80x200	simil madera	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	papu	herrero	simple	80x200	blanco	modelo_4	191983	191983	191983	0
+PUERTA	papu	modena	simple	80x200	blanco	modelo_4	339787	339787	339787	0
+PUERTA	papu	herrero	simple	80x200	blanco	modelo_5	206271	206271	206271	0
+PUERTA	papu	modena	simple	80x200	blanco	modelo_5	363204	363204	363204	0
+PUERTA	papu	herrero	simple	80x200	blanco	modelo_panel	299539	299539	299539	0
+ERROR	papu	modena	simple	80x200	blanco	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	papu	herrero	simple	80x200	negro	modelo_4	249578	249578	249578	0
+PUERTA	papu	modena	simple	80x200	negro	modelo_4	441723	441723	441723	0
+PUERTA	papu	herrero	simple	80x200	negro	modelo_5	268152	268152	268152	0
+PUERTA	papu	modena	simple	80x200	negro	modelo_5	472165	472165	472165	0
+PUERTA	papu	herrero	simple	80x200	negro	modelo_panel	384451	384451	384451	0
+ERROR	papu	modena	simple	80x200	negro	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	papu	herrero	simple	80x200	bronce colonial	modelo_4	278375	278375	278375	0
+PUERTA	papu	modena	simple	80x200	bronce colonial	modelo_4	492691	492691	492691	0
+PUERTA	papu	herrero	simple	80x200	bronce colonial	modelo_5	299093	299093	299093	0
+PUERTA	papu	modena	simple	80x200	bronce colonial	modelo_5	526646	526646	526646	0
+PUERTA	papu	herrero	simple	80x200	bronce colonial	modelo_panel	426907	426907	426907	0
+ERROR	papu	modena	simple	80x200	bronce colonial	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	papu	herrero	simple	80x200	simil madera	modelo_4	729535	729535	729535	0
+PUERTA	papu	modena	simple	80x200	simil madera	modelo_4	1291191	1291191	1291191	0
+PUERTA	papu	herrero	simple	80x200	simil madera	modelo_5	783830	783830	783830	0
+PUERTA	papu	modena	simple	80x200	simil madera	modelo_5	1380175	1380175	1380175	0
+PUERTA	papu	herrero	simple	80x200	simil madera	modelo_panel	1092048	1092048	1092048	0
+ERROR	papu	modena	simple	80x200	simil madera	"Modelo ""modelo_panel"" no existe para la línea ""modena""."				
+PUERTA	amarilla	eco	simple	80x200	blanco	modelo_4	157887	142098	195811	53713
+PUERTA	amarilla	eco	simple	80x200	negro	modelo_4	205253	184728	254555	69827
+PUERTA	amarilla	eco	simple	80x200	bronce colonial	modelo_4	228936	206043	283927	77884
+PUERTA	amarilla	eco	simple	80x200	simil madera	modelo_4	599971	539974	744084	204110
+PUERTA	azul	eco	simple	80x200	blanco	modelo_4	157887	138941	198685	59744
+PUERTA	azul	eco	simple	80x200	negro	modelo_4	205253	180623	258291	77668
+PUERTA	azul	eco	simple	80x200	bronce colonial	modelo_4	228936	201464	288093	86629
+PUERTA	azul	eco	simple	80x200	simil madera	modelo_4	599971	527974	755003	227029
+PUERTA	verde	eco	simple	80x200	blanco	modelo_4	157887	138941	215705	76765
+PUERTA	verde	eco	simple	80x200	negro	modelo_4	205253	180623	280417	99794
+PUERTA	verde	eco	simple	80x200	bronce colonial	modelo_4	228936	201464	312773	111309
+PUERTA	verde	eco	simple	80x200	simil madera	modelo_4	599971	527974	819680	291706
+PUERTA	papu	eco	simple	80x200	blanco	modelo_4	157887	157887	157887	0
+PUERTA	papu	eco	simple	80x200	negro	modelo_4	205253	205253	205253	0
+PUERTA	papu	eco	simple	80x200	bronce colonial	modelo_4	228936	228936	228936	0
+PUERTA	papu	eco	simple	80x200	simil madera	modelo_4	599971	599971	599971	0
+PORTON	amarilla	herrero	porton	240x200	blanco	modelo_5	586128	621296	807685	186389
+PORTON	amarilla	modena	porton	240x200	blanco	modelo_5	1138824	1059106	1459449	400342
+PORTON	amarilla	herrero	porton	240x200	negro	modelo_5	753208	798400	1037921	239520
+PORTON	amarilla	modena	porton	240x200	negro	modelo_5	1465708	1363108	1878363	515255
+PORTON	amarilla	herrero	porton	240x200	bronce colonial	modelo_5	836748	886953	1153038	266086
+PORTON	amarilla	modena	porton	240x200	bronce colonial	modelo_5	1629149	1515109	2087820	572711
+PORTON	amarilla	herrero	porton	240x200	simil madera	modelo_5	2145537	2274269	2956550	682281
+PORTON	amarilla	modena	porton	240x200	simil madera	modelo_5	4189738	3896456	5369316	1472860
+PORTON	azul	herrero	porton	240x200	blanco	modelo_5	573103	630414	819538	189124
+PORTON	azul	modena	porton	240x200	blanco	modelo_5	1138824	1059106	1514522	455416
+PORTON	azul	herrero	porton	240x200	negro	modelo_5	736470	810117	1053152	243035
+PORTON	azul	modena	porton	240x200	negro	modelo_5	1465708	1363108	1949245	586136
+PORTON	azul	herrero	porton	240x200	bronce colonial	modelo_5	818153	899969	1169959	269991
+PORTON	azul	modena	porton	240x200	bronce colonial	modelo_5	1629149	1515109	2166606	651497
+PORTON	azul	herrero	porton	240x200	simil madera	modelo_5	2097859	2307644	2999938	692293
+PORTON	azul	modena	porton	240x200	simil madera	modelo_5	4189738	3896456	5571932	1675476
+PORTON	verde	herrero	porton	240x200	blanco	modelo_5	573103	659069	889743	230674
+PORTON	verde	modena	porton	240x200	blanco	modelo_5	1138824	1059106	1644263	585156
+PORTON	verde	herrero	porton	240x200	negro	modelo_5	736470	846940	1143370	296429
+PORTON	verde	modena	porton	240x200	negro	modelo_5	1465708	1363108	2116225	753117
+PORTON	verde	herrero	porton	240x200	bronce colonial	modelo_5	818153	940876	1270183	329307
+PORTON	verde	modena	porton	240x200	bronce colonial	modelo_5	1629149	1515109	2352207	837098
+PORTON	verde	herrero	porton	240x200	simil madera	modelo_5	2097859	2412537	3256925	844388
+PORTON	verde	modena	porton	240x200	simil madera	modelo_5	4189738	3896456	6049248	2152792
+PORTON	papu	herrero	porton	240x200	blanco	modelo_5	651254	651254	651254	0
+PORTON	papu	modena	porton	240x200	blanco	modelo_5	1138824	1138824	1138824	0
+PORTON	papu	herrero	porton	240x200	negro	modelo_5	836898	836898	836898	0
+PORTON	papu	modena	porton	240x200	negro	modelo_5	1465708	1465708	1465708	0
+PORTON	papu	herrero	porton	240x200	bronce colonial	modelo_5	929720	929720	929720	0
+PORTON	papu	modena	porton	240x200	bronce colonial	modelo_5	1629149	1629149	1629149	0
+PORTON	papu	herrero	porton	240x200	simil madera	modelo_5	2383930	2383930	2383930	0
+PORTON	papu	modena	porton	240x200	simil madera	modelo_5	4189738	4189738	4189738	0

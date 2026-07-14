@@ -334,8 +334,13 @@ function calcularVentanaModena(dataInput) {
   // 💰 PERFIL
   const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
 
-  const perfilMosquitero =
+  const perfilMosquiteroBase =
     perfiles[perfil]?.mosquiteros || perfiles.amarilla.mosquiteros;
+
+  const perfilMosquitero = {
+    ...perfilMosquiteroBase,
+    descuento: perfilModena.descuento,
+  };
   const perfilPremarcos =
     perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
 

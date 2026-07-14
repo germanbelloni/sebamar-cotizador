@@ -573,7 +573,7 @@ function calcularWrapper(dataInput) {
 
     gananciaAplicada: perfilData.ganancia,
 
-    margenAplicado: 0,
+    margenAplicado: Math.round(perfilData.ganancia * 100),
 
     // =========================
     // RESULTADO

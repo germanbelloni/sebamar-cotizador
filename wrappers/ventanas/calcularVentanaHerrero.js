@@ -276,9 +276,6 @@ function calcularVentanaHerrero(dataInput) {
   }
 
   // 💰 PERFIL
-  console.log("PERFIL:", perfil);
-  console.log("PERFILES:", Object.keys(perfiles));
-  console.log("PERFIL DATA:", perfiles[perfil]);
   const perfilHerrero = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
 
   const perfilMosquitero =
@@ -328,12 +325,7 @@ function calcularVentanaHerrero(dataInput) {
       venta,
     },
   });
-  console.log("===== VALORES WRAPPER =====");
-  console.log({
-    costo,
-    proveedor,
-    venta,
-  });
+
   // return buildWrapperResponse({
   const response = buildWrapperResponse({
     // =========================
@@ -416,9 +408,6 @@ function calcularVentanaHerrero(dataInput) {
     // });
     audit: audit.getSteps(),
   });
-
-  console.log("===== RESPONSE WRAPPER =====");
-  console.dir(response, { depth: null });
 
   return response;
 }
