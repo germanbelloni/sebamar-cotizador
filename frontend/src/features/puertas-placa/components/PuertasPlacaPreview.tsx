@@ -380,16 +380,16 @@ export function PuertasPlacaPreview({ config }: Props) {
             opacity={0.7}
           />
 
-          {/* MANIJA */}
-
-          <rect
-            x={abreIzquierda ? left + ancho - 28 : left + 18}
-            y={top + alto / 2 - 24}
-            width={8}
-            height={48}
-            rx={999}
-            fill="#D8D8D8"
-          />
+          {!esGranero && (
+            <rect
+              x={abreIzquierda ? left + ancho - 28 : left + 18}
+              y={top + alto / 2 - 24}
+              width={8}
+              height={48}
+              rx={999}
+              fill="#D8D8D8"
+            />
+          )}
         </svg>
       </div>
 
@@ -414,22 +414,22 @@ export function PuertasPlacaPreview({ config }: Props) {
             </div>
           </div>
 
-          <div
-            className="
-              rounded-xl
-              border border-white/5
+          {!esGranero && (
+            <div
+              className="
+      rounded-xl
+      border border-white/5
+      bg-white/[0.03]
+      px-4 py-3
+    "
+            >
+              <div className="text-xs text-white/45">Mano</div>
 
-              bg-white/[0.03]
-
-              px-4 py-3
-            "
-          >
-            <div className="text-xs text-white/45">Mano</div>
-
-            <div className="mt-1 text-sm font-medium text-white/85 capitalize">
-              {config.mano}
+              <div className="mt-1 text-sm font-medium text-white/85 capitalize">
+                {config.mano}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div

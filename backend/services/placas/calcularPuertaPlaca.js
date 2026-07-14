@@ -15,10 +15,19 @@ function calcularPuertaPlaca(dataInput) {
   const medidaData = modeloData?.[medida];
   if (!medidaData) throw new Error("Medida no encontrada");
 
-  const precioBase = medidaData?.[marco];
-  if (!precioBase) throw new Error("Configuración inválida (marco)");
+  let precioBase;
 
-  // 🔹 SOLO BASE
+  // GRANERO
+  if (typeof medidaData === "number") {
+    precioBase = medidaData;
+  } else {
+    precioBase = medidaData?.[marco];
+  }
+
+  if (!precioBase) {
+    throw new Error("Configuración inválida");
+  }
+
   return {
     base: precioBase,
   };

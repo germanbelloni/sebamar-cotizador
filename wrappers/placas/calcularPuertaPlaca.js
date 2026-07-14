@@ -40,7 +40,15 @@ function normalizarAlto(alto) {
 // ========================
 // 🎯 SVG
 // ========================
-function buildPuertaSVG({ mano = "derecha" }) {
+function buildPuertaSVG({ mano = "derecha", tipo }) {
+  if (tipo === "granero") {
+    return {
+      tipo: "granero",
+      layout: [],
+      svgKey: "puerta_granero",
+    };
+  }
+
   if (mano === "izquierda") {
     return {
       tipo: "puerta",
@@ -257,11 +265,17 @@ function calcularWrapper(dataInput) {
   // ========================
   // 🧾 DESCRIPCIÓN
   // ========================
-  let descripcion = `Puerta placa ${modelo} ${ancho}x${alto}`;
+  let descripcion;
 
-  if (marco) descripcion += ` marco ${marco}`;
-  if (mano) descripcion += ` mano ${mano}`;
-
+  if (tipo === "granero") {
+    descripcion = `Puerta granero ${modelo} ${ancho}x${alto}`;
+  } else {
+    descripcion = `Puerta placa ${modelo} ${ancho}x${alto}`;
+  }
+  if (tipo !== "granero") {
+    if (marco) descripcion += ` marco ${marco}`;
+    if (mano) descripcion += ` mano ${mano}`;
+  }
   // ========================
   // ⚙️ CONFIG
   // ========================
@@ -275,7 +289,10 @@ function calcularWrapper(dataInput) {
     mano,
     recargoAncho: anchoNorm.recargo,
     recargoAlto: altoNorm.recargo,
-    svg: buildPuertaSVG({ mano }),
+    svg: buildPuertaSVG({
+      mano,
+      tipo,
+    }),
   };
 
   return buildWrapperResponse({

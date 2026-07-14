@@ -1,66 +1,66 @@
 {
   "medias": {
     "v/entero": {
-      "base": 99635,
+      "base": 102798,
       "vidrios": {
-        "4mm": 16965,
-        "3+3": 72556,
-        "fantasia": 18675,
-        "esmerilado": 48354
+        "4mm": 18009,
+        "3+3": 77021,
+        "fantasia": 19824,
+        "esmerilado": 51329
       }
     },
     "v/repartido": {
-      "base": 114030,
+      "base": 117650,
       "vidrios": {
-        "4mm": 16965,
+        "4mm": 18009,
         "3+3": 0,
-        "fantasia": 18675,
-        "esmerilado": 48354
+        "fantasia": 19824,
+        "esmerilado": 51329
       }
     },
     "3/4 v entero": {
-      "base": 123971,
+      "base": 127907,
       "vidrios": {
-        "4mm": 13390,
-        "3+3": 57283,
-        "fantasia": 14742,
-        "esmerilado": 38175
+        "4mm": 14214,
+        "3+3": 60808,
+        "fantasia": 15649,
+        "esmerilado": 40524
       }
     },
     "3/4 v repartido": {
-      "base": 138474,
+      "base": 142870,
       "vidrios": {
-        "4mm": 13390,
+        "4mm": 14214,
         "3+3": 0,
-        "fantasia": 14742,
-        "esmerilado": 38175
+        "fantasia": 15649,
+        "esmerilado": 40524
       }
     },
     "1/2 v entero": {
-      "base": 150387,
+      "base": 155162,
       "vidrios": {
-        "4mm": 8931,
-        "3+3": 38189,
-        "fantasia": 9828,
-        "esmerilado": 25448
+        "4mm": 9481,
+        "3+3": 40539,
+        "fantasia": 10433,
+        "esmerilado": 27014
       }
     },
     "1/2 v repartido": {
-      "base": 158256,
+      "base": 163280,
       "vidrios": {
-        "4mm": 8931,
+        "4mm": 9481,
         "3+3": 0,
-        "fantasia": 9828,
-        "esmerilado": 25448
+        "fantasia": 10433,
+        "esmerilado": 27014
       }
     },
     "4 travezaños": {
-      "base": 119776,
+      "base": 123578,
       "vidrios": {
-        "4mm": 22321,
-        "3+3": 95472,
-        "fantasia": 24570,
-        "esmerilado": 63622
+        "4mm": 23695,
+        "3+3": 101347,
+        "fantasia": 26082,
+        "esmerilado": 67537
       }
     },
     "1 travesaño": {

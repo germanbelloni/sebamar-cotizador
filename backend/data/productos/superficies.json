@@ -22,26 +22,26 @@
     "perfil_acople": 5905,
 
     "mosquitero_fijo": 48364,
-    "cajon_block": 200000,
+    "cajon_block": 346865,
 
     "cajon_block_precios": {
-      "pvc": 10,
-      "aluminio": 20
+      "pvc": 280585,
+      "aluminio": 346865
     },
 
     "cortinas_modulo": {
       "pvc": {
         "liviana": {
-          "completa": 10,
-          "pano_solo": 5
+          "completa": 30208,
+          "pano_solo": 23180
         },
         "reforzada": {
           "completa": 37410,
-          "pano_solo": 5
+          "pano_solo": 28263
         },
         "super_reforzada": {
-          "completa": 10,
-          "pano_solo": 5
+          "completa": 52671,
+          "pano_solo": 39099
         }
       },
 
@@ -69,20 +69,20 @@
   },
 
   "barrales": {
-    "recto": 16500,
-    "curvo": 22000
+    "recto": 18000,
+    "curvo": 18000
   },
 
   "herrajes": {
     "corredizo": 550000,
     "plegadizo": 400000,
     "corredizo_mas_3": 850000,
-    "plegadizo_mas_3": 800000,
+    "plegadizo_mas_3": 600000,
     "bisagra_extra": 4000,
 
     "picaporte": {
-      "herrero": 4000,
-      "modena": 12000
+      "herrero": 5000,
+      "modena": 13000
     },
 
     "media_manija": 11500,
@@ -99,15 +99,15 @@
   },
 
   "vidrios": {
-    "3mm": 16459,
-    "4mm": 21250,
-    "5mm": 27169,
-    "6mm": 33410,
-    "fantasia": 27012,
-    "esmerilado": 60797,
-    "3+3": 65546,
-    "4+4": 73221,
-    "5+5": 88575,
+    "3mm": 17447,
+    "4mm": 22525,
+    "5mm": 28799,
+    "6mm": 35415,
+    "fantasia": 28633,
+    "esmerilado": 64445,
+    "3+3": 69479,
+    "4+4": 77614,
+    "5+5": 93890,
     "dvh": 12600
   }
 }

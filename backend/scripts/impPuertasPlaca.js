@@ -22,6 +22,7 @@ const rows = XLSX.utils.sheet_to_json(sheet, {
 const resultado = {
   placa: {},
   embutir: {},
+  granero: {},
 };
 
 rows.forEach((row) => {
@@ -37,6 +38,18 @@ rows.forEach((row) => {
     resultado[tipo][modelo] = {};
   }
 
+  // ========================
+  // GRANERO
+  // ========================
+  if (tipo === "granero") {
+    resultado[tipo][modelo][medida] = Math.round(Number(row.GRANERO) || 0);
+
+    return;
+  }
+
+  // ========================
+  // PLACA / EMBUTIR
+  // ========================
   resultado[tipo][modelo][medida] = {};
 
   if (row.ALUMINIO !== null && row.ALUMINIO !== "") {
@@ -63,3 +76,4 @@ fs.writeFileSync(
 console.log("✅ puertas_placa.json generado correctamente");
 console.log("📊 Modelos placa:", Object.keys(resultado.placa).length);
 console.log("📊 Modelos embutir:", Object.keys(resultado.embutir).length);
+console.log("📊 Modelos granero:", Object.keys(resultado.granero).length);

@@ -366,7 +366,7 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
 
         {/* MANO */}
 
-        {config.tipo !== "embutir" && (
+        {config.tipo !== "embutir" && config.tipo !== "granero" && (
           <FormSection title="Mano">
             <div className="grid grid-cols-2 gap-4">
               <GlassCard

@@ -1,449 +1,449 @@
-ï»¿modulo;perfil;medida;color;descripcion;extras;costo;proveedor;precio;ganancia
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | Sin extras;sin extras;110126;99113;136578;26452
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | Mosquitero;mosquitero;146918;132226;192738;45820
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | GuÃ­a;guia;135939;122345;168592;32653
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina PVC;guia+pvc;135939;122345;168592;32653
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;135939;122345;168592;32653
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a;mosq+guia;172731;155458;224751;52020
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;172731;155458;224751;52020
-VENTANA_HERRERO;amarilla;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;172731;155458;224751;52020
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | Sin extras;sin extras;133163;119847;165149;31986
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | Mosquitero;mosquitero;180993;162894;238156;57163
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | GuÃ­a;guia;158976;143078;197162;38186
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | GuÃ­a + Cortina PVC;guia+pvc;158976;143078;197162;38186
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;158976;143078;197162;38186
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a;mosq+guia;206806;186125;270170;63364
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;206806;186125;270170;63364
-VENTANA_HERRERO;amarilla;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;206806;186125;270170;63364
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | Sin extras;sin extras;144682;130214;179435;34753
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero;mosquitero;198030;178227;260865;62835
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a;guia;170495;153446;211448;40953
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;170495;153446;211448;40953
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;170495;153446;211448;40953
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;223843;201459;292878;69035
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;223843;201459;292878;69035
-VENTANA_HERRERO;amarilla;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;223843;201459;292878;69035
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | Sin extras;sin extras;325138;292624;403236;78098
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | Mosquitero;mosquitero;464948;418453;616642;151694
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | GuÃ­a;guia;350951;315856;435249;84298
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;350951;315856;435249;84298
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;350951;315856;435249;84298
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a;mosq+guia;490761;441685;648655;157894
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;490761;441685;648655;157894
-VENTANA_HERRERO;amarilla;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;490761;441685;648655;157894
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | Sin extras;sin extras;78957;71061;97922;18965
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | Mosquitero;mosquitero;104627;94164;137105;32478
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | GuÃ­a;guia;97886;88097;121398;23512
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina PVC;guia+pvc;97886;88097;121398;23512
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;97886;88097;121398;23512
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a;mosq+guia;123556;111200;160581;37025
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;123556;111200;160581;37025
-VENTANA_HERRERO;amarilla;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;123556;111200;160581;37025
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | Sin extras;sin extras;97032;87329;120339;23307
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | Mosquitero;mosquitero;130403;117363;171277;40874
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | GuÃ­a;guia;115961;104365;143815;27854
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | GuÃ­a + Cortina PVC;guia+pvc;115961;104365;143815;27854
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;115961;104365;143815;27854
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a;mosq+guia;149332;134399;194752;45420
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;149332;134399;194752;45420
-VENTANA_HERRERO;amarilla;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;149332;134399;194752;45420
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | Sin extras;sin extras;106069;95462;131547;25478
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero;mosquitero;143291;128962;188362;45071
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a;guia;124998;112498;155023;30025
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;124998;112498;155023;30025
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;124998;112498;155023;30025
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;162220;145998;211838;49618
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;162220;145998;211838;49618
-VENTANA_HERRERO;amarilla;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;162220;145998;211838;49618
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | Sin extras;sin extras;247654;222889;307140;59486
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | Mosquitero;mosquitero;345200;310680;456035;110835
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | GuÃ­a;guia;266583;239925;330616;64033
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;266583;239925;330616;64033
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;266583;239925;330616;64033
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a;mosq+guia;364129;327716;479510;115381
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;364129;327716;479510;115381
-VENTANA_HERRERO;amarilla;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;364129;327716;479510;115381
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | Sin extras;sin extras;110126;96911;138583;28457
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | Mosquitero;mosquitero;146918;129288;195566;48648
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | GuÃ­a;guia;135939;119626;171066;35127
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina PVC;guia+pvc;135939;119626;171066;35127
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;135939;119626;171066;35127
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a;mosq+guia;172731;152003;228049;55318
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;172731;152003;228049;55318
-VENTANA_HERRERO;azul;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;172731;152003;228049;55318
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | Sin extras;sin extras;133163;117183;167572;34409
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | Mosquitero;mosquitero;180993;159274;241651;60658
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | GuÃ­a;guia;158976;139899;200055;41079
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | GuÃ­a + Cortina PVC;guia+pvc;158976;139899;200055;41079
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;158976;139899;200055;41079
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a;mosq+guia;206806;181989;274135;67329
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;206806;181989;274135;67329
-VENTANA_HERRERO;azul;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;206806;181989;274135;67329
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | Sin extras;sin extras;144682;127320;182068;37386
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero;mosquitero;198030;174266;264693;66663
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a;guia;170495;150036;214551;44056
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;170495;150036;214551;44056
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;170495;150036;214551;44056
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;223843;196982;297176;73333
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;223843;196982;297176;73333
-VENTANA_HERRERO;azul;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;223843;196982;297176;73333
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | Sin extras;sin extras;325138;286121;409154;84016
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | Mosquitero;mosquitero;464948;409154;625691;160743
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | GuÃ­a;guia;350951;308837;441637;90686
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;350951;308837;441637;90686
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;350951;308837;441637;90686
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a;mosq+guia;490761;431870;658174;167413
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;490761;431870;658174;167413
-VENTANA_HERRERO;azul;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;490761;431870;658174;167413
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | Sin extras;sin extras;78957;69482;99359;20402
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | Mosquitero;mosquitero;104627;92072;139117;34490
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | GuÃ­a;guia;97886;86140;123180;25294
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina PVC;guia+pvc;97886;86140;123180;25294
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;97886;86140;123180;25294
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a;mosq+guia;123556;108729;162937;39381
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;123556;108729;162937;39381
-VENTANA_HERRERO;azul;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;123556;108729;162937;39381
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | Sin extras;sin extras;97032;85388;122105;25073
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | Mosquitero;mosquitero;130403;114755;173790;43387
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | GuÃ­a;guia;115961;102046;145925;29964
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | GuÃ­a + Cortina PVC;guia+pvc;115961;102046;145925;29964
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;115961;102046;145925;29964
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a;mosq+guia;149332;131412;197610;48278
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;149332;131412;197610;48278
-VENTANA_HERRERO;azul;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;149332;131412;197610;48278
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | Sin extras;sin extras;106069;93341;133477;27408
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero;mosquitero;143291;126096;191127;47836
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a;guia;124998;109998;157297;32299
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;124998;109998;157297;32299
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;124998;109998;157297;32299
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;162220;142754;214947;52727
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;162220;142754;214947;52727
-VENTANA_HERRERO;azul;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;162220;142754;214947;52727
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | Sin extras;sin extras;247654;217936;311648;63994
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | Mosquitero;mosquitero;345200;303776;462727;117527
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | GuÃ­a;guia;266583;234593;335468;68885
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;266583;234593;335468;68885
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;266583;234593;335468;68885
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a;mosq+guia;364129;320434;486547;122418
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;364129;320434;486547;122418
-VENTANA_HERRERO;azul;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;364129;320434;486547;122418
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | Sin extras;sin extras;110126;96911;150454;40328
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | Mosquitero;mosquitero;146918;129288;210028;63110
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | GuÃ­a;guia;135939;119626;185720;49781
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina PVC;guia+pvc;135939;119626;185720;49781
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;135939;119626;185720;49781
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a;mosq+guia;172731;152003;245293;72562
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;172731;152003;245293;72562
-VENTANA_HERRERO;verde;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;172731;152003;245293;72562
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | Sin extras;sin extras;133163;117183;181927;48764
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | Mosquitero;mosquitero;180993;159274;259374;78381
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | GuÃ­a;guia;158976;139899;217193;58217
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | GuÃ­a + Cortina PVC;guia+pvc;158976;139899;217193;58217
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;158976;139899;217193;58217
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a;mosq+guia;206806;181989;294639;87833
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;206806;181989;294639;87833
-VENTANA_HERRERO;verde;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;206806;181989;294639;87833
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | Sin extras;sin extras;144682;127320;197665;52983
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero;mosquitero;198030;174266;284046;86016
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a;guia;170495;150036;232930;62435
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;170495;150036;232930;62435
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;170495;150036;232930;62435
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;223843;196982;319311;95468
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;223843;196982;319311;95468
-VENTANA_HERRERO;verde;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;223843;196982;319311;95468
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | Sin extras;sin extras;325138;286121;444204;119066
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | Mosquitero;mosquitero;464948;409154;670584;205636
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | GuÃ­a;guia;350951;308837;479469;128518
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;350951;308837;479469;128518
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;350951;308837;479469;128518
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a;mosq+guia;490761;431870;705850;215089
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;490761;431870;705850;215089
-VENTANA_HERRERO;verde;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;490761;431870;705850;215089
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | Sin extras;sin extras;78957;69482;107871;28914
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | Mosquitero;mosquitero;104627;92072;149436;44809
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | GuÃ­a;guia;97886;86140;133732;35846
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina PVC;guia+pvc;97886;86140;133732;35846
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;97886;86140;133732;35846
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a;mosq+guia;123556;108729;175297;51741
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;123556;108729;175297;51741
-VENTANA_HERRERO;verde;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;123556;108729;175297;51741
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | Sin extras;sin extras;97032;85388;132565;35533
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | Mosquitero;mosquitero;130403;114755;186599;56196
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | GuÃ­a;guia;115961;102046;158426;42465
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | GuÃ­a + Cortina PVC;guia+pvc;115961;102046;158426;42465
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;115961;102046;158426;42465
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a;mosq+guia;149332;131412;212460;63128
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;149332;131412;212460;63128
-VENTANA_HERRERO;verde;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;149332;131412;212460;63128
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | Sin extras;sin extras;106069;93341;144911;38842
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero;mosquitero;143291;126096;205181;61890
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a;guia;124998;109998;170772;45774
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;124998;109998;170772;45774
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;124998;109998;170772;45774
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;162220;142754;231042;68822
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;162220;142754;231042;68822
-VENTANA_HERRERO;verde;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;162220;142754;231042;68822
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | Sin extras;sin extras;247654;217936;338345;90691
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | Mosquitero;mosquitero;345200;303776;496291;151091
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | GuÃ­a;guia;266583;234593;364206;97623
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;266583;234593;364206;97623
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;266583;234593;364206;97623
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a;mosq+guia;364129;320434;522152;158023
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;364129;320434;522152;158023
-VENTANA_HERRERO;verde;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;364129;320434;522152;158023
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | Sin extras;sin extras;110126;110126;110126;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | Mosquitero;mosquitero;146918;146918;146918;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | GuÃ­a;guia;135939;135939;135939;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina PVC;guia+pvc;135939;135939;135939;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;135939;135939;135939;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a;mosq+guia;172731;172731;172731;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;172731;172731;172731;0
-VENTANA_HERRERO;papu;150x150;blanco;150x150 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;172731;172731;172731;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | Sin extras;sin extras;133163;133163;133163;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | Mosquitero;mosquitero;180993;180993;180993;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | GuÃ­a;guia;158976;158976;158976;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | GuÃ­a + Cortina PVC;guia+pvc;158976;158976;158976;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;158976;158976;158976;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a;mosq+guia;206806;206806;206806;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;206806;206806;206806;0
-VENTANA_HERRERO;papu;150x150;negro;150x150 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;206806;206806;206806;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | Sin extras;sin extras;144682;144682;144682;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero;mosquitero;198030;198030;198030;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a;guia;170495;170495;170495;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;170495;170495;170495;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;170495;170495;170495;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;223843;223843;223843;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;223843;223843;223843;0
-VENTANA_HERRERO;papu;150x150;bronce colonial;150x150 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;223843;223843;223843;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | Sin extras;sin extras;325138;325138;325138;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | Mosquitero;mosquitero;464948;464948;464948;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | GuÃ­a;guia;350951;350951;350951;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;350951;350951;350951;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;350951;350951;350951;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a;mosq+guia;490761;490761;490761;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;490761;490761;490761;0
-VENTANA_HERRERO;papu;150x150;simil madera;150x150 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;490761;490761;490761;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | Sin extras;sin extras;78957;78957;78957;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | Mosquitero;mosquitero;104627;104627;104627;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | GuÃ­a;guia;97886;97886;97886;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina PVC;guia+pvc;97886;97886;97886;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | GuÃ­a + Cortina Aluminio;guia+aluminio;97886;97886;97886;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a;mosq+guia;123556;123556;123556;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;123556;123556;123556;0
-VENTANA_HERRERO;papu;120x110;blanco;120x110 | blanco | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;123556;123556;123556;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | Sin extras;sin extras;97032;97032;97032;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | Mosquitero;mosquitero;130403;130403;130403;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | GuÃ­a;guia;115961;115961;115961;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | GuÃ­a + Cortina PVC;guia+pvc;115961;115961;115961;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | GuÃ­a + Cortina Aluminio;guia+aluminio;115961;115961;115961;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a;mosq+guia;149332;149332;149332;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;149332;149332;149332;0
-VENTANA_HERRERO;papu;120x110;negro;120x110 | negro | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;149332;149332;149332;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | Sin extras;sin extras;106069;106069;106069;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero;mosquitero;143291;143291;143291;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a;guia;124998;124998;124998;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina PVC;guia+pvc;124998;124998;124998;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | GuÃ­a + Cortina Aluminio;guia+aluminio;124998;124998;124998;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a;mosq+guia;162220;162220;162220;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;162220;162220;162220;0
-VENTANA_HERRERO;papu;120x110;bronce colonial;120x110 | bronce colonial | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;162220;162220;162220;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | Sin extras;sin extras;247654;247654;247654;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | Mosquitero;mosquitero;345200;345200;345200;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | GuÃ­a;guia;266583;266583;266583;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina PVC;guia+pvc;266583;266583;266583;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | GuÃ­a + Cortina Aluminio;guia+aluminio;266583;266583;266583;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a;mosq+guia;364129;364129;364129;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina PVC;mosq+guia+pvc;364129;364129;364129;0
-VENTANA_HERRERO;papu;120x110;simil madera;120x110 | simil madera | Mosquitero + GuÃ­a + Cortina Aluminio;mosq+guia+aluminio;364129;364129;364129;0
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | 4mm;4mm;212124;197275;271845;59721
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | 4mm + Mosquitero;4mm+mosquitero;253187;235464;336613;83426
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | 4mm + Premarco;4mm+premarco;281724;262003;347318;65594
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;281724;262003;347318;65594
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;322787;300192;412086;89299
-VENTANA_MODENA;amarilla;150x150;blanco;150x150 | blanco | DVH 4+9+4;DVH 4+9+4;368603;342801;472379;103776
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | 4mm;4mm;263645;245190;337872;74227
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | 4mm + Mosquitero;4mm+mosquitero;317027;294835;422070;105043
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | 4mm + Premarco;4mm+premarco;333245;309918;413344;80099
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;333245;309918;413344;80099
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;386627;359563;497543;110916
-VENTANA_MODENA;amarilla;150x150;negro;150x150 | negro | DVH 4+9+4;DVH 4+9+4;420124;390715;538406;118282
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | 4mm;4mm;289406;269148;370885;81479
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;348947;324521;464798;115851
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco;4mm+premarco;359006;333876;446358;87352
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;359006;333876;446358;87352
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;418547;389249;540271;121724
-VENTANA_MODENA;amarilla;150x150;bronce colonial;150x150 | bronce colonial | DVH 4+9+4;DVH 4+9+4;445885;414673;571419;125534
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | 4mm;4mm;692990;644481;888094;195104
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero;4mm+mosquitero;849029;789597;1134212;285183
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | 4mm + Premarco;4mm+premarco;762590;709209;963567;200977
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;762590;709209;963567;200977
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;918629;854325;1209684;291055
-VENTANA_MODENA;amarilla;150x150;simil madera;150x150 | simil madera | DVH 4+9+4;DVH 4+9+4;849469;790006;1088629;239160
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | 4mm;4mm;160237;149020;205350;45113
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | 4mm + Mosquitero;4mm+mosquitero;188887;175665;250539;61652
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | 4mm + Premarco;4mm+premarco;213597;198645;263213;49616
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;213597;198645;263213;49616
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;242247;225290;308402;66155
-VENTANA_MODENA;amarilla;120x110;blanco;120x110 | blanco | DVH 4+9+4;DVH 4+9+4;270614;251671;346803;76189
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | 4mm;4mm;201510;187404;258243;56733
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | 4mm + Mosquitero;4mm+mosquitero;238755;222042;316989;78234
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | 4mm + Premarco;4mm+premarco;254870;237029;316106;61236
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;254870;237029;316106;61236
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;292115;271667;374851;82736
-VENTANA_MODENA;amarilla;120x110;negro;120x110 | negro | DVH 4+9+4;DVH 4+9+4;311887;290055;399696;87809
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | 4mm;4mm;222146;206596;284689;62543
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;263689;245231;350214;86525
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco;4mm+premarco;275506;256221;342552;67046
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;275506;256221;342552;67046
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;317049;294856;408076;91027
-VENTANA_MODENA;amarilla;120x110;bronce colonial;120x110 | bronce colonial | DVH 4+9+4;DVH 4+9+4;332523;309246;426142;93619
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | 4mm;4mm;545447;507266;699012;153565
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero;4mm+mosquitero;654317;608515;870731;216414
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | 4mm + Premarco;4mm+premarco;598807;556891;756875;158068
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;598807;556891;756875;158068
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;707677;658140;928593;220916
-VENTANA_MODENA;amarilla;120x110;simil madera;120x110 | simil madera | DVH 4+9+4;DVH 4+9+4;655824;609916;840465;184641
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | 4mm;4mm;212124;197275;282104;69980
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | 4mm + Mosquitero;4mm+mosquitero;253187;235464;349316;96129
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | 4mm + Premarco;4mm+premarco;281724;262003;357577;75853
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;281724;262003;357577;75853
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;322787;300192;424788;102001
-VENTANA_MODENA;azul;150x150;blanco;150x150 | blanco | DVH 4+9+4;DVH 4+9+4;368603;342801;490205;121602
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | 4mm;4mm;263645;245190;350621;86976
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | 4mm + Mosquitero;4mm+mosquitero;317027;294835;437997;120970
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | 4mm + Premarco;4mm+premarco;333245;309918;426094;92849
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;333245;309918;426094;92849
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;386627;359563;513470;126843
-VENTANA_MODENA;azul;150x150;negro;150x150 | negro | DVH 4+9+4;DVH 4+9+4;420124;390715;558723;138599
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | 4mm;4mm;289406;269148;384881;95475
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;348947;324521;482338;133391
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco;4mm+premarco;359006;333876;460354;101348
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;359006;333876;460354;101348
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;418547;389249;557811;139264
-VENTANA_MODENA;azul;150x150;bronce colonial;150x150 | bronce colonial | DVH 4+9+4;DVH 4+9+4;445885;414673;592982;147097
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | 4mm;4mm;692990;644481;921607;228617
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero;4mm+mosquitero;849029;789597;1177012;327983
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | 4mm + Premarco;4mm+premarco;762590;709209;997080;234490
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;762590;709209;997080;234490
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;918629;854325;1252485;333856
-VENTANA_MODENA;azul;150x150;simil madera;150x150 | simil madera | DVH 4+9+4;DVH 4+9+4;849469;790006;1129709;280240
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | 4mm;4mm;160237;149020;213099;52862
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | 4mm + Mosquitero;4mm+mosquitero;188887;175665;259994;71107
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | 4mm + Premarco;4mm+premarco;213597;198645;270962;57365
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;213597;198645;270962;57365
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;242247;225290;317856;75609
-VENTANA_MODENA;azul;120x110;blanco;120x110 | blanco | DVH 4+9+4;DVH 4+9+4;270614;251671;359890;89276
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | 4mm;4mm;201510;187404;267988;66478
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | 4mm + Mosquitero;4mm+mosquitero;238755;222042;328951;90196
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | 4mm + Premarco;4mm+premarco;254870;237029;325851;70981
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;254870;237029;325851;70981
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;292115;271667;386813;94698
-VENTANA_MODENA;azul;120x110;negro;120x110 | negro | DVH 4+9+4;DVH 4+9+4;311887;290055;414779;102892
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | 4mm;4mm;222146;206596;295432;73286
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;263689;245231;363430;99741
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco;4mm+premarco;275506;256221;353294;77788
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;275506;256221;353294;77788
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;317049;294856;421292;104243
-VENTANA_MODENA;azul;120x110;bronce colonial;120x110 | bronce colonial | DVH 4+9+4;DVH 4+9+4;332523;309246;442222;109699
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | 4mm;4mm;545447;507266;725390;179943
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero;4mm+mosquitero;654317;608515;903588;249271
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | 4mm + Premarco;4mm+premarco;598807;556891;783252;184445
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;598807;556891;783252;184445
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;707677;658140;961451;253774
-VENTANA_MODENA;azul;120x110;simil madera;120x110 | simil madera | DVH 4+9+4;DVH 4+9+4;655824;609916;872180;216356
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | 4mm;4mm;212124;197275;306270;94146
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | 4mm + Mosquitero;4mm+mosquitero;253187;235464;376537;123350
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | 4mm + Premarco;4mm+premarco;281724;262003;381743;100019
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;281724;262003;381743;100019
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;322787;300192;452010;129223
-VENTANA_MODENA;verde;150x150;blanco;150x150 | blanco | DVH 4+9+4;DVH 4+9+4;368603;342801;532198;163595
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | 4mm;4mm;263645;245190;380657;117012
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | 4mm + Mosquitero;4mm+mosquitero;317027;294835;472005;154978
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | 4mm + Premarco;4mm+premarco;333245;309918;456130;122885
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;333245;309918;456130;122885
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;386627;359563;547477;160850
-VENTANA_MODENA;verde;150x150;negro;150x150 | negro | DVH 4+9+4;DVH 4+9+4;420124;390715;606586;186462
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | 4mm;4mm;289406;269148;417852;128446
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;348947;324521;519738;170791
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco;4mm+premarco;359006;333876;493324;134318
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;359006;333876;493324;134318
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;418547;389249;595211;176664
-VENTANA_MODENA;verde;150x150;bronce colonial;150x150 | bronce colonial | DVH 4+9+4;DVH 4+9+4;445885;414673;643780;197895
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | 4mm;4mm;692990;644481;1000556;307566
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero;4mm+mosquitero;849029;789597;1267570;418541
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | 4mm + Premarco;4mm+premarco;762590;709209;1076029;313439
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;762590;709209;1076029;313439
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;918629;854325;1343043;424414
-VENTANA_MODENA;verde;150x150;simil madera;150x150 | simil madera | DVH 4+9+4;DVH 4+9+4;849469;790006;1226485;377016
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | 4mm;4mm;160237;149020;231354;71117
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | 4mm + Mosquitero;4mm+mosquitero;188887;175665;280380;91493
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | 4mm + Premarco;4mm+premarco;213597;198645;289217;75620
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;213597;198645;289217;75620
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;242247;225290;338243;95996
-VENTANA_MODENA;verde;120x110;blanco;120x110 | blanco | DVH 4+9+4;DVH 4+9+4;270614;251671;390719;120105
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | 4mm;4mm;201510;187404;290945;89435
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | 4mm + Mosquitero;4mm+mosquitero;238755;222042;354679;115924
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | 4mm + Premarco;4mm+premarco;254870;237029;348808;93938
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;254870;237029;348808;93938
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;292115;271667;412541;120426
-VENTANA_MODENA;verde;120x110;negro;120x110 | negro | DVH 4+9+4;DVH 4+9+4;311887;290055;450310;138423
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | 4mm;4mm;222146;206596;320740;98594
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;263689;245231;391828;128139
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco;4mm+premarco;275506;256221;378602;103096
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;275506;256221;378602;103096
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;317049;294856;449691;132642
-VENTANA_MODENA;verde;120x110;bronce colonial;120x110 | bronce colonial | DVH 4+9+4;DVH 4+9+4;332523;309246;480105;147582
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | 4mm;4mm;545447;507266;787530;242083
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero;4mm+mosquitero;654317;608515;973828;319511
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | 4mm + Premarco;4mm+premarco;598807;556891;845393;246586
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;598807;556891;845393;246586
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;707677;658140;1031691;324014
-VENTANA_MODENA;verde;120x110;simil madera;120x110 | simil madera | DVH 4+9+4;DVH 4+9+4;655824;609916;946895;291071
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | 4mm;4mm;212124;212124;212124;0
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | 4mm + Mosquitero;4mm+mosquitero;253187;253187;253187;0
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | 4mm + Premarco;4mm+premarco;281724;281724;281724;0
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;281724;281724;281724;0
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;322787;322787;322787;0
-VENTANA_MODENA;papu;150x150;blanco;150x150 | blanco | DVH 4+9+4;DVH 4+9+4;368603;368603;368603;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | 4mm;4mm;263645;263645;263645;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | 4mm + Mosquitero;4mm+mosquitero;317027;317027;317027;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | 4mm + Premarco;4mm+premarco;333245;333245;333245;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;333245;333245;333245;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;386627;386627;386627;0
-VENTANA_MODENA;papu;150x150;negro;150x150 | negro | DVH 4+9+4;DVH 4+9+4;420124;420124;420124;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | 4mm;4mm;289406;289406;289406;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;348947;348947;348947;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco;4mm+premarco;359006;359006;359006;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;359006;359006;359006;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;418547;418547;418547;0
-VENTANA_MODENA;papu;150x150;bronce colonial;150x150 | bronce colonial | DVH 4+9+4;DVH 4+9+4;445885;445885;445885;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | 4mm;4mm;692990;692990;692990;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero;4mm+mosquitero;849029;849029;849029;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | 4mm + Premarco;4mm+premarco;762590;762590;762590;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;762590;762590;762590;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;918629;918629;918629;0
-VENTANA_MODENA;papu;150x150;simil madera;150x150 | simil madera | DVH 4+9+4;DVH 4+9+4;849469;849469;849469;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | 4mm;4mm;160237;160237;160237;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | 4mm + Mosquitero;4mm+mosquitero;188887;188887;188887;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | 4mm + Premarco;4mm+premarco;213597;213597;213597;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;213597;213597;213597;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;242247;242247;242247;0
-VENTANA_MODENA;papu;120x110;blanco;120x110 | blanco | DVH 4+9+4;DVH 4+9+4;270614;270614;270614;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | 4mm;4mm;201510;201510;201510;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | 4mm + Mosquitero;4mm+mosquitero;238755;238755;238755;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | 4mm + Premarco;4mm+premarco;254870;254870;254870;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;254870;254870;254870;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;292115;292115;292115;0
-VENTANA_MODENA;papu;120x110;negro;120x110 | negro | DVH 4+9+4;DVH 4+9+4;311887;311887;311887;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | 4mm;4mm;222146;222146;222146;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero;4mm+mosquitero;263689;263689;263689;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco;4mm+premarco;275506;275506;275506;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;275506;275506;275506;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;317049;317049;317049;0
-VENTANA_MODENA;papu;120x110;bronce colonial;120x110 | bronce colonial | DVH 4+9+4;DVH 4+9+4;332523;332523;332523;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | 4mm;4mm;545447;545447;545447;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero;4mm+mosquitero;654317;654317;654317;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | 4mm + Premarco;4mm+premarco;598807;598807;598807;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | 4mm + Premarco + Contramarco;4mm+premarco+contramarco;598807;598807;598807;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco;4mm+mosq+premarco+contramarco;707677;707677;707677;0
-VENTANA_MODENA;papu;120x110;simil madera;120x110 | simil madera | DVH 4+9+4;DVH 4+9+4;655824;655824;655824;0
+modulo	perfil	medida	color	descripcion	extras	costo	proveedor	precio	ganancia
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Sin extras	sin extras	110126	99113	136578	26452
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Mosquitero	mosquitero	146918	132226	192738	45820
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Guía	guia	135939	122345	168592	32653
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Guía + Cortina PVC	guia+pvc	135939	122345	168592	32653
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Guía + Cortina Aluminio	guia+aluminio	135939	122345	168592	32653
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Mosquitero + Guía	mosq+guia	172731	155458	224751	52020
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	172731	155458	224751	52020
+VENTANA_HERRERO	amarilla	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	172731	155458	224751	52020
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Sin extras	sin extras	133163	119847	165149	31986
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Mosquitero	mosquitero	180993	162894	238156	57163
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Guía	guia	158976	143078	197162	38186
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Guía + Cortina PVC	guia+pvc	158976	143078	197162	38186
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Guía + Cortina Aluminio	guia+aluminio	158976	143078	197162	38186
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Mosquitero + Guía	mosq+guia	206806	186125	270170	63364
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	206806	186125	270170	63364
+VENTANA_HERRERO	amarilla	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	206806	186125	270170	63364
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Sin extras	sin extras	144682	130214	179435	34753
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero	mosquitero	198030	178227	260865	62835
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Guía	guia	170495	153446	211448	40953
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina PVC	guia+pvc	170495	153446	211448	40953
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	170495	153446	211448	40953
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía	mosq+guia	223843	201459	292878	69035
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	223843	201459	292878	69035
+VENTANA_HERRERO	amarilla	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	223843	201459	292878	69035
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Sin extras	sin extras	325138	292624	403236	78098
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Mosquitero	mosquitero	464948	418453	616642	151694
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Guía	guia	350951	315856	435249	84298
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Guía + Cortina PVC	guia+pvc	350951	315856	435249	84298
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Guía + Cortina Aluminio	guia+aluminio	350951	315856	435249	84298
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía	mosq+guia	490761	441685	648655	157894
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	490761	441685	648655	157894
+VENTANA_HERRERO	amarilla	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	490761	441685	648655	157894
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Sin extras	sin extras	78957	71061	97922	18965
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Mosquitero	mosquitero	104627	94164	137105	32478
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Guía	guia	97886	88097	121398	23512
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Guía + Cortina PVC	guia+pvc	97886	88097	121398	23512
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Guía + Cortina Aluminio	guia+aluminio	97886	88097	121398	23512
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Mosquitero + Guía	mosq+guia	123556	111200	160581	37025
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	123556	111200	160581	37025
+VENTANA_HERRERO	amarilla	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	123556	111200	160581	37025
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Sin extras	sin extras	97032	87329	120339	23307
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Mosquitero	mosquitero	130403	117363	171277	40874
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Guía	guia	115961	104365	143815	27854
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Guía + Cortina PVC	guia+pvc	115961	104365	143815	27854
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Guía + Cortina Aluminio	guia+aluminio	115961	104365	143815	27854
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Mosquitero + Guía	mosq+guia	149332	134399	194752	45420
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	149332	134399	194752	45420
+VENTANA_HERRERO	amarilla	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	149332	134399	194752	45420
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Sin extras	sin extras	106069	95462	131547	25478
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero	mosquitero	143291	128962	188362	45071
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Guía	guia	124998	112498	155023	30025
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina PVC	guia+pvc	124998	112498	155023	30025
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	124998	112498	155023	30025
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía	mosq+guia	162220	145998	211838	49618
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	162220	145998	211838	49618
+VENTANA_HERRERO	amarilla	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	162220	145998	211838	49618
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Sin extras	sin extras	247654	222889	307140	59486
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Mosquitero	mosquitero	345200	310680	456035	110835
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Guía	guia	266583	239925	330616	64033
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Guía + Cortina PVC	guia+pvc	266583	239925	330616	64033
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Guía + Cortina Aluminio	guia+aluminio	266583	239925	330616	64033
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía	mosq+guia	364129	327716	479510	115381
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	364129	327716	479510	115381
+VENTANA_HERRERO	amarilla	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	364129	327716	479510	115381
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Sin extras	sin extras	110126	96911	138583	28457
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Mosquitero	mosquitero	146918	129288	195566	48648
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Guía	guia	135939	119626	171066	35127
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Guía + Cortina PVC	guia+pvc	135939	119626	171066	35127
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Guía + Cortina Aluminio	guia+aluminio	135939	119626	171066	35127
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Mosquitero + Guía	mosq+guia	172731	152003	228049	55318
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	172731	152003	228049	55318
+VENTANA_HERRERO	azul	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	172731	152003	228049	55318
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Sin extras	sin extras	133163	117183	167572	34409
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Mosquitero	mosquitero	180993	159274	241651	60658
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Guía	guia	158976	139899	200055	41079
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Guía + Cortina PVC	guia+pvc	158976	139899	200055	41079
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Guía + Cortina Aluminio	guia+aluminio	158976	139899	200055	41079
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Mosquitero + Guía	mosq+guia	206806	181989	274135	67329
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	206806	181989	274135	67329
+VENTANA_HERRERO	azul	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	206806	181989	274135	67329
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Sin extras	sin extras	144682	127320	182068	37386
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero	mosquitero	198030	174266	264693	66663
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Guía	guia	170495	150036	214551	44056
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina PVC	guia+pvc	170495	150036	214551	44056
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	170495	150036	214551	44056
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía	mosq+guia	223843	196982	297176	73333
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	223843	196982	297176	73333
+VENTANA_HERRERO	azul	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	223843	196982	297176	73333
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Sin extras	sin extras	325138	286121	409154	84016
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Mosquitero	mosquitero	464948	409154	625691	160743
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Guía	guia	350951	308837	441637	90686
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Guía + Cortina PVC	guia+pvc	350951	308837	441637	90686
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Guía + Cortina Aluminio	guia+aluminio	350951	308837	441637	90686
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía	mosq+guia	490761	431870	658174	167413
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	490761	431870	658174	167413
+VENTANA_HERRERO	azul	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	490761	431870	658174	167413
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Sin extras	sin extras	78957	69482	99359	20402
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Mosquitero	mosquitero	104627	92072	139117	34490
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Guía	guia	97886	86140	123180	25294
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Guía + Cortina PVC	guia+pvc	97886	86140	123180	25294
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Guía + Cortina Aluminio	guia+aluminio	97886	86140	123180	25294
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Mosquitero + Guía	mosq+guia	123556	108729	162937	39381
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	123556	108729	162937	39381
+VENTANA_HERRERO	azul	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	123556	108729	162937	39381
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Sin extras	sin extras	97032	85388	122105	25073
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Mosquitero	mosquitero	130403	114755	173790	43387
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Guía	guia	115961	102046	145925	29964
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Guía + Cortina PVC	guia+pvc	115961	102046	145925	29964
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Guía + Cortina Aluminio	guia+aluminio	115961	102046	145925	29964
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Mosquitero + Guía	mosq+guia	149332	131412	197610	48278
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	149332	131412	197610	48278
+VENTANA_HERRERO	azul	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	149332	131412	197610	48278
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Sin extras	sin extras	106069	93341	133477	27408
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero	mosquitero	143291	126096	191127	47836
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Guía	guia	124998	109998	157297	32299
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina PVC	guia+pvc	124998	109998	157297	32299
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	124998	109998	157297	32299
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía	mosq+guia	162220	142754	214947	52727
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	162220	142754	214947	52727
+VENTANA_HERRERO	azul	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	162220	142754	214947	52727
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Sin extras	sin extras	247654	217936	311648	63994
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Mosquitero	mosquitero	345200	303776	462727	117527
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Guía	guia	266583	234593	335468	68885
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Guía + Cortina PVC	guia+pvc	266583	234593	335468	68885
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Guía + Cortina Aluminio	guia+aluminio	266583	234593	335468	68885
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía	mosq+guia	364129	320434	486547	122418
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	364129	320434	486547	122418
+VENTANA_HERRERO	azul	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	364129	320434	486547	122418
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Sin extras	sin extras	110126	96911	150454	40328
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Mosquitero	mosquitero	146918	129288	210028	63110
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Guía	guia	135939	119626	185720	49781
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Guía + Cortina PVC	guia+pvc	135939	119626	185720	49781
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Guía + Cortina Aluminio	guia+aluminio	135939	119626	185720	49781
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Mosquitero + Guía	mosq+guia	172731	152003	245293	72562
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	172731	152003	245293	72562
+VENTANA_HERRERO	verde	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	172731	152003	245293	72562
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Sin extras	sin extras	133163	117183	181927	48764
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Mosquitero	mosquitero	180993	159274	259374	78381
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Guía	guia	158976	139899	217193	58217
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Guía + Cortina PVC	guia+pvc	158976	139899	217193	58217
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Guía + Cortina Aluminio	guia+aluminio	158976	139899	217193	58217
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Mosquitero + Guía	mosq+guia	206806	181989	294639	87833
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	206806	181989	294639	87833
+VENTANA_HERRERO	verde	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	206806	181989	294639	87833
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Sin extras	sin extras	144682	127320	197665	52983
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero	mosquitero	198030	174266	284046	86016
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Guía	guia	170495	150036	232930	62435
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina PVC	guia+pvc	170495	150036	232930	62435
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	170495	150036	232930	62435
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía	mosq+guia	223843	196982	319311	95468
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	223843	196982	319311	95468
+VENTANA_HERRERO	verde	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	223843	196982	319311	95468
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Sin extras	sin extras	325138	286121	444204	119066
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Mosquitero	mosquitero	464948	409154	670584	205636
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Guía	guia	350951	308837	479469	128518
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Guía + Cortina PVC	guia+pvc	350951	308837	479469	128518
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Guía + Cortina Aluminio	guia+aluminio	350951	308837	479469	128518
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía	mosq+guia	490761	431870	705850	215089
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	490761	431870	705850	215089
+VENTANA_HERRERO	verde	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	490761	431870	705850	215089
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Sin extras	sin extras	78957	69482	107871	28914
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Mosquitero	mosquitero	104627	92072	149436	44809
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Guía	guia	97886	86140	133732	35846
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Guía + Cortina PVC	guia+pvc	97886	86140	133732	35846
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Guía + Cortina Aluminio	guia+aluminio	97886	86140	133732	35846
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Mosquitero + Guía	mosq+guia	123556	108729	175297	51741
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	123556	108729	175297	51741
+VENTANA_HERRERO	verde	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	123556	108729	175297	51741
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Sin extras	sin extras	97032	85388	132565	35533
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Mosquitero	mosquitero	130403	114755	186599	56196
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Guía	guia	115961	102046	158426	42465
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Guía + Cortina PVC	guia+pvc	115961	102046	158426	42465
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Guía + Cortina Aluminio	guia+aluminio	115961	102046	158426	42465
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Mosquitero + Guía	mosq+guia	149332	131412	212460	63128
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	149332	131412	212460	63128
+VENTANA_HERRERO	verde	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	149332	131412	212460	63128
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Sin extras	sin extras	106069	93341	144911	38842
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero	mosquitero	143291	126096	205181	61890
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Guía	guia	124998	109998	170772	45774
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina PVC	guia+pvc	124998	109998	170772	45774
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	124998	109998	170772	45774
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía	mosq+guia	162220	142754	231042	68822
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	162220	142754	231042	68822
+VENTANA_HERRERO	verde	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	162220	142754	231042	68822
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Sin extras	sin extras	247654	217936	338345	90691
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Mosquitero	mosquitero	345200	303776	496291	151091
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Guía	guia	266583	234593	364206	97623
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Guía + Cortina PVC	guia+pvc	266583	234593	364206	97623
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Guía + Cortina Aluminio	guia+aluminio	266583	234593	364206	97623
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía	mosq+guia	364129	320434	522152	158023
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	364129	320434	522152	158023
+VENTANA_HERRERO	verde	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	364129	320434	522152	158023
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Sin extras	sin extras	110126	110126	110126	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Mosquitero	mosquitero	146918	146918	146918	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Guía	guia	135939	135939	135939	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Guía + Cortina PVC	guia+pvc	135939	135939	135939	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Guía + Cortina Aluminio	guia+aluminio	135939	135939	135939	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Mosquitero + Guía	mosq+guia	172731	172731	172731	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	172731	172731	172731	0
+VENTANA_HERRERO	papu	150x150	blanco	150x150 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	172731	172731	172731	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Sin extras	sin extras	133163	133163	133163	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Mosquitero	mosquitero	180993	180993	180993	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Guía	guia	158976	158976	158976	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Guía + Cortina PVC	guia+pvc	158976	158976	158976	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Guía + Cortina Aluminio	guia+aluminio	158976	158976	158976	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Mosquitero + Guía	mosq+guia	206806	206806	206806	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	206806	206806	206806	0
+VENTANA_HERRERO	papu	150x150	negro	150x150 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	206806	206806	206806	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Sin extras	sin extras	144682	144682	144682	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero	mosquitero	198030	198030	198030	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Guía	guia	170495	170495	170495	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina PVC	guia+pvc	170495	170495	170495	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	170495	170495	170495	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía	mosq+guia	223843	223843	223843	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	223843	223843	223843	0
+VENTANA_HERRERO	papu	150x150	bronce colonial	150x150 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	223843	223843	223843	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Sin extras	sin extras	325138	325138	325138	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Mosquitero	mosquitero	464948	464948	464948	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Guía	guia	350951	350951	350951	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Guía + Cortina PVC	guia+pvc	350951	350951	350951	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Guía + Cortina Aluminio	guia+aluminio	350951	350951	350951	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía	mosq+guia	490761	490761	490761	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	490761	490761	490761	0
+VENTANA_HERRERO	papu	150x150	simil madera	150x150 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	490761	490761	490761	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Sin extras	sin extras	78957	78957	78957	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Mosquitero	mosquitero	104627	104627	104627	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Guía	guia	97886	97886	97886	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Guía + Cortina PVC	guia+pvc	97886	97886	97886	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Guía + Cortina Aluminio	guia+aluminio	97886	97886	97886	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Mosquitero + Guía	mosq+guia	123556	123556	123556	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	123556	123556	123556	0
+VENTANA_HERRERO	papu	120x110	blanco	120x110 | blanco | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	123556	123556	123556	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Sin extras	sin extras	97032	97032	97032	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Mosquitero	mosquitero	130403	130403	130403	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Guía	guia	115961	115961	115961	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Guía + Cortina PVC	guia+pvc	115961	115961	115961	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Guía + Cortina Aluminio	guia+aluminio	115961	115961	115961	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Mosquitero + Guía	mosq+guia	149332	149332	149332	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	149332	149332	149332	0
+VENTANA_HERRERO	papu	120x110	negro	120x110 | negro | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	149332	149332	149332	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Sin extras	sin extras	106069	106069	106069	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero	mosquitero	143291	143291	143291	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Guía	guia	124998	124998	124998	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina PVC	guia+pvc	124998	124998	124998	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Guía + Cortina Aluminio	guia+aluminio	124998	124998	124998	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía	mosq+guia	162220	162220	162220	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	162220	162220	162220	0
+VENTANA_HERRERO	papu	120x110	bronce colonial	120x110 | bronce colonial | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	162220	162220	162220	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Sin extras	sin extras	247654	247654	247654	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Mosquitero	mosquitero	345200	345200	345200	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Guía	guia	266583	266583	266583	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Guía + Cortina PVC	guia+pvc	266583	266583	266583	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Guía + Cortina Aluminio	guia+aluminio	266583	266583	266583	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía	mosq+guia	364129	364129	364129	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina PVC	mosq+guia+pvc	364129	364129	364129	0
+VENTANA_HERRERO	papu	120x110	simil madera	120x110 | simil madera | Mosquitero + Guía + Cortina Aluminio	mosq+guia+aluminio	364129	364129	364129	0
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | 4mm	4mm	212124	197275	271845	59721
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | 4mm + Mosquitero	4mm+mosquitero	253187	235464	336613	83426
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | 4mm + Premarco	4mm+premarco	281724	262003	347318	65594
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	281724	262003	347318	65594
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	322787	300192	412086	89299
+VENTANA_MODENA	amarilla	150x150	blanco	150x150 | blanco | DVH 4+9+4	DVH 4+9+4	368603	342801	472379	103776
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | 4mm	4mm	263645	245190	337872	74227
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | 4mm + Mosquitero	4mm+mosquitero	317027	294835	422070	105043
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | 4mm + Premarco	4mm+premarco	333245	309918	413344	80099
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	333245	309918	413344	80099
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	386627	359563	497543	110916
+VENTANA_MODENA	amarilla	150x150	negro	150x150 | negro | DVH 4+9+4	DVH 4+9+4	420124	390715	538406	118282
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | 4mm	4mm	289406	269148	370885	81479
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	348947	324521	464798	115851
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco	4mm+premarco	359006	333876	446358	87352
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	359006	333876	446358	87352
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	418547	389249	540271	121724
+VENTANA_MODENA	amarilla	150x150	bronce colonial	150x150 | bronce colonial | DVH 4+9+4	DVH 4+9+4	445885	414673	571419	125534
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | 4mm	4mm	692990	644481	888094	195104
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero	4mm+mosquitero	849029	789597	1134212	285183
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | 4mm + Premarco	4mm+premarco	762590	709209	963567	200977
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	762590	709209	963567	200977
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	918629	854325	1209684	291055
+VENTANA_MODENA	amarilla	150x150	simil madera	150x150 | simil madera | DVH 4+9+4	DVH 4+9+4	849469	790006	1088629	239160
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | 4mm	4mm	160237	149020	205350	45113
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | 4mm + Mosquitero	4mm+mosquitero	188887	175665	250539	61652
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | 4mm + Premarco	4mm+premarco	213597	198645	263213	49616
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	213597	198645	263213	49616
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	242247	225290	308402	66155
+VENTANA_MODENA	amarilla	120x110	blanco	120x110 | blanco | DVH 4+9+4	DVH 4+9+4	270614	251671	346803	76189
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | 4mm	4mm	201510	187404	258243	56733
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | 4mm + Mosquitero	4mm+mosquitero	238755	222042	316989	78234
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | 4mm + Premarco	4mm+premarco	254870	237029	316106	61236
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	254870	237029	316106	61236
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	292115	271667	374851	82736
+VENTANA_MODENA	amarilla	120x110	negro	120x110 | negro | DVH 4+9+4	DVH 4+9+4	311887	290055	399696	87809
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | 4mm	4mm	222146	206596	284689	62543
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	263689	245231	350214	86525
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco	4mm+premarco	275506	256221	342552	67046
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	275506	256221	342552	67046
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	317049	294856	408076	91027
+VENTANA_MODENA	amarilla	120x110	bronce colonial	120x110 | bronce colonial | DVH 4+9+4	DVH 4+9+4	332523	309246	426142	93619
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | 4mm	4mm	545447	507266	699012	153565
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero	4mm+mosquitero	654317	608515	870731	216414
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | 4mm + Premarco	4mm+premarco	598807	556891	756875	158068
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	598807	556891	756875	158068
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	707677	658140	928593	220916
+VENTANA_MODENA	amarilla	120x110	simil madera	120x110 | simil madera | DVH 4+9+4	DVH 4+9+4	655824	609916	840465	184641
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | 4mm	4mm	212124	197275	282104	69980
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | 4mm + Mosquitero	4mm+mosquitero	253187	235464	349316	96129
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | 4mm + Premarco	4mm+premarco	281724	262003	357577	75853
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	281724	262003	357577	75853
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	322787	300192	424788	102001
+VENTANA_MODENA	azul	150x150	blanco	150x150 | blanco | DVH 4+9+4	DVH 4+9+4	368603	342801	490205	121602
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | 4mm	4mm	263645	245190	350621	86976
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | 4mm + Mosquitero	4mm+mosquitero	317027	294835	437997	120970
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | 4mm + Premarco	4mm+premarco	333245	309918	426094	92849
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	333245	309918	426094	92849
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	386627	359563	513470	126843
+VENTANA_MODENA	azul	150x150	negro	150x150 | negro | DVH 4+9+4	DVH 4+9+4	420124	390715	558723	138599
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | 4mm	4mm	289406	269148	384881	95475
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	348947	324521	482338	133391
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco	4mm+premarco	359006	333876	460354	101348
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	359006	333876	460354	101348
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	418547	389249	557811	139264
+VENTANA_MODENA	azul	150x150	bronce colonial	150x150 | bronce colonial | DVH 4+9+4	DVH 4+9+4	445885	414673	592982	147097
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | 4mm	4mm	692990	644481	921607	228617
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero	4mm+mosquitero	849029	789597	1177012	327983
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | 4mm + Premarco	4mm+premarco	762590	709209	997080	234490
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	762590	709209	997080	234490
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	918629	854325	1252485	333856
+VENTANA_MODENA	azul	150x150	simil madera	150x150 | simil madera | DVH 4+9+4	DVH 4+9+4	849469	790006	1129709	280240
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | 4mm	4mm	160237	149020	213099	52862
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | 4mm + Mosquitero	4mm+mosquitero	188887	175665	259994	71107
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | 4mm + Premarco	4mm+premarco	213597	198645	270962	57365
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	213597	198645	270962	57365
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	242247	225290	317856	75609
+VENTANA_MODENA	azul	120x110	blanco	120x110 | blanco | DVH 4+9+4	DVH 4+9+4	270614	251671	359890	89276
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | 4mm	4mm	201510	187404	267988	66478
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | 4mm + Mosquitero	4mm+mosquitero	238755	222042	328951	90196
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | 4mm + Premarco	4mm+premarco	254870	237029	325851	70981
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	254870	237029	325851	70981
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	292115	271667	386813	94698
+VENTANA_MODENA	azul	120x110	negro	120x110 | negro | DVH 4+9+4	DVH 4+9+4	311887	290055	414779	102892
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | 4mm	4mm	222146	206596	295432	73286
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	263689	245231	363430	99741
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco	4mm+premarco	275506	256221	353294	77788
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	275506	256221	353294	77788
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	317049	294856	421292	104243
+VENTANA_MODENA	azul	120x110	bronce colonial	120x110 | bronce colonial | DVH 4+9+4	DVH 4+9+4	332523	309246	442222	109699
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | 4mm	4mm	545447	507266	725390	179943
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero	4mm+mosquitero	654317	608515	903588	249271
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | 4mm + Premarco	4mm+premarco	598807	556891	783252	184445
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	598807	556891	783252	184445
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	707677	658140	961451	253774
+VENTANA_MODENA	azul	120x110	simil madera	120x110 | simil madera | DVH 4+9+4	DVH 4+9+4	655824	609916	872180	216356
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | 4mm	4mm	212124	197275	306270	94146
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | 4mm + Mosquitero	4mm+mosquitero	253187	235464	376537	123350
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | 4mm + Premarco	4mm+premarco	281724	262003	381743	100019
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	281724	262003	381743	100019
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	322787	300192	452010	129223
+VENTANA_MODENA	verde	150x150	blanco	150x150 | blanco | DVH 4+9+4	DVH 4+9+4	368603	342801	532198	163595
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | 4mm	4mm	263645	245190	380657	117012
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | 4mm + Mosquitero	4mm+mosquitero	317027	294835	472005	154978
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | 4mm + Premarco	4mm+premarco	333245	309918	456130	122885
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	333245	309918	456130	122885
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	386627	359563	547477	160850
+VENTANA_MODENA	verde	150x150	negro	150x150 | negro | DVH 4+9+4	DVH 4+9+4	420124	390715	606586	186462
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | 4mm	4mm	289406	269148	417852	128446
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	348947	324521	519738	170791
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco	4mm+premarco	359006	333876	493324	134318
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	359006	333876	493324	134318
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	418547	389249	595211	176664
+VENTANA_MODENA	verde	150x150	bronce colonial	150x150 | bronce colonial | DVH 4+9+4	DVH 4+9+4	445885	414673	643780	197895
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | 4mm	4mm	692990	644481	1000556	307566
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero	4mm+mosquitero	849029	789597	1267570	418541
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | 4mm + Premarco	4mm+premarco	762590	709209	1076029	313439
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	762590	709209	1076029	313439
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	918629	854325	1343043	424414
+VENTANA_MODENA	verde	150x150	simil madera	150x150 | simil madera | DVH 4+9+4	DVH 4+9+4	849469	790006	1226485	377016
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | 4mm	4mm	160237	149020	231354	71117
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | 4mm + Mosquitero	4mm+mosquitero	188887	175665	280380	91493
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | 4mm + Premarco	4mm+premarco	213597	198645	289217	75620
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	213597	198645	289217	75620
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	242247	225290	338243	95996
+VENTANA_MODENA	verde	120x110	blanco	120x110 | blanco | DVH 4+9+4	DVH 4+9+4	270614	251671	390719	120105
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | 4mm	4mm	201510	187404	290945	89435
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | 4mm + Mosquitero	4mm+mosquitero	238755	222042	354679	115924
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | 4mm + Premarco	4mm+premarco	254870	237029	348808	93938
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	254870	237029	348808	93938
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	292115	271667	412541	120426
+VENTANA_MODENA	verde	120x110	negro	120x110 | negro | DVH 4+9+4	DVH 4+9+4	311887	290055	450310	138423
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | 4mm	4mm	222146	206596	320740	98594
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	263689	245231	391828	128139
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco	4mm+premarco	275506	256221	378602	103096
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	275506	256221	378602	103096
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	317049	294856	449691	132642
+VENTANA_MODENA	verde	120x110	bronce colonial	120x110 | bronce colonial | DVH 4+9+4	DVH 4+9+4	332523	309246	480105	147582
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | 4mm	4mm	545447	507266	787530	242083
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero	4mm+mosquitero	654317	608515	973828	319511
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | 4mm + Premarco	4mm+premarco	598807	556891	845393	246586
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	598807	556891	845393	246586
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	707677	658140	1031691	324014
+VENTANA_MODENA	verde	120x110	simil madera	120x110 | simil madera | DVH 4+9+4	DVH 4+9+4	655824	609916	946895	291071
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | 4mm	4mm	212124	212124	212124	0
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | 4mm + Mosquitero	4mm+mosquitero	253187	253187	253187	0
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | 4mm + Premarco	4mm+premarco	281724	281724	281724	0
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	281724	281724	281724	0
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	322787	322787	322787	0
+VENTANA_MODENA	papu	150x150	blanco	150x150 | blanco | DVH 4+9+4	DVH 4+9+4	368603	368603	368603	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | 4mm	4mm	263645	263645	263645	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | 4mm + Mosquitero	4mm+mosquitero	317027	317027	317027	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | 4mm + Premarco	4mm+premarco	333245	333245	333245	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	333245	333245	333245	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	386627	386627	386627	0
+VENTANA_MODENA	papu	150x150	negro	150x150 | negro | DVH 4+9+4	DVH 4+9+4	420124	420124	420124	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | 4mm	4mm	289406	289406	289406	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	348947	348947	348947	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco	4mm+premarco	359006	359006	359006	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	359006	359006	359006	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	418547	418547	418547	0
+VENTANA_MODENA	papu	150x150	bronce colonial	150x150 | bronce colonial | DVH 4+9+4	DVH 4+9+4	445885	445885	445885	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | 4mm	4mm	692990	692990	692990	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero	4mm+mosquitero	849029	849029	849029	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | 4mm + Premarco	4mm+premarco	762590	762590	762590	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	762590	762590	762590	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	918629	918629	918629	0
+VENTANA_MODENA	papu	150x150	simil madera	150x150 | simil madera | DVH 4+9+4	DVH 4+9+4	849469	849469	849469	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | 4mm	4mm	160237	160237	160237	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | 4mm + Mosquitero	4mm+mosquitero	188887	188887	188887	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | 4mm + Premarco	4mm+premarco	213597	213597	213597	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	213597	213597	213597	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	242247	242247	242247	0
+VENTANA_MODENA	papu	120x110	blanco	120x110 | blanco | DVH 4+9+4	DVH 4+9+4	270614	270614	270614	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | 4mm	4mm	201510	201510	201510	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | 4mm + Mosquitero	4mm+mosquitero	238755	238755	238755	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | 4mm + Premarco	4mm+premarco	254870	254870	254870	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	254870	254870	254870	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	292115	292115	292115	0
+VENTANA_MODENA	papu	120x110	negro	120x110 | negro | DVH 4+9+4	DVH 4+9+4	311887	311887	311887	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | 4mm	4mm	222146	222146	222146	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero	4mm+mosquitero	263689	263689	263689	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco	4mm+premarco	275506	275506	275506	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	275506	275506	275506	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	317049	317049	317049	0
+VENTANA_MODENA	papu	120x110	bronce colonial	120x110 | bronce colonial | DVH 4+9+4	DVH 4+9+4	332523	332523	332523	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | 4mm	4mm	545447	545447	545447	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero	4mm+mosquitero	654317	654317	654317	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | 4mm + Premarco	4mm+premarco	598807	598807	598807	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | 4mm + Premarco + Contramarco	4mm+premarco+contramarco	598807	598807	598807	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | 4mm + Mosquitero + Premarco + Contramarco	4mm+mosq+premarco+contramarco	707677	707677	707677	0
+VENTANA_MODENA	papu	120x110	simil madera	120x110 | simil madera | DVH 4+9+4	DVH 4+9+4	655824	655824	655824	0
