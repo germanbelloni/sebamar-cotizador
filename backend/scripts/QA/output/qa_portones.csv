@@ -1,0 +1,18 @@
+Caso,Descripcion,CostoBase,PrecioFinal,Items,Valido
+"Abrir Modelo4 herrero blanco","Portón 3 hojas",592623,592623,6,true
+"Abrir Modelo4 herrero negro","Portón 3 hojas",592623,765408,7,true
+"Abrir Modelo4 herrero bronce colonial","Portón 3 hojas",592623,851800,7,true
+"Abrir Modelo4 herrero simil madera","Portón 3 hojas",592623,2205280,7,true
+"Abrir Modelo4 modena blanco","Portón 3 hojas",1036290,1036290,6,true
+"Abrir Modelo4 modena negro","Portón 3 hojas",1036290,1342098,7,true
+"Abrir Modelo4 modena bronce colonial","Portón 3 hojas",1036290,1495002,7,true
+"Abrir Modelo4 modena simil madera","Portón 3 hojas",1036290,3890501,7,true
+"Plegadizo Modelo5 herrero blanco","Portón 3 hojas",618813,1066254,8,true
+"Plegadizo Modelo5 herrero negro","Portón 3 hojas",618813,1251898,9,true
+"Plegadizo Modelo5 herrero bronce colonial","Portón 3 hojas",618813,1344720,9,true
+"Plegadizo Modelo5 herrero simil madera","Portón 3 hojas",618813,2798930,9,true
+"Plegadizo Modelo5 modena blanco","Portón 3 hojas",1089612,1560593,8,true
+"Plegadizo Modelo5 modena negro","Portón 3 hojas",1089612,1887476,9,true
+"Plegadizo Modelo5 modena bronce colonial","Portón 3 hojas",1089612,2050918,9,true
+"Plegadizo Modelo5 modena simil madera","Portón 3 hojas",1089612,4611506,9,true
+"Modena Premarco Contramarco","Portón 3 hojas",1089612,1670793,10,true

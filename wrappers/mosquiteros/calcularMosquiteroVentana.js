@@ -61,6 +61,10 @@ function calcularMosquiteroVentana(dataInput) {
   const audit = new AuditBuilder();
   const { ancho, alto, color = "blanco", perfil = "amarilla" } = dataInput;
 
+  if (!["blanco", "negro"].includes(color)) {
+    throw new Error("El mosquitero de ventana solo admite blanco y negro");
+  }
+
   const medidaValida = buscarMedidaValida(ancho, alto);
 
   audit.add({

@@ -32,17 +32,19 @@ const colors = [
   },
 ] as const;
 
-type Props = {
+type ColorOption = {
+  label: string;
   value: string;
-
-  onChange: (value: string) => void;
+  preview?: string;
 };
 
-export function ColorSelector({
-  value,
-
-  onChange,
-}: Props) {
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  options?: readonly ColorOption[];
+};
+export function ColorSelector({ value, onChange, options }: Props) {
+  const availableColors = options ?? colors;
   return (
     <div className="space-y-4">
       <div>
@@ -59,7 +61,7 @@ export function ColorSelector({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {colors.map((color) => (
+        {availableColors.map((color) => (
           <GlassCard
             key={color.value}
             selected={value === color.value}
@@ -72,15 +74,12 @@ export function ColorSelector({
           >
             <div
               className={`
-                h-7
-                w-7
-
-                rounded-full
-
-                border border-border
-
-                ${color.preview}
-              `}
+    h-7
+    w-7
+    rounded-full
+    border border-border
+    ${color.preview ?? "bg-white"}
+  `}
             />
 
             <span
