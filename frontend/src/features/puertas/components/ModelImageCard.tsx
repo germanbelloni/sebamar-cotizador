@@ -28,13 +28,15 @@ export function ModelImageCard({ imageSrc, label, selected, onClick }: Props) {
         }
       `}
     >
-      <div className="flex h-[180px] items-center justify-center">
-        <img
-          src={imageSrc}
-          alt={label}
-          className="max-h-full max-w-full object-contain pointer-events-none"
-        />
-      </div>
+          <div className="flex h-[180px] items-center justify-center">
+            <img
+              src={imageSrc}
+              alt={label}
+              onError={() => console.log("ERROR IMG:", imageSrc)}
+              onLoad={() => console.log("LOAD IMG:", imageSrc)}
+              className="max-h-full max-w-full object-contain pointer-events-none"
+            />
+          </div>
 
       <div className="mt-3 text-center text-sm font-semibold uppercase text-zinc-200">
         {label}

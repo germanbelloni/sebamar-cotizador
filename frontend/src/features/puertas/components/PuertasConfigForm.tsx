@@ -385,7 +385,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           (empujando).
         </AlertBox>
 
-        <FormSection title="Modelo">
+        {/* <FormSection title="Modelo">
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => (
               <ModelImageCard
@@ -442,6 +442,73 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                 }}
               />
             ))}
+          </div>
+        </FormSection> */}
+
+        <FormSection title="Modelo">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+            {modelosVisuales.map((modelo: string) => {
+              const src = getImageSrc(modelo);
+
+              console.log("MODELO:", modelo);
+              console.log("SRC:", src);
+
+              return (
+                <ModelImageCard
+                  key={modelo}
+                  imageSrc={src}
+                  label={getModeloLabel(modelo)}
+                  selected={isModeloSelected(modelo)}
+                  onClick={() => {
+                    if (modelo === "modelo_panel") {
+                      updateConfig({
+                        modelo: "modelo_panel",
+                        extras: {
+                          ...config.extras,
+                          barralRecto: 0,
+                          barralCurvo: 0,
+                          picaporte: false,
+                          mediaManija: false,
+                        },
+                      });
+                      return;
+                    }
+
+                    if (modelo === "modelo_panel_barral_recto") {
+                      updateConfig({
+                        modelo: "modelo_panel",
+                        extras: {
+                          ...config.extras,
+                          barralRecto: 1,
+                          barralCurvo: 0,
+                          picaporte: false,
+                          mediaManija: false,
+                        },
+                      });
+                      return;
+                    }
+
+                    if (modelo === "modelo_panel_barral_curvo") {
+                      updateConfig({
+                        modelo: "modelo_panel",
+                        extras: {
+                          ...config.extras,
+                          barralRecto: 0,
+                          barralCurvo: 1,
+                          picaporte: false,
+                          mediaManija: false,
+                        },
+                      });
+                      return;
+                    }
+
+                    updateConfig({
+                      modelo,
+                    });
+                  }}
+                />
+              );
+            })}
           </div>
         </FormSection>
 
