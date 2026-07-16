@@ -129,17 +129,63 @@ function calcularHerrero({
 // 🪟 MODENA
 // =========================
 
+function buscarMedidaModena(medida) {
+  if (dataModena.medidas?.[medida]) {
+    return {
+      medida,
+      datos: dataModena.medidas[medida],
+    };
+  }
+
+  const [ancho, alto] = medida.split("x").map(Number);
+
+  const medidaSuperior = Object.keys(dataModena.medidas)
+    .map((m) => {
+      const [w, h] = m.split("x").map(Number);
+
+      return {
+        key: m,
+        w,
+        h,
+      };
+    })
+    .filter((m) => m.w >= ancho && m.h >= alto)
+    .sort((a, b) => {
+      if (a.h !== b.h) {
+        return a.h - b.h;
+      }
+
+      return a.w - b.w;
+    })[0];
+
+  if (!medidaSuperior) {
+    return null;
+  }
+
+  return {
+    medida: medidaSuperior.key,
+    datos: dataModena.medidas[medidaSuperior.key],
+  };
+}
+
 function calcularModena({
   medida,
   tipoVidrio,
   incluirGuia,
   incluirMosquitero,
 }) {
-  const d = dataModena.medidas?.[medida];
+  const lookup = buscarMedidaModena(medida);
 
-  if (!d) {
+  if (!lookup) {
     throw new Error("Medida no encontrada");
   }
+
+  const medidaUsada = lookup.medida;
+  const d = lookup.datos;
+  console.log({
+    medidaPedida: medida,
+    medidaUsada,
+  });
 
   // =========================
   // ITEMS
@@ -152,7 +198,7 @@ function calcularModena({
   let precioVidrio = Number(d.vidrios?.[tipoVidrio] || 0);
 
   if (tipoVidrio === "4+4") {
-    const [ancho, alto] = medida
+    const [ancho, alto] = medidaUsada
       .split("x")
       .map((n) => Number(String(n).replace(",", ".")));
 
@@ -194,7 +240,7 @@ function calcularModena({
 
     configuracion: {
       linea: "modena",
-      medida,
+      medida: medidaUsada,
       tipoVidrio,
       incluirGuia: !!incluirGuia,
       incluirMosquitero: !!incluirMosquitero,

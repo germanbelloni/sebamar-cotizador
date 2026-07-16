@@ -9,7 +9,7 @@ module.exports = {
     modena: {
       descuento: 0.07,
       flete: 0.06,
-      ganancia: 0.3,
+      ganancia: 0.3,  
     },
 
     mosquiteros: {

@@ -2,6 +2,7 @@ import { usePresupuestos } from "../hooks/usePresupuestos";
 import { useState } from "react";
 import { FileText } from "lucide-react";
 import { openPdf } from "../api/openPdf";
+import { useAuthStore } from "@/store/authStore";
 
 import { useDeletePresupuesto } from "../hooks/useDeletePresupuesto";
 import { useUpdatePresupuestoEstado } from "../hooks/useUpdatePresupuestoEstado";
@@ -10,21 +11,14 @@ import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
 import { AprobarPresupuestoDialog } from "../components/AprobarPresupuestoDialog";
 type Presupuesto = {
   id: string;
-
   numero: number;
-
   cliente: string;
-
   telefono?: string;
-
   usuario: string;
-
+  empresa?: string;
   total: number;
-
   fecha: string;
-
   cantidadItems: number;
-
   estado?: string;
 };
 type Props = {
@@ -33,8 +27,15 @@ type Props = {
 
 export function PresupuestosPage({ onOpenPresupuesto }: Props) {
   const { data, isLoading } = usePresupuestos();
+
+  const user = useAuthStore((state) => state.user);
+
+  const isSuperAdmin = user?.role === "superadmin";
+
   const [filtro, setFiltro] = useState("pendiente");
   const [busqueda, setBusqueda] = useState("");
+  const [empresaFiltro, setEmpresaFiltro] = useState("todas");
+
   const deleteMutation = useDeletePresupuesto();
   const estadoMutation = useUpdatePresupuestoEstado();
 
@@ -45,12 +46,24 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
       </div>
     );
   }
+
+  const empresas = [
+    "todas",
+    ...Array.from(
+      new Set((data || []).map((p: Presupuesto) => p.empresa).filter(Boolean)),
+    ),
+  ] as string[];
+
   const presupuestosFiltrados = (data || [])
+
     .filter((p: Presupuesto) => {
       if (filtro !== "todos" && p.estado !== filtro) {
         return false;
       }
 
+      if (empresaFiltro !== "todas" && p.empresa !== empresaFiltro) {
+        return false;
+      }
       const texto = busqueda.toLowerCase();
 
       return (
@@ -99,6 +112,30 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
           </button>
         ))}
       </div>
+
+      {isSuperAdmin && (
+        <div className="mb-6">
+          <select
+            value={empresaFiltro}
+            onChange={(e) => setEmpresaFiltro(e.target.value)}
+            className="
+        w-full
+        rounded-xl
+        border
+        border-border
+        bg-card
+        px-4
+        py-3
+      "
+          >
+            {empresas.map((empresa) => (
+              <option key={empresa} value={empresa}>
+                {empresa}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <div className="mb-6">
         <input
           value={busqueda}
@@ -149,6 +186,12 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                 <div className="mt-1 text-xs text-zinc-500">
                   👤 {presupuesto.usuario}
                 </div>
+
+                {isSuperAdmin && presupuesto.empresa && (
+                  <div className="mt-1 text-xs text-sky-400">
+                    🏢 {presupuesto.empresa}
+                  </div>
+                )}
 
                 {presupuesto.telefono && (
                   <div className="mt-1 text-xs text-zinc-500">

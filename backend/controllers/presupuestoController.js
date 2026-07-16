@@ -132,7 +132,7 @@ async function listar(req, res) {
       };
     }
     const presupuestos = await Presupuesto.find(filtros)
-      .populate("userId", "nombre")
+      .populate("userId", "nombre empresa nombreEmpresa")
       .sort({
         createdAt: -1,
       });
@@ -149,6 +149,8 @@ async function listar(req, res) {
       total: p.total,
 
       fecha: p.fecha,
+
+      empresa: p.userId?.nombreEmpresa || p.userId?.empresa || "",
 
       estado: p.estado || "pendiente",
       cantidadItems: p.items?.length || 0,

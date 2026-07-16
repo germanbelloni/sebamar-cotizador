@@ -128,7 +128,6 @@ export function LoginPage() {
           "
         >
           {/* GLOW */}
-
           <div
             className="
               absolute
@@ -142,9 +141,7 @@ export function LoginPage() {
               blur-3xl
             "
           />
-
           {/* VERSION */}
-
           <div className="flex justify-center">
             <div
               className="
@@ -164,23 +161,25 @@ export function LoginPage() {
               Cotizador <span className="text-[9px] opacity-70">V 1.0.1</span>
             </div>
           </div>
-
           {/* LOGO */}
-
           <div className="mt-8 flex justify-center">
-            <img
-              src="/logos/sebamar.png"
-              alt="Sebamar"
+            <div
               className="
-    h-24
-    object-contain
-    drop-shadow-[0_0_25px_rgba(255,255,255,0.18)]
-  "
-            />
+      rounded-2xl
+      bg-white
+      px-5
+      py-3
+      shadow-[0_0_35px_rgba(255,255,255,0.08)]
+    "
+            >
+              <img
+                src="/logos/sebamar.png"
+                alt="Sebamar"
+                className="h-14 object-contain"
+              />
+            </div>
           </div>
-
           {/* FOOTER */}
-
           <div
             className="
               mt-8

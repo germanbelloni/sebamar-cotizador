@@ -70,20 +70,39 @@ function calcularPatagonicaModena(dataInput) {
 
   const medidaKey = normalizarMedida(medida);
   const [ancho, alto] = medidaKey.split("x").map(Number);
+
+  if (tipo === "1_raja" && ancho < 80) {
+    throw new Error("El ancho mínimo es 80 cm");
+  }
+
+  const anchoLookup = tipo === "1_raja" && ancho < 120 ? 120 : ancho;
+
   const medidas = data.tipos?.[tipo]?.medidas || {};
 
   let datos = medidas[medidaKey];
 
   // 🔥 buscar medida superior automática
-
   if (!datos) {
     const medidasDisponibles = Object.keys(medidas);
 
-    const medidaSuperior = medidasDisponibles.find((m) => {
-      const [w, h] = m.split("x").map(Number);
+    const medidaSuperior = medidasDisponibles
+      .map((m) => {
+        const [w, h] = m.split("x").map(Number);
 
-      return w >= ancho && h >= alto;
-    });
+        return {
+          key: m,
+          w,
+          h,
+        };
+      })
+      .filter((m) => m.w >= anchoLookup && m.h >= alto)
+      .sort((a, b) => {
+        if (a.h !== b.h) {
+          return a.h - b.h;
+        }
+
+        return a.w - b.w;
+      })[0]?.key;
 
     if (!medidaSuperior) {
       throw new Error(`No existe medida superior para ${medidaKey}`);

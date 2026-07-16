@@ -158,10 +158,17 @@ export function Sidebar({
             </h1>
 
             <p
-              className="
-                text-xs
-                text-muted-foreground
-              "
+              className="text-xs font-medium"
+              style={{
+                color:
+                  user?.perfil === "azul"
+                    ? "#3b82f6"
+                    : user?.perfil === "verde"
+                      ? "#22c55e"
+                      : user?.perfil === "papu"
+                        ? "#9ca3af"
+                        : "#eab308",
+              }}
             >
               {user?.nombre}
             </p>
