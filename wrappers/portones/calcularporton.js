@@ -31,9 +31,7 @@ function getColorFactor(color) {
 
 function calcularPortonWrapper(dataInput) {
   const audit = new AuditBuilder();
-  console.log("REQ BODY PORTONES:", dataInput);
 
-  console.log("SISTEMA RECIBIDO:", dataInput.sistema);
   const {
     perfil = "amarilla",
     linea,
@@ -49,9 +47,6 @@ function calcularPortonWrapper(dataInput) {
   } = dataInput;
 
   const sistema = sistemaInput || tipoPorton;
-  console.log("SISTEMA RECIBIDO:", sistema);
-  console.log("PREMARCO:", premarco);
-  console.log("CONTRAMARCO:", contramarco);
 
   if (!["abrir", "corredizo", "plegadizo"].includes(sistema)) {
     throw new Error("Sistema inválido");

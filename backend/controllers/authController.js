@@ -27,7 +27,16 @@ function generarToken(user) {
 
 async function register(req, res) {
   try {
-    const { nombre, password, role, perfil, margen, logo, empresa } = req.body;
+    const {
+      nombre,
+      password,
+      role,
+      perfil,
+      margen,
+      logo,
+      empresa,
+      nombreEmpresa,
+    } = req.body;
 
     // =========================
     // VALIDACIONES BÁSICAS
@@ -108,6 +117,12 @@ async function register(req, res) {
     // =========================
     // CREAR USUARIO
     // =========================
+    const empresaSlug = nombreEmpresa
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "-");
     let empresaData = {};
 
     if (currentUserRole === "admin") {
@@ -127,6 +142,7 @@ async function register(req, res) {
         colorPrimario: admin.colorPrimario,
         colorSecundario: admin.colorSecundario,
         margen: admin.margen,
+        perfil: admin.perfil,
       };
       console.log("EMPRESA DATA:");
       console.log(JSON.stringify(empresaData, null, 2));
@@ -140,8 +156,8 @@ async function register(req, res) {
       password: hashedPassword,
 
       role: role || "user",
-
-      perfil: perfil || "amarilla",
+      perfil:
+        currentUserRole === "admin" ? empresaData.perfil : perfil || "amarilla",
 
       margen:
         currentUserRole === "admin" ? empresaData.margen : Number(margen ?? 0),
@@ -149,10 +165,12 @@ async function register(req, res) {
       empresa:
         currentUserRole === "admin"
           ? empresaData.empresa
-          : empresa || "sebamar",
+          : empresaSlug || nombre.toLowerCase(),
 
-      nombreEmpresa: empresaData.nombreEmpresa || "",
-
+      nombreEmpresa:
+        currentUserRole === "admin"
+          ? empresaData.nombreEmpresa
+          : nombreEmpresa || "",
       logo: empresaData.logo || "",
 
       telefono: empresaData.telefono || "",

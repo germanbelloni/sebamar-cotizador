@@ -74,6 +74,44 @@ function agregarResultado(
   );
 }
 
+function descripcionPuerta(modelo, tipoVidrio, extras, premarco, contramarco) {
+  const partes = [modelo];
+
+  if (tipoVidrio) {
+    partes.push(tipoVidrio);
+  }
+
+  if (extras.barralRecto) {
+    partes.push("Barral recto");
+  }
+
+  if (extras.barralCurvo) {
+    partes.push("Barral curvo");
+  }
+
+  if (extras.picaporte) {
+    partes.push("Picaporte");
+  }
+
+  if (extras.mediaManija) {
+    partes.push("Media manija");
+  }
+
+  if (premarco) {
+    partes.push("Premarco");
+  }
+
+  if (contramarco) {
+    partes.push("Contramarco");
+  }
+
+  if (partes.length === 1) {
+    partes.push("Sin extras");
+  }
+
+  return partes.join(" | ");
+}
+
 // ======================================================
 // SIMPLE
 // ======================================================
@@ -85,7 +123,8 @@ const simples = [
   },
 ];
 
-const modelosSimples = ["modelo_4", "modelo_5", "modelo_panel"];
+// const modelosSimples = ["modelo_4", "modelo_5", "modelo_panel"];
+const modelosSimples = ["modelo_4"];
 
 // ======================================================
 // SIMPLE HERRERO / MODENA
@@ -108,6 +147,9 @@ for (const perfil of perfiles) {
               extras.barralRecto = 1;
             }
 
+            const llevaVidrio =
+              modelo !== "modelo_5" && modelo !== "modelo_panel";
+
             const r = calcularPuerta({
               ancho: medida.ancho,
               alto: medida.alto,
@@ -118,6 +160,8 @@ for (const perfil of perfiles) {
               modelo,
               color,
               perfil,
+
+              tipoVidrio: llevaVidrio ? "3mm" : undefined,
 
               extras,
 
@@ -132,7 +176,13 @@ for (const perfil of perfiles) {
               "simple",
               `${medida.ancho}x${medida.alto}`,
               color,
-              modelo,
+              descripcionPuerta(
+                modelo,
+                llevaVidrio ? "3mm" : null,
+                extras,
+                false,
+                false,
+              ),
               r,
             );
           } catch (e) {
@@ -154,9 +204,9 @@ for (const perfil of perfiles) {
   }
 }
 
-// ======================================================
-// ECO
-// ======================================================
+//======================================================
+//ECO
+//======================================================
 
 for (const perfil of perfiles) {
   for (const color of colores) {
@@ -167,7 +217,18 @@ for (const perfil of perfiles) {
 
         configuracion: "simple",
 
-        modelo: "modelo_4",
+        modelo: descripcionPuerta(
+          "modelo_4",
+          "3mm",
+          {
+            barralRecto: 0,
+            barralCurvo: 0,
+            picaporte: false,
+            mediaManija: false,
+          },
+          false,
+          false,
+        ),
 
         color,
         perfil,
@@ -216,7 +277,18 @@ for (const perfil of perfiles) {
           sistema: "abrir",
           hojas: 3,
 
-          modelo: "modelo_5",
+          modelo: descripcionPuerta(
+            "modelo_5",
+            null,
+            {
+              barralRecto: 0,
+              barralCurvo: 0,
+              picaporte: false,
+              mediaManija: false,
+            },
+            false,
+            false,
+          ),
 
           color,
           perfil,

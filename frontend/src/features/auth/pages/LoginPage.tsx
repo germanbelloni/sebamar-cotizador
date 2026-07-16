@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../api/login";
 
 import { useAuthStore } from "@/store/authStore";
+import { Eye, EyeOff } from "lucide-react";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -281,33 +284,55 @@ export function LoginPage() {
               Contraseña
             </label>
 
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="
-                w-full
-                rounded-2xl
-                border
-                border-zinc-700
-                bg-zinc-900
-                px-5
-                py-4
-                text-white
-                outline-none
-                transition-all
-                duration-200
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="
+      w-full
+      rounded-2xl
+      border
+      border-zinc-700
+      bg-zinc-900
+      px-5
+      py-4
+      pr-14
+      text-white
+      outline-none
+      transition-all
+      duration-200
 
-                placeholder:text-zinc-600
+      placeholder:text-zinc-600
 
-                hover:border-zinc-500
+      hover:border-zinc-500
 
-                focus:border-zinc-300
-                focus:bg-zinc-800
-                focus:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]
-              "
-            />
+      focus:border-zinc-300
+      focus:bg-zinc-800
+      focus:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]
+    "
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="
+      absolute
+      right-4
+      top-1/2
+      -translate-y-1/2
+      text-zinc-500
+      hover:text-zinc-300
+    "
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* ERROR */}

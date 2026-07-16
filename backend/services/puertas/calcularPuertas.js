@@ -77,7 +77,6 @@ function calcularVidrio(producto, tipoVidrio) {
 // ========================
 
 function calcularPuertas(dataInput) {
-  console.log(dataInput);
   //process.exit();
   const {
     configuracion,
@@ -88,7 +87,10 @@ function calcularPuertas(dataInput) {
     modeloMedia,
     modeloMediaPuerta,
     tipoVidrio,
+    vidrio,
   } = dataInput;
+
+  const vidrioFinal = tipoVidrio || vidrio;
   const tipoFinal = configuracion || tipo || "simple";
 
   const modeloFinal = modeloPuerta || modelo;
@@ -180,10 +182,8 @@ function calcularPuertas(dataInput) {
     }
 
     estructura += puerta.base + media.base;
-
-    const v1 = calcularVidrio(puerta, tipoVidrio);
-
-    const v2 = calcularVidrio(media, tipoVidrio);
+    const v1 = calcularVidrio(puerta, vidrioFinal);
+    const v2 = calcularVidrio(media, vidrioFinal);
 
     vidrioTotal += v1 + v2;
 
@@ -234,7 +234,7 @@ function calcularPuertas(dataInput) {
 
     estructura = producto.base * hojas;
 
-    vidrioTotal = calcularVidrio(producto, tipoVidrio) * hojas;
+    vidrioTotal = calcularVidrio(producto, vidrioFinal) * hojas;
 
     items.push(
       {
@@ -280,12 +280,7 @@ function calcularPuertas(dataInput) {
   }
 
   const costoBase = estructura + vidrioTotal;
-  console.log({
-    tipo,
-    configuracion,
-    tipoFinal,
-    hojas,
-  });
+
   return {
     costoBase: Math.round(costoBase),
 
@@ -300,7 +295,7 @@ function calcularPuertas(dataInput) {
 
       linea,
 
-      tipoVidrio,
+      tipoVidrio: vidrioFinal,
     },
   };
 }

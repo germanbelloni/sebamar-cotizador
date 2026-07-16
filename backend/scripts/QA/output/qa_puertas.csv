@@ -1,145 +1,81 @@
-ï»¿modulo;perfil;linea;configuracion;medida;color;descripcion;costo;proveedor;precio;ganancia
-PUERTA;amarilla;herrero;simple;80x200;blanco;modelo_4;196156;176540;243273;66732
-PUERTA;amarilla;modena;simple;80x200;blanco;modelo_4;339787;316002;435451;119449
-PUERTA;amarilla;herrero;simple;80x200;blanco;modelo_5;210756;189680;261380;71699
-PUERTA;amarilla;modena;simple;80x200;blanco;modelo_5;363204;337780;465460;127681
-PUERTA;amarilla;herrero;simple;80x200;blanco;modelo_panel;307192;276473;380980;104507
-ERROR;amarilla;modena;simple;80x200;blanco;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;amarilla;herrero;simple;80x200;negro;modelo_4;255003;229503;316254;86752
-PUERTA;amarilla;modena;simple;80x200;negro;modelo_4;441723;410802;566086;155283
-PUERTA;amarilla;herrero;simple;80x200;negro;modelo_5;273983;246585;339793;93209
-PUERTA;amarilla;modena;simple;80x200;negro;modelo_5;472165;439114;605099;165985
-PUERTA;amarilla;herrero;simple;80x200;negro;modelo_panel;393950;354555;488576;134022
-ERROR;amarilla;modena;simple;80x200;negro;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;amarilla;herrero;simple;80x200;bronce colonial;modelo_4;284426;255984;352745;96762
-PUERTA;amarilla;modena;simple;80x200;bronce colonial;modelo_4;492691;458203;631403;173201
-PUERTA;amarilla;herrero;simple;80x200;bronce colonial;modelo_5;305596;275037;379000;103964
-PUERTA;amarilla;modena;simple;80x200;bronce colonial;modelo_5;526646;489781;674918;185137
-PUERTA;amarilla;herrero;simple;80x200;bronce colonial;modelo_panel;437328;393596;542375;148779
-ERROR;amarilla;modena;simple;80x200;bronce colonial;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;amarilla;herrero;simple;80x200;simil madera;modelo_4;745393;670854;924436;253583
-PUERTA;amarilla;modena;simple;80x200;simil madera;modelo_4;1291191;1200807;1654712;453905
-PUERTA;amarilla;herrero;simple;80x200;simil madera;modelo_5;800873;720786;993242;272457
-PUERTA;amarilla;modena;simple;80x200;simil madera;modelo_5;1380175;1283563;1768750;485187
-PUERTA;amarilla;herrero;simple;80x200;simil madera;modelo_panel;1116930;1005237;1385216;379979
-ERROR;amarilla;modena;simple;80x200;simil madera;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;azul;herrero;simple;80x200;blanco;modelo_4;196156;172617;246843;74225
-PUERTA;azul;modena;simple;80x200;blanco;modelo_4;339787;316002;451883;135881
-PUERTA;azul;herrero;simple;80x200;blanco;modelo_5;210756;185465;265215;79750
-PUERTA;azul;modena;simple;80x200;blanco;modelo_5;363204;337780;483025;145245
-PUERTA;azul;herrero;simple;80x200;blanco;modelo_panel;307192;270329;386570;116241
-ERROR;azul;modena;simple;80x200;blanco;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;azul;herrero;simple;80x200;negro;modelo_4;255003;224402;320896;96493
-PUERTA;azul;modena;simple;80x200;negro;modelo_4;441723;410802;587448;176645
-PUERTA;azul;herrero;simple;80x200;negro;modelo_5;273983;241105;344780;103675
-PUERTA;azul;modena;simple;80x200;negro;modelo_5;472165;439114;627932;188819
-PUERTA;azul;herrero;simple;80x200;negro;modelo_panel;393950;346676;495746;149071
-ERROR;azul;modena;simple;80x200;negro;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;azul;herrero;simple;80x200;bronce colonial;modelo_4;284426;250295;357922;107627
-PUERTA;azul;modena;simple;80x200;bronce colonial;modelo_4;492691;458203;655230;197027
-PUERTA;azul;herrero;simple;80x200;bronce colonial;modelo_5;305596;268925;384562;115638
-PUERTA;azul;modena;simple;80x200;bronce colonial;modelo_5;526646;489781;700386;210606
-PUERTA;azul;herrero;simple;80x200;bronce colonial;modelo_panel;437328;384849;550334;165485
-ERROR;azul;modena;simple;80x200;bronce colonial;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;azul;herrero;simple;80x200;simil madera;modelo_4;745393;655946;938002;282057
-PUERTA;azul;modena;simple;80x200;simil madera;modelo_4;1291191;1200807;1717154;516347
-PUERTA;azul;herrero;simple;80x200;simil madera;modelo_5;800873;704768;1007818;303050
-PUERTA;azul;modena;simple;80x200;simil madera;modelo_5;1380175;1283563;1835495;551932
-PUERTA;azul;herrero;simple;80x200;simil madera;modelo_panel;1116930;982898;1405544;422646
-ERROR;azul;modena;simple;80x200;simil madera;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;verde;herrero;simple;80x200;blanco;modelo_4;196156;172617;267988;95371
-PUERTA;verde;modena;simple;80x200;blanco;modelo_4;339787;316002;490593;174591
-PUERTA;verde;herrero;simple;80x200;blanco;modelo_5;210756;185465;287935;102470
-PUERTA;verde;modena;simple;80x200;blanco;modelo_5;363204;337780;524403;186623
-PUERTA;verde;herrero;simple;80x200;blanco;modelo_panel;307192;270329;419686;149357
-ERROR;verde;modena;simple;80x200;blanco;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;verde;herrero;simple;80x200;negro;modelo_4;255003;224402;348385;123982
-PUERTA;verde;modena;simple;80x200;negro;modelo_4;441723;410802;637771;226968
-PUERTA;verde;herrero;simple;80x200;negro;modelo_5;273983;241105;374315;133210
-PUERTA;verde;modena;simple;80x200;negro;modelo_5;472165;439114;681724;242610
-PUERTA;verde;herrero;simple;80x200;negro;modelo_panel;393950;346676;538214;191538
-ERROR;verde;modena;simple;80x200;negro;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;verde;herrero;simple;80x200;bronce colonial;modelo_4;284426;250295;388583;138288
-PUERTA;verde;modena;simple;80x200;bronce colonial;modelo_4;492691;458203;711360;253157
-PUERTA;verde;herrero;simple;80x200;bronce colonial;modelo_5;305596;268925;417506;148581
-PUERTA;verde;modena;simple;80x200;bronce colonial;modelo_5;526646;489781;760384;270604
-PUERTA;verde;herrero;simple;80x200;bronce colonial;modelo_panel;437328;384849;597478;212629
-ERROR;verde;modena;simple;80x200;bronce colonial;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;verde;herrero;simple;80x200;simil madera;modelo_4;745393;655946;1018356;362410
-PUERTA;verde;modena;simple;80x200;simil madera;modelo_4;1291191;1200807;1864253;663446
-PUERTA;verde;herrero;simple;80x200;simil madera;modelo_5;800873;704768;1094152;389384
-PUERTA;verde;modena;simple;80x200;simil madera;modelo_5;1380175;1283563;1992731;709169
-PUERTA;verde;herrero;simple;80x200;simil madera;modelo_panel;1116930;982898;1525949;543051
-ERROR;verde;modena;simple;80x200;simil madera;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;papu;herrero;simple;80x200;blanco;modelo_4;196156;196156;196156;0
-PUERTA;papu;modena;simple;80x200;blanco;modelo_4;339787;339787;339787;0
-PUERTA;papu;herrero;simple;80x200;blanco;modelo_5;210756;210756;210756;0
-PUERTA;papu;modena;simple;80x200;blanco;modelo_5;363204;363204;363204;0
-PUERTA;papu;herrero;simple;80x200;blanco;modelo_panel;307192;307192;307192;0
-ERROR;papu;modena;simple;80x200;blanco;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;papu;herrero;simple;80x200;negro;modelo_4;255003;255003;255003;0
-PUERTA;papu;modena;simple;80x200;negro;modelo_4;441723;441723;441723;0
-PUERTA;papu;herrero;simple;80x200;negro;modelo_5;273983;273983;273983;0
-PUERTA;papu;modena;simple;80x200;negro;modelo_5;472165;472165;472165;0
-PUERTA;papu;herrero;simple;80x200;negro;modelo_panel;393950;393950;393950;0
-ERROR;papu;modena;simple;80x200;negro;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;papu;herrero;simple;80x200;bronce colonial;modelo_4;284426;284426;284426;0
-PUERTA;papu;modena;simple;80x200;bronce colonial;modelo_4;492691;492691;492691;0
-PUERTA;papu;herrero;simple;80x200;bronce colonial;modelo_5;305596;305596;305596;0
-PUERTA;papu;modena;simple;80x200;bronce colonial;modelo_5;526646;526646;526646;0
-PUERTA;papu;herrero;simple;80x200;bronce colonial;modelo_panel;437328;437328;437328;0
-ERROR;papu;modena;simple;80x200;bronce colonial;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;papu;herrero;simple;80x200;simil madera;modelo_4;745393;745393;745393;0
-PUERTA;papu;modena;simple;80x200;simil madera;modelo_4;1291191;1291191;1291191;0
-PUERTA;papu;herrero;simple;80x200;simil madera;modelo_5;800873;800873;800873;0
-PUERTA;papu;modena;simple;80x200;simil madera;modelo_5;1380175;1380175;1380175;0
-PUERTA;papu;herrero;simple;80x200;simil madera;modelo_panel;1116930;1116930;1116930;0
-ERROR;papu;modena;simple;80x200;simil madera;Modelo "modelo_panel" no existe para la lÃ­nea "modena".
-PUERTA;amarilla;eco;simple;80x200;blanco;modelo_4;157887;142098;195811;53713
-PUERTA;amarilla;eco;simple;80x200;negro;modelo_4;205253;184728;254555;69827
-PUERTA;amarilla;eco;simple;80x200;bronce colonial;modelo_4;228936;206043;283927;77884
-PUERTA;amarilla;eco;simple;80x200;simil madera;modelo_4;599971;539974;744084;204110
-PUERTA;azul;eco;simple;80x200;blanco;modelo_4;157887;138941;198685;59744
-PUERTA;azul;eco;simple;80x200;negro;modelo_4;205253;180623;258291;77668
-PUERTA;azul;eco;simple;80x200;bronce colonial;modelo_4;228936;201464;288093;86629
-PUERTA;azul;eco;simple;80x200;simil madera;modelo_4;599971;527974;755003;227029
-PUERTA;verde;eco;simple;80x200;blanco;modelo_4;157887;138941;215705;76765
-PUERTA;verde;eco;simple;80x200;negro;modelo_4;205253;180623;280417;99794
-PUERTA;verde;eco;simple;80x200;bronce colonial;modelo_4;228936;201464;312773;111309
-PUERTA;verde;eco;simple;80x200;simil madera;modelo_4;599971;527974;819680;291706
-PUERTA;papu;eco;simple;80x200;blanco;modelo_4;157887;157887;157887;0
-PUERTA;papu;eco;simple;80x200;negro;modelo_4;205253;205253;205253;0
-PUERTA;papu;eco;simple;80x200;bronce colonial;modelo_4;228936;228936;228936;0
-PUERTA;papu;eco;simple;80x200;simil madera;modelo_4;599971;599971;599971;0
-PORTON;amarilla;herrero;porton;240x200;blanco;modelo_5;598238;634132;824372;190240
-PORTON;amarilla;modena;porton;240x200;blanco;modelo_5;1138824;1059106;1459449;400342
-PORTON;amarilla;herrero;porton;240x200;negro;modelo_5;768950;815087;1059613;244526
-PORTON;amarilla;modena;porton;240x200;negro;modelo_5;1465708;1363108;1878363;515255
-PORTON;amarilla;herrero;porton;240x200;bronce colonial;modelo_5;854306;905565;1177234;271669
-PORTON;amarilla;modena;porton;240x200;bronce colonial;modelo_5;1629149;1515109;2087820;572711
-PORTON;amarilla;herrero;porton;240x200;simil madera;modelo_5;2191553;2323046;3019960;696914
-PORTON;amarilla;modena;porton;240x200;simil madera;modelo_5;4189738;3896456;5369316;1472860
-PORTON;azul;herrero;porton;240x200;blanco;modelo_5;584944;643438;836470;193031
-PORTON;azul;modena;porton;240x200;blanco;modelo_5;1138824;1059106;1514522;455416
-PORTON;azul;herrero;porton;240x200;negro;modelo_5;751862;827049;1075163;248115
-PORTON;azul;modena;porton;240x200;negro;modelo_5;1465708;1363108;1949245;586136
-PORTON;azul;herrero;porton;240x200;bronce colonial;modelo_5;835322;918854;1194510;275656
-PORTON;azul;modena;porton;240x200;bronce colonial;modelo_5;1629149;1515109;2166606;651497
-PORTON;azul;herrero;porton;240x200;simil madera;modelo_5;2142852;2357137;3064278;707141
-PORTON;azul;modena;porton;240x200;simil madera;modelo_5;4189738;3896456;5571932;1675476
-PORTON;verde;herrero;porton;240x200;blanco;modelo_5;584944;672685;908125;235440
-PORTON;verde;modena;porton;240x200;blanco;modelo_5;1138824;1059106;1644263;585156
-PORTON;verde;herrero;porton;240x200;negro;modelo_5;751862;864642;1167267;302625
-PORTON;verde;modena;porton;240x200;negro;modelo_5;1465708;1363108;2116225;753117
-PORTON;verde;herrero;porton;240x200;bronce colonial;modelo_5;835322;960620;1296837;336217
-PORTON;verde;modena;porton;240x200;bronce colonial;modelo_5;1629149;1515109;2352207;837098
-PORTON;verde;herrero;porton;240x200;simil madera;modelo_5;2142852;2464280;3326778;862498
-PORTON;verde;modena;porton;240x200;simil madera;modelo_5;4189738;3896456;6049248;2152792
-PORTON;papu;herrero;porton;240x200;blanco;modelo_5;664709;664709;664709;0
-PORTON;papu;modena;porton;240x200;blanco;modelo_5;1138824;1138824;1138824;0
-PORTON;papu;herrero;porton;240x200;negro;modelo_5;854389;854389;854389;0
-PORTON;papu;modena;porton;240x200;negro;modelo_5;1465708;1465708;1465708;0
-PORTON;papu;herrero;porton;240x200;bronce colonial;modelo_5;949229;949229;949229;0
-PORTON;papu;modena;porton;240x200;bronce colonial;modelo_5;1629149;1629149;1629149;0
-PORTON;papu;herrero;porton;240x200;simil madera;modelo_5;2435059;2435059;2435059;0
-PORTON;papu;modena;porton;240x200;simil madera;modelo_5;4189738;4189738;4189738;0
+modulo	perfil	linea	configuracion	medida	color	descripcion	costo	proveedor	precio	ganancia
+PUERTA	amarilla	herrero	simple	80x200	blanco	modelo_4 | 3mm	202047	181842	250579	68736
+PUERTA	amarilla	modena	simple	80x200	blanco	modelo_4 | 3mm	345678	321481	443000	121520
+PUERTA	amarilla	herrero	simple	80x200	negro	modelo_4 | 3mm	260894	234804	323560	88756
+PUERTA	amarilla	modena	simple	80x200	negro	modelo_4 | 3mm	447614	416281	573635	157354
+PUERTA	amarilla	herrero	simple	80x200	bronce colonial	modelo_4 | 3mm	290317	261285	360051	98766
+PUERTA	amarilla	modena	simple	80x200	bronce colonial	modelo_4 | 3mm	498582	463681	638953	175272
+PUERTA	amarilla	herrero	simple	80x200	simil madera	modelo_4 | 3mm	751284	676155	931742	255587
+PUERTA	amarilla	modena	simple	80x200	simil madera	modelo_4 | 3mm	1297082	1206286	1662262	455976
+PUERTA	azul	herrero	simple	80x200	blanco	modelo_4 | 3mm	202047	177801	254256	76455
+PUERTA	azul	modena	simple	80x200	blanco	modelo_4 | 3mm	345678	321481	459717	138237
+PUERTA	azul	herrero	simple	80x200	negro	modelo_4 | 3mm	260894	229587	328309	98722
+PUERTA	azul	modena	simple	80x200	negro	modelo_4 | 3mm	447614	416281	595282	179001
+PUERTA	azul	herrero	simple	80x200	bronce colonial	modelo_4 | 3mm	290317	255479	365335	109856
+PUERTA	azul	modena	simple	80x200	bronce colonial	modelo_4 | 3mm	498582	463681	663064	199383
+PUERTA	azul	herrero	simple	80x200	simil madera	modelo_4 | 3mm	751284	661130	945416	284286
+PUERTA	azul	modena	simple	80x200	simil madera	modelo_4 | 3mm	1297082	1206286	1724989	518703
+PUERTA	verde	herrero	simple	80x200	blanco	modelo_4 | 3mm	202047	177801	276037	98235
+PUERTA	verde	modena	simple	80x200	blanco	modelo_4 | 3mm	345678	321481	499099	177618
+PUERTA	verde	herrero	simple	80x200	negro	modelo_4 | 3mm	260894	229587	356433	126847
+PUERTA	verde	modena	simple	80x200	negro	modelo_4 | 3mm	447614	416281	646276	229995
+PUERTA	verde	herrero	simple	80x200	bronce colonial	modelo_4 | 3mm	290317	255479	396631	141152
+PUERTA	verde	modena	simple	80x200	bronce colonial	modelo_4 | 3mm	498582	463681	719865	256184
+PUERTA	verde	herrero	simple	80x200	simil madera	modelo_4 | 3mm	751284	661130	1026404	365274
+PUERTA	verde	modena	simple	80x200	simil madera	modelo_4 | 3mm	1297082	1206286	1872759	666473
+PUERTA	papu	herrero	simple	80x200	blanco	modelo_4 | 3mm	202047	202047	202047	0
+PUERTA	papu	modena	simple	80x200	blanco	modelo_4 | 3mm	345678	345678	345678	0
+PUERTA	papu	herrero	simple	80x200	negro	modelo_4 | 3mm	260894	260894	260894	0
+PUERTA	papu	modena	simple	80x200	negro	modelo_4 | 3mm	447614	447614	447614	0
+PUERTA	papu	herrero	simple	80x200	bronce colonial	modelo_4 | 3mm	290317	290317	290317	0
+PUERTA	papu	modena	simple	80x200	bronce colonial	modelo_4 | 3mm	498582	498582	498582	0
+PUERTA	papu	herrero	simple	80x200	simil madera	modelo_4 | 3mm	751284	751284	751284	0
+PUERTA	papu	modena	simple	80x200	simil madera	modelo_4 | 3mm	1297082	1297082	1297082	0
+ERROR	amarilla	eco	simple	80x200	blanco	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	amarilla	eco	simple	80x200	negro	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	amarilla	eco	simple	80x200	bronce colonial	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	amarilla	eco	simple	80x200	simil madera	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	azul	eco	simple	80x200	blanco	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	azul	eco	simple	80x200	negro	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	azul	eco	simple	80x200	bronce colonial	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	azul	eco	simple	80x200	simil madera	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	verde	eco	simple	80x200	blanco	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	verde	eco	simple	80x200	negro	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	verde	eco	simple	80x200	bronce colonial	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	verde	eco	simple	80x200	simil madera	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	papu	eco	simple	80x200	blanco	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	papu	eco	simple	80x200	negro	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	papu	eco	simple	80x200	bronce colonial	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	papu	eco	simple	80x200	simil madera	"Modelo ""modelo_4 | 3mm"" no existe para la línea ""eco""."				
+ERROR	amarilla	herrero	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	amarilla	modena	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	amarilla	herrero	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	amarilla	modena	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	amarilla	herrero	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	amarilla	modena	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	amarilla	herrero	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	amarilla	modena	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	azul	herrero	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	azul	modena	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	azul	herrero	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	azul	modena	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	azul	herrero	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	azul	modena	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	azul	herrero	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	azul	modena	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	verde	herrero	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	verde	modena	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	verde	herrero	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	verde	modena	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	verde	herrero	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	verde	modena	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	verde	herrero	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	verde	modena	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	papu	herrero	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	papu	modena	porton	240x200	blanco	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	papu	herrero	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	papu	modena	porton	240x200	negro	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	papu	herrero	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	papu	modena	porton	240x200	bronce colonial	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				
+ERROR	papu	herrero	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""herrero""."				
+ERROR	papu	modena	porton	240x200	simil madera	"Modelo ""modelo_5 | Sin extras"" no existe para la línea ""modena""."				

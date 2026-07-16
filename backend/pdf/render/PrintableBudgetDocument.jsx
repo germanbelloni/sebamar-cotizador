@@ -27,8 +27,6 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
   const color1 = empresa.primaryColor || "#f5cc00";
   const color2 = empresa.secondaryColor || "#1f2937";
 
-  console.log("LOGO PDF:");
-  console.log(logo);
   return (
     <div
       style={{

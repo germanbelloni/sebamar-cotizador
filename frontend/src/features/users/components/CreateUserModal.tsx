@@ -1,5 +1,3 @@
-import { X } from "lucide-react";
-
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -9,20 +7,16 @@ import { Input } from "@/components/ui/input";
 import api from "../../../lib/api";
 
 import { useUIStore } from "@/store/uiStore";
-
+import { Eye, EyeOff, X } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
 type CreateUserForm = {
   nombre: string;
-
   password: string;
-
   empresa: string;
-
+  nombreEmpresa: string;
   role: "admin" | "user";
-
   perfil: string;
-
   margen: number;
 };
 
@@ -46,21 +40,16 @@ export function CreateUserModal({ onUserCreated }: Props) {
   const creandoEmpresa = isSuperAdmin && createUserType === "admin";
 
   const [loading, setLoading] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState<CreateUserForm>({
     nombre: "",
-
     password: "",
-
     empresa: "",
-
+    nombreEmpresa: "",
     role: "user",
-
     perfil: "amarilla",
-
     margen: 0,
   });
-
   async function handleSubmit() {
     try {
       setLoading(true);
@@ -69,6 +58,7 @@ export function CreateUserModal({ onUserCreated }: Props) {
         ? {
             nombre: form.nombre,
             password: form.password,
+            nombreEmpresa: form.nombreEmpresa,
             margen: form.margen,
             perfil: form.perfil,
             role: "admin",
@@ -76,7 +66,6 @@ export function CreateUserModal({ onUserCreated }: Props) {
         : {
             nombre: form.nombre,
             password: form.password,
-            perfil: form.perfil,
             role: "user",
           };
 
@@ -88,15 +77,11 @@ export function CreateUserModal({ onUserCreated }: Props) {
 
       setForm({
         nombre: "",
-
         password: "",
-
         empresa: "",
-
+        nombreEmpresa: "",
         role: "user",
-
         perfil: "amarilla",
-
         margen: 0,
       });
     } catch (error) {
@@ -181,6 +166,38 @@ export function CreateUserModal({ onUserCreated }: Props) {
 
         <div className="mt-6 space-y-4">
           <div>
+            <label className="mb-2 block text-sm">Usuario</label>
+
+            <Input
+              value={form.nombre}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  nombre: e.target.value,
+                })
+              }
+            />
+          </div>
+
+          {creandoEmpresa && (
+            <div>
+              <label className="mb-2 block text-sm">Nombre empresa</label>
+
+              <Input
+                value={form.nombreEmpresa}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    nombreEmpresa: e.target.value,
+                  })
+                }
+              />
+            </div>
+          )}
+
+          {/* PASSWORD */}
+
+          <div>
             <label
               className="
       mb-2
@@ -188,77 +205,77 @@ export function CreateUserModal({ onUserCreated }: Props) {
       text-sm
     "
             >
-              {creandoEmpresa ? "Nombre empresa" : "Usuario"}
-            </label>
-
-            <Input
-              value={form.nombre}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-
-                  nombre: e.target.value,
-                })
-              }
-            />
-          </div>
-
-          {/* PASSWORD */}
-
-          <div>
-            <label
-              className="
-                mb-2
-                block
-                text-sm
-              "
-            >
               Password
             </label>
 
-            <Input
-              type="password"
-              value={form.password}
-              onChange={(e) =>
-                setForm({
-                  ...form,
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    password: e.target.value,
+                  })
+                }
+                className="pr-12"
+              />
 
-                  password: e.target.value,
-                })
-              }
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm">Perfil</label>
-
-            <select
-              value={form.perfil}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  perfil: e.target.value,
-                })
-              }
-              className="
-      w-full
-      rounded-md
-      border
-      border-input
-      bg-background
-      px-3
-      py-2
-      text-sm
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="
+      absolute
+      right-3
+      top-1/2
+      -translate-y-1/2
+      text-muted-foreground
+      hover:text-foreground
     "
-            >
-              <option value="amarilla">Amarilla</option>
-              <option value="azul">Azul</option>
-              <option value="verde">Verde</option>
-              <option value="papu">Papu</option>
-            </select>
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
           </div>
 
-          {/* MARGEN */}
+          {/* LISTA DE PRECIOS (SOLO SUPERADMIN) */}
+
+          {creandoEmpresa && (
+            <div>
+              <label className="mb-2 block text-sm">Lista de precios</label>
+
+              <select
+                value={form.perfil}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    perfil: e.target.value,
+                  })
+                }
+                className="
+        w-full
+        rounded-md
+        border
+        border-input
+        bg-background
+        px-3
+        py-2
+        text-sm
+      "
+              >
+                <option value="amarilla">Lista 1</option>
+                <option value="azul">Lista 2</option>
+                <option value="verde">Lista 3</option>
+                <option value="papu">Lista 4</option>
+              </select>
+            </div>
+          )}
+
+          {/* MARGEN (SOLO SUPERADMIN) */}
 
           {creandoEmpresa && (
             <div>
@@ -278,7 +295,6 @@ export function CreateUserModal({ onUserCreated }: Props) {
                 onChange={(e) =>
                   setForm({
                     ...form,
-
                     margen: Number(e.target.value),
                   })
                 }

@@ -400,17 +400,6 @@ function calcularPuertaWrapper(dataInput) {
     venta = r1.venta + r2.venta;
 
     perfilData = perfilModena;
-
-    console.log("COSTOS", {
-      costo,
-      costoModena,
-      costoPremarcos,
-    });
-
-    console.log("VENTAS", {
-      ventaModena: r1.venta,
-      ventaPremarcos: r2.venta,
-    });
   } else {
     perfilData =
       perfiles[perfil]?.[lineaPerfil] || perfiles.amarilla[lineaPerfil];

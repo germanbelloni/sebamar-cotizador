@@ -27,6 +27,7 @@ export const PUERTAS_IMAGE_REGISTRY = {
     m1vr: "m1vrdoble",
     m2: "m2doble",
     m3: "m3doble",
+    m3vr: "m3vrdoble",
     m4: "m4doble",
     m4vr: "m4vrdoble",
     m5: "m5doble",
