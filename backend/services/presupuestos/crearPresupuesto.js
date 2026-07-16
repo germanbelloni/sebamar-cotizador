@@ -1,8 +1,6 @@
 const Presupuesto = require("../../models/Presupuesto");
 const User = require("../../models/User");
 
-const calcularItem = require("./calcularItem");
-
 async function crearPresupuesto({ user, body }) {
   const userId = user.id;
 
@@ -33,30 +31,32 @@ async function crearPresupuesto({ user, body }) {
   const itemsProcesados = body.items.map((item) => {
     const cantidad = Number(item.cantidad || 1);
 
-    let recalculado = null;
-
-    try {
-      recalculado = calcularItem(
-        {
-          ...item.configuracion,
-          modulo: item.modulo,
-          tipo: item.tipo,
-          linea:
-            item.linea || item.metadata?.linea || item.configuracion?.linea,
-          metadata: item.metadata,
-          configuracion: item.configuracion,
-        },
-        usuario.perfil,
-      );
-    } catch (error) {
-      console.warn("No se pudo recalcular item:", item.modulo, error.message);
-    }
-
+    // try {
+    //   recalculado = calcularItem(
+    //     {
+    //       ...item.configuracion,
+    //       modulo: item.modulo,
+    //       tipo: item.tipo,
+    //       linea:
+    //         item.linea ||
+    //         item.metadata?.linea ||
+    //         item.configuracion?.linea,
+    //       metadata: item.metadata,
+    //       configuracion: item.configuracion,
+    //     },
+    //     usuario.perfil,
+    //   );
+    // } catch (error) {
+    //   console.warn(
+    //     "No se pudo recalcular item:",
+    //     item.modulo,
+    //     error.message,
+    //   );
+    // }
     const descripcion = item.descripcion || item.tipo || "Producto";
 
     const precioUnitario = Number(
-      recalculado?.precioFinal ??
-        item.precioFinal ??
+      item.precioFinal ??
         item.precioLista ??
         item.precioProveedor ??
         item.precio ??
@@ -70,35 +70,22 @@ async function crearPresupuesto({ user, body }) {
 
     return {
       tipo: item.tipo,
-
       modulo: item.modulo,
-
       titulo: item.titulo,
-
       cantidad,
-
       descripcion,
 
       precioUnitario,
-
       subtotal,
 
-      // =========================
-      // SNAPSHOT FINANCIERO
-      // =========================
-
-      precioBase: recalculado?.precioBase ?? item.precioBase ?? 0,
-
-      precioLista: recalculado?.precioLista ?? item.precioLista ?? 0,
-
-      precioFinal: recalculado?.precioFinal ?? item.precioFinal ?? subtotal,
-
-      perfilAplicado: recalculado?.perfilAplicado ?? item.perfilAplicado ?? "",
-
-      audit: recalculado?.audit ?? item.audit ?? null,
+      precioBase: item.precioBase ?? 0,
+      precioLista: item.precioLista ?? 0,
+      precioFinal: item.precioFinal ?? subtotal,
+      margenAplicado: item.margenAplicado ?? 0,
+      perfilAplicado: item.perfilAplicado ?? "",
+      audit: item.audit ?? null,
 
       metadata: item.metadata || {},
-
       configuracion: item.configuracion || item,
     };
   });

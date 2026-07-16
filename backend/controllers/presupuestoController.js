@@ -207,7 +207,7 @@ async function obtener(req, res) {
       });
     }
   }
-  const esAdmin = req.user.role === "admin";
+
   const resultado = {
     id: presupuesto._id,
 
@@ -242,11 +242,7 @@ async function obtener(req, res) {
       // 💰 FINANCIERO
       // =========================
 
-      precioBase: Number(
-        esAdmin
-          ? (item.precioLista ?? item.precioProveedor ?? item.precioBase ?? 0)
-          : (item.precioBase ?? 0),
-      ),
+      precioBase: Number(item.precioBase ?? 0),
 
       precioLista: Number(item.precioLista || 0),
 

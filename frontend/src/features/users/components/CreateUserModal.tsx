@@ -242,11 +242,11 @@ export function CreateUserModal({ onUserCreated }: Props) {
             </div>
           </div>
 
-          {/* LISTA DE PRECIOS (SOLO SUPERADMIN) */}
+          {/* PERFIL (SOLO SUPERADMIN) */}
 
           {creandoEmpresa && (
             <div>
-              <label className="mb-2 block text-sm">Lista de precios</label>
+              <label className="mb-2 block text-sm">Perfil</label>
 
               <select
                 value={form.perfil}
@@ -267,10 +267,10 @@ export function CreateUserModal({ onUserCreated }: Props) {
         text-sm
       "
               >
-                <option value="amarilla">Lista 1</option>
-                <option value="azul">Lista 2</option>
-                <option value="verde">Lista 3</option>
-                <option value="papu">Lista 4</option>
+                <option value="amarilla">Amarilla</option>
+                <option value="azul">Azul</option>
+                <option value="verde">Verde</option>
+                <option value="papu">Papu</option>
               </select>
             </div>
           )}

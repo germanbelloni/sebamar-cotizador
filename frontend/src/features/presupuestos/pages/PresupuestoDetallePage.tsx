@@ -201,7 +201,9 @@ export function PresupuestoDetallePage({
   // =========================
   // 💰 FINANCIERO
   // =========================
-
+  console.log(data);
+  console.log(data.total);
+  console.log(data.items);
   const totalCosto =
     data.items?.reduce(
       (acc: number, item: PresupuestoItem) =>

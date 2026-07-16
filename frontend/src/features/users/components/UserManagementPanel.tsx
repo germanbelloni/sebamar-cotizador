@@ -197,7 +197,6 @@ export function UserManagementPanel() {
             ) : (
               <div className="grid gap-4">
                 {users.map((user) => (
-                  
                   <div
                     key={user._id}
                     className="
@@ -219,12 +218,14 @@ export function UserManagementPanel() {
                     <div>
                       <h3
                         className="
-                          text-lg
-                          font-semibold
-                          uppercase
-                        "
+    text-lg
+    font-semibold
+    uppercase
+  "
                       >
-                        {user.nombre}
+                        {user.role === "admin"
+                          ? user.nombreEmpresa || user.nombre
+                          : user.nombre}
                       </h3>
 
                       <p

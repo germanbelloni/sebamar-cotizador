@@ -18,7 +18,7 @@ export type User = {
     nombre: string;
     role: string;
   } | null;
-
+  nombreEmpresa?: string;
   activo: boolean;
 };
 
