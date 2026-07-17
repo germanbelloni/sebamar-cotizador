@@ -173,8 +173,9 @@ export function Header({ empresa, cliente, setCliente }: Props) {
           {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
         </Button>
 
-        {/* FULLWIDTH */}
+        {/* 🖥️ FULLSCREEN */}
         <Button
+          className="hidden md:flex"
           variant="outline"
           size="icon"
           onClick={toggleFullscreen}
@@ -188,7 +189,6 @@ export function Header({ empresa, cliente, setCliente }: Props) {
             <Maximize2 className="h-5 w-5" />
           )}
         </Button>
-
         {/* 🚪 LOGOUT */}
         <Button variant="outline" size="icon" onClick={logout}>
           <LogOut className="h-5 w-5" />
