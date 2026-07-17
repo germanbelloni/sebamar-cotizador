@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
-console.log("PWA CARGADA");
+
 export default defineConfig({
   plugins: [
     react(),
@@ -18,7 +18,11 @@ export default defineConfig({
         description: "Sistema de presupuestos Sebamar",
         theme_color: "#D6B400",
         background_color: "#ffffff",
+
         display: "standalone",
+        display_override: ["window-controls-overlay", "standalone"],
+        orientation: "landscape",
+
         start_url: "/",
 
         icons: [
