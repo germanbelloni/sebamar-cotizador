@@ -31,8 +31,6 @@ export function usePuertasForm({ config, setConfig }: Props) {
     return "3mm";
   }
   const switchLinea = (linea: PuertasConfig["linea"]) => {
-    console.log("SWITCH LINEA:", linea);
-
     updateConfig({
       linea,
       modelo: getDefaultModelo(linea),
@@ -57,7 +55,6 @@ export function usePuertasForm({ config, setConfig }: Props) {
         };
 
         if (config.tipoConfiguracion === "porton") {
-          
           updates.hojas = calcularHojasPorton(ancho);
         }
 

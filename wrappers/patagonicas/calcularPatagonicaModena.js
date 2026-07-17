@@ -455,18 +455,7 @@ function calcularWrapper(dataInput) {
   const venta = ventaModena + ventaMosquitero + ventaPremarcos;
 
   const perfilData = perfilModena;
-  console.log("COSTOS", {
-    costo,
-    costoModena,
-    costoMosquitero,
-    costoPremarcos,
-  });
 
-  console.log("VENTAS", {
-    ventaModena,
-    ventaMosquitero,
-    ventaPremarcos,
-  });
   audit.add({
     etapa: "Perfil",
 

@@ -130,6 +130,12 @@ function calcularHerrero({
 // =========================
 
 function buscarMedidaModena(medida) {
+  console.log("MEDIDA BUSCADA:", medida, dataModena.medidas[medida]);
+
+  // =========================
+  // Búsqueda exacta
+  // =========================
+
   if (dataModena.medidas?.[medida]) {
     return {
       medida,
@@ -137,11 +143,36 @@ function buscarMedidaModena(medida) {
     };
   }
 
+  // =========================
+  // Compatibilidad con formato viejo (0,80 / 0,60)
+  // =========================
+
   const [ancho, alto] = medida.split("x").map(Number);
+
+  if (alto < 100) {
+    const medidaVieja = `${ancho}x0,${alto}`;
+
+    if (dataModena.medidas?.[medidaVieja]) {
+      return {
+        medida: medidaVieja,
+        datos: dataModena.medidas[medidaVieja],
+      };
+    }
+  }
+
+  // =========================
+  // Buscar medida superior
+  // =========================
 
   const medidaSuperior = Object.keys(dataModena.medidas)
     .map((m) => {
-      const [w, h] = m.split("x").map(Number);
+      const [wStr, hStr] = m.split("x");
+
+      const w = Number(wStr);
+
+      const hNumero = Number(hStr.replace(",", "."));
+
+      const h = hNumero < 1 ? hNumero * 100 : hNumero;
 
       return {
         key: m,

@@ -126,10 +126,6 @@ function calcularRajaModena(dataInput) {
     perfil = "amarilla",
     bisagra,
   } = dataInput;
-  console.log("MODELO RECIBIDO:", modelo);
-  console.log("EXTRAS:", superficies.extras);
-  console.log("BRAZO EXTRA:", superficies.extras["brazo_de_empuje"]);
-  console.log("VOLCABLE EXTRA:", superficies.extras.volcable);
 
   if (!ancho || !alto) {
     throw new Error("Faltan medidas");
@@ -445,19 +441,6 @@ function calcularRajaModena(dataInput) {
   const proveedor = proveedorModena + proveedorMosquitero + proveedorPremarcos;
 
   const venta = ventaModena + ventaMosquitero + ventaPremarcos;
-
-  console.log("COSTOS", {
-    costo,
-    costoModena,
-    costoMosquitero,
-    costoPremarcos,
-  });
-
-  console.log("VENTAS", {
-    ventaModena,
-    ventaMosquitero,
-    ventaPremarcos,
-  });
 
   audit.add({
     etapa: "Perfil",

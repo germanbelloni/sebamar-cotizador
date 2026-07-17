@@ -25,9 +25,7 @@ async function crearPresupuesto({ user, body }) {
   }
 
   let total = 0;
-  console.log("ITEM GUARDADO:");
-  console.log(JSON.stringify(body.items[0], null, 2));
-  console.log(JSON.stringify(body.items[0], null, 2));
+
   const itemsProcesados = body.items.map((item) => {
     const cantidad = Number(item.cantidad || 1);
 
@@ -67,7 +65,6 @@ async function crearPresupuesto({ user, body }) {
     const subtotal = precioUnitario * cantidad;
 
     total += subtotal;
-
     return {
       tipo: item.tipo,
       modulo: item.modulo,
@@ -79,8 +76,10 @@ async function crearPresupuesto({ user, body }) {
       subtotal,
 
       precioBase: item.precioBase ?? 0,
+      precioProveedor: item.precioProveedor ?? 0,
       precioLista: item.precioLista ?? 0,
       precioFinal: item.precioFinal ?? subtotal,
+
       margenAplicado: item.margenAplicado ?? 0,
       perfilAplicado: item.perfilAplicado ?? "",
       audit: item.audit ?? null,

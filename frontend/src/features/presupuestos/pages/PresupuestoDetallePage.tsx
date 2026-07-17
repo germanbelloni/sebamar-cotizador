@@ -122,9 +122,6 @@ export function PresupuestoDetallePage({
   }
 
   function handleEditarPresupuesto() {
-    console.log("CLICK EDITAR");
-    console.log(data);
-
     if (!data) return;
 
     clearBudget();
@@ -201,13 +198,17 @@ export function PresupuestoDetallePage({
   // =========================
   // 💰 FINANCIERO
   // =========================
-  console.log(data);
-  console.log(data.total);
-  console.log(data.items);
+
+  function getCostoItem(item: PresupuestoItem) {
+    if (user?.role === "superadmin") {
+      return item.precioProveedor ?? item.precioBase ?? 0;
+    }
+
+    return item.precioBase ?? 0;
+  }
   const totalCosto =
     data.items?.reduce(
-      (acc: number, item: PresupuestoItem) =>
-        acc + (item.precioBase || 0) * item.cantidad,
+      (acc, item) => acc + getCostoItem(item) * item.cantidad,
       0,
     ) || 0;
 
@@ -500,9 +501,7 @@ export function PresupuestoDetallePage({
         <div className="text-right">
           <p className="text-sm text-zinc-500">Total</p>
 
-          <p className="text-4xl font-black">
-            {formatCurrency(data.total || 0)}
-          </p>
+          <p className="text-4xl font-black">{formatCurrency(data.total)}</p>
         </div>
       </div>
 

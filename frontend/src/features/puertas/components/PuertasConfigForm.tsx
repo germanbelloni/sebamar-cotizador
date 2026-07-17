@@ -109,7 +109,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
   ) {
     vidrios = vidrios.filter((v) => v !== "3mm");
   }
-  console.log("VIDRIOS", vidrios);
   const presets = PRESETS_PUERTAS[config.tipoConfiguracion];
 
   const esPorton = config.tipoConfiguracion === "porton";
@@ -202,29 +201,13 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     config.modelo === "modelo_panel" ||
     config.modelo === "modelo_c_panel";
 
-  console.log("VIDRIO ACTUAL", config.vidrio);
-
   const esFueraDeMedida = !presets.some(
     (preset) =>
       !preset.custom &&
       preset.ancho === config.ancho &&
       preset.alto === config.alto,
   );
-  console.log("CONFIG", config.ancho, config.alto);
-  console.log(
-    "PRESETS",
-    presets.map((p) => ({
-      label: p.label,
-      ancho: p.ancho,
-      alto: p.alto,
-    })),
-  );
-  console.log("CONFIG PUERTAS", {
-    ancho: config.ancho,
-    alto: config.alto,
-    anchoType: typeof config.ancho,
-    altoType: typeof config.alto,
-  });
+
   return (
     <ProductFormLayout title={PUERTAS_UI.title}>
       <div className="space-y-6">
@@ -283,8 +266,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
               .map((preset) => {
                 const isSelected =
                   config.ancho === preset.ancho && config.alto === preset.alto;
-
-                console.log(preset.label, isSelected);
 
                 return (
                   <SelectableCard
@@ -449,9 +430,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => {
               const src = getImageSrc(modelo);
-
-              console.log("MODELO:", modelo);
-              console.log("SRC:", src);
 
               return (
                 <ModelImageCard

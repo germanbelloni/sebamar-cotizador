@@ -218,6 +218,7 @@ async function obtener(req, res) {
 
       precioFinal: Number(item.precioFinal || 0),
 
+      precioProveedor: Number(item.precioProveedor ?? 0),
       margenAplicado: Number(item.margenAplicado || 0),
 
       perfilAplicado: item.perfilAplicado || "",
@@ -227,9 +228,6 @@ async function obtener(req, res) {
       metadata: item.metadata || {},
     })),
   };
-
-  console.log("RESULTADO OBTENER:", JSON.stringify(resultado, null, 2));
-  console.log(JSON.stringify(resultado.items, null, 2));
   return res.json(resultado);
 }
 
@@ -308,7 +306,6 @@ async function pdf(req, res) {
       error: "PDF no disponible en esta computadora",
     });
   }
-  console.log("===== ENTRE AL PDF NUEVO =====");
 
   let browser;
 
@@ -359,11 +356,6 @@ async function pdf(req, res) {
     const user = await User.findById(req.user.id);
 
     const printable = mapPresupuestoToPrintable(presupuesto, user);
-
-    console.log("===== PRINTABLE =====");
-    console.log(JSON.stringify(printable, null, 2));
-    console.log("PRINTABLE COMPLETO");
-    console.log(printable);
 
     const html = await renderBudget(printable);
 
@@ -613,6 +605,17 @@ async function actualizarItems(req, res) {
         precioLista: recalculado?.precioLista ?? item.precioLista ?? 0,
 
         precioFinal: recalculado?.precioFinal ?? item.precioFinal ?? subtotal,
+        precioProveedor:
+          recalculado?.precioProveedor ?? item.precioProveedor ?? 0,
+        descuentoAplicado:
+          recalculado?.descuentoAplicado ?? item.descuentoAplicado ?? 0,
+
+        fleteAplicado: recalculado?.fleteAplicado ?? item.fleteAplicado ?? 0,
+
+        gananciaAplicada:
+          recalculado?.gananciaAplicada ?? item.gananciaAplicada ?? 0,
+
+        margenAplicado: recalculado?.margenAplicado ?? item.margenAplicado ?? 0,
 
         perfilAplicado:
           recalculado?.perfilAplicado ?? item.perfilAplicado ?? "",
