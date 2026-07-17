@@ -341,11 +341,13 @@ export function PrintableBudgetDocument({
           </h4>
 
           <ul className="space-y-1 text-[13px] leading-relaxed text-zinc-500">
-            <li>• Validez del presupuesto: 15 días corridos.</li>
+            <li>• Validez del presupuesto: 7 días.</li>
 
-            <li>• Plazo estimado de entrega: 20 a 30 días hábiles.</li>
+            <li>• Plazo de entrega: 10/15 días hábiles.</li>
 
-            <li>• Los precios pueden variar según disponibilidad.</li>
+            <li>
+              • Consultar envío / Los precios pueden variar sin previo aviso.
+            </li>
           </ul>
         </div>
       </div>

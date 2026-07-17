@@ -30,6 +30,15 @@ import { useNavigate } from "react-router-dom";
 
 import type { BudgetItem } from "@/shared/budget/types/budget.types";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Eye, Download } from "lucide-react";
+
 type Props = {
   presupuestoId: string;
 
@@ -50,7 +59,7 @@ export function PresupuestoDetallePage({
   const canViewFinancial =
     user?.role === "admin" || user?.role === "superadmin";
 
-  const { download } = usePresupuestoPdf();
+  const { view, download } = usePresupuestoPdf();
 
   const navigate = useNavigate();
 
@@ -456,28 +465,45 @@ export function PresupuestoDetallePage({
               >
                 📝 Editar datos
               </button>
-              <button
-                onClick={() =>
-                  download(
-                    presupuestoId,
-                    data.cliente || "SIN CLIENTE",
-                    data.fecha ?? new Date().toISOString(),
-                  )
-                }
-                className="
-      rounded-xl
-      border
-      border-border
-      px-4
-      py-2
-      text-sm
-      font-semibold
-      transition
-      hover:bg-muted
-    "
-              >
-                📄 PDF
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="
+        rounded-xl
+        border
+        border-border
+        px-4
+        py-2
+        text-sm
+        font-semibold
+        transition
+        hover:bg-muted
+      "
+                  >
+                    📄 PDF
+                  </button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => view(presupuestoId)}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Ver PDF
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    onClick={() =>
+                      download(
+                        presupuestoId,
+                        data.cliente || "SIN CLIENTE",
+                        data.fecha ?? new Date().toISOString(),
+                      )
+                    }
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Descargar PDF
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <CompartirPresupuestoDialog
                 presupuesto={{
                   cliente: data.cliente,

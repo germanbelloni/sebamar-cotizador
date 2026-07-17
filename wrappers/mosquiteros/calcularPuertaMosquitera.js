@@ -62,8 +62,7 @@ function calcularPuertaMosquitera(dataInput) {
   // =========================
   // 💰 BASE SEGÚN ANCHO
   // =========================
-
-  const anchoBase = ancho <= 85 ? "80" : "90";
+  const anchoBase = ancho <= 80 ? "80" : "90";
 
   const base = superficies.puertas_mosquitero?.[anchoBase];
 
@@ -72,6 +71,34 @@ function calcularPuertaMosquitera(dataInput) {
   }
 
   let costoBase = Number(base);
+
+  // =========================
+  // 📏 RECARGO ALTURA
+  // =========================
+
+  if (alto > 200) {
+    costoBase *= 1.05;
+
+    audit.add({
+      etapa: "Recargo Altura",
+
+      tipo: "recargo",
+
+      origen: "wrapper",
+
+      valorAntes: costoBase / 1.05,
+
+      valorAplicado: costoBase - costoBase / 1.05,
+
+      valorDespues: costoBase,
+
+      porcentaje: 0.05,
+
+      metadata: {
+        altoSolicitado: alto,
+      },
+    });
+  }
 
   const items = [
     {

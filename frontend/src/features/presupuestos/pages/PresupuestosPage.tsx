@@ -1,7 +1,14 @@
+import { FileText, Eye, Download } from "lucide-react";
+import { openPdf } from "../api/openPdf";
+
 import { usePresupuestos } from "../hooks/usePresupuestos";
 import { useState } from "react";
-import { FileText } from "lucide-react";
-import { openPdf } from "../api/openPdf";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/store/authStore";
 
 import { useDeletePresupuesto } from "../hooks/useDeletePresupuesto";
@@ -237,26 +244,35 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                   className="mt-3 flex items-center justify-end gap-2"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <button
-                    onClick={() =>
-                      openPdf(
-                        presupuesto.id,
-                        presupuesto.cliente || "SIN CLIENTE",
-                        presupuesto.fecha ?? new Date().toISOString(),
-                      )
-                    }
-                    className="
-      rounded-xl
-      border
-      border-border
-      p-2
-      transition
-      hover:bg-muted
-    "
-                    title="Descargar PDF"
-                  >
-                    <FileText size={14} />
-                  </button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="
+        rounded-xl
+        border
+        border-border
+        p-2
+        transition
+        hover:bg-muted
+      "
+                        title="PDF"
+                      >
+                        <FileText size={14} />
+                      </button>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => openPdf(presupuesto.id)}>
+                        <Eye className="mr-2 h-4 w-4" />
+                        Ver PDF
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem onClick={() => openPdf(presupuesto.id)}>
+                        <Download className="mr-2 h-4 w-4" />
+                        Descargar PDF
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
 
                   {presupuesto.estado !== "aprobado" && (
                     <AprobarPresupuestoDialog

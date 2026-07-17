@@ -9,6 +9,18 @@ function limpiarNombre(nombre: string) {
 }
 
 export function usePresupuestoPdf() {
+  async function view(id: string) {
+    const blob = await getPresupuestoPdf(id);
+
+    const url = URL.createObjectURL(blob);
+
+    window.open(url, "_blank");
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
+  }
+
   async function download(id: string, cliente: string, fecha: string) {
     const blob = await getPresupuestoPdf(id);
 
@@ -29,6 +41,7 @@ export function usePresupuestoPdf() {
   }
 
   return {
+    view,
     download,
   };
 }

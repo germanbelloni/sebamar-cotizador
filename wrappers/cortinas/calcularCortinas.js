@@ -23,11 +23,18 @@ function calcularCortinasWrapper(dataInput) {
     color = "blanco",
     ancho,
     alto,
+    cantidad,
     perfil = "amarilla",
   } = dataInput;
 
-  if (!tipo || !material || !ancho || !alto) {
-    throw new Error("Faltan datos");
+  if (tipo === "varillas") {
+    if (!ancho || !cantidad) {
+      throw new Error("Faltan datos");
+    }
+  } else {
+    if (!tipo || !material || !ancho || !alto) {
+      throw new Error("Faltan datos");
+    }
   }
 
   // ========================
@@ -42,6 +49,7 @@ function calcularCortinasWrapper(dataInput) {
     color,
     ancho,
     alto,
+    cantidad,
   });
 
   const items = [...resultado.items];
@@ -148,6 +156,12 @@ function calcularCortinasWrapper(dataInput) {
       resultado.configuracion.altoFinal
     }`;
   }
+
+  if (tipo === "varillas") {
+    descripcion = `Varillas PVC ${ancho} cm (${cantidad} varillas - altura ${
+      cantidad * 5
+    } cm)`;
+  }
   if (tipo === "cortina" && material === "pvc") {
     descripcion = `Cortina PVC ${
       construccion === "pano_solo" ? "paño solo" : "completa"
@@ -172,9 +186,9 @@ function calcularCortinasWrapper(dataInput) {
     calidad,
     construccion,
     color,
-
+    cantidad,
     ancho,
-    alto,
+    alto: tipo === "varillas" ? cantidad * 5 : alto,
 
     anchoFinal: resultado.configuracion.anchoFinal,
 

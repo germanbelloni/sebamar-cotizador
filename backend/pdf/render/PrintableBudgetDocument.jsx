@@ -326,8 +326,9 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
           >
             • Validez del presupuesto: 7 días.
             <br />
-            • Plazo estimado de entrega: 15/20 días hábiles.
-            <br />• Consultar envío.
+            • Plazo de entrega: 10/15 días hábiles.
+            <br />• Consultar envío / Los precios pueden variar sin previo
+            aviso.
           </div>
         </div>{" "}
       </div>

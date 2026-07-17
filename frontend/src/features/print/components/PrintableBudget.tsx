@@ -20,6 +20,15 @@ import { openPdf } from "@/features/presupuestos/api/openPdf";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { useUpdatePresupuestoCompleto } from "@/features/presupuestos/hooks/useUpdatePresupuestoCompleto";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Eye, Download } from "lucide-react";
+
 type Props = {
   numero: number;
   fecha: string;
@@ -219,18 +228,35 @@ export function PrintableBudget({
           </Button>
 
           {presupuestoGuardado && (
-            <Button
-              className="rounded-full shadow-lg transition-all hover:shadow-xl"
-              style={{
-                backgroundColor: primaryColor,
-              }}
-              onClick={() =>
-                openPdf(presupuestoGuardado.id, cliente.nombre, fecha)
-              }
-            >
-              <Printer className="mr-2 h-4 w-4" />
-              PDF
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className="rounded-full shadow-lg transition-all hover:shadow-xl"
+                  style={{
+                    backgroundColor: primaryColor,
+                  }}
+                >
+                  <Printer className="mr-2 h-4 w-4" />
+                  PDF
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => openPdf(presupuestoGuardado.id)}
+                >
+                  <Eye className="mr-2 h-4 w-4" />
+                  Ver PDF
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => openPdf(presupuestoGuardado.id)}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Descargar PDF
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
         </div>
       </div>

@@ -23,29 +23,48 @@ function calcularCortinas(dataInput) {
     color = "blanco",
     ancho,
     alto,
+    cantidad,
   } = dataInput;
 
-  if (!tipo || !material || !ancho || !alto) {
-    throw new Error("Faltan datos");
+  if (tipo === "varillas") {
+    if (!ancho || !cantidad) {
+      throw new Error("Faltan datos");
+    }
+  } else {
+    if (!tipo || !material || !ancho || !alto) {
+      throw new Error("Faltan datos");
+    }
   }
 
   if (Number(ancho) < 80 || Number(ancho) > 240) {
     throw new Error("Ancho fuera de rango (80 a 240)");
   }
 
-  if (Number(alto) < 50 || Number(alto) > 220) {
-    throw new Error("Alto fuera de rango (50 a 220)");
+  if (tipo !== "varillas") {
+    if (Number(alto) < 50 || Number(alto) > 220) {
+      throw new Error("Alto fuera de rango (50 a 220)");
+    }
   }
 
-  const m2 = calcularM2(ancho, alto);
+  const altoCalculado =
+    tipo === "varillas" ? Number(cantidad) * 5 : Number(alto);
+
+  const m2 = calcularM2(ancho, altoCalculado);
 
   let precioM2 = 0;
 
   // ======================
-  // 📦 CAJON BLOCK
+  // 🪟 VARILLAS
   // ======================
 
-  if (tipo === "cajon_block") {
+  if (tipo === "varillas") {
+    precioM2 = data.superficies.varillas;
+  }
+
+  // ======================
+  // 📦 CAJON BLOCK
+  // ======================
+  else if (tipo === "cajon_block") {
     precioM2 = data.superficies.cajon_block_precios?.[material];
   }
 
