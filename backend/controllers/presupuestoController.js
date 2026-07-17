@@ -18,7 +18,6 @@ const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrint
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
 const { renderBudget } = require("../pdf/render/renderBudget");
-const sanitizarCotizacion = require("../utils/pricing/sanitizarCotizacion");
 const calcularItem = require("../services/presupuestos/calcularItem");
 
 // =========================
@@ -48,35 +47,7 @@ async function nuevoNumero(req, res) {
 // =========================
 // CALCULADOR GLOBAL
 // =========================
-//ACTUALIZAR
-async function actualizarItems(req, res) {
-  try {
-    const presupuesto = await Presupuesto.findById(req.params.id);
 
-    if (!presupuesto) {
-      return res.status(404).json({
-        error: "Presupuesto no encontrado",
-      });
-    }
-
-    presupuesto.items = req.body.items;
-    presupuesto.total = req.body.total;
-    presupuesto.cliente = req.body.cliente;
-    presupuesto.telefono = req.body.telefono;
-
-    await presupuesto.save();
-
-    return res.json({
-      ok: true,
-    });
-  } catch (error) {
-    console.error(error);
-
-    return res.status(500).json({
-      error: "Error actualizando presupuesto",
-    });
-  }
-}
 // =========================
 // CREAR
 // =========================
@@ -405,6 +376,8 @@ async function pdf(req, res) {
       });
     } else {
       browser = await puppeteer.launch({
+        executablePath:
+          "C:\\Users\\Sebamar aberturas\\.cache\\puppeteer\\chrome\\win64-148.0.7778.97\\chrome-win64\\chrome.exe",
         headless: true,
       });
     }

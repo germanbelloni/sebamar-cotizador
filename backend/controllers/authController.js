@@ -127,9 +127,7 @@ async function register(req, res) {
 
     if (currentUserRole === "admin") {
       const admin = await User.findById(req.user.id);
-
-      console.log("ADMIN ENCONTRADO:");
-      console.log(JSON.stringify(admin, null, 2));
+      s;
 
       empresaData = {
         empresa: admin.empresa,
@@ -144,12 +142,8 @@ async function register(req, res) {
         margen: admin.margen,
         perfil: admin.perfil,
       };
-      console.log("EMPRESA DATA:");
-      console.log(JSON.stringify(empresaData, null, 2));
     }
-    console.log("ROLE:", currentUserRole);
-    console.log("OWNER:", finalOwnerId);
-    console.log("DATA FINAL:", JSON.stringify(empresaData, null, 2));
+
     const nuevoUsuario = await User.create({
       nombre,
 
@@ -211,8 +205,6 @@ async function register(req, res) {
       },
     });
   } catch (error) {
-    console.log("ERROR REGISTER:", error.message);
-
     return res.status(500).json({
       error: "Error registrando usuario",
       detalle: error.message,
@@ -253,8 +245,6 @@ async function login(req, res) {
     }
 
     const token = generarToken(user);
-
-    console.log("LOGIN USER:", JSON.stringify(user, null, 2));
 
     return res.json({
       token,

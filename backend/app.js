@@ -28,20 +28,11 @@ app.use(
   "/logos",
   express.static(path.join(__dirname, "../frontend/public/logos")),
 );
-
-//me hiciste comentarla
-//app.use(express.static(path.join(__dirname, "../frontend")));
-
 app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
 
 app.use("/api", apiRoutes);
-
-/*/app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
-});
-/*/
 
 if (process.env.NODE_ENV !== "test" && process.env.MONGODB_URI) {
   mongoose
