@@ -1,9 +1,3 @@
-// const chromium = require("@sparticuz/chromium");
-
-// const puppeteer =
-//   process.env.NODE_ENV === "production"
-//     ? require("puppeteer-core")
-//     : require("puppeteer");
 let chromium = null;
 let puppeteer = null;
 
@@ -15,8 +9,11 @@ try {
       ? require("puppeteer-core")
       : require("puppeteer");
 } catch (error) {
-  console.log("⚠️ PDF deshabilitado temporalmente.");
+  console.warn(
+    "⚠️ Puppeteer no disponible en esta máquina. PDF deshabilitado.",
+  );
 }
+
 const mapPresupuestoToPrintable = require("../services/pdf/mapPresupuestoToPrintable");
 const Presupuesto = require("../models/Presupuesto");
 const User = require("../models/User");
@@ -334,121 +331,12 @@ async function cambiarEstado(req, res) {
 // // PDF
 // // =========================
 
-// async function pdf(req, res) {
-
-//   console.log("===== ENTRE AL PDF NUEVO =====");
-
-//   let browser;
-
-//   try {
-//     if (!req.params.id) {
-//       return res.status(400).json({
-//         error: "ID invalido",
-//       });
-//     }
-
-//     const presupuesto = await Presupuesto.findById(req.params.id);
-
-//     if (!presupuesto) {
-//       return res.status(404).json({
-//         error: "No encontrado",
-//       });
-//     }
-
-//     // =========================
-//     // 👑 SUPERADMIN
-//     // =========================
-//     if (req.user.role === "superadmin") {
-//       // acceso total
-//     }
-
-//     // =========================
-//     // 🧑 ADMIN
-//     // =========================
-//     else if (req.user.role === "admin") {
-//       if (presupuesto.ownerId?.toString() !== req.user.id) {
-//         return res.status(403).json({
-//           error: "No autorizado",
-//         });
-//       }
-//     }
-
-//     // =========================
-//     // 👨 USER
-//     // =========================
-//     else {
-//       if (presupuesto.userId?.toString() !== req.user.id) {
-//         return res.status(403).json({
-//           error: "No autorizado",
-//         });
-//       }
-//     }
-
-//     const user = await User.findById(req.user.id);
-
-//     const printable = mapPresupuestoToPrintable(presupuesto, user);
-
-//     console.log("===== PRINTABLE =====");
-//     console.log(JSON.stringify(printable, null, 2));
-//     console.log("PRINTABLE COMPLETO");
-//     console.log(printable);
-
-//     const html = await renderBudget(printable);
-
-//     if (process.env.NODE_ENV === "production") {
-//       browser = await puppeteer.launch({
-//         args: chromium.args,
-//         defaultViewport: chromium.defaultViewport,
-//         executablePath: await chromium.executablePath(),
-//         headless: chromium.headless,
-//       });
-//     } else {
-//       browser = await puppeteer.launch({
-//         headless: true,
-//       });
-//     }
-
-//     const page = await browser.newPage();
-
-//     await page.setContent(html);
-
-//     const pdfBuffer = await page.pdf({
-//       format: "A4",
-//       printBackground: true,
-//     });
-
-//     res.set({
-//       "Content-Type": "application/pdf",
-//       "Content-Disposition": "inline; filename=presupuesto.pdf",
-//     });
-
-//     return res.send(pdfBuffer);
-//   } catch (error) {
-//     console.error(error);
-
-//     return res.status(500).json({
-//       error: "Error generando PDF",
-//       detalle: error.message,
-//     });
-//   } finally {
-//     if (browser) {
-//       try {
-//         await browser.close();
-//       } catch (error) {
-//         console.error("Error cerrando Chromium:", error);
-//       }
-//     }
-//   }
-// }
-//TEMPORAL
 async function pdf(req, res) {
-  // ✅ PDF deshabilitado temporalmente
   if (!puppeteer) {
     return res.status(503).json({
-      error: "PDF deshabilitado temporalmente",
+      error: "PDF no disponible en esta computadora",
     });
   }
-
   console.log("===== ENTRE AL PDF NUEVO =====");
 
   let browser;
@@ -553,6 +441,7 @@ async function pdf(req, res) {
     }
   }
 }
+
 // =========================
 // 🗑 ELIMINAR
 // =========================
