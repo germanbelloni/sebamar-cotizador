@@ -302,6 +302,10 @@ export const initialPuertasConfig: PuertasConfig = {
   extras: {
     barralRecto: 0,
     barralCurvo: 0,
+
     picaporte: false,
+
+    barraAntipanico: 0,
+    barraAntipanicoLado: "izquierda",
   },
 };

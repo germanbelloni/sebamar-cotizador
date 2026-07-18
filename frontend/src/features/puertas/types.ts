@@ -26,8 +26,13 @@ export type PuertaVidrio =
 export type PuertasExtras = {
   barralRecto?: number;
   barralCurvo?: number;
+
   mediaManija?: boolean;
   picaporte?: boolean;
+
+  barraAntipanico?: number;
+
+  barraAntipanicoLado?: "izquierda" | "derecha" | "ambas";
 };
 
 export type PuertasConfig = {

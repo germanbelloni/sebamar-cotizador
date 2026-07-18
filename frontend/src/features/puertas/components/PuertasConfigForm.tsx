@@ -570,8 +570,21 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         <FormSection title="Extras">
           <PuertasExtrasSection
             linea={config.linea}
+            barraAntipanico={config.extras.barraAntipanico}
+            barraAntipanicoLado={config.extras.barraAntipanicoLado}
+            tipoConfiguracion={config.tipoConfiguracion}
             premarco={config.premarco}
             contramarco={config.contramarco}
+            onSelectBarraAntipanico={(cantidad, lado) =>
+              setConfig((prev) => ({
+                ...prev,
+                extras: {
+                  ...prev.extras,
+                  barraAntipanico: cantidad,
+                  barraAntipanicoLado: cantidad === 0 ? undefined : lado,
+                },
+              }))
+            }
             onTogglePremarco={() =>
               updateConfig({
                 premarco: !config.premarco,
@@ -594,6 +607,8 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                   barralRecto: config.extras.barralRecto ? 0 : 1,
                   barralCurvo: 0,
                   picaporte: false,
+                  barraAntipanico: 0,
+                  barraAntipanicoLado: undefined,
                 },
               })
             }
@@ -604,6 +619,8 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                   barralCurvo: config.extras.barralCurvo ? 0 : 1,
                   barralRecto: 0,
                   picaporte: false,
+                  barraAntipanico: 0,
+                  barraAntipanicoLado: undefined,
                 },
               })
             }
@@ -615,6 +632,8 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                   barralRecto: 0,
                   barralCurvo: 0,
                   mediaManija: false,
+                  barraAntipanico: 0,
+                  barraAntipanicoLado: undefined,
                 },
               })
             }

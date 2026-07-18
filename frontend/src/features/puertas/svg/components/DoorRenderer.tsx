@@ -13,6 +13,7 @@ import { DoorTravesano } from "./DoorTravesano";
 import { DoorDivisions } from "./DoorDivisions";
 
 import { DoorHandle } from "./DoorHandle";
+import { DoorAntiPanicBar } from "./DoorAntiPanicBar";
 
 type Props = {
   config: PuertasConfig;
@@ -39,6 +40,7 @@ export function DoorRenderer({
   width,
   height,
 }: Props) {
+  console.log("EXTRAS", config.extras);
   return (
     <>
       {/* HOJA */}
@@ -93,6 +95,16 @@ export function DoorRenderer({
         height={height}
         mano={config.mano}
       />
+
+      {config.extras.barraAntipanico ? (
+        <DoorAntiPanicBar
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          mano={config.mano}
+        />
+      ) : null}
 
       {/* APERTURA */}
 

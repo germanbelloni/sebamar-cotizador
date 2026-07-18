@@ -329,6 +329,43 @@ function calcularPuertaWrapper(dataInput) {
       valorDespues: costo,
     });
   }
+
+  // ========================
+  // 🚪 BARRA ANTIPÁNICO
+  // ========================
+
+  if (extras.barraAntipanico) {
+    const cantidad = Number(extras.barraAntipanico);
+
+    const extra =
+      Number(superficies.herrajes?.barra_antipanico || 0) * cantidad;
+
+    costo += extra;
+
+    items.push({
+      tipo: "barra_antipanico",
+      descripcion:
+        cantidad === 1 ? "Barra antipánico" : `${cantidad} Barras antipánico`,
+      precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Barra Antipánico",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      referencia: `${cantidad} unidad(es)`,
+
+      valorAntes: costo - extra,
+
+      valorAplicado: extra,
+
+      valorDespues: costo,
+    });
+  }
+
   if (linea === "modena") {
     const ml = calcularML(dataInput.ancho, dataInput.alto);
 
@@ -512,6 +549,13 @@ function calcularPuertaWrapper(dataInput) {
                 svgKey: "barral_curvo",
               }
             : null,
+
+        barraAntipanico: extras.barraAntipanico
+          ? {
+              cantidad: extras.barraAntipanico,
+              lado: extras.barraAntipanicoLado,
+            }
+          : null,
       },
     },
 
