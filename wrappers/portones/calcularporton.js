@@ -356,6 +356,11 @@ function calcularPortonWrapper(dataInput) {
     }
   }
   if (necesitaDobleTravesano({ sistema, hojas, modelo })) {
+    console.log("PORTON RULE", {
+      sistema,
+      hojas,
+      modelo,
+    });
     const anchoCobrado = resultado.configuracion.anchoCobrado;
 
     const anchoMetros = anchoCobrado / 100;
@@ -386,14 +391,20 @@ function calcularPortonWrapper(dataInput) {
     });
   }
 
-  if (necesitaBisagrasExtra({ sistema, hojas })) {
-    const bisagras = (superficies.herrajes?.bisagra_extra || 0) * 4;
+  if (
+    necesitaBisagrasExtra({
+      sistema,
+      hojas,
+      modelo,
+    })
+  ) {
+    const bisagras = (superficies.herrajes?.bisagra_extra || 0) * hojas;
 
     costo += bisagras;
 
     items.push({
       tipo: "bisagras_extra",
-      descripcion: "4 bisagras",
+      descripcion: `${hojas} bisagras`,
       precio: Math.round(bisagras),
     });
     audit.add({

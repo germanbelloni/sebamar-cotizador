@@ -2,15 +2,16 @@ const { execSync } = require("child_process");
 const path = require("path");
 
 const scriptsDir = __dirname;
+const forcePublish = process.argv.includes("--publish");
 
-function run(nombre, archivo) {
+function run(nombre, archivo, args = "") {
   console.log("");
   console.log("====================================");
   console.log(` ${nombre}`);
   console.log("====================================");
   console.log("");
 
-  execSync(`node "${path.join(scriptsDir, archivo)}"`, {
+  execSync(`node "${path.join(scriptsDir, archivo)}" ${args}`, {
     stdio: "inherit",
   });
 }
@@ -18,7 +19,15 @@ function run(nombre, archivo) {
 try {
   run("IMPORTANDO EXCEL", "runExcel.js");
 
-  run("VALIDANDO JSON", "compareGenerated.js");
+  if (!forcePublish) {
+    run("VALIDANDO JSON", "compareGenerated.js");
+  } else {
+    console.log("");
+    console.log("====================================");
+    console.log(" VALIDACIÓN OMITIDA (--publish)");
+    console.log("====================================");
+    console.log("");
+  }
 
   run("PUBLICANDO JSON", "publishGenerated.js");
 

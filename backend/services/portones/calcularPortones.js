@@ -49,11 +49,41 @@ function calcularPortones(dataInput) {
       alto,
       medida: `${anchoCobrado}x${alto}`,
     });
+    const estructura = (r.items || []).find((x) => x.tipo === "estructura");
+    const vidrio = (r.items || []).find((x) => x.tipo === "vidrio");
 
+    console.log(`
+====================================
+HOJA ${i + 1}
+====================================
+Ancho cobrado : ${anchoCobrado}
+Alto          : ${alto}
+Medida        : ${anchoCobrado}x${alto}
+
+Estructura    : ${estructura?.descripcion || "-"}
+Costo estruct.: ${estructura?.precio || 0}
+
+Vidrio        : ${vidrio?.descripcion || "-"}
+Costo vidrio  : ${vidrio?.precio || 0}
+
+Subtotal hoja : ${r.costoBase}
+====================================
+`);
     costoBase += Number(r.costoBase || 0);
     items.push(...(r.items || []));
   }
+  console.log(`
+====================================
+RESUMEN PORTÓN
+====================================
+Hojas            : ${hojas}
+Ancho total      : ${ancho}
+Ancho hoja real  : ${anchoHojaReal}
+Ancho cobrado    : ${anchoCobrado}
 
+Costo Base Total : ${Math.round(costoBase)}
+====================================
+`);
   return {
     costoBase: Math.round(costoBase),
     precioVenta: Math.round(costoBase),

@@ -7,11 +7,22 @@ function necesitaDobleTravesano({ sistema, hojas, modelo }) {
     return true;
   }
 
-  return ["modelo_4", "modelo_4_vr", "modelo_5"].includes(modelo);
+  return [
+    "modelo_4",
+    "modelo_4_vr",
+    "modelo_5",
+    "modelo 4",
+    "modelo 4 vr",
+    "modelo 5",
+  ].includes(modelo);
 }
 
-function necesitaBisagrasExtra({ sistema, hojas }) {
-  return sistema === "abrir" && hojas >= 4;
+function necesitaBisagrasExtra({ sistema, hojas, modelo }) {
+  return necesitaDobleTravesano({
+    sistema,
+    hojas,
+    modelo,
+  });
 }
 
 module.exports = {
