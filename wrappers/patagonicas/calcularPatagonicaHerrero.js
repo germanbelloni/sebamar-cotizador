@@ -221,10 +221,62 @@ function calcularWrapper(data) {
   }
 
   // =========================
+  // 🔗 ACOPLE
+  // =========================
+
+  let acople = {
+    costoBase: 0,
+    items: [],
+  };
+
+  try {
+    acople = calcularSuperficie({
+      tipo: "perfil_acople",
+      ancho: 1,
+      alto: Number(alto),
+      linea: lineaNormalizada,
+      color,
+      perfil,
+    });
+
+    const costoAcople = Number(acople?.costoBase || 0);
+
+    items.push({
+      tipo: "perfil_acople",
+      precio: Math.round(costoAcople),
+    });
+
+    audit.add({
+      etapa: "Perfil Acople",
+
+      tipo: "componente",
+
+      origen: "calcularSuperficies",
+
+      referencia: `${alto}`,
+
+      valorAntes: totalRajas + Number(fijo?.costoBase || 0),
+
+      valorAplicado: costoAcople,
+
+      valorDespues: totalRajas + Number(fijo?.costoBase || 0) + costoAcople,
+
+      metadata: {
+        alto,
+      },
+    });
+  } catch (err) {
+    console.error("ERROR ACOPLE:", err);
+  }
+
+  // =========================
   // 💰 COSTO BASE
   // =========================
 
-  const costoBase = Number(totalRajas || 0) + Number(fijo?.costoBase || 0);
+  const costoBase =
+    Number(totalRajas || 0) +
+    Number(fijo?.costoBase || 0) +
+    Number(acople?.costoBase || 0);
 
   audit.add({
     etapa: "Costo Base",
@@ -243,6 +295,8 @@ function calcularWrapper(data) {
       totalRajas,
 
       panoFijo: Number(fijo?.costoBase || 0),
+
+      perfilAcople: Number(acople?.costoBase || 0),
     },
   });
 

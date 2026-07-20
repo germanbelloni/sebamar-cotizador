@@ -170,6 +170,25 @@ function calcularSuperficie(dataInput) {
   }
 
   // ======================
+  // 🔗 PERFIL ACOPLE
+  // ======================
+  else if (tipo === "perfil_acople") {
+    const base = data.superficies.perfil_acople;
+
+    if (!base) {
+      throw new Error("No existe precio de perfil_acople");
+    }
+
+    costoPerfil = (alto / 100) * base;
+
+    items.push({
+      tipo: "estructura",
+      descripcion: "perfil acople",
+      precio: Math.round(costoPerfil),
+    });
+  }
+
+  // ======================
   // ❌ INVALIDO
   // ======================
   else {

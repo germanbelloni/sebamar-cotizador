@@ -280,10 +280,9 @@ function calcularsuperficiesWrapper(dataInput) {
     configuracion.travesanoHorizontal = travesanoHorizontal;
   }
 
-  if (tipo === "contramarco") {
+  if (tipo === "contramarco" || tipo === "perfil_acople") {
     configuracion.color = color;
   }
-
   // ========================
   // ✅ RESPONSE
   // ========================
