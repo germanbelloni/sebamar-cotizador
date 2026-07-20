@@ -14,14 +14,6 @@ export function PuertasBlueprint({ config, onChange }: Props) {
     }));
   }
 
-  function setHojaPrincipal(hojaPrincipal: 1 | 2 | 3 | 4) {
-    onChange((prev) => ({
-      ...prev,
-      hojaPrincipal,
-      mano: hojaPrincipal <= 2 ? "izquierda" : "derecha",
-    }));
-  }
-
   const Card = ({
     selected,
     children,
@@ -144,32 +136,52 @@ export function PuertasBlueprint({ config, onChange }: Props) {
           }
 
           if (config.tipoPorton === "abrir") {
-            if (hojas === 3) {
-              if (side === "izquierda") {
-                symbol = i === 0 ? "↶" : "";
-              } else {
-                symbol = i === 2 ? "↷" : "";
-              }
-            }
+            // Portón con barra antipánico:
+            // la puerta de escape siempre es la hoja central.
+            if (config.extras.barraAntipanico === 1 && hojas === 3) {
+              symbol = "";
 
-            if (hojas === 4) {
-              if (side === "izquierda") {
-                if (i === 0 || i === 1) {
-                  symbol = "↶";
+              if (i === 1) {
+                symbol = side === "izquierda" ? "↶" : "↷";
+              }
+            } else {
+              if (hojas === 3) {
+                if (side === "izquierda") {
+                  symbol = i === 0 ? "↶" : "";
+                } else {
+                  symbol = i === 2 ? "↷" : "";
                 }
-              } else {
-                if (i === 2 || i === 3) {
-                  symbol = "↷";
+              }
+
+              if (hojas === 4) {
+                if (side === "izquierda") {
+                  if (i === 0 || i === 1) {
+                    symbol = "↶";
+                  }
+                } else {
+                  if (i === 2 || i === 3) {
+                    symbol = "↷";
+                  }
                 }
               }
             }
           }
 
+          const mostrarBarra =
+            config.tipoPorton === "abrir" &&
+            config.hojas === 3 &&
+            config.extras.barraAntipanico === 1 &&
+            i === 1;
+
           return (
             <div
               key={i}
-              className="flex flex-1 items-center justify-center border-r border-white/20 text-5xl last:border-r-0"
+              className="relative flex flex-1 items-center justify-center border-r border-white/20 text-5xl last:border-r-0"
             >
+              {mostrarBarra && (
+                <div className="absolute top-[68%] left-1/2 h-[6px] w-[40px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+              )}
+
               <span
                 className={
                   symbol.includes("↶") || symbol.includes("↷")
@@ -189,14 +201,29 @@ export function PuertasBlueprint({ config, onChange }: Props) {
   return (
     <div className="space-y-5">
       <div className="space-y-3 text-center">
-        <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">
-          Vista exterior
+        <div
+          className={`text-xs uppercase tracking-[0.25em] ${
+            config.extras.barraAntipanico
+              ? "font-bold text-red-500"
+              : "text-zinc-500"
+          }`}
+        >
+          {config.extras.barraAntipanico
+            ? "🔴 VISTA INTERIOR"
+            : "VISTA EXTERIOR"}
         </div>
 
         <div className="text-xl font-semibold text-white">
           Elegí la apertura
         </div>
-
+        {!!config.extras.barraAntipanico && (
+          <div className="mx-auto max-w-xl rounded-2xl border border-red-500/40 bg-red-500/10 px-5 py-3 text-center text-sm text-red-300">
+            <strong>IMPORTANTE:</strong> para configurar una barra antipánico la
+            representación cambia automáticamente a la{" "}
+            <strong>vista interior</strong>, ya que este herraje siempre se
+            instala del lado interno de la puerta.
+          </div>
+        )}
         {config.tipoConfiguracion === "porton" && (
           <div className="mx-auto inline-flex items-center gap-3 rounded-2xl border border-lime-400/20 bg-lime-400/10 px-4 py-2">
             <span className="text-xs uppercase tracking-wider text-zinc-400">
@@ -215,7 +242,6 @@ export function PuertasBlueprint({ config, onChange }: Props) {
           </div>
         )}
       </div>
-
       {/* SIMPLE */}
       {config.tipoConfiguracion === "simple" && (
         <div className="grid grid-cols-2 gap-5">
@@ -229,7 +255,18 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               </div>
 
               <DoorFrame>
-                <span className="text-7xl text-lime-400">↶</span>
+                <div className="relative flex h-full w-full items-center justify-center">
+                  {config.extras.barraAntipanico === 1 && (
+                    <div
+                      className={`
+      absolute top-[68%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]
+     ${config.extras.barraAntipanicoLado === "izquierda" ? "left-8" : "right-8"}
+    `}
+                    />
+                  )}
+
+                  <span className="text-7xl leading-none text-lime-400">↶</span>
+                </div>
               </DoorFrame>
             </div>
           </Card>
@@ -242,15 +279,24 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               <div className="rounded-full bg-lime-400 px-4 py-1 text-xs font-bold text-black">
                 APERTURA DERECHA
               </div>
-
               <DoorFrame>
-                <span className="text-7xl text-lime-400">↷</span>
+                <div className="relative flex h-full w-full items-center justify-center">
+                  {config.extras.barraAntipanico === 1 && (
+                    <div
+                      className={`
+      absolute top-[68%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]
+     ${config.extras.barraAntipanicoLado === "izquierda" ? "left-8" : "right-8"}
+    `}
+                    />
+                  )}
+
+                  <span className="text-7xl leading-none text-lime-400">↷</span>
+                </div>
               </DoorFrame>
             </div>
           </Card>
         </div>
       )}
-
       {/* DOBLE */}
       {config.tipoConfiguracion === "doble" && (
         <div className="grid grid-cols-2 gap-5">
@@ -264,10 +310,18 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               </div>
 
               <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                <div className="flex w-1/2 items-center justify-center border-r border-white/20 text-6xl text-lime-400">
+                <div className="relative flex w-1/2 items-center justify-center border-r border-white/20 text-6xl text-lime-400">
+                  {(config.extras.barraAntipanico === 1 ||
+                    config.extras.barraAntipanico === 2) && (
+                    <div className="absolute top-[68%] left-[32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↶
                 </div>
-                <div className="flex w-1/2 items-center justify-center text-6xl text-zinc-500">
+
+                <div className="relative flex w-1/2 items-center justify-center text-6xl text-zinc-500">
+                  {config.extras.barraAntipanico === 2 && (
+                    <div className="absolute top-[68%] right-32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↷
                 </div>
               </div>
@@ -284,10 +338,18 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               </div>
 
               <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                <div className="flex w-1/2 items-center justify-center border-r border-white/20 text-6xl text-zinc-500">
+                <div className="relative flex w-1/2 items-center justify-center border-r border-white/20 text-6xl text-zinc-500">
+                  {config.extras.barraAntipanico === 2 && (
+                    <div className="absolute top-[68%] left-[32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↶
                 </div>
-                <div className="flex w-1/2 items-center justify-center text-6xl text-lime-400">
+
+                <div className="relative flex w-1/2 items-center justify-center text-6xl text-lime-400">
+                  {(config.extras.barraAntipanico === 1 ||
+                    config.extras.barraAntipanico === 2) && (
+                    <div className="absolute top-[68%] right-[32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↷
                 </div>
               </div>
@@ -295,7 +357,6 @@ export function PuertasBlueprint({ config, onChange }: Props) {
           </Card>
         </div>
       )}
-
       {/* PUERTA Y MEDIA */}
       {config.tipoConfiguracion === "puerta_y_media" && (
         <div className="grid grid-cols-2 gap-5">
@@ -309,9 +370,13 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               </div>
 
               <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                <div className="flex w-[66%] items-center justify-center border-r border-white/20 text-6xl text-lime-400">
+                <div className="relative flex w-[66%] items-center justify-center border-r border-white/20 text-6xl text-lime-400">
+                  {config.extras.barraAntipanico === 1 && (
+                    <div className="absolute top-[68%] left-[32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↶
                 </div>
+
                 <div className="flex w-[34%] items-center justify-center text-4xl text-zinc-500">
                   ↷
                 </div>
@@ -332,7 +397,11 @@ export function PuertasBlueprint({ config, onChange }: Props) {
                 <div className="flex w-[34%] items-center justify-center border-r border-white/20 text-4xl text-zinc-500">
                   ↶
                 </div>
-                <div className="flex w-[66%] items-center justify-center text-6xl text-lime-400">
+
+                <div className="relative flex w-[66%] items-center justify-center text-6xl text-lime-400">
+                  {config.extras.barraAntipanico === 1 && (
+                    <div className="absolute top-[68%] right-[32%] h-[6px] w-[54px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  )}
                   ↷
                 </div>
               </div>
@@ -340,169 +409,20 @@ export function PuertasBlueprint({ config, onChange }: Props) {
           </Card>
         </div>
       )}
-
       {/* PORTON */}
       {config.tipoConfiguracion === "porton" && (
         <>
-          {config.hojas <= 4 ? (
-            <>
-              {config.tipoPorton === "abrir" && config.hojas === 4 ? (
-                <div className="grid grid-cols-2 gap-5">
-                  <Card
-                    selected={config.hojaPrincipal === 1}
-                    onClick={() => setHojaPrincipal(1)}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        PUERTA IZQUIERDA
-                      </div>
-
-                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↷
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↷
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↷
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card
-                    selected={config.hojaPrincipal === 2}
-                    onClick={() => setHojaPrincipal(2)}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        PUERTA MEDIO IZQ.
-                      </div>
-
-                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↷
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↷
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card
-                    selected={config.hojaPrincipal === 3}
-                    onClick={() => setHojaPrincipal(3)}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        PUERTA MEDIO DER.
-                      </div>
-
-                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↷
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↷
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-
-                  <Card
-                    selected={config.hojaPrincipal === 4}
-                    onClick={() => setHojaPrincipal(4)}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        PUERTA DERECHA
-                      </div>
-
-                      <div className="flex h-[220px] border-2 border-white/40 bg-black/40">
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-zinc-500">
-                          ↶
-                        </div>
-
-                        <div className="flex flex-1 items-center justify-center text-5xl text-lime-400">
-                          ↷
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-5">
-                  <Card
-                    selected={config.mano === "izquierda"}
-                    onClick={() => setMano("izquierda")}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        APERTURA IZQUIERDA
-                      </div>
-
-                      {renderPorton("izquierda")}
-                    </div>
-                  </Card>
-
-                  <Card
-                    selected={config.mano === "derecha"}
-                    onClick={() => setMano("derecha")}
-                  >
-                    <div className="space-y-5">
-                      <div className="text-center text-sm font-bold text-lime-400">
-                        APERTURA DERECHA
-                      </div>
-
-                      {renderPorton("derecha")}
-                    </div>
-                  </Card>
-                </div>
-              )}
-            </>
-          ) : (
+          {config.tipoPorton === "abrir" &&
+          config.extras.barraAntipanico &&
+          config.hojas >= 4 ? (
             <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-8 text-center">
               <div className="text-xl font-semibold text-red-400">
                 Configuración especial
               </div>
 
               <p className="mt-3 text-zinc-300">
-                Los portones de <strong>{config.hojas} hojas</strong> requieren
-                una configuración manual de la apertura.
+                Los portones de <strong>{config.hojas} hojas</strong> con barra
+                antipánico requieren una configuración manual.
               </p>
 
               <div className="mt-5 rounded-xl border border-red-500/30 bg-black/20 p-4">
@@ -511,9 +431,38 @@ export function PuertasBlueprint({ config, onChange }: Props) {
                 </p>
               </div>
             </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-5">
+              <Card
+                selected={config.mano === "izquierda"}
+                onClick={() => setMano("izquierda")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    APERTURA IZQUIERDA
+                  </div>
+
+                  {renderPorton("izquierda")}
+                </div>
+              </Card>
+
+              <Card
+                selected={config.mano === "derecha"}
+                onClick={() => setMano("derecha")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    APERTURA DERECHA
+                  </div>
+
+                  {renderPorton("derecha")}
+                </div>
+              </Card>
+            </div>
           )}
         </>
       )}
+
       <TechnicalInfo />
     </div>
   );

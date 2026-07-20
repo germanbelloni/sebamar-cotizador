@@ -132,9 +132,20 @@ export function buildPuertasDescription(config: PuertasConfig) {
     parts.push("picaporte");
   }
 
+  if (config.extras.barraAntipanico) {
+    if (config.tipoConfiguracion === "doble") {
+      parts.push(
+        config.extras.barraAntipanico === 2
+          ? "barra antipánico en ambas hojas"
+          : "barra antipánico en hoja principal",
+      );
+    } else {
+      parts.push("barra antipánico");
+    }
+  }
+
   return parts.join(" ");
 }
-
 /* ========================= */
 /* HELPERS */
 /* ========================= */

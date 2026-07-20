@@ -355,6 +355,14 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
               onChange={(value) =>
                 updateConfig({
                   tipoPorton: value as PuertasConfig["tipoPorton"],
+                  extras:
+                    value === "abrir"
+                      ? config.extras
+                      : {
+                          ...config.extras,
+                          barraAntipanico: 0,
+                          barraAntipanicoLado: undefined,
+                        },
                 })
               }
             />
@@ -570,8 +578,8 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
         <FormSection title="Extras">
           <PuertasExtrasSection
             linea={config.linea}
+            tipoPorton={config.tipoPorton}
             barraAntipanico={config.extras.barraAntipanico}
-            barraAntipanicoLado={config.extras.barraAntipanicoLado}
             tipoConfiguracion={config.tipoConfiguracion}
             premarco={config.premarco}
             contramarco={config.contramarco}
