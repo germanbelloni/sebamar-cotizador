@@ -16,6 +16,10 @@ const calcularSuperficie = require(
 
 const perfiles = require(fromRoot("config/perfiles"));
 
+const superficies = require(
+  fromRoot("backend/data/productos/superficies.json"),
+);
+
 const { buildPatagonicaSVG } = require(fromRoot("utils/svg"));
 
 // =========================
@@ -30,6 +34,12 @@ function calcularWrapper(data) {
     tipo,
 
     color = "blanco",
+
+    guia = false,
+
+    cajonBlock = false,
+
+    cortina = null,
 
     tipoRaja = "raja",
 
@@ -115,6 +125,7 @@ function calcularWrapper(data) {
   let totalRajas = 0;
 
   const items = [];
+  let extras = 0;
 
   for (let i = 0; i < cantidadRajas; i++) {
     const raja = calcularRajaHerrero({
@@ -269,14 +280,87 @@ function calcularWrapper(data) {
     console.error("ERROR ACOPLE:", err);
   }
 
+  const m2 = (ancho * alto) / 10000;
+
+  // 🪟 CORTINA PVC
+  if (guia && cortina === "pvc") {
+    const precioM2 =
+      superficies.superficies.cortinas_modulo.pvc.reforzada.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    totalRajas += c;
+
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cortina PVC",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: totalRajas - c,
+      valorAplicado: c,
+      valorDespues: totalRajas,
+    });
+  }
+
+  // 🪟 CORTINA ALUMINIO
+  if (guia && cortina === "aluminio") {
+    const precioM2 =
+      color === "simil_madera"
+        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
+        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    totalRajas += c;
+
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cortina Aluminio",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: totalRajas - c,
+      valorAplicado: c,
+      valorDespues: totalRajas,
+    });
+  }
+
+  // 📦 CAJÓN BLOCK
+  if (guia && cajonBlock) {
+    const c = Number(superficies.superficies.cajon_block || 0);
+
+    totalRajas += c;
+
+    items.push({
+      tipo: "cajon_block",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cajón Block",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: totalRajas - c,
+      valorAplicado: c,
+      valorDespues: totalRajas,
+    });
+  }
+
   // =========================
   // 💰 COSTO BASE
   // =========================
-
   const costoBase =
     Number(totalRajas || 0) +
     Number(fijo?.costoBase || 0) +
-    Number(acople?.costoBase || 0);
+    Number(acople?.costoBase || 0) +
+    Number(extras || 0);
 
   audit.add({
     etapa: "Costo Base",

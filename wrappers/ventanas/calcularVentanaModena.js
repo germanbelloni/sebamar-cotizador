@@ -203,6 +203,70 @@ function calcularVentanaModena(dataInput) {
 
   const ml = calcularML(ancho, alto);
 
+  // 🪟 CORTINA PVC (siempre reforzada)
+  if (cortina === "pvc") {
+    const precioM2 =
+      superficies.superficies.cortinas_modulo.pvc.reforzada.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    costo += c;
+
+    audit.add({
+      etapa: "Cortina PVC",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
+
+    if (c > 0) {
+      items.push({
+        tipo: "cortina_pvc",
+        precio: Math.round(c),
+      });
+    }
+  }
+
+  // 🪟 CORTINA ALUMINIO
+  if (cortina === "aluminio") {
+    const precioM2 =
+      color === "simil_madera"
+        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
+        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    costo += c;
+
+    audit.add({
+      etapa: "Cortina Aluminio",
+
+      tipo: "extra",
+
+      origen: "superficies.json",
+
+      valorAntes: costo - c,
+
+      valorAplicado: c,
+
+      valorDespues: costo,
+    });
+
+    if (c > 0) {
+      items.push({
+        tipo: "cortina_aluminio",
+        precio: Math.round(c),
+      });
+    }
+  }
+
   // 🪚 PREMARCO
   if (premarco) {
     const c = Number(superficies.superficies.premarco || 0) * ml;

@@ -118,6 +118,13 @@ function calcularVentanaAbrir(dataInput) {
     alto,
     linea = "Herrero",
     color = "blanco",
+
+    guia = false,
+
+    cajonBlock = false,
+
+    cortina = null,
+
     tipoVidrio = "4mm",
     mosquitero = false,
     bisagra = "izquierda",
@@ -249,7 +256,77 @@ function calcularVentanaAbrir(dataInput) {
       valorDespues: costo,
     });
   }
+  // ======================================
+  // CORTINAS
+  // ======================================
 
+  if (guia && cortina === "pvc") {
+    const extra =
+      Number(
+        superficies.superficies.cortinas_modulo.pvc.reforzada.completa || 0,
+      ) * m2;
+
+    costo += extra;
+
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Cortina PVC",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - extra,
+      valorAplicado: extra,
+      valorDespues: costo,
+    });
+  }
+
+  if (guia && cortina === "aluminio") {
+    const precioM2 =
+      color === "simil_madera"
+        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
+        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+
+    const extra = Number(precioM2 || 0) * m2;
+
+    costo += extra;
+
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Cortina Aluminio",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - extra,
+      valorAplicado: extra,
+      valorDespues: costo,
+    });
+  }
+
+  if (guia && cajonBlock) {
+    const extra = Number(superficies.superficies.cajon_block || 0);
+
+    costo += extra;
+
+    items.push({
+      tipo: "cajon_block",
+      precio: Math.round(extra),
+    });
+
+    audit.add({
+      etapa: "Cajón Block",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - extra,
+      valorAplicado: extra,
+      valorDespues: costo,
+    });
+  }
   // ======================================
   // PREMARCO / CONTRAMARCO
   // ======================================
@@ -330,26 +407,56 @@ function calcularVentanaAbrir(dataInput) {
     const perfilPremarcos =
       perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
 
+    const perfilCortinas =
+      perfiles[perfil]?.cortinas || perfiles.amarilla.cortinas;
     const costoPremarcos = items
       .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
       .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-    const costoVentana = costo - costoPremarcos;
+    const costoCortinas = items
+      .filter(
+        (i) =>
+          i.tipo === "cortina_pvc" ||
+          i.tipo === "cortina_aluminio" ||
+          i.tipo === "cajon_block",
+      )
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
+    const costoVentana = costo - costoPremarcos - costoCortinas;
     const r1 = aplicarPerfil(costoVentana, perfilModena);
     const r2 = aplicarPerfil(costoPremarcos, perfilPremarcos);
+    const r3 = aplicarPerfil(costoCortinas, perfilCortinas);
+
+    proveedor = r1.proveedor + r2.proveedor + r3.proveedor;
+
+    venta = r1.venta + r2.venta + r3.venta;
+
+    perfilData = perfilModena;
+  } else {
+    const perfilHerrero =
+      perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
+
+    const perfilCortinas =
+      perfiles[perfil]?.cortinas || perfiles.amarilla.cortinas;
+
+    const costoCortinas = items
+      .filter(
+        (i) =>
+          i.tipo === "cortina_pvc" ||
+          i.tipo === "cortina_aluminio" ||
+          i.tipo === "cajon_block",
+      )
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const costoHerrero = costo - costoCortinas;
+
+    const r1 = aplicarPerfil(costoHerrero, perfilHerrero);
+    const r2 = aplicarPerfil(costoCortinas, perfilCortinas);
 
     proveedor = r1.proveedor + r2.proveedor;
     venta = r1.venta + r2.venta;
 
-    perfilData = perfilModena;
-  } else {
-    perfilData = perfiles[perfil]?.herrero || perfiles.amarilla.herrero;
-
-    const r = aplicarPerfil(costo, perfilData);
-
-    proveedor = r.proveedor;
-    venta = r.venta;
+    perfilData = perfilHerrero;
   }
   audit.add({
     etapa: "Perfil",
@@ -440,7 +547,11 @@ function calcularVentanaAbrir(dataInput) {
       tipoVidrio,
 
       mosquitero,
+      guia,
 
+      cajonBlock,
+
+      cortina,
       bisagra,
 
       premarco,

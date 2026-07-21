@@ -21,7 +21,6 @@ const superficies = require(
 const { buildPatagonicaSVG } = require(fromRoot("backend/utils/svg"));
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);
-
   const venta = proveedor * (1 + p.flete) * (1 + p.ganancia);
 
   return {
@@ -84,7 +83,15 @@ function calcularWrapper(dataInput) {
     herrajesBlancos = false,
 
     mosquitero = false,
+
+    guia = false,
+
+    cajonBlock = false,
+
+    cortina = null,
+
     premarco = false,
+
     contramarco = false,
   } = dataInput;
 
@@ -239,7 +246,80 @@ function calcularWrapper(dataInput) {
       valorDespues: costo,
     });
   }
+  // =========================
+  // 🪟 CORTINAS
+  // =========================
 
+  // PVC
+  if (guia && cortina === "pvc") {
+    const precioM2 =
+      superficies.superficies.cortinas_modulo.pvc.reforzada.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    costo += c;
+
+    items.push({
+      tipo: "cortina_pvc",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cortina PVC",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
+
+  // ALUMINIO
+  if (guia && cortina === "aluminio") {
+    const precioM2 =
+      color === "simil_madera"
+        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
+        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+
+    const c = Number(precioM2 || 0) * m2;
+
+    costo += c;
+
+    items.push({
+      tipo: "cortina_aluminio",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cortina Aluminio",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
+
+  // CAJÓN BLOCK
+  if (guia && cajonBlock) {
+    const c = Number(superficies.superficies.cajon_block || 0);
+
+    costo += c;
+
+    items.push({
+      tipo: "cajon_block",
+      precio: Math.round(c),
+    });
+
+    audit.add({
+      etapa: "Cajón Block",
+      tipo: "extra",
+      origen: "superficies.json",
+      valorAntes: costo - c,
+      valorAplicado: c,
+      valorDespues: costo,
+    });
+  }
   if (premarco) {
     const c = Number(superficies.superficies.premarco || 0) * ml;
 
@@ -430,14 +510,24 @@ function calcularWrapper(dataInput) {
   const perfilPremarcos =
     perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
 
+  const perfilCortinas =
+    perfiles[perfil]?.cortinas || perfiles.amarilla.cortinas;
+
   const costoMosquitero =
     items.find((i) => i.tipo === "mosquitero")?.precio || 0;
-
+  const costoCortinas = items
+    .filter(
+      (i) =>
+        i.tipo === "cortina_pvc" ||
+        i.tipo === "cortina_aluminio" ||
+        i.tipo === "cajon_block",
+    )
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
   const costoPremarcos = items
     .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
     .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  const costoModena = costo - costoMosquitero - costoPremarcos;
+  const costoModena = costo - costoMosquitero - costoPremarcos - costoCortinas;
 
   const { proveedor: proveedorModena, venta: ventaModena } = aplicarPerfil(
     costoModena,
@@ -450,9 +540,18 @@ function calcularWrapper(dataInput) {
   const { proveedor: proveedorPremarcos, venta: ventaPremarcos } =
     aplicarPerfil(costoPremarcos, perfilPremarcos);
 
-  const proveedor = proveedorModena + proveedorMosquitero + proveedorPremarcos;
+  const { proveedor: proveedorCortinas, venta: ventaCortinas } = aplicarPerfil(
+    costoCortinas,
+    perfilCortinas,
+  );
 
-  const venta = ventaModena + ventaMosquitero + ventaPremarcos;
+  const proveedor =
+    proveedorModena +
+    proveedorMosquitero +
+    proveedorPremarcos +
+    proveedorCortinas;
+
+  const venta = ventaModena + ventaMosquitero + ventaPremarcos + ventaCortinas;
 
   const perfilData = perfilModena;
 
@@ -508,6 +607,9 @@ function calcularWrapper(dataInput) {
     mosquitero: !!mosquitero,
     premarco: !!premarco,
     contramarco: !!contramarco,
+    guia: !!guia,
+    cajonBlock: !!cajonBlock,
+    cortina,
 
     svg: buildPatagonicaSVG({
       cantidadRajas,

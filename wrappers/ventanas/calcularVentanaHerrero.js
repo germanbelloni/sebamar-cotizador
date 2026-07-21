@@ -211,9 +211,12 @@ function calcularVentanaHerrero(dataInput) {
 
   const m2 = calcularM2(ancho, alto);
 
-  // 🪟 CORTINA PVC
+  // 🪟 CORTINA PVC (siempre reforzada)
   if (cortina === "pvc") {
-    const c = Number(superficies.cortinas?.pvc || 0) * m2;
+    const precioM2 =
+      superficies.superficies.cortinas_modulo.pvc.reforzada.completa;
+
+    const c = Number(precioM2 || 0) * m2;
 
     costo += c;
 
@@ -238,9 +241,15 @@ function calcularVentanaHerrero(dataInput) {
       });
     }
   }
+
   // 🪟 CORTINA ALUMINIO
   if (cortina === "aluminio") {
-    const c = Number(superficies.cortinas?.aluminio || 0) * m2;
+    const precioM2 =
+      color === "simil_madera"
+        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
+        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+
+    const c = Number(precioM2 || 0) * m2;
 
     costo += c;
 
