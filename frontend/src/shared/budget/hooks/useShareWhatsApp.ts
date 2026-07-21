@@ -1,6 +1,7 @@
 import { useBudgetStore } from "../store/useBudgetStore";
 
 import { budgetToWhatsApp } from "../serializers/budgetToWhatsApp";
+import { toast } from "sonner";
 
 type Params = {
   empresa: string;
@@ -35,6 +36,11 @@ export function useShareWhatsApp({ empresa, cliente, telefono }: Params) {
   }
 
   function share() {
+    if (!telefono?.trim()) {
+      toast.error("Debe ingresar un teléfono.");
+
+      return;
+    }
     const text = budgetToWhatsApp({
       empresa,
       cliente,

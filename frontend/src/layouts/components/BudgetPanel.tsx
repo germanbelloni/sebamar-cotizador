@@ -285,6 +285,16 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
             <div className="space-y-3">
               <button
                 onClick={async () => {
+                  if (!cliente.nombre.trim() || !cliente.telefono.trim()) {
+                    const continuar = window.confirm(
+                      "No se completó el nombre y/o teléfono del cliente.\n\nPodrá generar el presupuesto y trabajar normalmente, pero no podrá guardarlo hasta completar esos datos.\n\n¿Desea continuar?",
+                    );
+
+                    if (!continuar) {
+                      return;
+                    }
+                  }
+
                   const { getNuevoNumero } =
                     await import("@/features/presupuestos/api/getNuevoNumero");
 
