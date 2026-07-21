@@ -137,15 +137,31 @@ function auditarVentanas(resultado) {
   // COLOR
   // =========================
 
-  const pasoColor = resultado.audit?.find((p) => p.etapa === "Color");
+  const pasosCosto = [
+    "Color",
+    "Mosquitero",
+    "Guía",
+    "Cortina PVC",
+    "Cortina Aluminio",
+    "Cajón Block",
+    "Premarco",
+    "Contramarco",
+  ];
 
-  if (!pasoColor) {
-    advertencias.push("No existe paso Color");
+  const ultimoPasoCosto = [...(resultado.audit || [])]
+    .reverse()
+    .find((p) => pasosCosto.includes(p.etapa));
+
+  if (!ultimoPasoCosto) {
+    advertencias.push("No existe paso de costo");
   } else {
     ok.push("✔ Paso Color");
 
-    if (Number(pasoColor.valorDespues) !== Number(resultado.costo)) {
-      errores.push("El costo final no coincide con el paso Color");
+    if (
+      Math.round(Number(ultimoPasoCosto.valorDespues)) !==
+      Math.round(Number(resultado.costo))
+    ) {
+      errores.push("El costo final no coincide con el último paso de costo");
     }
   }
   // =========================

@@ -219,15 +219,11 @@ export function RajasConfigForm({ config, setConfig }: Props) {
         <FormSection title={RAJAS_UI.sections.extras}>
           <ExtrasSection
             mosquitero={config.mosquitero}
-            guia={false}
-            cajonBlock={false}
             onToggleMosquitero={() =>
               updateConfig({
                 mosquitero: !config.mosquitero,
               })
             }
-            onToggleGuia={() => {}}
-            onToggleCajonBlock={() => {}}
           />
         </FormSection>
         {config.linea === "Modena" && (

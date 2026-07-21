@@ -50,6 +50,22 @@ function auditarPatagonicas(resultado) {
 
     const panoFijo = resultado.items.find((i) => i.tipo === "pano_fijo");
 
+    const guia = Number(
+      resultado.items.find((i) => i.tipo === "guia")?.precio || 0,
+    );
+
+    const cortinaPVC = Number(
+      resultado.items.find((i) => i.tipo === "cortina_pvc")?.precio || 0,
+    );
+
+    const cortinaAluminio = Number(
+      resultado.items.find((i) => i.tipo === "cortina_aluminio")?.precio || 0,
+    );
+
+    const cajonBlock = Number(
+      resultado.items.find((i) => i.tipo === "cajon_block")?.precio || 0,
+    );
+
     if (rajas.length === 0) {
       errores.push("No existe ninguna raja");
     } else {
@@ -67,15 +83,20 @@ function auditarPatagonicas(resultado) {
       0,
     );
 
-    if (Math.round(sumaItems) === Math.round(resultado.costoBase)) {
+    if (Math.round(sumaItems) === Math.round(resultado.costo)) {
       ok.push("✔ Suma de componentes");
     } else {
       errores.push(
-        `CostoBase incorrecto. Items=${Math.round(
+        `Costo incorrecto. Items=${Math.round(
           sumaItems,
-        )} Resultado=${Math.round(resultado.costoBase)}`,
+        )} Resultado=${Math.round(resultado.costo)}`,
       );
     }
+
+    if (guia > 0) ok.push("✔ Guía");
+    if (cortinaPVC > 0) ok.push("✔ Cortina PVC");
+    if (cortinaAluminio > 0) ok.push("✔ Cortina Aluminio");
+    if (cajonBlock > 0) ok.push("✔ Cajón Block");
   }
 
   // =========================
@@ -155,8 +176,41 @@ function auditarPatagonicas(resultado) {
   }
 
   // =========================
+  // ÚLTIMO PASO DE COSTO
+  // =========================
+
+  const pasosCosto = [
+    "Color",
+    "Mosquitero",
+    "Guía",
+    "Cortina PVC",
+    "Cortina Aluminio",
+    "Cajón Block",
+    "Premarco",
+    "Contramarco",
+  ];
+
+  const ultimoPasoCosto = [...(resultado.audit || [])]
+    .reverse()
+    .find((p) => pasosCosto.includes(p.etapa));
+
+  if (!ultimoPasoCosto) {
+    advertencias.push("No existe paso de costo");
+  } else {
+    ok.push("✔ Último paso de costo");
+
+    if (
+      Math.round(Number(ultimoPasoCosto.valorDespues)) !==
+      Math.round(Number(resultado.costo))
+    ) {
+      errores.push("El costo final no coincide con el último paso de costo");
+    }
+  }
+
+  // =========================
   // PERFIL
   // =========================
+
   const pasoPerfil = resultado.audit?.find((p) => p.etapa === "Perfil");
 
   if (!pasoPerfil) {
@@ -172,6 +226,7 @@ function auditarPatagonicas(resultado) {
       errores.push("Precio final distinto al calculado en Perfil");
     }
   }
+
   // =========================
   // REGLAS
   // =========================

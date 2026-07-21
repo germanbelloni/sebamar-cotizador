@@ -32,8 +32,35 @@ function auditarPatagonicasModena(resultado) {
     ok.push(`✔ ${resultado.items.length} items`);
 
     const estructura = resultado.items.find((i) => i.tipo === "estructura");
-
     const vidrio = resultado.items.find((i) => i.tipo === "vidrio");
+
+    const mosquitero = Number(
+      resultado.items.find((i) => i.tipo === "mosquitero")?.precio || 0,
+    );
+
+    const guia = Number(
+      resultado.items.find((i) => i.tipo === "guia")?.precio || 0,
+    );
+
+    const cortinaPVC = Number(
+      resultado.items.find((i) => i.tipo === "cortina_pvc")?.precio || 0,
+    );
+
+    const cortinaAluminio = Number(
+      resultado.items.find((i) => i.tipo === "cortina_aluminio")?.precio || 0,
+    );
+
+    const cajonBlock = Number(
+      resultado.items.find((i) => i.tipo === "cajon_block")?.precio || 0,
+    );
+
+    const premarco = Number(
+      resultado.items.find((i) => i.tipo === "premarco")?.precio || 0,
+    );
+
+    const contramarco = Number(
+      resultado.items.find((i) => i.tipo === "contramarco")?.precio || 0,
+    );
 
     if (!estructura) errores.push("No existe estructura");
     else ok.push("✔ Estructura");
@@ -46,9 +73,17 @@ function auditarPatagonicasModena(resultado) {
       0,
     );
 
-    if (Math.round(suma) === Math.round(resultado.costoBase))
+    if (Math.round(suma) === Math.round(resultado.costo))
       ok.push("✔ Suma de componentes");
-    else errores.push("CostoBase incorrecto");
+    else errores.push("Costo incorrecto");
+
+    if (mosquitero > 0) ok.push("✔ Mosquitero");
+    if (guia > 0) ok.push("✔ Guía");
+    if (cortinaPVC > 0) ok.push("✔ Cortina PVC");
+    if (cortinaAluminio > 0) ok.push("✔ Cortina Aluminio");
+    if (cajonBlock > 0) ok.push("✔ Cajón Block");
+    if (premarco > 0) ok.push("✔ Premarco");
+    if (contramarco > 0) ok.push("✔ Contramarco");
   }
 
   // =========================
@@ -63,6 +98,38 @@ function auditarPatagonicasModena(resultado) {
       ok.push(`✔ Paso ${paso}`);
     else errores.push(`No existe paso ${paso}`);
   });
+
+  // =========================
+  // ÚLTIMO PASO DE COSTO
+  // =========================
+
+  const pasosCosto = [
+    "Color",
+    "Mosquitero",
+    "Guía",
+    "Cortina PVC",
+    "Cortina Aluminio",
+    "Cajón Block",
+    "Premarco",
+    "Contramarco",
+  ];
+
+  const ultimoPasoCosto = [...(resultado.audit || [])]
+    .reverse()
+    .find((p) => pasosCosto.includes(p.etapa));
+
+  if (!ultimoPasoCosto) {
+    advertencias.push("No existe paso de costo");
+  } else {
+    ok.push("✔ Último paso de costo");
+
+    if (
+      Math.round(Number(ultimoPasoCosto.valorDespues)) !==
+      Math.round(Number(resultado.costo))
+    ) {
+      errores.push("El costo final no coincide con el último paso de costo");
+    }
+  }
 
   // =========================
   // PERFIL
@@ -83,6 +150,7 @@ function auditarPatagonicasModena(resultado) {
       errores.push("Precio final distinto al calculado en Perfil");
     }
   }
+
   return {
     ok,
     advertencias,

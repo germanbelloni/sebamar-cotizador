@@ -62,6 +62,22 @@ function auditarVentanasAbrir(resultado) {
       resultado.items.find((i) => i.tipo === "mosquitero")?.precio || 0,
     );
 
+    const guia = Number(
+      resultado.items.find((i) => i.tipo === "guia")?.precio || 0,
+    );
+
+    const cortinaPVC = Number(
+      resultado.items.find((i) => i.tipo === "cortina_pvc")?.precio || 0,
+    );
+
+    const cortinaAluminio = Number(
+      resultado.items.find((i) => i.tipo === "cortina_aluminio")?.precio || 0,
+    );
+
+    const cajonBlock = Number(
+      resultado.items.find((i) => i.tipo === "cajon_block")?.precio || 0,
+    );
+
     const premarco = Number(
       resultado.items.find((i) => i.tipo === "premarco")?.precio || 0,
     );
@@ -93,6 +109,10 @@ function auditarVentanasAbrir(resultado) {
 
     if (cp8 > 0) ok.push("✔ CP8");
     if (mosquitero > 0) ok.push("✔ Mosquitero");
+    if (guia > 0) ok.push("✔ Guía");
+    if (cortinaPVC > 0) ok.push("✔ Cortina PVC");
+    if (cortinaAluminio > 0) ok.push("✔ Cortina Aluminio");
+    if (cajonBlock > 0) ok.push("✔ Cajón Block");
     if (premarco > 0) ok.push("✔ Premarco");
     if (contramarco > 0) ok.push("✔ Contramarco");
   }
@@ -116,20 +136,42 @@ function auditarVentanasAbrir(resultado) {
   }
 
   // =========================
-  // COLOR
+  // ÚLTIMO PASO DE COSTO
   // =========================
 
-  const pasoColor = resultado.audit?.find((p) => p.etapa === "Color");
+  const pasosCosto = [
+    "Color",
+    "Mosquitero",
+    "Guía",
+    "Cortina PVC",
+    "Cortina Aluminio",
+    "Cajón Block",
+    "Premarco",
+    "Contramarco",
+    "CP8",
+  ];
 
-  if (!pasoColor) {
-    advertencias.push("No existe paso Color");
+  const ultimoPasoCosto = [...(resultado.audit || [])]
+    .reverse()
+    .find((p) => pasosCosto.includes(p.etapa));
+
+  if (!ultimoPasoCosto) {
+    advertencias.push("No existe paso de costo");
   } else {
     ok.push("✔ Paso Color");
+
+    if (
+      Math.round(Number(ultimoPasoCosto.valorDespues)) !==
+      Math.round(Number(resultado.costo))
+    ) {
+      errores.push("El costo final no coincide con el último paso de costo");
+    }
   }
 
   // =========================
   // PERFIL
   // =========================
+
   const pasoPerfil = resultado.audit?.find((p) => p.etapa === "Perfil");
 
   if (!pasoPerfil) {
