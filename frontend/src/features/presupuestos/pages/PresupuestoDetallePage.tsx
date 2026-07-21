@@ -37,7 +37,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Eye, Download } from "lucide-react";
+import { Eye, Download, Loader2 } from "lucide-react";
 
 type Props = {
   presupuestoId: string;
@@ -59,7 +59,7 @@ export function PresupuestoDetallePage({
   const canViewFinancial =
     user?.role === "admin" || user?.role === "superadmin";
 
-  const { view, download } = usePresupuestoPdf();
+  const { view, save, saveAs } = usePresupuestoPdf();
 
   const navigate = useNavigate();
 
@@ -75,6 +75,7 @@ export function PresupuestoDetallePage({
 
   const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
   const [editing, setEditing] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -485,22 +486,65 @@ export function PresupuestoDetallePage({
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => view(presupuestoId)}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Ver PDF
+                  <DropdownMenuItem
+                    disabled={pdfLoading}
+                    onClick={async () => {
+                      try {
+                        setPdfLoading(true);
+
+                        await view(presupuestoId);
+                      } finally {
+                        setPdfLoading(false);
+                      }
+                    }}
+                  >
+                    {pdfLoading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Eye className="mr-2 h-4 w-4" />
+                    )}
+
+                    {pdfLoading ? "Generando PDF..." : "Ver PDF"}
                   </DropdownMenuItem>
 
                   <DropdownMenuItem
-                    onClick={() =>
-                      download(
-                        presupuestoId,
-                        data.cliente || "SIN CLIENTE",
-                        data.fecha ?? new Date().toISOString(),
-                      )
-                    }
+                    disabled={pdfLoading}
+                    onClick={async () => {
+                      try {
+                        setPdfLoading(true);
+
+                        await save(
+                          presupuestoId,
+                          data.cliente || "SIN CLIENTE",
+                          data.fecha ?? new Date().toISOString(),
+                        );
+                      } finally {
+                        setPdfLoading(false);
+                      }
+                    }}
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Descargar PDF
+                    Guardar
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem
+                    disabled={pdfLoading}
+                    onClick={async () => {
+                      try {
+                        setPdfLoading(true);
+
+                        await saveAs(
+                          presupuestoId,
+                          data.cliente || "SIN CLIENTE",
+                          data.fecha ?? new Date().toISOString(),
+                        );
+                      } finally {
+                        setPdfLoading(false);
+                      }
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Guardar como...
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -512,7 +556,7 @@ export function PresupuestoDetallePage({
                   total: data.total,
                 }}
                 onPdf={() =>
-                  download(
+                  save(
                     presupuestoId,
                     data.cliente || "SIN CLIENTE",
                     data.fecha ?? new Date().toISOString(),

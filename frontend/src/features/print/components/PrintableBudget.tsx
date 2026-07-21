@@ -16,7 +16,7 @@ import { PrintableBudgetRenderer } from "../render/PrintableBudgetRenderer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { budgetToWhatsApp } from "@/shared/budget/serializers/budgetToWhatsApp";
-import { openPdf } from "@/features/presupuestos/api/openPdf";
+import { usePresupuestoPdf } from "@/features/presupuestos/hooks/usePresupuestoPdf";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { useUpdatePresupuestoCompleto } from "@/features/presupuestos/hooks/useUpdatePresupuestoCompleto";
 
@@ -54,6 +54,7 @@ export function PrintableBudget({
 
   const guardarMutation = useGuardarPresupuesto();
   const updateMutation = useUpdatePresupuestoCompleto();
+  const { view, save, saveAs } = usePresupuestoPdf();
   const isSaving = guardarMutation.isPending || updateMutation.isPending;
   const editingPresupuestoId = useBudgetStore(
     (state) => state.editingPresupuestoId,
@@ -242,18 +243,35 @@ export function PrintableBudget({
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => openPdf(presupuestoGuardado.id)}
-                >
+                <DropdownMenuItem onClick={() => view(presupuestoGuardado.id)}>
                   <Eye className="mr-2 h-4 w-4" />
                   Ver PDF
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
-                  onClick={() => openPdf(presupuestoGuardado.id)}
+                  onClick={() =>
+                    save(
+                      presupuestoGuardado.id,
+                      cliente.nombre || "SIN CLIENTE",
+                      fecha,
+                    )
+                  }
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Descargar PDF
+                  Guardar
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() =>
+                    saveAs(
+                      presupuestoGuardado.id,
+                      cliente.nombre || "SIN CLIENTE",
+                      fecha,
+                    )
+                  }
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Guardar como...
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

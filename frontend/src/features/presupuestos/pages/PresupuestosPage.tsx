@@ -1,5 +1,5 @@
 import { FileText, Eye, Download } from "lucide-react";
-import { openPdf } from "../api/openPdf";
+import { usePresupuestoPdf } from "../hooks/usePresupuestoPdf";
 
 import { usePresupuestos } from "../hooks/usePresupuestos";
 import { useState } from "react";
@@ -36,6 +36,8 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
   const { data, isLoading } = usePresupuestos();
 
   const user = useAuthStore((state) => state.user);
+
+  const { view, save, saveAs } = usePresupuestoPdf();
 
   const isSuperAdmin = user?.role === "superadmin";
 
@@ -262,14 +264,35 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => openPdf(presupuesto.id)}>
+                      <DropdownMenuItem onClick={() => view(presupuesto.id)}>
                         <Eye className="mr-2 h-4 w-4" />
                         Ver PDF
                       </DropdownMenuItem>
 
-                      <DropdownMenuItem onClick={() => openPdf(presupuesto.id)}>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          save(
+                            presupuesto.id,
+                            presupuesto.cliente || "SIN CLIENTE",
+                            presupuesto.fecha,
+                          )
+                        }
+                      >
                         <Download className="mr-2 h-4 w-4" />
-                        Descargar PDF
+                        Guardar
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem
+                        onClick={() =>
+                          saveAs(
+                            presupuesto.id,
+                            presupuesto.cliente || "SIN CLIENTE",
+                            presupuesto.fecha,
+                          )
+                        }
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Guardar como...
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

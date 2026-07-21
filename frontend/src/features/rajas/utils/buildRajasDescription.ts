@@ -17,6 +17,11 @@ function getProductoLabel(modelo: RajasConfig["modelo"]) {
 }
 
 export function buildRajasDescription(config: RajasConfig) {
+  const descripcionVidrio =
+    !config.tipoVidrio || config.tipoVidrio === "3mm"
+      ? ""
+      : `vidrio ${config.tipoVidrio}`;
+
   return `
     ${getProductoLabel(config.modelo)}
     ${config.ancho}x${config.alto}
@@ -24,7 +29,7 @@ export function buildRajasDescription(config: RajasConfig) {
     ${config.color}
     ${config.bisagra ? `bisagra ${config.bisagra}` : ""}
     ${config.linea}
-    vidrio ${config.tipoVidrio || "4mm"}
+    ${descripcionVidrio}
     ${config.mosquitero ? "mosquitero fijo" : ""}
     ${config.premarco ? "c/premarco" : ""}
     ${config.contramarco ? "c/contramarco" : ""}

@@ -9,7 +9,7 @@ module.exports = {
     modena: {
       descuento: 0.07,
       flete: 0.06,
-      ganancia: 0.3,  
+      ganancia: 0.3,
     },
 
     mosquiteros: {
@@ -19,16 +19,16 @@ module.exports = {
     },
 
     moscas: {
-      aumento1: 0.08,
-      aumento2: 0.15,
+      aumento1: 0.35,
+      aumento2: 0,
       ganancia: 0.6,
     },
 
     // 🚪 PLACAS
     placa: {
-      descuento: 0.09,
+      descuento: 0,
       ganancia: 0.3,
-      aumento: 0.05, // 🔥 NUEVO
+      aumento: 0, // 🔥 NUEVO
     },
     premarcos: {
       descuento: 0.07,
@@ -62,15 +62,15 @@ module.exports = {
     },
 
     moscas: {
-      aumento1: 0.08,
-      aumento2: 0.15,
+      aumento1: 0.35,
+      aumento2: 0,
       ganancia: 0.6,
     },
 
     placa: {
-      descuento: 0.09,
+      descuento: 0,
       ganancia: 0.3,
-      aumento: 0.05,
+      aumento: 0,
     },
     premarcos: {
       descuento: 0.07,
@@ -104,15 +104,15 @@ module.exports = {
     },
 
     moscas: {
-      aumento1: 0.08,
-      aumento2: 0.15,
+      aumento1: 0.35,
+      aumento2: 0,
       ganancia: 0.6,
     },
 
     placa: {
-      descuento: 0.09,
+      descuento: 0,
       ganancia: 0.3,
-      aumento: 0.05,
+      aumento: 0,
     },
     premarcos: {
       descuento: 0.07,

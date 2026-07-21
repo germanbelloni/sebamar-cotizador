@@ -18,14 +18,17 @@ export function buildVentanaDescription(config: VentanaConfig) {
   ]
     .filter(Boolean)
     .join(" ");
-
+  const descripcionVidrio =
+    !config.tipoVidrio || config.tipoVidrio === "3mm"
+      ? ""
+      : `vidrio ${config.tipoVidrio}`;
   return `
     Ventana
     ${config.ancho}x${config.alto}
     aluminio
     ${config.color}
     ${config.linea}
-    vidrio ${config.tipoVidrio || "4mm"}
+    ${descripcionVidrio}
     ${extras}
   `
     .replace(/\s+/g, " ")

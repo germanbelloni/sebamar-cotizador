@@ -28,7 +28,14 @@ export function buildPortonesDescription(config: PortonesConfig) {
   parts.push(config.modelo.replaceAll("_", " "));
 
   // VIDRIO
-  parts.push(`vidrio ${config.tipoVidrio || "4mm"}`);
+  const descripcionVidrio =
+    !config.tipoVidrio || config.tipoVidrio === "3mm"
+      ? ""
+      : `vidrio ${config.tipoVidrio}`;
+
+  if (descripcionVidrio) {
+    parts.push(descripcionVidrio);
+  }
 
   // EXTRAS
   if (config.extras.barralRecto) {

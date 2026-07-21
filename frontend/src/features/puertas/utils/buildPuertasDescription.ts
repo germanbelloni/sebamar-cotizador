@@ -109,8 +109,14 @@ export function buildPuertasDescription(config: PuertasConfig) {
     config.modelo !== "modelo_5" &&
     config.modelo !== "modelo_panel" &&
     config.modelo !== "modelo_c_panel";
-  if (llevaVidrio && config.vidrio) {
-    parts.push(`vidrio ${formatVidrio(config.vidrio)}`);
+
+  const descripcionVidrio =
+    config.vidrio && config.vidrio !== "3mm"
+      ? `vidrio ${formatVidrio(config.vidrio)}`
+      : "";
+
+  if (llevaVidrio && descripcionVidrio) {
+    parts.push(descripcionVidrio);
   }
   // =========================
   // EXTRAS
