@@ -10,6 +10,10 @@ const calcularPatagonica = require(
   fromRoot("backend/services/patagonicas/calcularPatagonicaModena"),
 );
 
+const calcularPrecioCortina = require(
+  fromRoot("backend/services/cortinas/calcularPrecioCortina"),
+);
+
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
 const colores = require(fromRoot("backend/data/colores.json"));
@@ -49,9 +53,8 @@ function aplicarColor(items, color) {
     };
   });
 }
-
-const calcularM2 = (a, h) => (a * h) / 10000;
 const calcularML = (a, h) => (a * 2 + h * 2) / 100;
+const calcularM2 = (a, h) => (a * h) / 10000;
 
 // =========================
 // 🚀 WRAPPER
@@ -223,7 +226,6 @@ function calcularWrapper(dataInput) {
       costoBase: base.costoBase,
     },
   });
-
   const m2 = calcularM2(ancho, alto);
   const ml = calcularML(ancho, alto);
 
@@ -252,57 +254,74 @@ function calcularWrapper(dataInput) {
 
   // PVC
   if (guia && cortina === "pvc") {
-    const precioM2 =
-      superficies.superficies.cortinas_modulo.pvc.reforzada.completa;
+    const resultadoCortina = calcularPrecioCortina({
+      tipo: "cortina",
+      material: "pvc",
+      calidad: "reforzada",
+      construccion: "completa",
+      ancho,
+      alto,
+    });
 
-    const c = Number(precioM2 || 0) * m2;
+    const c = resultadoCortina.costoBase;
 
     costo += c;
 
     items.push({
       tipo: "cortina_pvc",
-      precio: Math.round(c),
+      precio: c,
     });
 
     audit.add({
       etapa: "Cortina PVC",
       tipo: "extra",
-      origen: "superficies.json",
+      origen: "calcularPrecioCortina",
       valorAntes: costo - c,
       valorAplicado: c,
       valorDespues: costo,
     });
   }
-
   // ALUMINIO
   if (guia && cortina === "aluminio") {
-    const precioM2 =
-      color === "simil_madera"
-        ? superficies.superficies.cortinas_modulo.aluminio.simil_madera.completa
-        : superficies.superficies.cortinas_modulo.aluminio.blanco.completa;
+    const resultadoCortina = calcularPrecioCortina({
+      tipo: "cortina",
+      material: "aluminio",
+      construccion: "completa",
+      color: color === "simil_madera" ? "simil_madera" : "blanco",
+      ancho,
+      alto,
+    });
 
-    const c = Number(precioM2 || 0) * m2;
+    const c = resultadoCortina.costoBase;
 
     costo += c;
 
     items.push({
       tipo: "cortina_aluminio",
-      precio: Math.round(c),
+      precio: c,
     });
 
     audit.add({
       etapa: "Cortina Aluminio",
       tipo: "extra",
-      origen: "superficies.json",
+      origen: "calcularPrecioCortina",
       valorAntes: costo - c,
       valorAplicado: c,
       valorDespues: costo,
     });
   }
 
-  // CAJÓN BLOCK
+  // 📦 CAJÓN BLOCK
   if (guia && cajonBlock) {
-    const c = Number(superficies.superficies.cajon_block || 0);
+    const resultadoCajon = calcularPrecioCortina({
+      tipo: "cajon_block",
+      material: "aluminio",
+      color: color === "simil_madera" ? "simil_madera" : "blanco",
+      ancho,
+      alto,
+    });
+
+    const c = resultadoCajon.costoBase;
 
     costo += c;
 
@@ -314,12 +333,14 @@ function calcularWrapper(dataInput) {
     audit.add({
       etapa: "Cajón Block",
       tipo: "extra",
-      origen: "superficies.json",
+      origen: "calcularPrecioCortina",
       valorAntes: costo - c,
       valorAplicado: c,
       valorDespues: costo,
     });
   }
+
+  //premarco
   if (premarco) {
     const c = Number(superficies.superficies.premarco || 0) * ml;
 

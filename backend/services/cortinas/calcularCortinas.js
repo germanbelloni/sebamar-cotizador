@@ -1,14 +1,6 @@
 const { fromRoot } = require("../../utils/path");
 
-const data = require(fromRoot("backend/data/productos/superficies.json"));
-
-// ======================
-// 🎯 HELPERS
-// ======================
-
-function calcularM2(ancho, alto) {
-  return (Number(ancho) * Number(alto)) / 10000;
-}
+const calcularPrecioCortina = require("./calcularPrecioCortina");
 
 // ======================
 // 🧠 MAIN
@@ -49,60 +41,16 @@ function calcularCortinas(dataInput) {
   const altoCalculado =
     tipo === "varillas" ? Number(cantidad) * 5 : Number(alto);
 
-  const m2 = calcularM2(ancho, altoCalculado);
-
-  let precioM2 = 0;
-
-  // ======================
-  // 🪟 VARILLAS
-  // ======================
-
-  if (tipo === "varillas") {
-    precioM2 = data.superficies.varillas;
-  }
-
-  // ======================
-  // 📦 CAJON BLOCK
-  // ======================
-  else if (tipo === "cajon_block") {
-    precioM2 = data.superficies.cajon_block_precios?.[material];
-  }
-
-  // ======================
-  // 🪟 CORTINA PVC
-  // ======================
-  else if (tipo === "cortina" && material === "pvc") {
-    if (!calidad || !construccion) {
-      throw new Error("Faltan datos de la cortina PVC");
-    }
-
-    precioM2 = data.superficies.cortinas_modulo?.pvc?.[calidad]?.[construccion];
-  }
-
-  // ======================
-  // 🪟 CORTINA ALUMINIO
-  // ======================
-  else if (tipo === "cortina" && material === "aluminio") {
-    if (!color || !construccion) {
-      throw new Error("Faltan datos de la cortina de aluminio");
-    }
-
-    precioM2 =
-      data.superficies.cortinas_modulo?.aluminio?.[color]?.[construccion];
-  }
-
-  // ======================
-  // ❌ INVALIDO
-  // ======================
-  else {
-    throw new Error("Configuración inválida");
-  }
-
-  if (precioM2 == null) {
-    throw new Error("No existe precio configurado");
-  }
-
-  const costoBase = m2 * precioM2;
+  const { costoBase, precioM2, m2, anchoFinal, altoFinal } =
+    calcularPrecioCortina({
+      tipo,
+      material,
+      calidad,
+      construccion,
+      color,
+      ancho,
+      alto: altoCalculado,
+    });
 
   // ======================
   // 🧾 ITEMS
@@ -123,6 +71,13 @@ function calcularCortinas(dataInput) {
   return {
     costoBase: Math.round(costoBase),
 
+    anchoFinal,
+    altoFinal,
+
+    m2,
+
+    precioM2,
+
     items,
 
     configuracion: {
@@ -135,9 +90,8 @@ function calcularCortinas(dataInput) {
       ancho,
       alto,
 
-      anchoFinal: tipo === "cajon_block" ? Number(ancho) + 8 : null,
-
-      altoFinal: tipo === "cajon_block" ? Number(alto) + 18 : null,
+      anchoFinal,
+      altoFinal,
     },
   };
 }
