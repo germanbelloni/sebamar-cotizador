@@ -74,6 +74,8 @@ async function runCalculation(req, res, name, callback) {
     console.log(payload);
 
     const result = await callback(payload);
+    console.log("========== WRAPPER RESPONSE ==========");
+    console.log(JSON.stringify(result, null, 2));
 
     const pricingUser = await resolvePricingUser(req.user);
 
