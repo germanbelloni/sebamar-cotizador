@@ -271,6 +271,27 @@ function calcularWrapper(data) {
   }
 
   // =========================
+  // 🪟 MARCO ANCHO
+  // =========================
+
+  if (tipo === "abrir" && marco === "ancho") {
+    const antes = costoBase;
+
+    costoBase *= 1.05;
+
+    audit.add({
+      etapa: "Marco Ancho",
+      tipo: "extra",
+      descripcion: "Recargo marco ancho",
+      origen: "wrapper",
+      referencia: "ancho",
+      valorAntes: antes,
+      valorAplicado: costoBase - antes,
+      valorDespues: costoBase,
+      porcentaje: 0.05,
+    });
+  }
+  // =========================
   // ➕ EXTRAS
   // =========================
 
