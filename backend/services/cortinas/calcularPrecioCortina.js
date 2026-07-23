@@ -1,4 +1,4 @@
-const { fromRoot } = require("../../backend/utils/path");
+const { fromRoot } = require("../../utils/path");
 
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),

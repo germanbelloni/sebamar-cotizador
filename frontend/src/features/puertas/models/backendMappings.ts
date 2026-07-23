@@ -1,65 +1,69 @@
 export const BACKEND_MODEL_MAPPINGS = {
   herrero: {
-    m1: "modelo 1",
-
-    m1vr: "modelo 1 vr",
-
-    m2: "modelo 2",
+    modelo_1: "modelo 1",
+    modelo_1_vr: "modelo 1 vr",
+    modelo_2: "modelo 2",
+    modelo_3: "modelo 3",
+    modelo_3_vr: "modelo 3 vr",
+    modelo_4: "modelo 4",
+    modelo_4_vr: "modelo 4 vr",
+    modelo_5: "modelo 5",
+    modelo_6: "modelo 6",
+    modelo_7: "modelo 7",
+    modelo_8: "modelo 8",
+    modelo_9: "modelo 9",
+    modelo_10: "modelo 10",
+    modelo_10_vr: "modelo 10 vr",
+    modelo_11: "modelo 11",
+    modelo_12: "modelo 12",
+    modelo_panel: "modelo panel",
 
     v_entero: "v/entero",
-
     v_repartido: "v/repartido",
-
     "3_4_v_entero": "3/4 v entero",
-
     "3_4_v_repartido": "3/4 v repartido",
-
     "1_2_v_entero": "1/2 v entero",
-
     "1_2_v_repartido": "1/2 v repartido",
-
     "4_travesanos": "4 travezaños",
-
     "1_travesano": "1 travesaño",
   },
 
   modena: {
-    m1: "modelo 1",
-
-    m1vr: "modelo 1 vr",
-
-    m2: "modelo 2",
+    modelo_1: "modelo 1",
+    modelo_1_vr: "modelo 1 vr",
+    modelo_2: "modelo 2",
+    modelo_3: "modelo 3",
+    modelo_3_vr: "modelo 3 vr",
+    modelo_4: "modelo 4",
+    modelo_4_vr: "modelo 4 vr",
+    modelo_5: "modelo 5",
+    modelo_6: "modelo 6",
+    modelo_7: "modelo 7",
+    modelo_8: "modelo 8",
+    modelo_9: "modelo 9",
+    modelo_10: "modelo 10",
+    modelo_10_vr: "modelo 10 vr",
+    modelo_11: "modelo 11",
+    modelo_12: "modelo 12",
+    modelo_c_panel: "modelo c/panel",
 
     v_entero: "v/entero",
-
     v_repartido: "v/repartido",
-
     "3_4_v_entero": "3/4 v entero",
-
     "3_4_v_repartido": "3/4 v repartido",
-
     "1_2_v_entero": "1/2 v entero",
-
     "1_2_v_repartido": "1/2 v repartido",
-
     "4_travesanos": "4 travezaños",
-
     "1_travesano": "1 travesaño",
   },
 
   eco: {
-    m1vr: "modelo 1 vr",
-
-    m2: "modelo 2",
-
-    m3: "modelo 3",
-
-    m3vr: "modelo 3vr", // legacy raro del json
-
-    m4: "modelo 4",
-
-    m4vr: "modelo 4 vr",
-
-    m5: "modelo 5",
+    modelo_1_vr: "modelo 1 vr",
+    modelo_2: "modelo 2",
+    modelo_3: "modelo 3",
+    modelo_3_vr: "modelo 3vr", // Se mantiene porque así está el JSON legacy
+    modelo_4: "modelo 4",
+    modelo_4_vr: "modelo 4 vr",
+    modelo_5: "modelo 5",
   },
 };

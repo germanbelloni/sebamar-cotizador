@@ -26,20 +26,18 @@ function normalizarMedida(medida) {
 
 function calcularVidrio(datos, ancho, alto, tipoVidrio) {
   if (!tipoVidrio) return 0;
+
   const vidrioNormalizado = String(tipoVidrio).toLowerCase().trim();
 
-  const vidrio = String(tipoVidrio).trim().toLowerCase();
-
+  // ✅ DVH 4+9+4: usar los valores de la lista (JSON)
   if (["dvh", "dvh 4+9+4", "dvh_4_9_4"].includes(vidrioNormalizado)) {
-    const m2 = (ancho * alto) / 10000;
-    const ml = ((ancho + alto) * 2) / 100;
+    const vidrio4 = Number(datos.vidrios?.["4mm"] || 0);
+    const camara = Number(datos.camara || 0);
 
-    const vidrio4 = superficies.vidrios["4mm"] || 0;
-    const camara = superficies.vidrios["dvh"] || 0;
-
-    return m2 * vidrio4 * 2 + ml * camara;
+    return vidrio4 * 2 + camara;
   }
 
+  // ✅ DVH 5+9+5: calcular desde superficies
   if (["dvh 5+9+5", "dvh_5_9_5"].includes(vidrioNormalizado)) {
     const m2 = (ancho * alto) / 10000;
     const ml = ((ancho + alto) * 2) / 100;
@@ -50,11 +48,14 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
     return m2 * vidrio5 * 2 + ml * camara;
   }
 
+  // ✅ Laminado 4+4: calcular desde superficies
   if (vidrioNormalizado === "4+4") {
     const m2 = (ancho * alto) / 10000;
+
     return m2 * (superficies.vidrios["4+4"] || 0);
   }
 
+  // ✅ 4mm y 3+3: usar la lista
   return datos.vidrios?.[tipoVidrio] || 0;
 }
 // =========================

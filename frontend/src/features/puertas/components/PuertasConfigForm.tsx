@@ -89,7 +89,10 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
   const modelos = getAvailableDoorModels(config.linea);
   const modelosVisuales = [...modelos];
 
-  const indexPanel = modelosVisuales.indexOf("modelo_panel");
+  const panelKey =
+    config.linea === "modena" ? "modelo_c_panel" : "modelo_panel";
+
+  const indexPanel = modelosVisuales.indexOf(panelKey);
 
   if (indexPanel !== -1) {
     modelosVisuales.splice(
@@ -120,7 +123,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       .replace("modelo_", "m")
       .replaceAll(" ", "")
       .replaceAll("_", "");
-    if (modelo === "modelo_c_panel") {
+    if (modelo === "modelo_panel" || modelo === "modelo_c_panel") {
       normalized = "mpanel";
     }
 
@@ -159,7 +162,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     return `/assets/puertas/${folder}/${filename}.png`;
   };
   const getModeloLabel = (modelo: string) => {
-    if (modelo === "modelo_panel") {
+    if (modelo === "modelo_panel" || modelo === "modelo_c_panel") {
       return "Panel";
     }
 
@@ -177,21 +180,24 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       .replaceAll("_", " ");
   };
 
+  const panelModel =
+    config.linea === "modena" ? "modelo_c_panel" : "modelo_panel";
+
   const isModeloSelected = (modelo: string) => {
-    if (modelo === "modelo_panel") {
+    if (modelo === "modelo_panel" || modelo === "modelo_c_panel") {
       return (
-        config.modelo === "modelo_panel" &&
+        config.modelo === panelModel &&
         !config.extras?.barralRecto &&
         !config.extras?.barralCurvo
       );
     }
 
     if (modelo === "modelo_panel_barral_recto") {
-      return config.modelo === "modelo_panel" && !!config.extras?.barralRecto;
+      return config.modelo === panelModel && !!config.extras?.barralRecto;
     }
 
     if (modelo === "modelo_panel_barral_curvo") {
-      return config.modelo === "modelo_panel" && !!config.extras?.barralCurvo;
+      return config.modelo === panelModel && !!config.extras?.barralCurvo;
     }
 
     return config.modelo === modelo;
@@ -374,66 +380,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           (empujando).
         </AlertBox>
 
-        {/* <FormSection title="Modelo">
-          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
-            {modelosVisuales.map((modelo: string) => (
-              <ModelImageCard
-                key={modelo}
-                imageSrc={getImageSrc(modelo)}
-                label={getModeloLabel(modelo)}
-                selected={isModeloSelected(modelo)}
-                onClick={() => {
-                  if (modelo === "modelo_panel") {
-                    updateConfig({
-                      modelo: "modelo_panel",
-                      extras: {
-                        ...config.extras,
-                        barralRecto: 0,
-                        barralCurvo: 0,
-                        picaporte: false,
-                        mediaManija: false,
-                      },
-                    });
-                    return;
-                  }
-
-                  if (modelo === "modelo_panel_barral_recto") {
-                    updateConfig({
-                      modelo: "modelo_panel",
-                      extras: {
-                        ...config.extras,
-                        barralRecto: 1,
-                        barralCurvo: 0,
-                        picaporte: false,
-                        mediaManija: false,
-                      },
-                    });
-                    return;
-                  }
-
-                  if (modelo === "modelo_panel_barral_curvo") {
-                    updateConfig({
-                      modelo: "modelo_panel",
-                      extras: {
-                        ...config.extras,
-                        barralRecto: 0,
-                        barralCurvo: 1,
-                        picaporte: false,
-                        mediaManija: false,
-                      },
-                    });
-                    return;
-                  }
-
-                  updateConfig({
-                    modelo,
-                  });
-                }}
-              />
-            ))}
-          </div>
-        </FormSection> */}
-
         <FormSection title="Modelo">
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => {
@@ -446,9 +392,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                   label={getModeloLabel(modelo)}
                   selected={isModeloSelected(modelo)}
                   onClick={() => {
-                    if (modelo === "modelo_panel") {
+                    if (
+                      modelo === "modelo_panel" ||
+                      modelo === "modelo_c_panel"
+                    ) {
                       updateConfig({
-                        modelo: "modelo_panel",
+                        modelo: panelModel,
                         extras: {
                           ...config.extras,
                           barralRecto: 0,
@@ -462,7 +411,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
                     if (modelo === "modelo_panel_barral_recto") {
                       updateConfig({
-                        modelo: "modelo_panel",
+                        modelo: panelModel,
                         extras: {
                           ...config.extras,
                           barralRecto: 1,
@@ -476,7 +425,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
                     if (modelo === "modelo_panel_barral_curvo") {
                       updateConfig({
-                        modelo: "modelo_panel",
+                        modelo: panelModel,
                         extras: {
                           ...config.extras,
                           barralRecto: 0,

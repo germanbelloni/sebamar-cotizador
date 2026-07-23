@@ -182,50 +182,52 @@ export function PuertasExtrasSection({
       </SelectableCard>
 
       {/* BARRA ANTIPÁNICO */}
-
       {(tipoConfiguracion !== "porton" || tipoPorton === "abrir") && (
-        <SelectableCard
-          selected={!!barraAntipanico}
-          onClick={() => {
-            if (barraAntipanico) {
-              onSelectBarraAntipanico(0, "izquierda");
-            } else {
-              onSelectBarraAntipanico(1, "izquierda");
-            }
-          }}
-        >
-          <div className="space-y-2">
-            <div
-              className="
-                flex
-                h-16
-                items-center
-                justify-center
-                rounded-xl
-                border border-white/5
-                bg-black/20
-              "
-            >
-              <svg width="60" height="28">
-                <line
-                  x1="10"
-                  y1="14"
-                  x2="50"
-                  y2="14"
-                  stroke="rgba(255,255,255,0.85)"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                />
+        <>
+          <SelectableCard
+            selected={!!barraAntipanico}
+            onClick={() => {
+              if (barraAntipanico) {
+                onSelectBarraAntipanico(0, "izquierda");
+              } else {
+                onSelectBarraAntipanico(1, "izquierda");
+              }
+            }}
+          >
+            <div className="space-y-2">
+              <div
+                className="
+            flex
+            h-16
+            items-center
+            justify-center
+            rounded-xl
+            border border-white/5
+            bg-black/20
+          "
+              >
+                <svg width="60" height="28">
+                  <line
+                    x1="10"
+                    y1="14"
+                    x2="50"
+                    y2="14"
+                    stroke="rgba(255,255,255,0.85)"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="10" cy="14" r="3" fill="rgba(255,255,255,0.85)" />
+                  <circle cx="50" cy="14" r="3" fill="rgba(255,255,255,0.85)" />
+                </svg>
+              </div>
 
-                <circle cx="10" cy="14" r="3" fill="rgba(255,255,255,0.85)" />
-
-                <circle cx="50" cy="14" r="3" fill="rgba(255,255,255,0.85)" />
-              </svg>
+              <div className="text-sm font-medium">Barra antipánico</div>
             </div>
+          </SelectableCard>
 
-            <div className="text-sm font-medium">Barra antipánico</div>
-          </div>
-        </SelectableCard>
+          {/* Celda vacía para mantener alineados Premarco y Contramarco */}
+          {linea === "modena" && <div />}
+        </>
       )}
 
       {barraAntipanico ? (
@@ -258,7 +260,6 @@ export function PuertasExtrasSection({
           </div>
         </div>
       ) : null}
-
       {linea === "modena" && (
         <>
           <SelectableCard selected={!!premarco} onClick={onTogglePremarco}>
