@@ -1,8 +1,5 @@
 const { fromRoot } = require("../../backend/utils/path");
-
-const { necesitaDobleTravesano, necesitaBisagrasExtra } = require(
-  fromRoot("backend/utils/portonRules"),
-);
+s;
 
 const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),
@@ -45,6 +42,10 @@ function calcularPortonWrapper(dataInput) {
     premarco = false,
     contramarco = false,
   } = dataInput;
+
+  const puertas = require(
+    fromRoot(`backend/data/productos/puertas_${linea}.json`),
+  );
 
   const sistema = sistemaInput || tipoPorton;
 
@@ -355,73 +356,44 @@ function calcularPortonWrapper(dataInput) {
       });
     }
   }
-  if (necesitaDobleTravesano({ sistema, hojas, modelo })) {
-    console.log("PORTON RULE", {
-      sistema,
-      hojas,
-      modelo,
-    });
-    const anchoCobrado = resultado.configuracion.anchoCobrado;
+  if (sistema === "abrir") {
+    const modelo1 = puertas.modelos["modelo 1"];
+    const modelo2 = puertas.modelos["modelo 2"];
 
-    const anchoMetros = anchoCobrado / 100;
+    if (!modelo1 || !modelo2) {
+      throw new Error(
+        "No se encontraron los modelos 1 y 2 para calcular el doble travesaño.",
+      );
+    }
 
-    const travesano =
-      (superficies.superficies?.travesano?.[linea] || 0) * anchoMetros;
+    const costoDobleTravesano =
+      (Number(modelo2.base || 0) - Number(modelo1.base || 0)) * hojas;
 
-    const costoTravesano = travesano * hojas;
+    const costoBisagras = (superficies.herrajes?.bisagra_extra || 0) * hojas;
 
-    costo += costoTravesano;
+    const extraAbrir = costoDobleTravesano + costoBisagras;
 
-    items.push({
-      tipo: "doble_travesano",
-      precio: Math.round(costoTravesano),
-    });
-    audit.add({
-      etapa: "Doble Travesaño",
-
-      tipo: "extra",
-
-      origen: "superficies.json",
-
-      valorAntes: costo - costoTravesano,
-
-      valorAplicado: costoTravesano,
-
-      valorDespues: costo,
-    });
-  }
-
-  if (
-    necesitaBisagrasExtra({
-      sistema,
-      hojas,
-      modelo,
-    })
-  ) {
-    const bisagras = (superficies.herrajes?.bisagra_extra || 0) * hojas;
-
-    costo += bisagras;
+    costo += extraAbrir;
 
     items.push({
-      tipo: "bisagras_extra",
-      descripcion: `${hojas} bisagras`,
-      precio: Math.round(bisagras),
+      tipo: "porton_abrir",
+      descripcion: "Doble travesaño + bisagras",
+      precio: Math.round(extraAbrir),
     });
+
     audit.add({
-      etapa: "Bisagras Extra",
-
+      etapa: "Portón Abrir",
       tipo: "extra",
-
-      origen: "superficies.json",
-
-      valorAntes: costo - bisagras,
-
-      valorAplicado: bisagras,
-
+      origen: "Regla Portones",
+      valorAntes: costo - extraAbrir,
+      valorAplicado: extraAbrir,
       valorDespues: costo,
+      metadata: {
+        dobleTravesano: costoDobleTravesano,
+        bisagras: costoBisagras,
+      },
     });
   }
-
   if (linea === "modena") {
     const ml = (dataInput.ancho * 2 + dataInput.alto * 2) / 100;
 
