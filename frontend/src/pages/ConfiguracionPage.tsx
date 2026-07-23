@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import api from "../lib/api";
 
 import { useAuthStore } from "../store/authStore";
+type EstadisticaUsuario = {
+  userId: string;
+  usuario: string;
+
+  generarPresupuesto: number;
+  copiarCarrito: number;
+  copiarPresupuesto: number;
+
+  hoy: number;
+  ultimos7Dias: number;
+  ultimos30Dias: number;
+
+  ultimaActividad: string;
+};
 
 export default function ConfiguracionPage() {
   const user = useAuthStore((state) => state.user);
@@ -33,6 +47,7 @@ export default function ConfiguracionPage() {
   );
 
   const [loading, setLoading] = useState(false);
+  const [estadisticas, setEstadisticas] = useState<EstadisticaUsuario[]>([]);
 
   async function handleGuardar() {
     try {
@@ -71,17 +86,33 @@ export default function ConfiguracionPage() {
     }
   }
 
+  useEffect(() => {
+    async function cargarEstadisticas() {
+      if (user?.role !== "superadmin") return;
+
+      try {
+        const { data } = await api.get("/estadisticas");
+
+        setEstadisticas(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    cargarEstadisticas();
+  }, [user]);
+
   return (
     <div className="p-10 text-white">
       <div
         className="
-          max-w-xl
-          rounded-3xl
-          border
-          border-border
-          bg-card
-          p-8
-        "
+  w-full
+  rounded-3xl
+  border
+  border-border
+  bg-card
+  p-8
+"
       >
         <h1
           className="
@@ -333,6 +364,63 @@ export default function ConfiguracionPage() {
         >
           {loading ? "Guardando..." : "Guardar configuración"}
         </button>
+        {user?.role === "superadmin" && (
+          <div
+            className="
+      mt-10
+      rounded-3xl
+      border
+      border-border
+      bg-card
+      p-8
+    "
+          >
+            <h2 className="text-2xl font-bold">Estadísticas de uso</h2>
+
+            <div className="mt-6 overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left">
+                    <th className="pb-3">Usuario</th>
+                    <th className="pb-3 text-center">Generó</th>
+                    <th className="pb-3 text-center">Copió carrito</th>
+                    <th className="pb-3 text-center">Copió presupuesto</th>
+
+                    <th className="pb-3 text-center">Hoy</th>
+                    <th className="pb-3 text-center">7 días</th>
+                    <th className="pb-3 text-center">30 días</th>
+
+                    <th className="pb-3">Última actividad</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {estadisticas.map((item) => (
+                    <tr key={item.userId} className="border-b border-border/30">
+                      <td className="py-3">{item.usuario}</td>
+
+                      <td className="text-center">{item.generarPresupuesto}</td>
+
+                      <td className="text-center">{item.copiarCarrito}</td>
+
+                      <td className="text-center">{item.copiarPresupuesto}</td>
+
+                      <td className="text-center">{item.hoy}</td>
+
+                      <td className="text-center">{item.ultimos7Dias}</td>
+
+                      <td className="text-center">{item.ultimos30Dias}</td>
+
+                      <td>
+                        {new Date(item.ultimaActividad).toLocaleString("es-AR")}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

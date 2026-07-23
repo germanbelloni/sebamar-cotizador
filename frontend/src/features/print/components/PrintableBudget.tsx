@@ -10,6 +10,7 @@ import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { useGuardarPresupuesto } from "@/shared/budget/hooks/useGuardarPresupuesto";
 
 import { budgetToApi } from "@/shared/budget/serializers/budgetToApi";
+import { registrarUso } from "@/services/registrarUso";
 
 import { PrintableBudgetRenderer } from "../render/PrintableBudgetRenderer";
 
@@ -147,6 +148,8 @@ export function PrintableBudget({
     });
 
     navigator.clipboard.writeText(text);
+
+    registrarUso("copiarPresupuesto");
 
     toast.success("Texto copiado al portapapeles.");
   }

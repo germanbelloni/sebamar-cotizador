@@ -11,7 +11,7 @@ import type { BudgetItem } from "@/shared/budget/types/budget.types";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
-
+import { registrarUso } from "@/services/registrarUso";
 import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudget";
 import { useNavigate } from "react-router-dom";
 type Props = {
@@ -48,8 +48,9 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
       items,
       total: total(),
     });
-
     navigator.clipboard.writeText(text);
+
+    registrarUso("copiarCarrito");
 
     toast.success("Texto copiado al portapapeles.");
   }
@@ -299,6 +300,7 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
                     await import("@/features/presupuestos/api/getNuevoNumero");
 
                   const numero = await getNuevoNumero();
+                  await registrarUso("generarPresupuesto");
 
                   const data = buildPrintableBudget(
                     numero,
