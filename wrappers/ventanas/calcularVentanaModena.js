@@ -109,6 +109,13 @@ function calcularVentanaModena(dataInput) {
   const medida = `${formatearMedida(ancho)}x${formatearMedida(
     alto > 200 ? 200 : alto,
   )}`;
+  const base = calcularVentana({
+    medida,
+    tipoVidrio,
+    incluirGuia: guia,
+    incluirMosquitero: mosquitero,
+    linea: "modena",
+  });
   audit.add({
     etapa: "Lookup",
 
@@ -116,21 +123,13 @@ function calcularVentanaModena(dataInput) {
 
     origen: "ventanas_modena.json",
 
-    referencia: medida,
+    referencia: base.medidaUtilizada,
 
     metadata: {
       anchoSolicitado: ancho,
       altoSolicitado: alto,
-      medidaUtilizada: medida,
+      medidaUtilizada: base.medidaUtilizada,
     },
-  });
-
-  const base = calcularVentana({
-    medida,
-    tipoVidrio,
-    incluirGuia: guia,
-    incluirMosquitero: mosquitero,
-    linea: "modena",
   });
 
   audit.add({
@@ -145,9 +144,8 @@ function calcularVentanaModena(dataInput) {
     valorAplicado: base.costoBase,
 
     valorDespues: base.costoBase,
-
     metadata: {
-      medida,
+      medida: base.medidaUtilizada,
     },
   });
 

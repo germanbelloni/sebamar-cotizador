@@ -11,7 +11,9 @@ const AuditBuilder = require(fromRoot("backend/audit/AuditBuilder"));
 const calcularVentana = require(
   fromRoot("backend/services/ventanas/calcularVentana"),
 );
-
+const buscarMedidaSuperior = require(
+  fromRoot("backend/utils/buscarMedidaSuperior"),
+);
 const perfiles = require(fromRoot("backend/config/perfiles"));
 
 const calcularPrecioCortina = require(
@@ -23,35 +25,6 @@ const ventanas = require(
 
 const colores = require(fromRoot("backend/data/colores.json"));
 
-// 🔍 LOOKUP
-function buscarMedidaValida(ancho, alto) {
-  const medidas = Object.keys(ventanas.medidas);
-
-  const anchos = [
-    ...new Set(medidas.map((m) => Number(m.split("x")[0].replace(",", ".")))),
-  ].sort((a, b) => a - b);
-
-  const altos = [
-    ...new Set(
-      medidas.map((m) => {
-        const valor = Number(m.split("x")[1].replace(",", "."));
-
-        // los viejos vienen como 0,40 / 0,60 / 0,80
-        return valor < 1 ? valor * 100 : valor;
-      }),
-    ),
-  ].sort((a, b) => a - b);
-
-  const a = anchos.find((x) => x >= ancho);
-
-  const h = altos.find((x) => x >= alto);
-
-  if (!a || !h) {
-    throw new Error("No hay medida válida");
-  }
-
-  return `${a}x${h}`;
-}
 // 💰 PERFIL
 function aplicarPerfil(costo, p) {
   const proveedor = costo * (1 - p.descuento);
@@ -114,7 +87,16 @@ function calcularVentanaHerrero(dataInput) {
     throw new Error("Sin guía no puede llevar cortina");
   }
 
-  const medida = buscarMedidaValida(ancho, alto > 200 ? 200 : alto);
+  const lookup = buscarMedidaSuperior(
+    ventanas.medidas,
+    `${ancho}x${alto > 200 ? 200 : alto}`,
+  );
+
+  if (!lookup) {
+    throw new Error("No hay medida válida");
+  }
+
+  const medida = lookup.medida;
 
   audit.add({
     etapa: "Lookup",

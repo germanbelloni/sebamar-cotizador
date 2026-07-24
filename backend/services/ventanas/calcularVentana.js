@@ -13,7 +13,9 @@ const dataHerrero = require(
 const dataModena = require(
   fromRoot("backend/data/productos/ventanas_modena.json"),
 );
-
+const buscarMedidaSuperior = require(
+  fromRoot("backend/utils/buscarMedidaSuperior"),
+);
 // =========================
 // 🧠 HELPERS
 // =========================
@@ -44,21 +46,7 @@ function calcularVentana(dataInput) {
 }
 //Helper
 function buscarMedidaHerrero(medida) {
-  if (dataHerrero.medidas[medida]) {
-    return dataHerrero.medidas[medida];
-  }
-
-  const [ancho, alto] = medida.split("x").map(Number);
-
-  if (alto < 100) {
-    const medidaVieja = `${ancho}x0,${alto}`;
-
-    if (dataHerrero.medidas[medidaVieja]) {
-      return dataHerrero.medidas[medidaVieja];
-    }
-  }
-
-  return null;
+  return buscarMedidaSuperior(dataHerrero.medidas, medida);
 }
 // =========================
 // 🪟 HERRERO
@@ -69,11 +57,14 @@ function calcularHerrero({
   incluirGuia,
   incluirMosquitero,
 }) {
-  const d = buscarMedidaHerrero(medida);
+  const lookup = buscarMedidaHerrero(medida);
 
-  if (!d) {
+  if (!lookup) {
     throw new Error("Medida no encontrada");
   }
+
+  const medidaUsada = lookup.medida;
+  const d = lookup.datos;
 
   // =========================
   // ITEMS
@@ -116,9 +107,11 @@ function calcularHerrero({
 
     items,
 
+    medidaUtilizada: medidaUsada,
+
     configuracion: {
       linea: "herrero",
-      medida,
+      medida: medidaUsada,
       incluirGuia: !!incluirGuia,
       incluirMosquitero: !!incluirMosquitero,
     },
@@ -130,73 +123,7 @@ function calcularHerrero({
 // =========================
 
 function buscarMedidaModena(medida) {
-  console.log("MEDIDA BUSCADA:", medida, dataModena.medidas[medida]);
-
-  // =========================
-  // Búsqueda exacta
-  // =========================
-
-  if (dataModena.medidas?.[medida]) {
-    return {
-      medida,
-      datos: dataModena.medidas[medida],
-    };
-  }
-
-  // =========================
-  // Compatibilidad con formato viejo (0,80 / 0,60)
-  // =========================
-
-  const [ancho, alto] = medida.split("x").map(Number);
-
-  if (alto < 100) {
-    const medidaVieja = `${ancho}x0,${alto}`;
-
-    if (dataModena.medidas?.[medidaVieja]) {
-      return {
-        medida: medidaVieja,
-        datos: dataModena.medidas[medidaVieja],
-      };
-    }
-  }
-
-  // =========================
-  // Buscar medida superior
-  // =========================
-
-  const medidaSuperior = Object.keys(dataModena.medidas)
-    .map((m) => {
-      const [wStr, hStr] = m.split("x");
-
-      const w = Number(wStr);
-
-      const hNumero = Number(hStr.replace(",", "."));
-
-      const h = hNumero < 1 ? hNumero * 100 : hNumero;
-
-      return {
-        key: m,
-        w,
-        h,
-      };
-    })
-    .filter((m) => m.w >= ancho && m.h >= alto)
-    .sort((a, b) => {
-      if (a.h !== b.h) {
-        return a.h - b.h;
-      }
-
-      return a.w - b.w;
-    })[0];
-
-  if (!medidaSuperior) {
-    return null;
-  }
-
-  return {
-    medida: medidaSuperior.key,
-    datos: dataModena.medidas[medidaSuperior.key],
-  };
+  return buscarMedidaSuperior(dataModena.medidas, medida);
 }
 
 function calcularModena({
@@ -213,10 +140,6 @@ function calcularModena({
 
   const medidaUsada = lookup.medida;
   const d = lookup.datos;
-  console.log({
-    medidaPedida: medida,
-    medidaUsada,
-  });
 
   // =========================
   // ITEMS
@@ -268,6 +191,8 @@ function calcularModena({
     costoBase: sumarItems(items),
 
     items,
+
+    medidaUtilizada: medidaUsada,
 
     configuracion: {
       linea: "modena",

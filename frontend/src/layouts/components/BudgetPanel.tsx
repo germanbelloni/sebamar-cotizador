@@ -216,24 +216,32 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
                         Cantidad
                       </span>
 
-                      <input
-                        type="number"
-                        min={1}
-                        value={item.cantidad}
-                        onChange={(e) =>
-                          updateCantidad(item.id, Number(e.target.value))
-                        }
-                        className="
-    h-10
-    w-24
-    rounded-xl
-    border border-border
-    bg-card
-    px-3
-    text-base
-    font-semibold
-  "
-                      />
+                      <div className="flex items-center overflow-hidden rounded-xl border border-border">
+                        <button
+                          onClick={() =>
+                            updateCantidad(
+                              item.id,
+                              Math.max(1, item.cantidad - 1),
+                            )
+                          }
+                          className="h-10 w-10 hover:bg-muted"
+                        >
+                          −
+                        </button>
+
+                        <div className="flex h-10 w-12 items-center justify-center text-sm font-semibold">
+                          {item.cantidad}
+                        </div>
+
+                        <button
+                          onClick={() =>
+                            updateCantidad(item.id, item.cantidad + 1)
+                          }
+                          className="h-10 w-10 hover:bg-muted"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
 
                     <div className="text-right">

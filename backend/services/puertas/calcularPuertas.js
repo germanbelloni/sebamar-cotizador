@@ -3,6 +3,9 @@ const { fromRoot } = require("../../utils/path");
 const superficies = require(
   fromRoot("backend/data/productos/superficies.json"),
 );
+const aplicarAjusteMedidaPuerta = require(
+  fromRoot("backend/utils/aplicarAjusteMedidaPuerta"),
+);
 
 // ========================
 // 🧠 HELPERS
@@ -99,8 +102,6 @@ function calcularPuertas(dataInput) {
   const data = require(
     fromRoot(`backend/data/productos/puertas_${linea}.json`),
   );
-
-  const ajustes = data.ajustes || {};
 
   const items = [];
 
@@ -259,25 +260,15 @@ function calcularPuertas(dataInput) {
   // 📏 AJUSTES MEDIDAS
   // ========================
 
-  const key = `${Math.round(dataInput.ancho)}x${Math.round(dataInput.alto)}`;
+  aplicarAjusteMedidaPuerta(items, dataInput.ancho);
 
-  const ajuste = ajustes[key];
+  estructura = items
+    .filter((i) => i.tipo === "estructura")
+    .reduce((acc, i) => acc + i.precio, 0);
 
-  if (typeof ajuste === "number") {
-    const factor = 1 + ajuste;
-
-    items.forEach((item) => {
-      item.precio = Math.round(item.precio * factor);
-    });
-
-    estructura = items
-      .filter((i) => i.tipo === "estructura")
-      .reduce((acc, i) => acc + i.precio, 0);
-
-    vidrioTotal = items
-      .filter((i) => i.tipo === "vidrio")
-      .reduce((acc, i) => acc + i.precio, 0);
-  }
+  vidrioTotal = items
+    .filter((i) => i.tipo === "vidrio")
+    .reduce((acc, i) => acc + i.precio, 0);
 
   const costoBase = estructura + vidrioTotal;
 

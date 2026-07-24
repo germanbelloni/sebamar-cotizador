@@ -7,15 +7,14 @@ type Params = {
   total: number;
 };
 
-export function budgetToWhatsApp({ empresa, items, total }: Params) {
+export function budgetToWhatsApp({ cliente, items, total }: Params) {
   const lines = items.map(
     (item) =>
-      `• (${item.cantidad}) ${item.descripcion}\n$ ${item.subtotal.toLocaleString("es-AR")}`,
+      `• (${item.cantidad}) ${item.descripcion} - $ ${item.subtotal.toLocaleString("es-AR")}`,
   );
 
   return `
-*${empresa}*
-
+${cliente ? `*Cliente:* ${cliente}\n` : ""}
 ${lines.join("\n\n")}
 
 *TOTAL: $ ${total.toLocaleString("es-AR")}*
