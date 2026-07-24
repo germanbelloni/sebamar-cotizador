@@ -1,5 +1,4 @@
 const { fromRoot } = require("../../backend/utils/path");
-s;
 
 const buildWrapperResponse = require(
   fromRoot("backend/utils/buildWrapperResponse"),

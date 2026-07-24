@@ -12,7 +12,7 @@ import { useAuthStore } from "@/store/authStore";
 
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
-
+import { useCotizacionStore } from "@/store/cotizacionStore";
 type Props = {
   empresa: Empresa;
 
@@ -27,6 +27,10 @@ export function Header({ empresa, cliente, setCliente }: Props) {
   const logout = useAuthStore((state) => state.logout);
 
   const user = useAuthStore((state) => state.user);
+  const perfilTemporal = useCotizacionStore((state) => state.perfilTemporal);
+  const setPerfilTemporal = useCotizacionStore(
+    (state) => state.setPerfilTemporal,
+  );
 
   const primaryColor = user?.colorPrimario || "#D6B400";
 
@@ -127,34 +131,59 @@ export function Header({ empresa, cliente, setCliente }: Props) {
       <div className="flex items-center gap-4">
         <ClienteForm cliente={cliente} setCliente={setCliente} />
 
+        {user?.role === "superadmin" && user?.empresa === "Sebamar" && (
+          <select
+            value={perfilTemporal}
+            onChange={(e) =>
+              setPerfilTemporal(
+                e.target.value as "amarilla" | "azul" | "verde" | "papu",
+              )
+            }
+            className="
+    rounded-xl
+    border
+    border-border
+    bg-background
+    px-3
+    py-2
+    text-sm
+  "
+          >
+            <option value="amarilla">Amarilla</option>
+            <option value="azul">Azul</option>
+            <option value="verde">Verde</option>
+            <option value="papu">Papu</option>
+          </select>
+        )}
+
         <div
           className="
-            hidden
-            rounded-2xl
-            border
-            border-border
-            bg-background/60
-            px-4
-            py-2
-            md:flex
-            md:flex-col
-          "
+      hidden
+      rounded-2xl
+      border
+      border-border
+      bg-background/60
+      px-4
+      py-2
+      md:flex
+      md:flex-col
+    "
         >
           <span
             className="
-              text-sm
-              font-semibold
-            "
+        text-sm
+        font-semibold
+      "
           >
             {user?.nombre}
           </span>
 
           <span
             className="
-    text-xs
-    tracking-wide
-    text-muted-foreground
-  "
+        text-xs
+        tracking-wide
+        text-muted-foreground
+      "
           >
             {user?.role === "superadmin"
               ? "Superadministrador"

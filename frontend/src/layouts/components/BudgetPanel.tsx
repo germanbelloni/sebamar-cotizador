@@ -14,6 +14,9 @@ import { formatCurrency } from "@/features/ventanas/utils/formatCurrency";
 import { registrarUso } from "@/services/registrarUso";
 import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudget";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "@/store/authStore";
+import { useCotizacionStore } from "@/store/cotizacionStore";
+
 type Props = {
   items: BudgetItem[];
 
@@ -24,6 +27,14 @@ type Props = {
 
 export function BudgetPanel({ items, cliente, empresa }: Props) {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+
+  const perfilTemporal = useCotizacionStore((state) => state.perfilTemporal);
+
+  const usandoPerfilTemporal =
+    user?.role === "superadmin" &&
+    user?.empresa === "Sebamar" &&
+    perfilTemporal !== user?.perfil;
   const removeItem = useBudgetStore((state) => state.removeItem);
 
   const updateCantidad = useBudgetStore((state) => state.updateCantidad);
@@ -284,50 +295,76 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
 
           {items.length > 0 && (
             <div className="space-y-3">
-              <button
-                onClick={async () => {
-                  if (!cliente.nombre.trim() || !cliente.telefono.trim()) {
-                    const continuar = window.confirm(
-                      "No se completó el nombre y/o teléfono del cliente.\n\nPodrá generar el presupuesto y trabajar normalmente, pero no podrá guardarlo hasta completar esos datos.\n\n¿Desea continuar?",
+              <>
+                {usandoPerfilTemporal && (
+                  <div
+                    className="
+        rounded-xl
+        border
+        border-amber-500/30
+        bg-amber-500/10
+        px-4
+        py-3
+        text-sm
+        text-amber-300
+      "
+                  >
+                    Estás cotizando con el perfil{" "}
+                    <strong>{perfilTemporal}</strong>. Para generar un
+                    presupuesto oficial, volvé a tu perfil{" "}
+                    <strong>{user?.perfil}</strong>.
+                  </div>
+                )}
+
+                <button
+                  disabled={usandoPerfilTemporal}
+                  onClick={async () => {
+                    if (!cliente.nombre.trim() || !cliente.telefono.trim()) {
+                      const continuar = window.confirm(
+                        "No se completó el nombre y/o teléfono del cliente.\n\nPodrá generar el presupuesto y trabajar normalmente, pero no podrá guardarlo hasta completar esos datos.\n\n¿Desea continuar?",
+                      );
+
+                      if (!continuar) {
+                        return;
+                      }
+                    }
+
+                    const { getNuevoNumero } =
+                      await import("@/features/presupuestos/api/getNuevoNumero");
+
+                    const numero = await getNuevoNumero();
+                    await registrarUso("generarPresupuesto");
+
+                    const data = buildPrintableBudget(
+                      numero,
+                      empresa,
+                      cliente,
+                      items,
+                      editingFecha ?? undefined,
                     );
 
-                    if (!continuar) {
-                      return;
-                    }
-                  }
+                    sessionStorage.setItem("print-data", JSON.stringify(data));
 
-                  const { getNuevoNumero } =
-                    await import("@/features/presupuestos/api/getNuevoNumero");
-
-                  const numero = await getNuevoNumero();
-                  await registrarUso("generarPresupuesto");
-
-                  const data = buildPrintableBudget(
-                    numero,
-                    empresa,
-                    cliente,
-                    items,
-                    editingFecha ?? undefined,
-                  );
-
-                  sessionStorage.setItem("print-data", JSON.stringify(data));
-
-                  navigate("/print");
-                }}
-                className="
-          w-full
-          rounded-2xl
-          bg-primary
-          px-4 py-3
-          text-sm
-          font-semibold
-          text-primary-foreground
-          transition-opacity
-          hover:opacity-90
-        "
-              >
-                Generar presupuesto
-              </button>
+                    navigate("/print");
+                  }}
+                  className={`
+      w-full
+      rounded-2xl
+      px-4
+      py-3
+      text-sm
+      font-semibold
+      transition-opacity
+      ${
+        usandoPerfilTemporal
+          ? "cursor-not-allowed bg-muted text-muted-foreground opacity-60"
+          : "bg-primary text-primary-foreground hover:opacity-90"
+      }
+    `}
+                >
+                  Generar presupuesto
+                </button>
+              </>
 
               <div className="relative">
                 <button

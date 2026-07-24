@@ -45,7 +45,14 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
           background: `linear-gradient(90deg, ${color1}, ${color2})`,
         }}
       />
-      <div style={{ padding: 35 }}>
+      <div
+        style={{
+          paddingTop: 24,
+          paddingRight: 24,
+          paddingBottom: 20,
+          paddingLeft: 24,
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -117,8 +124,8 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
         </div>{" "}
         <div
           style={{
-            marginTop: 35,
-            paddingTop: 25,
+            marginTop: 24,
+            paddingTop: 16,
             borderTop: "1px solid #e5e7eb",
           }}
         >
@@ -155,7 +162,7 @@ function PrintableBudgetDocument({ empresa, cliente, items, fecha, numero }) {
         <table
           style={{
             width: "100%",
-            marginTop: 40,
+            marginTop: 24,
             borderCollapse: "collapse",
             border: "1px solid #e5e7eb",
             overflow: "hidden",

@@ -66,9 +66,16 @@ function isValidationError(message = "") {
 
 async function runCalculation(req, res, name, callback) {
   try {
+    const perfilTemporal =
+      req.user.role === "superadmin" &&
+      req.user.empresa === "Sebamar" &&
+      req.body.perfil
+        ? req.body.perfil
+        : req.user.perfil;
+
     const payload = {
       ...req.body,
-      perfil: req.user.perfil,
+      perfil: perfilTemporal,
     };
     console.log("PAYLOAD RUNCALC:");
     console.log(payload);
