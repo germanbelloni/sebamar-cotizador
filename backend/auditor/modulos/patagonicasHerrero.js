@@ -83,13 +83,13 @@ function auditarPatagonicas(resultado) {
       0,
     );
 
-    if (Math.round(sumaItems) === Math.round(resultado.costo)) {
+    if (Math.round(sumaItems) === Math.round(resultado.costoBase)) {
       ok.push("✔ Suma de componentes");
     } else {
       errores.push(
-        `Costo incorrecto. Items=${Math.round(
+        `Costo Base incorrecto. Items=${Math.round(
           sumaItems,
-        )} Resultado=${Math.round(resultado.costo)}`,
+        )} Resultado=${Math.round(resultado.costoBase)}`,
       );
     }
 

@@ -256,30 +256,35 @@ function calcularWrapper(data) {
 
     const costoAcople = Number(acople?.costoBase || 0);
 
-    items.push({
-      tipo: "perfil_acople",
-      precio: Math.round(costoAcople),
-    });
+    const cantidadAcoples = cantidadRajas === 2 ? 2 : 1;
 
-    audit.add({
-      etapa: "Perfil Acople",
+    for (let i = 0; i < cantidadAcoples; i++) {
+      items.push({
+        tipo: "perfil_acople",
+        precio: Math.round(costoAcople),
+      });
 
-      tipo: "componente",
+      audit.add({
+        etapa: `Perfil Acople ${i + 1}`,
 
-      origen: "calcularSuperficies",
+        tipo: "componente",
 
-      referencia: `${alto}`,
+        origen: "calcularSuperficies",
 
-      valorAntes: totalRajas + Number(fijo?.costoBase || 0),
+        referencia: `${alto}`,
 
-      valorAplicado: costoAcople,
+        valorAntes: totalRajas + Number(fijo?.costoBase || 0) + costoAcople * i,
 
-      valorDespues: totalRajas + Number(fijo?.costoBase || 0) + costoAcople,
+        valorAplicado: costoAcople,
 
-      metadata: {
-        alto,
-      },
-    });
+        valorDespues:
+          totalRajas + Number(fijo?.costoBase || 0) + costoAcople * (i + 1),
+
+        metadata: {
+          alto,
+        },
+      });
+    }
   } catch (err) {
     console.error("ERROR ACOPLE:", err);
   }
@@ -375,10 +380,12 @@ function calcularWrapper(data) {
   // =========================
   // 💰 COSTO BASE
   // =========================
+  const cantidadAcoples = cantidadRajas === 2 ? 2 : 1;
+
   const costoBase =
     Number(totalRajas || 0) +
     Number(fijo?.costoBase || 0) +
-    Number(acople?.costoBase || 0) +
+    Number(acople?.costoBase || 0) * cantidadAcoples +
     Number(extras || 0);
 
   audit.add({
