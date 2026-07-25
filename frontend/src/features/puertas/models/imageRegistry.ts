@@ -50,6 +50,7 @@ export const PUERTAS_IMAGE_REGISTRY = {
     m1vr: "m1vrporton",
     m2: "m2porton",
     m3: "m3porton",
+    m3vr: "m3vrporton",
     m4: "m4porton",
     m4vr: "m4vrporton",
     m5: "m5porton",

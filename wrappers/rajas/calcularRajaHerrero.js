@@ -130,6 +130,11 @@ function calcularRajaHerrero(dataInput) {
   const mosquitero =
     dataInput.mosquitero ?? dataInput.configuracion?.mosquitero;
 
+  const vidrioRepartido =
+    dataInput.vidrioRepartido ??
+    dataInput.configuracion?.vidrioRepartido ??
+    false;
+
   const modelo = dataInput.modelo ?? dataInput.configuracion?.modelo ?? "raja";
 
   const desague = dataInput.desague ?? dataInput.configuracion?.desague;
@@ -237,6 +242,31 @@ function calcularRajaHerrero(dataInput) {
       costoBase: base.costoBase,
     },
   });
+
+  if (vidrioRepartido) {
+    const recargo = Math.round(costo * 0.3);
+
+    costo += recargo;
+
+    items.push({
+      tipo: "vidrio_repartido",
+      precio: recargo,
+    });
+
+    audit.add({
+      etapa: "Vidrio Repartido",
+
+      tipo: "extra",
+
+      origen: "wrapper",
+
+      valorAntes: costo - recargo,
+
+      valorAplicado: recargo,
+
+      valorDespues: costo,
+    });
+  }
 
   const m2 = calcularM2(ancho, alto);
 
@@ -401,7 +431,7 @@ function calcularRajaHerrero(dataInput) {
     configuracion: {
       ancho,
       alto,
-
+      vidrioRepartido: !!vidrioRepartido,
       medidaUsada: medida,
 
       color,

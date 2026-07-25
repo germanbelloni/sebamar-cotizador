@@ -156,6 +156,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
       PUERTAS_IMAGE_REGISTRY[folder][
         normalized as keyof (typeof PUERTAS_IMAGE_REGISTRY)[typeof folder]
       ];
+
     if (!filename) {
       return "";
     }
@@ -384,6 +385,13 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
           <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {modelosVisuales.map((modelo: string) => {
               const src = getImageSrc(modelo);
+
+              if (modelo === "modelo_3_vr" || modelo === "modelo_10") {
+                console.log({
+                  modelo,
+                  src,
+                });
+              }
 
               return (
                 <ModelImageCard

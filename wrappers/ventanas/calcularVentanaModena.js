@@ -79,6 +79,7 @@ function calcularVentanaModena(dataInput) {
     alto,
     color = "blanco",
     tipoVidrio,
+    vidrioRepartido = false,
     guia,
     mosquitero,
     cortina,
@@ -200,6 +201,31 @@ function calcularVentanaModena(dataInput) {
       costoBase: base.costoBase,
     },
   });
+
+  if (vidrioRepartido) {
+    const recargo = Math.round(costo * 0.3);
+
+    costo += recargo;
+
+    items.push({
+      tipo: "vidrio_repartido",
+      precio: recargo,
+    });
+
+    audit.add({
+      etapa: "Vidrio Repartido",
+
+      tipo: "extra",
+
+      origen: "wrapper",
+
+      valorAntes: costo - recargo,
+
+      valorAplicado: recargo,
+
+      valorDespues: costo,
+    });
+  }
 
   const ml = calcularML(ancho, alto);
 

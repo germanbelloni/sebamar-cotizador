@@ -219,9 +219,15 @@ export function RajasConfigForm({ config, setConfig }: Props) {
         <FormSection title={RAJAS_UI.sections.extras}>
           <ExtrasSection
             mosquitero={config.mosquitero}
+            vidrioRepartido={config.vidrioRepartido}
             onToggleMosquitero={() =>
               updateConfig({
                 mosquitero: !config.mosquitero,
+              })
+            }
+            onToggleVidrioRepartido={() =>
+              updateConfig({
+                vidrioRepartido: !config.vidrioRepartido,
               })
             }
           />

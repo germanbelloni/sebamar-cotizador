@@ -67,6 +67,7 @@ function calcularVentanaHerrero(dataInput) {
     alto,
     color = "blanco",
     tipoVidrio = "3mm",
+    vidrioRepartido = false,
     guia,
     mosquitero,
     cortina,
@@ -186,6 +187,28 @@ function calcularVentanaHerrero(dataInput) {
       costoBase: base.costoBase,
     },
   });
+
+  // 🪟 VIDRIO REPARTIDO
+  if (vidrioRepartido) {
+    const recargo = Math.round(costo * 0.3);
+
+    costo += recargo;
+
+    items.push({
+      tipo: "vidrio_repartido",
+      precio: recargo,
+    });
+
+    audit.add({
+      etapa: "Vidrio Repartido",
+      tipo: "extra",
+      origen: "wrapper",
+
+      valorAntes: costo - recargo,
+      valorAplicado: recargo,
+      valorDespues: costo,
+    });
+  }
 
   // 🪟 CORTINA PVC (siempre reforzada)
   if (cortina === "pvc") {

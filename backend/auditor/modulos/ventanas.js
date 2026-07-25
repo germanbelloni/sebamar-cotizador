@@ -139,6 +139,7 @@ function auditarVentanas(resultado) {
 
   const pasosCosto = [
     "Color",
+    "Vidrio Repartido",
     "Mosquitero",
     "Guía",
     "Cortina PVC",

@@ -56,7 +56,7 @@ export const initialVentanasConfig: VentanaConfig = {
   tipoVidrio: "3mm",
 
   mosquitero: false,
-
+  vidrioRepartido: false,
   guia: false,
 
   cajonBlock: false,

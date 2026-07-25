@@ -169,9 +169,15 @@ export function VentanaConfigForm({
               mosquitero={config.mosquitero}
               guia={config.guia}
               cajonBlock={config.cajonBlock}
+              vidrioRepartido={config.vidrioRepartido}
               onToggleMosquitero={() => toggleField("mosquitero")}
               onToggleGuia={handleToggleGuia}
               onToggleCajonBlock={handleToggleCajonBlock}
+              onToggleVidrioRepartido={() =>
+                updateConfig({
+                  vidrioRepartido: !config.vidrioRepartido,
+                })
+              }
             />
           </FormSection>
 

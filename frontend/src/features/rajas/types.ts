@@ -23,6 +23,8 @@ export type RajasConfig = {
 
   tipoVidrio?: VidrioType;
 
+  vidrioRepartido: boolean;
+
   mosquitero: boolean;
 
   modelo: RajaModelo;

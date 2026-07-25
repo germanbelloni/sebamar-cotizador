@@ -117,6 +117,7 @@ function calcularRajaModena(dataInput) {
     ancho,
     alto,
     vidrio,
+    vidrioRepartido = false,
     color = "blanco",
     mosquitero,
     herrajesBlancos,
@@ -221,6 +222,31 @@ function calcularRajaModena(dataInput) {
       costoBase: base.costoBase,
     },
   });
+
+  if (vidrioRepartido) {
+    const recargo = Math.round(costo * 0.3);
+
+    costo += recargo;
+
+    items.push({
+      tipo: "vidrio_repartido",
+      precio: recargo,
+    });
+
+    audit.add({
+      etapa: "Vidrio Repartido",
+
+      tipo: "extra",
+
+      origen: "wrapper",
+
+      valorAntes: costo - recargo,
+
+      valorAplicado: recargo,
+
+      valorDespues: costo,
+    });
+  }
 
   const m2 = calcularM2(ancho, alto);
 
@@ -535,7 +561,7 @@ function calcularRajaModena(dataInput) {
       alto,
 
       medidaUsada: medida,
-
+      vidrioRepartido: !!vidrioRepartido,
       color,
 
       vidrio: vidrioFinal,

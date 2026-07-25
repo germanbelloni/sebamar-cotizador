@@ -12,6 +12,9 @@ type Props = {
   onToggleGuia?: () => void;
 
   onToggleCajonBlock?: () => void;
+  vidrioRepartido?: boolean;
+
+  onToggleVidrioRepartido?: () => void;
 };
 
 export function ExtrasSection({
@@ -20,7 +23,8 @@ export function ExtrasSection({
   guia,
 
   cajonBlock,
-
+  vidrioRepartido,
+  onToggleVidrioRepartido,
   onToggleMosquitero,
 
   onToggleGuia,
@@ -44,6 +48,15 @@ export function ExtrasSection({
       {onToggleCajonBlock && (
         <SelectableCard selected={!!cajonBlock} onClick={onToggleCajonBlock}>
           Cajón Block
+        </SelectableCard>
+      )}
+
+      {onToggleVidrioRepartido && (
+        <SelectableCard
+          selected={!!vidrioRepartido}
+          onClick={onToggleVidrioRepartido}
+        >
+          Vidrio repartido
         </SelectableCard>
       )}
     </div>

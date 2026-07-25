@@ -86,6 +86,7 @@ export const initialRajasConfig: RajasConfig = {
   color: "blanco",
 
   tipoVidrio: "4mm",
+  vidrioRepartido: false,
 
   mosquitero: false,
 

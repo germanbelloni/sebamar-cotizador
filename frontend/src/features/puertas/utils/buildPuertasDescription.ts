@@ -1,5 +1,5 @@
 import type { PuertasConfig } from "../types";
-
+import { MODEL_DESCRIPTIONS } from "../models/utils/descriptions";
 export function buildPuertasDescription(config: PuertasConfig) {
   const parts: string[] = [];
 
@@ -84,13 +84,13 @@ export function buildPuertasDescription(config: PuertasConfig) {
   // =========================
 
   if (config.modelo) {
-    const modelo = config.modelo
-      .replace("modelo_", "modelo ")
-      .replaceAll("_", " ");
+    const modelo =
+      MODEL_DESCRIPTIONS[config.linea]?.[
+        config.modelo as keyof (typeof MODEL_DESCRIPTIONS)[typeof config.linea]
+      ] ?? config.modelo;
 
     parts.push(modelo);
   }
-
   // =========================
   // MEDIA PUERTA
   // =========================
@@ -99,9 +99,13 @@ export function buildPuertasDescription(config: PuertasConfig) {
     config.tipoConfiguracion === "puerta_y_media" &&
     config.modeloMediaPuerta
   ) {
-    parts.push(`media ${config.modeloMediaPuerta.replaceAll("_", " ")}`);
-  }
+    const media =
+      MODEL_DESCRIPTIONS.mediaPuerta[
+        config.modeloMediaPuerta as keyof typeof MODEL_DESCRIPTIONS.mediaPuerta
+      ] ?? config.modeloMediaPuerta;
 
+    parts.push(`media puerta ${media}`);
+  }
   // =========================
   // VIDRIO
   // =========================

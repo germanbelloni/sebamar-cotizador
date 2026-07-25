@@ -60,7 +60,7 @@ export type VentanaConfig = {
   cortina: "pvc" | "aluminio" | null;
 
   premarco: boolean;
-
+  vidrioRepartido: boolean;
   contramarco: boolean;
   bipuntoIzquierda: "ninguno" | "normal" | "llave";
   bipuntoDerecha: "ninguno" | "normal" | "llave";

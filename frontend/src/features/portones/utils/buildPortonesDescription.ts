@@ -1,4 +1,5 @@
 import type { PortonesConfig } from "../types";
+import { MODEL_DESCRIPTIONS } from "@/features/puertas/models/utils/descriptions";
 
 export function buildPortonesDescription(config: PortonesConfig) {
   const parts: string[] = [];
@@ -25,8 +26,16 @@ export function buildPortonesDescription(config: PortonesConfig) {
   parts.push(`de ${config.sistema}`);
 
   // MODELO
-  parts.push(config.modelo.replaceAll("_", " "));
+  const lineaKey = config.linea === "Herrero" ? "herrero" : "modena";
 
+  const modeloKey = config.modelo.replaceAll(" ", "_");
+
+  const modelo =
+    MODEL_DESCRIPTIONS[lineaKey][
+      modeloKey as keyof (typeof MODEL_DESCRIPTIONS)[typeof lineaKey]
+    ] ?? config.modelo;
+
+  parts.push(modelo);
   // VIDRIO
   const descripcionVidrio =
     !config.tipoVidrio || config.tipoVidrio === "3mm"
