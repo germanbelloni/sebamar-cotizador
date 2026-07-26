@@ -55,9 +55,9 @@ export function PresupuestoDetallePage({
   const { data, isLoading, refetch } = usePresupuesto(presupuestoId);
 
   const user = useAuthStore((state) => state.user);
-
   const canViewFinancial =
     user?.role === "admin" || user?.role === "superadmin";
+  const showPerfil = user?.role === "superadmin";
 
   const { view, save, saveAs } = usePresupuestoPdf();
 
@@ -228,7 +228,7 @@ export function PresupuestoDetallePage({
 
   const margen =
     totalCosto > 0 ? ((ganancia / totalCosto) * 100).toFixed(1) : 0;
-
+  console.log(data.items[0]);
   return (
     <div className="p-10">
       {/* HEADER */}
@@ -701,13 +701,12 @@ export function PresupuestoDetallePage({
 
             {canViewFinancial && (
               <div
-                className="
-                  mt-5
-
-                  grid
-                  grid-cols-4
-                  gap-3
-                "
+                className={`
+    mt-5
+    grid
+    ${showPerfil ? "grid-cols-4" : "grid-cols-3"}
+    gap-3
+  `}
               >
                 <div
                   className="
@@ -724,20 +723,22 @@ export function PresupuestoDetallePage({
                   </p>
                 </div>
 
-                <div
-                  className="
-                    rounded-xl
-                    border border-border
-                    bg-background
-                    p-3
-                  "
-                >
-                  <p className="text-[11px] text-zinc-500">Perfil</p>
+                {showPerfil && (
+                  <div
+                    className="
+      rounded-xl
+      border border-border
+      bg-background
+      p-3
+    "
+                  >
+                    <p className="text-[11px] text-zinc-500">Perfil</p>
 
-                  <p className="mt-1 font-semibold uppercase">
-                    {item.perfilAplicado || "-"}
-                  </p>
-                </div>
+                    <p className="mt-1 font-semibold uppercase">
+                      {item.perfilAplicado || "-"}
+                    </p>
+                  </div>
+                )}
 
                 <div
                   className="

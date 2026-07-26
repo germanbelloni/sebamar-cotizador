@@ -15,6 +15,9 @@ function sanitizarResultado(resultado, user) {
         resultado.precioBase ||
         0,
 
+      precioProveedor: resultado.precioProveedor,
+      precioLista: resultado.precioLista,
+
       precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 
       gananciaCliente: resultado.gananciaCliente,
@@ -22,14 +25,18 @@ function sanitizarResultado(resultado, user) {
       margenAplicado: resultado.margenAplicado,
       perfilAplicado: resultado.perfilAplicado,
 
-      svg: resultado.svg,
+      descuentoAplicado: resultado.descuentoAplicado,
+      fleteAplicado: resultado.fleteAplicado,
+      gananciaAplicada: resultado.gananciaAplicada,
 
+      audit: resultado.audit,
+
+      svg: resultado.svg,
       configuracion: resultado.configuracion,
 
       items:
         resultado.items?.map((item) => ({
           ...item,
-
           subtotal: item.subtotal || item.precio || 0,
         })) || [],
     };
