@@ -127,8 +127,6 @@ async function register(req, res) {
 
     if (currentUserRole === "admin") {
       const admin = await User.findById(req.user.id);
-      s;
-
       empresaData = {
         empresa: admin.empresa,
         nombreEmpresa: admin.nombreEmpresa,
