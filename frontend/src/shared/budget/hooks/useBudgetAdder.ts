@@ -1,4 +1,5 @@
 import type { BudgetItem } from "../types/budget.types";
+
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { useGlobalLoadingStore } from "@/shared/loading/useGlobalLoadingStore";
 
@@ -19,6 +20,10 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
 }: Params<TConfig, TResult>) {
   const addItem = useBudgetStore((state) => state.addItem);
 
+  const replaceItem = useBudgetStore((state) => state.replaceItem);
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
+
   const setLoading = useGlobalLoadingStore((state) => state.setLoading);
 
   async function handleAdd() {
@@ -32,8 +37,21 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
       const result = await mutation.mutateAsync(config);
 
       const item = createItem(config, result);
+      if (editingItem) {
+        console.log("REEMPLAZANDO ITEM", {
+          viejo: editingItem,
+          nuevo: item,
+        });
 
-      addItem(item);
+        replaceItem({
+          ...item,
+          id: editingItem.id,
+        });
+
+        console.log("REPLACE EJECUTADO");
+      } else {
+        addItem(item);
+      }
     } catch (error) {
       console.error("ERROR AGREGANDO ITEM:", error);
     } finally {

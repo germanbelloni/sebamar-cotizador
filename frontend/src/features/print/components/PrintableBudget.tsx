@@ -132,7 +132,11 @@ export function PrintableBudget({
 
       toast.success("Presupuesto actualizado.");
 
-      navigate("/");
+      navigate("/", {
+        state: {
+          presupuestoActualizadoId: editingPresupuestoId,
+        },
+      });
     } catch (error) {
       console.error(error);
 

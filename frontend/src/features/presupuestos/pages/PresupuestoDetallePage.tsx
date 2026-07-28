@@ -74,6 +74,7 @@ export function PresupuestoDetallePage({
   const setEditingCliente = useBudgetStore((state) => state.setEditingCliente);
 
   const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
+  const setEditingItem = useBudgetStore((state) => state.setEditingItem);
   const [editing, setEditing] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(false);
 
@@ -152,6 +153,33 @@ export function PresupuestoDetallePage({
     });
 
     setEditingFecha(data.fecha ?? null);
+
+    navigate("/");
+  }
+
+  function handleEditarItem(item: PresupuestoItem) {
+    if (!data) return;
+
+    clearBudget();
+
+    setItems(
+      data.items.map((i) => ({
+        ...i,
+        id: i.id ?? crypto.randomUUID(),
+        groupKey: crypto.randomUUID(),
+      })) as BudgetItem[],
+    );
+
+    setEditingPresupuestoId(data.id);
+
+    setEditingCliente({
+      nombre: data.cliente || "",
+      telefono: data.telefono || "",
+    });
+
+    setEditingFecha(data.fecha ?? null);
+
+    setEditingItem(item as BudgetItem);
 
     navigate("/");
   }
@@ -694,6 +722,25 @@ export function PresupuestoDetallePage({
                 <p className="mt-2 text-xl font-bold">
                   {formatCurrency(item.subtotal)}
                 </p>
+
+                <button
+                  onClick={() => handleEditarItem(item)}
+                  className="
+      mt-3
+      rounded-lg
+      border
+      border-blue-500
+      px-3
+      py-1
+      text-xs
+      font-semibold
+      text-blue-400
+      transition
+      hover:bg-blue-500/10
+    "
+                >
+                  ✏ Editar
+                </button>
               </div>
             </div>
 

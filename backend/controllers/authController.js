@@ -395,12 +395,23 @@ async function toggleActivo(req, res) {
       });
     }
 
-    if (req.user.role === "admin" && user.role === "admin") {
-      return res.status(403).json({
-        error: "No autorizado",
-      });
-    }
+    // 🧑 ADMIN: solo puede administrar vendedores de su propia empresa
+    if (req.user.role === "admin") {
+      if (user.role === "admin") {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
 
+      if (
+        String(user.ownerId) !== String(req.user.id) ||
+        user.empresa !== req.user.empresa
+      ) {
+        return res.status(403).json({
+          error: "No autorizado",
+        });
+      }
+    }
     user.activo = !user.activo;
 
     await user.save();

@@ -19,7 +19,7 @@ import ConfiguracionPage from "@/pages/ConfiguracionPage";
 import { UserManagementPanel } from "@/features/users/components/UserManagementPanel";
 
 import { useAuthStore } from "@/store/authStore";
-
+import { useLocation } from "react-router-dom";
 import {
   formatLinea,
   formatColor,
@@ -179,7 +179,7 @@ function App() {
   };
 
   const [activeFeature, setActiveFeature] = useState("ventanas");
-
+  const location = useLocation();
   const [selectedPresupuestoId, setSelectedPresupuestoId] = useState<
     string | null
   >(null);
@@ -188,8 +188,8 @@ function App() {
 
   const items = useBudgetStore((state) => state.items);
 
+  const editingItem = useBudgetStore((state) => state.editingItem);
   const editingCliente = useBudgetStore((state) => state.editingCliente);
-
   const isGlobalLoading = useGlobalLoadingStore((state) => state.isLoading);
 
   /* CLIENTE */
@@ -200,11 +200,6 @@ function App() {
     telefono: "",
   });
 
-  useEffect(() => {
-    if (!editingCliente) return;
-
-    setCliente(editingCliente);
-  }, [editingCliente]);
   /* RAJAS */
 
   const [rajasConfig, setRajasConfig] =
@@ -234,6 +229,33 @@ function App() {
   ) => {
     setPuertasConfigState(value);
   };
+
+  useEffect(() => {
+    if (!editingItem) return;
+
+    if (editingItem.modulo === "puertas") {
+      setActiveFeature("puertas");
+
+      setPuertasConfig(editingItem.configuracion as PuertasConfig);
+    }
+  }, [editingItem]);
+
+  useEffect(() => {
+    if (!editingCliente) return;
+
+    setCliente(editingCliente);
+  }, [editingCliente]);
+
+  useEffect(() => {
+    const presupuestoId = location.state?.presupuestoActualizadoId;
+
+    if (!presupuestoId) return;
+
+    setActiveFeature("presupuestos");
+    setSelectedPresupuestoId(presupuestoId);
+
+    window.history.replaceState({}, document.title);
+  }, [location.state]);
 
   /* PUERTAS PLACA */
   const [puertasPlacaConfig, setPuertasPlacaConfig] =

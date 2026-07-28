@@ -5,6 +5,11 @@ import type { BudgetItem } from "../types/budget.types";
 
 type BudgetState = {
   items: BudgetItem[];
+  editingItem: BudgetItem | null;
+
+  setEditingItem: (item: BudgetItem | null) => void;
+
+  replaceItem: (item: BudgetItem) => void;
 
   addItem: (item: BudgetItem) => void;
   removeItem: (id: string) => void;
@@ -39,10 +44,11 @@ export const useBudgetStore = create<BudgetState>()(
     (set, get) => ({
       items: [],
 
+      editingItem: null,
+
       editingPresupuestoId: null,
       editingCliente: null,
       editingFecha: null,
-
       /* ========================= */
       /* ADD ITEM */
       /* ========================= */
@@ -75,7 +81,32 @@ export const useBudgetStore = create<BudgetState>()(
             items: [...state.items, item],
           };
         }),
+      /* ========================= */
+      /* REPLACE ITEM */
+      /* ========================= */
 
+      replaceItem: (item) =>
+        set((state) => {
+          console.log("ITEMS ANTES", state.items);
+
+          const nuevosItems = state.items.map((i) => {
+            if (i.id !== item.id) {
+              return i;
+            }
+
+            return {
+              ...item,
+              groupKey: i.groupKey,
+            };
+          });
+
+          console.log("ITEMS DESPUES", nuevosItems);
+
+          return {
+            items: nuevosItems,
+            editingItem: null,
+          };
+        }),
       /* ========================= */
       /* REMOVE */
       /* ========================= */
@@ -92,6 +123,7 @@ export const useBudgetStore = create<BudgetState>()(
       clearBudget: () =>
         set({
           items: [],
+          editingItem: null,
           editingPresupuestoId: null,
           editingCliente: null,
           editingFecha: null,
@@ -109,7 +141,10 @@ export const useBudgetStore = create<BudgetState>()(
       /* ========================= */
       /* EDITING PRESUPUESTO */
       /* ========================= */
-
+      setEditingItem: (item) =>
+        set({
+          editingItem: item,
+        }),
       setEditingPresupuestoId: (id) =>
         set({
           editingPresupuestoId: id,
@@ -160,6 +195,7 @@ export const useBudgetStore = create<BudgetState>()(
 
       partialize: (state) => ({
         items: state.items,
+        editingItem: state.editingItem,
         editingPresupuestoId: state.editingPresupuestoId,
         editingCliente: state.editingCliente,
         editingFecha: state.editingFecha,
