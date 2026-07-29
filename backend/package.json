@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "import:excel": "node scripts/runExcel.js",
+    "importarjsons": "node backend/scripts/importar.js --publish",
+    "generarlistas": "node listas/generar-listas.js",
+    "generarpdf": "node listas/generar-pdf.js",
+    "validarlistas": "node listas/validar-listas.js",
     "test": "jest tests",
     "lint": "npx eslint ."
   },

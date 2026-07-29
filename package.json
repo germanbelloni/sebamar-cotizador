@@ -1,4 +1,13 @@
 {
+  "name": "sebamarapp",
+  "private": true,
+  "scripts": {
+    "backend": "node backend/server.js",
+    "frontend": "npm --prefix frontend run dev",
+    "importarjsons": "node backend/scripts/importar.js --publish",
+    "generarlistas": "node listas/generar-listas.js todo todos",
+    "validarlistas": "node listas/validar-listas.js"
+  },
   "dependencies": {
     "exceljs": "^4.4.0",
     "xlsx": "^0.18.5"
