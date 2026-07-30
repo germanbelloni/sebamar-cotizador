@@ -193,11 +193,13 @@ function App() {
   const isGlobalLoading = useGlobalLoadingStore((state) => state.isLoading);
 
   /* CLIENTE */
-
   const [cliente, setCliente] = useState<Cliente>({
     nombre: "",
-
     telefono: "",
+
+    direccion: "",
+    observaciones: "",
+    validez: "",
   });
 
   /* RAJAS */
@@ -409,7 +411,6 @@ function App() {
                 <PresupuestoDetallePage
                   presupuestoId={selectedPresupuestoId}
                   onBack={() => setSelectedPresupuestoId(null)}
-                  onOpenPresupuesto={setSelectedPresupuestoId}
                 />
               ) : (
                 <PresupuestosPage

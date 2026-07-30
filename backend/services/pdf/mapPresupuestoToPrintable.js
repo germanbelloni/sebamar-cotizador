@@ -18,6 +18,10 @@ function mapPresupuestoToPrintable(presupuesto, user) {
       telefono: presupuesto.telefono || "",
     },
 
+    direccion: presupuesto.direccion || "",
+    observaciones: presupuesto.observaciones || "",
+    validez: presupuesto.validez || "",
+
     items: (presupuesto.items || []).map((item) => ({
       id: String(item._id || ""),
       titulo: item.titulo,

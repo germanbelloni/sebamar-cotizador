@@ -7,7 +7,7 @@ import { login } from "../api/login";
 
 import { useAuthStore } from "@/store/authStore";
 import { Eye, EyeOff } from "lucide-react";
-
+import { useGlobalLoadingStore } from "@/shared/loading/useGlobalLoadingStore";
 export function LoginPage() {
   const navigate = useNavigate();
 
@@ -22,12 +22,14 @@ export function LoginPage() {
   const [error, setError] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
+  const setGlobalLoading = useGlobalLoadingStore((state) => state.setLoading);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
       setLoading(true);
+      setGlobalLoading(true);
 
       setError("");
 
@@ -43,6 +45,7 @@ export function LoginPage() {
       setError("Credenciales inválidas. Reintentá nuevamente.");
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   }
 

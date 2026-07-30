@@ -1,41 +1,43 @@
 import { create } from "zustand";
+import { queryClient } from "@/app/providers";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
-  type User = {
-    id: string;
+type User = {
+  id: string;
 
+  nombre: string;
+
+  role: "superadmin" | "admin" | "user";
+
+  perfil: string;
+
+  margen: number;
+
+  empresa: string;
+
+  nombreEmpresa?: string;
+
+  colorPrimario?: string;
+
+  colorSecundario?: string;
+
+  telefono?: string;
+
+  direccion?: string;
+
+  email?: string;
+
+  observacionesPdf?: string;
+
+  logo?: string;
+
+  ownerId: {
+    _id: string;
     nombre: string;
-
-    role: "superadmin" | "admin" | "user";
-
-    perfil: string;
-
-    margen: number;
-
-    empresa: string;
-
-    nombreEmpresa?: string;
-    
-    colorPrimario?: string;
-
-    colorSecundario?: string;
-
-    telefono?: string;
-
-    direccion?: string;
-
-    email?: string;
-
-    observacionesPdf?: string;
-
-    logo?: string;
-
-    ownerId: {
-      _id: string;
-      nombre: string;
-      role: string;
-      empresa?: string;
-    } | null;
-  };
+    role: string;
+    empresa?: string;
+  } | null;
+};
 
 type AuthState = {
   token: string | null;
@@ -55,9 +57,13 @@ export const useAuthStore = create<AuthState>((set) => ({
   token: localStorage.getItem("token"),
 
   user: (() => {
-    const stored = localStorage.getItem("user");
-
-    return stored ? JSON.parse(stored) : null;
+    try {
+      const stored = localStorage.getItem("user");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      localStorage.removeItem("user");
+      return null;
+    }
   })(),
 
   isAuthenticated: !!localStorage.getItem("token"),
@@ -83,9 +89,13 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   logout: () => {
-    localStorage.removeItem("token");
+    useBudgetStore.getState().clearBudget();
 
+    localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("sebamar-budget-storage");
+
+    queryClient.clear();
 
     set({
       token: null,

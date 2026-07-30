@@ -6,9 +6,20 @@ type Params = {
   cliente?: string;
 
   telefono?: string;
+
+  direccion?: string;
+  observaciones?: string;
+  validez?: string;
 };
 
-export function budgetToApi({ items, cliente, telefono }: Params) {
+export function budgetToApi({
+  items,
+  cliente,
+  telefono,
+  direccion,
+  observaciones,
+  validez,
+}: Params) {
   const total = items.reduce((acc, item) => {
     return acc + item.subtotal;
   }, 0);
@@ -18,6 +29,11 @@ export function budgetToApi({ items, cliente, telefono }: Params) {
 
     telefono,
 
+    direccion,
+
+    observaciones,
+
+    validez,
     items: items.map((item) => ({
       id: item.id,
 

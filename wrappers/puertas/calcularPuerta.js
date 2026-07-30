@@ -518,7 +518,12 @@ function calcularPuertaWrapper(dataInput) {
       venta,
     },
   });
-
+  console.log("🚪 WRAPPER PUERTA RESPONSE:", {
+    costoBase: base.costoBase,
+    costo,
+    precioProveedor: proveedor,
+    precioFinal: venta,
+  });
   return buildWrapperResponse({
     modulo: "puertas",
 

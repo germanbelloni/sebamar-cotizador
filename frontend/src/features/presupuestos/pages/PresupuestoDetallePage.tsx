@@ -21,8 +21,6 @@ import { CompartirPresupuestoDialog } from "../components/CompartirPresupuestoDi
 
 import type { PresupuestoItem } from "../types/presupuesto.types";
 
-import { duplicarPresupuesto } from "../api/duplicarPresupuesto";
-
 import { useUpdatePresupuesto } from "../hooks/useUpdatePresupuesto";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
@@ -43,15 +41,9 @@ type Props = {
   presupuestoId: string;
 
   onBack: () => void;
-
-  onOpenPresupuesto?: (id: string) => void;
 };
 
-export function PresupuestoDetallePage({
-  presupuestoId,
-  onBack,
-  onOpenPresupuesto,
-}: Props) {
+export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
   const { data, isLoading, refetch } = usePresupuesto(presupuestoId);
 
   const user = useAuthStore((state) => state.user);
@@ -115,20 +107,6 @@ export function PresupuestoDetallePage({
       console.error(error);
 
       toast.error("No se pudo eliminar el presupuesto.");
-    }
-  }
-
-  async function handleDuplicar() {
-    try {
-      const data = await duplicarPresupuesto(presupuestoId);
-
-      if (onOpenPresupuesto) {
-        onOpenPresupuesto(data.id);
-      } else {
-        onBack();
-      }
-    } catch (error) {
-      console.error(error);
     }
   }
 
@@ -424,23 +402,7 @@ export function PresupuestoDetallePage({
               >
                 ✏ Editar presupuesto
               </button>
-              <button
-                onClick={handleDuplicar}
-                className="
-    rounded-xl
-    border
-    border-sky-500
-    px-4
-    py-2
-    text-sm
-    font-semibold
-    text-sky-400
-    transition
-    hover:bg-sky-500/10
-  "
-              >
-                📄 Duplicar presupuesto
-              </button>
+
               {data.estado === "pendiente" ? (
                 <button
                   onClick={() => handleEstadoChange("aprobado")}

@@ -13,14 +13,23 @@ type Props = {
   items: BudgetItem[];
 };
 
-export function PrintableBudgetRenderer(props: Props) {
+export function PrintableBudgetRenderer({
+  numero,
+  fecha,
+  empresa,
+  cliente,
+  items,
+}: Props) {
   return (
     <PrintableBudgetDocument
-      numero={props.numero}
-      fecha={props.fecha}
-      empresa={props.empresa}
-      cliente={props.cliente}
-      items={props.items}
+      numero={numero}
+      fecha={fecha}
+      empresa={empresa}
+      cliente={cliente}
+      direccion=""
+      observaciones=""
+      validez=""
+      items={items}
     />
   );
 }

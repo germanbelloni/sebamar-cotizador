@@ -13,6 +13,11 @@ type Props = {
 
   empresa: Empresa;
   cliente: Cliente;
+
+  direccion: string;
+  observaciones: string;
+  validez: string;
+
   items: BudgetItem[];
 };
 
@@ -21,6 +26,9 @@ export function PrintableBudgetDocument({
   fecha,
   empresa,
   cliente,
+  direccion,
+  observaciones,
+  validez,
   items,
 }: Props) {
   const total = items.reduce((acc, item) => acc + item.subtotal, 0);
@@ -191,6 +199,8 @@ export function PrintableBudgetDocument({
             <p className="mt-2 text-zinc-500">
               {cliente.telefono || "Sin teléfono registrado"}
             </p>
+
+            {direccion && <p className="mt-1 text-zinc-500">{direccion}</p>}
           </div>
         </div>
         {/* TABLA */}
@@ -341,7 +351,7 @@ export function PrintableBudgetDocument({
           </h4>
 
           <ul className="space-y-1 text-[13px] leading-relaxed text-zinc-500">
-            <li>• Validez del presupuesto: 7 días.</li>
+            <li>• Validez del presupuesto: {validez || "7 días"}.</li>
 
             <li>• Plazo de entrega: 10/15 días hábiles.</li>
 
@@ -350,6 +360,25 @@ export function PrintableBudgetDocument({
             </li>
           </ul>
         </div>
+        {observaciones && (
+          <div
+            className="
+      mt-6
+      rounded-xl
+      border
+      border-zinc-200
+      px-5
+      py-3
+      text-sm
+    "
+          >
+            <h4 className="mb-2 text-[10px] font-bold uppercase tracking-[0.30em] text-zinc-400">
+              Observaciones
+            </h4>
+
+            <p className="text-zinc-600 whitespace-pre-wrap">{observaciones}</p>
+          </div>
+        )}
       </div>
     </div>
   );

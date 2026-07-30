@@ -24,12 +24,18 @@ type BudgetState = {
   editingCliente: {
     nombre: string;
     telefono: string;
+    direccion?: string;
+    observaciones?: string;
+    validez?: string;
   } | null;
 
   setEditingCliente: (
     cliente: {
       nombre: string;
       telefono: string;
+      direccion?: string;
+      observaciones?: string;
+      validez?: string;
     } | null,
   ) => void;
 

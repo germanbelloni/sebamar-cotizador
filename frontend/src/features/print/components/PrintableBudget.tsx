@@ -100,8 +100,14 @@ export function PrintableBudget({
         id: data._id || data.id || "",
         numero: data.numero,
       });
+      clearBudget();
 
-      toast.success("Presupuesto guardado. Ya podés descargar el PDF.");
+      setEditingPresupuestoId(null);
+      setEditingCliente(null);
+      setEditingFecha(null);
+      navigate("/");
+
+      toast.success("Presupuesto guardado.");
     } finally {
       setLoading(false);
     }
@@ -160,6 +166,16 @@ export function PrintableBudget({
     toast.success("Texto copiado al portapapeles.");
   }
 
+  function handleVolver() {
+    clearBudget();
+
+    setEditingPresupuestoId(null);
+    setEditingCliente(null);
+    setEditingFecha(null);
+
+    navigate("/");
+  }
+
   useEffect(() => {
     document.body.style.background = "white";
 
@@ -206,7 +222,7 @@ export function PrintableBudget({
           <Button
             variant="outline"
             className="rounded-full border-zinc-300 text-black hover:bg-zinc-100"
-            onClick={() => navigate(-1)}
+            onClick={handleVolver}
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Volver

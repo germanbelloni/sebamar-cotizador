@@ -4,7 +4,7 @@ import { ThemeProvider } from "next-themes";
 
 import type { ReactNode } from "react";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,

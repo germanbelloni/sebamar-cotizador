@@ -101,12 +101,15 @@ export function DoorRenderer({
           y={y}
           width={width}
           height={height}
-          mano={config.mano}
+          mano={
+            config.mano === "medio-izquierda" || config.mano === "medio-derecha"
+              ? "izquierda"
+              : config.mano
+          }
         />
       ) : null}
 
       {/* APERTURA */}
-
       <OpeningLines
         x={config.mano === "derecha" ? x + width : x}
         y={y}

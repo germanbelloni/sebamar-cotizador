@@ -11,11 +11,7 @@ type Presupuesto = {
   total: number;
 };
 
-export function serializePresupuestoMessage({
-  cliente,
-  items,
-  total,
-}: Presupuesto) {
+export function serializePresupuestoMessage({ items, total }: Presupuesto) {
   const lines = items.map((item) => {
     return [
       `(${item.cantidad}) ${item.descripcion}`,
@@ -25,8 +21,6 @@ export function serializePresupuestoMessage({
   });
 
   return `
-Cliente: ${cliente || "Consumidor Final"}
-
 ${lines.join("\n\n")}
 
 TOTAL: $ ${total.toLocaleString("es-AR")}

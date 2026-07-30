@@ -15,6 +15,7 @@ export function PortonBlueprintSelector({
   sistema = "abrir",
   onChange,
 }: Props) {
+  throw new Error("ESTOY EN EL PORTON BLUEPRINT");
   function selectLeft() {
     onChange({
       mano: "izquierda",
@@ -24,6 +25,18 @@ export function PortonBlueprintSelector({
   function selectRight() {
     onChange({
       mano: "derecha",
+    });
+  }
+
+  function selectMiddleLeft() {
+    onChange({
+      mano: "medio-izquierda",
+    });
+  }
+
+  function selectMiddleRight() {
+    onChange({
+      mano: "medio-derecha",
     });
   }
 
@@ -58,7 +71,9 @@ export function PortonBlueprintSelector({
     </button>
   );
 
-  const renderLayout = (side: "left" | "right") => {
+  const renderLayout = (
+    side: "left" | "right" | "middle-left" | "middle-right",
+  ) => {
     if (hojas >= 5) {
       return (
         <div className="flex h-[180px] items-center justify-center rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 text-center text-sm font-semibold text-yellow-300">
@@ -71,14 +86,36 @@ export function PortonBlueprintSelector({
       if (hojas === 3) {
         return (
           <div className="flex h-[180px] border border-white/20">
-            {[1, 2, 3].map((n) => (
-              <div
-                key={n}
-                className="flex flex-1 items-center justify-center border-r border-white/10 text-4xl text-lime-400 last:border-r-0"
-              >
-                {side === "left" ? (n === 1 ? "↶" : "") : n === 3 ? "↷" : ""}
-              </div>
-            ))}
+            {[1, 2, 3].map((n) => {
+              let symbol = "";
+
+              switch (side) {
+                case "left":
+                  symbol = n === 1 ? "↶" : "";
+                  break;
+
+                case "right":
+                  symbol = n === 3 ? "↷" : "";
+                  break;
+
+                case "middle-left":
+                  symbol = n === 2 ? "↶" : "";
+                  break;
+
+                case "middle-right":
+                  symbol = n === 2 ? "↷" : "";
+                  break;
+              }
+
+              return (
+                <div
+                  key={n}
+                  className="flex flex-1 items-center justify-center border-r border-white/10 text-4xl text-lime-400 last:border-r-0"
+                >
+                  {symbol}
+                </div>
+              );
+            })}
           </div>
         );
       }
@@ -132,7 +169,11 @@ export function PortonBlueprintSelector({
       </div>
     );
   };
-
+  console.log("PORTON RENDER", {
+    hojas,
+    mano,
+    sistema,
+  });
   return (
     <div className="space-y-5">
       <div className="text-center">
@@ -160,6 +201,22 @@ export function PortonBlueprintSelector({
           onClick={selectRight}
         >
           {renderLayout("right")}
+        </Card>
+
+        <Card
+          selected={mano === "medio-izquierda"}
+          title="PUERTA AL MEDIO IZQUIERDA"
+          onClick={selectMiddleLeft}
+        >
+          {renderLayout("middle-left")}
+        </Card>
+
+        <Card
+          selected={mano === "medio-derecha"}
+          title="PUERTA AL MEDIO DERECHA"
+          onClick={selectMiddleRight}
+        >
+          {renderLayout("middle-right")}
         </Card>
       </div>
 

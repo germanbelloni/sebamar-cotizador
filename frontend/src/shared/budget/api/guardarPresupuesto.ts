@@ -3,6 +3,11 @@ import api from "@/lib/api";
 type Payload = {
   cliente?: string;
   telefono?: string;
+
+  direccion?: string;
+  observaciones?: string;
+  validez?: string;
+
   items: unknown[];
   total: number;
 };

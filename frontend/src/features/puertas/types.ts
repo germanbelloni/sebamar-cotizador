@@ -8,7 +8,11 @@ export type PuertaTipoConfiguracion =
 
 export type PuertaTipoPorton = "abrir" | "plegadizo" | "corredizo";
 
-export type PuertaMano = "izquierda" | "derecha";
+export type PuertaMano =
+  | "izquierda"
+  | "derecha"
+  | "medio-izquierda"
+  | "medio-derecha";
 
 /* Solo aplica a portón */
 export type PuertaHojaPrincipal = 1 | 2 | 3 | 4 | 5 | 6;

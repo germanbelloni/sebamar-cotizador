@@ -7,10 +7,20 @@ type Props = {
 };
 
 export function PuertasBlueprint({ config, onChange }: Props) {
-  function setMano(mano: "izquierda" | "derecha") {
+  function setMano(
+    mano: "izquierda" | "derecha" | "medio-izquierda" | "medio-derecha",
+  ) {
     onChange((prev) => ({
       ...prev,
       mano,
+      hojaPrincipal:
+        mano === "izquierda"
+          ? 1
+          : mano === "medio-izquierda"
+            ? 2
+            : mano === "medio-derecha"
+              ? 3
+              : 4,
     }));
   }
 
@@ -101,9 +111,13 @@ export function PuertasBlueprint({ config, onChange }: Props) {
     </div>
   );
 
-  function renderPorton(side: "izquierda" | "derecha") {
+  function renderPorton(
+    side: "izquierda" | "derecha" | "medio-izquierda" | "medio-derecha",
+  ) {
     const hojas = config.tipoConfiguracion === "porton" ? config.hojas || 3 : 1;
+
     const mostrarDobleTravesano = necesitaDobleTravesano(config);
+
     return (
       <div className="relative flex h-[220px] border-2 border-white/40 bg-black/40">
         {mostrarDobleTravesano && (
@@ -146,10 +160,22 @@ export function PuertasBlueprint({ config, onChange }: Props) {
               }
             } else {
               if (hojas === 3) {
-                if (side === "izquierda") {
-                  symbol = i === 0 ? "↶" : "";
-                } else {
-                  symbol = i === 2 ? "↷" : "";
+                switch (side) {
+                  case "izquierda":
+                    symbol = i === 0 ? "↶" : "";
+                    break;
+
+                  case "derecha":
+                    symbol = i === 2 ? "↷" : "";
+                    break;
+
+                  case "medio-izquierda":
+                    symbol = i === 1 ? "↶" : "";
+                    break;
+
+                  case "medio-derecha":
+                    symbol = i === 1 ? "↷" : "";
+                    break;
                 }
               }
 
@@ -430,6 +456,60 @@ export function PuertasBlueprint({ config, onChange }: Props) {
                   CONSULTAR
                 </p>
               </div>
+            </div>
+          ) : config.hojas === 3 ? (
+            <div className="grid grid-cols-2 gap-5">
+              <Card
+                selected={config.mano === "izquierda"}
+                onClick={() => setMano("izquierda")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    APERTURA IZQUIERDA
+                  </div>
+
+                  {renderPorton("izquierda")}
+                </div>
+              </Card>
+
+              <Card
+                selected={config.mano === "derecha"}
+                onClick={() => setMano("derecha")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    APERTURA DERECHA
+                  </div>
+
+                  {renderPorton("derecha")}
+                </div>
+              </Card>
+
+              <Card
+                selected={config.mano === "medio-izquierda"}
+                onClick={() => setMano("medio-izquierda")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    PUERTA AL MEDIO IZQUIERDA
+                  </div>
+
+                  {renderPorton("medio-izquierda")}
+                </div>
+              </Card>
+
+              <Card
+                selected={config.mano === "medio-derecha"}
+                onClick={() => setMano("medio-derecha")}
+              >
+                <div className="space-y-5">
+                  <div className="text-center text-sm font-bold text-lime-400">
+                    PUERTA AL MEDIO DERECHA
+                  </div>
+
+                  {renderPorton("medio-derecha")}
+                </div>
+              </Card>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-5">
