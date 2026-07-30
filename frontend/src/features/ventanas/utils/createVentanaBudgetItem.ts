@@ -16,8 +16,6 @@ export function createVentanaBudgetItem(
   config: VentanaConfig,
   result: CotizacionResponse,
 ): BudgetItem {
-  console.log("RESULT EN CREATE VENTANA");
-  console.log(result);
   return createBudgetItem({
     modulo: "ventanas",
 

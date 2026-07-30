@@ -78,7 +78,7 @@ export default function ConfiguracionPage() {
 
       alert("Configuración guardada");
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       alert("Error guardando configuración");
     } finally {

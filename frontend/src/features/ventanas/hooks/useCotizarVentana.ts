@@ -6,10 +6,6 @@ export function useCotizarVentana() {
   return useMutation({
     mutationFn: cotizarVentana,
 
-    onSuccess: (data) => {
-      console.log("COTIZACION:", data);
-    },
-
     onError: (error) => {
       console.error(error);
     },

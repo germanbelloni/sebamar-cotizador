@@ -11,10 +11,6 @@ export function useCotizarMosquiteros() {
   return useMutation<CotizacionMosquiterosResponse, Error, MosquiterosConfig>({
     mutationFn: cotizarMosquiteros,
 
-    onSuccess: (data) => {
-      console.log("COTIZACION MOSQUITEROS:", data);
-    },
-
     onError: (error) => {
       console.error(error);
     },

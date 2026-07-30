@@ -128,7 +128,7 @@ async function listar(req, res) {
 
     return res.json(resultado);
   } catch (error) {
-    console.log("ERROR LISTAR:", error);
+    console.error("ERROR LISTAR:", error);
 
     return res.status(500).json({
       error: "Error listando presupuestos",
@@ -289,7 +289,7 @@ async function cambiarEstado(req, res) {
       ok: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return res.status(500).json({
       error: "Error actualizando estado",

@@ -1,0 +1,2247 @@
+﻿C:\Users\German\Documents\sebamarapp\backend\auditor\tests\testVentanas.js:37
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\tests\testVentanas.js:38
+console.log("============== VENTANA HERRERO ==============");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\tests\testVentanas.js:66
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\tests\testVentanas.js:67
+console.log("============== VENTANA MODENA ==============");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:1
+console.clear();
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:3
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:4
+console.log("=========================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:5
+console.log(" AUDITORÍA GENERAL");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:6
+console.log("=========================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\auditarProyecto.js:7
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\logAuditoria.js:40
+  console.log("📝 Auditoría registrada:", file);
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:1
+console.clear();
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:3
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:4
+console.log("===============================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:5
+console.log("      SEBAMAR - AUDITOR GENERAL");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:6
+console.log("===============================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:7
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:33
+    console.log(`❌ ${modulo}`);
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:34
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:35
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:39
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:40
+console.log("===============================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:43
+  console.log("✅ Auditor ejecutado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:45
+  console.log(`❌ ${errores.length} módulo(s) fallaron`);
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:48
+console.log("===============================================");
+
+C:\Users\German\Documents\sebamarapp\backend\auditor\run.js:49
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:286
+    console.log("ERROR LOGIN:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:310
+    console.log("LOGIN USER:", JSON.stringify(user, null, 2));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:342
+    console.log("ERROR ME:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:377
+    console.log("ERROR LISTAR USERS:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:427
+    console.log("ERROR TOGGLE USER:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\authController.js:472
+    console.log(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\estadisticasController.js:26
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\estadisticasController.js:105
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\pdfController.js:24
+    console.error(err);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:12
+  console.warn(
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:64
+    console.error("ERROR CREAR PRESUPUESTO:");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:65
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:131
+    console.log("ERROR LISTAR:", error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:292
+    console.log(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:393
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:404
+        console.error("Error cerrando Chromium:", error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:453
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:510
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:575
+        console.warn("No se pudo recalcular item:", item.modulo, error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoController.js:642
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\presupuestoDuplicarController.js:68
+    console.error(error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:80
+    console.log("PAYLOAD RUNCALC:");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:81
+    console.log(payload);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:84
+    console.log("========== WRAPPER RESPONSE ==========");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:85
+    console.log(JSON.stringify(result, null, 2));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:101
+    console.log("========== AUDITOR ==========");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:102
+    console.dir(auditoria, { depth: null });
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:103
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:104
+    console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:105
+    console.log(`AUDITOR ${name}`);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:106
+    console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:108
+    auditoria.ok.forEach((m) => console.log(m));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:110
+    auditoria.advertencias.forEach((m) => console.log("⚠", m));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:112
+    auditoria.errores.forEach((m) => console.log("❌", m));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:114
+    console.log("--------------------------------------");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:115
+    console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:118
+    console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:119
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:120
+    console.log("========== BACK RESPONSE ==========");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:121
+    console.log(JSON.stringify(sanitized, null, 2));
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:122
+    console.log("ROL:", req.user.role);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:123
+    console.log("MARGEN:", sanitized.margenAplicado);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:127
+      console.warn(`⚠️ VALIDATION ${name}: ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:134
+    console.error(`❌ ERROR REAL ${name}:`, error);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:285
+  console.log("REQ BODY PATAGONICAS:");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:286
+  console.log(req.body);
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:302
+  console.log("PAYLOAD ARMADO:");
+
+C:\Users\German\Documents\sebamarapp\backend\controllers\productController.js:303
+  console.log(payload);
+
+C:\Users\German\Documents\sebamarapp\backend\middleware\auth.js:59
+    console.log("AUTH ERROR:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\routes\estadisticas.routes.js:5
+console.log("✅ Rutas de estadísticas cargadas");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:136
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:148
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:149
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:169
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:170
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:171
+console.log("QA MOSQUITEROS FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:172
+console.log(`Archivo: ${destino}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_mosquiteros.js:173
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:14
+const originalLog = console.log;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:15
+const originalDir = console.dir;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:17
+console.log = () => {};
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:18
+console.dir = () => {};
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:237
+console.log = originalLog;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:238
+console.dir = originalDir;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:240
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:241
+console.log("✅ QA Patagónicas generado:");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_patagonicas.js:242
+console.log(archivo);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:148
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:156
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:157
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:173
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:174
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:175
+console.log("QA PLACAS FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:176
+console.log("Archivo:", destino);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_placas.js:177
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:153
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:161
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:162
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:178
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:179
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:180
+console.log("QA PORTONES FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:181
+console.log("Archivo:", destino);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_portones.js:182
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:54
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:62
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:63
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:79
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:80
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:81
+console.log("QA POSTIGONES FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:82
+console.log("Archivo:", destino);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_postigones.js:83
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_puertas.js:328
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_puertas.js:329
+console.log("✅ QA Puertas generado:");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_puertas.js:330
+console.log(archivo);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_puertas.js:331
+console.timeEnd?.("QA Puertas");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:18
+const originalLog = console.log;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:19
+const originalDir = console.dir;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:21
+console.log = () => {};
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:22
+console.dir = () => {};
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:341
+console.log = originalLog;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:342
+console.dir = originalDir;
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:344
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:345
+console.log("✅ QA Rajas generado:");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:346
+console.log(archivo);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_rajas.js:348
+console.timeEnd?.("QA Rajas");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:167
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:175
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:176
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:192
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:193
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:194
+console.log("QA SUPERFICIES FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:195
+console.log("Archivo:", destino);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_superficies.js:196
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventanas.js:4
+console.time("QA Ventanas");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventanas.js:339
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventanas.js:340
+console.log("✅ QA Ventanas generado:");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventanas.js:341
+console.log(archivo);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventanas.js:342
+console.timeEnd("QA Ventanas");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:57
+    console.log(`✅ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:65
+    console.log(`❌ ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:66
+    console.log(err.message);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:82
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:83
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:84
+console.log("QA VENTANA ABRIR FINALIZADO");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:85
+console.log("Archivo:", destino);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\QA\qa_ventana_abrir.js:86
+console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:109
+    console.log(`❌ No existe ${rel}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:120
+    console.log(`\n❌ ${rel}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:121
+    console.log("   ORIGINAL contiene un JSON inválido.");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:132
+    console.log(`\n❌ ${rel}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:133
+    console.log("   GENERATED contiene un JSON inválido.");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:145
+    console.log(`✅ ${rel}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:149
+    console.log(`\n❌ ${rel}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:166
+      console.log(`   📁 Estructura: ${faltantes.length} diferencia(s)`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:168
+      faltantes.slice(0, 10).forEach((e) => console.log("      •", e));
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:171
+        console.log(`      ... ${faltantes.length - 10} más`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:176
+      console.log(`   🔤 Tipos: ${tipos.length} diferencia(s)`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:178
+      tipos.slice(0, 10).forEach((e) => console.log("      •", e));
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:181
+        console.log(`      ... ${tipos.length - 10} más`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:186
+      console.log(`   🔢 Valores: ${distintos.length} diferencia(s)`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:188
+      distintos.slice(0, 10).forEach((e) => console.log("      •", e));
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:191
+        console.log(`      ... ${distintos.length - 10} más`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:199
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:200
+console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:201
+console.log(" VALIDACIÓN DE JSON");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:202
+console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:203
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:205
+console.log(`Archivos:           ${totalArchivos}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:206
+console.log(`Archivos OK:        ${archivosOk}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:207
+console.log(`Archivos con error: ${archivosConErrores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:208
+console.log(`Nodos comparados:   ${totalNodos}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:209
+console.log(`Errores:            ${totalErrores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:211
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:214
+  console.log("🎉 TODOS LOS JSON SON IDÉNTICOS");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\compareGenerated.js:217
+  console.log(`⚠️ Se encontraron ${totalErrores} diferencias`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impColores.js:46
+console.log("✅ colores generados correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impColores.js:47
+console.log("🎨 Colores:", colores.length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impMosquiteros.js:62
+console.log("✅ Mosquiteros generados");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impMosquiteros.js:63
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:8
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:9
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:10
+  console.log(` ${nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:11
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:12
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:25
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:26
+    console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:27
+    console.log(" VALIDACIÓN OMITIDA (--publish)");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:28
+    console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:29
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:34
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:35
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:36
+  console.log(" IMPORTACIÓN FINALIZADA");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:37
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:38
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:40
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:41
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:42
+  console.log(" IMPORTACIÓN CANCELADA");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:43
+  console.log("====================================");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\importar.js:44
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPatagonicasModena.js:56
+console.log("✅ patagonicas_modena.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPatagonicasModena.js:57
+console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPatagonicasModena.js:61
+console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPostigones.js:41
+console.log("✅ postigones.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPostigones.js:42
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasEco.js:46
+console.log("✅ puertas_eco.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasEco.js:47
+console.log("📊 Modelos:", Object.keys(resultado.modelos).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasHerrero.js:67
+console.log("✅ puertas_herrero.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasHerrero.js:68
+console.log("📊 Modelos:", Object.keys(resultado.modelos).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasmedias.js:49
+console.log("✅ puertas_media_herrero.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasmedias.js:50
+console.log("📊 Modelos:", Object.keys(resultado.medias).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasModena.js:81
+console.log("✅ puertas_modena.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasModena.js:82
+console.log("📊 Modelos:", Object.keys(resultado.modelos).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasPlaca.js:76
+console.log("✅ puertas_placa.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasPlaca.js:77
+console.log("📊 Modelos placa:", Object.keys(resultado.placa).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasPlaca.js:78
+console.log("📊 Modelos embutir:", Object.keys(resultado.embutir).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impPuertasPlaca.js:79
+console.log("📊 Modelos granero:", Object.keys(resultado.granero).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impRajasHerrero.js:51
+console.log("✅ rajas_herrero.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impRajasHerrero.js:52
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impRajasModena.js:53
+console.log("✅ rajas_modena.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impRajasModena.js:54
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impVentanasHerrero.js:65
+console.log("✅ ventanas_herrero.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impVentanasHerrero.js:66
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impVentanasModena.js:70
+console.log("✅ ventanas_modena.json generado correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\impVentanasModena.js:71
+console.log("📊 Medidas:", Object.keys(resultado.medidas).length);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\publishGenerated.js:28
+    console.log("⏭️", rel, "(omitido)");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\publishGenerated.js:34
+  console.log("📄", rel);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\publishGenerated.js:39
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\publishGenerated.js:40
+console.log("✅ JSON publicados correctamente");
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\runExcel.js:7
+  console.log(`\n📥 ${nombre}\n`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\runExcel.js:14
+    console.log(`\n✅ ${nombre} OK\n`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\runExcel.js:16
+    console.error(`\n❌ ERROR en ${nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\scripts\runExcel.js:47
+console.log("\n🎯 IMPORTACIÓN COMPLETA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\services\patagonicas\calcularPatagonicaModena.js:114
+    console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\services\pdf\generarPDF.js:16
+  console.log("LOGO PATH:", logoPath);
+
+C:\Users\German\Documents\sebamarapp\backend\services\pdf\generarPDF.js:18
+  console.log("EXISTE:", fs.existsSync(logoPath));
+
+C:\Users\German\Documents\sebamarapp\backend\services\pdf\generarPDF.js:20
+  console.log("⚠ No se pudo cargar logo base64");
+
+C:\Users\German\Documents\sebamarapp\backend\services\portones\calcularPortones.js:55
+    console.log(`
+
+C:\Users\German\Documents\sebamarapp\backend\services\portones\calcularPortones.js:75
+  console.log(`
+
+C:\Users\German\Documents\sebamarapp\backend\services\presupuestos\crearPresupuesto.js:48
+    //   console.warn(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:9
+console.log("\n🧪 TEST SERVICE MOSQUITEROS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:71
+    console.log(`✔️ [${i + 1}] ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:73
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:75
+    console.log("   👉 items:", result.items.length);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:77
+    console.log(`💥 [${i + 1}] ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:79
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.service.test.js:83
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:9
+console.log("\n🧪 TEST WRAPPER MOSQUITEROS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:79
+    console.log(`✔️ [${i + 1}] ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:81
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:83
+    console.log("   👉 precioVenta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:85
+    console.log("   👉 items:", result.items.length);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:87
+    console.log(`💥 [${i + 1}] ${test.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:89
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\mosquiteros.test.js:93
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:9
+console.log("\n🧪 TEST SERVICE PATAGÓNICA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:104
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:106
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:111
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:113
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:115
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:117
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.service.test.js:121
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:9
+console.log("\n🧪 TEST WRAPPER PATAGÓNICA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:110
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:112
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:117
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:119
+    console.log("   👉 precioVenta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:121
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:123
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonicas_modena.test.js:127
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:9
+console.log("\n🧪 TEST WRAPPER PATAGÓNICA HERRERO\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:116
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:118
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:123
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:125
+    console.log("   👉 precioVenta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:127
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:129
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\patagonica_herrero.test.js:133
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:5
+console.log("\n🧪 TEST WRAPPER PLACAS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:94
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:95
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:97
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:100
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:101
+    console.log("   -", e.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.service.test.js:105
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:9
+console.log("\n🧪 TEST WRAPPER PLACAS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:138
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:140
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:145
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:147
+    console.log("   👉 precioVenta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:149
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:151
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\placas.test.js:155
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:9
+console.log("\n🧪 TEST SERVICE PORTONES\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:110
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:112
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:117
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:119
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:121
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:123
+    console.log("   👉 ERROR:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.service.test.js:127
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:7
+console.log("\n🧪 TEST WRAPPER PORTONES\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:202
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:204
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:209
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:211
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:213
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:215
+    console.log("   👉 ganancia:", result.ganancia);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:217
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:219
+    console.log("   👉 ERROR:", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\portones.test.js:223
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:9
+console.log("\n🧪 TEST SERVICE POSTIGONES\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:86
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:88
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:93
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:95
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:97
+    console.log("   👉 items:", result.items.length);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:99
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:101
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.service.test.js:105
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:9
+console.log("\n🧪 TEST WRAPPER POSTIGONES\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:146
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:148
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:153
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:155
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:157
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:159
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:161
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\postigones.test.js:165
+console.log("\n✅ FIN TEST\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:7
+console.log("\n🧪 TEST SERVICE PUERTAS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:96
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:98
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:103
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:105
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:107
+    console.log("   👉 items:", result.items.length);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:109
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:111
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.service.test.js:115
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:7
+console.log("\n🧪 TEST WRAPPER PUERTAS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:154
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:156
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:161
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:163
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:165
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:167
+    console.log("   👉 ganancia:", result.ganancia);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:169
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:171
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\puertas.test.js:175
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:5
+console.log("\n🧪 TEST WRAPPER RAJA HERRERO\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:73
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:74
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:76
+      console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:79
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:80
+    console.log("   -", e.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.service.test.js:84
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:9
+console.log("\n🧪 TEST WRAPPER RAJA HERRERO\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:152
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:154
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:159
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:161
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:163
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:165
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:167
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_herrero.test.js:171
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:7
+console.log("\n🧪 TEST SERVICE RAJA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:102
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:104
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:109
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:111
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:113
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:115
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.service.test.js:119
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:9
+console.log("\n🧪 TEST WRAPPER RAJA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:154
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:156
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:161
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:163
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:165
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:167
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:169
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\raja_modena.test.js:173
+console.log("\n✅ FIN TEST\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:9
+console.log("\n🧪 TEST SERVICE superficies\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:132
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:134
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:139
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:141
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:143
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:145
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.service.test.js:149
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:9
+console.log("\n🧪 TEST WRAPPER superficies\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:156
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:158
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:163
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:165
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:167
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:169
+    console.log("   👉 ganancia:", result.ganancia);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:171
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:173
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:177
+console.log("\n✅ FIN TEST WRAPPER\n"); // backend/tests/automatictest/superficies.test.js
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:185
+console.log("\n🧪 TEST WRAPPER superficies\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:332
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:334
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:339
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:341
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:343
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:345
+    console.log("   👉 ganancia:", result.ganancia);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:347
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:349
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\superficies.test.js:353
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:7
+console.log("\n🧪 TEST SERVICE VENTANA HERRERO\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:100
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:102
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:107
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:109
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:111
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:113
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.service.test.js:117
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:9
+console.log("\n🧪 TEST WRAPPER VENTANA HERRERO\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:164
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:166
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:171
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:173
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:175
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:177
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:179
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_herrero.test.js:183
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:7
+console.log("\n🧪 TEST SERVICE VENTANA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:102
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:104
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:109
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:111
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:113
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:115
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:119
+console.log("\n✅ FIN TEST SERVICE\n"); // backend/tests/automatictest/ventana_modena.service.test.js
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:125
+console.log("\n🧪 TEST SERVICE VENTANA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:220
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:222
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:227
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:229
+    console.log("   👉 costoBase:", result.costoBase);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:231
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:233
+    console.log("   -", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.service.test.js:237
+console.log("\n✅ FIN TEST SERVICE\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:9
+console.log("\n🧪 TEST WRAPPER VENTANA MODENA\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:166
+      console.log(`❌ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:168
+      errores.forEach((e) => console.log("   -", e));
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:173
+    console.log(`✔️ [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:175
+    console.log("   👉 venta:", result.precioVenta);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:177
+    console.log("   👉 costo:", result.costo);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:179
+    console.log(`💥 [${i + 1}] ${t.nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:181
+    console.log("   👉", error.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\automatictest\ventana_modena.test.js:185
+console.log("\n✅ FIN TEST WRAPPER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:64
+      console.log(`✔ ${medida} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:72
+      console.log(`❌ ${medida} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:87
+console.log("\n✅ Generator Mosquiteros OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:89
+console.log(`📁 ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:90
+console.log(`📦 Casos: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:91
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\mosquiteros.gen.js:92
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:71
+                console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:81
+                console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:85
+                console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:165
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:167
+console.log("✅ Generator Patagónica Herrero OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:169
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:171
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:173
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:175
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:177
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaHerrero.gen.js:179
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:108
+              console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:118
+              console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:122
+              console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:197
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:199
+console.log("✅ Generator Patagónica Modena OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:201
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:203
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:205
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:207
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:209
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\patagonicaModena.gen.js:211
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:92
+          console.log(`✔ ${medida} | ${tipo} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:107
+          console.log(`❌ ${medida} | ${tipo} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:109
+          console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:186
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:188
+console.log("✅ Generator Postigones OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:190
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:192
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:194
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:196
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:198
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\postigon.gen.js:200
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:61
+          console.log(`✔ ${tipo} | ${modelo} | ${medida} | ${marco}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:74
+          console.log(`❌ ${tipo} | ${modelo} | ${medida} | ${marco}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:76
+          console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:209
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:211
+console.log("✅ Generator Puerta Placa OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:213
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:215
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:217
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:219
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:221
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertaPlaca.gen.js:223
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:126
+                console.log(`✔ ${linea} | ${tipo} | ${modelo} | ${medida}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:134
+                console.log(`❌ ${linea} | ${modelo}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:136
+                console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:238
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:240
+console.log("✅ Generator Puertas OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:242
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:244
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:246
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:248
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:250
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puertas.gen.js:252
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:128
+                console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:138
+                console.log(`❌ ${linea} | ${modeloPuerta} + ${modeloMedia}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:140
+                console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:229
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:231
+console.log("✅ Generator Puerta y Media OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:233
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:235
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:237
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:239
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:241
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\puerta_y_media.gen.js:243
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:79
+              console.log(`✔ ${medida} | ${modelo} | ${tipoVidrio} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:87
+              console.log(`❌ ${medida} | ${modelo}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:89
+              console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:174
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:176
+console.log("✅ Generator Rajas Herrero OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:178
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:180
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:182
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:184
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:186
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasHerrero.gen.js:188
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:91
+                    console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:101
+                    console.log(`❌ ${medida} | ${modelo}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:103
+                    console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:200
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:202
+console.log("✅ Generator Rajas Modena OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:204
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:206
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:208
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:210
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:212
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\rajasModena.gen.js:214
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:86
+              console.log(`✔ ${tipo} | ${ancho}x${alto}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:94
+              console.log(`❌ ${tipo} | ${ancho}x${alto}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:96
+              console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:119
+console.log("\n✅ Generator Superficies OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:121
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\superficies.gen.js:123
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:93
+      console.log(`❌ medida inválida: ${medida}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:125
+                  console.log(`✔ herrero | ${medida} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:133
+                  console.log(`❌ herrero | ${medida} | ${color}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:135
+                  console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:170
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:171
+console.log("✅ Generator Ventana Herrero OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:172
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:173
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:174
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:175
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:176
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaHerrero.gen.js:177
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:87
+      console.log(`❌ medida inválida: ${medida}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:118
+                  console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:128
+                  console.log(
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:132
+                  console.log(`👉 ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:171
+console.log("\n================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:172
+console.log("✅ Generator Ventana Modena OK");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:173
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:174
+console.log(`📁 Archivo: ${outputPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:175
+console.log(`📦 Casos generados: ${resultados.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:176
+console.log(`✅ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:177
+console.log(`❌ Errores: ${errores}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\generators\ventanaModena.gen.js:178
+console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:11
+console.log("\n🚨 RUN AUTOMATIC TESTS\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:61
+  console.log(`▶ ${file}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:108
+  console.log(passed ? "✔ OK\n" : "❌ FAIL\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:139
+console.log("\n📊 RESUMEN\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:141
+console.log(`Total: ${files.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:143
+console.log(`OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:145
+console.log(`FAIL: ${fail}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:147
+console.log(`\n📁 Reporte:\n${reportFile}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runAutomaticTests.js:149
+console.log("\n✅ FIN RUNNER\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:13
+console.log("🚨 RUNNER EJECUTADO", new Date().toISOString());
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:20
+  console.log("⛔ Runner ya activo → cancelado");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:84
+console.log("\n🔧 Generators a ejecutar:\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:87
+  console.log(` - ${g}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:90
+console.log("");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:112
+    console.log(`⚠ NO EXISTE: ${generatorName}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:125
+  console.log(`▶ Ejecutando: ${generatorName}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:152
+    console.log(result.stdout);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:160
+    console.log(result.stderr);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:168
+    console.log("✔ OK\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:177
+  console.log(`❌ ERROR en ${generatorName}\n`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:200
+console.log("\n📊 RESUMEN FINAL");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:202
+console.log(`Total definidos: ${generators.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:204
+console.log(`Ejecutados: ${ejecutados}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:206
+console.log(`OK: ${ejecutados - errores.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:208
+console.log(`Errores: ${errores.length}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:215
+  console.log("\n❌ FALLARON:\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:218
+    console.log(` - ${e.generator}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:220
+    console.log(`   👉 ${e.error}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:236
+console.log(`\n📝 Error report: ${errorReportPath}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:242
+console.log(`\n📁 Output limpio: ${OUTPUT_DIR}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\runner\runGenerators.js:248
+console.log(`\n✅ RUN COMPLETO\n`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:81
+    console.log(`✔️ ${nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:85
+    console.log(`💥 ${nombre}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:87
+    console.log("   👉", e.message);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:95
+console.log("\n==============================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:97
+console.log("🧪 VALIDACIÓN SISTEMA");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:99
+console.log("==============================\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:216
+console.log("\n==============================");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:218
+console.log("📊 RESUMEN");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:220
+console.log("==============================\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:222
+console.log(`✔ OK: ${ok}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:224
+console.log(`💥 FAIL: ${fail}`);
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:231
+  console.log("\n❌ SISTEMA CON ERRORES\n");
+
+C:\Users\German\Documents\sebamarapp\backend\tests\system\validacionSistema.test.js:236
+console.log("\n✅ SISTEMA OK\n");
+
+C:\Users\German\Documents\sebamarapp\backend\app.js:40
+    .then(() => console.log("MongoDB conectado"))
+
+C:\Users\German\Documents\sebamarapp\backend\app.js:41
+    .catch((err) => console.error("Error conectando MongoDB:", err));
+
+C:\Users\German\Documents\sebamarapp\backend\server.js:6
+  console.log("Server corriendo en puerto " + PORT);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\app\AuthInitializer.tsx:33
+        console.log("SESSION EXPIRED");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\components\ui\FullscreenButton.tsx:33
+      console.error("Error fullscreen:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\cortinas\hooks\useCotizarCortina.ts:10
+      console.log("COTIZACION CORTINAS:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\cortinas\hooks\useCotizarCortina.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\marcos\api\cotizarMarcos.ts:7
+  console.log("RESPUESTA RAW MARCOS:", response);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\marcos\api\cotizarMarcos.ts:8
+  console.log("DATA MARCOS:", response.data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\mosquiteros\hooks\useCotizarMosquiteros.ts:15
+      console.log("COTIZACION MOSQUITEROS:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\mosquiteros\hooks\useCotizarMosquiteros.ts:19
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\pano-fijo\hooks\useCotizarPanoFijo.ts:10
+      console.log("COTIZACION pano fijo:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\pano-fijo\hooks\useCotizarPanoFijo.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\patagonicas\hooks\useCotizarPatagonicas.ts:10
+      console.log("COTIZACION PATAGONICAS:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\patagonicas\hooks\useCotizarPatagonicas.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:29
+//   console.log("BODY PORTONES =>", config);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:47
+  console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:48
+  console.log("CONFIG ENVIADO A BACKEND");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:49
+  console.log(config);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:50
+  console.log("MODELO:", config.modelo);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\api\cotizarPortones.ts:51
+  console.log("=================================");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\hooks\useCotizarPortones.ts:10
+      console.log("COTIZACION PORTONES:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\portones\hooks\useCotizarPortones.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\postigones\api\cotizarPostigones.ts:12
+  console.log("========== BACK RESPONSE ==========");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\postigones\api\cotizarPostigones.ts:13
+  console.log(JSON.stringify(data, null, 2));
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\postigones\components\PostigonPreview.tsx:36
+  console.log(config.tipo);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\postigones\hooks\useCotizarPostigones.ts:10
+      console.log("COTIZACION POSTIGONES:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\postigones\hooks\useCotizarPostigones.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\hooks\usePresupuestoPdf.ts:101
+      console.warn("No se pudo usar Guardar como.", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\hooks\usePresupuestoPdf.ts:140
+      console.warn("No se pudo usar Guardar como.", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\hooks\useSharePresupuesto.ts:32
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\hooks\useUpdatePresupuestoCompleto.ts:15
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\pages\PresupuestoDetallePage.tsx:101
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\pages\PresupuestoDetallePage.tsx:115
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\pages\PresupuestoDetallePage.tsx:131
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\pages\PresupuestoDetallePage.tsx:206
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\presupuestos\pages\PresupuestoDetallePage.tsx:259
+  console.log(data.items[0]);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\print\components\PrintableBudget.tsx:97
+          console.log("PRESUPUESTO GUARDADO:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\print\components\PrintableBudget.tsx:141
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\puertas\components\PuertasConfigForm.tsx:390
+                console.log({
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\puertas\svg\components\DoorRenderer.tsx:43
+  console.log("EXTRAS", config.extras);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\puertas-placa\hooks\useCotizarPuertasPlaca.ts:10
+      console.log("COTIZACION PUERTA PLACA:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\puertas-placa\hooks\useCotizarPuertasPlaca.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\rajas\hooks\useCotizarRajas.ts:11
+      console.log("✅ COTIZACION RAJAS:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\rajas\hooks\useCotizarRajas.ts:18
+        console.error("❌ ERROR RAJAS:", backendMessage || error.message);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\rajas\hooks\useCotizarRajas.ts:23
+      console.error("❌ ERROR RAJAS:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\superficies\hooks\useCotizarSuperficies.ts:12
+      console.log("COTIZACION superficies:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\superficies\hooks\useCotizarSuperficies.ts:16
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\users\components\CreateUserModal.tsx:88
+      console.log(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\users\components\UserManagementPanel.tsx:42
+      console.log(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\users\components\UserManagementPanel.tsx:56
+      console.log(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanas\hooks\useCotizarVentana.ts:10
+      console.log("COTIZACION:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanas\hooks\useCotizarVentana.ts:14
+      console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanas\utils\createVentanaBudgetItem.ts:19
+  console.log("RESULT EN CREATE VENTANA");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanas\utils\createVentanaBudgetItem.ts:20
+  console.log(result);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanasAbrir\hooks\useCotizarVentanasAbrir.ts:11
+      console.log("✅ COTIZACION VENTANAS ABRIR:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanasAbrir\hooks\useCotizarVentanasAbrir.ts:18
+        console.error(
+
+C:\Users\German\Documents\sebamarapp\frontend\src\features\ventanasAbrir\hooks\useCotizarVentanasAbrir.ts:26
+      console.error("❌ ERROR VENTANAS ABRIR:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\layouts\components\Header.tsx:61
+      console.error("Error fullscreen:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\lib\api.ts:34
+console.log("API URL:", import.meta.env.VITE_API_URL);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\pages\ConfiguracionPage.tsx:81
+      console.log(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\pages\ConfiguracionPage.tsx:98
+        console.error(error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\services\registrarUso.ts:23
+    console.error("Error registrando uso:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\hooks\useBudgetAdder.ts:41
+        console.log("REEMPLAZANDO ITEM", {
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\hooks\useBudgetAdder.ts:51
+        console.log("REPLACE EJECUTADO");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\hooks\useBudgetAdder.ts:56
+      console.error("ERROR AGREGANDO ITEM:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\hooks\useGuardarPresupuesto.ts:10
+      console.log("PRESUPUESTO GUARDADO:", data);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\hooks\useGuardarPresupuesto.ts:16
+      console.error("ERROR GUARDANDO PRESUPUESTO:", error);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\store\useBudgetStore.ts:90
+          console.log("ITEMS ANTES", state.items);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\store\useBudgetStore.ts:103
+          console.log("ITEMS DESPUES", nuevosItems);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\utils\createBudgetItem.ts:84
+  console.log("CREATE BUDGET ITEM");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\budget\utils\createBudgetItem.ts:85
+  console.log({
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useConfigUpdater.ts:5
+    console.log("========== UPDATE CONFIG ==========");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useConfigUpdater.ts:6
+    console.log("Updates:", updates);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useConfigUpdater.ts:14
+      console.log("Prev:", prev);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useConfigUpdater.ts:15
+      console.log("Next:", next);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useConfigUpdater.ts:16
+      console.log("===================================");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useToggleField.ts:34
+    console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useToggleField.ts:35
+    console.log("TOGGLE:", String(field));
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useToggleField.ts:36
+    console.log("Valor actual:", config[field]);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useToggleField.ts:42
+    console.log("Nuevo valor esperado:", !config[field]);
+
+C:\Users\German\Documents\sebamarapp\frontend\src\shared\hooks\useToggleField.ts:43
+    console.log("================================");
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:147
+      console.log("\n=================================");
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:148
+      console.log(` PERFIL ${p.toUpperCase()}`);
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:149
+      console.log("=================================\n");
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:154
+        console.log(`\n========== ${nombre} ==========\n`);
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:180
+      console.log(`✅ Excel generado: ${baseName}.xlsx`);
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:181
+      console.log(`✅ PDF generado: ${baseName}.pdf`);
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:184
+    console.log("\n✅ Todas las listas fueron generadas.");
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:204
+  console.log(`✅ Excel generado: ${baseName}.xlsx`);
+
+C:\Users\German\Documents\sebamarapp\listas\generar-listas.js:208
+  console.error(`Error al generar ${moduloNombre}: ${error.message}`);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:81
+console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:82
+console.log("VALIDADOR DE LISTAS");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:83
+console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:112
+    console.log(`   ✓ ${nombre.padEnd(20)} OK (${esperado})`);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:116
+  console.log(
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:124
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:125
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:126
+  console.log(modulo.nombre);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:127
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:138
+    console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:139
+    console.log(`================ ${fila.medida} ================`);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:208
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:209
+  console.log(`Total medidas: ${total}`);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:216
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:225
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:226
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:227
+  console.log("VALIDACIÓN FINALIZADA");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:228
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:229
+  console.log(`Módulos procesados : ${modulos}`);
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:230
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:236
+  console.log("");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:237
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:238
+  console.log("ERROR");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:239
+  console.log("======================================");
+
+C:\Users\German\Documents\sebamarapp\listas\validar-listas.js:240
+  console.error(error);
+
+C:\Users\German\Documents\sebamarapp\wrappers\cortinas\calcularCortinas.js:203
+  console.log("MARGEN CORTINAS:", Math.round(perfilData.ganancia * 100));
+
+C:\Users\German\Documents\sebamarapp\wrappers\patagonicas\calcularPatagonicaHerrero.js:235
+    console.error("ERROR SUPERFICIE:", err);
+
+C:\Users\German\Documents\sebamarapp\wrappers\patagonicas\calcularPatagonicaHerrero.js:289
+    console.error("ERROR ACOPLE:", err);
+
+C:\Users\German\Documents\sebamarapp\wrappers\placas\calcularPuertaPlaca.js:120
+  console.log("DEBUG PLACAS:", {
+
+C:\Users\German\Documents\sebamarapp\wrappers\rajas\calcularRajaHerrero.js:74
+  console.log(`⚠️ Fuera de medida: ${ancho}x${alto} → usando ${medidaFinal}`);
+
+C:\Users\German\Documents\sebamarapp\wrappers\rajas\calcularRajaModena.js:71
+  console.log(`⚠️ Fuera de medida: ${ancho}x${alto} → usando ${medidaFinal}`);
+
+C:\Users\German\Documents\sebamarapp\wrappers\ventanasAbrir\calcularVentanaAbrir.js:148
+  console.log({
+

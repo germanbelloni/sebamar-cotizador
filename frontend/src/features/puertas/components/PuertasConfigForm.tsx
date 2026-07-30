@@ -386,13 +386,6 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             {modelosVisuales.map((modelo: string) => {
               const src = getImageSrc(modelo);
 
-              if (modelo === "modelo_3_vr" || modelo === "modelo_10") {
-                console.log({
-                  modelo,
-                  src,
-                });
-              }
-
               return (
                 <ModelImageCard
                   key={modelo}

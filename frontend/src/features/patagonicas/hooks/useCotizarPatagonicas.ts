@@ -6,10 +6,6 @@ export function useCotizarPatagonicas() {
   return useMutation({
     mutationFn: cotizarPatagonicas,
 
-    onSuccess: (data) => {
-      console.log("COTIZACION PATAGONICAS:", data);
-    },
-
     onError: (error) => {
       console.error(error);
     },

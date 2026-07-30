@@ -39,7 +39,7 @@ export function UserManagementPanel() {
 
       setUsers(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ export function UserManagementPanel() {
 
       await loadUsers();
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       alert("Error actualizando usuario");
     } finally {

@@ -30,8 +30,6 @@ export function AuthInitializer({ children }: Props) {
 
         refreshUser(data);
       } catch {
-        console.log("SESSION EXPIRED");
-
         logout();
       } finally {
         setLoading(false);

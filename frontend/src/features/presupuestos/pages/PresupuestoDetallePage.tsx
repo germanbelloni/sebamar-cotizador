@@ -256,7 +256,7 @@ export function PresupuestoDetallePage({
 
   const margen =
     totalCosto > 0 ? ((ganancia / totalCosto) * 100).toFixed(1) : 0;
-  console.log(data.items[0]);
+
   return (
     <div className="p-10">
       {/* HEADER */}

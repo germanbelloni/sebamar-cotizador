@@ -40,7 +40,6 @@ export function DoorRenderer({
   width,
   height,
 }: Props) {
-  console.log("EXTRAS", config.extras);
   return (
     <>
       {/* HOJA */}

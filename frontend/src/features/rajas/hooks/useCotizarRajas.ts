@@ -7,10 +7,6 @@ export function useCotizarRajas() {
   return useMutation({
     mutationFn: cotizarRajas,
 
-    onSuccess: (data) => {
-      console.log("✅ COTIZACION RAJAS:", data);
-    },
-
     onError: (error) => {
       if (axios.isAxiosError(error)) {
         const backendMessage = error.response?.data?.error;

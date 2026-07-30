@@ -85,7 +85,7 @@ export function CreateUserModal({ onUserCreated }: Props) {
         margen: 0,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       alert("Error creando usuario");
     } finally {

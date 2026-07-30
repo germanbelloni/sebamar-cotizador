@@ -33,7 +33,6 @@ export function PostigonPreview({ config }: Props) {
   const lamas = Array.from({
     length: numLamas,
   });
-  console.log(config.tipo);
   // CORREDIZO
 
   const leafWidth =

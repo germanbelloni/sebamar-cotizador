@@ -8,10 +8,6 @@ export function useCotizarSuperficies() {
   return useMutation({
     mutationFn: cotizarSuperficies,
 
-    onSuccess: (data) => {
-      console.log("COTIZACION superficies:", data);
-    },
-
     onError: (error) => {
       console.error(error);
     },

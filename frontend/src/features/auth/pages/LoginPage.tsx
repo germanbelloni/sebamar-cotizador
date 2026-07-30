@@ -32,19 +32,15 @@ export function LoginPage() {
       setError("");
 
       const response = await login({
-        nombre,
+        nombre: nombre.trim(),
         password,
       });
 
       loginStore(response);
 
       navigate("/");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Error login");
-      }
+    } catch {
+      setError("Credenciales inválidas. Reintentá nuevamente.");
     } finally {
       setLoading(false);
     }

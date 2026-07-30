@@ -200,7 +200,7 @@ function calcularCortinasWrapper(dataInput) {
   // ========================
   // ✅ RESPONSE
   // ========================
-  console.log("MARGEN CORTINAS:", Math.round(perfilData.ganancia * 100));
+
   return buildWrapperResponse({
     modulo: "cortinas",
 

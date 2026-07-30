@@ -117,13 +117,6 @@ function calcularWrapper(dataInput) {
       altoLookup: altoNorm.lookup,
     },
   });
-  console.log("DEBUG PLACAS:", {
-    tipo,
-    modelo,
-    marco,
-    ancho,
-    alto,
-  });
   // ========================
   // 🧠 SERVICE
   // ========================

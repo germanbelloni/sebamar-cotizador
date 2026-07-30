@@ -6,10 +6,6 @@ export function useCotizarPortones() {
   return useMutation({
     mutationFn: cotizarPortones,
 
-    onSuccess: (data) => {
-      console.log("COTIZACION PORTONES:", data);
-    },
-
     onError: (error) => {
       console.error(error);
     },

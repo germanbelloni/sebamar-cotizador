@@ -77,12 +77,7 @@ async function runCalculation(req, res, name, callback) {
       ...req.body,
       perfil: perfilTemporal,
     };
-    console.log("PAYLOAD RUNCALC:");
-    console.log(payload);
-
     const result = await callback(payload);
-    console.log("========== WRAPPER RESPONSE ==========");
-    console.log(JSON.stringify(result, null, 2));
 
     const pricingUser = await resolvePricingUser(req.user);
 
@@ -98,29 +93,6 @@ async function runCalculation(req, res, name, callback) {
 
     logAuditoria(name, req.user, req.body, sanitized, auditoria);
 
-    console.log("========== AUDITOR ==========");
-    console.dir(auditoria, { depth: null });
-    console.log("");
-    console.log("======================================");
-    console.log(`AUDITOR ${name}`);
-    console.log("======================================");
-
-    auditoria.ok.forEach((m) => console.log(m));
-
-    auditoria.advertencias.forEach((m) => console.log("⚠", m));
-
-    auditoria.errores.forEach((m) => console.log("❌", m));
-
-    console.log("--------------------------------------");
-    console.log(
-      auditoria.valido ? "✅ RESULTADO: APROBADO" : "❌ RESULTADO: RECHAZADO",
-    );
-    console.log("======================================");
-    console.log("");
-    console.log("========== BACK RESPONSE ==========");
-    console.log(JSON.stringify(sanitized, null, 2));
-    console.log("ROL:", req.user.role);
-    console.log("MARGEN:", sanitized.margenAplicado);
     return res.json(sanitized);
   } catch (error) {
     if (isValidationError(error.message)) {
@@ -282,9 +254,6 @@ function cortinas(req, res) {
 // =========================
 
 function patagonicas(req, res) {
-  console.log("REQ BODY PATAGONICAS:");
-  console.log(req.body);
-
   const linea = (req.body.linea || "Herrero").toLowerCase();
 
   const medida = `${req.body.ancho}x${req.body.alto}`;
@@ -298,9 +267,6 @@ function patagonicas(req, res) {
       Number(req.body.cantidadRajas) || (req.body.tipo === "2_rajas" ? 2 : 1),
     anchoRaja: Number(req.body.anchoRaja || 40),
   };
-
-  console.log("PAYLOAD ARMADO:");
-  console.log(payload);
 
   // 👇 IMPORTANTE
   req.body = payload;

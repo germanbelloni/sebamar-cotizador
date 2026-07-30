@@ -87,8 +87,6 @@ export const useBudgetStore = create<BudgetState>()(
 
       replaceItem: (item) =>
         set((state) => {
-          console.log("ITEMS ANTES", state.items);
-
           const nuevosItems = state.items.map((i) => {
             if (i.id !== item.id) {
               return i;
@@ -99,8 +97,6 @@ export const useBudgetStore = create<BudgetState>()(
               groupKey: i.groupKey,
             };
           });
-
-          console.log("ITEMS DESPUES", nuevosItems);
 
           return {
             items: nuevosItems,

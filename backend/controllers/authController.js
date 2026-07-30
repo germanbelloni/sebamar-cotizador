@@ -38,6 +38,7 @@ async function register(req, res) {
       nombreEmpresa,
     } = req.body;
 
+    const nombreNormalizado = nombre.trim().toLowerCase();
     // =========================
     // VALIDACIONES BÁSICAS
     // =========================
@@ -49,7 +50,7 @@ async function register(req, res) {
     }
 
     const existeUsuario = await User.findOne({
-      nombre,
+      nombre: nombreNormalizado,
     });
 
     if (existeUsuario) {
@@ -143,7 +144,7 @@ async function register(req, res) {
     }
 
     const nuevoUsuario = await User.create({
-      nombre,
+      nombre: nombreNormalizado,
 
       password: hashedPassword,
 
@@ -218,8 +219,8 @@ async function login(req, res) {
   try {
     const { nombre, password } = req.body;
 
-    const user = await User.findOne({
-      nombre,
+    let user = await User.findOne({
+      nombre: new RegExp(`^${nombre.trim()}$`, "i"),
     }).populate("ownerId", "nombre empresa role");
 
     if (!user) {
@@ -280,7 +281,7 @@ async function login(req, res) {
       },
     });
   } catch (error) {
-    console.log("ERROR LOGIN:", error.message);
+    console.error("ERROR LOGIN:", error.message);
 
     return res.status(500).json({
       error: "Error login",
@@ -304,7 +305,6 @@ async function me(req, res) {
         error: "Usuario no encontrado",
       });
     }
-    console.log("LOGIN USER:", JSON.stringify(user, null, 2));
 
     return res.json({
       id: user._id,
@@ -336,7 +336,7 @@ async function me(req, res) {
       colorSecundario: user.colorSecundario,
     });
   } catch (error) {
-    console.log("ERROR ME:", error.message);
+    console.error("ERROR ME:", error.message);
 
     return res.status(500).json({
       error: "Error obteniendo usuario",
@@ -371,7 +371,7 @@ async function listar(req, res) {
     }
     return res.json(users);
   } catch (error) {
-    console.log("ERROR LISTAR USERS:", error.message);
+    console.error("ERROR LISTAR USERS:", error.message);
 
     return res.status(500).json({
       error: "Error obteniendo usuarios",
@@ -421,7 +421,7 @@ async function toggleActivo(req, res) {
       activo: user.activo,
     });
   } catch (error) {
-    console.log("ERROR TOGGLE USER:", error.message);
+    console.error("ERROR TOGGLE USER:", error.message);
 
     return res.status(500).json({
       error: "Error actualizando usuario",
@@ -466,7 +466,7 @@ async function actualizarConfiguracion(req, res) {
       user,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return res.status(500).json({
       error: "Error actualizando configuración",

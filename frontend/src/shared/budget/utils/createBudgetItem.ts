@@ -81,14 +81,7 @@ export function createBudgetItem({
   const perfilAplicado = String(result.perfilAplicado ?? "");
 
   const audit = result.audit;
-  console.log("CREATE BUDGET ITEM");
-  console.log({
-    precioBase,
-    precioProveedor,
-    precioLista,
-    precioFinal,
-    precioUnitario,
-  });
+
   return {
     id: crypto.randomUUID(),
 

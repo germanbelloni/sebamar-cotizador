@@ -94,8 +94,6 @@ export function PrintableBudget({
       }),
       {
         onSuccess: (data: PresupuestoGuardadoResponse) => {
-          console.log("PRESUPUESTO GUARDADO:", data);
-
           setPresupuestoGuardado({
             id: data._id || data.id || "",
             numero: data.numero,

@@ -31,16 +31,9 @@ export function useToggleField<T extends Record<string, unknown>>({
   updateConfig,
 }: Params<T>) {
   function toggleField(field: keyof T) {
-    console.log("================================");
-    console.log("TOGGLE:", String(field));
-    console.log("Valor actual:", config[field]);
-
     updateConfig({
       [field]: !config[field],
     } as Partial<T>);
-
-    console.log("Nuevo valor esperado:", !config[field]);
-    console.log("================================");
   }
 
   return {

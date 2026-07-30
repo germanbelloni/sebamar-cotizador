@@ -71,7 +71,7 @@ function buscarMedidaValida(ancho, alto) {
     medidaFinal = fallback.key;
   }
 
-  console.log(`⚠️ Fuera de medida: ${ancho}x${alto} → usando ${medidaFinal}`);
+  console.warn(`Fuera de medida: ${ancho}x${alto} → usando ${medidaFinal}`);
 
   return medidaFinal;
 }

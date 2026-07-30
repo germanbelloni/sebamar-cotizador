@@ -37,7 +37,7 @@ app.use("/api", apiRoutes);
 if (process.env.NODE_ENV !== "test" && process.env.MONGODB_URI) {
   mongoose
     .connect(process.env.MONGODB_URI)
-    .then(() => console.log("MongoDB conectado"))
+    .then(() => console.info("MongoDB conectado"))
     .catch((err) => console.error("Error conectando MongoDB:", err));
 }
 

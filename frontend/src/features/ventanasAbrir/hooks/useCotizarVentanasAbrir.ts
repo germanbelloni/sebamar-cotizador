@@ -7,10 +7,6 @@ export function useCotizarVentanasAbrir() {
   return useMutation({
     mutationFn: cotizarVentanasAbrir,
 
-    onSuccess: (data) => {
-      console.log("✅ COTIZACION VENTANAS ABRIR:", data);
-    },
-
     onError: (error) => {
       if (axios.isAxiosError(error)) {
         const backendMessage = error.response?.data?.error;

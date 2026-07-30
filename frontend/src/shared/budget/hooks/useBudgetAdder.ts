@@ -38,17 +38,10 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
 
       const item = createItem(config, result);
       if (editingItem) {
-        console.log("REEMPLAZANDO ITEM", {
-          viejo: editingItem,
-          nuevo: item,
-        });
-
         replaceItem({
           ...item,
           id: editingItem.id,
         });
-
-        console.log("REPLACE EJECUTADO");
       } else {
         addItem(item);
       }

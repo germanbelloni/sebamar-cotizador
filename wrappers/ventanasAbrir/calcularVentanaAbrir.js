@@ -145,12 +145,6 @@ function calcularVentanaAbrir(dataInput) {
 
   const altoBusqueda = esHerrero ? Math.min(alto, 150) : alto;
 
-  console.log({
-    anchoVentana: ancho,
-    anchoHoja,
-    altoBusqueda,
-  });
-
   const medida = buscarMedida(data, anchoHoja, altoBusqueda);
   audit.add({
     etapa: "Lookup",
