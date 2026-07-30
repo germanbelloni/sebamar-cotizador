@@ -1,5 +1,6 @@
 import { getPresupuestoPdf } from "../api/getPresupuestoPdf";
 import { toast } from "sonner";
+import { useGlobalLoadingStore } from "@/shared/loading/useGlobalLoadingStore";
 
 function formatFecha(fecha: string) {
   return new Date(fecha).toLocaleDateString("es-AR").replace(/\//g, "-");
@@ -48,114 +49,136 @@ async function elegirArchivo(blob: Blob, nombreArchivo: string) {
 const fileHandles = new Map<string, FileSystemFileHandle>();
 
 export function usePresupuestoPdf() {
+  const setLoading = useGlobalLoadingStore((state) => state.setLoading);
+
   async function view(id: string) {
-    const blob = await getPresupuestoPdf(id);
+    setLoading(true);
 
-    const url = URL.createObjectURL(blob);
+    try {
+      const blob = await getPresupuestoPdf(id);
 
-    window.open(url, "_blank");
+      const url = URL.createObjectURL(blob);
 
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 1000);
+      window.open(url, "_blank");
+
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function save(id: string, cliente: string, fecha: string) {
-    const blob = await getPresupuestoPdf(id);
-
-    const nombreArchivo = `${limpiarNombre(cliente)} ${formatFecha(fecha)}.pdf`;
-
-    const handle = fileHandles.get(id);
-
-    if (handle) {
-      try {
-        const writable = await handle.createWritable();
-
-        await writable.write(blob);
-
-        await writable.close();
-
-        toast.success("PDF guardado correctamente.");
-
-        return;
-      } catch {
-        fileHandles.delete(id);
-      }
-    }
+    setLoading(true);
 
     try {
-      const handle = await elegirArchivo(blob, nombreArchivo);
+      const blob = await getPresupuestoPdf(id);
+
+      const nombreArchivo = `${limpiarNombre(cliente)} ${formatFecha(fecha)}.pdf`;
+
+      const handle = fileHandles.get(id);
 
       if (handle) {
-        fileHandles.set(id, handle);
+        try {
+          const writable = await handle.createWritable();
 
-        toast.success("PDF guardado correctamente.");
+          await writable.write(blob);
 
-        return;
+          await writable.close();
+
+          toast.success("PDF guardado correctamente.");
+
+          return;
+        } catch {
+          fileHandles.delete(id);
+        }
       }
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        return;
+
+      try {
+        const handle = await elegirArchivo(blob, nombreArchivo);
+
+        if (handle) {
+          fileHandles.set(id, handle);
+
+          toast.success("PDF guardado correctamente.");
+
+          return;
+        }
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.warn("No se pudo usar Guardar como.", error);
       }
 
-      console.warn("No se pudo usar Guardar como.", error);
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = nombreArchivo;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      toast.success("PDF guardado correctamente.");
+
+      a.remove();
+
+      URL.revokeObjectURL(url);
+    } finally {
+      setLoading(false);
     }
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = nombreArchivo;
-
-    document.body.appendChild(a);
-
-    a.click();
-    toast.success("PDF guardado correctamente.");
-    a.remove();
-
-    URL.revokeObjectURL(url);
   }
 
   async function saveAs(id: string, cliente: string, fecha: string) {
-    const blob = await getPresupuestoPdf(id);
-
-    const nombreArchivo = `${limpiarNombre(cliente)} ${formatFecha(fecha)}.pdf`;
+    setLoading(true);
 
     try {
-      const handle = await elegirArchivo(blob, nombreArchivo);
+      const blob = await getPresupuestoPdf(id);
 
-      if (handle) {
-        fileHandles.set(id, handle);
+      const nombreArchivo = `${limpiarNombre(cliente)} ${formatFecha(fecha)}.pdf`;
 
-        toast.success("PDF guardado correctamente.");
+      try {
+        const handle = await elegirArchivo(blob, nombreArchivo);
 
-        return;
+        if (handle) {
+          fileHandles.set(id, handle);
+
+          toast.success("PDF guardado correctamente.");
+
+          return;
+        }
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.warn("No se pudo usar Guardar como.", error);
       }
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        return;
-      }
 
-      console.warn("No se pudo usar Guardar como.", error);
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = nombreArchivo;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      toast.success("PDF guardado correctamente.");
+
+      a.remove();
+
+      URL.revokeObjectURL(url);
+    } finally {
+      setLoading(false);
     }
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = nombreArchivo;
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    toast.success("PDF guardado correctamente.");
-
-    a.remove();
-
-    URL.revokeObjectURL(url);
   }
 
   return {

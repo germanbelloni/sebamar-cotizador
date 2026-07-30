@@ -45,14 +45,7 @@ function sanitizarResultado(resultado, user) {
   // 👨 USER
   return {
     descripcion: resultado.descripcion,
-
-    precioBase: resultado.precioBase,
-
     precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
-
-    margenAplicado: resultado.margenAplicado,
-
-    perfilAplicado: resultado.perfilAplicado,
 
     svg: resultado.svg,
 
@@ -66,5 +59,4 @@ function sanitizarResultado(resultado, user) {
       })) || [],
   };
 }
-
 module.exports = sanitizarResultado;

@@ -20,6 +20,7 @@ import { budgetToWhatsApp } from "@/shared/budget/serializers/budgetToWhatsApp";
 import { usePresupuestoPdf } from "@/features/presupuestos/hooks/usePresupuestoPdf";
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 import { useUpdatePresupuestoCompleto } from "@/features/presupuestos/hooks/useUpdatePresupuestoCompleto";
+import { useGlobalLoadingStore } from "@/shared/loading/useGlobalLoadingStore";
 
 import {
   DropdownMenu,
@@ -38,11 +39,7 @@ type Props = {
   cliente: Cliente;
   items: BudgetItem[];
 };
-type PresupuestoGuardadoResponse = {
-  _id?: string;
-  id?: string;
-  numero?: number;
-};
+
 export function PrintableBudget({
   numero,
   fecha,
@@ -69,12 +66,14 @@ export function PrintableBudget({
   const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
 
   const clearBudget = useBudgetStore((state) => state.clearBudget);
+
+  const setLoading = useGlobalLoadingStore((state) => state.setLoading);
   const [presupuestoGuardado, setPresupuestoGuardado] = useState<{
     id: string;
     numero?: number;
   } | null>(null);
 
-  function handleGuardarPresupuesto() {
+  async function handleGuardarPresupuesto() {
     if (guardarMutation.isPending) return;
     if (!cliente.nombre?.trim()) {
       toast.error("Debe ingresar un cliente");
@@ -86,29 +85,32 @@ export function PrintableBudget({
       return;
     }
 
-    guardarMutation.mutate(
-      budgetToApi({
-        items,
-        cliente: cliente.nombre,
-        telefono: cliente.telefono,
-      }),
-      {
-        onSuccess: (data: PresupuestoGuardadoResponse) => {
-          setPresupuestoGuardado({
-            id: data._id || data.id || "",
-            numero: data.numero,
-          });
+    try {
+      setLoading(true);
 
-          toast.success("Presupuesto guardado. Ya podés descargar el PDF.");
-        },
-      },
-    );
+      const data = await guardarMutation.mutateAsync(
+        budgetToApi({
+          items,
+          cliente: cliente.nombre,
+          telefono: cliente.telefono,
+        }),
+      );
+
+      setPresupuestoGuardado({
+        id: data._id || data.id || "",
+        numero: data.numero,
+      });
+
+      toast.success("Presupuesto guardado. Ya podés descargar el PDF.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleActualizarPresupuesto() {
     if (updateMutation.isPending) return;
     if (!editingPresupuestoId) return;
-
+    setLoading(true);
     try {
       await updateMutation.mutateAsync({
         id: editingPresupuestoId,
@@ -139,6 +141,8 @@ export function PrintableBudget({
       console.error(error);
 
       toast.error("No se pudo actualizar el presupuesto.");
+    } finally {
+      setLoading(false);
     }
   }
   function handleCopyText() {

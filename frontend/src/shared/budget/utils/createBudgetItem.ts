@@ -50,7 +50,9 @@ export function createBudgetItem({
   // =========================
   // 💰 SNAPSHOT FINANCIERO
   // =========================
-  const precioBase = Number(result.precioBase ?? 0);
+  const precioBase = Number(
+    result.precioBase ?? result.precioFinal ?? result.precioVenta ?? 0,
+  );
 
   const precioProveedor = Number(result.precioProveedor ?? result.costo ?? 0);
 
