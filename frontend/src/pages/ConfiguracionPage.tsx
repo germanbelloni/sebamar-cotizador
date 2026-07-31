@@ -49,6 +49,8 @@ export default function ConfiguracionPage() {
   const [loading, setLoading] = useState(false);
   const [estadisticas, setEstadisticas] = useState<EstadisticaUsuario[]>([]);
 
+  const [maintenance, setMaintenance] = useState(false);
+  const [loadingMaintenance, setLoadingMaintenance] = useState(false);
   async function handleGuardar() {
     try {
       setLoading(true);
@@ -102,6 +104,47 @@ export default function ConfiguracionPage() {
     cargarEstadisticas();
   }, [user]);
 
+  useEffect(() => {
+    async function cargarMaintenance() {
+      if (user?.role !== "superadmin") return;
+
+      try {
+        const { data } = await api.get("/system/status");
+
+        setMaintenance(data.mantenimiento);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    cargarMaintenance();
+  }, [user]);
+
+  async function toggleMaintenance() {
+    console.log("CLICK MANTENIMIENTO");
+
+    try {
+      setLoadingMaintenance(true);
+
+      const payload = {
+        mantenimiento: !maintenance,
+      };
+
+      console.log("ENVIO:", payload);
+
+      const { data } = await api.patch("/system/maintenance", payload);
+
+      console.log("RESPUESTA BACKEND:", data);
+
+      setMaintenance(data.mantenimiento);
+    } catch (error) {
+      console.error("ERROR MAINTENANCE:", error);
+
+      alert("Error cambiando mantenimiento");
+    } finally {
+      setLoadingMaintenance(false);
+    }
+  }
   return (
     <div className="p-10 text-white">
       <div
@@ -364,6 +407,56 @@ export default function ConfiguracionPage() {
         >
           {loading ? "Guardando..." : "Guardar configuración"}
         </button>
+
+        {user?.role === "superadmin" && (
+          <div
+            className="
+    mt-10
+    rounded-3xl
+    border
+    border-border
+    bg-card
+    p-8
+    "
+          >
+            <h2 className="text-2xl font-bold">Estado del sistema</h2>
+
+            <button
+              disabled={loadingMaintenance}
+              onClick={toggleMaintenance}
+              className={`
+        mt-6
+        flex
+        w-full
+        items-center
+        justify-between
+        rounded-2xl
+        px-6
+        py-5
+        font-bold
+        transition
+
+        ${
+          maintenance
+            ? "bg-red-500/20 text-red-400 border border-red-500"
+            : "bg-lime-500/20 text-lime-400 border border-lime-500"
+        }
+      `}
+            >
+              <span>
+                {maintenance ? "🔴 MODO MANTENIMIENTO" : "🟢 SISTEMA ACTIVO"}
+              </span>
+
+              <span>
+                {loadingMaintenance
+                  ? "..."
+                  : maintenance
+                    ? "Desactivar"
+                    : "Activar"}
+              </span>
+            </button>
+          </div>
+        )}
         {user?.role === "superadmin" && (
           <div
             className="

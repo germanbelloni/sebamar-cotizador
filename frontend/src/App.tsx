@@ -25,6 +25,12 @@ import {
   formatColor,
   formatVidrio,
 } from "@/shared/utils/displayLabels";
+
+/* MANTENIMIENTO */
+import { useSystemStore } from "@/store/systemStore";
+import { getSystemStatus } from "@/features/system/api/system";
+import { MaintenanceScreen } from "@/features/system/components/MaintenanceScreen";
+
 /* PRESUPUESTO */
 import { PresupuestoDetallePage } from "@/features/presupuestos/pages/PresupuestoDetallePage";
 
@@ -152,6 +158,13 @@ function App() {
   /* ACTIVE FEATURE */
 
   const user = useAuthStore((state) => state.user);
+
+  const mantenimiento = useSystemStore((state) => state.mantenimiento);
+
+  const mensajeMantenimiento = useSystemStore((state) => state.mensaje);
+
+  const setSystemStatus = useSystemStore((state) => state.setSystemStatus);
+
   useEffect(() => {
     if (user?.nombreEmpresa || user?.empresa) {
       document.title = `${
@@ -161,6 +174,20 @@ function App() {
       document.title = "Cotizador Online";
     }
   }, [user]);
+
+  useEffect(() => {
+    async function checkSystemStatus() {
+      try {
+        const data = await getSystemStatus();
+
+        setSystemStatus(data.mantenimiento, data.mensaje);
+      } catch (error) {
+        console.error("Error consultando estado del sistema", error);
+      }
+    }
+
+    checkSystemStatus();
+  }, [setSystemStatus]);
 
   const empresa = {
     nombre: user?.nombreEmpresa || user?.empresa || "Empresa",
@@ -392,7 +419,9 @@ function App() {
 
   const activeConfig =
     CONFIGS[activeFeature as keyof typeof CONFIGS] || portonesConfig;
-
+  if (mantenimiento && user && user.role !== "superadmin") {
+    return <MaintenanceScreen mensaje={mensajeMantenimiento} />;
+  }
   return (
     <>
       <GlobalLoading open={isGlobalLoading} />
