@@ -3,6 +3,8 @@ export type EstadoPresupuesto = "pendiente" | "aprobado";
 export type PresupuestoItem = {
   id?: string;
 
+  tipo?: string;
+
   modulo: string;
 
   titulo: string;
@@ -23,6 +25,12 @@ export type PresupuestoItem = {
 
   precioFinal?: number;
 
+  descuentoAplicado?: number;
+
+  fleteAplicado?: number;
+
+  gananciaAplicada?: number;
+
   margenAplicado?: number;
 
   perfilAplicado?: string;
@@ -30,6 +38,8 @@ export type PresupuestoItem = {
   configuracion?: unknown;
 
   metadata?: unknown;
+
+  audit?: unknown;
 };
 
 export type Presupuesto = {

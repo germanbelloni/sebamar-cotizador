@@ -196,6 +196,8 @@ async function obtener(req, res) {
     items: (presupuesto.items || []).map((item) => ({
       id: item._id?.toString(),
 
+      tipo: item.tipo || "",
+
       modulo: item.modulo || "ventanas",
 
       titulo: item.titulo || item.descripcion || "Producto",
@@ -219,9 +221,14 @@ async function obtener(req, res) {
       precioFinal: Number(item.precioFinal || 0),
 
       precioProveedor: Number(item.precioProveedor ?? 0),
+      descuentoAplicado: Number(item.descuentoAplicado ?? 0),
+      fleteAplicado: Number(item.fleteAplicado ?? 0),
+      gananciaAplicada: Number(item.gananciaAplicada ?? 0),
       margenAplicado: Number(item.margenAplicado || 0),
 
       perfilAplicado: item.perfilAplicado || "",
+
+      audit: item.audit ?? null,
 
       configuracion: item.configuracion || {},
 

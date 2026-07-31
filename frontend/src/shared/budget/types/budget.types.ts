@@ -16,6 +16,8 @@ export type BudgetModule =
 export type BudgetItem = {
   id: string;
 
+  tipo?: string;
+
   modulo: BudgetModule;
 
   titulo: string;

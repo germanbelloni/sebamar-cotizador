@@ -164,7 +164,7 @@ export function PrintableBudgetDocument({
                   Número
                 </span>
 
-                <span className="text-2xl font-black tracking-tight">
+                <span className="text-2xl font-black tracking-tight text-zinc-900">
                   #{presupuestoId}
                 </span>
               </div>

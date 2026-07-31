@@ -37,6 +37,32 @@ import {
 
 import { Eye, Download, Loader2 } from "lucide-react";
 
+function mapPresupuestoItemToBudgetItem(item: PresupuestoItem): BudgetItem {
+  return {
+    id: item.id ?? crypto.randomUUID(),
+    tipo: item.tipo,
+    modulo: item.modulo as BudgetItem["modulo"],
+    titulo: item.titulo,
+    descripcion: item.descripcion,
+    cantidad: item.cantidad,
+    precioUnitario: item.precioUnitario,
+    subtotal: item.subtotal,
+    precioBase: item.precioBase,
+    precioProveedor: item.precioProveedor,
+    precioLista: item.precioLista,
+    precioFinal: item.precioFinal,
+    descuentoAplicado: item.descuentoAplicado,
+    fleteAplicado: item.fleteAplicado,
+    gananciaAplicada: item.gananciaAplicada,
+    margenAplicado: item.margenAplicado,
+    perfilAplicado: item.perfilAplicado,
+    audit: item.audit,
+    configuracion: item.configuracion,
+    metadata: item.metadata as BudgetItem["metadata"],
+    groupKey: crypto.randomUUID(),
+  };
+}
+
 type Props = {
   presupuestoId: string;
 
@@ -116,11 +142,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
     clearBudget();
 
     setItems(
-      data.items.map((item) => ({
-        ...item,
-        id: item.id ?? crypto.randomUUID(),
-        groupKey: crypto.randomUUID(),
-      })) as BudgetItem[],
+      data.items.map(mapPresupuestoItemToBudgetItem),
     );
 
     setEditingPresupuestoId(data.id);
@@ -141,11 +163,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
     clearBudget();
 
     setItems(
-      data.items.map((i) => ({
-        ...i,
-        id: i.id ?? crypto.randomUUID(),
-        groupKey: crypto.randomUUID(),
-      })) as BudgetItem[],
+      data.items.map(mapPresupuestoItemToBudgetItem),
     );
 
     setEditingPresupuestoId(data.id);
@@ -157,7 +175,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
     setEditingFecha(data.fecha ?? null);
 
-    setEditingItem(item as BudgetItem);
+    setEditingItem(mapPresupuestoItemToBudgetItem(item));
 
     navigate("/");
   }
