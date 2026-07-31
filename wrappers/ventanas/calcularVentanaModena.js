@@ -107,9 +107,7 @@ function calcularVentanaModena(dataInput) {
       bipuntoConLlave++;
     }
   });
-  const medida = `${formatearMedida(ancho)}x${formatearMedida(
-    alto > 200 ? 200 : alto,
-  )}`;
+  const medida = `${formatearMedida(ancho)}x${formatearMedida(alto)}`;
   const base = calcularVentana({
     medida,
     tipoVidrio,
@@ -424,11 +422,11 @@ function calcularVentanaModena(dataInput) {
   }
 
   // 📏 ALTURA
-  if (alto > 200) {
+  if (alto > 205) {
     costo *= 1.1;
   }
 
-  if (alto > 200) {
+  if (alto > 205) {
     audit.add({
       etapa: "Recargo Altura",
 

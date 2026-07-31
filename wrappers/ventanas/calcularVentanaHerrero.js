@@ -88,10 +88,13 @@ function calcularVentanaHerrero(dataInput) {
     throw new Error("Sin guía no puede llevar cortina");
   }
 
-  const lookup = buscarMedidaSuperior(
-    ventanas.medidas,
-    `${ancho}x${alto > 200 ? 200 : alto}`,
-  );
+  const medidaSolicitada = `${ancho}x${alto}`;
+
+  let lookup = buscarMedidaSuperior(ventanas.medidas, medidaSolicitada);
+
+  if (!lookup && alto > 205) {
+    lookup = buscarMedidaSuperior(ventanas.medidas, `${ancho}x205`);
+  }
 
   if (!lookup) {
     throw new Error("No hay medida válida");

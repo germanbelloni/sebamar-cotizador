@@ -10,6 +10,8 @@ const calcularRajaModena = require("../wrappers/rajas/calcularRajaModena");
 const calcularPostigones = require("../wrappers/postigones/calcularPostigones");
 const calcularPatagonicaModena = require("../wrappers/patagonicas/calcularPatagonicaModena");
 const calcularPuertaPlaca = require("../wrappers/placas/calcularPuertaPlaca");
+const calcularPuerta = require("../wrappers/puertas/calcularPuerta");
+const calcularMosquiteroVentana = require("../wrappers/mosquiteros/calcularMosquiteroVentana");
 const { aplicarPerfil } = require("./motor/aplicarPerfil");
 
 const PERFIL = (process.argv[2] || "azul").toLowerCase();
@@ -30,22 +32,37 @@ const MODULOS = [
   {
     nombre: "Puertas Herrero",
     titulo: "PUERTAS HERRERO",
-    motivo: "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
+    wrapper: calcularPuerta,
+    validar: validarPuertasHerrero,
+    motivo:
+      "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
   },
   {
     nombre: "Puertas Modena",
     titulo: "PUERTAS MODENA",
-    motivo: "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
+    wrapper: calcularPuerta,
+    validar: validarPuertasModena,
+    motivo:
+      "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
   },
   {
     nombre: "Puertas Eco",
     titulo: "PUERTAS LIVIANAS 25 mm",
-    motivo: "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
+    wrapper: calcularPuerta,
+    validar: validarPuertasEco,
+    motivo:
+      "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
   },
   {
     nombre: "Puertas Mosquitera",
     titulo: "PUERTAS MOSQUITERA",
     motivo: "No existe una hoja de lista comercial para este módulo.",
+  },
+  {
+    nombre: "Media Puerta Herrero",
+    titulo: "1/2 PUERTA HERRERO",
+    motivo:
+      "La hoja no identifica la puerta principal requerida por el wrapper para construir una configuración puerta_y_media.",
   },
   {
     nombre: "Rajas Herrero",
@@ -79,7 +96,8 @@ const MODULOS = [
   {
     nombre: "Mosquiteros",
     titulo: "MOSQUITERO P/VENTANA COLOCADA",
-    motivo: "La lista publica un adicional independiente y el wrapper devuelve una cotización de ventana completa.",
+    wrapper: calcularMosquiteroVentana,
+    validar: validarMosquiterosVentana,
   },
   {
     nombre: "Puertas Placa",
@@ -101,6 +119,12 @@ const MODULOS = [
     nombre: "Marcos",
     titulo: "MARCOS",
     motivo: "No existe una hoja de lista comercial para este módulo.",
+  },
+  {
+    nombre: "Recargos",
+    titulo: "RECARGOS",
+    motivo:
+      "La hoja reúne valores de referencia heterogéneos y no existe un wrapper único ni un payload comercial por fila.",
   },
 ];
 
@@ -131,6 +155,15 @@ function convertirMedida(texto) {
   return { ancho, alto };
 }
 
+function convertirMedidaMosquitero(texto) {
+  const [anchoTxt, altoTxt] = String(texto).split("x");
+
+  return {
+    ancho: Number(anchoTxt),
+    alto: Number(altoTxt.replace(",", ".")),
+  };
+}
+
 function crearPayloadBase(ancho, alto) {
   return {
     ancho,
@@ -158,13 +191,26 @@ function ejecutarVentanaHerrero(wrapper, fila, opciones = {}) {
   return wrapper(payload);
 }
 
-function registrarComparacion(resumen, modulo, fila, variante, esperado, obtenido) {
+function registrarComparacion(
+  resumen,
+  modulo,
+  fila,
+  variante,
+  esperado,
+  obtenido,
+) {
   resumen.medidas++;
 
-  if (esperado === obtenido) {
+  const diferencia = Math.abs(Number(obtenido) - Number(esperado));
+
+  // Tolerancia por redondeos de $1
+  if (diferencia <= 1) {
     resumen.ok++;
     return;
   }
+
+  const porcentajeDiferencia =
+    Number(esperado) === 0 ? 0 : (diferencia / Number(esperado)) * 100;
 
   resumen.errores.push({
     modulo,
@@ -172,8 +218,25 @@ function registrarComparacion(resumen, modulo, fila, variante, esperado, obtenid
     variante,
     esperado,
     obtenido,
-    diferencia: Math.abs(Number(obtenido) - Number(esperado)),
+    diferencia,
+    porcentajeDiferencia,
   });
+}
+
+function clasificarDiferencia(porcentaje) {
+  if (porcentaje >= 4.5 && porcentaje <= 5.5) {
+    return "Perfil / margen (aprox 5%)";
+  }
+
+  if (porcentaje >= 9 && porcentaje <= 11) {
+    return "Descuento (aprox 10%)";
+  }
+
+  if (porcentaje >= 20 && porcentaje <= 22) {
+    return "IVA (aprox 21%)";
+  }
+
+  return "Diferencia variable, requiere auditoría manual";
 }
 
 function validarVentanasHerrero(modulo, hoja, resumen) {
@@ -303,8 +366,16 @@ function validarRajasHerrero(modulo, hoja, resumen) {
       { nombre: "3mm", campo: "3mm", opciones: { tipoVidrio: "3mm" } },
       { nombre: "4mm", campo: "4mm", opciones: { tipoVidrio: "4mm" } },
       { nombre: "5mm", campo: "5mm", opciones: { tipoVidrio: "5mm" } },
-      { nombre: "Esmerilado", campo: "esmerilado", opciones: { tipoVidrio: "esmerilado" } },
-      { nombre: "Fantasía", campo: "fantasia", opciones: { tipoVidrio: "fantasia" } },
+      {
+        nombre: "Esmerilado",
+        campo: "esmerilado",
+        opciones: { tipoVidrio: "esmerilado" },
+      },
+      {
+        nombre: "Fantasía",
+        campo: "fantasia",
+        opciones: { tipoVidrio: "fantasia" },
+      },
       { nombre: "3+3", campo: "3+3", opciones: { tipoVidrio: "3+3" } },
     ],
     crearPayloadRaja,
@@ -320,8 +391,16 @@ function validarRajasModena(modulo, hoja, resumen) {
       { nombre: "3mm", campo: "3mm", opciones: { vidrio: "3mm" } },
       { nombre: "4mm", campo: "4mm", opciones: { vidrio: "4mm" } },
       { nombre: "5mm", campo: "5mm", opciones: { vidrio: "5mm" } },
-      { nombre: "Esmerilado", campo: "esmerilado", opciones: { vidrio: "esmerilado" } },
-      { nombre: "Fantasía", campo: "fantasia", opciones: { vidrio: "fantasia" } },
+      {
+        nombre: "Esmerilado",
+        campo: "esmerilado",
+        opciones: { vidrio: "esmerilado" },
+      },
+      {
+        nombre: "Fantasía",
+        campo: "fantasia",
+        opciones: { vidrio: "fantasia" },
+      },
       { nombre: "3+3", campo: "3+3", opciones: { vidrio: "3+3" } },
       { nombre: "DVH", campo: "dvh", opciones: { vidrio: "dvh" } },
     ],
@@ -342,6 +421,7 @@ function validarPostigones(modulo, hoja, resumen) {
         alto,
         tipo: variante.tipo,
         hojas: fila.hojas,
+        marco: variante.tipo === "abrir" ? "ancho" : undefined,
         color: "blanco",
         perfil: PERFIL,
       });
@@ -392,6 +472,103 @@ function validarPatagonicasModena(modulo, hoja, resumen) {
   }
 }
 
+function ejecutarPuerta(wrapper, payload) {
+  // El wrapper y el servicio emiten trazas de depuración. Se silencian sólo
+  // durante esta llamada síncrona para preservar la salida del auditor.
+  const consoleLogOriginal = console.log;
+  console.log = () => {};
+
+  try {
+    return wrapper(payload);
+  } finally {
+    console.log = consoleLogOriginal;
+  }
+}
+
+function validarPuertas(modulo, hoja, resumen, linea, variantes) {
+  for (const fila of hoja.filas) {
+    for (const variante of variantes) {
+      const esperado = fila[variante.campo];
+
+      if (esperado === "-" || esperado == null) continue;
+
+      const resultado = ejecutarPuerta(modulo.wrapper, {
+        ancho: 80,
+        alto: 200,
+        configuracion: "simple",
+        color: "blanco",
+        extras: {},
+        perfil: PERFIL,
+        modelo: fila.modelo,
+        tipoVidrio: variante.tipoVidrio,
+        linea,
+      });
+
+      registrarComparacion(
+        resumen,
+        modulo.nombre,
+        fila,
+        variante.nombre,
+        esperado,
+        resultado.precioLista,
+      );
+    }
+  }
+}
+
+function validarPuertasHerrero(modulo, hoja, resumen) {
+  validarPuertas(modulo, hoja, resumen, "herrero", [
+    { nombre: "3mm", campo: "3mm", tipoVidrio: "3mm" },
+    { nombre: "4mm", campo: "4mm", tipoVidrio: "4mm" },
+    { nombre: "5mm", campo: "5mm", tipoVidrio: "5mm" },
+    { nombre: "Fantasía", campo: "fantasia", tipoVidrio: "fantasia" },
+    { nombre: "Esmerilado", campo: "esmerilado", tipoVidrio: "esmerilado" },
+    { nombre: "3+3", campo: "3+3", tipoVidrio: "3+3" },
+  ]);
+}
+
+function validarPuertasModena(modulo, hoja, resumen) {
+  validarPuertas(modulo, hoja, resumen, "modena", [
+    { nombre: "3mm", campo: "3mm", tipoVidrio: "3mm" },
+    { nombre: "4mm", campo: "4mm", tipoVidrio: "4mm" },
+    { nombre: "5mm", campo: "5mm", tipoVidrio: "5mm" },
+    { nombre: "Fantasía", campo: "fantasia", tipoVidrio: "fantasia" },
+    { nombre: "Esmerilado", campo: "esmerilado", tipoVidrio: "esmerilado" },
+    { nombre: "3+3", campo: "3+3", tipoVidrio: "3+3" },
+    { nombre: "DVH", campo: "dvh", tipoVidrio: "dvh" },
+  ]);
+}
+
+function validarPuertasEco(modulo, hoja, resumen) {
+  validarPuertas(modulo, hoja, resumen, "eco", [
+    { nombre: "3mm", campo: "3mm", tipoVidrio: "3mm" },
+    { nombre: "4mm", campo: "4mm", tipoVidrio: "4mm" },
+    { nombre: "Fantasía", campo: "fantasia", tipoVidrio: "fantasia" },
+  ]);
+}
+
+function validarMosquiterosVentana(modulo, hoja, resumen) {
+  for (const fila of hoja.filas) {
+    const { ancho, alto } = convertirMedidaMosquitero(fila.medida);
+
+    const resultado = modulo.wrapper({
+      ancho,
+      alto,
+      color: "blanco",
+      perfil: PERFIL,
+    });
+
+    registrarComparacion(
+      resumen,
+      modulo.nombre,
+      fila,
+      "Mosquitero",
+      fila.precio,
+      resultado.precioFinal,
+    );
+  }
+}
+
 function validarPuertasPlaca(modulo, hoja, resumen) {
   const marcos = [
     { nombre: "Marco 10", campo: "marco10", marco: "marco_10" },
@@ -427,6 +604,26 @@ function mostrarErrores(errores) {
   if (!errores.length) return;
 
   console.log("");
+  console.log("=================================");
+  console.log("RESUMEN DE DIFERENCIAS");
+  console.log("=================================");
+
+  const erroresPorModulo = new Map();
+
+  for (const error of errores) {
+    erroresPorModulo.set(
+      error.modulo,
+      (erroresPorModulo.get(error.modulo) || 0) + 1,
+    );
+  }
+
+  for (const [modulo, cantidad] of erroresPorModulo) {
+    console.log("");
+    console.log(`${modulo}:`);
+    console.log(`${cantidad} diferencias`);
+  }
+
+  console.log("");
   console.log("======================================");
   console.log("ERRORES ENCONTRADOS");
   console.log("======================================");
@@ -439,6 +636,12 @@ function mostrarErrores(errores) {
     console.log(`Esperado lista:\n${error.esperado}`);
     console.log(`Obtenido sistema:\n${error.obtenido}`);
     console.log(`Diferencia:\n${error.diferencia}`);
+    console.log(
+      `Porcentaje diferencia:\n${error.porcentajeDiferencia.toFixed(2)}%`,
+    );
+    console.log(
+      `Diferencia probable:\n${clasificarDiferencia(error.porcentajeDiferencia)}`,
+    );
   }
 }
 
@@ -451,7 +654,9 @@ function main() {
 
     if (!hoja || !modulo.validar || !modulo.wrapper) {
       console.log(`Módulo no soportado: ${modulo.nombre}`);
-      console.log(`Motivo: ${modulo.motivo || "No existe una hoja compatible en la lista generada."}`);
+      console.log(
+        `Motivo: ${modulo.motivo || "No existe una hoja compatible en la lista generada."}`,
+      );
       continue;
     }
 

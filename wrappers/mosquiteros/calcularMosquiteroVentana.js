@@ -33,18 +33,23 @@ function getColorFactor(color) {
 
 function buscarMedidaValida(anchoInput, altoInput) {
   const medidas = Object.keys(mosquiterosData.medidas).map((k) => {
-    const [a, b] = k.split("x").map(Number);
+    const [a, b] = k.split("x");
 
     return {
       key: k,
-      ancho: a,
-      alto: b,
+      ancho: Number(a),
+      alto: Number(b.replace(",", ".")),
     };
   });
 
   const candidatas = medidas
     .filter((m) => m.ancho >= anchoInput && m.alto >= altoInput)
-    .sort((a, b) => a.ancho * a.alto - b.ancho * b.alto);
+    .sort((a, b) => {
+      const areaA = a.ancho * a.alto;
+      const areaB = b.ancho * b.alto;
+
+      return areaA - areaB;
+    });
 
   if (!candidatas.length) {
     throw new Error("No hay medida válida");
