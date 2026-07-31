@@ -92,7 +92,6 @@ function calcularPuertas(dataInput) {
     tipoVidrio,
     vidrio,
   } = dataInput;
-  console.log("🚪 PUERTA SERVICE INPUT:", dataInput);
 
   const vidrioFinal = tipoVidrio || vidrio;
   const tipoFinal = configuracion || tipo || "simple";
@@ -223,15 +222,6 @@ function calcularPuertas(dataInput) {
   // ========================
   else {
     const producto = buscarModelo(data.modelos, modeloFinal);
-
-    console.log("🚪 MODELO ENCONTRADO:", {
-      linea,
-      modeloFinal,
-      producto,
-      ancho: dataInput.ancho,
-      alto: dataInput.alto,
-    });
-
     if (!producto) {
       throw new Error(
         `Modelo "${modeloFinal}" no existe para la línea "${linea}".`,
@@ -268,11 +258,7 @@ function calcularPuertas(dataInput) {
   // ========================
   // 📏 AJUSTES MEDIDAS
   // ========================
-  console.log("📏 ANCHO AJUSTE FINAL:", {
-    configuracion: tipoFinal,
-    anchoRecibido: dataInput.ancho,
-    hojas,
-  });
+
   aplicarAjusteMedidaPuerta(items, dataInput.ancho, tipoFinal, hojas);
 
   estructura = items
@@ -282,13 +268,6 @@ function calcularPuertas(dataInput) {
   vidrioTotal = items
     .filter((i) => i.tipo === "vidrio")
     .reduce((acc, i) => acc + i.precio, 0);
-  console.log("💰 COSTO BASE FINAL PUERTA:", {
-    ancho: dataInput.ancho,
-    estructura,
-    vidrioTotal,
-    costoBase: estructura + vidrioTotal,
-    items,
-  });
 
   const costoBase = estructura + vidrioTotal;
 

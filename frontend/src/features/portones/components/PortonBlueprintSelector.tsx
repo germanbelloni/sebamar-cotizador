@@ -169,11 +169,7 @@ export function PortonBlueprintSelector({
       </div>
     );
   };
-  console.log("PORTON RENDER", {
-    hojas,
-    mano,
-    sistema,
-  });
+
   return (
     <div className="space-y-5">
       <div className="text-center">

@@ -211,62 +211,12 @@ function calcularPuertaWrapper(dataInput) {
       },
     });
 
-    // ← recién después de esto debe empezar
-    // el bloque del Recargo Ancho (+10% / +10%)
+    // Registrar recargo por color
     items.push({
       tipo: "color",
       descripcion: color,
       precio: Math.round(costoColor),
     });
-
-    // ========================
-    // 📏 RECARGO ANCHO
-    // ========================
-
-    if (configuracion === "simple") {
-      if (dataInput.ancho >= 91 && dataInput.ancho <= 95) {
-        costo *= 1.1;
-
-        audit.add({
-          etapa: "Recargo Ancho",
-          tipo: "recargo",
-          origen: "wrapper",
-          referencia: `${dataInput.ancho}cm`,
-          porcentaje: 0.1,
-          valorAntes: costo / 1.1,
-          valorAplicado: costo - costo / 1.1,
-          valorDespues: costo,
-        });
-      } else if (dataInput.ancho >= 96 && dataInput.ancho <= 100) {
-        const antes1 = costo;
-        costo *= 1.1;
-
-        audit.add({
-          etapa: "Recargo Ancho",
-          tipo: "recargo",
-          origen: "wrapper",
-          referencia: `${dataInput.ancho}cm (+10%)`,
-          porcentaje: 0.1,
-          valorAntes: antes1,
-          valorAplicado: costo - antes1,
-          valorDespues: costo,
-        });
-
-        const antes2 = costo;
-        costo *= 1.1;
-
-        audit.add({
-          etapa: "Recargo Ancho",
-          tipo: "recargo",
-          origen: "wrapper",
-          referencia: `${dataInput.ancho}cm (+10%)`,
-          porcentaje: 0.1,
-          valorAntes: antes2,
-          valorAplicado: costo - antes2,
-          valorDespues: costo,
-        });
-      }
-    }
   }
   // ========================
   // ➕ EXTRAS
@@ -485,12 +435,6 @@ function calcularPuertaWrapper(dataInput) {
     if (!perfilData) {
       throw new Error(`No existe perfil para la línea "${linea}".`);
     }
-    console.log({
-      linea,
-      costoAntesPerfil: costo,
-      perfilData,
-    });
-
     const r = aplicarPerfil(costo, perfilData);
 
     proveedor = r.proveedor;
@@ -523,12 +467,7 @@ function calcularPuertaWrapper(dataInput) {
       venta,
     },
   });
-  console.log("🚪 WRAPPER PUERTA RESPONSE:", {
-    costoBase: base.costoBase,
-    costo,
-    precioProveedor: proveedor,
-    precioFinal: venta,
-  });
+
   return buildWrapperResponse({
     modulo: "puertas",
 

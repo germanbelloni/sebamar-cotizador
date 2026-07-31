@@ -7,15 +7,21 @@ type Params = {
   total: number;
 };
 
+function formatPrecio(valor: number) {
+  return valor >= 1_000_000
+    ? valor.toLocaleString("es-AR")
+    : String(Math.round(valor));
+}
+
 export function budgetToWhatsApp({ items, total }: Params) {
   const lines = items.map(
     (item) =>
-      `• (${item.cantidad}) ${item.descripcion} - $ ${item.subtotal.toLocaleString("es-AR")}`,
+      `• (${item.cantidad}) ${item.descripcion} - $ ${formatPrecio(item.subtotal)}`,
   );
 
   return `
 ${lines.join("\n\n")}
 
-*TOTAL: $ ${total.toLocaleString("es-AR")}*
+*TOTAL: $ ${formatPrecio(total)}*
 `.trim();
 }

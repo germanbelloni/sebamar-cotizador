@@ -31,6 +31,7 @@ const dataModena = require(
 // ======================================
 
 const calcularML = (ancho, alto) => (ancho * 2 + alto * 2) / 100;
+const calcularM2 = (ancho, alto) => (ancho * alto) / 10000;
 
 function aplicarPerfil(costo, perfilData) {
   const proveedor = costo * (1 - perfilData.descuento);

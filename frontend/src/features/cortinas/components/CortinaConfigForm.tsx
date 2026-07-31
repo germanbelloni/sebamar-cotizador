@@ -10,6 +10,8 @@ import { createCortinaBudgetItem } from "../utils/createCortinaBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormFooter } from "@/shared/sections/FormFooter";
@@ -59,6 +61,7 @@ export function CortinaConfigForm({ config, setConfig }: Props) {
     createItem: createCortinaBudgetItem,
   });
 
+  const editingItem = useBudgetStore((state) => state.editingItem);
   const esCajon = config.tipo === "cajon_block";
 
   const esPVC = config.material === "pvc";
@@ -180,7 +183,7 @@ export function CortinaConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {cortinas_UI.actions.addToBudget}
+            {editingItem ? "Guardar modificación" : "Agregar al presupuesto"}
           </PrimaryButton>
 
           {medidasInvalidas && (

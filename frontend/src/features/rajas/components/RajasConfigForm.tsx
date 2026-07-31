@@ -40,6 +40,8 @@ import { createRajasBudgetItem } from "../utils/createRajasBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ModenaSection } from "@/shared/sections/ModenaSection";
 
 type Props = {
@@ -114,6 +116,8 @@ export function RajasConfigForm({ config, setConfig }: Props) {
 
     createItem: createRajasBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const vidriosDisponibles =
     config.linea === "Herrero"
@@ -275,7 +279,9 @@ export function RajasConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {RAJAS_UI.actions.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : RAJAS_UI.actions.addToBudget}
           </PrimaryButton>
         </FormFooter>
       </div>

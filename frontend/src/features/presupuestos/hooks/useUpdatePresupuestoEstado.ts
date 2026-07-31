@@ -15,8 +15,12 @@ export function useUpdatePresupuestoEstado() {
     mutationFn: ({ id, estado }: Payload) =>
       updatePresupuestoEstado(id, estado),
 
-    onSuccess() {
-      toast.success("Presupuesto aprobado.");
+    onSuccess(_, variables) {
+      toast.success(
+        variables.estado === "aprobado"
+          ? "Presupuesto aprobado."
+          : "Presupuesto vuelto a pendiente.",
+      );
 
       queryClient.invalidateQueries({
         queryKey: ["presupuestos"],

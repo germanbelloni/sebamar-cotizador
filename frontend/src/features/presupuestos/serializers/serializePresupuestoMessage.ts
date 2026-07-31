@@ -11,12 +11,18 @@ type Presupuesto = {
   total: number;
 };
 
+function formatPrecio(valor: number) {
+  return valor >= 1_000_000
+    ? valor.toLocaleString("es-AR")
+    : String(Math.round(valor));
+}
+
 export function serializePresupuestoMessage({ items, total }: Presupuesto) {
   const lines = items.map((item) => {
     return [
       `(${item.cantidad}) ${item.descripcion}`,
-      `$ ${item.precioUnitario.toLocaleString("es-AR")} c/u`,
-      `Total: $ ${item.subtotal.toLocaleString("es-AR")}`,
+      `$ ${formatPrecio(item.precioUnitario)} c/u`,
+      `Total: $ ${formatPrecio(item.subtotal)}`,
     ].join("\n");
   });
 

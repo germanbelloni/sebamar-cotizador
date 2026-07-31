@@ -12,6 +12,8 @@ import { createPatagonicasBudgetItem } from "../utils/createPatagonicasBudgetIte
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { CortinasSection } from "@/shared/sections/CortinasSection";
 
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
@@ -125,6 +127,8 @@ export function PatagonicasConfigForm({
 
     createItem: createPatagonicasBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const modelos = config.linea === "Herrero" ? modelosHerrero : modelosModena;
 
@@ -403,7 +407,6 @@ export function PatagonicasConfigForm({
             <ExtrasSection
               mosquitero={config.mosquitero}
               guia={config.guia}
-              cajonBlock={config.cajonBlock}
               onToggleMosquitero={() =>
                 updateConfig({
                   mosquitero: !config.mosquitero,
@@ -412,11 +415,6 @@ export function PatagonicasConfigForm({
               onToggleGuia={() =>
                 updateConfig({
                   guia: !config.guia,
-                })
-              }
-              onToggleCajonBlock={() =>
-                updateConfig({
-                  cajonBlock: !config.cajonBlock,
                 })
               }
             />
@@ -484,7 +482,9 @@ export function PatagonicasConfigForm({
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PATAGONICAS_UI.actions?.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : PATAGONICAS_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

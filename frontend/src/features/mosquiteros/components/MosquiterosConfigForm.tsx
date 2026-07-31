@@ -13,6 +13,8 @@ import { createMosquiterosBudgetItem } from "../utils/createMosquiterosBudgetIte
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -56,6 +58,9 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
     config,
     createItem: createMosquiterosBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
+
   const coloresMosquiteros =
     config.tipo === "fijo"
       ? undefined
@@ -174,7 +179,9 @@ export function MosquiterosConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {MOSQUITEROS_UI.actions.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : MOSQUITEROS_UI.actions.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

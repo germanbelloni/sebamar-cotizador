@@ -39,6 +39,8 @@ import { ModenaSection } from "@/shared/sections/ModenaSection";
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 import { BipuntosSection } from "../components/BipuntosSection";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 type Props = {
   config: VentanaConfig;
 
@@ -69,8 +71,6 @@ export function VentanaConfigForm({
 
     handleToggleGuia,
 
-    handleToggleCajonBlock,
-
     handleTogglePremarco,
   } = useVentanaForm({
     config,
@@ -97,6 +97,7 @@ export function VentanaConfigForm({
 
     createItem: createVentanaBudgetItem,
   });
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const vidrios = [
     ...(config.linea === "Herrero" ? VIDRIOS_HERRERO : VIDRIOS_MODENA),
@@ -168,16 +169,8 @@ export function VentanaConfigForm({
             <ExtrasSection
               mosquitero={config.mosquitero}
               guia={config.guia}
-              cajonBlock={config.cajonBlock}
-              vidrioRepartido={config.vidrioRepartido}
               onToggleMosquitero={() => toggleField("mosquitero")}
               onToggleGuia={handleToggleGuia}
-              onToggleCajonBlock={handleToggleCajonBlock}
-              onToggleVidrioRepartido={() =>
-                updateConfig({
-                  vidrioRepartido: !config.vidrioRepartido,
-                })
-              }
             />
           </FormSection>
 
@@ -241,7 +234,9 @@ export function VentanaConfigForm({
               onClick={handleAdd}
               loading={cotizacionMutation.isPending}
             >
-              {VENTANAS_UI.actions?.addToBudget}
+              {editingItem
+                ? "Guardar modificación"
+                : VENTANAS_UI.actions?.addToBudget}
             </PrimaryButton>
 
             {medidasInvalidas && (

@@ -121,8 +121,6 @@ export default function ConfiguracionPage() {
   }, [user]);
 
   async function toggleMaintenance() {
-    console.log("CLICK MANTENIMIENTO");
-
     try {
       setLoadingMaintenance(true);
 
@@ -130,11 +128,7 @@ export default function ConfiguracionPage() {
         mantenimiento: !maintenance,
       };
 
-      console.log("ENVIO:", payload);
-
       const { data } = await api.patch("/system/maintenance", payload);
-
-      console.log("RESPUESTA BACKEND:", data);
 
       setMaintenance(data.mantenimiento);
     } catch (error) {

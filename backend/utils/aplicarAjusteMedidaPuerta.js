@@ -44,15 +44,6 @@ function aplicarAjusteMedidaPuerta(
   } else {
     factor = 1.21;
   }
-
-  console.log("📏 AJUSTE MEDIDA PUERTA:", {
-    configuracion,
-    anchoOriginal: ancho,
-    hojas,
-    anchoCobrado: anchoHoja,
-    factor,
-  });
-
   if (factor === 1) return;
 
   items.forEach((item) => {

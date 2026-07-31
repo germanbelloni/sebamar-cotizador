@@ -19,6 +19,7 @@ import { AlertBox } from "@/shared/components/AlertBox";
 import { PrimaryButton } from "@/shared/buttons/PrimaryButton";
 import { SelectableCard } from "@/components/ui/selectable-card";
 import { PortonBlueprintSelector } from "./PortonBlueprintSelector";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 type Props = {
   config: PortonesConfig;
@@ -58,6 +59,8 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
     config,
     createItem: createPortonesBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const tieneBarral =
     !!config.extras?.barralRecto || !!config.extras?.barralCurvo;
@@ -335,7 +338,7 @@ export function PortonesConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            Agregar al presupuesto
+            {editingItem ? "Guardar modificación" : "Agregar al presupuesto"}
           </PrimaryButton>
 
           {medidasInvalidas && (

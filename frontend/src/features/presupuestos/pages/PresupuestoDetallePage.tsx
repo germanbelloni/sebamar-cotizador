@@ -141,9 +141,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
     clearBudget();
 
-    setItems(
-      data.items.map(mapPresupuestoItemToBudgetItem),
-    );
+    setItems(data.items.map(mapPresupuestoItemToBudgetItem));
 
     setEditingPresupuestoId(data.id);
 
@@ -162,9 +160,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
     clearBudget();
 
-    setItems(
-      data.items.map(mapPresupuestoItemToBudgetItem),
-    );
+    setItems(data.items.map(mapPresupuestoItemToBudgetItem));
 
     setEditingPresupuestoId(data.id);
 
@@ -232,14 +228,18 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
   // =========================
   // 💰 FINANCIERO
   // =========================
-
   function getCostoItem(item: PresupuestoItem) {
     if (user?.role === "superadmin") {
       return item.precioProveedor ?? item.precioBase ?? 0;
     }
 
-    return item.precioBase ?? 0;
+    if (user?.role === "admin") {
+      return item.precioFinal ?? 0;
+    }
+
+    return 0;
   }
+
   const totalCosto =
     data.items?.reduce(
       (acc, item) => acc + getCostoItem(item) * item.cantidad,

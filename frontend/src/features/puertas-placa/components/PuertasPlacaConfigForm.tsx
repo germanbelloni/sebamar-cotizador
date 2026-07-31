@@ -25,6 +25,8 @@ import { createPuertasPlacaBudgetItem } from "../utils/createPuertasPlacaBudgetI
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -68,6 +70,8 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
 
     createItem: createPuertasPlacaBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const medidas =
     config.tipo === "embutir"
@@ -554,7 +558,7 @@ export function PuertasPlacaConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PUERTAS_PLACA_UI.actions?.addToBudget}
+            {editingItem ? "Guardar modificación" : "Agregar al presupuesto"}
           </PrimaryButton>
         </FormFooter>
       </div>

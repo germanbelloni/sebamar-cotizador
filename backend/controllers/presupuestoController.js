@@ -558,6 +558,16 @@ async function actualizarItems(req, res) {
 
     const usuario = await User.findById(req.user.id);
 
+    let perfilCalculo = usuario.perfil;
+
+    if (usuario.role === "user" && usuario.ownerId) {
+      const owner = await User.findById(usuario.ownerId);
+
+      if (owner) {
+        perfilCalculo = owner.perfil;
+      }
+    }
+
     let total = 0;
 
     const itemsProcesados = req.body.items.map((item) => {
@@ -576,7 +586,7 @@ async function actualizarItems(req, res) {
             metadata: item.metadata,
             configuracion: item.configuracion,
           },
-          usuario.perfil,
+          perfilCalculo,
         );
       } catch (error) {
         console.warn("No se pudo recalcular item:", item.modulo, error.message);

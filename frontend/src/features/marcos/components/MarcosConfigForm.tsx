@@ -14,6 +14,8 @@ import { createMarcosBudgetItem } from "../utils/createMarcosBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -60,6 +62,8 @@ export function MarcosConfigForm({ config, setConfig }: Props) {
 
     createItem: createMarcosBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   return (
     <ProductFormLayout title={MARCOS_UI.title}>
@@ -121,7 +125,9 @@ export function MarcosConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {MARCOS_UI.actions?.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : MARCOS_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

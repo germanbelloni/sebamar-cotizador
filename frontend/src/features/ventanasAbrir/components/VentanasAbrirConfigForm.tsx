@@ -27,6 +27,7 @@ import { useCotizarVentanasAbrir } from "../hooks/useCotizarVentanasAbrir";
 import { createVentanasAbrirBudgetItem } from "../utils/createVentanasAbrirBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
 type Props = {
   config: VentanasAbrirConfig;
@@ -59,6 +60,8 @@ export function VentanasAbrirConfigForm({ config, setConfig }: Props) {
 
     createItem: createVentanasAbrirBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const vidriosDisponibles =
     config.linea === "Herrero"
@@ -138,15 +141,11 @@ export function VentanasAbrirConfigForm({ config, setConfig }: Props) {
         <FormSection title={VENTANAS_ABRIR_UI.sections.extras}>
           <ExtrasSection
             mosquitero={config.mosquitero}
-            guia={false}
-            cajonBlock={false}
             onToggleMosquitero={() =>
               updateConfig({
                 mosquitero: !config.mosquitero,
               })
             }
-            onToggleGuia={() => {}}
-            onToggleCajonBlock={() => {}}
           />
         </FormSection>
 
@@ -197,7 +196,9 @@ export function VentanasAbrirConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {VENTANAS_ABRIR_UI.actions.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : VENTANAS_ABRIR_UI.actions.addToBudget}
           </PrimaryButton>
         </FormFooter>
       </div>

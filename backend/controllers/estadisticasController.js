@@ -87,11 +87,11 @@ async function listar(req, res) {
         usuarios[id].hoy += acciones;
       }
 
-      if (diffDias < 7) {
+      if (diffDias >= 0 && diffDias < 7) {
         usuarios[id].ultimos7Dias += acciones;
       }
 
-      if (diffDias < 30) {
+      if (diffDias >= 0 && diffDias < 30) {
         usuarios[id].ultimos30Dias += acciones;
       }
 

@@ -20,6 +20,8 @@ import { createPuertasBudgetItem } from "../utils/createPuertasBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -85,7 +87,7 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
 
     createItem: createPuertasBudgetItem,
   });
-
+  const editingItem = useBudgetStore((state) => state.editingItem);
   const modelos = getAvailableDoorModels(config.linea);
   const modelosVisuales = [...modelos];
 
@@ -629,7 +631,9 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PUERTAS_UI.actions.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : PUERTAS_UI.actions.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

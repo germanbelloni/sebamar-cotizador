@@ -297,7 +297,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                     </DropdownMenuContent>
                   </DropdownMenu>
 
-                  {presupuesto.estado !== "aprobado" && (
+                  {presupuesto.estado === "pendiente" ? (
                     <AprobarPresupuestoDialog
                       onConfirm={() =>
                         estadoMutation.mutate({
@@ -306,6 +306,29 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                         })
                       }
                     />
+                  ) : (
+                    <button
+                      onClick={() =>
+                        estadoMutation.mutate({
+                          id: presupuesto.id,
+                          estado: "pendiente",
+                        })
+                      }
+                      className="
+      rounded-xl
+      border
+      border-yellow-500
+      px-3
+      py-2
+      text-xs
+      font-semibold
+      text-yellow-400
+      transition
+      hover:bg-yellow-500/10
+    "
+                    >
+                      ↩ Pendiente
+                    </button>
                   )}
 
                   <DeletePresupuestoDialog

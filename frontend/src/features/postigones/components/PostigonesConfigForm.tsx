@@ -18,6 +18,8 @@ import { createPostigonesBudgetItem } from "../utils/createPostigonesBudgetItem"
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -66,6 +68,8 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
 
     createItem: createPostigonesBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const hojasDisponibles = getPostigonesHojasOptions({
     tipo: config.tipo,
@@ -315,7 +319,9 @@ export function PostigonesConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {POSTIGONES_UI.actions?.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : POSTIGONES_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

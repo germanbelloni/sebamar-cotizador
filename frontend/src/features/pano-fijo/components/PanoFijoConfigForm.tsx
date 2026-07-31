@@ -14,6 +14,8 @@ import { createPanoFijoBudgetItem } from "../utils/createPanoFijoBudgetItem";
 
 import { useBudgetAdder } from "@/shared/budget/hooks/useBudgetAdder";
 
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
+
 import { ProductFormLayout } from "@/shared/layout/ProductFormLayout";
 
 import { FormSection } from "@/shared/sections/FormSection";
@@ -69,6 +71,8 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
 
     createItem: createPanoFijoBudgetItem,
   });
+
+  const editingItem = useBudgetStore((state) => state.editingItem);
 
   const showVertical = requiereTravesanoVertical(
     config.ancho,
@@ -240,7 +244,9 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
             disabled={!medidasValidas || cotizacionMutation.isPending}
             loading={cotizacionMutation.isPending}
           >
-            {PANO_FIJO_UI.actions?.addToBudget}
+            {editingItem
+              ? "Guardar modificación"
+              : PANO_FIJO_UI.actions?.addToBudget}
           </PrimaryButton>
 
           {medidasInvalidas && (

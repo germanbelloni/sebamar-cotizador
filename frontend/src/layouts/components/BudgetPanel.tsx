@@ -1,4 +1,4 @@
-import { Trash2, MessageSquare } from "lucide-react";
+import { Trash2, MessageSquare, XCircle } from "lucide-react";
 import { useState } from "react";
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
@@ -111,24 +111,32 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
 
             {items.length > 0 && (
               <button
-                onClick={clearBudget}
+                onClick={() => {
+                  clearBudget();
+                  navigate("/");
+                }}
                 className="
-    flex
-    items-center
-    gap-2
-    rounded-xl
-    px-3
-    py-2
-    text-base
-    font-bold
-    text-red-400
-    transition-all
-    hover:bg-red-500/10
-    hover:text-red-300
-  "
+      flex
+      items-center
+      gap-2
+      rounded-xl
+      px-3
+      py-2
+      text-base
+      font-bold
+      text-red-400
+      transition-all
+      hover:bg-red-500/10
+      hover:text-red-300
+    "
               >
-                <Trash2 size={28} />
-                Vaciar
+                {editingPresupuestoId ? (
+                  <XCircle size={28} />
+                ) : (
+                  <Trash2 size={28} />
+                )}
+
+                {editingPresupuestoId ? "Cancelar edición" : "Vaciar"}
               </button>
             )}
           </div>
@@ -370,7 +378,9 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
       }
     `}
                 >
-                  Generar presupuesto
+                  {editingPresupuestoId
+                    ? "Actualizar presupuesto"
+                    : "Generar presupuesto"}
                 </button>
               </>
 

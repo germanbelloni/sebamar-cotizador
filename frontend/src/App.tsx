@@ -26,6 +26,8 @@ import {
   formatVidrio,
 } from "@/shared/utils/displayLabels";
 
+import { useRestoreEditingItem } from "@/features/presupuestos/hooks/useRestoreEditingItem";
+
 /* MANTENIMIENTO */
 import { useSystemStore } from "@/store/systemStore";
 import { getSystemStatus } from "@/features/system/api/system";
@@ -260,16 +262,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (!editingItem) return;
-
-    if (editingItem.modulo === "puertas") {
-      setActiveFeature("puertas");
-
-      setPuertasConfig(editingItem.configuracion as PuertasConfig);
-    }
-  }, [editingItem]);
-
-  useEffect(() => {
     if (!editingCliente) return;
 
     setCliente(editingCliente);
@@ -318,6 +310,23 @@ function App() {
 
   const [cortinaConfig, setCortinaConfig] =
     useState<CortinaConfig>(initialCortinaConfig);
+
+  useRestoreEditingItem({
+    editingItem,
+    setActiveFeature,
+    setPuertasConfig,
+    setVentanasConfig,
+    setRajasConfig,
+    setPostigonesConfig,
+    setPatagonicasConfig,
+    setMosquiterosConfig,
+    setMarcosConfig,
+    setPanoFijoConfig,
+    setPuertasPlacaConfig,
+    setVentanasAbrirConfig,
+    setPortonesConfig,
+    setCortinaConfig,
+  });
 
   const FEATURE_COMPONENTS = {
     rajas: <RajasConfigForm config={rajasConfig} setConfig={setRajasConfig} />,
