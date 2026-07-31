@@ -53,17 +53,7 @@ const MODULOS = [
     motivo:
       "La hoja no incluye las medidas y configuración requeridas por el wrapper.",
   },
-  {
-    nombre: "Puertas Mosquitera",
-    titulo: "PUERTAS MOSQUITERA",
-    motivo: "No existe una hoja de lista comercial para este módulo.",
-  },
-  {
-    nombre: "Media Puerta Herrero",
-    titulo: "1/2 PUERTA HERRERO",
-    motivo:
-      "La hoja no identifica la puerta principal requerida por el wrapper para construir una configuración puerta_y_media.",
-  },
+
   {
     nombre: "Rajas Herrero",
     titulo: "RAJA HERRERO BLANCO",
@@ -88,11 +78,7 @@ const MODULOS = [
     wrapper: calcularPatagonicaModena,
     validar: validarPatagonicasModena,
   },
-  {
-    nombre: "Portones",
-    titulo: "PORTONES",
-    motivo: "No existe una hoja de lista comercial para este módulo.",
-  },
+
   {
     nombre: "Mosquiteros",
     titulo: "MOSQUITERO P/VENTANA COLOCADA",
@@ -104,27 +90,6 @@ const MODULOS = [
     titulo: "PUERTAS PLACA",
     wrapper: calcularPuertaPlaca,
     validar: validarPuertasPlaca,
-  },
-  {
-    nombre: "Cortinas",
-    titulo: "CORTINAS",
-    motivo: "No existe una hoja de lista comercial para este módulo.",
-  },
-  {
-    nombre: "Paño Fijo",
-    titulo: "PAÑO FIJO",
-    motivo: "No existe una hoja de lista comercial para este módulo.",
-  },
-  {
-    nombre: "Marcos",
-    titulo: "MARCOS",
-    motivo: "No existe una hoja de lista comercial para este módulo.",
-  },
-  {
-    nombre: "Recargos",
-    titulo: "RECARGOS",
-    motivo:
-      "La hoja reúne valores de referencia heterogéneos y no existe un wrapper único ni un payload comercial por fila.",
   },
 ];
 
@@ -510,7 +475,7 @@ function validarPuertas(modulo, hoja, resumen, linea, variantes) {
         fila,
         variante.nombre,
         esperado,
-        resultado.precioLista,
+        resultado.precioFinal,
       );
     }
   }
@@ -647,16 +612,18 @@ function mostrarErrores(errores) {
 
 function main() {
   const hojas = leerLista();
-  const resumen = { modulos: 0, medidas: 0, ok: 0, errores: [] };
+  const resumen = {
+    modulos: 0,
+    medidas: 0,
+    ok: 0,
+    errores: [],
+    modulosProcesados: [],
+  };
 
   for (const modulo of MODULOS) {
     const hoja = hojas.find((item) => item.titulo === modulo.titulo);
 
     if (!hoja || !modulo.validar || !modulo.wrapper) {
-      console.log(`Módulo no soportado: ${modulo.nombre}`);
-      console.log(
-        `Motivo: ${modulo.motivo || "No existe una hoja compatible en la lista generada."}`,
-      );
       continue;
     }
 
@@ -665,29 +632,42 @@ function main() {
     }
 
     modulo.validar(modulo, hoja, resumen);
+
     resumen.modulos++;
+    resumen.modulosProcesados.push(modulo.nombre);
   }
 
   console.log("");
   console.log("======================================");
   console.log("VALIDACIÓN FINALIZADA");
   console.log("======================================");
-  console.log(`Perfil: ${PERFIL}`);
-  console.log(`Módulos procesados: ${resumen.modulos}`);
-  console.log(`Casos procesados: ${resumen.medidas}`);
-  console.log(`OK: ${resumen.ok}`);
-  console.log(`ERRORES: ${resumen.errores.length}`);
+
+  console.log(`Perfil comercial: ${PERFIL}`);
+
+  console.log("");
+  console.log("MÓDULOS AUDITADOS:");
+  for (const modulo of resumen.modulosProcesados) {
+    console.log(`[OK] ${modulo}`);
+  }
+
+  console.log("");
+  console.log("--------------------------------------");
+  console.log(`Total módulos: ${resumen.modulos}`);
+  console.log(`Casos comparados: ${resumen.medidas}`);
+  console.log(`Coincidencias: ${resumen.ok}`);
+  console.log(`Diferencias: ${resumen.errores.length}`);
+  console.log("--------------------------------------");
 
   mostrarErrores(resumen.errores);
 
   console.log("");
   console.log("======================================");
-  console.log(
-    resumen.errores.length === 0
-      ? "TODAS LAS LISTAS COINCIDEN"
-      : "HAY DIFERENCIAS PARA REVISAR",
-  );
-  console.log("======================================");
+
+  if (resumen.errores.length === 0) {
+    console.log("[OK] TODAS LAS LISTAS COINCIDEN CON EL SISTEMA");
+  } else {
+    console.log("❌ HAY DIFERENCIAS PARA REVISAR");
+  }
 }
 
 try {

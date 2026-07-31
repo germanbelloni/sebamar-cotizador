@@ -26,19 +26,23 @@ function aplicarAjusteMedidaPuerta(
 
   let factor = 1;
 
-  // Hasta 80
-  if (anchoRedondeado <= 80) {
-    factor = 0.93;
-  }
+  // =========================
+  // REGLA COMERCIAL PUERTAS
+  //
+  // 60 a 79 cm  → -10%
+  // 80 cm       → base
+  // 81 a 90 cm  → +10%
+  // +90 cm      → +10% +10%
+  // =========================
 
-  // 81 a 90
-  else if (anchoRedondeado <= 90) {
+  if (anchoRedondeado < 80) {
+    factor = 0.9;
+  } else if (anchoRedondeado === 80) {
+    factor = 1;
+  } else if (anchoRedondeado <= 90) {
     factor = 1.1;
-  }
-
-  // Más de 90
-  else {
-    factor = 1.1;
+  } else {
+    factor = 1.21;
   }
 
   console.log("📏 AJUSTE MEDIDA PUERTA:", {

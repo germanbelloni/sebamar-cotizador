@@ -485,6 +485,11 @@ function calcularPuertaWrapper(dataInput) {
     if (!perfilData) {
       throw new Error(`No existe perfil para la línea "${linea}".`);
     }
+    console.log({
+      linea,
+      costoAntesPerfil: costo,
+      perfilData,
+    });
 
     const r = aplicarPerfil(costo, perfilData);
 
