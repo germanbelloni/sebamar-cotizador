@@ -1,4 +1,5 @@
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
+import { useState } from "react";
 
 import {
   AlertDialog,
@@ -13,10 +14,11 @@ import {
 } from "@/components/ui/alert-dialog";
 
 type Props = {
-  onConfirm: () => void;
+  onConfirm: () => Promise<void>;
 };
 
 export function DeletePresupuestoDialog({ onConfirm }: Props) {
+  const [loading, setLoading] = useState(false);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -48,10 +50,21 @@ export function DeletePresupuestoDialog({ onConfirm }: Props) {
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
 
           <AlertDialogAction
-            onClick={onConfirm}
+            disabled={loading}
+            onClick={async () => {
+              setLoading(true);
+
+              try {
+                await onConfirm();
+              } finally {
+                setLoading(false);
+              }
+            }}
             className="bg-red-600 hover:bg-red-700"
           >
-            Eliminar
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+
+            {loading ? "Eliminando..." : "Eliminar"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

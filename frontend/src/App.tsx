@@ -440,7 +440,13 @@ function App() {
           <Sidebar
             features={FEATURES}
             activeFeature={activeFeature}
-            onSelectFeature={setActiveFeature}
+            onSelectFeature={(feature) => {
+              if (feature === "presupuestos") {
+                setSelectedPresupuestoId(null);
+              }
+
+              setActiveFeature(feature);
+            }}
           />
 
           <main className="flex-1 overflow-auto">

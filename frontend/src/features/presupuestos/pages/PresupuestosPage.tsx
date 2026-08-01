@@ -332,7 +332,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                   )}
 
                   <DeletePresupuestoDialog
-                    onConfirm={() => deleteMutation.mutate(presupuesto.id)}
+                    onConfirm={() => deleteMutation.mutateAsync(presupuesto.id)}
                   />
                 </div>
               </div>

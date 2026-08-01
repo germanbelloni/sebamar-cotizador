@@ -347,7 +347,82 @@ Toda nueva funcionalidad debe adaptarse a la arquitectura existente.
 
 Si una funcionalidad requiere romper una decisión documentada en este archivo, deberá justificarse mediante una nueva ADR.
 
-Las decisiones anteriores no deben modificarse silenciosamente.
+## Las decisiones anteriores no deben modificarse silenciosamente.
+
+# ADR-019 — Separación entre Persistencia y Visualización
+
+## Decisión
+
+El presupuesto persistido representa un documento histórico y de auditoría.
+
+Por este motivo puede almacenar toda la información necesaria para reconstruir la cotización realizada en un momento determinado, incluyendo costos, precios comerciales, perfiles aplicados y datos de auditoría.
+
+Sin embargo, la información persistida no implica que toda ella deba exponerse mediante la API.
+
+Cada endpoint deberá devolver únicamente la información necesaria para el caso de uso solicitado.
+
+Ejemplos:
+
+Visualización del presupuesto
+
+↓
+
+Información visible según el rol del usuario.
+
+Edición del presupuesto
+
+↓
+
+Configuración del producto
+
+↓
+
+Nueva cotización utilizando las reglas comerciales vigentes.
+
+PDF
+
+↓
+
+Datos necesarios para impresión.
+
+WhatsApp
+
+↓
+
+Información comercial destinada al cliente.
+
+---
+
+## Motivo
+
+Separar la persistencia de la representación pública permite:
+
+- proteger información comercial sensible;
+- evitar exponer costos internos;
+- evitar exponer márgenes comerciales;
+- evitar exponer perfiles comerciales;
+- evitar exponer información de auditoría;
+- mantener el Backend como único responsable del cálculo económico.
+
+Además, permite que la edición de presupuestos siga utilizando siempre las reglas comerciales vigentes.
+
+---
+
+## Consecuencia
+
+Los presupuestos almacenados continúan funcionando como histórico y registro de auditoría.
+
+La edición de un presupuesto nunca reutiliza precios históricos.
+
+Editar un presupuesto significa generar una nueva cotización utilizando:
+
+- catálogo vigente;
+- perfiles vigentes;
+- reglas comerciales vigentes.
+
+De esta manera se mantiene la consistencia con la arquitectura general del sistema y con el principio de que el catálogo comercial constituye la única fuente de verdad.
+
+---
 
 ---
 

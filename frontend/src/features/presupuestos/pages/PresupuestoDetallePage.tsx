@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeftCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
@@ -92,15 +92,12 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
   const setEditingCliente = useBudgetStore((state) => state.setEditingCliente);
 
   const setEditingFecha = useBudgetStore((state) => state.setEditingFecha);
-  const setEditingItem = useBudgetStore((state) => state.setEditingItem);
+
   const [editing, setEditing] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(false);
 
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [observaciones, setObservaciones] = useState("");
-  const [validez, setValidez] = useState("");
 
   const updateMutation = useUpdatePresupuesto();
 
@@ -155,27 +152,6 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
     navigate("/");
   }
 
-  function handleEditarItem(item: PresupuestoItem) {
-    if (!data) return;
-
-    clearBudget();
-
-    setItems(data.items.map(mapPresupuestoItemToBudgetItem));
-
-    setEditingPresupuestoId(data.id);
-
-    setEditingCliente({
-      nombre: data.cliente || "",
-      telefono: data.telefono || "",
-    });
-
-    setEditingFecha(data.fecha ?? null);
-
-    setEditingItem(mapPresupuestoItemToBudgetItem(item));
-
-    navigate("/");
-  }
-
   async function handleSave() {
     try {
       await updateMutation.mutateAsync({
@@ -183,9 +159,6 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
         payload: {
           cliente,
           telefono,
-          direccion,
-          observaciones,
-          validez,
         },
       });
 
@@ -205,9 +178,6 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
 
     setCliente(data.cliente || "");
     setTelefono(data.telefono || "");
-    setDireccion(data.direccion || "");
-    setObservaciones(data.observaciones || "");
-    setValidez(data.validez || "");
   }, [data]);
   if (isLoading) {
     return (
@@ -230,11 +200,23 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
   // =========================
   function getCostoItem(item: PresupuestoItem) {
     if (user?.role === "superadmin") {
-      return item.precioProveedor ?? item.precioBase ?? 0;
+      return item.precioProveedor ?? 0;
     }
 
     if (user?.role === "admin") {
-      return item.precioFinal ?? 0;
+      return item.precioLista ?? 0;
+    }
+
+    return 0;
+  }
+
+  function getCostoItemDetalle(item: PresupuestoItem) {
+    if (user?.role === "superadmin") {
+      return item.precioProveedor ?? 0;
+    }
+
+    if (user?.role === "admin") {
+      return item.precioLista ?? 0;
     }
 
     return 0;
@@ -262,20 +244,18 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
           <button
             onClick={onBack}
             className="
-              mb-4
-              flex
-              items-center
-              gap-2
-
-              text-sm
-              text-zinc-400
-
-              transition-colors
-
-              hover:text-white
-            "
+    mb-6
+    flex
+    items-center
+    gap-3
+    text-base
+    font-semibold
+    text-zinc-300
+    transition
+    hover:text-white
+  "
           >
-            <ArrowLeft size={16} />
+            <ArrowLeftCircle size={28} />
             Volver
           </button>
 
@@ -302,45 +282,6 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
                 value={telefono}
                 onChange={(e) => setTelefono(e.target.value)}
                 placeholder="Teléfono"
-                className="
-        w-full
-        rounded-xl
-        border border-border
-        bg-card
-        p-3
-      "
-              />
-
-              <input
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
-                placeholder="Dirección"
-                className="
-        w-full
-        rounded-xl
-        border border-border
-        bg-card
-        p-3
-      "
-              />
-
-              <input
-                value={validez}
-                onChange={(e) => setValidez(e.target.value)}
-                placeholder="Validez"
-                className="
-        w-full
-        rounded-xl
-        border border-border
-        bg-card
-        p-3
-      "
-              />
-
-              <textarea
-                value={observaciones}
-                onChange={(e) => setObservaciones(e.target.value)}
-                placeholder="Observaciones"
                 className="
         w-full
         rounded-xl
@@ -702,25 +643,6 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
                 <p className="mt-2 text-xl font-bold">
                   {formatCurrency(item.subtotal)}
                 </p>
-
-                <button
-                  onClick={() => handleEditarItem(item)}
-                  className="
-      mt-3
-      rounded-lg
-      border
-      border-blue-500
-      px-3
-      py-1
-      text-xs
-      font-semibold
-      text-blue-400
-      transition
-      hover:bg-blue-500/10
-    "
-                >
-                  ✏ Editar
-                </button>
               </div>
             </div>
 
@@ -743,10 +665,10 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
                     p-3
                   "
                 >
-                  <p className="text-[11px] text-zinc-500">Base</p>
+                  <p className="text-[11px] text-zinc-500">Costo</p>
 
                   <p className="mt-1 font-semibold">
-                    {formatCurrency(item.precioBase || 0)}
+                    {formatCurrency(getCostoItemDetalle(item))}
                   </p>
                 </div>
 

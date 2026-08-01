@@ -239,13 +239,70 @@ Todos los módulos terminan generando un BudgetItem.
 
 Debe contener información suficiente para:
 
-- editar
-- imprimir
-- guardar
-- exportar
-- enviar por WhatsApp
+- editar;
+- imprimir;
+- guardar;
+- exportar;
+- enviar por WhatsApp.
+
+El BudgetItem representa una cotización comercial y constituye el formato unificado utilizado por todo el sistema.
+
+Debe ser suficiente para reconstruir la configuración del producto, pero nunca debe convertirse en el responsable del cálculo económico.
+
+Toda información económica continúa siendo responsabilidad exclusiva del Backend.
 
 ---
+
+# Presupuestos Guardados
+
+El presupuesto persistido y la cotización activa representan conceptos distintos.
+
+## Presupuesto Persistido
+
+El documento almacenado conserva toda la información necesaria para:
+
+- histórico;
+- auditoría;
+- impresión;
+- exportación;
+- trazabilidad.
+
+Esta información permanece almacenada incluso cuando no sea visible para todos los usuarios.
+
+---
+
+## Edición
+
+Editar un presupuesto nunca reutiliza los precios almacenados.
+
+La edición debe reconstruir el carrito utilizando únicamente la configuración del producto y solicitar una nueva cotización al Backend.
+
+El Backend recalculará nuevamente:
+
+- costos;
+- descuentos;
+- perfiles;
+- fletes;
+- ganancias;
+- colores;
+- reglas comerciales.
+
+De esta manera:
+
+- el Frontend no interpreta reglas comerciales;
+- el Frontend no reutiliza precios históricos;
+- el Backend continúa siendo el único responsable del cálculo económico;
+- el catálogo comercial vigente sigue siendo la única fuente de verdad.
+
+---
+
+## Seguridad
+
+Los datos financieros internos no forman parte del contrato público de la API.
+
+Cada endpoint debe devolver únicamente la información necesaria para el caso de uso solicitado y para el rol autenticado.
+
+Nunca exponer información comercial sensible cuando no sea estrictamente necesaria.
 
 # JSON
 

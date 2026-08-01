@@ -171,13 +171,21 @@ async function obtener(req, res) {
   // 👨 USER
   // =========================
   else {
-    if (presupuesto.userId?.toString() !== req.user.id) {
+    if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
+      console.log("❌ ACCESO DENEGADO");
+
       return res.status(403).json({
         error: "No autorizado",
       });
     }
+
+    console.log("✅ ACCESO PERMITIDO");
   }
 
+  const isSuperadmin = req.user.role === "superadmin";
+  const isAdmin = req.user.role === "admin";
+  console.log("===== ITEM BD =====");
+  console.log(JSON.stringify(presupuesto.items[0], null, 2));
   const resultado = {
     id: presupuesto._id,
 
@@ -193,48 +201,77 @@ async function obtener(req, res) {
 
     estado: presupuesto.estado || "pendiente",
 
-    items: (presupuesto.items || []).map((item) => ({
-      id: item._id?.toString(),
+    items: (presupuesto.items || []).map((item) => {
+      const itemBase = {
+        id: item._id?.toString(),
 
-      tipo: item.tipo || "",
+        tipo: item.tipo || "",
 
-      modulo: item.modulo || "ventanas",
+        modulo: item.modulo || "ventanas",
 
-      titulo: item.titulo || item.descripcion || "Producto",
+        titulo: item.titulo || item.descripcion || "Producto",
 
-      descripcion: item.descripcion || "Sin descripción",
+        descripcion: item.descripcion || "Sin descripción",
 
-      cantidad: Number(item.cantidad || 1),
+        cantidad: Number(item.cantidad || 1),
 
-      precioUnitario: Number(item.precioUnitario || 0),
+        precioUnitario: Number(item.precioUnitario || 0),
 
-      subtotal: Number(item.subtotal || 0),
+        subtotal: Number(item.subtotal || 0),
 
-      // =========================
-      // 💰 FINANCIERO
-      // =========================
+        configuracion: item.configuracion || {},
 
-      precioBase: Number(item.precioBase ?? 0),
+        metadata: item.metadata || {},
+      };
 
-      precioLista: Number(item.precioLista || 0),
+      if (isSuperadmin) {
+        return {
+          ...itemBase,
 
-      precioFinal: Number(item.precioFinal || 0),
+          precioBase: Number(item.precioBase ?? 0),
 
-      precioProveedor: Number(item.precioProveedor ?? 0),
-      descuentoAplicado: Number(item.descuentoAplicado ?? 0),
-      fleteAplicado: Number(item.fleteAplicado ?? 0),
-      gananciaAplicada: Number(item.gananciaAplicada ?? 0),
-      margenAplicado: Number(item.margenAplicado || 0),
+          precioLista: Number(item.precioLista ?? 0),
 
-      perfilAplicado: item.perfilAplicado || "",
+          precioFinal: Number(item.precioFinal ?? 0),
 
-      audit: item.audit ?? null,
+          precioProveedor: Number(item.precioProveedor ?? 0),
 
-      configuracion: item.configuracion || {},
+          descuentoAplicado: Number(item.descuentoAplicado ?? 0),
 
-      metadata: item.metadata || {},
-    })),
+          fleteAplicado: Number(item.fleteAplicado ?? 0),
+
+          gananciaAplicada: Number(item.gananciaAplicada ?? 0),
+
+          margenAplicado: Number(item.margenAplicado ?? 0),
+
+          perfilAplicado: item.perfilAplicado || "",
+
+          audit: item.audit ?? null,
+        };
+      }
+
+      if (isAdmin) {
+        return {
+          ...itemBase,
+
+          precioLista: Number(item.precioLista ?? 0),
+
+          precioFinal: Number(item.precioFinal ?? 0),
+
+          margenAplicado: Number(item.margenAplicado ?? 0),
+
+          perfilAplicado: item.perfilAplicado || "",
+        };
+      }
+
+      return {
+        ...itemBase,
+
+        precioFinal: Number(item.precioFinal ?? 0),
+      };
+    }),
   };
+
   return res.json(resultado);
 }
 
@@ -270,12 +307,9 @@ async function cambiarEstado(req, res) {
         });
       }
     }
-
-    // =========================
     // 👨 USER
-    // =========================
     else {
-      if (presupuesto.userId?.toString() !== req.user.id) {
+      if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
         return res.status(403).json({
           error: "No autorizado",
         });
@@ -349,11 +383,9 @@ async function pdf(req, res) {
       }
     }
 
-    // =========================
     // 👨 USER
-    // =========================
     else {
-      if (presupuesto.userId?.toString() !== req.user.id) {
+      if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
         return res.status(403).json({
           error: "No autorizado",
         });
@@ -444,7 +476,7 @@ async function eliminar(req, res) {
 
     // 👨 USER
     else {
-      if (presupuesto.userId?.toString() !== req.user.id) {
+      if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
         return res.status(403).json({
           error: "No autorizado",
         });
@@ -495,7 +527,7 @@ async function actualizar(req, res) {
 
     // 👨 USER
     else {
-      if (presupuesto.userId?.toString() !== req.user.id) {
+      if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
         return res.status(403).json({
           error: "No autorizado",
         });
@@ -549,7 +581,7 @@ async function actualizarItems(req, res) {
 
     // 👨 USER
     else {
-      if (presupuesto.userId?.toString() !== req.user.id) {
+      if (presupuesto.ownerId?.toString() !== req.user.ownerId?.toString()) {
         return res.status(403).json({
           error: "No autorizado",
         });

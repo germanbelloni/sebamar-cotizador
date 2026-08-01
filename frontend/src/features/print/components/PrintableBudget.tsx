@@ -76,15 +76,16 @@ export function PrintableBudget({
   async function handleGuardarPresupuesto() {
     if (guardarMutation.isPending) return;
     if (!cliente.nombre?.trim()) {
-      toast.error("Debe ingresar un cliente");
+      toast.error(
+        "Debe ingresar apellido y nombre para guardar el presupuesto.",
+      );
       return;
     }
 
     if (!cliente.telefono?.trim()) {
-      toast.error("Debe ingresar un teléfono");
+      toast.error("Debe ingresar un teléfono para guardar el presupuesto.");
       return;
     }
-
     try {
       setLoading(true);
 
@@ -105,7 +106,7 @@ export function PrintableBudget({
       setEditingPresupuestoId(null);
       setEditingCliente(null);
       setEditingFecha(null);
-      navigate("/");
+      navigate("/presupuestos");
 
       toast.success("Presupuesto guardado.");
     } finally {
@@ -138,7 +139,7 @@ export function PrintableBudget({
 
       toast.success("Presupuesto actualizado.");
 
-      navigate("/", {
+      navigate("/presupuestos", {
         state: {
           presupuestoActualizadoId: editingPresupuestoId,
         },

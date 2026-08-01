@@ -270,14 +270,60 @@ El carrito trabaja con un único formato para todos los productos.
 
 Cuando el usuario guarda un presupuesto, el BudgetItem completo se persiste.
 
+El documento almacenado representa un histórico de la cotización realizada en ese momento.
+
 Posteriormente puede:
 
-- editarse
-- imprimirse
-- exportarse
-- enviarse por WhatsApp
+- imprimirse;
+- exportarse;
+- enviarse por WhatsApp;
+- consultarse nuevamente.
 
-sin volver a recalcular precios.
+La información persistida conserva todos los datos necesarios para auditoría, histórico y trazabilidad.
+
+---
+
+# Edición de Presupuestos
+
+Editar un presupuesto no significa reutilizar los precios almacenados.
+
+La edición siempre genera una nueva cotización utilizando la configuración guardada.
+
+El flujo es:
+
+Configuración almacenada
+
+↓
+
+Backend
+
+↓
+
+Services
+
+↓
+
+Wrappers
+
+↓
+
+Nueva cotización
+
+↓
+
+Carrito
+
+La nueva cotización siempre utiliza:
+
+- catálogo vigente;
+- perfiles vigentes;
+- reglas comerciales vigentes.
+
+De esta forma:
+
+- el Frontend nunca interpreta reglas comerciales;
+- el Backend continúa siendo el único responsable del cálculo económico;
+- el catálogo comercial sigue siendo la única fuente de verdad del sistema.
 
 ---
 

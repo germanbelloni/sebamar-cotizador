@@ -47,9 +47,26 @@ export function createBudgetItem({
 
   const subtotal = precioUnitario * cantidad;
 
-  // =========================
-  // 💰 SNAPSHOT FINANCIERO
-  // =========================
+  // ==========================================================
+  // SNAPSHOT FINANCIERO
+  // ==========================================================
+  //
+  // Estos datos representan el estado financiero de la cotización
+  // en el momento en que fue generada.
+  //
+  // Se almacenan para:
+  // - persistencia
+  // - auditoría
+  // - histórico
+  // - PDF
+  //
+  // NO deben utilizarse para recalcular una cotización.
+  //
+  // La edición de un presupuesto siempre debe reconstruirse
+  // utilizando únicamente la configuración del producto y
+  // solicitar una nueva cotización al Backend.
+  // ==========================================================
+
   const precioBase = Number(
     result.precioBase ?? result.precioFinal ?? result.precioVenta ?? 0,
   );
@@ -99,9 +116,9 @@ export function createBudgetItem({
 
     subtotal,
 
-    // =========================
-    // 💰 FINANCIERO
-    // =========================
+    // ==========================================================
+    // Snapshot financiero
+    // ==========================================================
 
     precioBase,
 
