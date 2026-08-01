@@ -1,0 +1,46 @@
+LISTAS
+
+Profundidad máxima: 6
+
+├── assets
+│   ├── maps.png
+│   ├── puertas_eco_modelos.png
+│   ├── puertas_modelos.png
+│   ├── rajas_sentido.png
+│   └── whatsapp.png
+├── config
+│   ├── imagenes.js
+│   ├── layout.js
+│   └── temas.js
+├── data
+│   ├── transformadores
+│   │   ├── cortinas.js
+│   │   ├── mediaPuertaHerrero.js
+│   │   ├── mosquiteros.js
+│   │   ├── mosquiterosVentana.js
+│   │   ├── patagonicas.js
+│   │   ├── patagonicasModena.js
+│   │   ├── postigones.js
+│   │   ├── puertasHerrero.js
+│   │   ├── puertasLivianas.js
+│   │   ├── puertasModena.js
+│   │   ├── puertasPlaca.js
+│   │   ├── rajasHerrero.js
+│   │   ├── rajasModena.js
+│   │   ├── recargos.js
+│   │   ├── ventanasHerrero.js
+│   │   └── ventanasModena.js
+│   └── proveedorDatos.js
+├── motor
+│   └── aplicarPerfil.js
+├── render
+│   ├── render_pdf.py
+│   ├── renderHoja.js
+│   ├── renderImagen.js
+│   ├── renderTabla.js
+│   └── renderWorkbook.js
+├── generar-listas.js
+├── README.md
+├── REGLAS_COMERCIALES.md
+├── validar-listas-mi-version.js
+└── validar-listas.js

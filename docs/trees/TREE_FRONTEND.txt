@@ -1,0 +1,612 @@
+FRONTEND
+
+Profundidad máxima: 6
+
+├── public
+│   ├── assets
+│   │   └── puertas
+│   │       ├── dobles
+│   │       │   ├── m10doble.png
+│   │       │   ├── m10vrdoble.png
+│   │       │   ├── m11doble.png
+│   │       │   ├── m12doble.png
+│   │       │   ├── m1doble.png
+│   │       │   ├── m1vrdoble.png
+│   │       │   ├── m2doble.png
+│   │       │   ├── m3doble.png
+│   │       │   ├── m3vrdoble.png
+│   │       │   ├── m4doble.png
+│   │       │   ├── m4vrdoble.png
+│   │       │   ├── m5doble.png
+│   │       │   ├── m6doble.png
+│   │       │   ├── m7doble.png
+│   │       │   ├── m8doble.png
+│   │       │   ├── m9doble.png
+│   │       │   ├── mpanelbarralcurvodoble.png
+│   │       │   ├── mpanelbarralrectodoble.png
+│   │       │   └── mpanelsinbarraldoble.png
+│   │       ├── portones
+│   │       │   ├── m10porton.png
+│   │       │   ├── m10vrporton.png
+│   │       │   ├── m11porton.png
+│   │       │   ├── m12porton.png
+│   │       │   ├── m1porton.png
+│   │       │   ├── m1vrporton.png
+│   │       │   ├── m2porton.png
+│   │       │   ├── m3porton.png
+│   │       │   ├── m3vrporton.png
+│   │       │   ├── m4porton.png
+│   │       │   ├── m4vrporton.png
+│   │       │   ├── m5porton.png
+│   │       │   ├── m6porton.png
+│   │       │   ├── m7porton.png
+│   │       │   ├── m8porton.png
+│   │       │   ├── m9porton.png
+│   │       │   ├── mpanelbarralcurvoporton.png
+│   │       │   ├── mpanelbarralrectoporton.png
+│   │       │   └── mpanelsinbarralporton.png
+│   │       └── simples
+│   │           ├── m1.png
+│   │           ├── m10.png
+│   │           ├── m10vr.png
+│   │           ├── m11.png
+│   │           ├── m12.png
+│   │           ├── m1vr.png
+│   │           ├── m2.png
+│   │           ├── m3.png
+│   │           ├── m3vr.png
+│   │           ├── m4.png
+│   │           ├── m4vr.png
+│   │           ├── m5.png
+│   │           ├── m6.png
+│   │           ├── m7.png
+│   │           ├── m8.png
+│   │           ├── m9.png
+│   │           ├── mpanel.png
+│   │           ├── mpanelbarralcurvo.png
+│   │           └── mpanelbarralrecto.png
+│   ├── images
+│   │   └── puertas
+│   │       ├── eco-modelos.webp
+│   │       ├── herrero-modelos.webp
+│   │       └── modena-modelos.webp
+│   ├── logos
+│   │   ├── butron.png
+│   │   ├── casa bravo.png
+│   │   ├── casa javier oroz.png
+│   │   ├── corralon don antonio.png
+│   │   ├── ema.png
+│   │   ├── favicon.png
+│   │   ├── fortaleza.png
+│   │   ├── losmellis.png
+│   │   ├── lumaju.png
+│   │   ├── sebamar.png
+│   │   └── sebamarlogin.png
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── pwa-192x192.png
+│   └── pwa-512x512.png
+├── src
+│   ├── app
+│   │   ├── AuthInitializer.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── providers.tsx
+│   │   └── routes.tsx
+│   ├── assets
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   ├── components
+│   │   └── ui
+│   │       ├── alert-dialog.tsx
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       ├── FullscreenButton.tsx
+│   │       ├── input.tsx
+│   │       ├── segmented-control.tsx
+│   │       ├── select.tsx
+│   │       ├── selectable-card.tsx
+│   │       ├── separator.tsx
+│   │       └── textarea.tsx
+│   ├── entities
+│   │   └── Empresa.ts
+│   ├── features
+│   │   ├── auth
+│   │   │   ├── api
+│   │   │   │   └── login.ts
+│   │   │   └── pages
+│   │   │       └── LoginPage.tsx
+│   │   ├── clientes
+│   │   │   ├── components
+│   │   │   │   └── ClienteForm.tsx
+│   │   │   └── types.ts
+│   │   ├── cortinas
+│   │   │   ├── api
+│   │   │   │   └── cotizarCortina.ts
+│   │   │   ├── components
+│   │   │   │   └── CortinaConfigForm.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCortinaConfig.ts
+│   │   │   │   ├── useCortinaForm.ts
+│   │   │   │   ├── useCortinaValidation.ts
+│   │   │   │   └── useCotizarCortina.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildCortinaDescription.ts
+│   │   │   │   ├── createCortinaBudgetItem.ts
+│   │   │   │   └── createCortinaPayload.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── empresa
+│   │   │   ├── constants.ts
+│   │   │   └── types.ts
+│   │   ├── marcos
+│   │   │   ├── api
+│   │   │   │   └── cotizarMarcos.ts
+│   │   │   ├── components
+│   │   │   │   ├── MarcosConfigForm.tsx
+│   │   │   │   └── MarcosPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarMarcos.ts
+│   │   │   │   ├── useMarcosForm.ts
+│   │   │   │   └── useMarcosValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildMarcosDescription.ts
+│   │   │   │   └── createMarcosBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── mosquiteros
+│   │   │   ├── api
+│   │   │   │   └── cotizarMosquiteros.ts
+│   │   │   ├── components
+│   │   │   │   ├── MosquiterosConfigForm.tsx
+│   │   │   │   └── MosquiterosPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarMosquiteros.ts
+│   │   │   │   ├── useMosquiterosForm.ts
+│   │   │   │   └── useMosquiterosValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildMosquiterosDescription.ts
+│   │   │   │   └── createMosquiterosBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── pano-fijo
+│   │   │   ├── api
+│   │   │   │   └── cotizarPanoFijo.ts
+│   │   │   ├── components
+│   │   │   │   ├── PanoFijoConfigForm.tsx
+│   │   │   │   └── PanoFijoPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPanoFijo.ts
+│   │   │   │   ├── usePanoFijoForm.ts
+│   │   │   │   └── usePanoFijoValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildPanoFijoDescription.ts
+│   │   │   │   ├── createPanoFijoBudgetItem.ts
+│   │   │   │   └── travesanos.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── patagonicas
+│   │   │   ├── api
+│   │   │   │   └── cotizarPatagonicas.ts
+│   │   │   ├── components
+│   │   │   │   ├── PatagonicasConfigForm.tsx
+│   │   │   │   └── PatagonicasPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPatagonicas.ts
+│   │   │   │   ├── usePatagonicasForm.ts
+│   │   │   │   └── usePatagonicasValidation.ts
+│   │   │   ├── svg
+│   │   │   ├── utils
+│   │   │   │   ├── buildPatagonicasDescription.ts
+│   │   │   │   ├── createPatagonicasBudgetItem.ts
+│   │   │   │   └── getAnchoRajaVisual.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── portones
+│   │   │   ├── api
+│   │   │   │   └── cotizarPortones.ts
+│   │   │   ├── components
+│   │   │   │   ├── PortonBlueprintSelector.tsx
+│   │   │   │   ├── PortonesConfigForm.tsx
+│   │   │   │   └── PortonManoSelector.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPortones.ts
+│   │   │   │   ├── usePortonesForm.ts
+│   │   │   │   └── usePortonesValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildPortonesDescription.ts
+│   │   │   │   └── createPortonesBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── postigones
+│   │   │   ├── api
+│   │   │   │   └── cotizarPostigones.ts
+│   │   │   ├── components
+│   │   │   │   ├── PostigonesConfigForm.tsx
+│   │   │   │   └── PostigonPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPostigones.ts
+│   │   │   │   ├── usePostigonesForm.ts
+│   │   │   │   └── usePostigonesValidation.ts
+│   │   │   ├── svg
+│   │   │   │   ├── Lama.tsx
+│   │   │   │   └── PostigonLeaf.tsx
+│   │   │   ├── utils
+│   │   │   │   ├── buildPostigonesDescription.ts
+│   │   │   │   ├── createPostigonesBudgetItem.ts
+│   │   │   │   ├── getDefaultHojaCierre.ts
+│   │   │   │   ├── getPostigonesHojasOptions.ts
+│   │   │   │   └── mapPostigonesToPayload.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── presupuestos
+│   │   │   ├── api
+│   │   │   │   ├── deletePresupuesto.ts
+│   │   │   │   ├── getNuevoNumero.ts
+│   │   │   │   ├── getPresupuesto.ts
+│   │   │   │   ├── getPresupuestoPdf.ts
+│   │   │   │   ├── getPresupuestos.ts
+│   │   │   │   ├── updatePresupuesto.ts
+│   │   │   │   ├── updatePresupuestoCompleto.ts
+│   │   │   │   └── updatePresupuestoEstado.ts
+│   │   │   ├── components
+│   │   │   │   ├── AprobarPresupuestoDialog.tsx
+│   │   │   │   ├── CompartirPresupuestoDialog.tsx
+│   │   │   │   └── DeletePresupuestoDialog.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useDeletePresupuesto.ts
+│   │   │   │   ├── usePresupuesto.ts
+│   │   │   │   ├── usePresupuestoPdf.ts
+│   │   │   │   ├── usePresupuestos.ts
+│   │   │   │   ├── useRestoreEditingItem.ts
+│   │   │   │   ├── useSharePresupuesto.ts
+│   │   │   │   ├── useUpdatePresupuesto.ts
+│   │   │   │   ├── useUpdatePresupuestoCompleto.ts
+│   │   │   │   └── useUpdatePresupuestoEstado.ts
+│   │   │   ├── pages
+│   │   │   │   ├── PresupuestoDetallePage.tsx
+│   │   │   │   └── PresupuestosPage.tsx
+│   │   │   ├── serializers
+│   │   │   │   └── serializePresupuestoMessage.ts
+│   │   │   └── types
+│   │   │       └── presupuesto.types.ts
+│   │   ├── previews
+│   │   │   └── getPreview.tsx
+│   │   ├── print
+│   │   │   ├── api
+│   │   │   ├── components
+│   │   │   │   ├── PrintableBudget.tsx
+│   │   │   │   └── PrintableBudgetDocument.tsx
+│   │   │   ├── render
+│   │   │   │   └── PrintableBudgetRenderer.tsx
+│   │   │   └── utils
+│   │   │       └── buildPrintableBudget.ts
+│   │   ├── puertas
+│   │   │   ├── api
+│   │   │   │   └── cotizarPuertas.ts
+│   │   │   ├── components
+│   │   │   │   ├── sections
+│   │   │   │   │   └── PuertasExtrasSection.tsx
+│   │   │   │   ├── ManoSelector.tsx
+│   │   │   │   ├── MediaDoorPreview.tsx
+│   │   │   │   ├── ModelImageCard.tsx
+│   │   │   │   ├── PuertasBlueprint.tsx
+│   │   │   │   ├── PuertasConfigForm.tsx
+│   │   │   │   └── PuertasPreview.tsx
+│   │   │   ├── constants
+│   │   │   │   ├── medidasRapidas.ts
+│   │   │   │   ├── modelosPuertas.ts
+│   │   │   │   └── vidriosPorLinea.ts
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPuertas.ts
+│   │   │   │   ├── usePuertasForm.ts
+│   │   │   │   └── usePuertasValidation.ts
+│   │   │   ├── models
+│   │   │   │   ├── utils
+│   │   │   │   │   ├── descriptions.ts
+│   │   │   │   │   ├── generateDoorLayout.ts
+│   │   │   │   │   └── getAvailableDoorModels.ts
+│   │   │   │   ├── backendMappings.ts
+│   │   │   │   ├── imageRegistry.ts
+│   │   │   │   ├── mediaDoorRegistry.ts
+│   │   │   │   ├── registry.ts
+│   │   │   │   └── types.ts
+│   │   │   ├── svg
+│   │   │   │   └── components
+│   │   │   │       ├── DoorAntiPanicBar.tsx
+│   │   │   │       ├── DoorDivisions.tsx
+│   │   │   │       ├── DoorGlass.tsx
+│   │   │   │       ├── DoorHandle.tsx
+│   │   │   │       ├── DoorLeaf.tsx
+│   │   │   │       ├── DoorOpening.tsx
+│   │   │   │       ├── DoorPanels.tsx
+│   │   │   │       ├── DoorPreviewCard.tsx
+│   │   │   │       ├── DoorRenderer.tsx
+│   │   │   │       └── DoorTravesano.tsx
+│   │   │   ├── utils
+│   │   │   │   ├── buildPuertasDescription.ts
+│   │   │   │   ├── calcularHojasPorton.ts
+│   │   │   │   ├── createPuertasBudgetItem.ts
+│   │   │   │   └── portonRules.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── limits.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── puertas-placa
+│   │   │   ├── api
+│   │   │   │   └── cotizarPuertasPlaca.ts
+│   │   │   ├── components
+│   │   │   │   ├── PuertasPlacaConfigForm.tsx
+│   │   │   │   └── PuertasPlacaPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarPuertasPlaca.ts
+│   │   │   │   ├── usePuertasPlacaForm.ts
+│   │   │   │   └── usePuertasPlacaValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildPuertasPlacaDescription.ts
+│   │   │   │   ├── createPuertasPlacaBudgetItem.ts
+│   │   │   │   └── display.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── rajas
+│   │   │   ├── api
+│   │   │   │   └── cotizarRajas.ts
+│   │   │   ├── components
+│   │   │   │   ├── RajasConfigForm.tsx
+│   │   │   │   └── RajasPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarRajas.ts
+│   │   │   │   ├── useRajasForm.ts
+│   │   │   │   └── useRajasValidation.ts
+│   │   │   ├── svg
+│   │   │   │   ├── RajaAbrir.tsx
+│   │   │   │   ├── RajaBrazo.tsx
+│   │   │   │   ├── RajaOscilo.tsx
+│   │   │   │   └── RajaVolcable.tsx
+│   │   │   ├── utils
+│   │   │   │   ├── buildRajasDescription.ts
+│   │   │   │   └── createRajasBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── superficies
+│   │   │   ├── api
+│   │   │   │   └── cotizarSuperficies.ts
+│   │   │   ├── components
+│   │   │   │   └── SuperficiesConfigForm.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarSuperficies.ts
+│   │   │   │   ├── useSuperficiesForm.ts
+│   │   │   │   └── useSuperficiesValidation.ts
+│   │   │   ├── utils
+│   │   │   │   ├── buildSuperficiesDescription.ts
+│   │   │   │   └── createSuperficiesBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── estructura.txt
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── system
+│   │   │   ├── api
+│   │   │   │   └── system.ts
+│   │   │   └── components
+│   │   │       └── MaintenanceScreen.tsx
+│   │   ├── users
+│   │   │   ├── api
+│   │   │   │   ├── getUsers.ts
+│   │   │   │   ├── toggleUserActive.ts
+│   │   │   │   └── updateConfiguracion.ts
+│   │   │   └── components
+│   │   │       ├── CreateUserModal.tsx
+│   │   │       └── UserManagementPanel.tsx
+│   │   ├── ventanas
+│   │   │   ├── api
+│   │   │   │   └── cotizarVentana.ts
+│   │   │   ├── components
+│   │   │   │   ├── sections
+│   │   │   │   │   ├── ColorSelector.tsx
+│   │   │   │   │   ├── DimensionsSection.tsx
+│   │   │   │   │   ├── ExtrasSection.tsx
+│   │   │   │   │   └── LineaSelector.tsx
+│   │   │   │   ├── BipuntosSection.tsx
+│   │   │   │   ├── VentanaConfigForm.tsx
+│   │   │   │   └── VentanaPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarVentana.ts
+│   │   │   │   ├── useVentanaConfig.ts
+│   │   │   │   ├── useVentanaForm.ts
+│   │   │   │   └── useVentanaValidation.ts
+│   │   │   ├── svg
+│   │   │   │   ├── CajonBlock.tsx
+│   │   │   │   ├── Cierres.tsx
+│   │   │   │   ├── Contramarco.tsx
+│   │   │   │   ├── CortinaAluminio.tsx
+│   │   │   │   ├── CortinaPVC.tsx
+│   │   │   │   ├── Cotas.tsx
+│   │   │   │   ├── Guide.tsx
+│   │   │   │   ├── Hojas.tsx
+│   │   │   │   ├── Marco.tsx
+│   │   │   │   ├── Mosquitero.tsx
+│   │   │   │   ├── Premarco.tsx
+│   │   │   │   ├── RielInferior.tsx
+│   │   │   │   ├── RielSuperior.tsx
+│   │   │   │   └── Vidrios.tsx
+│   │   │   ├── utils
+│   │   │   │   ├── buildVentanaDescription.ts
+│   │   │   │   ├── buildVentanaItem.ts
+│   │   │   │   ├── canUsePVC.ts
+│   │   │   │   ├── createVentanaBudgetItem.ts
+│   │   │   │   ├── formatCurrency.ts
+│   │   │   │   └── geometry.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── styles.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   ├── ventanasAbrir
+│   │   │   ├── api
+│   │   │   │   └── cotizarVentanasAbrir.ts
+│   │   │   ├── components
+│   │   │   │   ├── VentanasAbrirConfigForm.tsx
+│   │   │   │   └── VentanasAbrirPreview.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useCotizarVentanasAbrir.ts
+│   │   │   │   ├── useVentanasAbrirForm.ts
+│   │   │   │   └── useVentanasAbrirValidation.ts
+│   │   │   ├── svg
+│   │   │   │   └── VentanaAbrir.tsx
+│   │   │   ├── utils
+│   │   │   │   ├── buildVentanasAbrirDescription.ts
+│   │   │   │   └── createVentanasAbrirBudgetItem.ts
+│   │   │   ├── constants.ts
+│   │   │   ├── types.ts
+│   │   │   └── ui.ts
+│   │   └── index.ts
+│   ├── guards
+│   │   └── ProtectedRoute.tsx
+│   ├── hooks
+│   ├── layouts
+│   │   ├── components
+│   │   │   ├── BudgetPanel.tsx
+│   │   │   ├── Header.tsx
+│   │   │   └── Sidebar.tsx
+│   │   └── AppLayout.tsx
+│   ├── lib
+│   │   ├── api.ts
+│   │   ├── permissions.ts
+│   │   └── utils.ts
+│   ├── pages
+│   │   ├── ConfiguracionPage.tsx
+│   │   └── PrintPage.tsx
+│   ├── services
+│   │   └── registrarUso.ts
+│   ├── shared
+│   │   ├── budget
+│   │   │   ├── api
+│   │   │   │   ├── apiClient.ts
+│   │   │   │   └── guardarPresupuesto.ts
+│   │   │   ├── components
+│   │   │   │   └── BudgetDebug.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── useBudgetAdder.ts
+│   │   │   │   ├── useGuardarPresupuesto.ts
+│   │   │   │   └── useShareWhatsApp.ts
+│   │   │   ├── serializers
+│   │   │   │   ├── budgetToApi.ts
+│   │   │   │   ├── budgetToPrint.ts
+│   │   │   │   ├── budgetToStorage.ts
+│   │   │   │   └── budgetToWhatsApp.ts
+│   │   │   ├── store
+│   │   │   │   └── useBudgetStore.ts
+│   │   │   ├── types
+│   │   │   │   └── budget.types.ts
+│   │   │   └── utils
+│   │   │       ├── createBudgetItem.ts
+│   │   │       ├── createGroupKey.ts
+│   │   │       └── useBudgetStore.ts
+│   │   ├── buttons
+│   │   │   └── PrimaryButton.tsx
+│   │   ├── cards
+│   │   │   ├── GlassCard.tsx
+│   │   │   └── ToggleCard.tsx
+│   │   ├── components
+│   │   │   └── AlertBox.tsx
+│   │   ├── constants
+│   │   │   └── vidrios.ts
+│   │   ├── fields
+│   │   │   └── NumberField.tsx
+│   │   ├── hooks
+│   │   │   ├── useConfigUpdater.ts
+│   │   │   ├── useDimensionsInputs.ts
+│   │   │   ├── useLineaSwitcher.ts
+│   │   │   └── useToggleField.ts
+│   │   ├── layout
+│   │   │   └── ProductFormLayout.tsx
+│   │   ├── loading
+│   │   │   ├── GlobalLoading.tsx
+│   │   │   └── useGlobalLoadingStore.ts
+│   │   ├── sections
+│   │   │   ├── ConfigSection.tsx
+│   │   │   ├── CortinasSection.tsx
+│   │   │   ├── DimensionsSection.tsx
+│   │   │   ├── ExtrasSection.tsx
+│   │   │   ├── FormFooter.tsx
+│   │   │   ├── FormSection.tsx
+│   │   │   └── ModenaSection.tsx
+│   │   ├── selectors
+│   │   │   ├── BisagraSelector.tsx
+│   │   │   ├── ColorSelector.tsx
+│   │   │   ├── LineaSelector.tsx
+│   │   │   ├── OptionSelector.tsx
+│   │   │   ├── OsciloPositionSelector.tsx
+│   │   │   ├── VidrioSelector.tsx
+│   │   │   └── VisualOptionSelector.tsx
+│   │   ├── svg
+│   │   │   ├── components
+│   │   │   │   ├── Bisagra.tsx
+│   │   │   │   ├── DimensionLines.tsx
+│   │   │   │   ├── Falleba.tsx
+│   │   │   │   ├── GlassPanel.tsx
+│   │   │   │   ├── GuideRails.tsx
+│   │   │   │   ├── MetalGradient.tsx
+│   │   │   │   ├── MicroperforadoPattern.tsx
+│   │   │   │   ├── OpeningLines.tsx
+│   │   │   │   ├── ShadowOverlay.tsx
+│   │   │   │   └── SVGFrame.tsx
+│   │   │   ├── constants
+│   │   │   │   ├── colors.ts
+│   │   │   │   └── proportions.ts
+│   │   │   └── utils
+│   │   │       ├── calculateCenter.ts
+│   │   │       ├── calculateScale.ts
+│   │   │       └── generateLamas.ts
+│   │   ├── types
+│   │   │   ├── budget.ts
+│   │   │   ├── form.ts
+│   │   │   ├── lineas.ts
+│   │   │   ├── ui.ts
+│   │   │   └── vidrios.ts
+│   │   └── utils
+│   │       ├── openings
+│   │       │   └── getOpeningSide.ts
+│   │       ├── displayLabels.ts
+│   │       └── validateDimensions.ts
+│   ├── store
+│   │   ├── authStore.ts
+│   │   ├── cotizacionStore.ts
+│   │   ├── systemStore.ts
+│   │   └── uiStore.ts
+│   ├── styles
+│   ├── types
+│   ├── App.css
+│   ├── App.tsx
+│   ├── estructura.txt
+│   ├── index.css
+│   └── main.tsx
+├── .env.development
+├── .env.production
+├── .gitignore
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README_FRONTEND.MD
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vercel.json
+├── vite-env.d.ts
+└── vite.config.ts

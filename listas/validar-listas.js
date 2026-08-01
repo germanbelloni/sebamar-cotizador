@@ -16,6 +16,22 @@ const { aplicarPerfil } = require("./motor/aplicarPerfil");
 
 const PERFIL = (process.argv[2] || "azul").toLowerCase();
 
+const OUTPUT_DIR = path.join(__dirname, "..", "docs", "validaciones");
+
+fs.mkdirSync(OUTPUT_DIR, {
+  recursive: true,
+});
+
+const salida = [];
+
+function log(...args) {
+  const linea = args.join(" ");
+
+  console.log(linea);
+
+  salida.push(linea);
+}
+
 const MODULOS = [
   {
     nombre: "Ventanas Herrero",
@@ -568,10 +584,10 @@ function validarPuertasPlaca(modulo, hoja, resumen) {
 function mostrarErrores(errores) {
   if (!errores.length) return;
 
-  console.log("");
-  console.log("=================================");
-  console.log("RESUMEN DE DIFERENCIAS");
-  console.log("=================================");
+  log("");
+  log("=================================");
+  log("RESUMEN DE DIFERENCIAS");
+  log("=================================");
 
   const erroresPorModulo = new Map();
 
@@ -583,34 +599,38 @@ function mostrarErrores(errores) {
   }
 
   for (const [modulo, cantidad] of erroresPorModulo) {
-    console.log("");
-    console.log(`${modulo}:`);
-    console.log(`${cantidad} diferencias`);
+    log("");
+    log(`${modulo}:`);
+    log(`${cantidad} diferencias`);
   }
 
-  console.log("");
-  console.log("======================================");
-  console.log("ERRORES ENCONTRADOS");
-  console.log("======================================");
+  log("");
+  log("======================================");
+  log("ERRORES ENCONTRADOS");
+  log("======================================");
 
   for (const error of errores) {
-    console.log("");
-    console.log(`Módulo:\n${error.modulo}`);
-    console.log(`Medida:\n${error.medida}`);
-    console.log(`Variante:\n${error.variante}`);
-    console.log(`Esperado lista:\n${error.esperado}`);
-    console.log(`Obtenido sistema:\n${error.obtenido}`);
-    console.log(`Diferencia:\n${error.diferencia}`);
-    console.log(
-      `Porcentaje diferencia:\n${error.porcentajeDiferencia.toFixed(2)}%`,
-    );
-    console.log(
+    log("");
+    log(`Módulo:\n${error.modulo}`);
+    log(`Medida:\n${error.medida}`);
+    log(`Variante:\n${error.variante}`);
+    log(`Esperado lista:\n${error.esperado}`);
+    log(`Obtenido sistema:\n${error.obtenido}`);
+    log(`Diferencia:\n${error.diferencia}`);
+    log(`Porcentaje diferencia:\n${error.porcentajeDiferencia.toFixed(2)}%`);
+    log(
       `Diferencia probable:\n${clasificarDiferencia(error.porcentajeDiferencia)}`,
     );
   }
 }
 
 function main() {
+  log("======================================");
+  log("VALIDADOR DE LISTAS COMERCIALES");
+  log("======================================");
+  log(`Perfil comercial: ${PERFIL}`);
+  log(`Fecha: ${new Date().toLocaleString("es-AR")}`);
+  log("");
   const hojas = leerLista();
   const resumen = {
     modulos: 0,
@@ -637,46 +657,53 @@ function main() {
     resumen.modulosProcesados.push(modulo.nombre);
   }
 
-  console.log("");
-  console.log("======================================");
-  console.log("VALIDACIÓN FINALIZADA");
-  console.log("======================================");
+  log("");
+  log("======================================");
+  log("VALIDACIÓN FINALIZADA");
+  log("======================================");
 
-  console.log(`Perfil comercial: ${PERFIL}`);
+  log(`Perfil comercial: ${PERFIL}`);
 
-  console.log("");
-  console.log("MÓDULOS AUDITADOS:");
+  log("");
+  log("MÓDULOS AUDITADOS:");
   for (const modulo of resumen.modulosProcesados) {
-    console.log(`[OK] ${modulo}`);
+    log(`[OK] ${modulo}`);
   }
 
-  console.log("");
-  console.log("--------------------------------------");
-  console.log(`Total módulos: ${resumen.modulos}`);
-  console.log(`Casos comparados: ${resumen.medidas}`);
-  console.log(`Coincidencias: ${resumen.ok}`);
-  console.log(`Diferencias: ${resumen.errores.length}`);
-  console.log("--------------------------------------");
+  log("");
+  log("--------------------------------------");
+  log(`Total módulos: ${resumen.modulos}`);
+  log(`Casos comparados: ${resumen.medidas}`);
+  log(`Coincidencias: ${resumen.ok}`);
+  log(`Diferencias: ${resumen.errores.length}`);
+  log("--------------------------------------");
 
   mostrarErrores(resumen.errores);
 
-  console.log("");
-  console.log("======================================");
+  log("");
+  log("======================================");
 
   if (resumen.errores.length === 0) {
-    console.log("[OK] TODAS LAS LISTAS COINCIDEN CON EL SISTEMA");
+    log("[OK] TODAS LAS LISTAS COINCIDEN CON EL SISTEMA");
   } else {
-    console.log("❌ HAY DIFERENCIAS PARA REVISAR");
+    log("❌ HAY DIFERENCIAS PARA REVISAR");
   }
+  const archivoSalida = path.join(OUTPUT_DIR, `validacion-${PERFIL}.txt`);
+
+  fs.writeFileSync(archivoSalida, salida.join("\n"), "utf8");
+
+  console.log("");
+  console.log(`✔ Resultado guardado en: ${archivoSalida}`);
 }
 
 try {
   main();
 } catch (error) {
-  console.log("");
-  console.log("======================================");
-  console.log("ERROR");
-  console.log("======================================");
+  log("");
+  log("======================================");
+  log("ERROR");
+  log("======================================");
+  log(error.stack || error.message);
   console.error(error);
   process.exitCode = 1;
 }

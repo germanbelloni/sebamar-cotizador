@@ -1,0 +1,231 @@
+BACKEND
+
+Profundidad máxima: 6
+
+├── api
+│   └── index.js
+├── audit
+│   ├── AuditBuilder.js
+│   ├── AuditSession.js
+│   ├── buildAuditStep.js
+│   ├── explainPrice.js
+│   ├── guide_audit.txt
+│   └── validateAudit.js
+├── auditor
+│   ├── modulos
+│   │   ├── cortinas.js
+│   │   ├── index.js
+│   │   ├── mosquiteros.js
+│   │   ├── patagonicas.js
+│   │   ├── patagonicasHerrero.js
+│   │   ├── patagonicasModena.js
+│   │   ├── placas.js
+│   │   ├── portones.js
+│   │   ├── postigones.js
+│   │   ├── puertas.js
+│   │   ├── rajas.js
+│   │   ├── superficies.js
+│   │   ├── ventanas.js
+│   │   └── ventanasAbrir.js
+│   ├── tests
+│   │   ├── testMosquiteros.js
+│   │   ├── testPatagonicas.js
+│   │   ├── testPortones.js
+│   │   ├── testPostigones.js
+│   │   ├── testPuertas.js
+│   │   ├── testPuertasPlaca.js
+│   │   ├── testRajas.js
+│   │   ├── testSuperficies.js
+│   │   └── testVentanas.js
+│   ├── auditarModulo.js
+│   ├── auditarProyecto.js
+│   ├── auditarResultado.js
+│   ├── compararCotizacion.js
+│   ├── compararExcel.js
+│   ├── compararJson.js
+│   ├── HtmlReport.js
+│   ├── logAuditoria.js
+│   └── run.js
+├── config
+│   └── perfiles.js
+├── controllers
+│   ├── authController.js
+│   ├── estadisticasController.js
+│   ├── pdfController.js
+│   ├── presupuestoController.js
+│   ├── productController.js
+│   └── systemController.js
+├── data
+│   ├── productos
+│   │   ├── mosquiteros.json
+│   │   ├── patagonicas_modena.json
+│   │   ├── postigones.json
+│   │   ├── puertas_eco.json
+│   │   ├── puertas_herrero.json
+│   │   ├── puertas_media_herrero.json
+│   │   ├── puertas_modena.json
+│   │   ├── puertas_placa.json
+│   │   ├── rajas_herrero.json
+│   │   ├── rajas_modena.json
+│   │   ├── superficies.json
+│   │   ├── ventanas_herrero.json
+│   │   └── ventanas_modena.json
+│   └── colores.json
+├── docs
+│   └── WRAPPER_CONTRACT.md
+├── excel
+│   ├── calculadora.xlsx
+│   └── catalogo.xlsx
+├── middleware
+│   ├── auth.js
+│   ├── roles.js
+│   └── rolesPermitidos.js
+├── models
+│   ├── EstadisticaUso.js
+│   ├── Presupuesto.js
+│   ├── SystemConfig.js
+│   └── User.js
+├── pdf
+│   └── render
+│       ├── PrintableBudgetDocument.jsx
+│       ├── registerReact.js
+│       ├── renderBudget.js
+│       ├── styles.js
+│       └── template.js
+├── routes
+│   ├── authRoutes.js
+│   ├── estadisticas.routes.js
+│   ├── index.js
+│   ├── pdfRoutes.js
+│   ├── presupuestoRoutes.js
+│   ├── productRoutes.js
+│   └── system.routes.js
+├── scripts
+│   ├── QA
+│   │   ├── qa_mosquiteros.js
+│   │   ├── qa_patagonicas.js
+│   │   ├── qa_placas.js
+│   │   ├── qa_portones.js
+│   │   ├── qa_postigones.js
+│   │   ├── qa_puertas.js
+│   │   ├── qa_rajas.js
+│   │   ├── qa_superficies.js
+│   │   ├── qa_ventana_abrir.js
+│   │   └── qa_ventanas.js
+│   ├── compareGenerated.js
+│   ├── guide.txt
+│   ├── impColores.js
+│   ├── impMosquiteros.js
+│   ├── importar.js
+│   ├── impPatagonicasModena.js
+│   ├── impPostigones.js
+│   ├── impPuertasEco.js
+│   ├── impPuertasHerrero.js
+│   ├── impPuertasmedias.js
+│   ├── impPuertasModena.js
+│   ├── impPuertasPlaca.js
+│   ├── impRajasHerrero.js
+│   ├── impRajasModena.js
+│   ├── impVentanasHerrero.js
+│   ├── impVentanasModena.js
+│   ├── publishGenerated.js
+│   └── runExcel.js
+├── services
+│   ├── cortinas
+│   │   ├── calcularCortinas.js
+│   │   └── calcularPrecioCortina.js
+│   ├── estadisticas
+│   │   └── registrarUso.js
+│   ├── mosquiteros
+│   │   └── calcularMosquitero.js
+│   ├── patagonicas
+│   │   └── calcularPatagonicaModena.js
+│   ├── pdf
+│   │   ├── generarPDF.js
+│   │   ├── mapPresupuestoToPrintable.js
+│   │   └── renderPrintableBudget.js
+│   ├── placas
+│   │   └── calcularPuertaPlaca.js
+│   ├── portones
+│   │   └── calcularPortones.js
+│   ├── postigones
+│   │   └── calcularPostigon.js
+│   ├── presupuestos
+│   │   ├── calcularItem.js
+│   │   └── crearPresupuesto.js
+│   ├── puertas
+│   │   └── calcularPuertas.js
+│   ├── rajas
+│   │   └── calcularRaja.js
+│   ├── superficies
+│   │   └── superficies.js
+│   └── ventanas
+│       └── calcularVentana.js
+├── setup
+│   └── testDB.js
+├── tests
+│   ├── automatictest
+│   │   ├── mosquiteros.service.test.js
+│   │   ├── mosquiteros.test.js
+│   │   ├── patagonica_herrero.test.js
+│   │   ├── patagonicas_modena.service.test.js
+│   │   ├── patagonicas_modena.test.js
+│   │   ├── placas.service.test.js
+│   │   ├── placas.test.js
+│   │   ├── portones.service.test.js
+│   │   ├── portones.test.js
+│   │   ├── postigones.service.test.js
+│   │   ├── postigones.test.js
+│   │   ├── puertas.service.test.js
+│   │   ├── puertas.test.js
+│   │   ├── raja_herrero.service.test.js
+│   │   ├── raja_herrero.test.js
+│   │   ├── raja_modena.service.test.js
+│   │   ├── raja_modena.test.js
+│   │   ├── superficies.service.test.js
+│   │   ├── superficies.test.js
+│   │   ├── ventana_herrero.service.test.js
+│   │   ├── ventana_herrero.test.js
+│   │   ├── ventana_modena.service.test.js
+│   │   └── ventana_modena.test.js
+│   ├── generators
+│   │   ├── mosquiteros.gen.js
+│   │   ├── patagonicaHerrero.gen.js
+│   │   ├── patagonicaModena.gen.js
+│   │   ├── postigon.gen.js
+│   │   ├── puerta_y_media.gen.js
+│   │   ├── puertaPlaca.gen.js
+│   │   ├── puertas.gen.js
+│   │   ├── rajasHerrero.gen.js
+│   │   ├── rajasModena.gen.js
+│   │   ├── superficies.gen.js
+│   │   ├── ventanaHerrero.gen.js
+│   │   └── ventanaModena.gen.js
+│   ├── runner
+│   │   ├── runAutomaticTests.js
+│   │   └── runGenerators.js
+│   ├── system
+│   │   └── validacionSistema.test.js
+│   ├── auth.test.js
+│   └── presupuestos.test.js
+├── utils
+│   ├── pricing
+│   │   ├── aplicarMargen.js
+│   │   ├── resolvePricingUser.js
+│   │   ├── sanitizarCotizacion.js
+│   │   └── sanitizarResultado.js
+│   ├── aplicarAjusteMedidaPuerta.js
+│   ├── buildWrapperResponse.js
+│   ├── buscarMedidaSuperior.js
+│   ├── path.js
+│   ├── portonRules.js
+│   └── svg.js
+├── .env
+├── .env.example
+├── app.js
+├── backend-tree.txt
+├── package-lock.json
+├── package.json
+├── README_BACKEND.MD
+├── server.js
+└── vercel.json

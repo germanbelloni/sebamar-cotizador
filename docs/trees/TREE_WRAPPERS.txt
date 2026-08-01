@@ -1,0 +1,32 @@
+WRAPPERS
+
+Profundidad máxima: 8
+
+├── cortinas
+│   └── calcularCortinas.js
+├── mosquiteros
+│   ├── calcularMosquiteroFijo.js
+│   ├── calcularMosquiteroVentana.js
+│   └── calcularPuertaMosquitera.js
+├── patagonicas
+│   ├── calcularPatagonicaHerrero.js
+│   └── calcularPatagonicaModena.js
+├── placas
+│   └── calcularPuertaPlaca.js
+├── portones
+│   └── calcularporton.js
+├── postigones
+│   └── calcularPostigones.js
+├── puertas
+│   ├── calcularPuerta.js
+│   └── calcularPuertaEco.js
+├── rajas
+│   ├── calcularRajaHerrero.js
+│   └── calcularRajaModena.js
+├── superficies
+│   └── calcularSuperficies.js
+├── ventanas
+│   ├── calcularVentanaHerrero.js
+│   └── calcularVentanaModena.js
+└── ventanasAbrir
+    └── calcularVentanaAbrir.js

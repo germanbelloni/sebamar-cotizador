@@ -1,0 +1,34 @@
+======================================
+VALIDADOR DE LISTAS COMERCIALES
+======================================
+Perfil comercial: azul
+Fecha: 1/8/2026, 11:20:30
+
+
+======================================
+VALIDACIÓN FINALIZADA
+======================================
+Perfil comercial: azul
+
+MÓDULOS AUDITADOS:
+[OK] Ventanas Herrero
+[OK] Ventanas Modena
+[OK] Puertas Herrero
+[OK] Puertas Modena
+[OK] Puertas Eco
+[OK] Rajas Herrero
+[OK] Rajas Modena
+[OK] Postigones
+[OK] Patagónicas
+[OK] Mosquiteros
+[OK] Puertas Placa
+
+--------------------------------------
+Total módulos: 11
+Casos comparados: 1856
+Coincidencias: 1856
+Diferencias: 0
+--------------------------------------
+
+======================================
+[OK] TODAS LAS LISTAS COINCIDEN CON EL SISTEMA
