@@ -79,6 +79,9 @@ export function usePresupuestoPdf() {
 
       const handle = fileHandles.get(id);
 
+      console.log("Map:", fileHandles);
+      console.log("Handle:", handle);
+
       if (handle) {
         try {
           const writable = await handle.createWritable();

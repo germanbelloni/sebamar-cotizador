@@ -16,6 +16,16 @@ import { useUpdatePresupuestoEstado } from "../hooks/useUpdatePresupuestoEstado"
 
 import { DeletePresupuestoDialog } from "../components/DeletePresupuestoDialog";
 import { AprobarPresupuestoDialog } from "../components/AprobarPresupuestoDialog";
+
+function formatTotalLista(valor: number) {
+  const numero = Math.round(valor);
+
+  if (numero < 1_000_000) {
+    return `$${numero}`;
+  }
+
+  return `$${numero.toLocaleString("es-AR")}`;
+}
 type Presupuesto = {
   id: string;
   numero: number;
@@ -234,7 +244,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
 
               <div className="text-right">
                 <div className="text-2xl font-black">
-                  ${Number(presupuesto.total || 0).toLocaleString("es-AR")}
+                  {formatTotalLista(presupuesto.total || 0)}
                 </div>
 
                 <div className="mt-1 text-sm text-muted-foreground">
