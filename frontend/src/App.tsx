@@ -741,7 +741,12 @@ function App() {
           </main>
 
           {!["presupuestos", "configuracion"].includes(activeFeature) && (
-            <BudgetPanel items={items} cliente={cliente} empresa={empresa} />
+            <BudgetPanel
+              items={items}
+              cliente={cliente}
+              setCliente={setCliente}
+              empresa={empresa}
+            />
           )}
 
           <UserManagementPanel />

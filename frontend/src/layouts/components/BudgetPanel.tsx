@@ -16,16 +16,29 @@ import { buildPrintableBudget } from "@/features/print/utils/buildPrintableBudge
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import { useCotizacionStore } from "@/store/cotizacionStore";
+import { Button } from "@/components/ui/button";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import { Input } from "@/components/ui/input";
 
 type Props = {
   items: BudgetItem[];
 
   cliente: Cliente;
 
+  setCliente: React.Dispatch<React.SetStateAction<Cliente>>;
+
   empresa: Empresa;
 };
 
-export function BudgetPanel({ items, cliente, empresa }: Props) {
+export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
 
@@ -47,11 +60,39 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
   );
 
   const editingFecha = useBudgetStore((state) => state.editingFecha);
+
   const { share } = useShareWhatsApp({
     empresa: empresa.nombre,
     cliente: cliente.nombre,
     telefono: cliente.telefono,
   });
+
+  // 👇 PEGAR ACÁ
+  async function generarPresupuesto(nombre: string, telefono: string) {
+    const { getNuevoNumero } =
+      await import("@/features/presupuestos/api/getNuevoNumero");
+
+    const numero = await getNuevoNumero();
+
+    await registrarUso("generarPresupuesto");
+
+    const data = buildPrintableBudget(
+      numero,
+      empresa,
+      {
+        ...cliente,
+        nombre,
+        telefono,
+      },
+      items,
+      editingFecha ?? undefined,
+    );
+
+    sessionStorage.setItem("print-data", JSON.stringify(data));
+
+    navigate("/print");
+  }
+
   function handleCopyWhatsapp() {
     const text = budgetToWhatsApp({
       empresa: empresa.nombre,
@@ -66,6 +107,11 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
     toast.success("Texto copiado al portapapeles.");
   }
   const [showWhatsappMenu, setShowWhatsappMenu] = useState(false);
+
+  const [showClienteDialog, setShowClienteDialog] = useState(false);
+  const [nombreTemp, setNombreTemp] = useState(cliente.nombre);
+  const [telefonoTemp, setTelefonoTemp] = useState(cliente.telefono);
+
   return (
     <aside
       className="
@@ -336,32 +382,12 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
                   disabled={usandoPerfilTemporal}
                   onClick={async () => {
                     if (!cliente.nombre.trim() || !cliente.telefono.trim()) {
-                      const continuar = window.confirm(
-                        "No se completó el nombre y/o teléfono del cliente.\n\nPodrá generar el presupuesto y trabajar normalmente, pero no podrá guardarlo hasta completar esos datos.\n\n¿Desea continuar?",
-                      );
-
-                      if (!continuar) {
-                        return;
-                      }
+                      setNombreTemp(cliente.nombre);
+                      setTelefonoTemp(cliente.telefono);
+                      setShowClienteDialog(true);
+                      return;
                     }
-
-                    const { getNuevoNumero } =
-                      await import("@/features/presupuestos/api/getNuevoNumero");
-
-                    const numero = await getNuevoNumero();
-                    await registrarUso("generarPresupuesto");
-
-                    const data = buildPrintableBudget(
-                      numero,
-                      empresa,
-                      cliente,
-                      items,
-                      editingFecha ?? undefined,
-                    );
-
-                    sessionStorage.setItem("print-data", JSON.stringify(data));
-
-                    navigate("/print");
+                    await generarPresupuesto(cliente.nombre, cliente.telefono);
                   }}
                   className={`
       w-full
@@ -468,6 +494,59 @@ export function BudgetPanel({ items, cliente, empresa }: Props) {
           )}
         </div>{" "}
       </div>
+      <Dialog open={showClienteDialog} onOpenChange={setShowClienteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              Para generar el presupuesto completá los datos del cliente
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <Input
+              placeholder="Apellido y nombre"
+              value={nombreTemp}
+              onChange={(e) => setNombreTemp(e.target.value)}
+            />
+
+            <Input
+              placeholder="Teléfono"
+              value={telefonoTemp}
+              onChange={(e) => setTelefonoTemp(e.target.value)}
+            />
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowClienteDialog(false)}
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              onClick={() => {
+                if (!nombreTemp.trim() || !telefonoTemp.trim()) {
+                  toast.error("Debe completar apellido, nombre y teléfono.");
+                  return;
+                }
+
+                setCliente((prev) => ({
+                  ...prev,
+                  nombre: nombreTemp,
+                  telefono: telefonoTemp,
+                }));
+
+                setShowClienteDialog(false);
+
+                void generarPresupuesto(nombreTemp, telefonoTemp);
+              }}
+            >
+              Continuar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </aside>
   );
 }
