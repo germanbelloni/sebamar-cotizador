@@ -4,6 +4,10 @@ type CotizacionState = {
   perfilTemporal: "amarilla" | "azul" | "verde" | "papu";
 
   setPerfilTemporal: (perfil: "amarilla" | "azul" | "verde" | "papu") => void;
+
+  modo: "cotizar" | "costos";
+
+  setModo: (modo: "cotizar" | "costos") => void;
 };
 
 export const useCotizacionStore = create<CotizacionState>((set) => ({
@@ -12,5 +16,12 @@ export const useCotizacionStore = create<CotizacionState>((set) => ({
   setPerfilTemporal: (perfil) =>
     set({
       perfilTemporal: perfil,
+    }),
+
+  modo: "cotizar",
+
+  setModo: (modo) =>
+    set({
+      modo,
     }),
 }));

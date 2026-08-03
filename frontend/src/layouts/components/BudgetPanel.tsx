@@ -43,6 +43,7 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
   const user = useAuthStore((state) => state.user);
 
   const perfilTemporal = useCotizacionStore((state) => state.perfilTemporal);
+  const modo = useCotizacionStore((state) => state.modo);
 
   const usandoPerfilTemporal =
     user?.role === "superadmin" &&
@@ -300,11 +301,19 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
 
                     <div className="text-right">
                       <div className="text-xs text-muted-foreground">
-                        Unitario
+                        {modo === "costos" ? "Costo" : "Unitario"}
                       </div>
 
                       <div className="text-sm font-medium">
-                        {formatCurrency(item.precioUnitario)}
+                        {(() => {
+                          return formatCurrency(
+                            modo === "costos"
+                              ? user?.role === "superadmin"
+                                ? (item.precioProveedor ?? 0)
+                                : (item.precioLista ?? 0)
+                              : item.precioUnitario,
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>
@@ -332,7 +341,13 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
                     </span>
 
                     <span className="text-base font-bold">
-                      {formatCurrency(item.subtotal)}
+                      {formatCurrency(
+                        modo === "costos"
+                          ? (user?.role === "superadmin"
+                              ? (item.precioProveedor ?? 0)
+                              : (item.precioLista ?? 0)) * item.cantidad
+                          : item.subtotal,
+                      )}
                     </span>
                   </div>
                 </div>
@@ -348,10 +363,24 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
   "
         >
           <div className="mb-4 flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Total</span>
+            <span className="text-sm text-muted-foreground">
+              {modo === "costos" ? "Costo total" : "Total"}
+            </span>
 
             <span className="text-2xl font-bold">
-              {formatCurrency(total())}
+              {formatCurrency(
+                modo === "costos"
+                  ? items.reduce(
+                      (acc, item) =>
+                        acc +
+                        (user?.role === "superadmin"
+                          ? (item.precioProveedor ?? 0)
+                          : (item.precioLista ?? 0)) *
+                          item.cantidad,
+                      0,
+                    )
+                  : total(),
+              )}
             </span>
           </div>
 
@@ -379,7 +408,7 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
                 )}
 
                 <button
-                  disabled={usandoPerfilTemporal}
+                  disabled={usandoPerfilTemporal || modo === "costos"}
                   onClick={async () => {
                     if (!cliente.nombre.trim() || !cliente.telefono.trim()) {
                       setNombreTemp(cliente.nombre);
@@ -387,109 +416,114 @@ export function BudgetPanel({ items, cliente, setCliente, empresa }: Props) {
                       setShowClienteDialog(true);
                       return;
                     }
+
                     await generarPresupuesto(cliente.nombre, cliente.telefono);
                   }}
                   className={`
-      w-full
-      rounded-2xl
-      px-4
-      py-3
-      text-sm
-      font-semibold
-      transition-opacity
-      ${
-        usandoPerfilTemporal
-          ? "cursor-not-allowed bg-muted text-muted-foreground opacity-60"
-          : "bg-primary text-primary-foreground hover:opacity-90"
-      }
-    `}
+    w-full
+    rounded-2xl
+    px-4
+    py-3
+    text-sm
+    font-semibold
+    transition-opacity
+    ${
+      usandoPerfilTemporal || modo === "costos"
+        ? "cursor-not-allowed bg-muted text-muted-foreground opacity-60"
+        : "bg-primary text-primary-foreground hover:opacity-90"
+    }
+  `}
                 >
-                  {editingPresupuestoId
-                    ? "Actualizar presupuesto"
-                    : "Generar presupuesto"}
+                  {modo === "costos"
+                    ? "Estás viendo costos"
+                    : editingPresupuestoId
+                      ? "Actualizar presupuesto"
+                      : "Generar presupuesto"}
                 </button>
               </>
 
-              <div className="relative">
-                <button
-                  onClick={() => setShowWhatsappMenu((v) => !v)}
-                  className="
-            flex
+              {modo !== "costos" && (
+                <div className="relative">
+                  <button
+                    onClick={() => setShowWhatsappMenu((v) => !v)}
+                    className="
+        flex
+        w-full
+        items-center
+        justify-center
+        gap-2
+
+        rounded-2xl
+        border
+        border-border
+
+        px-4
+        py-3
+
+        text-sm
+        font-semibold
+      "
+                  >
+                    <MessageSquare size={18} />
+                    WhatsApp
+                  </button>
+
+                  {showWhatsappMenu && (
+                    <div
+                      className="
+          absolute
+          bottom-full
+          left-0
+          mb-2
+          w-full
+
+          overflow-hidden
+          rounded-xl
+          border
+          border-border
+          bg-card
+          shadow-lg
+        "
+                    >
+                      <button
+                        onClick={() => {
+                          share();
+                          setShowWhatsappMenu(false);
+                        }}
+                        className="
             w-full
-            items-center
-            justify-center
-            gap-2
-
-            rounded-2xl
-            border
-            border-border
-
             px-4
             py-3
-
+            text-left
             text-sm
-            font-semibold
+            hover:bg-muted
           "
-                >
-                  <MessageSquare size={18} />
-                  WhatsApp
-                </button>
+                      >
+                        Enviar por WhatsApp
+                      </button>
 
-                {showWhatsappMenu && (
-                  <div
-                    className="
-              absolute
-              bottom-full
-              left-0
-              mb-2
-              w-full
-
-              overflow-hidden
-              rounded-xl
-              border
-              border-border
-              bg-card
-              shadow-lg
-            "
-                  >
-                    <button
-                      onClick={() => {
-                        share();
-                        setShowWhatsappMenu(false);
-                      }}
-                      className="
-    w-full
-    px-4
-    py-3
-    text-left
-    text-sm
-    hover:bg-muted
-  "
-                    >
-                      Enviar por WhatsApp
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        handleCopyWhatsapp();
-                        setShowWhatsappMenu(false);
-                      }}
-                      className="
-    w-full
-    border-t
-    border-border
-    px-4
-    py-3
-    text-left
-    text-sm
-    hover:bg-muted
-  "
-                    >
-                      Copiar texto
-                    </button>
-                  </div>
-                )}
-              </div>
+                      <button
+                        onClick={() => {
+                          handleCopyWhatsapp();
+                          setShowWhatsappMenu(false);
+                        }}
+                        className="
+            w-full
+            border-t
+            border-border
+            px-4
+            py-3
+            text-left
+            text-sm
+            hover:bg-muted
+          "
+                      >
+                        Copiar texto
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>{" "}

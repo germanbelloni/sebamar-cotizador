@@ -149,7 +149,17 @@ function calcularVentanaHerrero(dataInput) {
   const estructuraColor =
     items.find((i) => i.tipo === "estructura")?.precio || 0;
 
-  let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+  const totalOriginal = base.items.reduce(
+    (acc, item) => acc + Number(item.precio || 0),
+    0,
+  );
+
+  const totalColor = items.reduce(
+    (acc, item) => acc + Number(item.precio || 0),
+    0,
+  );
+
+  let costo = totalColor;
 
   const colorData = colores.find((c) => c.nombre === color);
 

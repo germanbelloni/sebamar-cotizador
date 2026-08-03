@@ -13,6 +13,8 @@ import { useAuthStore } from "@/store/authStore";
 import type { Cliente } from "@/features/clientes/types";
 import type { Empresa } from "@/features/empresa/types";
 import { useCotizacionStore } from "@/store/cotizacionStore";
+
+import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 type Props = {
   empresa: Empresa;
 
@@ -31,6 +33,10 @@ export function Header({ empresa, cliente, setCliente }: Props) {
   const setPerfilTemporal = useCotizacionStore(
     (state) => state.setPerfilTemporal,
   );
+  const modo = useCotizacionStore((state) => state.modo);
+
+  const setModo = useCotizacionStore((state) => state.setModo);
+  const clearBudget = useBudgetStore((state) => state.clearBudget);
 
   const primaryColor = user?.colorPrimario || "#D6B400";
 
@@ -131,6 +137,35 @@ export function Header({ empresa, cliente, setCliente }: Props) {
       <div className="flex items-center gap-4">
         <ClienteForm cliente={cliente} setCliente={setCliente} />
 
+        {/* MODO */}
+
+        <select
+          value={modo}
+          onChange={(e) => {
+            const nuevoModo = e.target.value as "cotizar" | "costos";
+
+            if (nuevoModo === modo) return;
+
+            clearBudget();
+
+            setModo(nuevoModo);
+          }}
+          className="
+    rounded-xl
+    border
+    border-border
+    bg-background
+    px-3
+    py-2
+    text-sm
+  "
+        >
+          <option value="cotizar">Cotizar</option>
+          <option value="costos">Costos</option>
+        </select>
+
+        {/* PERFIL SOLO SUPERADMIN */}
+
         {user?.role === "superadmin" && user?.empresa === "Sebamar" && (
           <select
             value={perfilTemporal}
@@ -140,14 +175,14 @@ export function Header({ empresa, cliente, setCliente }: Props) {
               )
             }
             className="
-    rounded-xl
-    border
-    border-border
-    bg-background
-    px-3
-    py-2
-    text-sm
-  "
+      rounded-xl
+      border
+      border-border
+      bg-background
+      px-3
+      py-2
+      text-sm
+    "
           >
             <option value="amarilla">Amarilla</option>
             <option value="azul">Azul</option>

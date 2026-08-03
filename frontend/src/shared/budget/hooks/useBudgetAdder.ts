@@ -37,6 +37,7 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
       const result = await mutation.mutateAsync(config);
 
       const item = createItem(config, result);
+
       if (editingItem) {
         replaceItem({
           ...item,
