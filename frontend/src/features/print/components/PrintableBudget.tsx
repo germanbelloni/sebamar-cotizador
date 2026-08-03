@@ -52,7 +52,7 @@ export function PrintableBudget({
 
   const guardarMutation = useGuardarPresupuesto();
   const updateMutation = useUpdatePresupuestoCompleto();
-  const { view, save, saveAs } = usePresupuestoPdf();
+  const { view, save } = usePresupuestoPdf();
   const isSaving = guardarMutation.isPending || updateMutation.isPending;
   const editingPresupuestoId = useBudgetStore(
     (state) => state.editingPresupuestoId,
@@ -284,20 +284,7 @@ export function PrintableBudget({
                   }
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Guardar
-                </DropdownMenuItem>
-
-                <DropdownMenuItem
-                  onClick={() =>
-                    saveAs(
-                      presupuestoGuardado.id,
-                      cliente.nombre || "SIN CLIENTE",
-                      fecha,
-                    )
-                  }
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Guardar como...
+                  Guardar PDF...
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

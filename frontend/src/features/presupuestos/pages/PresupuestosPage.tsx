@@ -47,7 +47,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
 
   const user = useAuthStore((state) => state.user);
 
-  const { view, save, saveAs } = usePresupuestoPdf();
+  const { view, save } = usePresupuestoPdf();
 
   const isSuperAdmin = user?.role === "superadmin";
 
@@ -289,20 +289,7 @@ export function PresupuestosPage({ onOpenPresupuesto }: Props) {
                         }
                       >
                         <Download className="mr-2 h-4 w-4" />
-                        Guardar
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem
-                        onClick={() =>
-                          saveAs(
-                            presupuesto.id,
-                            presupuesto.cliente || "SIN CLIENTE",
-                            presupuesto.fecha,
-                          )
-                        }
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        Guardar como...
+                        Guardar PDF...
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

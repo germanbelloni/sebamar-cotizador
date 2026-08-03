@@ -77,7 +77,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
     user?.role === "admin" || user?.role === "superadmin";
   const showPerfil = user?.role === "superadmin";
 
-  const { view, save, saveAs } = usePresupuestoPdf();
+  const { view, save } = usePresupuestoPdf();
 
   const navigate = useNavigate();
 
@@ -473,27 +473,7 @@ export function PresupuestoDetallePage({ presupuestoId, onBack }: Props) {
                     }}
                   >
                     <Download className="mr-2 h-4 w-4" />
-                    Guardar
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem
-                    disabled={pdfLoading}
-                    onClick={async () => {
-                      try {
-                        setPdfLoading(true);
-
-                        await saveAs(
-                          presupuestoId,
-                          data.cliente || "SIN CLIENTE",
-                          data.fecha ?? new Date().toISOString(),
-                        );
-                      } finally {
-                        setPdfLoading(false);
-                      }
-                    }}
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Guardar como...
+                    Guardar PDF...
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

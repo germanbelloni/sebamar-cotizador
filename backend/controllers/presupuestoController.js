@@ -397,7 +397,6 @@ async function pdf(req, res) {
     const printable = mapPresupuestoToPrintable(presupuesto, user);
 
     const html = await renderBudget(printable);
-
     if (process.env.NODE_ENV === "production") {
       browser = await puppeteer.launch({
         args: chromium.args,
@@ -407,8 +406,7 @@ async function pdf(req, res) {
       });
     } else {
       browser = await puppeteer.launch({
-        executablePath:
-          "C:\\Users\\Sebamar aberturas\\.cache\\puppeteer\\chrome\\win64-148.0.7778.97\\chrome-win64\\chrome.exe",
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
         headless: true,
       });
     }
