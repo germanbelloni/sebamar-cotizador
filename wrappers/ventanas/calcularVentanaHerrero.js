@@ -36,7 +36,6 @@ function aplicarPerfil(costo, p) {
     venta,
   };
 }
-
 // 🎨 COLOR
 function aplicarColor(items, color) {
   if (!color || color === "blanco") {
@@ -44,11 +43,10 @@ function aplicarColor(items, color) {
   }
 
   const colorData = colores.find((c) => c.nombre === color);
-
   const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
-    if (!["estructura", "mosquitero"].includes(item.tipo)) {
+    if (!["estructura", "mosquitero", "guia"].includes(item.tipo)) {
       return item;
     }
 
@@ -172,7 +170,7 @@ function calcularVentanaHerrero(dataInput) {
 
     valorAntes: base.costoBase,
 
-    valorAplicado: estructuraColor - estructuraOriginal,
+    valorAplicado: totalColor - totalOriginal,
 
     valorDespues: costo,
 
@@ -180,6 +178,8 @@ function calcularVentanaHerrero(dataInput) {
       estructuraOriginal,
 
       estructuraColor,
+      totalOriginal,
+      totalColor,
 
       vidrio,
 

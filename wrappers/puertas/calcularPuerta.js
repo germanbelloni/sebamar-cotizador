@@ -405,9 +405,16 @@ function calcularPuertaWrapper(dataInput) {
   // 💰 PERFIL
   // ========================
   const lineaPerfil = linea === "eco" ? "herrero" : linea;
+
+  let costoBarrales = 0;
+  let costoPuerta = 0;
+
+  let proveedorBarral = 0;
+  let ventaBarral = 0;
   let proveedor;
   let venta;
   let perfilData;
+  let costoPremarcos = 0;
 
   if (linea === "modena") {
     const perfilModena = perfiles[perfil]?.modena || perfiles.amarilla.modena;
@@ -415,17 +422,26 @@ function calcularPuertaWrapper(dataInput) {
     const perfilPremarcos =
       perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
 
-    const costoPremarcos = items
+    costoPremarcos = items
       .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
       .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+    costoBarrales = items
+      .filter((i) => i.tipo === "barral_recto" || i.tipo === "barral_curvo")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+    costoPuerta = costo - costoPremarcos - costoBarrales;
 
-    const costoModena = costo - costoPremarcos;
+    const rPuerta = aplicarPerfil(costoPuerta, perfilModena);
 
-    const r1 = aplicarPerfil(costoModena, perfilModena);
-    const r2 = aplicarPerfil(costoPremarcos, perfilPremarcos);
+    const rPremarcos = aplicarPerfil(costoPremarcos, perfilPremarcos);
 
-    proveedor = r1.proveedor + r2.proveedor;
-    venta = r1.venta + r2.venta;
+    // Barrales: sin descuento, con flete y ganancia
+    proveedorBarral = costoBarrales * (1 + perfilModena.flete);
+
+    ventaBarral = proveedorBarral * (1 + perfilModena.ganancia);
+
+    proveedor = rPuerta.proveedor + rPremarcos.proveedor + proveedorBarral;
+
+    venta = rPuerta.venta + rPremarcos.venta + ventaBarral;
 
     perfilData = perfilModena;
   } else {
@@ -435,10 +451,20 @@ function calcularPuertaWrapper(dataInput) {
     if (!perfilData) {
       throw new Error(`No existe perfil para la línea "${linea}".`);
     }
-    const r = aplicarPerfil(costo, perfilData);
+    costoBarrales = items
+      .filter((i) => i.tipo === "barral_recto" || i.tipo === "barral_curvo")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-    proveedor = r.proveedor;
-    venta = r.venta;
+    costoPuerta = costo - costoBarrales;
+    const rPuerta = aplicarPerfil(costoPuerta, perfilData);
+
+    // El barral NO lleva descuento
+    proveedorBarral = costoBarrales * (1 + perfilData.flete);
+
+    ventaBarral = proveedorBarral * (1 + perfilData.ganancia);
+
+    proveedor = rPuerta.proveedor + proveedorBarral;
+    venta = rPuerta.venta + ventaBarral;
   }
 
   audit.add({
@@ -462,6 +488,12 @@ function calcularPuertaWrapper(dataInput) {
       descuento: perfilData.descuento,
       flete: perfilData.flete,
       ganancia: perfilData.ganancia,
+
+      costoPuerta,
+      costoBarrales,
+      costoPremarcos,
+      proveedorBarral,
+      ventaBarral,
 
       proveedor,
       venta,

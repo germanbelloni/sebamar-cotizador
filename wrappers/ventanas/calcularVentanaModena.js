@@ -50,7 +50,9 @@ function aplicarColor(items, color) {
   const porcentaje = Number(colorData?.valor || 0);
 
   return items.map((item) => {
-    if (!["estructura", "mosquitero", "contramarco"].includes(item.tipo)) {
+    if (
+      !["estructura", "mosquitero", "guia", "contramarco"].includes(item.tipo)
+    ) {
       return item;
     }
 
@@ -60,6 +62,7 @@ function aplicarColor(items, color) {
     };
   });
 }
+
 //Helper
 function formatearMedida(valor) {
   const n = Number(valor);
@@ -148,10 +151,12 @@ function calcularVentanaModena(dataInput) {
     },
   });
 
-  // 🎨 COLOR SOLO ESTRUCTURA
+  // 🎨 COLOR
 
   const estructuraOriginal =
     base.items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const guiaOriginal = base.items.find((i) => i.tipo === "guia")?.precio || 0;
 
   const vidrio = base.items.find((i) => i.tipo === "vidrio")?.precio || 0;
 
@@ -159,6 +164,10 @@ function calcularVentanaModena(dataInput) {
 
   const estructuraColor =
     items.find((i) => i.tipo === "estructura")?.precio || 0;
+
+  const guiaColor = items.find((i) => i.tipo === "guia")?.precio || 0;
+  const incrementoColor =
+    estructuraColor - estructuraOriginal + (guiaColor - guiaOriginal);
 
   let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
@@ -181,20 +190,22 @@ function calcularVentanaModena(dataInput) {
 
     valorAntes: base.costoBase,
 
-    valorAplicado: estructuraColor - estructuraOriginal,
+    valorAplicado: incrementoColor,
 
     valorDespues: costo,
 
     metadata: {
       estructuraOriginal,
-
       estructuraColor,
+
+      guiaOriginal,
+      guiaColor,
 
       vidrio,
 
       porcentajeColor,
 
-      incremento: estructuraColor - estructuraOriginal,
+      incremento: incrementoColor,
 
       costoBase: base.costoBase,
     },
@@ -343,21 +354,24 @@ function calcularVentanaModena(dataInput) {
   }
   // 🪚 CONTRAMARCO
   if (premarco || contramarco) {
-    const c = Number(superficies.superficies.contramarco || 0) * ml;
+    let c = Number(superficies.superficies.contramarco || 0) * ml;
+
+    if (color !== "blanco") {
+      const porcentaje = Number(
+        colores.find((x) => x.nombre === color)?.valor || 0,
+      );
+
+      c *= 1 + porcentaje;
+    }
 
     costo += c;
 
     audit.add({
       etapa: "Contramarco",
-
       tipo: "extra",
-
       origen: "superficies.json",
-
       valorAntes: costo - c,
-
       valorAplicado: c,
-
       valorDespues: costo,
     });
 
@@ -500,6 +514,19 @@ function calcularVentanaModena(dataInput) {
       descuento: perfilData.descuento,
       flete: perfilData.flete,
       ganancia: perfilData.ganancia,
+
+      costoModena,
+      costoMosquitero,
+      costoPremarcos,
+
+      proveedorModena,
+      ventaModena,
+
+      proveedorMosquitero,
+      ventaMosquitero,
+
+      proveedorPremarcos,
+      ventaPremarcos,
 
       proveedor,
       venta,
