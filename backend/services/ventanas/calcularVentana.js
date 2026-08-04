@@ -16,6 +16,9 @@ const dataModena = require(
 const buscarMedidaSuperior = require(
   fromRoot("backend/utils/buscarMedidaSuperior"),
 );
+const buscarMedidaInferior = require(
+  fromRoot("backend/utils/buscarMedidaInferior"),
+);
 // =========================
 // 🧠 HELPERS
 // =========================
@@ -125,14 +128,16 @@ function calcularHerrero({
 function buscarMedidaModena(medida) {
   return buscarMedidaSuperior(dataModena.medidas, medida);
 }
-
 function calcularModena({
   medida,
   tipoVidrio,
   incluirGuia,
   incluirMosquitero,
+  usarMedidaInferior = false,
 }) {
-  const lookup = buscarMedidaModena(medida);
+  const lookup = usarMedidaInferior
+    ? buscarMedidaInferior(dataModena.medidas, medida)
+    : buscarMedidaModena(medida);
 
   if (!lookup) {
     throw new Error("Medida no encontrada");

@@ -63,14 +63,17 @@ export function VentanasAbrirConfigForm({ config, setConfig }: Props) {
 
   const editingItem = useBudgetStore((state) => state.editingItem);
 
+  const VIDRIOS_HERRERO = new Set([
+    "3mm",
+    "4mm",
+    "fantasia",
+    "esmerilado",
+    "3+3",
+  ]);
+
   const vidriosDisponibles =
     config.linea === "Herrero"
-      ? VENTANAS_ABRIR_UI.vidrios.filter(
-          (v) =>
-            v.value !== "4+4" &&
-            v.value !== "DVH 4+9+4" &&
-            v.value !== "DVH 5+9+5",
-        )
+      ? VENTANAS_ABRIR_UI.vidrios.filter((v) => VIDRIOS_HERRERO.has(v.value))
       : VENTANAS_ABRIR_UI.vidrios;
 
   return (

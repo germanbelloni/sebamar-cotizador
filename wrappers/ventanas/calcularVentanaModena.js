@@ -131,10 +131,23 @@ function calcularVentanaModena(dataInput) {
   });
   const medida = `${formatearMedida(ancho)}x${formatearMedida(alto)}`;
 
+  const esTresHojas =
+    construccion === "3_hojas_2_guias" || construccion === "3_hojas_3_guias";
+
+  // Regla comercial:
+  // Hasta 240 cm: puede ser 2 o 3 hojas.
+  // Más de 240 cm: debe ser 3 hojas.
+
+  if (ancho > 240 && !esTresHojas) {
+    throw new Error(
+      "Las ventanas mayores a 240 cm deben construirse con 3 hojas.",
+    );
+  }
+
   const requiereDivision = ancho > 240;
+
   let precioGuia = 0;
   let base;
-
   if (!requiereDivision) {
     base = calcularVentana({
       medida,
@@ -152,16 +165,17 @@ function calcularVentanaModena(dataInput) {
       medida: medidaMitad,
       tipoVidrio,
       incluirGuia: guia,
-      incluirMosquitero: false,
+      incluirMosquitero: mosquitero,
       linea: "modena",
+      usarMedidaInferior: true,
     });
-
     const derecha = calcularVentana({
       medida: medidaMitad,
       tipoVidrio,
       incluirGuia: guia,
-      incluirMosquitero: false,
+      incluirMosquitero: mosquitero,
       linea: "modena",
+      usarMedidaInferior: true,
     });
 
     audit.add({
@@ -198,6 +212,34 @@ function calcularVentanaModena(dataInput) {
 
       items: itemsSinGuias,
     };
+    const alturaCotizada = Number(
+      izquierda.medidaUtilizada.split("x")[1].replace(",", "."),
+    );
+
+    const diferencia = alto - alturaCotizada;
+
+    if (diferencia > 0) {
+      const porcentaje = diferencia / 100;
+
+      const recargo = Math.round(base.costoBase * porcentaje);
+
+      base.costoBase += recargo;
+
+      base.items.push({
+        tipo: "recargo_altura",
+        precio: recargo,
+      });
+
+      audit.add({
+        etapa: "Recargo Altura División",
+        tipo: "recargo",
+        origen: "regla_comercial",
+        referencia: `${alturaCotizada} → ${alto}`,
+        porcentaje,
+        valorAplicado: recargo,
+        valorDespues: base.costoBase,
+      });
+    }
   }
   audit.add({
     etapa: "División",
@@ -624,11 +666,9 @@ function calcularVentanaModena(dataInput) {
   }
 
   // 📏 ALTURA
-  if (alto > 205) {
+  if (!requiereDivision && alto > 205) {
     costo *= 1.1;
-  }
 
-  if (alto > 205) {
     audit.add({
       etapa: "Recargo Altura",
 
@@ -660,7 +700,12 @@ function calcularVentanaModena(dataInput) {
     .filter((i) => i.tipo === "mosquitero")
     .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  if (construccion === "3_hojas_3_guias" && mosquitero && costoMosquitero > 0) {
+  if (
+    !requiereDivision &&
+    construccion === "3_hojas_3_guias" &&
+    mosquitero &&
+    costoMosquitero > 0
+  ) {
     costoMosquitero *= 2;
 
     const itemMosquitero = items.find((i) => i.tipo === "mosquitero");

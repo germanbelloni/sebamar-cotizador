@@ -498,14 +498,14 @@ function App() {
                         {/* SVG */}
                         <div className="mt-2 flex-1">
                           {activeFeature === "ventanas" &&
-                          (ventanasConfig.tipoConstruccion ===
-                            "3_hojas_2_guias" ||
+                            (ventanasConfig.tipoConstruccion ===
+                              "3_hojas_2_guias" ||
                             ventanasConfig.tipoConstruccion ===
-                              "3_hojas_3_guias") ? (
-                            <VentanaPreview3Hojas config={ventanasConfig} />
-                          ) : (
-                            <VentanaPreview config={ventanasConfig} />
-                          )}
+                              "3_hojas_3_guias" ? (
+                              <VentanaPreview3Hojas config={ventanasConfig} />
+                            ) : (
+                              <VentanaPreview config={ventanasConfig} />
+                            ))}
 
                           {activeFeature === "rajas" && (
                             <RajasPreview config={rajasConfig} />
