@@ -5,9 +5,17 @@ type Props = {
   ancho: number;
 
   esHerrero: boolean;
+
+  tipoConstruccion?: "2_hojas" | "3_hojas_2_guias" | "3_hojas_3_guias";
 };
 
-export function Cierres({ centerX, centerY, ancho, esHerrero }: Props) {
+export function Cierres({
+  centerX,
+  centerY,
+  ancho,
+  esHerrero,
+  tipoConstruccion = "2_hojas",
+}: Props) {
   if (esHerrero) {
     return (
       <>
@@ -50,49 +58,86 @@ export function Cierres({ centerX, centerY, ancho, esHerrero }: Props) {
     );
   }
 
+  const esTresHojas =
+    tipoConstruccion === "3_hojas_2_guias" ||
+    tipoConstruccion === "3_hojas_3_guias";
+
+  if (!esTresHojas) {
+    return (
+      <>
+        {/* IZQUIERDO */}
+
+        <g>
+          <rect
+            x={centerX - ancho / 2 + 6}
+            y={centerY - 12}
+            width={7}
+            height={24}
+            rx={3}
+            fill="#D4D4D8"
+          />
+
+          <rect
+            x={centerX - ancho / 2 + 8}
+            y={centerY - 11}
+            width={1}
+            height={20}
+            fill="rgba(255,255,255,0.25)"
+          />
+        </g>
+
+        {/* DERECHO */}
+
+        <g>
+          <rect
+            x={centerX + ancho / 2 - 13}
+            y={centerY - 12}
+            width={7}
+            height={24}
+            rx={3}
+            fill="#D4D4D8"
+          />
+
+          <rect
+            x={centerX + ancho / 2 - 17}
+            y={centerY - 11}
+            width={1}
+            height={20}
+            fill="rgba(255,255,255,0.25)"
+          />
+        </g>
+      </>
+    );
+  }
+
+  const hoja = ancho / 3;
+
   return (
     <>
-      {/* IZQ */}
+      {[0, 1, 2].map((i) => {
+        const x = centerX - ancho / 2 + hoja * i + hoja - 14;
 
-      <g>
-        <rect
-          x={centerX - ancho / 2 + 6}
-          y={centerY - 12}
-          width={7}
-          height={24}
-          rx={3}
-          fill="#D4D4D8"
-        />
+        return (
+          <g key={i}>
+            <rect
+              x={x}
+              y={centerY - 12}
+              width={7}
+              height={24}
+              rx={3}
+              fill="#D4D4D8"
+            />
 
-        <rect
-          x={centerX - ancho / 2 + 8}
-          y={centerY - 11}
-          width={1}
-          height={20}
-          fill="rgba(255,255,255,0.25)"
-        />
-      </g>
-
-      {/* DER */}
-
-      <g>
-        <rect
-          x={centerX + ancho / 2 - 13}
-          y={centerY - 12}
-          width={7}
-          height={24}
-          rx={3}
-          fill="#D4D4D8"
-        />
-
-        <rect
-          x={centerX + ancho / 2 - 17}
-          y={centerY - 11}
-          width={1}
-          height={20}
-          fill="rgba(255,255,255,0.25)"
-        />
-      </g>
+            <rect
+              x={x + 2}
+              y={centerY - 11}
+              width={1}
+              height={20}
+              fill="rgba(255,255,255,0.25)"
+            />
+          </g>
+        );
+      })}
     </>
   );
 }

@@ -41,6 +41,8 @@ import { BipuntosSection } from "../components/BipuntosSection";
 
 import { useBudgetStore } from "@/shared/budget/store/useBudgetStore";
 
+import { ConstructionSection } from "../components/ConstructionSection";
+
 type Props = {
   config: VentanaConfig;
 
@@ -173,6 +175,19 @@ export function VentanaConfigForm({
               onToggleGuia={handleToggleGuia}
             />
           </FormSection>
+
+          {config.linea === "Modena" && config.ancho >= 200 && (
+            <FormSection title="Construcción">
+              <ConstructionSection
+                value={config.tipoConstruccion ?? "2_hojas"}
+                onChange={(value) =>
+                  updateConfig({
+                    tipoConstruccion: value,
+                  })
+                }
+              />
+            </FormSection>
+          )}
 
           {config.guia && (
             <FormSection title={VENTANAS_UI.sections.cortinas}>

@@ -6,9 +6,20 @@ type Props = {
   alto: number;
 
   tieneCortina: boolean;
+
+  tipoConstruccion?: "2_hojas" | "3_hojas_2_guias" | "3_hojas_3_guias";
 };
 
-export function Guide({ left, top, ancho, alto, tieneCortina }: Props) {
+export function Guide({
+  left,
+  top,
+  ancho,
+  alto,
+  tieneCortina,
+  tipoConstruccion = "2_hojas",
+}: Props) {
+  const cantidadGuias = tipoConstruccion === "3_hojas_3_guias" ? 3 : 2;
+
   return (
     <>
       {/* SUPERIOR */}
@@ -24,37 +35,31 @@ export function Guide({ left, top, ancho, alto, tieneCortina }: Props) {
           opacity={0.95}
           stroke="rgba(255,255,255,0.05)"
           strokeWidth={1}
-          className="transition-all duration-500"
         />
       )}
 
-      {/* IZQUIERDA */}
+      {/* GUÍAS LATERALES */}
 
-      <rect
-        x={left - 28}
-        y={top - 18}
-        width={12}
-        height={alto + 36}
-        rx={3}
-        fill="rgba(113,113,122,0.22)"
-        opacity={0.95}
-        className="transition-all duration-500"
-        stroke="rgba(255,255,255,0.05)"
-      />
-
-      {/* DERECHA */}
-
-      <rect
-        x={left + ancho + 16}
-        y={top - 18}
-        width={12}
-        height={alto + 36}
-        rx={3}
-        fill="rgba(113,113,122,0.22)"
-        opacity={0.95}
-        className="transition-all duration-500"
-        stroke="rgba(255,255,255,0.05)"
-      />
+      {[0, 1, ...(cantidadGuias === 3 ? [2] : [])].map((i) => (
+        <rect
+          key={i}
+          x={
+            i === 0
+              ? left - 28
+              : i === 1
+                ? left + ancho + 16
+                : left + ancho + 32
+          }
+          y={top - 18}
+          width={12}
+          height={alto + 36}
+          rx={3}
+          fill="rgba(113,113,122,0.22)"
+          opacity={0.95}
+          stroke="rgba(255,255,255,0.05)"
+          className="transition-all duration-500"
+        />
+      ))}
     </>
   );
 }

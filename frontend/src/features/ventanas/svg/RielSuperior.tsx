@@ -7,6 +7,8 @@ type Props = {
   color: string;
 
   esHerrero: boolean;
+
+  tipoConstruccion?: "2_hojas" | "3_hojas_2_guias" | "3_hojas_3_guias";
 };
 
 export function RielSuperior({ left, top, ancho, color, esHerrero }: Props) {
@@ -23,7 +25,6 @@ export function RielSuperior({ left, top, ancho, color, esHerrero }: Props) {
         height={height}
         rx={2}
         fill={color}
-        className="transition-all duration-300"
       />
 
       {/* SOMBRA */}

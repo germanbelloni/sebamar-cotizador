@@ -47,6 +47,8 @@ export type VentanaConfig = {
 
   linea: LineaAluminio;
 
+  tipoConstruccion?: "2_hojas" | "3_hojas_2_guias" | "3_hojas_3_guias";
+
   tipoVidrio?: VidrioType;
 
   color: ColorVentana;

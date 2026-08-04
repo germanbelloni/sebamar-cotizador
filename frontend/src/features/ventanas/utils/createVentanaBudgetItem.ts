@@ -36,6 +36,7 @@ export function createVentanaBudgetItem(
       guia: config.guia,
       cajonBlock: config.cajonBlock,
       cortina: config.cortina,
+      tipoConstruccion: config.tipoConstruccion,
 
       premarco: config.premarco,
       contramarco: config.contramarco,

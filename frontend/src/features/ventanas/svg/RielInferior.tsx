@@ -6,9 +6,22 @@ type Props = {
   alto: number;
 
   color: string;
+
+  tipoConstruccion?: "2_hojas" | "3_hojas_2_guias" | "3_hojas_3_guias";
 };
 
-export function RielInferior({ left, top, ancho, alto, color }: Props) {
+export function RielInferior({
+  left,
+  top,
+  ancho,
+  alto,
+  color,
+  tipoConstruccion = "2_hojas",
+}: Props) {
+  const canales = tipoConstruccion === "3_hojas_3_guias" ? 3 : 2;
+
+  const canalAncho = canales === 2 ? ancho / 2 - 18 : ancho / 3 - 14;
+
   return (
     <>
       {/* BASE */}
@@ -20,28 +33,24 @@ export function RielInferior({ left, top, ancho, alto, color }: Props) {
         height={12}
         rx={2}
         fill={color}
-        className="transition-all duration-300"
       />
 
-      {/* CANAL 1 */}
+      {/* CANALES */}
 
-      <rect
-        x={left + 10}
-        y={top + alto - 2}
-        width={ancho / 2 - 18}
-        height={2}
-        fill="rgba(0,0,0,0.30)"
-      />
-
-      {/* CANAL 2 */}
-
-      <rect
-        x={left + ancho / 2 + 8}
-        y={top + alto - 2}
-        width={ancho / 2 - 18}
-        height={2}
-        fill="rgba(0,0,0,0.30)"
-      />
+      {[...Array(canales)].map((_, i) => (
+        <rect
+          key={i}
+          x={
+            canales === 2
+              ? left + (i === 0 ? 10 : ancho / 2 + 8)
+              : left + 8 + i * (ancho / 3)
+          }
+          y={top + alto - 2}
+          width={canalAncho}
+          height={2}
+          fill="rgba(0,0,0,0.30)"
+        />
+      ))}
 
       {/* BRILLO */}
 

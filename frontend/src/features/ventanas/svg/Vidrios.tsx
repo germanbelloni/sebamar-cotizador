@@ -2,11 +2,9 @@ import type { VidrioType } from "@/shared/types/vidrios";
 
 type Props = {
   left: number;
-
   top: number;
 
   ancho: number;
-
   alto: number;
 
   tipoVidrio?: VidrioType;
@@ -29,8 +27,8 @@ export function Vidrios({ left, top, ancho, alto, tipoVidrio }: Props) {
 
   return (
     <>
+      {" "}
       {/* VIDRIO IZQUIERDO */}
-
       <g>
         {/* SOMBRA PROFUNDA */}
 
@@ -79,14 +77,11 @@ export function Vidrios({ left, top, ancho, alto, tipoVidrio }: Props) {
                 ? "rgba(120,140,160,0.18)"
                 : "url(#glassGradient)"
           }
-          className="
-            transition-all duration-300
-          "
           stroke={strokeVidrio}
           strokeWidth={esDVH ? 2 : 1}
         />
 
-        {/* DVH INTERNO */}
+        {/* DVH */}
 
         {esDVH && (
           <rect
@@ -113,9 +108,7 @@ export function Vidrios({ left, top, ancho, alto, tipoVidrio }: Props) {
           />
         )}
       </g>
-
       {/* VIDRIO DERECHO */}
-
       <g>
         {/* SOMBRA PROFUNDA */}
 
@@ -164,14 +157,11 @@ export function Vidrios({ left, top, ancho, alto, tipoVidrio }: Props) {
                 ? "rgba(120,140,160,0.18)"
                 : "url(#glassGradient)"
           }
-          className="
-            transition-all duration-300
-          "
           stroke={strokeVidrio}
           strokeWidth={esDVH ? 2 : 1}
         />
 
-        {/* DVH INTERNO */}
+        {/* DVH */}
 
         {esDVH && (
           <rect

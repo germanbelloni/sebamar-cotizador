@@ -66,6 +66,8 @@ import { VentanaPreview } from "@/features/ventanas/components/VentanaPreview";
 
 import { initialVentanasConfig } from "@/features/ventanas/constants";
 
+import { VentanaPreview3Hojas } from "@/features/ventanas/components/VentanaPreview3Hojas";
+
 /* PORTONES */
 
 import type { PortonesConfig } from "@/features/portones/types";
@@ -495,7 +497,13 @@ function App() {
                       <div className="flex h-full flex-col">
                         {/* SVG */}
                         <div className="mt-2 flex-1">
-                          {activeFeature === "ventanas" && (
+                          {activeFeature === "ventanas" &&
+                          (ventanasConfig.tipoConstruccion ===
+                            "3_hojas_2_guias" ||
+                            ventanasConfig.tipoConstruccion ===
+                              "3_hojas_3_guias") ? (
+                            <VentanaPreview3Hojas config={ventanasConfig} />
+                          ) : (
                             <VentanaPreview config={ventanasConfig} />
                           )}
 

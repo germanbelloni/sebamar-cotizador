@@ -7,8 +7,8 @@ import { CajonBlock } from "../svg/CajonBlock";
 import { Marco } from "../svg/Marco";
 import { Premarco } from "../svg/Premarco";
 import { Contramarco } from "../svg/Contramarco";
-import { Vidrios } from "../svg/Vidrios";
-import { Hojas } from "../svg/Hojas";
+import { Vidrios3 } from "../svg/Vidrios3";
+import { Hojas3 } from "../svg/Hojas3";
 import { Mosquitero } from "../svg/Mosquitero";
 import { Cierres } from "../svg/Cierres";
 import { Cotas } from "../svg/Cotas";
@@ -24,7 +24,7 @@ type Props = {
   config: VentanaConfig;
 };
 
-export function VentanaPreview({ config }: Props) {
+export function VentanaPreview3Hojas({ config }: Props) {
   const escala = calculateScale(config.ancho, config.alto, 300);
 
   const ancho = config.ancho * escala;
@@ -42,15 +42,7 @@ export function VentanaPreview({ config }: Props) {
     SVG_COLORS[config.color as keyof typeof SVG_COLORS] ?? SVG_COLORS.blanco;
 
   return (
-    <div
-      className="
-        rounded-2xl
-        border border-border
-        bg-card
-        p-6
-        transition-all duration-300
-      "
-    >
+    <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Ventana</h3>
 
@@ -96,49 +88,10 @@ export function VentanaPreview({ config }: Props) {
           className="drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
         >
           <defs>
-            <pattern
-              id="mosquiteroPattern"
-              width="6"
-              height="6"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 0 0 L 6 6 M 6 0 L 0 6"
-                stroke="#D4D4D8"
-                strokeWidth="0.5"
-              />
-            </pattern>
-
-            <pattern
-              id="fantasiaPattern"
-              width="12"
-              height="12"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 0 12 L 12 0"
-                stroke="rgba(255,255,255,0.08)"
-                strokeWidth="1"
-              />
-
-              <path
-                d="M -3 9 L 3 15"
-                stroke="rgba(255,255,255,0.05)"
-                strokeWidth="1"
-              />
-
-              <path
-                d="M 9 -3 L 15 3"
-                stroke="rgba(255,255,255,0.05)"
-                strokeWidth="1"
-              />
-            </pattern>
-
             <MetalGradient />
 
             <linearGradient id="glassGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
-
               <stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
             </linearGradient>
 
@@ -150,11 +103,8 @@ export function VentanaPreview({ config }: Props) {
               y2="100%"
             >
               <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
-
               <stop offset="20%" stopColor="rgba(255,255,255,0.10)" />
-
               <stop offset="50%" stopColor="rgba(0,0,0,0.10)" />
-
               <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
             </linearGradient>
           </defs>
@@ -166,13 +116,14 @@ export function VentanaPreview({ config }: Props) {
               ancho={ancho}
               alto={alto}
               tieneCortina={Boolean(config.cortina)}
-              tipoConstruccion={config.tipoConstruccion ?? "2_hojas"}
+              tipoConstruccion={config.tipoConstruccion ?? "3_hojas_2_guias"}
             />
           )}
-          {/* CORTINAS */}
+          {/* CORTINA PVC */}
           {config.cortina === "pvc" && (
             <CortinaPVC left={left} top={top} ancho={ancho} />
           )}
+          {/* CORTINA ALUMINIO */}
           {config.cortina === "aluminio" && (
             <CortinaAluminio
               left={left}
@@ -181,7 +132,7 @@ export function VentanaPreview({ config }: Props) {
               color={aluminioColor}
             />
           )}
-          {/* CAJÓN */}
+          {/* CAJÓN BLOCK */}
           {config.cajonBlock && (
             <CajonBlock left={left} top={top} ancho={ancho} />
           )}
@@ -215,7 +166,6 @@ export function VentanaPreview({ config }: Props) {
             ancho={ancho}
             color={aluminioColor}
             esHerrero={esHerrero}
-            tipoConstruccion={config.tipoConstruccion ?? "2_hojas"}
           />
           <RielInferior
             left={left}
@@ -223,10 +173,74 @@ export function VentanaPreview({ config }: Props) {
             ancho={ancho}
             alto={alto}
             color={aluminioColor}
-            tipoConstruccion={config.tipoConstruccion ?? "2_hojas"}
           />
+          {/* DIVISIONES */}
+          {(() => {
+            const x1 = left + ancho / 3;
+            const x2 = left + (ancho / 3) * 2;
+
+            const grosor = esHerrero ? 8 : 4;
+
+            return (
+              <>
+                {/* División 1 */}
+
+                <rect
+                  x={x1 - grosor / 2}
+                  y={top}
+                  width={grosor}
+                  height={alto}
+                  fill={aluminioColor}
+                  stroke="url(#aluminumGradient)"
+                />
+
+                <rect
+                  x={x1 + 1}
+                  y={top}
+                  width={1}
+                  height={alto}
+                  fill="rgba(0,0,0,0.25)"
+                />
+
+                <rect
+                  x={x1 - 2}
+                  y={top}
+                  width={1}
+                  height={alto}
+                  fill="rgba(255,255,255,0.12)"
+                />
+
+                {/* División 2 */}
+
+                <rect
+                  x={x2 - grosor / 2}
+                  y={top}
+                  width={grosor}
+                  height={alto}
+                  fill={aluminioColor}
+                  stroke="url(#aluminumGradient)"
+                />
+
+                <rect
+                  x={x2 + 1}
+                  y={top}
+                  width={1}
+                  height={alto}
+                  fill="rgba(0,0,0,0.25)"
+                />
+
+                <rect
+                  x={x2 - 2}
+                  y={top}
+                  width={1}
+                  height={alto}
+                  fill="rgba(255,255,255,0.12)"
+                />
+              </>
+            );
+          })()}
           {/* VIDRIOS */}
-          <Vidrios
+          <Vidrios3
             left={left}
             top={top}
             ancho={ancho}
@@ -236,45 +250,27 @@ export function VentanaPreview({ config }: Props) {
           {/* MOSQUITERO */}
           {config.mosquitero && (
             <Mosquitero left={left} top={top} ancho={ancho} alto={alto} />
-          )}{" "}
-          {/* DIVISIÓN CENTRAL */}
-          <rect
-            x={250 - (esHerrero ? 4 : 2)}
-            y={top}
-            width={esHerrero ? 8 : 4}
-            height={alto}
-            fill={aluminioColor}
-            stroke="url(#aluminumGradient)"
-          />
-          <rect
-            x={251}
-            y={top}
-            width={1}
-            height={alto}
-            fill="rgba(0,0,0,0.25)"
-          />
-          <rect
-            x={248}
-            y={top}
-            width={1}
-            height={alto}
-            fill="rgba(255,255,255,0.12)"
-          />
+          )}
           {/* HOJAS */}
-          <Hojas
+          <Hojas3
             left={left}
             top={top}
             ancho={ancho}
             alto={alto}
             strokeWidth={frameWidth / 2}
             esHerrero={esHerrero}
+            tipoConstruccion={
+              config.tipoConstruccion === "3_hojas_3_guias"
+                ? "3_hojas_3_guias"
+                : "3_hojas_2_guias"
+            }
           />
+          {/* CIERRES */}
           <Cierres
-            centerX={250}
+            centerX={left + ancho / 2}
             centerY={top + alto / 2}
             ancho={ancho}
             esHerrero={esHerrero}
-            tipoConstruccion={config.tipoConstruccion ?? "2_hojas"}
           />
           {/* COTAS */}
           <Cotas
@@ -287,9 +283,6 @@ export function VentanaPreview({ config }: Props) {
           />
         </svg>
       </div>
-
-      {/* INFO */}
-
       <div className="mt-4 space-y-3 text-sm text-muted-foreground">
         <div className="flex items-center justify-between">
           <span>Línea: {config.linea}</span>

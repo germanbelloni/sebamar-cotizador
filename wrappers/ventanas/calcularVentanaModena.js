@@ -81,6 +81,7 @@ function calcularVentanaModena(dataInput) {
     ancho,
     alto,
     color = "blanco",
+    tipoConstruccion,
     tipoVidrio,
     vidrioRepartido = false,
     guia,
@@ -98,6 +99,24 @@ function calcularVentanaModena(dataInput) {
     throw new Error("Faltan medidas");
   }
 
+  const construccion = tipoConstruccion ?? "2_hojas";
+
+  audit.add({
+    etapa: "Construcción",
+
+    tipo: "configuracion",
+
+    origen: "input",
+
+    referencia: construccion,
+
+    metadata: {
+      ancho,
+      alto,
+      construccion,
+    },
+  });
+
   let bipunto = 0;
   let bipuntoConLlave = 0;
 
@@ -111,12 +130,88 @@ function calcularVentanaModena(dataInput) {
     }
   });
   const medida = `${formatearMedida(ancho)}x${formatearMedida(alto)}`;
-  const base = calcularVentana({
-    medida,
-    tipoVidrio,
-    incluirGuia: guia,
-    incluirMosquitero: mosquitero,
-    linea: "modena",
+
+  const requiereDivision = ancho > 240;
+  let precioGuia = 0;
+  let base;
+
+  if (!requiereDivision) {
+    base = calcularVentana({
+      medida,
+      tipoVidrio,
+      incluirGuia: guia,
+      incluirMosquitero: mosquitero,
+      linea: "modena",
+    });
+  } else {
+    const anchoMitad = ancho / 2;
+
+    const medidaMitad = `${formatearMedida(anchoMitad)}x${formatearMedida(alto)}`;
+
+    const izquierda = calcularVentana({
+      medida: medidaMitad,
+      tipoVidrio,
+      incluirGuia: guia,
+      incluirMosquitero: false,
+      linea: "modena",
+    });
+
+    const derecha = calcularVentana({
+      medida: medidaMitad,
+      tipoVidrio,
+      incluirGuia: guia,
+      incluirMosquitero: false,
+      linea: "modena",
+    });
+
+    audit.add({
+      etapa: "División automática",
+
+      tipo: "calculo",
+
+      origen: "wrapper",
+
+      referencia: `${ancho} → ${anchoMitad} + ${anchoMitad}`,
+
+      metadata: {
+        anchoOriginal: ancho,
+        anchoMitad,
+        medidaIzquierda: izquierda.medidaUtilizada,
+        medidaDerecha: derecha.medidaUtilizada,
+      },
+    });
+
+    const itemsDivision = [...izquierda.items, ...derecha.items];
+    precioGuia = izquierda.items.find((i) => i.tipo === "guia")?.precio || 0;
+
+    // Eliminamos las guías de cada mitad.
+    // Las vamos a agregar según la construcción elegida.
+    const itemsSinGuias = itemsDivision.filter((i) => i.tipo !== "guia");
+
+    base = {
+      costoBase: itemsSinGuias.reduce(
+        (acc, item) => acc + Number(item.precio || 0),
+        0,
+      ),
+
+      medidaUtilizada: `${izquierda.medidaUtilizada} + ${derecha.medidaUtilizada}`,
+
+      items: itemsSinGuias,
+    };
+  }
+  audit.add({
+    etapa: "División",
+
+    tipo: "configuracion",
+
+    origen: "wrapper",
+
+    referencia: requiereDivision ? "automática" : "no",
+
+    metadata: {
+      ancho,
+      requiereDivision,
+    },
   });
   audit.add({
     etapa: "Lookup",
@@ -142,26 +237,72 @@ function calcularVentanaModena(dataInput) {
     origen: "ventanas_modena.json",
 
     valorAntes: 0,
-
     valorAplicado: base.costoBase,
 
     valorDespues: base.costoBase,
     metadata: {
       medida: base.medidaUtilizada,
+      construccion,
+      dividido: requiereDivision,
     },
   });
 
   // 🎨 COLOR
 
-  const estructuraOriginal =
-    base.items.find((i) => i.tipo === "estructura")?.precio || 0;
+  const itemsBase = [...base.items];
+  const estructuraOriginal = itemsBase
+    .filter((i) => i.tipo === "estructura")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  const guiaOriginal = base.items.find((i) => i.tipo === "guia")?.precio || 0;
+  const guiaOriginal = itemsBase
+    .filter((i) => i.tipo === "guia")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  const vidrio = base.items.find((i) => i.tipo === "vidrio")?.precio || 0;
+  const vidrio = itemsBase
+    .filter((i) => i.tipo === "vidrio")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  const items = aplicarColor([...base.items], color);
+  // =========================
+  // GUÍAS AUTOMÁTICAS
+  // =========================
 
+  if (requiereDivision && guia) {
+    const cantidadGuias = construccion === "3_hojas_3_guias" ? 3 : 2;
+
+    for (let i = 0; i < cantidadGuias; i++) {
+      itemsBase.push({
+        tipo: "guia",
+        precio: precioGuia,
+      });
+    }
+
+    audit.add({
+      etapa: "Guías",
+
+      tipo: "extra",
+
+      origen: "regla_comercial",
+
+      referencia: construccion,
+
+      metadata: {
+        cantidad: cantidadGuias,
+        precioUnitario: precioGuia,
+      },
+    });
+  }
+
+  const items = aplicarColor(itemsBase, color);
+
+  const aplicarRecargoConstruccion =
+    !requiereDivision &&
+    (construccion === "3_hojas_2_guias" || construccion === "3_hojas_3_guias");
+
+  const recargoConstruccion = aplicarRecargoConstruccion
+    ? construccion === "3_hojas_2_guias"
+      ? Number(superficies.recargos.tres_hojas || 1)
+      : Number(superficies.recargos.cuatro_hojas || 1)
+    : 1;
   const estructuraColor =
     items.find((i) => i.tipo === "estructura")?.precio || 0;
 
@@ -170,6 +311,53 @@ function calcularVentanaModena(dataInput) {
     estructuraColor - estructuraOriginal + (guiaColor - guiaOriginal);
 
   let costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+  if (recargoConstruccion > 1) {
+    const estructura = items
+      .filter((i) => i.tipo === "estructura")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const vidrio = items
+      .filter((i) => i.tipo === "vidrio")
+      .reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    costo = items.reduce((acc, i) => acc + Number(i.precio || 0), 0);
+
+    const baseRecargo = estructura + vidrio;
+
+    const incremento = Math.round(baseRecargo * (recargoConstruccion - 1));
+
+    costo += incremento;
+
+    items.push({
+      tipo: "recargo_construccion",
+      precio: incremento,
+    });
+
+    audit.add({
+      etapa: "Construcción",
+
+      tipo: "recargo",
+
+      origen: "superficies.json",
+
+      referencia: construccion,
+
+      porcentaje: recargoConstruccion,
+
+      valorAntes: costo - incremento,
+
+      valorAplicado: incremento,
+
+      valorDespues: costo,
+
+      metadata: {
+        estructura,
+        vidrio,
+        baseRecargo,
+      },
+    });
+  }
 
   const colorData = colores.find((c) => c.nombre === color);
 
@@ -468,9 +656,33 @@ function calcularVentanaModena(dataInput) {
   };
   const perfilPremarcos =
     perfiles[perfil]?.premarcos || perfiles.amarilla.premarcos;
+  let costoMosquitero = items
+    .filter((i) => i.tipo === "mosquitero")
+    .reduce((acc, i) => acc + Number(i.precio || 0), 0);
 
-  const costoMosquitero =
-    items.find((i) => i.tipo === "mosquitero")?.precio || 0;
+  if (construccion === "3_hojas_3_guias" && mosquitero && costoMosquitero > 0) {
+    costoMosquitero *= 2;
+
+    const itemMosquitero = items.find((i) => i.tipo === "mosquitero");
+
+    if (itemMosquitero) {
+      itemMosquitero.precio *= 2;
+    }
+
+    audit.add({
+      etapa: "Mosquitero",
+
+      tipo: "extra",
+
+      origen: "regla_comercial",
+
+      referencia: "3_hojas_3_guias",
+
+      valorAplicado: costoMosquitero / 2,
+
+      valorDespues: costoMosquitero,
+    });
+  }
 
   const costoPremarcos = items
     .filter((i) => i.tipo === "premarco" || i.tipo === "contramarco")
@@ -582,7 +794,10 @@ function calcularVentanaModena(dataInput) {
 
     ganancia: venta - costo,
 
-    descripcion: `Ventana modena ${ancho}x${alto}`,
+    descripcion:
+      construccion === "2_hojas"
+        ? `Ventana modena ${ancho}x${alto}`
+        : `Ventana modena ${ancho}x${alto} (${construccion.replaceAll("_", " ")})`,
 
     items,
 
@@ -590,6 +805,7 @@ function calcularVentanaModena(dataInput) {
       ancho,
       alto,
       color,
+      tipoConstruccion: construccion,
       tipoVidrio,
       mosquitero: !!mosquitero,
       premarco: !!premarco,
@@ -599,7 +815,17 @@ function calcularVentanaModena(dataInput) {
       bipuntoDerecha,
       svg: {
         tipo: "ventana_modena",
-        hojas: ancho > 240 ? 2 : 1,
+
+        hojas:
+          construccion === "3_hojas_2_guias" ||
+          construccion === "3_hojas_3_guias"
+            ? 3
+            : 2,
+
+        guias: construccion === "3_hojas_3_guias" ? 3 : 2,
+
+        tipoConstruccion: construccion,
+
         mosquitero: !!mosquitero,
         premarco: !!premarco,
         contramarco: !!contramarco,
