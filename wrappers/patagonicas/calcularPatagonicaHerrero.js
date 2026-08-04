@@ -76,15 +76,34 @@ function calcularWrapper(data) {
 
   const [ancho, alto] = medidaTotal.split("x").map(Number);
 
+  const cantidadRajas = tipo === "2_rajas" ? 2 : 1;
   if (!ancho || !alto) {
     throw new Error("Medida inválida");
+  }
+
+  if (cantidadRajas === 1) {
+    if (ancho < 80 || ancho > 200) {
+      throw new Error("El ancho debe estar entre 80 y 200 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
+  }
+
+  if (cantidadRajas === 2) {
+    if (ancho < 100 || ancho > 240) {
+      throw new Error("El ancho debe estar entre 100 y 240 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
   }
 
   // =========================
   // ⚙️ CONFIG
   // =========================
-
-  const cantidadRajas = tipo === "2_rajas" ? 2 : 1;
 
   const anchoRajaFinal = Number(anchoRaja);
 

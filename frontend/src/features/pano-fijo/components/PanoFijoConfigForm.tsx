@@ -1,6 +1,6 @@
 import type { PanoFijoConfig } from "../types";
 
-import { LINEAS_PANO_FIJO, VIDRIOS_PANO_FIJO } from "../constants";
+import { LINEAS_PANO_FIJO } from "../constants";
 
 import { PANO_FIJO_UI } from "../ui";
 
@@ -61,8 +61,15 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
     setConfig,
   });
 
-  const { limites, anchoValido, altoValido, medidasValidas, medidasInvalidas } =
-    usePanoFijoValidation(config);
+  const {
+    limites,
+    anchoValido,
+    altoValido,
+    medidasValidas,
+    medidasInvalidas,
+    vidriosPermitidos,
+    vidrioValido,
+  } = usePanoFijoValidation(config);
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
@@ -74,23 +81,13 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
 
   const editingItem = useBudgetStore((state) => state.editingItem);
 
-  const showVertical = requiereTravesanoVertical(
-    config.ancho,
-    config.tipoVidrio,
-  );
+  const showVertical = requiereTravesanoVertical(config.ancho);
 
   const showHorizontal = requiereTravesanoHorizontal(config.alto);
 
   const showWarning =
     (showVertical && !config.travesanoVertical) ||
     (showHorizontal && !config.travesanoHorizontal);
-
-  const vidriosDisponibles =
-    config.linea === "herrero"
-      ? VIDRIOS_PANO_FIJO.filter(
-          (v) => !["4+4", "dvh_4_9_4", "dvh_5_9_5"].includes(v.value),
-        )
-      : VIDRIOS_PANO_FIJO;
 
   return (
     <ProductFormLayout title={PANO_FIJO_UI.title}>
@@ -142,13 +139,18 @@ export function PanoFijoConfigForm({ config, setConfig }: Props) {
         <FormSection title="Vidrio">
           <VidrioSelector
             value={config.tipoVidrio}
-            options={vidriosDisponibles}
+            options={vidriosPermitidos}
             onChange={(value) =>
               updateConfigWithRules({
                 tipoVidrio: value as PanoFijoConfig["tipoVidrio"],
               })
             }
           />
+          {!vidrioValido && (
+            <AlertBox type="error">
+              El vidrio seleccionado no está permitido para esas dimensiones.
+            </AlertBox>
+          )}
         </FormSection>
 
         {/* COLOR */}

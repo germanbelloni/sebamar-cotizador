@@ -1,7 +1,5 @@
-export function requiereTravesanoVertical(ancho: number, tipoVidrio: string) {
-  const vidriosLaminados = ["3+3", "4+4"];
-
-  return ancho > 150 && !vidriosLaminados.includes(tipoVidrio);
+export function requiereTravesanoVertical(ancho: number) {
+  return ancho > 200;
 }
 
 export function requiereTravesanoHorizontal(alto: number) {

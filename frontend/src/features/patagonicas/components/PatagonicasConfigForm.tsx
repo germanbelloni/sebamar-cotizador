@@ -338,7 +338,7 @@ export function PatagonicasConfigForm({
                         anchoRaja: Number(value),
                       });
                     }}
-                    placeholder="Ancho personalizado (30 a 70)"
+                    placeholder="Ancho personalizado (30 a 100)"
                   />
                 </div>
 

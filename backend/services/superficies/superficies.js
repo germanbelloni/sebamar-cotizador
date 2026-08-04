@@ -104,7 +104,10 @@ function calcularSuperficie(dataInput) {
       precio: Math.round(costoVidrio),
     });
 
-    if (travesanoVertical) {
+    const requiereVertical = ancho > 200;
+    const requiereHorizontal = alto > 200;
+
+    if (travesanoVertical || requiereVertical) {
       const costoTravesano =
         (data.superficies.travesano?.[linea] || 0) * (alto / 100);
 

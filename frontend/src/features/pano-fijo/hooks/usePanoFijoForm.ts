@@ -22,18 +22,14 @@ export function usePanoFijoForm({ config, setConfig }: Params) {
       ...partial,
     };
 
-    const needsVertical = requiereTravesanoVertical(
-      nextConfig.ancho,
-      nextConfig.tipoVidrio,
-    );
+    const needsVertical = requiereTravesanoVertical(nextConfig.ancho);
 
     const needsHorizontal = requiereTravesanoHorizontal(nextConfig.alto);
 
     let travesanoVertical = config.travesanoVertical;
     let travesanoHorizontal = config.travesanoHorizontal;
-    // Si deja de aplicar el requisito, apagarlo.
-    // Si aplica, dejar la decisión al usuario.
 
+    // Si deja de ser obligatorio, se apaga.
     if (!needsVertical) {
       travesanoVertical = false;
     }
@@ -61,8 +57,8 @@ export function usePanoFijoForm({ config, setConfig }: Params) {
     });
 
   return {
-    updateConfig, // raw (checkboxes, color, línea)
-    updateConfigWithRules, // medidas y vidrio
+    updateConfig,
+    updateConfigWithRules,
     anchoInput,
     altoInput,
     handleAnchoChange,

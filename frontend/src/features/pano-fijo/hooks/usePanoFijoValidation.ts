@@ -1,6 +1,7 @@
 import type { PanoFijoConfig } from "../types";
 
 import { LIMITES_PANO_FIJO } from "../constants";
+import { obtenerVidriosPermitidos } from "../utils/reglasVidrios";
 
 import { validateDimensions } from "@/shared/utils/validateDimensions";
 
@@ -11,15 +12,26 @@ export function usePanoFijoValidation(config: PanoFijoConfig) {
     limits: LIMITES_PANO_FIJO,
   });
 
+  const vidriosPermitidos = obtenerVidriosPermitidos({
+    ancho: config.ancho,
+    alto: config.alto,
+    linea: config.linea,
+  });
+
+  const vidrioValido = vidriosPermitidos.includes(config.tipoVidrio);
+
+  const validacionFinal = medidasValidas && vidrioValido;
+
   return {
     limites: LIMITES_PANO_FIJO,
 
     anchoValido,
-
     altoValido,
 
-    medidasValidas,
+    vidrioValido,
+    vidriosPermitidos,
 
-    medidasInvalidas: !medidasValidas,
+    medidasValidas: validacionFinal,
+    medidasInvalidas: !validacionFinal,
   };
 }

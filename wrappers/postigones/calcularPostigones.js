@@ -37,9 +37,7 @@ function getColorFactor(color) {
 // =========================
 
 function buscarMedidaValida(medidas, ancho, alto) {
-  const keys = Object.keys(medidas);
-
-  const validas = keys
+  return Object.keys(medidas)
     .map((k) => {
       const [a, b] = k.split("x").map(Number);
 
@@ -50,11 +48,14 @@ function buscarMedidaValida(medidas, ancho, alto) {
       };
     })
     .filter((m) => m.ancho >= ancho && m.alto >= alto)
-    .sort((a, b) => a.ancho - b.ancho || a.alto - b.alto);
+    .sort((a, b) => {
+      if (a.alto !== b.alto) {
+        return a.alto - b.alto;
+      }
 
-  return validas[0]?.key;
+      return a.ancho - b.ancho;
+    })[0];
 }
-
 // =========================
 // 💰 PERFIL
 // =========================
@@ -150,7 +151,19 @@ function calcularWrapper(data) {
     alto = 200;
   }
 
-  const medidaValida = buscarMedidaValida(dataJson.medidas, ancho, alto);
+  let dividir = false;
+  let anchoBusqueda = ancho;
+
+  if (ancho > 200) {
+    dividir = true;
+    anchoBusqueda = Math.ceil(ancho / 2);
+  }
+
+  const medidaValida = buscarMedidaValida(
+    dataJson.medidas,
+    anchoBusqueda,
+    alto,
+  );
 
   audit.add({
     etapa: "Lookup",
@@ -159,12 +172,14 @@ function calcularWrapper(data) {
 
     origen: "postigones.json",
 
-    referencia: medidaValida,
+    referencia: medidaValida?.key,
 
     metadata: {
       anchoSolicitado: ancho,
       altoSolicitado: altoOriginal,
-      medidaUtilizada: medidaValida,
+      medidaUtilizada: medidaValida?.key,
+      dividido: dividir,
+      anchoBusqueda,
     },
   });
 
@@ -177,9 +192,22 @@ function calcularWrapper(data) {
   // =========================
 
   const base = calcularPostigon({
-    medida: medidaValida,
+    medida: medidaValida.key,
     tipo,
   });
+
+  if (dividir) {
+    base.costoBase *= 2;
+
+    base.items = dividir
+      ? [
+          ...base.items,
+          ...base.items.map((item) => ({
+            ...item,
+          })),
+        ]
+      : base.items;
+  }
 
   audit.add({
     etapa: "Costo Base",
@@ -195,8 +223,9 @@ function calcularWrapper(data) {
     valorDespues: base.costoBase,
 
     metadata: {
-      medida: medidaValida,
+      medida: medidaValida.key,
       tipo,
+      dividido: dividir,
     },
   });
 
@@ -400,7 +429,7 @@ function calcularWrapper(data) {
 
     alto: altoOriginal,
 
-    medidaUsada: medidaValida,
+    medidaUsada: medidaValida.key,
 
     tipo,
 

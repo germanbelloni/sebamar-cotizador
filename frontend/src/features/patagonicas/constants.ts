@@ -1,20 +1,17 @@
 import type { PatagonicasConfig } from "./types";
-
 export const LIMITES_PATAGONICAS = {
   Herrero: {
     anchoMin: 80,
     anchoMax: 240,
-
     altoMin: 40,
     altoMax: 180,
   },
 
   Modena: {
     anchoMin: 80,
-    anchoMax: 300,
-
+    anchoMax: 240,
     altoMin: 40,
-    altoMax: 220,
+    altoMax: 180,
   },
 };
 

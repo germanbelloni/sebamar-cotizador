@@ -72,8 +72,24 @@ function calcularPatagonicaModena(dataInput) {
   const medidaKey = normalizarMedida(medida);
   const [ancho, alto] = medidaKey.split("x").map(Number);
 
-  if (tipo === "1_raja" && ancho < 80) {
-    throw new Error("El ancho mínimo es 80 cm");
+  if (tipo === "1_raja") {
+    if (ancho < 80 || ancho > 200) {
+      throw new Error("El ancho debe estar entre 80 y 200 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
+  }
+
+  if (tipo === "2_rajas") {
+    if (ancho < 100 || ancho > 240) {
+      throw new Error("El ancho debe estar entre 100 y 240 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
   }
 
   const anchoLookup = tipo === "1_raja" && ancho < 120 ? 120 : ancho;

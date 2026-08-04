@@ -86,7 +86,15 @@ function calcularVentanaHerrero(dataInput) {
     throw new Error("Sin guía no puede llevar cortina");
   }
 
-  const medidaSolicitada = `${ancho}x${alto}`;
+  let multiplicador = 1;
+  let anchoBusqueda = ancho;
+
+  if (alto <= 80 && ancho > 200 && ancho <= 240) {
+    multiplicador = 2;
+    anchoBusqueda = ancho / 2;
+  }
+
+  const medidaSolicitada = `${anchoBusqueda}x${alto}`;
 
   let lookup = buscarMedidaSuperior(ventanas.medidas, medidaSolicitada);
 
@@ -113,16 +121,26 @@ function calcularVentanaHerrero(dataInput) {
       anchoSolicitado: ancho,
       altoSolicitado: alto,
       medidaUtilizada: medida,
+      cantidadCotizada: multiplicador,
     },
   });
 
-  const base = calcularVentana({
+  const baseOriginal = calcularVentana({
     medida,
     tipoVidrio,
     incluirGuia: guia,
     incluirMosquitero: mosquitero,
     linea: "herrero",
   });
+
+  const base = {
+    ...baseOriginal,
+    costoBase: baseOriginal.costoBase * multiplicador,
+    items: baseOriginal.items.map((item) => ({
+      ...item,
+      precio: item.precio * multiplicador,
+    })),
+  };
   audit.add({
     etapa: "Costo Base",
     tipo: "base",
@@ -134,6 +152,7 @@ function calcularVentanaHerrero(dataInput) {
 
     metadata: {
       medida,
+      cantidadCotizada: multiplicador,
     },
   });
 

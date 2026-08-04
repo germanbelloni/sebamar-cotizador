@@ -113,6 +113,26 @@ function calcularWrapper(dataInput) {
     throw new Error("Faltan medidas");
   }
 
+  if (cantidadRajas === 1) {
+    if (ancho < 80 || ancho > 200) {
+      throw new Error("El ancho debe estar entre 80 y 200 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
+  }
+
+  if (cantidadRajas === 2) {
+    if (ancho < 100 || ancho > 240) {
+      throw new Error("El ancho debe estar entre 100 y 240 cm");
+    }
+
+    if (alto < 40 || alto > 180) {
+      throw new Error("El alto debe estar entre 40 y 180 cm");
+    }
+  }
+
   const medidaFinal = `${ancho}x${alto}`;
 
   audit.add({
@@ -518,6 +538,30 @@ function calcularWrapper(dataInput) {
         metadata: {},
       });
     }
+  }
+
+  // =========================
+  // 📏 RECARGO ALTURA
+  // =========================
+
+  if (alto > 150) {
+    const antes = costo;
+
+    costo *= 1.3;
+
+    audit.add({
+      etapa: "Recargo Altura",
+
+      tipo: "recargo",
+
+      origen: "wrapper",
+
+      valorAntes: antes,
+
+      valorAplicado: costo - antes,
+
+      valorDespues: costo,
+    });
   }
 
   // =========================

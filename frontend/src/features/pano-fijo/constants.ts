@@ -4,6 +4,7 @@ import type { PanoFijoConfig } from "./types";
 export const LIMITES_PANO_FIJO = {
   anchoMin: 30,
   anchoMax: 300,
+
   altoMin: 30,
   altoMax: 250,
 };
