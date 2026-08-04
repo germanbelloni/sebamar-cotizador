@@ -11,8 +11,8 @@ type EstadisticaUsuario = {
   copiarCarrito: number;
   copiarPresupuesto: number;
 
-  hoy: number;
-  ultimos7Dias: number;
+  dias: number[];
+
   ultimos30Dias: number;
 
   ultimaActividad: string;
@@ -474,7 +474,14 @@ export default function ConfiguracionPage() {
                     <th className="pb-3 text-center">Copió presupuesto</th>
 
                     <th className="pb-3 text-center">Hoy</th>
-                    <th className="pb-3 text-center">7 días</th>
+                    <th className="pb-3 text-center">Hace 1 día</th>
+                    <th className="pb-3 text-center">Hace 2 días</th>
+                    <th className="pb-3 text-center">Hace 3 días</th>
+                    <th className="pb-3 text-center">Hace 4 días</th>
+                    <th className="pb-3 text-center">Hace 5 días</th>
+                    <th className="pb-3 text-center">Hace 6 días</th>
+                    <th className="pb-3 text-center">Hace 7 días</th>
+
                     <th className="pb-3 text-center">30 días</th>
 
                     <th className="pb-3">Última actividad</th>
@@ -492,9 +499,14 @@ export default function ConfiguracionPage() {
 
                       <td className="text-center">{item.copiarPresupuesto}</td>
 
-                      <td className="text-center">{item.hoy}</td>
-
-                      <td className="text-center">{item.ultimos7Dias}</td>
+                      <td className="text-center">{item.dias[0] ?? 0}</td>
+                      <td className="text-center">{item.dias[1] ?? 0}</td>
+                      <td className="text-center">{item.dias[2] ?? 0}</td>
+                      <td className="text-center">{item.dias[3] ?? 0}</td>
+                      <td className="text-center">{item.dias[4] ?? 0}</td>
+                      <td className="text-center">{item.dias[5] ?? 0}</td>
+                      <td className="text-center">{item.dias[6] ?? 0}</td>
+                      <td className="text-center">{item.dias[7] ?? 0}</td>
 
                       <td className="text-center">{item.ultimos30Dias}</td>
 

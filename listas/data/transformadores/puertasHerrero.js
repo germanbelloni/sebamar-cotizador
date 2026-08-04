@@ -24,9 +24,9 @@ function transformarPuertasHerrero(filasCatalogo, perfil) {
 
       const resultado = { modelo };
 
-      const esEspecial =
-        modelo.toUpperCase() === "MODELO 5" ||
-        modelo.toUpperCase() === "MODELO C/PANEL";
+      const nombre = modelo.toUpperCase();
+
+      const esEspecial = nombre === "MODELO 5" || nombre === "MODELO PANEL";
 
       for (const [origen, destino] of VIDRIOS) {
         const vidrio = Number(fila[origen]);

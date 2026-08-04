@@ -61,8 +61,8 @@ async function listar(req, res) {
           copiarCarrito: 0,
           copiarPresupuesto: 0,
 
-          hoy: 0,
-          ultimos7Dias: 0,
+          dias: Array(8).fill(0),
+
           ultimos30Dias: 0,
 
           ultimaActividad: item.ultimaActividad,
@@ -82,13 +82,8 @@ async function listar(req, res) {
         (item.generarPresupuesto || 0) +
         (item.copiarCarrito || 0) +
         (item.copiarPresupuesto || 0);
-
-      if (diffDias === 0) {
-        usuarios[id].hoy += acciones;
-      }
-
-      if (diffDias >= 0 && diffDias < 7) {
-        usuarios[id].ultimos7Dias += acciones;
+      if (diffDias >= 0 && diffDias <= 7) {
+        usuarios[id].dias[diffDias] += acciones;
       }
 
       if (diffDias >= 0 && diffDias < 30) {
