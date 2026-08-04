@@ -18,6 +18,33 @@ type EstadisticaUsuario = {
   ultimaActividad: string;
 };
 
+function formatearUltimaActividad(fecha: string) {
+  const ahora = new Date();
+  const ultima = new Date(fecha);
+
+  const inicioHoy = new Date(
+    ahora.getFullYear(),
+    ahora.getMonth(),
+    ahora.getDate(),
+  );
+
+  const inicioUltima = new Date(
+    ultima.getFullYear(),
+    ultima.getMonth(),
+    ultima.getDate(),
+  );
+
+  const diffDias = Math.floor(
+    (inicioHoy.getTime() - inicioUltima.getTime()) / (1000 * 60 * 60 * 24),
+  );
+
+  if (diffDias === 0) return "Hoy";
+  if (diffDias === 1) return "Hace 1 día";
+  if (diffDias <= 7) return `Hace ${diffDias} días`;
+
+  return ultima.toLocaleString("es-AR");
+}
+
 export default function ConfiguracionPage() {
   const user = useAuthStore((state) => state.user);
   const refreshUser = useAuthStore((state) => state.refreshUser);
@@ -510,9 +537,7 @@ export default function ConfiguracionPage() {
 
                       <td className="text-center">{item.ultimos30Dias}</td>
 
-                      <td>
-                        {new Date(item.ultimaActividad).toLocaleString("es-AR")}
-                      </td>
+                      <td>{formatearUltimaActividad(item.ultimaActividad)}</td>
                     </tr>
                   ))}
                 </tbody>
