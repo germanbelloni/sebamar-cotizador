@@ -35,15 +35,16 @@ function aplicarAjusteMedidaPuerta(
   // +90 cm      → +10% +10%
   // =========================
 
-  if (anchoRedondeado < 80) {
+  if (anchoRedondeado === 70) {
     factor = 0.9;
-  } else if (anchoRedondeado === 80) {
+  } else if (anchoRedondeado >= 71 && anchoRedondeado <= 80) {
     factor = 1;
-  } else if (anchoRedondeado <= 90) {
+  } else if (anchoRedondeado >= 81 && anchoRedondeado <= 90) {
     factor = 1.1;
-  } else {
-    factor = 1.21;
+  } else if (anchoRedondeado >= 91) {
+    factor = 1.2;
   }
+
   if (factor === 1) return;
 
   items.forEach((item) => {

@@ -97,11 +97,20 @@ function calcularPuertas(dataInput) {
   const tipoFinal = configuracion || tipo || "simple";
 
   const modeloFinal = modeloPuerta || modelo;
-
   const modeloMediaFinal = modeloMediaPuerta || modeloMedia;
-  const data = require(
-    fromRoot(`backend/data/productos/puertas_${linea}.json`),
-  );
+
+  const ruta = fromRoot(`backend/data/productos/puertas_${linea}.json`);
+
+  delete require.cache[require.resolve(ruta)];
+
+  const data = require(ruta);
+
+  console.log("================================");
+  console.log("LINEA:", linea);
+  console.log("RUTA:", ruta);
+  console.log("MODELO:", modeloFinal);
+  console.log("MODELO 1 VR JSON:", data.modelos["modelo 1 vr"]?.base);
+  console.log("================================");
 
   const items = [];
 
@@ -235,6 +244,11 @@ function calcularPuertas(dataInput) {
     estructura = producto.base * hojas;
 
     vidrioTotal = calcularVidrio(producto, vidrioFinal) * hojas;
+
+    console.log("Producto encontrado:", producto);
+    console.log("Base:", producto.base);
+    console.log("Hojas:", hojas);
+    console.log("Estructura:", estructura);
 
     items.push(
       {

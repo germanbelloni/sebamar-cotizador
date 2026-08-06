@@ -499,7 +499,12 @@ function calcularPuertaWrapper(dataInput) {
       venta,
     },
   });
-
+  console.log("================================");
+  console.log("BASE COSTO:", base.costoBase);
+  console.log("COSTO:", costo);
+  console.log("PROVEEDOR:", proveedor);
+  console.log("VENTA:", venta);
+  console.log("================================");
   return buildWrapperResponse({
     modulo: "puertas",
 
