@@ -1,3 +1,9 @@
+EN BACKEND/SCRIPTS : NODE IMPORTAR.JS
+
+EN LISTAS: NODE GENERAR-LISTAS.JS TODO TODOS
+
+EN LISTAS: NODE VALIDAR-LISTAS.JS
+
 # 🛠 SCRIPTS Y COMANDOS DEL PROYECTO
 
 Este documento reúne los comandos más utilizados durante el desarrollo del cotizador Sebamar.

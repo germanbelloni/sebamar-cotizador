@@ -1,3 +1,5 @@
+"use strict";
+
 const { execSync } = require("child_process");
 const path = require("path");
 
@@ -17,10 +19,29 @@ function run(nombre, archivo, args = "") {
 }
 
 try {
+  // =========================
+  // IMPORTAR DESDE EXCEL
+  // =========================
   run("IMPORTANDO EXCEL", "runExcel.js");
 
+  // =========================
+  // VALIDACIÓN (NO BLOQUEANTE)
+  // =========================
   if (!forcePublish) {
-    run("VALIDANDO JSON", "compareGenerated.js");
+    try {
+      run("VALIDANDO JSON", "compareGenerated.js");
+    } catch {
+      console.log("");
+      console.log("====================================");
+      console.log(" VALIDACIÓN CON DIFERENCIAS");
+      console.log("====================================");
+      console.log("");
+      console.log("⚠️ Se detectaron diferencias respecto al JSON anterior.");
+      console.log(
+        "⚠️ Se continúa con la publicación porque catalogo.xlsx es la fuente de verdad.",
+      );
+      console.log("");
+    }
   } else {
     console.log("");
     console.log("====================================");
@@ -29,6 +50,9 @@ try {
     console.log("");
   }
 
+  // =========================
+  // PUBLICAR
+  // =========================
   run("PUBLICANDO JSON", "publishGenerated.js");
 
   console.log("");
@@ -39,8 +63,11 @@ try {
 } catch (err) {
   console.log("");
   console.log("====================================");
-  console.log(" IMPORTACIÓN CANCELADA");
+  console.log(" ERROR EN LA IMPORTACIÓN");
   console.log("====================================");
   console.log("");
+
+  console.error(err.message || err);
+
   process.exit(1);
 }
