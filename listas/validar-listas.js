@@ -14,7 +14,9 @@ const calcularPuerta = require("../wrappers/puertas/calcularPuerta");
 const calcularMosquiteroVentana = require("../wrappers/mosquiteros/calcularMosquiteroVentana");
 const { aplicarPerfil } = require("./motor/aplicarPerfil");
 
-const PERFIL = (process.argv[2] || "azul").toLowerCase();
+function getPerfil() {
+  return (process.argv[2] || "azul").toLowerCase();
+}
 
 const OUTPUT_DIR = path.join(__dirname, "..", "docs", "validaciones");
 
@@ -110,7 +112,7 @@ const MODULOS = [
 ];
 
 function leerLista() {
-  const nombreArchivo = `Lista ${PERFIL[0].toUpperCase()}${PERFIL.slice(1)}.json`;
+  const nombreArchivo = `Lista ${getPerfil()[0].toUpperCase()}${getPerfil().slice(1)}.json`;
   const ruta = path.join(__dirname, "output", nombreArchivo);
 
   if (!fs.existsSync(ruta)) {
@@ -161,7 +163,7 @@ function crearPayloadBase(ancho, alto) {
     contramarco: false,
     bipuntoIzquierda: "ninguno",
     bipuntoDerecha: "ninguno",
-    perfil: PERFIL,
+    perfil: getPerfil(),
   };
 }
 
@@ -257,14 +259,16 @@ function validarVentanasHerrero(modulo, hoja, resumen) {
     const mosquitero = ejecutarVentanaHerrero(modulo.wrapper, fila, {
       mosquitero: true,
     });
+
     const itemMosquitero = mosquitero.items.find(
       (item) =>
         item.tipo === "mosquitero" ||
         item.nombre?.toLowerCase().includes("mosquitero"),
     );
+
     const precioMosquitero = aplicarPerfil(
       itemMosquitero?.precio ?? 0,
-      PERFIL,
+      getPerfil(),
       "mosquiteros",
     );
 
@@ -332,7 +336,7 @@ function crearPayloadRaja(fila, opciones = {}) {
     ancho,
     alto,
     color: "blanco",
-    perfil: PERFIL,
+    perfil: getPerfil(),
     modelo: "raja",
     ...opciones,
   };
@@ -404,7 +408,7 @@ function validarPostigones(modulo, hoja, resumen) {
         hojas: fila.hojas,
         marco: variante.tipo === "abrir" ? "ancho" : undefined,
         color: "blanco",
-        perfil: PERFIL,
+        perfil: getPerfil(),
       });
 
       registrarComparacion(
@@ -431,7 +435,7 @@ function validarPatagonicasModena(modulo, hoja, resumen) {
           medida: fila.medida,
           cantidadRajas,
           tipoVidrio: variante.tipoVidrio,
-          perfil: PERFIL,
+          perfil: getPerfil(),
         });
 
         registrarComparacion(
@@ -479,7 +483,7 @@ function validarPuertas(modulo, hoja, resumen, linea, variantes) {
         configuracion: "simple",
         color: "blanco",
         extras: {},
-        perfil: PERFIL,
+        perfil: getPerfil(),
         modelo: fila.modelo,
         tipoVidrio: variante.tipoVidrio,
         linea,
@@ -536,7 +540,7 @@ function validarMosquiterosVentana(modulo, hoja, resumen) {
       ancho,
       alto,
       color: "blanco",
-      perfil: PERFIL,
+      perfil: getPerfil(),
     });
 
     registrarComparacion(
@@ -566,7 +570,7 @@ function validarPuertasPlaca(modulo, hoja, resumen) {
         modelo: String(fila.modelo).toLowerCase().replace(/\s+/g, "_"),
         medida: fila.medida,
         marco: variante.marco,
-        perfil: PERFIL,
+        perfil: getPerfil(),
       });
 
       registrarComparacion(
@@ -628,7 +632,7 @@ function main() {
   log("======================================");
   log("VALIDADOR DE LISTAS COMERCIALES");
   log("======================================");
-  log(`Perfil comercial: ${PERFIL}`);
+  log(`Perfil comercial: ${getPerfil()}`);
   log(`Fecha: ${new Date().toLocaleString("es-AR")}`);
   log("");
   const hojas = leerLista();
@@ -662,7 +666,7 @@ function main() {
   log("VALIDACIÓN FINALIZADA");
   log("======================================");
 
-  log(`Perfil comercial: ${PERFIL}`);
+  log(`Perfil comercial: ${getPerfil()}`);
 
   log("");
   log("MÓDULOS AUDITADOS:");
@@ -688,7 +692,7 @@ function main() {
   } else {
     log("❌ HAY DIFERENCIAS PARA REVISAR");
   }
-  const archivoSalida = path.join(OUTPUT_DIR, `validacion-${PERFIL}.txt`);
+  const archivoSalida = path.join(OUTPUT_DIR, `validacion-${getPerfil()}.txt`);
 
   fs.writeFileSync(archivoSalida, salida.join("\n"), "utf8");
 
@@ -696,14 +700,22 @@ function main() {
   console.log(`✔ Resultado guardado en: ${archivoSalida}`);
 }
 
-try {
-  main();
-} catch (error) {
-  log("");
-  log("======================================");
-  log("ERROR");
-  log("======================================");
-  log(error.stack || error.message);
-  console.error(error);
-  process.exitCode = 1;
+const perfiles = process.argv[2]
+  ? [process.argv[2].toLowerCase()]
+  : ["amarilla", "azul", "verde", "papu"];
+
+for (const perfil of perfiles) {
+  try {
+    salida.length = 0;
+
+    console.log("\n======================================");
+    console.log(`VALIDANDO PERFIL ${perfil.toUpperCase()}`);
+    console.log("======================================\n");
+
+    process.argv[2] = perfil;
+
+    main();
+  } catch (error) {
+    console.error(error);
+  }
 }

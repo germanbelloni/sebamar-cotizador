@@ -154,16 +154,26 @@ function calcularWrapper(data) {
   let dividir = false;
   let anchoBusqueda = ancho;
 
-  if (ancho > 200) {
-    dividir = true;
-    anchoBusqueda = Math.ceil(ancho / 2);
-  }
+  let medidaValida = dataJson.medidas?.[`${ancho}x${alto}`]
+    ? {
+        key: `${ancho}x${alto}`,
+        ancho,
+        alto,
+      }
+    : null;
 
-  const medidaValida = buscarMedidaValida(
-    dataJson.medidas,
-    anchoBusqueda,
-    alto,
-  );
+  if (!medidaValida) {
+    if (ancho > 200) {
+      dividir = true;
+      anchoBusqueda = Math.ceil(ancho / 2);
+
+      medidaValida = buscarMedidaValida(dataJson.medidas, anchoBusqueda, alto);
+    } else {
+      anchoBusqueda = ancho;
+
+      medidaValida = buscarMedidaValida(dataJson.medidas, anchoBusqueda, alto);
+    }
+  }
 
   audit.add({
     etapa: "Lookup",

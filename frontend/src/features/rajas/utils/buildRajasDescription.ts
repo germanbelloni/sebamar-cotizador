@@ -15,12 +15,22 @@ function getProductoLabel(modelo: RajasConfig["modelo"]) {
       return "Raja";
   }
 }
+function getTipoVidrioLabel(tipoVidrio?: string) {
+  switch (tipoVidrio) {
+    case "DVH":
+    case "dvh":
+    case "DVH 4+9+4":
+      return "DVH 4+9+4";
 
+    default:
+      return tipoVidrio;
+  }
+}
 export function buildRajasDescription(config: RajasConfig) {
+  const vidrio = getTipoVidrioLabel(config.tipoVidrio);
+
   const descripcionVidrio =
-    !config.tipoVidrio || config.tipoVidrio === "3mm"
-      ? ""
-      : `vidrio ${config.tipoVidrio}`;
+    !vidrio || vidrio === "3mm" ? "" : `vidrio ${vidrio}`;
 
   return `
     ${getProductoLabel(config.modelo)}

@@ -2,7 +2,7 @@
 VALIDADOR DE LISTAS COMERCIALES
 ======================================
 Perfil comercial: azul
-Fecha: 1/8/2026, 11:20:30
+Fecha: 6/8/2026, 04:45:22
 
 
 ======================================
@@ -25,8 +25,8 @@ MÓDULOS AUDITADOS:
 
 --------------------------------------
 Total módulos: 11
-Casos comparados: 1856
-Coincidencias: 1856
+Casos comparados: 1857
+Coincidencias: 1857
 Diferencias: 0
 --------------------------------------
 
