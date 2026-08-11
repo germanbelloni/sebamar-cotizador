@@ -11,12 +11,15 @@ type Params<TConfig, TResult = unknown> = {
   config: TConfig;
 
   createItem: (config: TConfig, result: TResult) => BudgetItem;
+
+  onSuccess?: () => void;
 };
 
 export function useBudgetAdder<TConfig, TResult = unknown>({
   mutation,
   config,
   createItem,
+  onSuccess,
 }: Params<TConfig, TResult>) {
   const addItem = useBudgetStore((state) => state.addItem);
 
@@ -45,6 +48,7 @@ export function useBudgetAdder<TConfig, TResult = unknown>({
         });
       } else {
         addItem(item);
+        onSuccess?.();
       }
     } catch (error) {
       console.error("ERROR AGREGANDO ITEM:", error);

@@ -2,8 +2,6 @@ import { useDimensionsInputs } from "@/shared/hooks/useDimensionsInputs";
 
 import { useConfigUpdater } from "@/shared/hooks/useConfigUpdater";
 
-import { useLineaSwitcher } from "@/shared/hooks/useLineaSwitcher";
-
 import { useToggleField } from "@/shared/hooks/useToggleField";
 
 import { LIMITES_LINEA } from "../constants";
@@ -23,21 +21,28 @@ export function useVentanaForm({
 }: Params) {
   const { updateConfig } = useConfigUpdater(setConfig);
 
-  const { switchLinea: baseSwitchLinea } = useLineaSwitcher({
-    setConfig,
-
-    limits: LIMITES_LINEA,
-  });
-
-  function switchLinea(linea: string) {
-    baseSwitchLinea(linea);
-
+  function switchLinea(linea: VentanaConfig["linea"]) {
     setConfig((prev) => ({
       ...prev,
 
       linea: linea as VentanaConfig["linea"],
 
+      ancho: Math.min(prev.ancho, LIMITES_LINEA[linea].anchoMax),
+      alto: Math.min(prev.alto, LIMITES_LINEA[linea].altoMax),
+
+      // Al cambiar de línea, no se arrastra ninguna
+      // configuración específica de la línea anterior.
       tipoVidrio: "3mm",
+      mosquitero: false,
+      guia: false,
+      cajonBlock: false,
+      cortina: null,
+      premarco: false,
+      contramarco: false,
+      vidrioRepartido: false,
+      bipuntoIzquierda: "ninguno",
+      bipuntoDerecha: "ninguno",
+      tipoConstruccion: "2_hojas",
     }));
   }
 

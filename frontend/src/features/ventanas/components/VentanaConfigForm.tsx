@@ -1,5 +1,5 @@
 import type { VentanaConfig } from "../types";
-
+import { initialVentanasConfig } from "../constants";
 import { VENTANAS_UI } from "../ui";
 
 import { useVentanaForm } from "../hooks/useVentanaForm";
@@ -94,10 +94,9 @@ export function VentanaConfigForm({
 
   const { handleAdd } = useBudgetAdder({
     mutation: cotizacionMutation,
-
     config,
-
     createItem: createVentanaBudgetItem,
+    onSuccess: () => setConfig(initialVentanasConfig),
   });
   const editingItem = useBudgetStore((state) => state.editingItem);
 
@@ -114,7 +113,7 @@ export function VentanaConfigForm({
               id="linea"
               value={config.linea}
               options={VENTANAS_UI.selectors?.lineas || []}
-              onChange={(value) => switchLinea(value)}
+              onChange={(value) => switchLinea(value as VentanaConfig["linea"])}
             />
           </FormSection>
 
