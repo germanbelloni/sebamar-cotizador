@@ -38,7 +38,10 @@ function buscarMedidaValida(anchoInput, altoInput) {
     return {
       key: k,
       ancho: Number(a),
-      alto: Number(b.replace(",", ".")),
+      alto:
+        Number(b.replace(",", ".")) < 10
+          ? Number(b.replace(",", ".")) * 100
+          : Number(b.replace(",", ".")),
     };
   });
 
