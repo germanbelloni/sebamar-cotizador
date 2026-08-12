@@ -9,29 +9,10 @@ function sanitizarResultado(resultado, user) {
     return {
       descripcion: resultado.descripcion,
 
-      precioBase:
-        resultado.precioLista ||
-        resultado.precioProveedor ||
-        resultado.precioBase ||
-        0,
-
-      precioProveedor: resultado.precioProveedor,
-      precioLista: resultado.precioLista,
-
       precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
 
-      gananciaCliente: resultado.gananciaCliente,
-
-      margenAplicado: resultado.margenAplicado,
-      perfilAplicado: resultado.perfilAplicado,
-
-      descuentoAplicado: resultado.descuentoAplicado,
-      fleteAplicado: resultado.fleteAplicado,
-      gananciaAplicada: resultado.gananciaAplicada,
-
-      audit: resultado.audit,
-
       svg: resultado.svg,
+
       configuracion: resultado.configuracion,
 
       items:
