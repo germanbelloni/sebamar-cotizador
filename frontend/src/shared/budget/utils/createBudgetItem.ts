@@ -17,10 +17,9 @@ type Params = {
 
   metadata?: {
     linea?: string;
-
     color?: string;
-
     vidrio?: string;
+    vidrioMedia?: string;
   };
 };
 

@@ -1,6 +1,7 @@
 import api from "@/lib/api";
 
 import type { PuertasConfig } from "../types";
+
 import { BACKEND_MODEL_MAPPINGS } from "../models/backendMappings";
 
 type CotizacionPuertasResponse = {
@@ -31,8 +32,18 @@ export async function cotizarPuertas(
       ] || normalizeModelo(config.modeloMediaPuerta)
     : undefined;
 
+  // =========================
+  // MODELOS SIN VIDRIO
+  // =========================
+
   const modeloSinVidrio =
-    config.modelo === "modelo_5" || config.modelo === "modelo_panel";
+    config.modelo === "modelo_5" ||
+    config.modelo === "modelo_panel" ||
+    config.modelo === "modelo_c_panel";
+
+  // =========================
+  // BODY
+  // =========================
 
   const body = {
     ancho: config.ancho,
@@ -41,24 +52,56 @@ export async function cotizarPuertas(
     linea: config.linea,
 
     configuracion: config.tipoConfiguracion,
+
     tipoPorton: config.tipoPorton,
 
     modelo: backendModelo,
+
     modeloMedia: backendModeloMedia,
 
     color: config.color,
+
     mano: config.mano,
 
     hojas: config.hojas,
+
     anchoPrincipal: config.anchoPrincipal,
+
+    // =========================
+    // VIDRIO PUERTA PRINCIPAL
+    // =========================
 
     tipoVidrio: modeloSinVidrio ? undefined : config.vidrio,
 
+    // =========================
+    // VIDRIO MEDIA PUERTA
+    // =========================
+
+    tipoVidrioMedia:
+      config.tipoConfiguracion === "puerta_y_media" &&
+      config.modeloMediaPuerta &&
+      config.modeloMediaPuerta !== "ciega"
+        ? config.vidrioMedia
+        : undefined,
+
+    // =========================
+    // MARCOS
+    // =========================
+
     premarco: config.premarco,
+
     contramarco: config.contramarco,
+
+    // =========================
+    // EXTRAS
+    // =========================
 
     extras: config.extras,
   };
+
+  // =========================
+  // PORTONES
+  // =========================
 
   if (config.tipoConfiguracion === "porton") {
     const { data } = await api.post<CotizacionPuertasResponse>(
@@ -69,6 +112,10 @@ export async function cotizarPuertas(
     return data;
   }
 
+  // =========================
+  // ECO
+  // =========================
+
   if (config.linea === "eco") {
     const { data } = await api.post<CotizacionPuertasResponse>(
       "/puertas/eco",
@@ -77,6 +124,10 @@ export async function cotizarPuertas(
 
     return data;
   }
+
+  // =========================
+  // HERRERO / MODENA
+  // =========================
 
   const { data } = await api.post<CotizacionPuertasResponse>("/puertas", body);
 

@@ -1,11 +1,11 @@
-import type { PuertasConfig } from "../types";
-
+import type { PuertasConfig, PuertaVidrioMedia } from "../types";
 import {
   PRESETS_PUERTAS,
   PUERTAS_LINEAS,
   PUERTAS_TIPOS,
   TIPOS_PORTON,
   VIDRIOS_POR_LINEA,
+  VIDRIOS_MEDIA_POR_LINEA,
 } from "../constants";
 
 import { PUERTAS_UI } from "../ui";
@@ -105,15 +105,14 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     );
   }
 
-  let vidrios = [...VIDRIOS_POR_LINEA[config.linea]];
+  const vidrios = [...VIDRIOS_POR_LINEA[config.linea]];
 
-  if (
-    config.linea === "herrero" &&
-    config.tipoConfiguracion === "puerta_y_media" &&
-    config.modeloMediaPuerta === "v_entero"
-  ) {
-    vidrios = vidrios.filter((v) => v !== "3mm");
-  }
+  const esHerreroPuertaYMedia =
+    config.linea === "herrero" && config.tipoConfiguracion === "puerta_y_media";
+
+  const vidriosMedia: PuertaVidrioMedia[] = [
+    ...VIDRIOS_MEDIA_POR_LINEA[config.linea],
+  ];
   const presets = PRESETS_PUERTAS[config.tipoConfiguracion];
 
   const esPorton = config.tipoConfiguracion === "porton";
@@ -460,23 +459,31 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
                   onClick={() =>
                     updateConfig({
                       modeloMediaPuerta: key,
+                      vidrioMedia:
+                        config.vidrioMedia ??
+                        (config.vidrio === "4mm" ||
+                        config.vidrio === "fantasia" ||
+                        config.vidrio === "esmerilado" ||
+                        config.vidrio === "3+3"
+                          ? config.vidrio
+                          : "4mm"),
                     })
                   }
                 >
                   <div className="flex min-h-[180px] flex-col items-center justify-center gap-3">
                     <div
                       className="
-        flex
-        h-32
-        w-full
-        items-center
-        justify-center
-        rounded-xl
-        border
-        border-white/10
-        bg-black/20
-        p-2
-      "
+                flex
+                h-32
+                w-full
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-white/10
+                bg-black/20
+                p-2
+              "
                     >
                       <MediaDoorPreview
                         model={
@@ -515,7 +522,26 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
             />
           </FormSection>
         )}
-
+        {esHerreroPuertaYMedia && config.modeloMediaPuerta !== "ciega" && (
+          <FormSection title="Vidrio media puerta">
+            <VidrioSelector
+              value={
+                config.vidrioMedia && vidriosMedia.includes(config.vidrioMedia)
+                  ? config.vidrioMedia
+                  : "4mm"
+              }
+              options={vidriosMedia}
+              labelOverrides={{
+                "4mm": "Vidrio común",
+              }}
+              onChange={(value) =>
+                updateConfig({
+                  vidrioMedia: value as PuertasConfig["vidrioMedia"],
+                })
+              }
+            />
+          </FormSection>
+        )}
         <FormSection title="Color">
           <ColorSelector
             value={config.color}

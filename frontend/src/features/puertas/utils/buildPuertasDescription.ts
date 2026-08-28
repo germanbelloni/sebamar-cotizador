@@ -109,6 +109,7 @@ export function buildPuertasDescription(config: PuertasConfig) {
   // =========================
   // VIDRIO
   // =========================
+
   const llevaVidrio =
     config.modelo !== "modelo_5" &&
     config.modelo !== "modelo_panel" &&
@@ -121,6 +122,16 @@ export function buildPuertasDescription(config: PuertasConfig) {
 
   if (llevaVidrio && descripcionVidrio) {
     parts.push(descripcionVidrio);
+  }
+
+  // VIDRIO MEDIA PUERTA
+  if (
+    config.tipoConfiguracion === "puerta_y_media" &&
+    config.modeloMediaPuerta &&
+    config.modeloMediaPuerta !== "ciega" &&
+    config.vidrioMedia
+  ) {
+    parts.push(`vidrio media ${formatVidrio(config.vidrioMedia)}`);
   }
   // =========================
   // EXTRAS

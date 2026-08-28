@@ -1,5 +1,5 @@
 import type { VentanaConfig } from "../types";
-import { initialVentanasConfig } from "../constants";
+
 import { VENTANAS_UI } from "../ui";
 
 import { useVentanaForm } from "../hooks/useVentanaForm";
@@ -96,7 +96,6 @@ export function VentanaConfigForm({
     mutation: cotizacionMutation,
     config,
     createItem: createVentanaBudgetItem,
-    onSuccess: () => setConfig(initialVentanasConfig),
   });
   const editingItem = useBudgetStore((state) => state.editingItem);
 

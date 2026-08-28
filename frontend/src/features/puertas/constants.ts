@@ -4,6 +4,7 @@ import type {
   PuertaTipoConfiguracion,
   PuertaTipoPorton,
   PuertaVidrio,
+  PuertaVidrioMedia,
 } from "./types";
 
 /* ========================= */
@@ -263,12 +264,16 @@ export const MODELOS_PUERTAS = {
 
 export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
   herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
-
   modena: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3", "dvh_4_9_4"],
-
   eco: ["3mm", "4mm", "fantasia"],
 };
 
+export const VIDRIOS_MEDIA_POR_LINEA: Record<PuertaLinea, PuertaVidrioMedia[]> =
+  {
+    herrero: ["4mm", "3+3", "fantasia", "esmerilado"],
+    modena: ["4mm", "3+3", "fantasia", "esmerilado"],
+    eco: ["4mm", "fantasia"],
+  };
 /* ========================= */
 /* INITIAL CONFIG */
 /* ========================= */
@@ -276,25 +281,19 @@ export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
 export const initialPuertasConfig: PuertasConfig = {
   ancho: 80,
   alto: 200,
-
   linea: "herrero",
-
   tipoConfiguracion: "simple",
   tipoPorton: "abrir",
-
   modelo: "modelo_4",
   modeloMediaPuerta: "v_entero",
-
   color: "blanco",
-
   mano: "derecha",
-
   hojaPrincipal: 4,
-
   hojas: 1,
   anchoPrincipal: 80,
 
   vidrio: "3mm",
+  vidrioMedia: "4mm",
 
   premarco: false,
   contramarco: false,
@@ -302,9 +301,7 @@ export const initialPuertasConfig: PuertasConfig = {
   extras: {
     barralRecto: 0,
     barralCurvo: 0,
-
     picaporte: false,
-
     barraAntipanico: 0,
     barraAntipanicoLado: "izquierda",
   },

@@ -27,6 +27,8 @@ export type PuertaVidrio =
   | "dvh_4_9_4"
   | "dvh_5_9_5";
 
+export type PuertaVidrioMedia = "4mm" | "fantasia" | "esmerilado" | "3+3";
+
 export type PuertasExtras = {
   barralRecto?: number;
   barralCurvo?: number;
@@ -45,6 +47,7 @@ export type PuertasConfig = {
 
   linea: PuertaLinea;
 
+  vidrioMedia?: PuertaVidrioMedia;
   tipoConfiguracion: PuertaTipoConfiguracion;
   tipoPorton: PuertaTipoPorton;
 
@@ -100,6 +103,7 @@ export type PuertasItem = {
     anchoPrincipal: number;
 
     vidrio?: PuertaVidrio;
+    vidrioMedia?: PuertaVidrioMedia;
 
     extras: PuertasExtras;
   };

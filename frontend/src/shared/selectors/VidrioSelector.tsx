@@ -11,6 +11,7 @@ type Props = {
   value: string;
   options: readonly Option[];
   onChange: (value: string) => void;
+  labelOverrides?: Record<string, string>;
 };
 
 function formatVidrioLabel(value: string) {
@@ -35,17 +36,25 @@ function formatVidrioLabel(value: string) {
   }
 }
 
-export function VidrioSelector({ value, options, onChange }: Props) {
+export function VidrioSelector({
+  value,
+  options,
+  onChange,
+  labelOverrides,
+}: Props) {
   const normalizedOptions = options.map((option) => {
     if (typeof option === "string") {
       return {
-        label: formatVidrioLabel(option),
+        label: labelOverrides?.[option] ?? formatVidrioLabel(option),
         value: option,
       };
     }
 
     return {
-      label: option.label || formatVidrioLabel(option.value),
+      label:
+        labelOverrides?.[option.value] ??
+        option.label ??
+        formatVidrioLabel(option.value),
       value: option.value,
     };
   });

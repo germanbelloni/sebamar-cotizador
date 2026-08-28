@@ -16,21 +16,17 @@ export function createPuertasBudgetItem(
 ): BudgetItem {
   return createBudgetItem({
     modulo: "puertas",
-
     titulo: buildTitle(config),
-
     descripcion: buildPuertasDescription(config),
-
     configuracion: {
       ...config,
     },
-
     metadata: {
       linea: config.linea,
       color: config.color,
       vidrio: config.vidrio,
+      vidrioMedia: config.vidrioMedia,
     },
-
     result,
   });
 }

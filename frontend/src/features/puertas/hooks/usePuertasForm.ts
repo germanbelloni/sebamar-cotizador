@@ -35,6 +35,7 @@ export function usePuertasForm({ config, setConfig }: Props) {
       linea,
       modelo: getDefaultModelo(linea),
       vidrio: getDefaultVidrio(linea) as PuertasConfig["vidrio"],
+      vidrioMedia: undefined,
       extras: {
         barralRecto: 0,
         barralCurvo: 0,

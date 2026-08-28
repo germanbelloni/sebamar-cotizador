@@ -47,6 +47,16 @@ function calcularVidrio(producto, tipoVidrio) {
 
     return vidrio4 * 2 + camara;
   }
+  // ========================
+  // DVH 4+9+4
+  // ========================
+
+  if (tipoVidrio === "dvh_4_9_4") {
+    const vidrio4 = producto.vidrios?.["4mm"] || 0;
+    const camara = producto.dvh?.camara || 0;
+
+    return vidrio4 * 2 + camara;
+  }
 
   // ========================
   // DVH 5+9+5
@@ -90,10 +100,19 @@ function calcularPuertas(dataInput) {
     modeloMedia,
     modeloMediaPuerta,
     tipoVidrio,
+    tipoVidrioMedia,
     vidrio,
+    vidrioMedia,
   } = dataInput;
 
-  const vidrioFinal = tipoVidrio || vidrio;
+  const vidrioFinal = tipoVidrio || vidrio || "4mm";
+
+  const vidrioMediaFinalInput = tipoVidrioMedia || vidrioMedia;
+  console.log("========== DATOS VIDRIO INPUT ==========");
+  console.log("dataInput completo:", JSON.stringify(dataInput, null, 2));
+  console.log("tipoVidrio:", tipoVidrio);
+  console.log("vidrio:", vidrio);
+  console.log("=========================================");
   const tipoFinal = configuracion || tipo || "simple";
 
   const modeloFinal = modeloPuerta || modelo;
@@ -192,11 +211,38 @@ function calcularPuertas(dataInput) {
     }
 
     estructura += puerta.base + media.base;
-    const v1 = calcularVidrio(puerta, vidrioFinal);
-    const v2 = calcularVidrio(media, vidrioFinal);
+    // const v1 = calcularVidrio(puerta, vidrioFinal);
+    // const v2 = calcularVidrio(media, vidrioFinal);
+
+    // vidrioTotal += v1 + v2;
+    const v1 = puerta.sinVidrio ? 0 : calcularVidrio(puerta, vidrioFinal);
+    let vidrioMediaFinal = vidrioFinal;
+
+    if (!media.sinVidrio) {
+      vidrioMediaFinal =
+        vidrioMediaFinalInput ||
+        Object.keys(media.vidrios || {})[0] ||
+        vidrioFinal;
+    }
+    const v2 = media.sinVidrio ? 0 : calcularVidrio(media, vidrioMediaFinal);
 
     vidrioTotal += v1 + v2;
 
+    console.log("========== VIDRIO PUERTA Y MEDIA ==========");
+    console.log("vidrio principal:", vidrioFinal);
+    console.log("puerta:", modeloFinal);
+    console.log("puerta.sinVidrio:", !!puerta.sinVidrio);
+    console.log("vidrio puerta:", v1);
+
+    console.log("media:", modeloMediaFinal);
+    console.log("media.sinVidrio:", !!media.sinVidrio);
+    console.log("vidrio media seleccionado:", vidrioMediaFinal);
+    console.log("vidrios disponibles media:", media.vidrios);
+    console.log("vidrio media:", v2);
+
+    console.log("TOTAL VIDRIOS:", v1 + v2);
+    console.log("===========================================");
+    console.log("===========================================");
     items.push(
       {
         tipo: "estructura",
@@ -206,19 +252,17 @@ function calcularPuertas(dataInput) {
 
       {
         tipo: "vidrio",
-        descripcion: tipoVidrio,
+        descripcion: vidrioFinal,
         precio: Math.round(v1),
       },
-
       {
         tipo: "estructura",
         descripcion: modeloMediaFinal,
         precio: Math.round(media.base),
       },
-
       {
         tipo: "vidrio",
-        descripcion: tipoVidrio,
+        descripcion: vidrioMediaFinal,
         precio: Math.round(v2),
       },
     );
