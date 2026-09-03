@@ -82,7 +82,18 @@ function calcularVidrio(producto, tipoVidrio) {
   // STANDARD
   // ========================
 
-  return producto.vidrios?.[tipoVidrio] || 0;
+  const precioVidrio = producto.vidrios?.[tipoVidrio];
+
+  // Si existe y tiene un precio mayor a 0,
+  // usamos el vidrio solicitado.
+  if (Number(precioVidrio || 0) > 0) {
+    return Number(precioVidrio);
+  }
+
+  // Si el modelo no tiene el vidrio solicitado
+  // o su precio es 0, se cobra automáticamente
+  // el vidrio de 4 mm.
+  return Number(producto.vidrios?.["4mm"] || 0);
 }
 
 // ========================

@@ -167,15 +167,16 @@ function calcularVentanaModena(dataInput) {
       incluirGuia: guia,
       incluirMosquitero: mosquitero,
       linea: "modena",
-      usarMedidaInferior: true,
+      usarPrecioVidrioLista: true,
     });
+
     const derecha = calcularVentana({
       medida: medidaMitad,
       tipoVidrio,
       incluirGuia: guia,
       incluirMosquitero: mosquitero,
       linea: "modena",
-      usarMedidaInferior: true,
+      usarPrecioVidrioLista: true,
     });
 
     audit.add({
@@ -341,9 +342,7 @@ function calcularVentanaModena(dataInput) {
     (construccion === "3_hojas_2_guias" || construccion === "3_hojas_3_guias");
 
   const recargoConstruccion = aplicarRecargoConstruccion
-    ? construccion === "3_hojas_2_guias"
-      ? Number(superficies.recargos.tres_hojas || 1)
-      : Number(superficies.recargos.cuatro_hojas || 1)
+    ? Number(superficies.recargos.tres_hojas || 1)
     : 1;
   const estructuraColor =
     items.find((i) => i.tipo === "estructura")?.precio || 0;
@@ -399,6 +398,36 @@ function calcularVentanaModena(dataInput) {
         baseRecargo,
       },
     });
+  }
+
+  // =========================
+  // RECARGO 3 GUÍAS
+  // =========================
+
+  if (construccion === "3_hojas_3_guias") {
+    const recargoTresGuias = Number(superficies.recargos.tres_guias || 1);
+
+    if (recargoTresGuias > 1) {
+      const incremento = Math.round(costo * (recargoTresGuias - 1));
+
+      costo += incremento;
+
+      items.push({
+        tipo: "recargo_3_guias",
+        precio: incremento,
+      });
+
+      audit.add({
+        etapa: "3 Guías",
+        tipo: "recargo",
+        origen: "superficies.json",
+        referencia: "3_hojas_3_guias",
+        porcentaje: recargoTresGuias,
+        valorAntes: costo - incremento,
+        valorAplicado: incremento,
+        valorDespues: costo,
+      });
+    }
   }
 
   const colorData = colores.find((c) => c.nombre === color);

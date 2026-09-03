@@ -151,6 +151,7 @@ function calcularModena({
   incluirGuia,
   incluirMosquitero,
   usarMedidaInferior = false,
+  usarPrecioVidrioLista = false,
 }) {
   const lookup = usarMedidaInferior
     ? buscarMedidaInferior(dataModena.medidas, medida)
@@ -179,10 +180,9 @@ function calcularModena({
   // =========================
   // VIDRIOS POR M²
   // =========================
-
   const esDVH = tipoVidrio === "DVH 4+9+4" || tipoVidrio === "DVH 5+9+5";
 
-  if (!esDVH && superficies.vidrios?.[tipoVidrio]) {
+  if (!usarPrecioVidrioLista && !esDVH && superficies.vidrios?.[tipoVidrio]) {
     precioVidrio = calcularPrecioVidrioPorM2(medidaUsada, tipoVidrio);
   }
 

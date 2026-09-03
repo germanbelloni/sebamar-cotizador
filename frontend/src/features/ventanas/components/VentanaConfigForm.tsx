@@ -169,8 +169,10 @@ export function VentanaConfigForm({
             <ExtrasSection
               mosquitero={config.mosquitero}
               guia={config.guia}
+              vidrioRepartido={config.vidrioRepartido}
               onToggleMosquitero={() => toggleField("mosquitero")}
               onToggleGuia={handleToggleGuia}
+              onToggleVidrioRepartido={() => toggleField("vidrioRepartido")}
             />
           </FormSection>
 
