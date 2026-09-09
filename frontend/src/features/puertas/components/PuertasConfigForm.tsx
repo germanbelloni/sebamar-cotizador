@@ -105,7 +105,12 @@ export function PuertasConfigForm({ config, setConfig }: Props) {
     );
   }
 
-  const vidrios = [...VIDRIOS_POR_LINEA[config.linea]];
+  const vidrios = [...VIDRIOS_POR_LINEA[config.linea]].filter(
+    (vidrio) =>
+      !(
+        config.modelo.endsWith("_vr") && ["4mm", "5mm", "3+3"].includes(vidrio)
+      ),
+  );
 
   const esHerreroPuertaYMedia =
     config.linea === "herrero" && config.tipoConfiguracion === "puerta_y_media";

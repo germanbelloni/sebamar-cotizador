@@ -25,26 +25,24 @@ function aplicarAjusteMedidaPuerta(
   const anchoRedondeado = Math.round(anchoHoja);
 
   let factor = 1;
-
   // =========================
   // REGLA COMERCIAL PUERTAS
   //
-  // 60 a 79 cm  → -10%
+  // 60 a 79 cm  → -7%
   // 80 cm       → base
   // 81 a 90 cm  → +10%
-  // +90 cm      → +10% +10%
+  // +90 cm      → +20%
   // =========================
 
-  if (anchoRedondeado === 70) {
-    factor = 0.9;
-  } else if (anchoRedondeado >= 71 && anchoRedondeado <= 80) {
+  if (anchoRedondeado >= 60 && anchoRedondeado <= 79) {
+    factor = 0.93;
+  } else if (anchoRedondeado === 80) {
     factor = 1;
   } else if (anchoRedondeado >= 81 && anchoRedondeado <= 90) {
     factor = 1.1;
-  } else if (anchoRedondeado >= 91) {
+  } else if (anchoRedondeado > 90) {
     factor = 1.2;
   }
-
   if (factor === 1) return;
 
   items.forEach((item) => {

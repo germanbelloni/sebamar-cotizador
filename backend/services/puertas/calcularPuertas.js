@@ -90,15 +90,39 @@ function calcularVidrio(producto, tipoVidrio) {
     return Number(precioVidrio);
   }
 
-  // Si el modelo no tiene el vidrio solicitado
-  // o su precio es 0, se cobra automáticamente
-  // el vidrio de 4 mm.
-  return Number(producto.vidrios?.["4mm"] || 0);
+  // Si el vidrio solicitado no existe,
+  // buscamos el vidrio de espesor más cercano disponible.
+  // Orden comercial: 3mm → 4mm → 5mm.
+  const espesores = ["3mm", "4mm", "5mm"];
+
+  if (espesores.includes(tipoVidrio)) {
+    const indiceSolicitado = espesores.indexOf(tipoVidrio);
+
+    // Primero buscamos hacia arriba: 3 → 4 → 5.
+    for (let i = indiceSolicitado + 1; i < espesores.length; i++) {
+      const precio = Number(producto.vidrios?.[espesores[i]] || 0);
+
+      if (precio > 0) {
+        return precio;
+      }
+    }
+
+    // Si no hay uno superior, buscamos hacia abajo: 5 → 4 → 3.
+    for (let i = indiceSolicitado - 1; i >= 0; i--) {
+      const precio = Number(producto.vidrios?.[espesores[i]] || 0);
+
+      if (precio > 0) {
+        return precio;
+      }
+    }
+  }
+  // Si no existe ningún vidrio compatible disponible,
+  // no inventamos un precio.
+  return 0;
 }
 
 // ========================
 // 🚀 MAIN
-// ========================
 
 function calcularPuertas(dataInput) {
   //process.exit();

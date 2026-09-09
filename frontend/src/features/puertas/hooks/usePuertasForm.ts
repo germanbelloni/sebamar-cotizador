@@ -11,37 +11,9 @@ type Props = {
 export function usePuertasForm({ config, setConfig }: Props) {
   const { updateConfig } = useConfigUpdater(setConfig);
 
-  function getDefaultModelo(linea: PuertasConfig["linea"]) {
-    if (linea === "eco") {
-      return "modelo_4";
-    }
-
-    return "modelo_4";
-  }
-
-  function getDefaultVidrio(linea: PuertasConfig["linea"]) {
-    if (linea === "eco") {
-      return "3mm";
-    }
-
-    if (linea === "modena") {
-      return "3mm";
-    }
-
-    return "3mm";
-  }
   const switchLinea = (linea: PuertasConfig["linea"]) => {
     updateConfig({
       linea,
-      modelo: getDefaultModelo(linea),
-      vidrio: getDefaultVidrio(linea) as PuertasConfig["vidrio"],
-      vidrioMedia: undefined,
-      extras: {
-        barralRecto: 0,
-        barralCurvo: 0,
-        mediaManija: false,
-        picaporte: false,
-      },
     });
   };
 
