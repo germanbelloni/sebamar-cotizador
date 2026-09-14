@@ -88,6 +88,10 @@ async function runCalculation(req, res, name, callback) {
     );
 
     const sanitized = sanitizarCotizacion(withMargin, req.user);
+    console.log(
+      "🔥 RESPUESTA SANITIZADA ADMIN:",
+      JSON.stringify(sanitized, null, 2),
+    );
 
     const auditoria = auditarResultado(withMargin);
 

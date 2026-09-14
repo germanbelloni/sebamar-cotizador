@@ -5,11 +5,18 @@ function sanitizarResultado(resultado, user) {
   }
 
   // 🧑 ADMIN
-  // 🧑 ADMIN
   if (user.role === "admin") {
-    return resultado;
+    return {
+      descripcion: resultado.descripcion,
+      precioFinal: resultado.precioFinal || resultado.precioVenta || 0,
+      svg: resultado.svg,
+      configuracion: resultado.configuracion,
+      items:
+        resultado.items?.map((item) => ({
+          tipo: item.tipo,
+        })) || [],
+    };
   }
-
   // 👨 USER
   return {
     descripcion: resultado.descripcion,
