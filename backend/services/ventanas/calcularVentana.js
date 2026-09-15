@@ -197,6 +197,13 @@ function calcularModena({
       Number(d.vidrios?.["4mm"] || 0) * 2 + Number(d.vidrios?.dvh || 0);
   }
 
+  if (tipoVidrio === "4/6/3+3") {
+    precioVidrio =
+      Number(d.vidrios?.["4mm"] || 0) +
+      Number(d.vidrios?.dvh || 0) +
+      Number(d.vidrios?.["3+3"] || 0);
+  }
+
   if (tipoVidrio === "DVH 5+9+5") {
     precioVidrio =
       Number(d.vidrios?.["5mm"] || 0) * 2 + Number(d.vidrios?.dvh || 0);

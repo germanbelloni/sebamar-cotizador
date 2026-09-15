@@ -26,6 +26,7 @@ export function formatVidrio(vidrio?: string) {
     esmerilado: "Esmerilado",
     dvh_4_9_4: "DVH 4+9+4",
     dvh_5_9_5: "DVH 5+9+5",
+    dvh_4_6_3_3: "4/6/3+3",
   };
 
   return map[vidrio] || vidrio;

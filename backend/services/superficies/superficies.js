@@ -82,12 +82,18 @@ function calcularSuperficie(dataInput) {
 
     costoPerfil = perimetro * base;
 
-    const precioVidrio = data.vidrios[tipoVidrio];
+    let precioVidrio = data.vidrios[tipoVidrio];
+
+    if (tipoVidrio === "4/6/3+3") {
+      precioVidrio =
+        Number(data.vidrios?.["4mm"] || 0) +
+        Number(data.vidrios?.["dvh"] || 0) +
+        Number(data.vidrios?.["3+3"] || 0);
+    }
 
     if (!precioVidrio) {
       throw new Error(`Vidrio inválido: ${tipoVidrio}`);
     }
-
     const m2 = calcularM2(ancho, alto);
 
     costoVidrio = m2 * precioVidrio;

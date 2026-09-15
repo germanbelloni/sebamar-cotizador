@@ -79,6 +79,29 @@ function calcularVidrio(producto, tipoVidrio) {
   }
 
   // ========================
+  // DVH 3+3 / 6 / 3+3
+  // ========================
+
+  if (tipoVidrio === "dvh_3_3_6_3_3") {
+    const laminado = superficies.vidrios?.["3+3"] || 0;
+    const camara = superficies.vidrios?.["dvh"] || 0;
+
+    return laminado * 2 + camara;
+  }
+
+  // ========================
+  // DVH 4 / 6 / 3+3
+  // ========================
+
+  if (tipoVidrio === "4/6/3+3") {
+    const vidrio4 = superficies.vidrios?.["4mm"] || 0;
+    const laminado = superficies.vidrios?.["3+3"] || 0;
+    const camara = superficies.vidrios?.["dvh"] || 0;
+
+    return vidrio4 + camara + laminado;
+  }
+
+  // ========================
   // STANDARD
   // ========================
 
@@ -143,11 +166,6 @@ function calcularPuertas(dataInput) {
   const vidrioFinal = tipoVidrio || vidrio || "4mm";
 
   const vidrioMediaFinalInput = tipoVidrioMedia || vidrioMedia;
-  console.log("========== DATOS VIDRIO INPUT ==========");
-  console.log("dataInput completo:", JSON.stringify(dataInput, null, 2));
-  console.log("tipoVidrio:", tipoVidrio);
-  console.log("vidrio:", vidrio);
-  console.log("=========================================");
   const tipoFinal = configuracion || tipo || "simple";
 
   const modeloFinal = modeloPuerta || modelo;

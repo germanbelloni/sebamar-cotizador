@@ -27,9 +27,12 @@ function formatVidrioLabel(value: string) {
 
     case "dvh_4_9_4":
       return "DVH 4+9+4";
-
     case "dvh_5_9_5":
       return "DVH 5+9+5";
+    case "dvh_4_6_3_3":
+      return "4/6/3+3";
+    case "dvh_3_3_6_3_3":
+      return "3+3/6/3+3";
 
     default:
       return value;

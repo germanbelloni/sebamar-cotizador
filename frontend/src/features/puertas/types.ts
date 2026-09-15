@@ -25,7 +25,9 @@ export type PuertaVidrio =
   | "esmerilado"
   | "3+3"
   | "dvh_4_9_4"
-  | "dvh_5_9_5";
+  | "dvh_5_9_5"
+  | "dvh_3_3_6_3_3"
+  | "4/6/3+3";
 
 export type PuertaVidrioMedia = "4mm" | "fantasia" | "esmerilado" | "3+3";
 

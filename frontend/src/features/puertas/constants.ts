@@ -264,7 +264,17 @@ export const MODELOS_PUERTAS = {
 
 export const VIDRIOS_POR_LINEA: Record<PuertaLinea, PuertaVidrio[]> = {
   herrero: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3"],
-  modena: ["3mm", "4mm", "5mm", "fantasia", "esmerilado", "3+3", "dvh_4_9_4"],
+  modena: [
+    "3mm",
+    "4mm",
+    "5mm",
+    "fantasia",
+    "esmerilado",
+    "3+3",
+    "dvh_4_9_4",
+    "dvh_3_3_6_3_3",
+    "4/6/3+3",
+  ],
   eco: ["3mm", "4mm", "fantasia"],
 };
 

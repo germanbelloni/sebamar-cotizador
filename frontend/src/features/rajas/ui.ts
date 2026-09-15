@@ -73,6 +73,7 @@ export const RAJAS_UI = {
     { label: "4+4", value: "4+4" },
     { label: "DVH 4+9+4", value: "dvh" },
     { label: "DVH 5+9+5", value: "dvh_5_9_5" },
+    { label: "4/6/3+3", value: "4/6/3+3" },
   ],
 
   messages: {

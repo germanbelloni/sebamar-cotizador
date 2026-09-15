@@ -179,10 +179,10 @@ function formatVidrio(vidrio: string) {
   switch (vidrio) {
     case "dvh_4_9_4":
       return "DVH 4+9+4";
-
     case "dvh_5_9_5":
       return "DVH 5+9+5";
-
+    case "dvh_3_3_6_3_3":
+      return "3+3/6/3+3";
     default:
       return vidrio;
   }

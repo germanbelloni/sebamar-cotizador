@@ -29,6 +29,14 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio, superficies) {
     return (datos.vidrios?.["4mm"] || 0) * 2 + (datos.camara || 0);
   }
 
+  if (tipoVidrio === "4/6/3+3") {
+    return (
+      (datos.vidrios?.["4mm"] || 0) +
+      (datos.vidrios?.["3+3"] || 0) +
+      (datos.camara || 0)
+    );
+  }
+
   if (tipoVidrio === "dvh_5_9_5") {
     const m2 = toM2(ancho, alto);
 

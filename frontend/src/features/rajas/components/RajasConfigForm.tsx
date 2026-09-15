@@ -125,7 +125,8 @@ export function RajasConfigForm({ config, setConfig }: Props) {
           (v) =>
             v.value !== "4+4" &&
             v.value !== "DVH 4+9+4" &&
-            v.value !== "DVH 5+9+5",
+            v.value !== "DVH 5+9+5" &&
+            v.value !== "4/6/3+3",
         )
       : RAJAS_UI.vidrios;
 

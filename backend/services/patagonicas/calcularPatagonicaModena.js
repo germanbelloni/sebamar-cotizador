@@ -37,6 +37,15 @@ function calcularVidrio(datos, ancho, alto, tipoVidrio) {
     return vidrio4 * 2 + camara;
   }
 
+  // ✅ DVH 4/6/3+3: 4mm + cámara + laminado 3+3
+  if (["4/6/3+3", "dvh_4_6_3_3"].includes(vidrioNormalizado)) {
+    const vidrio4 = Number(datos.vidrios?.["4mm"] || 0);
+    const laminado = Number(datos.vidrios?.["3+3"] || 0);
+    const camara = Number(datos.camara || 0);
+
+    return vidrio4 + camara + laminado;
+  }
+
   // ✅ DVH 5+9+5: calcular desde superficies
   if (["dvh 5+9+5", "dvh_5_9_5"].includes(vidrioNormalizado)) {
     const m2 = (ancho * alto) / 10000;
