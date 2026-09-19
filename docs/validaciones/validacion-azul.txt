@@ -2,7 +2,7 @@
 VALIDADOR DE LISTAS COMERCIALES
 ======================================
 Perfil comercial: azul
-Fecha: 6/8/2026, 05:12:16
+Fecha: 18/9/2026, 07:51:40
 
 
 ======================================
@@ -26,9 +26,35 @@ MÓDULOS AUDITADOS:
 --------------------------------------
 Total módulos: 11
 Casos comparados: 1857
-Coincidencias: 1857
-Diferencias: 0
+Coincidencias: 1856
+Diferencias: 1
 --------------------------------------
 
+=================================
+RESUMEN DE DIFERENCIAS
+=================================
+
+Ventanas Modena:
+1 diferencias
+
 ======================================
-[OK] TODAS LAS LISTAS COINCIDEN CON EL SISTEMA
+ERRORES ENCONTRADOS
+======================================
+
+Módulo:
+Ventanas Modena
+Medida:
+240x205
+Variante:
+4mm
+Esperado lista:
+560452
+Obtenido sistema:
+560450
+Diferencia:
+2
+Diferencia:
+2
+
+======================================
+❌ HAY DIFERENCIAS PARA REVISAR

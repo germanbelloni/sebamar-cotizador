@@ -3,73 +3,73 @@
     "v/entero": {
       "base": 102798,
       "vidrios": {
-        "4mm": 18009,
-        "3+3": 77021,
-        "fantasia": 19824,
-        "esmerilado": 51329
+        "4mm": 18923,
+        "3+3": 80927,
+        "fantasia": 20829,
+        "esmerilado": 53933
       }
     },
     "v/repartido": {
       "base": 117650,
       "vidrios": {
-        "4mm": 18009,
+        "4mm": 18923,
         "3+3": 0,
-        "fantasia": 19824,
-        "esmerilado": 51329
+        "fantasia": 20829,
+        "esmerilado": 53933
       }
     },
     "3/4 v entero": {
       "base": 127907,
       "vidrios": {
-        "4mm": 14214,
-        "3+3": 60808,
-        "fantasia": 15649,
-        "esmerilado": 40524
+        "4mm": 14935,
+        "3+3": 63893,
+        "fantasia": 16443,
+        "esmerilado": 42579
       }
     },
     "3/4 v repartido": {
       "base": 142870,
       "vidrios": {
-        "4mm": 14214,
+        "4mm": 14935,
         "3+3": 0,
-        "fantasia": 15649,
-        "esmerilado": 40524
+        "fantasia": 16443,
+        "esmerilado": 42579
       }
     },
     "1/2 v entero": {
       "base": 155162,
       "vidrios": {
-        "4mm": 9481,
-        "3+3": 40539,
-        "fantasia": 10433,
-        "esmerilado": 27014
+        "4mm": 9962,
+        "3+3": 42595,
+        "fantasia": 10962,
+        "esmerilado": 28384
       }
     },
     "1/2 v repartido": {
       "base": 163280,
       "vidrios": {
-        "4mm": 9481,
+        "4mm": 9962,
         "3+3": 0,
-        "fantasia": 10433,
-        "esmerilado": 27014
+        "fantasia": 10962,
+        "esmerilado": 28384
       }
     },
     "4 travezaños": {
       "base": 123578,
       "vidrios": {
-        "4mm": 23695,
-        "3+3": 101347,
-        "fantasia": 26082,
-        "esmerilado": 67537
+        "4mm": 24897,
+        "3+3": 106488,
+        "fantasia": 27405,
+        "esmerilado": 70963
       }
     },
     "1 travesaño": {
-      "base": 115000,
+      "base": 121000,
       "vidrios": {
-        "4mm": 19500,
-        "3+3": 65000,
-        "fantasia": 19000,
-        "esmerilado": 49000
+        "4mm": 25000,
+        "3+3": 70000,
+        "fantasia": 24000,
+        "esmerilado": 55000
       }
     }
   }

@@ -44,7 +44,7 @@ module.exports = {
 
   azul: {
     herrero: {
-      descuento: 0.12,
+      descuento: 0.1,
       flete: 0.1,
       ganancia: 0.3,
     },
@@ -86,7 +86,7 @@ module.exports = {
 
   verde: {
     herrero: {
-      descuento: 0.12,
+      descuento: 0.1,
       flete: 0.15,
       ganancia: 0.35,
     },

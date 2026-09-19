@@ -4,76 +4,76 @@
       "base": 125369,
       "vidrios": {
         "3mm": 0,
-        "4mm": 26974,
-        "5mm": 35525,
-        "fantasia": 29689,
-        "esmerilado": 76872,
-        "3+3": 115033
+        "4mm": 28384,
+        "5mm": 37381,
+        "fantasia": 31240,
+        "esmerilado": 80888,
+        "3+3": 121043
       }
     },
     "modelo 1 vr": {
       "base": 166157,
       "vidrios": {
         "3mm": 0,
-        "4mm": 26974,
+        "4mm": 28384,
         "5mm": 0,
-        "fantasia": 29689,
-        "esmerilado": 76872,
+        "fantasia": 31240,
+        "esmerilado": 80888,
         "3+3": 0
       }
     },
     "modelo 2": {
       "base": 132141,
       "vidrios": {
-        "3mm": 21083,
-        "4mm": 25562,
-        "5mm": 33651,
-        "fantasia": 28125,
-        "esmerilado": 72827,
+        "3mm": 22185,
+        "4mm": 26898,
+        "5mm": 35409,
+        "fantasia": 29595,
+        "esmerilado": 76633,
         "3+3": 83034
       }
     },
     "modelo 3": {
       "base": 174817,
       "vidrios": {
-        "3mm": 10542,
-        "4mm": 12781,
-        "5mm": 16825,
-        "fantasia": 14062,
-        "esmerilado": 36414,
+        "3mm": 11093,
+        "4mm": 13449,
+        "5mm": 17705,
+        "fantasia": 14797,
+        "esmerilado": 38316,
         "3+3": 41517
       }
     },
     "modelo 3 vr": {
       "base": 200090,
       "vidrios": {
-        "3mm": 10542,
+        "3mm": 11093,
         "4mm": 0,
         "5mm": 0,
-        "fantasia": 14062,
-        "esmerilado": 36414,
+        "fantasia": 14797,
+        "esmerilado": 38316,
         "3+3": 0
       }
     },
     "modelo 4": {
       "base": 196156,
       "vidrios": {
-        "3mm": 5891,
-        "4mm": 7097,
-        "5mm": 9350,
-        "fantasia": 7813,
-        "esmerilado": 20229,
+        "3mm": 6199,
+        "4mm": 7468,
+        "5mm": 9838,
+        "fantasia": 8222,
+        "esmerilado": 21286,
         "3+3": 23064
       }
     },
     "modelo 4 vr": {
       "base": 212945,
       "vidrios": {
-        "3mm": 5891,
+        "3mm": 6199,
         "4mm": 0,
         "5mm": 0,
-        "fantasia": 7813,
-        "esmerilado": 20229,
+        "fantasia": 8222,
+        "esmerilado": 21286,
         "3+3": 0
       }
     },
@@ -92,88 +92,88 @@
     "modelo 6": {
       "base": 195033,
       "vidrios": {
-        "3mm": 10542,
-        "4mm": 12781,
-        "5mm": 16825,
-        "fantasia": 14062,
-        "esmerilado": 36414,
+        "3mm": 11093,
+        "4mm": 13449,
+        "5mm": 17705,
+        "fantasia": 14797,
+        "esmerilado": 38316,
         "3+3": 41517
       }
     },
     "modelo 7": {
       "base": 206263,
       "vidrios": {
-        "3mm": 5891,
-        "4mm": 7097,
-        "5mm": 9350,
-        "fantasia": 7813,
-        "esmerilado": 20229,
+        "3mm": 6199,
+        "4mm": 7468,
+        "5mm": 9838,
+        "fantasia": 8222,
+        "esmerilado": 21286,
         "3+3": 23064
       }
     },
     "modelo 8": {
       "base": 147864,
       "vidrios": {
-        "3mm": 23564,
-        "4mm": 28387,
-        "5mm": 37399,
-        "fantasia": 31253,
-        "esmerilado": 80916,
+        "3mm": 24795,
+        "4mm": 29870,
+        "5mm": 39353,
+        "fantasia": 32886,
+        "esmerilado": 85144,
         "3+3": 92257
       }
     },
     "modelo 9": {
       "base": 199525,
       "vidrios": {
-        "3mm": 7421,
-        "4mm": 8991,
-        "5mm": 11844,
-        "fantasia": 9922,
-        "esmerilado": 25631,
+        "3mm": 7808,
+        "4mm": 9461,
+        "5mm": 12463,
+        "fantasia": 10440,
+        "esmerilado": 26970,
         "3+3": 29219
       }
     },
     "modelo 10": {
       "base": 211878,
       "vidrios": {
-        "3mm": 4100,
-        "4mm": 5677,
-        "5mm": 7476,
-        "fantasia": 6249,
-        "esmerilado": 16185,
+        "3mm": 4314,
+        "4mm": 5974,
+        "5mm": 7866,
+        "fantasia": 6576,
+        "esmerilado": 17030,
         "3+3": 18446
       }
     },
     "modelo 10 vr": {
       "base": 228440,
       "vidrios": {
-        "3mm": 4100,
+        "3mm": 4314,
         "4mm": 0,
         "5mm": 0,
-        "fantasia": 6249,
-        "esmerilado": 16185,
+        "fantasia": 6576,
+        "esmerilado": 17030,
         "3+3": 0
       }
     },
     "modelo 11": {
       "base": 184924,
       "vidrios": {
-        "3mm": 16405,
-        "4mm": 21290,
-        "5mm": 28042,
-        "fantasia": 23440,
-        "esmerilado": 60694,
+        "3mm": 17262,
+        "4mm": 22403,
+        "5mm": 29508,
+        "fantasia": 24665,
+        "esmerilado": 63865,
         "3+3": 69199
       }
     },
     "modelo 12": {
       "base": 153479,
       "vidrios": {
-        "3mm": 16405,
-        "4mm": 21290,
-        "5mm": 28042,
-        "fantasia": 23440,
-        "esmerilado": 60694,
+        "3mm": 17262,
+        "4mm": 22403,
+        "5mm": 29508,
+        "fantasia": 24665,
+        "esmerilado": 63865,
         "3+3": 69199
       }
     },

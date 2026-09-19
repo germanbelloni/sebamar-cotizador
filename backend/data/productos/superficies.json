@@ -11,16 +11,16 @@
   "superficies": {
     "pano_fijo": {
       "herrero": 10685,
-      "modena": 18080
+      "modena": 18622
     },
-    "premarco": 7400,
-    "contramarco": 4200,
+    "premarco": 7600,
+    "contramarco": 4400,
     "travesano": {
       "herrero": 13517,
-      "modena": 20505
+      "modena": 21120
     },
     "perfil_acople": 5905,
-    "varillas": 18500,
+    "varillas": 19500,
     "mosquitero_fijo": 48364,
     "cajon_block": 346865,
 
@@ -62,10 +62,10 @@
     "bipunto": 25000,
     "bipunto_con_llave": 45000,
     "oscilobatiente": 100000,
-    "cp8": 4000,
-    "volcable": 4000,
-    "brazo_de_empuje": 4000,
-    "cartelprohibido": 5000
+    "cp8": 7000,
+    "volcable": 7000,
+    "brazo_de_empuje": 7000,
+    "cartelprohibido": 7000
   },
 
   "barrales": {
@@ -78,15 +78,15 @@
     "plegadizo": 400000,
     "corredizo_mas_3": 850000,
     "plegadizo_mas_3": 600000,
-    "bisagra_extra": 4500,
+    "bisagra_extra": 8000,
     "barra_antipanico": 250000,
 
     "picaporte": {
-      "herrero": 5000,
-      "modena": 13000
+      "herrero": 6000,
+      "modena": 14000
     },
 
-    "media_manija": 11500,
+    "media_manija": 13200,
 
     "cerradura": {
       "herrero": 0,
@@ -100,15 +100,15 @@
   },
 
   "vidrios": {
-    "3mm": 17447,
-    "4mm": 22525,
-    "5mm": 28799,
-    "6mm": 35415,
-    "fantasia": 28633,
-    "esmerilado": 64445,
-    "3+3": 69479,
-    "4+4": 77614,
-    "5+5": 93890,
+    "3mm": 18319,
+    "4mm": 23651,
+    "5mm": 30239,
+    "6mm": 37186,
+    "fantasia": 30065,
+    "esmerilado": 67667,
+    "3+3": 72258,
+    "4+4": 80719,
+    "5+5": 97646,
     "dvh": 12600
   }
 }

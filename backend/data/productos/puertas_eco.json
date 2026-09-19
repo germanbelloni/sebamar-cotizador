@@ -5,48 +5,48 @@
       "base": 116380,
       "vidrios": {
         "3mm": 0,
-        "4mm": 26974,
-        "fantasia": 29689
+        "4mm": 28384,
+        "fantasia": 31240
       }
     },
     "modelo 2": {
       "base": 105289,
       "vidrios": {
         "3mm": 0,
-        "4mm": 26974,
-        "fantasia": 29689
+        "4mm": 26898,
+        "fantasia": 29595
       }
     },
     "modelo 3": {
       "base": 140475,
       "vidrios": {
-        "3mm": 10542,
-        "4mm": 12781,
-        "fantasia": 14062
+        "3mm": 11093,
+        "4mm": 13449,
+        "fantasia": 14797
       }
     },
     "modelo 3vr": {
       "base": 168040,
       "vidrios": {
-        "3mm": 10542,
+        "3mm": 11093,
         "4mm": 0,
-        "fantasia": 14062
+        "fantasia": 14797
       }
     },
     "modelo 4": {
       "base": 157887,
       "vidrios": {
-        "3mm": 5891,
-        "4mm": 7097,
-        "fantasia": 7813
+        "3mm": 6199,
+        "4mm": 7468,
+        "fantasia": 8222
       }
     },
     "modelo 4 vr": {
       "base": 171861,
       "vidrios": {
-        "3mm": 5891,
-        "4mm": 7097,
-        "fantasia": 7813
+        "3mm": 6199,
+        "4mm": 7468,
+        "fantasia": 8222
       }
     },
     "modelo 5": {

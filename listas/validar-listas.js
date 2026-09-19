@@ -141,9 +141,11 @@ function convertirMedida(texto) {
 function convertirMedidaMosquitero(texto) {
   const [anchoTxt, altoTxt] = String(texto).split("x");
 
+  const alto = Number(altoTxt.replace(",", "."));
+
   return {
     ancho: Number(anchoTxt),
-    alto: Number(altoTxt.replace(",", ".")),
+    alto: alto < 10 ? alto * 100 : alto,
   };
 }
 
@@ -192,9 +194,6 @@ function registrarComparacion(
     return;
   }
 
-  const porcentajeDiferencia =
-    Number(esperado) === 0 ? 0 : (diferencia / Number(esperado)) * 100;
-
   resumen.errores.push({
     modulo,
     medida: fila.medida,
@@ -202,24 +201,7 @@ function registrarComparacion(
     esperado,
     obtenido,
     diferencia,
-    porcentajeDiferencia,
   });
-}
-
-function clasificarDiferencia(porcentaje) {
-  if (porcentaje >= 4.5 && porcentaje <= 5.5) {
-    return "Perfil / margen (aprox 5%)";
-  }
-
-  if (porcentaje >= 9 && porcentaje <= 11) {
-    return "Descuento (aprox 10%)";
-  }
-
-  if (porcentaje >= 20 && porcentaje <= 22) {
-    return "IVA (aprox 21%)";
-  }
-
-  return "Diferencia variable, requiere auditoría manual";
 }
 
 function validarVentanasHerrero(modulo, hoja, resumen) {
@@ -621,10 +603,7 @@ function mostrarErrores(errores) {
     log(`Esperado lista:\n${error.esperado}`);
     log(`Obtenido sistema:\n${error.obtenido}`);
     log(`Diferencia:\n${error.diferencia}`);
-    log(`Porcentaje diferencia:\n${error.porcentajeDiferencia.toFixed(2)}%`);
-    log(
-      `Diferencia probable:\n${clasificarDiferencia(error.porcentajeDiferencia)}`,
-    );
+    log(`Diferencia:\n${error.diferencia}`);
   }
 }
 

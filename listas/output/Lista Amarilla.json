@@ -20,381 +20,381 @@
     "filas": [
       {
         "medida": "60x0,40",
-        "vidrioEntero": 31264,
-        "ventanaConGuia": 40168,
+        "vidrioEntero": 32672,
+        "ventanaConGuia": 41575,
         "mosquitero": 14743,
-        "vidrioRepartido": 40644
+        "vidrioRepartido": 42473
       },
       {
         "medida": "80x0,40",
-        "vidrioEntero": 44567,
-        "ventanaConGuia": 53470,
+        "vidrioEntero": 44800,
+        "ventanaConGuia": 53703,
         "mosquitero": 16545,
-        "vidrioRepartido": 57937
+        "vidrioRepartido": 58240
       },
       {
         "medida": "100x0,40",
-        "vidrioEntero": 48967,
-        "ventanaConGuia": 57870,
+        "vidrioEntero": 49266,
+        "ventanaConGuia": 58169,
         "mosquitero": 18970,
-        "vidrioRepartido": 63657
+        "vidrioRepartido": 64045
       },
       {
         "medida": "120x0,40",
-        "vidrioEntero": 54827,
-        "ventanaConGuia": 63730,
+        "vidrioEntero": 55193,
+        "ventanaConGuia": 64096,
         "mosquitero": 21394,
-        "vidrioRepartido": 71274
+        "vidrioRepartido": 71751
       },
       {
         "medida": "150x0,40",
-        "vidrioEntero": 64297,
-        "ventanaConGuia": 73200,
+        "vidrioEntero": 64762,
+        "ventanaConGuia": 73665,
         "mosquitero": 25031,
-        "vidrioRepartido": 83586
+        "vidrioRepartido": 84191
       },
       {
         "medida": "180x0,40",
-        "vidrioEntero": 72351,
-        "ventanaConGuia": 81254,
+        "vidrioEntero": 72915,
+        "ventanaConGuia": 81818,
         "mosquitero": 28667,
-        "vidrioRepartido": 94056
+        "vidrioRepartido": 94790
       },
       {
         "medida": "200x0,40",
-        "vidrioEntero": 80354,
-        "ventanaConGuia": 89257,
+        "vidrioEntero": 80985,
+        "ventanaConGuia": 89888,
         "mosquitero": 31093,
-        "vidrioRepartido": 104460
+        "vidrioRepartido": 105281
       },
       {
         "medida": "60x0,60",
-        "vidrioEntero": 44317,
-        "ventanaConGuia": 57672,
+        "vidrioEntero": 44595,
+        "ventanaConGuia": 57950,
         "mosquitero": 18613,
-        "vidrioRepartido": 57612
+        "vidrioRepartido": 57973
       },
       {
         "medida": "80x0,60",
-        "vidrioEntero": 54656,
-        "ventanaConGuia": 68010,
+        "vidrioEntero": 55044,
+        "ventanaConGuia": 68398,
         "mosquitero": 21394,
-        "vidrioRepartido": 71052
+        "vidrioRepartido": 71557
       },
       {
         "medida": "100x0,60",
-        "vidrioEntero": 60854,
-        "ventanaConGuia": 74209,
+        "vidrioEntero": 61353,
+        "ventanaConGuia": 74707,
         "mosquitero": 24175,
-        "vidrioRepartido": 79110
+        "vidrioRepartido": 79759
       },
       {
         "medida": "120x0,60",
-        "vidrioEntero": 67414,
-        "ventanaConGuia": 80768,
+        "vidrioEntero": 68022,
+        "ventanaConGuia": 81377,
         "mosquitero": 26956,
-        "vidrioRepartido": 87637
+        "vidrioRepartido": 88429
       },
       {
         "medida": "150x0,60",
-        "vidrioEntero": 78249,
-        "ventanaConGuia": 91604,
+        "vidrioEntero": 79024,
+        "ventanaConGuia": 92379,
         "mosquitero": 31128,
-        "vidrioRepartido": 101724
+        "vidrioRepartido": 102732
       },
       {
         "medida": "180x0,60",
-        "vidrioEntero": 87635,
-        "ventanaConGuia": 100989,
+        "vidrioEntero": 88576,
+        "ventanaConGuia": 101931,
         "mosquitero": 35300,
-        "vidrioRepartido": 113926
+        "vidrioRepartido": 115149
       },
       {
         "medida": "200x0,60",
-        "vidrioEntero": 99734,
-        "ventanaConGuia": 113089,
+        "vidrioEntero": 100787,
+        "ventanaConGuia": 114142,
         "mosquitero": 38081,
-        "vidrioRepartido": 129654
+        "vidrioRepartido": 131023
       },
       {
         "medida": "100x0,80",
-        "vidrioEntero": 75266,
-        "ventanaConGuia": 93073,
+        "vidrioEntero": 75965,
+        "ventanaConGuia": 93772,
         "mosquitero": 29382,
-        "vidrioRepartido": 97847
+        "vidrioRepartido": 98755
       },
       {
         "medida": "120x0,80",
-        "vidrioEntero": 82184,
-        "ventanaConGuia": 99991,
+        "vidrioEntero": 83038,
+        "ventanaConGuia": 100844,
         "mosquitero": 32518,
-        "vidrioRepartido": 106840
+        "vidrioRepartido": 107949
       },
       {
         "medida": "150x0,80",
-        "vidrioEntero": 94352,
-        "ventanaConGuia": 112159,
+        "vidrioEntero": 95437,
+        "ventanaConGuia": 113244,
         "mosquitero": 37226,
-        "vidrioRepartido": 122657
+        "vidrioRepartido": 124068
       },
       {
         "medida": "180x0,80",
-        "vidrioEntero": 104367,
-        "ventanaConGuia": 122173,
+        "vidrioEntero": 105684,
+        "ventanaConGuia": 123490,
         "mosquitero": 41932,
-        "vidrioRepartido": 135677
+        "vidrioRepartido": 137389
       },
       {
         "medida": "200x0,80",
-        "vidrioEntero": 117761,
-        "ventanaConGuia": 135568,
+        "vidrioEntero": 119234,
+        "ventanaConGuia": 137041,
         "mosquitero": 45070,
-        "vidrioRepartido": 153089
+        "vidrioRepartido": 155004
       },
       {
         "medida": "100x100",
-        "vidrioEntero": 86960,
-        "ventanaConGuia": 109217,
+        "vidrioEntero": 87857,
+        "ventanaConGuia": 110114,
         "mosquitero": 34587,
-        "vidrioRepartido": 113048
+        "vidrioRepartido": 114214
       },
       {
         "medida": "120x100",
-        "vidrioEntero": 94483,
-        "ventanaConGuia": 116740,
+        "vidrioEntero": 95580,
+        "ventanaConGuia": 117836,
         "mosquitero": 38081,
-        "vidrioRepartido": 122828
+        "vidrioRepartido": 124253
       },
       {
         "medida": "150x100",
-        "vidrioEntero": 108282,
-        "ventanaConGuia": 130538,
+        "vidrioEntero": 109677,
+        "ventanaConGuia": 131934,
         "mosquitero": 43322,
-        "vidrioRepartido": 140766
+        "vidrioRepartido": 142581
       },
       {
         "medida": "180x100",
-        "vidrioEntero": 119626,
-        "ventanaConGuia": 141883,
+        "vidrioEntero": 121320,
+        "ventanaConGuia": 143577,
         "mosquitero": 48564,
-        "vidrioRepartido": 155514
+        "vidrioRepartido": 157716
       },
       {
         "medida": "200x100",
-        "vidrioEntero": 133929,
-        "ventanaConGuia": 156186,
+        "vidrioEntero": 135823,
+        "ventanaConGuia": 158080,
         "mosquitero": 52059,
-        "vidrioRepartido": 174108
+        "vidrioRepartido": 176570
       },
       {
         "medida": "220x100",
-        "vidrioEntero": 141013,
-        "ventanaConGuia": 163270,
+        "vidrioEntero": 143107,
+        "ventanaConGuia": 165363,
         "mosquitero": 55553,
-        "vidrioRepartido": 183318
+        "vidrioRepartido": 186039
       },
       {
         "medida": "240x100",
-        "vidrioEntero": 149537,
-        "ventanaConGuia": 171794,
+        "vidrioEntero": 151830,
+        "ventanaConGuia": 174087,
         "mosquitero": 59047,
-        "vidrioRepartido": 194399
+        "vidrioRepartido": 197379
       },
       {
         "medida": "100x110",
-        "vidrioEntero": 93552,
-        "ventanaConGuia": 118035,
+        "vidrioEntero": 94549,
+        "ventanaConGuia": 119032,
         "mosquitero": 37189,
-        "vidrioRepartido": 121618
+        "vidrioRepartido": 122914
       },
       {
         "medida": "120x110",
-        "vidrioEntero": 102516,
-        "ventanaConGuia": 126999,
+        "vidrioEntero": 103735,
+        "ventanaConGuia": 128218,
         "mosquitero": 40863,
-        "vidrioRepartido": 133271
+        "vidrioRepartido": 134856
       },
       {
         "medida": "150x110",
-        "vidrioEntero": 116772,
-        "ventanaConGuia": 141255,
+        "vidrioEntero": 118323,
+        "ventanaConGuia": 142805,
         "mosquitero": 46372,
-        "vidrioRepartido": 151804
+        "vidrioRepartido": 153820
       },
       {
         "medida": "180x110",
-        "vidrioEntero": 129518,
-        "ventanaConGuia": 154001,
+        "vidrioEntero": 131402,
+        "ventanaConGuia": 155884,
         "mosquitero": 51881,
-        "vidrioRepartido": 168373
+        "vidrioRepartido": 170823
       },
       {
         "medida": "220x110",
-        "vidrioEntero": 151975,
-        "ventanaConGuia": 176458,
+        "vidrioEntero": 154301,
+        "ventanaConGuia": 178784,
         "mosquitero": 62898,
-        "vidrioRepartido": 197568
+        "vidrioRepartido": 200591
       },
       {
         "medida": "240x110",
-        "vidrioEntero": 156448,
-        "ventanaConGuia": 180930,
+        "vidrioEntero": 158995,
+        "ventanaConGuia": 183478,
         "mosquitero": 62898,
-        "vidrioRepartido": 203382
+        "vidrioRepartido": 206693
       },
       {
         "medida": "100x120",
-        "vidrioEntero": 98750,
-        "ventanaConGuia": 125457,
+        "vidrioEntero": 99846,
+        "ventanaConGuia": 126554,
         "mosquitero": 39793,
-        "vidrioRepartido": 128374
+        "vidrioRepartido": 129799
       },
       {
         "medida": "120x120",
-        "vidrioEntero": 108167,
-        "ventanaConGuia": 134874,
+        "vidrioEntero": 109506,
+        "ventanaConGuia": 136214,
         "mosquitero": 43644,
-        "vidrioRepartido": 140616
+        "vidrioRepartido": 142358
       },
       {
         "medida": "150x120",
-        "vidrioEntero": 123024,
-        "ventanaConGuia": 149732,
+        "vidrioEntero": 124729,
+        "ventanaConGuia": 151437,
         "mosquitero": 49420,
-        "vidrioRepartido": 159931
+        "vidrioRepartido": 162149
       },
       {
         "medida": "180x120",
-        "vidrioEntero": 136432,
-        "ventanaConGuia": 163140,
+        "vidrioEntero": 138503,
+        "ventanaConGuia": 165211,
         "mosquitero": 55196,
-        "vidrioRepartido": 177361
+        "vidrioRepartido": 180053
       },
       {
         "medida": "200x120",
-        "vidrioEntero": 150121,
-        "ventanaConGuia": 176829,
+        "vidrioEntero": 152435,
+        "ventanaConGuia": 179143,
         "mosquitero": 59047,
-        "vidrioRepartido": 195158
+        "vidrioRepartido": 198167
       },
       {
         "medida": "220x120",
-        "vidrioEntero": 159609,
-        "ventanaConGuia": 186316,
+        "vidrioEntero": 162167,
+        "ventanaConGuia": 188875,
         "mosquitero": 62898,
-        "vidrioRepartido": 207492
+        "vidrioRepartido": 210818
       },
       {
         "medida": "240x120",
-        "vidrioEntero": 167220,
-        "ventanaConGuia": 193928,
+        "vidrioEntero": 170023,
+        "ventanaConGuia": 196730,
         "mosquitero": 66749,
-        "vidrioRepartido": 217386
+        "vidrioRepartido": 221030
       },
       {
         "medida": "100x150",
-        "vidrioEntero": 115513,
-        "ventanaConGuia": 148898,
+        "vidrioEntero": 116909,
+        "ventanaConGuia": 150294,
         "mosquitero": 47602,
-        "vidrioRepartido": 150167
+        "vidrioRepartido": 151982
       },
       {
         "medida": "120x150",
-        "vidrioEntero": 126280,
-        "ventanaConGuia": 159665,
+        "vidrioEntero": 127985,
+        "ventanaConGuia": 161370,
         "mosquitero": 51988,
-        "vidrioRepartido": 164164
+        "vidrioRepartido": 166380
       },
       {
         "medida": "150x150",
-        "vidrioEntero": 143140,
-        "ventanaConGuia": 176525,
+        "vidrioEntero": 145311,
+        "ventanaConGuia": 178695,
         "mosquitero": 58566,
-        "vidrioRepartido": 186082
+        "vidrioRepartido": 188904
       },
       {
         "medida": "180x150",
-        "vidrioEntero": 157127,
-        "ventanaConGuia": 190512,
+        "vidrioEntero": 159763,
+        "ventanaConGuia": 193148,
         "mosquitero": 65145,
-        "vidrioRepartido": 204266
+        "vidrioRepartido": 207691
       },
       {
         "medida": "200x150",
-        "vidrioEntero": 173221,
-        "ventanaConGuia": 206606,
+        "vidrioEntero": 176167,
+        "ventanaConGuia": 209552,
         "mosquitero": 69531,
-        "vidrioRepartido": 225188
+        "vidrioRepartido": 229017
       },
       {
         "medida": "220x150",
-        "vidrioEntero": 182977,
-        "ventanaConGuia": 216362,
+        "vidrioEntero": 186232,
+        "ventanaConGuia": 219617,
         "mosquitero": 73916,
-        "vidrioRepartido": 237869
+        "vidrioRepartido": 242102
       },
       {
         "medida": "240x150",
-        "vidrioEntero": 193748,
-        "ventanaConGuia": 227133,
+        "vidrioEntero": 197315,
+        "ventanaConGuia": 230700,
         "mosquitero": 78303,
-        "vidrioRepartido": 251872
+        "vidrioRepartido": 256509
       },
       {
         "medida": "100x200",
-        "vidrioEntero": 151076,
-        "ventanaConGuia": 195591,
+        "vidrioEntero": 152970,
+        "ventanaConGuia": 197484,
         "mosquitero": 60616,
-        "vidrioRepartido": 196399
+        "vidrioRepartido": 198861
       },
       {
         "medida": "120x200",
-        "vidrioEntero": 167557,
-        "ventanaConGuia": 212072,
+        "vidrioEntero": 169871,
+        "ventanaConGuia": 214386,
         "mosquitero": 65893,
-        "vidrioRepartido": 217825
+        "vidrioRepartido": 220832
       },
       {
         "medida": "150x200",
-        "vidrioEntero": 194995,
-        "ventanaConGuia": 239510,
+        "vidrioEntero": 198096,
+        "ventanaConGuia": 242610,
         "mosquitero": 73809,
-        "vidrioRepartido": 253494
+        "vidrioRepartido": 257525
       },
       {
         "medida": "180x200",
-        "vidrioEntero": 218018,
-        "ventanaConGuia": 262533,
+        "vidrioEntero": 221784,
+        "ventanaConGuia": 266298,
         "mosquitero": 81725,
-        "vidrioRepartido": 283424
+        "vidrioRepartido": 288319
       },
       {
         "medida": "200x200",
-        "vidrioEntero": 236135,
-        "ventanaConGuia": 280650,
+        "vidrioEntero": 240345,
+        "ventanaConGuia": 284859,
         "mosquitero": 87002,
-        "vidrioRepartido": 306976
+        "vidrioRepartido": 312449
       },
       {
         "medida": "220x200",
-        "vidrioEntero": 254163,
-        "ventanaConGuia": 298677,
+        "vidrioEntero": 258814,
+        "ventanaConGuia": 303328,
         "mosquitero": 92280,
-        "vidrioRepartido": 330412
+        "vidrioRepartido": 336458
       },
       {
         "medida": "240x200",
-        "vidrioEntero": 269345,
-        "ventanaConGuia": 313860,
+        "vidrioEntero": 274440,
+        "ventanaConGuia": 318955,
         "mosquitero": 97557,
-        "vidrioRepartido": 350149
+        "vidrioRepartido": 356772
       },
       {
         "medida": "240x205",
-        "vidrioEntero": 282813,
-        "ventanaConGuia": 329553,
+        "vidrioEntero": 288162,
+        "ventanaConGuia": 334902,
         "mosquitero": 102435,
-        "vidrioRepartido": 367656
+        "vidrioRepartido": 374610
       }
     ]
   },
@@ -683,624 +683,624 @@
     "filas": [
       {
         "medida": "40x40",
-        "3mm": 43091,
-        "4mm": 43773,
-        "5mm": 45009,
-        "esmerilado": 50995,
-        "fantasia": 44164,
-        "3+3": 56506
+        "3mm": 43256,
+        "4mm": 43971,
+        "5mm": 45272,
+        "esmerilado": 51563,
+        "fantasia": 44383,
+        "3+3": 57356
       },
       {
         "medida": "50x40",
-        "3mm": 46909,
-        "4mm": 47818,
-        "5mm": 49473,
-        "esmerilado": 57452,
-        "fantasia": 48349,
-        "3+3": 64812
+        "3mm": 47129,
+        "4mm": 48084,
+        "5mm": 49823,
+        "esmerilado": 58210,
+        "fantasia": 48642,
+        "3+3": 65946
       },
       {
         "medida": "60x40",
-        "3mm": 50737,
-        "4mm": 51873,
-        "5mm": 53942,
-        "esmerilado": 63916,
-        "fantasia": 52541,
-        "3+3": 73126
+        "3mm": 51011,
+        "4mm": 52205,
+        "5mm": 54380,
+        "esmerilado": 64864,
+        "fantasia": 52908,
+        "3+3": 74543
       },
       {
         "medida": "70x40",
-        "3mm": 54555,
-        "4mm": 55918,
-        "5mm": 58406,
-        "esmerilado": 70374,
-        "fantasia": 56727,
-        "3+3": 81432
+        "3mm": 54884,
+        "4mm": 56317,
+        "5mm": 58932,
+        "esmerilado": 71511,
+        "fantasia": 57166,
+        "3+3": 83133
       },
       {
         "medida": "80x40",
-        "3mm": 58374,
-        "4mm": 59965,
-        "5mm": 62868,
-        "esmerilado": 76832,
-        "fantasia": 60911,
-        "3+3": 89737
+        "3mm": 58758,
+        "4mm": 60430,
+        "5mm": 63482,
+        "esmerilado": 78159,
+        "fantasia": 61425,
+        "3+3": 91723
       },
       {
         "medida": "90x40",
-        "3mm": 62192,
-        "4mm": 64010,
-        "5mm": 67332,
-        "esmerilado": 83289,
-        "fantasia": 65097,
-        "3+3": 98044
+        "3mm": 62631,
+        "4mm": 64542,
+        "5mm": 68032,
+        "esmerilado": 84806,
+        "fantasia": 65683,
+        "3+3": 100314
       },
       {
         "medida": "100x40",
-        "3mm": 66012,
-        "4mm": 68057,
-        "5mm": 71794,
-        "esmerilado": 89747,
-        "fantasia": 69281,
-        "3+3": 106350
+        "3mm": 66506,
+        "4mm": 68655,
+        "5mm": 72583,
+        "esmerilado": 91454,
+        "fantasia": 69942,
+        "3+3": 108903
       },
       {
         "medida": "40x50",
-        "3mm": 46909,
-        "4mm": 47818,
-        "5mm": 49473,
-        "esmerilado": 57452,
-        "fantasia": 48349,
-        "3+3": 64812
+        "3mm": 47129,
+        "4mm": 48084,
+        "5mm": 49823,
+        "esmerilado": 58210,
+        "fantasia": 48642,
+        "3+3": 65946
       },
       {
         "medida": "50x50",
-        "3mm": 51102,
-        "4mm": 52302,
-        "5mm": 54524,
-        "esmerilado": 65142,
-        "fantasia": 53009,
-        "3+3": 74959
+        "3mm": 51395,
+        "4mm": 52655,
+        "5mm": 54992,
+        "esmerilado": 66151,
+        "fantasia": 53399,
+        "3+3": 76471
       },
       {
         "medida": "60x50",
-        "3mm": 55274,
-        "4mm": 56776,
-        "5mm": 59567,
-        "esmerilado": 72823,
-        "fantasia": 57661,
-        "3+3": 85098
+        "3mm": 55640,
+        "4mm": 57219,
+        "5mm": 60152,
+        "esmerilado": 74086,
+        "fantasia": 58148,
+        "3+3": 86986
       },
       {
         "medida": "70x50",
-        "3mm": 59447,
-        "4mm": 61252,
-        "5mm": 64611,
-        "esmerilado": 80506,
-        "fantasia": 62313,
-        "3+3": 95237
+        "3mm": 59886,
+        "4mm": 61783,
+        "5mm": 65313,
+        "esmerilado": 82021,
+        "fantasia": 62898,
+        "3+3": 97503
       },
       {
         "medida": "80x50",
-        "3mm": 63632,
-        "4mm": 65728,
-        "5mm": 69655,
-        "esmerilado": 88188,
-        "fantasia": 66965,
-        "3+3": 105376
+        "3mm": 64144,
+        "4mm": 66347,
+        "5mm": 70474,
+        "esmerilado": 89954,
+        "fantasia": 67648,
+        "3+3": 108020
       },
       {
         "medida": "90x50",
-        "3mm": 67804,
-        "4mm": 70203,
-        "5mm": 74698,
-        "esmerilado": 95870,
-        "fantasia": 71618,
-        "3+3": 115515
+        "3mm": 68390,
+        "4mm": 70911,
+        "5mm": 75635,
+        "esmerilado": 97889,
+        "fantasia": 72397,
+        "3+3": 118537
       },
       {
         "medida": "100x50",
-        "3mm": 71977,
-        "4mm": 74679,
-        "5mm": 79741,
-        "esmerilado": 103553,
-        "fantasia": 76270,
-        "3+3": 125655
+        "3mm": 72635,
+        "4mm": 75475,
+        "5mm": 80797,
+        "esmerilado": 105824,
+        "fantasia": 77147,
+        "3+3": 129054
       },
       {
         "medida": "40x60",
-        "3mm": 50737,
-        "4mm": 51873,
-        "5mm": 53942,
-        "esmerilado": 63916,
-        "fantasia": 52541,
-        "3+3": 73126
+        "3mm": 51011,
+        "4mm": 52205,
+        "5mm": 54380,
+        "esmerilado": 64864,
+        "fantasia": 52908,
+        "3+3": 74543
       },
       {
         "medida": "50x60",
-        "3mm": 55274,
-        "4mm": 56776,
-        "5mm": 59567,
-        "esmerilado": 72823,
-        "fantasia": 57661,
-        "3+3": 85098
+        "3mm": 55640,
+        "4mm": 57219,
+        "5mm": 60152,
+        "esmerilado": 74086,
+        "fantasia": 58148,
+        "3+3": 86986
       },
       {
         "medida": "60x60",
-        "3mm": 59800,
-        "4mm": 61681,
-        "5mm": 65191,
-        "esmerilado": 81730,
-        "fantasia": 62780,
-        "3+3": 97070
+        "3mm": 60258,
+        "4mm": 62234,
+        "5mm": 65924,
+        "esmerilado": 83308,
+        "fantasia": 63389,
+        "3+3": 99431
       },
       {
         "medida": "70x60",
-        "3mm": 64339,
-        "4mm": 66586,
-        "5mm": 70815,
-        "esmerilado": 90764,
-        "fantasia": 67900,
-        "3+3": 109042
+        "3mm": 64887,
+        "4mm": 67250,
+        "5mm": 71695,
+        "esmerilado": 92662,
+        "fantasia": 68629,
+        "3+3": 111875
       },
       {
         "medida": "80x60",
-        "3mm": 68878,
-        "4mm": 71491,
-        "5mm": 76440,
-        "esmerilado": 99796,
-        "fantasia": 73019,
-        "3+3": 121015
+        "3mm": 69517,
+        "4mm": 72264,
+        "5mm": 77467,
+        "esmerilado": 102016,
+        "fantasia": 73870,
+        "3+3": 124318
       },
       {
         "medida": "90x60",
-        "3mm": 73416,
-        "4mm": 76396,
-        "5mm": 82064,
-        "esmerilado": 108830,
-        "fantasia": 78138,
-        "3+3": 132987
+        "3mm": 74148,
+        "4mm": 77279,
+        "5mm": 83237,
+        "esmerilado": 111370,
+        "fantasia": 79111,
+        "3+3": 136762
       },
       {
         "medida": "100x60",
-        "3mm": 77955,
-        "4mm": 81300,
-        "5mm": 87688,
-        "esmerilado": 117864,
-        "fantasia": 83257,
-        "3+3": 144960
+        "3mm": 78778,
+        "4mm": 82295,
+        "5mm": 89009,
+        "esmerilado": 120725,
+        "fantasia": 84351,
+        "3+3": 149205
       },
       {
         "medida": "40x70",
-        "3mm": 54555,
-        "4mm": 55918,
-        "5mm": 58406,
-        "esmerilado": 70374,
-        "fantasia": 56727,
-        "3+3": 81432
+        "3mm": 54884,
+        "4mm": 56317,
+        "5mm": 58932,
+        "esmerilado": 71511,
+        "fantasia": 57166,
+        "3+3": 83133
       },
       {
         "medida": "50x70",
-        "3mm": 59447,
-        "4mm": 61252,
-        "5mm": 64611,
-        "esmerilado": 80506,
-        "fantasia": 62313,
-        "3+3": 95237
+        "3mm": 59886,
+        "4mm": 61783,
+        "5mm": 65313,
+        "esmerilado": 82021,
+        "fantasia": 62898,
+        "3+3": 97503
       },
       {
         "medida": "60x70",
-        "3mm": 64339,
-        "4mm": 66586,
-        "5mm": 70815,
-        "esmerilado": 90764,
-        "fantasia": 67900,
-        "3+3": 109042
+        "3mm": 64887,
+        "4mm": 67250,
+        "5mm": 71695,
+        "esmerilado": 92662,
+        "fantasia": 68629,
+        "3+3": 111875
       },
       {
         "medida": "70x70",
-        "3mm": 69244,
-        "4mm": 71920,
-        "5mm": 77021,
-        "esmerilado": 101022,
-        "fantasia": 73486,
-        "3+3": 122848
+        "3mm": 69903,
+        "4mm": 72715,
+        "5mm": 78077,
+        "esmerilado": 103304,
+        "fantasia": 74361,
+        "3+3": 126245
       },
       {
         "medida": "80x70",
-        "3mm": 74135,
-        "4mm": 77255,
-        "5mm": 83226,
-        "esmerilado": 111279,
-        "fantasia": 79073,
-        "3+3": 136654
+        "3mm": 74904,
+        "4mm": 78182,
+        "5mm": 84459,
+        "esmerilado": 113945,
+        "fantasia": 80092,
+        "3+3": 140615
       },
       {
         "medida": "90x70",
-        "3mm": 79028,
-        "4mm": 82589,
-        "5mm": 89431,
-        "esmerilado": 121537,
-        "fantasia": 84659,
-        "3+3": 150459
+        "3mm": 79906,
+        "4mm": 83648,
+        "5mm": 90841,
+        "esmerilado": 124587,
+        "fantasia": 85824,
+        "3+3": 154985
       },
       {
         "medida": "100x70",
-        "3mm": 83921,
-        "4mm": 87923,
-        "5mm": 95637,
-        "esmerilado": 131795,
-        "fantasia": 90246,
-        "3+3": 164264
+        "3mm": 84908,
+        "4mm": 89115,
+        "5mm": 97222,
+        "esmerilado": 135228,
+        "fantasia": 91555,
+        "3+3": 169356
       },
       {
         "medida": "40x80",
-        "3mm": 58374,
-        "4mm": 59965,
-        "5mm": 62868,
-        "esmerilado": 76832,
-        "fantasia": 60911,
-        "3+3": 89737
+        "3mm": 58758,
+        "4mm": 60430,
+        "5mm": 63482,
+        "esmerilado": 78159,
+        "fantasia": 61425,
+        "3+3": 91723
       },
       {
         "medida": "50x80",
-        "3mm": 63632,
-        "4mm": 65728,
-        "5mm": 69655,
-        "esmerilado": 88188,
-        "fantasia": 66965,
-        "3+3": 105376
+        "3mm": 64144,
+        "4mm": 66347,
+        "5mm": 70474,
+        "esmerilado": 89954,
+        "fantasia": 67648,
+        "3+3": 108020
       },
       {
         "medida": "70x80",
-        "3mm": 74135,
-        "4mm": 77255,
-        "5mm": 83226,
-        "esmerilado": 111279,
-        "fantasia": 79073,
-        "3+3": 136654
+        "3mm": 74904,
+        "4mm": 78182,
+        "5mm": 84459,
+        "esmerilado": 113945,
+        "fantasia": 80092,
+        "3+3": 140615
       },
       {
         "medida": "80x80",
-        "3mm": 79381,
-        "4mm": 83018,
-        "5mm": 90012,
-        "esmerilado": 122762,
-        "fantasia": 85126,
-        "3+3": 152293
+        "3mm": 80277,
+        "4mm": 84099,
+        "5mm": 91451,
+        "esmerilado": 125874,
+        "fantasia": 86315,
+        "3+3": 156913
       },
       {
         "medida": "90x80",
-        "3mm": 84628,
-        "4mm": 88781,
-        "5mm": 96798,
-        "esmerilado": 134244,
-        "fantasia": 91180,
-        "3+3": 167931
+        "3mm": 85651,
+        "4mm": 90016,
+        "5mm": 98443,
+        "esmerilado": 137802,
+        "fantasia": 92538,
+        "3+3": 173210
       },
       {
         "medida": "100x80",
-        "3mm": 89872,
-        "4mm": 94544,
-        "5mm": 103584,
-        "esmerilado": 145727,
-        "fantasia": 97233,
-        "3+3": 183569
+        "3mm": 91024,
+        "4mm": 95934,
+        "5mm": 105436,
+        "esmerilado": 149731,
+        "fantasia": 98761,
+        "3+3": 189506
       },
       {
         "medida": "40x90",
-        "3mm": 62192,
-        "4mm": 64010,
-        "5mm": 67332,
-        "esmerilado": 83289,
-        "fantasia": 65097,
-        "3+3": 98044
+        "3mm": 62631,
+        "4mm": 64542,
+        "5mm": 68032,
+        "esmerilado": 84806,
+        "fantasia": 65683,
+        "3+3": 100314
       },
       {
         "medida": "50x90",
-        "3mm": 67804,
-        "4mm": 70203,
-        "5mm": 74698,
-        "esmerilado": 95870,
-        "fantasia": 71618,
-        "3+3": 115515
+        "3mm": 68390,
+        "4mm": 70911,
+        "5mm": 75635,
+        "esmerilado": 97889,
+        "fantasia": 72397,
+        "3+3": 118537
       },
       {
         "medida": "60x90",
-        "3mm": 73416,
-        "4mm": 76396,
-        "5mm": 82064,
-        "esmerilado": 108830,
-        "fantasia": 78138,
-        "3+3": 132987
+        "3mm": 74148,
+        "4mm": 77279,
+        "5mm": 83237,
+        "esmerilado": 111370,
+        "fantasia": 79111,
+        "3+3": 136762
       },
       {
         "medida": "70x90",
-        "3mm": 79028,
-        "4mm": 82589,
-        "5mm": 89431,
-        "esmerilado": 121537,
-        "fantasia": 84659,
-        "3+3": 150459
+        "3mm": 79906,
+        "4mm": 83648,
+        "5mm": 90841,
+        "esmerilado": 124587,
+        "fantasia": 85824,
+        "3+3": 154985
       },
       {
         "medida": "80x90",
-        "3mm": 84628,
-        "4mm": 88781,
-        "5mm": 96798,
-        "esmerilado": 134244,
-        "fantasia": 91180,
-        "3+3": 167931
+        "3mm": 85651,
+        "4mm": 90016,
+        "5mm": 98443,
+        "esmerilado": 137802,
+        "fantasia": 92538,
+        "3+3": 173210
       },
       {
         "medida": "90x90",
-        "3mm": 90239,
-        "4mm": 94973,
-        "5mm": 104164,
-        "esmerilado": 146951,
-        "fantasia": 97700,
-        "3+3": 185402
+        "3mm": 91409,
+        "4mm": 96385,
+        "5mm": 106046,
+        "esmerilado": 151018,
+        "fantasia": 99252,
+        "3+3": 191434
       },
       {
         "medida": "100x90",
-        "3mm": 95858,
-        "4mm": 101173,
-        "5mm": 111526,
-        "esmerilado": 159666,
-        "fantasia": 104229,
-        "3+3": 202882
+        "3mm": 97175,
+        "4mm": 102760,
+        "5mm": 113642,
+        "esmerilado": 164242,
+        "fantasia": 105973,
+        "3+3": 209666
       },
       {
         "medida": "40x100",
-        "3mm": 66012,
-        "4mm": 68057,
-        "5mm": 71794,
-        "esmerilado": 89747,
-        "fantasia": 69281,
-        "3+3": 106350
+        "3mm": 66506,
+        "4mm": 68655,
+        "5mm": 72583,
+        "esmerilado": 91454,
+        "fantasia": 69942,
+        "3+3": 108903
       },
       {
         "medida": "50x100",
-        "3mm": 71977,
-        "4mm": 74679,
-        "5mm": 79741,
-        "esmerilado": 103553,
-        "fantasia": 76270,
-        "3+3": 125655
+        "3mm": 72635,
+        "4mm": 75475,
+        "5mm": 80797,
+        "esmerilado": 105824,
+        "fantasia": 77147,
+        "3+3": 129054
       },
       {
         "medida": "60x100",
-        "3mm": 77955,
-        "4mm": 81300,
-        "5mm": 87688,
-        "esmerilado": 117864,
-        "fantasia": 83257,
-        "3+3": 144960
+        "3mm": 78778,
+        "4mm": 82295,
+        "5mm": 89009,
+        "esmerilado": 120725,
+        "fantasia": 84351,
+        "3+3": 149205
       },
       {
         "medida": "70x100",
-        "3mm": 83921,
-        "4mm": 87923,
-        "5mm": 95637,
-        "esmerilado": 131795,
-        "fantasia": 90246,
-        "3+3": 164264
+        "3mm": 84908,
+        "4mm": 89115,
+        "5mm": 97222,
+        "esmerilado": 135228,
+        "fantasia": 91555,
+        "3+3": 169356
       },
       {
         "medida": "80x100",
-        "3mm": 89872,
-        "4mm": 94544,
-        "5mm": 103584,
-        "esmerilado": 145727,
-        "fantasia": 97233,
-        "3+3": 183569
+        "3mm": 91024,
+        "4mm": 95934,
+        "5mm": 105436,
+        "esmerilado": 149731,
+        "fantasia": 98761,
+        "3+3": 189506
       },
       {
         "medida": "90x100",
-        "3mm": 95858,
-        "4mm": 101173,
-        "5mm": 111526,
-        "esmerilado": 159666,
-        "fantasia": 104229,
-        "3+3": 202882
+        "3mm": 97175,
+        "4mm": 102760,
+        "5mm": 113642,
+        "esmerilado": 164242,
+        "fantasia": 105973,
+        "3+3": 209666
       },
       {
         "medida": "100x100",
-        "3mm": 101835,
-        "4mm": 107138,
-        "5mm": 119461,
-        "esmerilado": 172929,
-        "fantasia": 111216,
-        "3+3": 222187
+        "3mm": 103317,
+        "4mm": 108891,
+        "5mm": 121842,
+        "esmerilado": 178042,
+        "fantasia": 113177,
+        "3+3": 229817
       },
       {
         "medida": "40x110",
-        "3mm": 69831,
-        "4mm": 72103,
-        "5mm": 76270,
-        "esmerilado": 96166,
-        "fantasia": 73416,
-        "3+3": 114565
+        "3mm": 70379,
+        "4mm": 72767,
+        "5mm": 77147,
+        "esmerilado": 98060,
+        "fantasia": 74148,
+        "3+3": 117397
       },
       {
         "medida": "50x110",
-        "3mm": 76162,
-        "4mm": 79179,
-        "5mm": 84734,
-        "esmerilado": 111273,
-        "fantasia": 80934,
-        "3+3": 135809
+        "3mm": 76894,
+        "4mm": 80065,
+        "5mm": 85904,
+        "esmerilado": 113798,
+        "fantasia": 81909,
+        "3+3": 139587
       },
       {
         "medida": "60x110",
-        "3mm": 82493,
-        "4mm": 86268,
-        "5mm": 93200,
-        "esmerilado": 126379,
-        "fantasia": 88452,
-        "3+3": 157053
+        "3mm": 83408,
+        "4mm": 87376,
+        "5mm": 94661,
+        "esmerilado": 129535,
+        "fantasia": 89671,
+        "3+3": 161777
       },
       {
         "medida": "70x110",
-        "3mm": 88824,
-        "4mm": 93345,
-        "5mm": 101664,
-        "esmerilado": 141484,
-        "fantasia": 95970,
-        "3+3": 178297
+        "3mm": 89922,
+        "4mm": 94673,
+        "5mm": 103418,
+        "esmerilado": 145272,
+        "fantasia": 97434,
+        "3+3": 183965
       },
       {
         "medida": "80x110",
-        "3mm": 95163,
-        "4mm": 100429,
-        "5mm": 110137,
-        "esmerilado": 156598,
-        "fantasia": 103496,
-        "3+3": 199549
+        "3mm": 96444,
+        "4mm": 101978,
+        "5mm": 112182,
+        "esmerilado": 161016,
+        "fantasia": 105202,
+        "3+3": 206162
       },
       {
         "medida": "90x110",
-        "3mm": 101495,
-        "4mm": 107504,
-        "5mm": 118603,
-        "esmerilado": 171704,
-        "fantasia": 111014,
-        "3+3": 220793
+        "3mm": 102959,
+        "4mm": 109275,
+        "5mm": 120941,
+        "esmerilado": 176755,
+        "fantasia": 112965,
+        "3+3": 228351
       },
       {
         "medida": "100x110",
-        "3mm": 107827,
-        "4mm": 114581,
-        "5mm": 127067,
-        "esmerilado": 186810,
-        "fantasia": 118532,
-        "3+3": 242037
+        "3mm": 109474,
+        "4mm": 116573,
+        "5mm": 129698,
+        "esmerilado": 192491,
+        "fantasia": 120726,
+        "3+3": 250540
       },
       {
         "medida": "40x120",
-        "3mm": 73662,
-        "4mm": 76150,
-        "5mm": 80732,
-        "esmerilado": 102624,
-        "fantasia": 77588,
-        "3+3": 122855
+        "3mm": 74266,
+        "4mm": 76880,
+        "5mm": 81697,
+        "esmerilado": 104708,
+        "fantasia": 78393,
+        "3+3": 125972
       },
       {
         "medida": "50x120",
-        "3mm": 80348,
-        "4mm": 83668,
-        "5mm": 89778,
-        "esmerilado": 118967,
-        "fantasia": 85586,
-        "3+3": 145948
+        "3mm": 81152,
+        "4mm": 84642,
+        "5mm": 91065,
+        "esmerilado": 121745,
+        "fantasia": 86659,
+        "3+3": 150104
       },
       {
         "medida": "60x120",
-        "3mm": 87032,
-        "4mm": 91186,
-        "5mm": 98824,
-        "esmerilado": 135311,
-        "fantasia": 93584,
-        "3+3": 169041
+        "3mm": 88038,
+        "4mm": 92404,
+        "5mm": 100433,
+        "esmerilado": 138783,
+        "fantasia": 94925,
+        "3+3": 174236
       },
       {
         "medida": "70x120",
-        "3mm": 93724,
-        "4mm": 98711,
-        "5mm": 107878,
-        "esmerilado": 151662,
-        "fantasia": 101590,
-        "3+3": 192140
+        "3mm": 94931,
+        "4mm": 100173,
+        "5mm": 109807,
+        "esmerilado": 155829,
+        "fantasia": 103200,
+        "3+3": 198375
       },
       {
         "medida": "80x120",
-        "3mm": 100409,
-        "4mm": 106229,
-        "5mm": 116924,
-        "esmerilado": 168005,
-        "fantasia": 109588,
-        "3+3": 215233
+        "3mm": 101818,
+        "4mm": 107936,
+        "5mm": 119175,
+        "esmerilado": 172867,
+        "fantasia": 111465,
+        "3+3": 222507
       },
       {
         "medida": "90x120",
-        "3mm": 107094,
-        "4mm": 113747,
-        "5mm": 125968,
-        "esmerilado": 184348,
-        "fantasia": 117586,
-        "3+3": 238326
+        "3mm": 108704,
+        "4mm": 115697,
+        "5mm": 128543,
+        "esmerilado": 189904,
+        "fantasia": 119731,
+        "3+3": 246639
       },
       {
         "medida": "100x120",
-        "3mm": 113780,
-        "4mm": 121267,
-        "5mm": 135016,
-        "esmerilado": 200693,
-        "fantasia": 125585,
-        "3+3": 261419
+        "3mm": 115592,
+        "4mm": 123461,
+        "5mm": 137911,
+        "esmerilado": 206942,
+        "fantasia": 127999,
+        "3+3": 270772
       },
       {
         "medida": "40x150",
-        "3mm": 85126,
-        "4mm": 88296,
-        "5mm": 94129,
-        "esmerilado": 121992,
-        "fantasia": 90139,
-        "3+3": 147750
+        "3mm": 85895,
+        "4mm": 89225,
+        "5mm": 95356,
+        "esmerilado": 124644,
+        "fantasia": 91163,
+        "3+3": 151717
       },
       {
         "medida": "50x150",
-        "3mm": 92885,
-        "4mm": 97114,
-        "5mm": 104891,
-        "esmerilado": 142035,
-        "fantasia": 99563,
-        "3+3": 176373
+        "3mm": 93909,
+        "4mm": 98354,
+        "5mm": 106528,
+        "esmerilado": 145570,
+        "fantasia": 100929,
+        "3+3": 181662
       },
       {
         "medida": "60x150",
-        "3mm": 100642,
-        "4mm": 105933,
-        "5mm": 115654,
-        "esmerilado": 162077,
-        "fantasia": 108988,
-        "3+3": 204995
+        "3mm": 101923,
+        "4mm": 107483,
+        "5mm": 117701,
+        "esmerilado": 166496,
+        "fantasia": 110694,
+        "3+3": 211605
       },
       {
         "medida": "70x150",
-        "3mm": 108402,
-        "4mm": 114752,
-        "5mm": 126419,
-        "esmerilado": 182121,
-        "fantasia": 118414,
-        "3+3": 233619
+        "3mm": 109938,
+        "4mm": 116614,
+        "5mm": 128874,
+        "esmerilado": 187423,
+        "fantasia": 120462,
+        "3+3": 241551
       },
       {
         "medida": "80x150",
-        "3mm": 116160,
-        "4mm": 123571,
-        "5mm": 137181,
-        "esmerilado": 202163,
-        "fantasia": 127839,
-        "3+3": 252697
+        "3mm": 117952,
+        "4mm": 125741,
+        "5mm": 140047,
+        "esmerilado": 208349,
+        "fantasia": 130227,
+        "3+3": 261464
       },
       {
         "medida": "90x150",
-        "3mm": 123918,
-        "4mm": 132389,
-        "5mm": 147943,
-        "esmerilado": 222205,
-        "fantasia": 137263,
-        "3+3": 271775
+        "3mm": 125966,
+        "4mm": 134871,
+        "5mm": 151219,
+        "esmerilado": 229275,
+        "fantasia": 139993,
+        "3+3": 281375
       },
       {
         "medida": "100x150",
-        "3mm": 131676,
-        "4mm": 141208,
-        "5mm": 158707,
-        "esmerilado": 242248,
-        "fantasia": 146687,
-        "3+3": 300398
+        "3mm": 133980,
+        "4mm": 144000,
+        "5mm": 162392,
+        "esmerilado": 250200,
+        "fantasia": 149758,
+        "3+3": 311320
       }
     ]
   },
@@ -1355,64 +1355,64 @@
       {
         "modelo": "MODELO 1",
         "3mm": "-",
-        "4mm": 188936,
-        "5mm": 199541,
-        "fantasia": 192303,
-        "esmerilado": 250819,
-        "3+3": 298147
+        "4mm": 190684,
+        "5mm": 201843,
+        "fantasia": 194226,
+        "esmerilado": 255800,
+        "3+3": 305600
       },
       {
         "modelo": "MODELO 1 VR",
         "3mm": "-",
-        "4mm": 239521,
+        "4mm": 241270,
         "5mm": "-",
-        "fantasia": 242888,
-        "esmerilado": 301405,
+        "fantasia": 244812,
+        "esmerilado": 306385,
         "3+3": "-"
       },
       {
         "modelo": "MODELO 2",
-        "3mm": 190028,
-        "4mm": 195583,
-        "5mm": 205615,
-        "fantasia": 198762,
-        "esmerilado": 254201,
+        "3mm": 191395,
+        "4mm": 197240,
+        "5mm": 207796,
+        "fantasia": 200585,
+        "esmerilado": 258922,
         "3+3": 266860
       },
       {
         "modelo": "MODELO 3",
-        "3mm": 229882,
-        "4mm": 232659,
-        "5mm": 237674,
-        "fantasia": 234248,
-        "esmerilado": 261969,
+        "3mm": 230566,
+        "4mm": 233487,
+        "5mm": 238766,
+        "fantasia": 235159,
+        "esmerilado": 264328,
         "3+3": 268297
       },
       {
         "modelo": "MODELO 3 VR",
-        "3mm": 261226,
+        "3mm": 261909,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 265591,
-        "esmerilado": 293312,
+        "fantasia": 266503,
+        "esmerilado": 295671,
         "3+3": "-"
       },
       {
         "modelo": "MODELO 4",
-        "3mm": 250579,
-        "4mm": 252074,
-        "5mm": 254869,
-        "fantasia": 252962,
-        "esmerilado": 268361,
+        "3mm": 250961,
+        "4mm": 252534,
+        "5mm": 255474,
+        "fantasia": 253470,
+        "esmerilado": 269672,
         "3+3": 271877
       },
       {
         "modelo": "MODELO 4 VR",
-        "3mm": 271400,
+        "3mm": 271782,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 273784,
-        "esmerilado": 289182,
+        "fantasia": 274291,
+        "esmerilado": 290493,
         "3+3": "-"
       },
       {
@@ -1426,74 +1426,74 @@
       },
       {
         "modelo": "MODELO 6",
-        "3mm": 254954,
-        "4mm": 257731,
-        "5mm": 262746,
-        "fantasia": 259320,
-        "esmerilado": 287041,
+        "3mm": 255637,
+        "4mm": 258559,
+        "5mm": 263838,
+        "fantasia": 260231,
+        "esmerilado": 289399,
         "3+3": 293369
       },
       {
         "modelo": "MODELO 7",
-        "3mm": 263113,
-        "4mm": 264609,
-        "5mm": 267403,
-        "fantasia": 265497,
-        "esmerilado": 280895,
+        "3mm": 263495,
+        "4mm": 265069,
+        "5mm": 268008,
+        "fantasia": 266004,
+        "esmerilado": 282206,
         "3+3": 284411
       },
       {
         "modelo": "MODELO 8",
-        "3mm": 212605,
-        "4mm": 218586,
-        "5mm": 229763,
-        "fantasia": 222141,
-        "esmerilado": 283733,
+        "3mm": 214132,
+        "4mm": 220426,
+        "5mm": 232187,
+        "fantasia": 224166,
+        "esmerilado": 288977,
         "3+3": 297798
       },
       {
         "modelo": "MODELO 9",
-        "3mm": 256654,
-        "4mm": 258602,
-        "5mm": 262140,
-        "fantasia": 259756,
-        "esmerilado": 279238,
+        "3mm": 257134,
+        "4mm": 259184,
+        "5mm": 262908,
+        "fantasia": 260399,
+        "esmerilado": 280899,
         "3+3": 283688
       },
       {
         "modelo": "MODELO 10",
-        "3mm": 267856,
-        "4mm": 269812,
-        "5mm": 272043,
-        "fantasia": 270521,
-        "esmerilado": 282844,
+        "3mm": 268121,
+        "4mm": 270180,
+        "5mm": 272527,
+        "fantasia": 270927,
+        "esmerilado": 283892,
         "3+3": 285648
       },
       {
         "modelo": "MODELO 10 VR",
-        "3mm": 288396,
+        "3mm": 288662,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 291061,
-        "esmerilado": 303384,
+        "fantasia": 291467,
+        "esmerilado": 304432,
         "3+3": "-"
       },
       {
         "modelo": "MODELO 11",
-        "3mm": 249688,
-        "4mm": 255747,
-        "5mm": 264120,
-        "fantasia": 258413,
-        "esmerilado": 304615,
+        "3mm": 250751,
+        "4mm": 257127,
+        "5mm": 265939,
+        "fantasia": 259932,
+        "esmerilado": 308548,
         "3+3": 315163
       },
       {
         "modelo": "MODELO 12",
-        "3mm": 210690,
-        "4mm": 216749,
-        "5mm": 225122,
-        "fantasia": 219415,
-        "esmerilado": 265617,
+        "3mm": 211753,
+        "4mm": 218129,
+        "5mm": 226940,
+        "fantasia": 220934,
+        "esmerilado": 269550,
         "3+3": 276165
       },
       {
@@ -1529,59 +1529,59 @@
     "filas": [
       {
         "modelo": "V/ENTERO",
-        "4mm": 149825,
-        "3+3": 223012,
-        "fantasia": 152076,
-        "esmerilado": 191148
+        "4mm": 150958,
+        "3+3": 227856,
+        "fantasia": 153322,
+        "esmerilado": 194378
       },
       {
         "modelo": "V/REPARTIDO",
-        "4mm": 168244,
+        "4mm": 169378,
         "3+3": "-",
-        "fantasia": 170495,
-        "esmerilado": 209568
+        "fantasia": 171742,
+        "esmerilado": 212797
       },
       {
         "modelo": "3/4 V ENTERO",
-        "4mm": 176258,
-        "3+3": 234044,
-        "fantasia": 178038,
-        "esmerilado": 208888
+        "4mm": 177153,
+        "3+3": 237870,
+        "fantasia": 179023,
+        "esmerilado": 211437
       },
       {
         "modelo": "3/4 V REPARTIDO",
-        "4mm": 194816,
+        "4mm": 195710,
         "3+3": "-",
-        "fantasia": 196595,
-        "esmerilado": 227445
+        "fantasia": 197580,
+        "esmerilado": 229994
       },
       {
         "modelo": "1/2 V ENTERO",
-        "4mm": 204190,
-        "3+3": 242708,
-        "fantasia": 205371,
-        "esmerilado": 225935
+        "4mm": 204787,
+        "3+3": 245258,
+        "fantasia": 206027,
+        "esmerilado": 227634
       },
       {
         "modelo": "1/2 V REPARTIDO",
-        "4mm": 214258,
+        "4mm": 214855,
         "3+3": "-",
-        "fantasia": 215439,
-        "esmerilado": 236003
+        "fantasia": 216095,
+        "esmerilado": 237702
       },
       {
         "modelo": "4 TRAVEZAÑOS",
-        "4mm": 182648,
-        "3+3": 278952,
-        "fantasia": 185608,
-        "esmerilado": 237021
+        "4mm": 184139,
+        "3+3": 285328,
+        "fantasia": 187249,
+        "esmerilado": 241270
       },
       {
         "modelo": "1 TRAVESAÑO",
-        "4mm": 166807,
-        "3+3": 223236,
-        "fantasia": 166187,
-        "esmerilado": 203393
+        "4mm": 181069,
+        "3+3": 236878,
+        "fantasia": 179829,
+        "esmerilado": 218275
       }
     ]
   },
@@ -1639,543 +1639,543 @@
     "filas": [
       {
         "medida": "60x0,40",
-        "3mm": 104834,
-        "4mm": 105559,
-        "5mm": 106888,
-        "3+3": 118664,
+        "3mm": 108088,
+        "4mm": 108851,
+        "5mm": 110247,
+        "3+3": 122615,
         "guia": 9200,
-        "mosquitero": 15615,
-        "dvh": 156043
+        "mosquitero": 16090,
+        "dvh": 159547
       },
       {
         "medida": "80x0,40",
-        "3mm": 115902,
-        "4mm": 116930,
-        "5mm": 118796,
-        "3+3": 135286,
+        "3mm": 119520,
+        "4mm": 120602,
+        "5mm": 122563,
+        "3+3": 139881,
         "guia": 9200,
-        "mosquitero": 18296,
-        "dvh": 175707
+        "mosquitero": 18853,
+        "dvh": 179673
       },
       {
         "medida": "100x0,40",
-        "3mm": 128486,
-        "4mm": 129815,
-        "5mm": 132204,
-        "3+3": 153404,
+        "3mm": 132511,
+        "4mm": 133912,
+        "5mm": 136420,
+        "3+3": 158688,
         "guia": 9200,
-        "mosquitero": 20978,
-        "dvh": 196889
+        "mosquitero": 21615,
+        "dvh": 201367
       },
       {
         "medida": "120x0,40",
-        "3mm": 141094,
-        "4mm": 142699,
-        "5mm": 145625,
-        "3+3": 171532,
+        "3mm": 145528,
+        "4mm": 147221,
+        "5mm": 150294,
+        "3+3": 177502,
         "guia": 9200,
-        "mosquitero": 23659,
-        "dvh": 218066
+        "mosquitero": 24378,
+        "dvh": 223052
       },
       {
         "medida": "150x0,40",
-        "3mm": 162226,
-        "4mm": 164281,
-        "5mm": 168006,
-        "3+3": 200983,
+        "3mm": 167343,
+        "4mm": 169509,
+        "5mm": 173421,
+        "3+3": 208058,
         "guia": 9200,
-        "mosquitero": 27681,
-        "dvh": 252076
+        "mosquitero": 28524,
+        "dvh": 257897
       },
       {
         "medida": "180x0,40",
-        "3mm": 184042,
-        "4mm": 186527,
-        "5mm": 191051,
-        "3+3": 231101,
+        "3mm": 189861,
+        "4mm": 192482,
+        "5mm": 197233,
+        "3+3": 239299,
         "guia": 9200,
-        "mosquitero": 31703,
-        "dvh": 286759
+        "mosquitero": 32667,
+        "dvh": 293433
       },
       {
         "medida": "200x0,40",
-        "3mm": 205067,
-        "4mm": 207854,
-        "5mm": 212900,
-        "3+3": 257672,
+        "3mm": 211553,
+        "4mm": 214490,
+        "5mm": 219789,
+        "3+3": 266814,
         "guia": 9200,
-        "mosquitero": 34385,
-        "dvh": 316387
+        "mosquitero": 35430,
+        "dvh": 323825
       },
       {
         "medida": "60x0,60",
-        "3mm": 120076,
-        "4mm": 121291,
-        "5mm": 123516,
-        "3+3": 143144,
+        "3mm": 123838,
+        "4mm": 125117,
+        "5mm": 127454,
+        "3+3": 148070,
         "guia": 13800,
-        "mosquitero": 20584,
-        "dvh": 187796
+        "mosquitero": 21210,
+        "dvh": 191972
       },
       {
         "medida": "80x0,60",
-        "3mm": 132114,
-        "4mm": 133826,
-        "5mm": 136931,
-        "3+3": 164410,
+        "3mm": 136285,
+        "4mm": 138088,
+        "5mm": 141350,
+        "3+3": 170212,
         "guia": 13800,
-        "mosquitero": 23659,
-        "dvh": 209747
+        "mosquitero": 24378,
+        "dvh": 214502
       },
       {
         "medida": "100x0,60",
-        "3mm": 145755,
-        "4mm": 147947,
-        "5mm": 151942,
-        "3+3": 187280,
+        "3mm": 150385,
+        "4mm": 152697,
+        "5mm": 156891,
+        "3+3": 194007,
         "guia": 13800,
-        "mosquitero": 26735,
-        "dvh": 233276
+        "mosquitero": 27547,
+        "dvh": 238660
       },
       {
         "medida": "120x0,60",
-        "3mm": 159275,
-        "4mm": 161965,
-        "5mm": 166839,
-        "3+3": 210028,
+        "3mm": 164360,
+        "4mm": 167196,
+        "5mm": 172315,
+        "3+3": 217677,
         "guia": 13800,
-        "mosquitero": 29811,
-        "dvh": 256709
+        "mosquitero": 30718,
+        "dvh": 262716
       },
       {
         "medida": "150x0,60",
-        "3mm": 181818,
-        "4mm": 185233,
-        "5mm": 191435,
-        "3+3": 246411,
+        "3mm": 187655,
+        "4mm": 191254,
+        "5mm": 197769,
+        "3+3": 255510,
         "guia": 13800,
-        "mosquitero": 34424,
-        "dvh": 294093
+        "mosquitero": 35470,
+        "dvh": 301102
       },
       {
         "medida": "180x0,60",
-        "3mm": 204362,
-        "4mm": 208510,
-        "5mm": 216050,
-        "3+3": 282792,
+        "3mm": 210949,
+        "4mm": 215322,
+        "5mm": 223240,
+        "3+3": 293341,
         "guia": 13800,
-        "mosquitero": 39038,
-        "dvh": 331488
+        "mosquitero": 40224,
+        "dvh": 339497
       },
       {
         "medida": "200x0,60",
-        "3mm": 226956,
-        "4mm": 231594,
-        "5mm": 240022,
-        "3+3": 314624,
+        "3mm": 234276,
+        "4mm": 239164,
+        "5mm": 248015,
+        "3+3": 326372,
         "guia": 13800,
-        "mosquitero": 42113,
-        "dvh": 363978
+        "mosquitero": 43394,
+        "dvh": 372886
       },
       {
         "medida": "100x0,80",
-        "3mm": 163016,
-        "4mm": 166089,
-        "5mm": 171680,
-        "3+3": 221155,
+        "3mm": 168250,
+        "4mm": 171488,
+        "5mm": 177360,
+        "3+3": 229326,
         "guia": 18400,
-        "mosquitero": 32492,
-        "dvh": 269680
+        "mosquitero": 33479,
+        "dvh": 275966
       },
       {
         "medida": "120x0,80",
-        "3mm": 177457,
-        "4mm": 181215,
-        "5mm": 188045,
-        "3+3": 248510,
+        "3mm": 183192,
+        "4mm": 187152,
+        "5mm": 194326,
+        "3+3": 257833,
         "guia": 18400,
-        "mosquitero": 35962,
-        "dvh": 295339
+        "mosquitero": 37055,
+        "dvh": 302360
       },
       {
         "medida": "150x0,80",
-        "3mm": 201385,
-        "4mm": 206169,
-        "5mm": 214867,
-        "3+3": 291821,
+        "3mm": 207940,
+        "4mm": 212983,
+        "5mm": 222118,
+        "3+3": 302945,
         "guia": 18400,
-        "mosquitero": 41167,
-        "dvh": 336086
+        "mosquitero": 42418,
+        "dvh": 344281
       },
       {
         "medida": "180x0,80",
-        "3mm": 225314,
-        "4mm": 231117,
-        "5mm": 241681,
-        "3+3": 335124,
+        "3mm": 232689,
+        "4mm": 238806,
+        "5mm": 249902,
+        "3+3": 348047,
         "guia": 18400,
-        "mosquitero": 46372,
-        "dvh": 376830
+        "mosquitero": 47782,
+        "dvh": 386195
       },
       {
         "medida": "200x0,80",
-        "3mm": 249006,
-        "4mm": 255502,
-        "5mm": 267296,
-        "3+3": 371738,
+        "3mm": 257164,
+        "4mm": 264011,
+        "5mm": 276399,
+        "3+3": 386095,
         "guia": 18400,
-        "mosquitero": 49842,
-        "dvh": 411749
+        "mosquitero": 51358,
+        "dvh": 422132
       },
       {
         "medida": "100x100",
-        "3mm": 178803,
-        "4mm": 182764,
-        "5mm": 189945,
-        "3+3": 253558,
+        "3mm": 184596,
+        "4mm": 188771,
+        "5mm": 196313,
+        "3+3": 263127,
         "guia": 22999,
-        "mosquitero": 38249,
-        "dvh": 304626
+        "mosquitero": 39411,
+        "dvh": 311773
       },
       {
         "medida": "120x100",
-        "3mm": 193181,
-        "4mm": 198013,
-        "5mm": 206792,
-        "3+3": 284533,
+        "3mm": 199490,
+        "4mm": 204584,
+        "5mm": 213803,
+        "3+3": 295456,
         "guia": 22999,
-        "mosquitero": 42113,
-        "dvh": 331523
+        "mosquitero": 43394,
+        "dvh": 339488
       },
       {
         "medida": "150x100",
-        "3mm": 218486,
-        "4mm": 224640,
-        "5mm": 235814,
-        "3+3": 334756,
+        "3mm": 225684,
+        "4mm": 232170,
+        "5mm": 243908,
+        "3+3": 347828,
         "guia": 22999,
-        "mosquitero": 47910,
-        "dvh": 375625
+        "mosquitero": 49366,
+        "dvh": 384928
       },
       {
         "medida": "180x100",
-        "3mm": 243784,
-        "4mm": 251257,
-        "5mm": 261511,
-        "3+3": 384973,
+        "3mm": 251870,
+        "4mm": 259749,
+        "5mm": 270518,
+        "3+3": 400192,
         "guia": 22999,
-        "mosquitero": 53706,
-        "dvh": 419715
+        "mosquitero": 55339,
+        "dvh": 430362
       },
       {
         "medida": "200x100",
-        "3mm": 266546,
-        "4mm": 274893,
-        "5mm": 287951,
-        "3+3": 424342,
+        "3mm": 275406,
+        "4mm": 284203,
+        "5mm": 297917,
+        "3+3": 441173,
         "guia": 22999,
-        "mosquitero": 57571,
-        "dvh": 455001
+        "mosquitero": 59322,
+        "dvh": 466719
       },
       {
         "medida": "220x100",
-        "3mm": 284921,
-        "4mm": 294147,
-        "5mm": 310913,
-        "3+3": 459332,
+        "3mm": 294418,
+        "4mm": 304143,
+        "5mm": 321752,
+        "3+3": 477639,
         "guia": 22999,
-        "mosquitero": 61435,
-        "dvh": 485904
+        "mosquitero": 63303,
+        "dvh": 498561
       },
       {
         "medida": "240x100",
-        "3mm": 304127,
-        "4mm": 314235,
-        "5mm": 332598,
-        "3+3": 495145,
+        "3mm": 314289,
+        "4mm": 324941,
+        "5mm": 344228,
+        "3+3": 514954,
         "guia": 22999,
-        "mosquitero": 65299,
-        "dvh": 517641
+        "mosquitero": 67285,
+        "dvh": 531261
       },
       {
         "medida": "100x110",
-        "3mm": 184614,
-        "4mm": 189007,
-        "5mm": 196986,
-        "3+3": 267664,
+        "3mm": 190624,
+        "4mm": 195254,
+        "5mm": 203635,
+        "3+3": 277869,
         "guia": 25299,
-        "mosquitero": 41128,
-        "dvh": 319998
+        "mosquitero": 42378,
+        "dvh": 327513
       },
       {
         "medida": "120x110",
-        "3mm": 201721,
-        "4mm": 207093,
-        "5mm": 216849,
-        "3+3": 303228,
+        "3mm": 208340,
+        "4mm": 214001,
+        "5mm": 224248,
+        "3+3": 314973,
         "guia": 25299,
-        "mosquitero": 45189,
-        "dvh": 350288
+        "mosquitero": 46563,
+        "dvh": 358744
       },
       {
         "medida": "150x110",
-        "3mm": 230989,
-        "4mm": 237827,
-        "5mm": 250240,
-        "3+3": 360182,
+        "3mm": 238629,
+        "4mm": 245837,
+        "5mm": 258875,
+        "3+3": 374348,
         "guia": 25299,
-        "mosquitero": 51282,
-        "dvh": 399343
+        "mosquitero": 52840,
+        "dvh": 409324
       },
       {
         "medida": "180x110",
-        "3mm": 252454,
-        "4mm": 260752,
-        "5mm": 275822,
-        "3+3": 409316,
+        "3mm": 260881,
+        "4mm": 269626,
+        "5mm": 285454,
+        "3+3": 425665,
         "guia": 25299,
-        "mosquitero": 57374,
-        "dvh": 440583
+        "mosquitero": 59118,
+        "dvh": 451850
       },
       {
         "medida": "220x110",
-        "3mm": 301600,
-        "4mm": 311854,
-        "5mm": 330478,
-        "3+3": 495384,
+        "3mm": 311697,
+        "4mm": 322505,
+        "5mm": 342066,
+        "3+3": 515270,
         "guia": 25299,
-        "mosquitero": 65497,
-        "dvh": 516099
+        "mosquitero": 67487,
+        "dvh": 529707
       },
       {
         "medida": "240x110",
-        "3mm": 325045,
-        "4mm": 336276,
-        "5mm": 356677,
-        "3+3": 537287,
+        "3mm": 335943,
+        "4mm": 347782,
+        "5mm": 369209,
+        "3+3": 558905,
         "guia": 25299,
-        "mosquitero": 69558,
-        "dvh": 552733
+        "mosquitero": 71673,
+        "dvh": 567479
       },
       {
         "medida": "100x120",
-        "3mm": 196064,
-        "4mm": 200897,
-        "5mm": 209675,
-        "3+3": 287416,
+        "3mm": 202462,
+        "4mm": 207556,
+        "5mm": 216775,
+        "3+3": 298428,
         "guia": 27598,
-        "mosquitero": 44006,
-        "dvh": 341019
+        "mosquitero": 45344,
+        "dvh": 349072
       },
       {
         "medida": "120x120",
-        "3mm": 212338,
-        "4mm": 218248,
-        "5mm": 224923,
-        "3+3": 323999,
+        "3mm": 219328,
+        "4mm": 225556,
+        "5mm": 232567,
+        "3+3": 336630,
         "guia": 27598,
-        "mosquitero": 48265,
-        "dvh": 371137
+        "mosquitero": 49732,
+        "dvh": 380148
       },
       {
         "medida": "150x120",
-        "3mm": 240560,
-        "4mm": 248075,
-        "5mm": 261735,
-        "3+3": 382667,
+        "3mm": 248553,
+        "4mm": 256475,
+        "5mm": 270823,
+        "3+3": 397837,
         "guia": 27598,
-        "mosquitero": 54653,
-        "dvh": 420117
+        "mosquitero": 56314,
+        "dvh": 430685
       },
       {
         "medida": "180x120",
-        "3mm": 265738,
-        "4mm": 274875,
-        "5mm": 291453,
-        "3+3": 438297,
+        "3mm": 274643,
+        "4mm": 284274,
+        "5mm": 301686,
+        "3+3": 455918,
         "guia": 27598,
-        "mosquitero": 61041,
-        "dvh": 466078
+        "mosquitero": 62896,
+        "dvh": 478111
       },
       {
         "medida": "200x120",
-        "3mm": 291120,
-        "4mm": 301325,
-        "5mm": 319858,
-        "3+3": 483979,
+        "3mm": 300893,
+        "4mm": 311649,
+        "5mm": 331117,
+        "3+3": 503494,
         "guia": 27598,
-        "mosquitero": 65299,
-        "dvh": 505293
+        "mosquitero": 67285,
+        "dvh": 518560
       },
       {
         "medida": "220x120",
-        "3mm": 317031,
-        "4mm": 328311,
-        "5mm": 348794,
-        "3+3": 530190,
+        "3mm": 327690,
+        "4mm": 339579,
+        "5mm": 361092,
+        "3+3": 551615,
         "guia": 27598,
-        "mosquitero": 69558,
-        "dvh": 545054
+        "mosquitero": 71673,
+        "dvh": 559574
       },
       {
         "medida": "240x120",
-        "3mm": 338872,
-        "4mm": 351221,
-        "5mm": 373660,
-        "3+3": 572332,
+        "3mm": 350294,
+        "4mm": 363309,
+        "5mm": 386876,
+        "3+3": 595544,
         "guia": 27598,
-        "mosquitero": 73817,
-        "dvh": 580731
+        "mosquitero": 76061,
+        "dvh": 596381
       },
       {
         "medida": "100x150",
-        "3mm": 215898,
-        "4mm": 222052,
-        "5mm": 233226,
-        "3+3": 332169,
+        "3mm": 223019,
+        "4mm": 229505,
+        "5mm": 241242,
+        "3+3": 345162,
         "guia": 34498,
-        "mosquitero": 52642,
-        "dvh": 389568
+        "mosquitero": 54243,
+        "dvh": 398793
       },
       {
         "medida": "120x150",
-        "3mm": 233576,
-        "4mm": 241091,
-        "5mm": 254751,
-        "3+3": 375682,
+        "3mm": 241356,
+        "4mm": 249277,
+        "5mm": 263626,
+        "3+3": 390640,
         "guia": 34498,
-        "mosquitero": 57492,
-        "dvh": 423052
+        "mosquitero": 59239,
+        "dvh": 433407
       },
       {
         "medida": "150x150",
-        "3mm": 265374,
-        "4mm": 274951,
-        "5mm": 292328,
-        "3+3": 446245,
+        "3mm": 274306,
+        "4mm": 284401,
+        "5mm": 302652,
+        "3+3": 464313,
         "guia": 34498,
-        "mosquitero": 64768,
-        "dvh": 478590
+        "mosquitero": 66736,
+        "dvh": 490800
       },
       {
         "medida": "180x150",
-        "3mm": 291124,
-        "4mm": 302738,
-        "5mm": 323848,
-        "3+3": 510742,
+        "3mm": 301026,
+        "4mm": 313269,
+        "5mm": 335441,
+        "3+3": 531739,
         "guia": 34498,
-        "mosquitero": 72042,
-        "dvh": 528042
+        "mosquitero": 74233,
+        "dvh": 541924
       },
       {
         "medida": "200x150",
-        "3mm": 317892,
-        "4mm": 322725,
-        "5mm": 354471,
-        "3+3": 563365,
+        "3mm": 328732,
+        "4mm": 333857,
+        "5mm": 367201,
+        "3+3": 586604,
         "guia": 34498,
-        "mosquitero": 76892,
-        "dvh": 554331
+        "mosquitero": 79230,
+        "dvh": 568799
       },
       {
         "medida": "220x150",
-        "3mm": 347270,
-        "4mm": 361633,
-        "5mm": 387706,
-        "3+3": 618569,
+        "3mm": 359126,
+        "4mm": 374264,
+        "5mm": 401650,
+        "3+3": 644128,
         "guia": 34498,
-        "mosquitero": 81743,
-        "dvh": 615843
+        "mosquitero": 84227,
+        "dvh": 632613
       },
       {
         "medida": "240x150",
-        "3mm": 367999,
-        "4mm": 383715,
-        "5mm": 412274,
-        "3+3": 665135,
+        "3mm": 380610,
+        "4mm": 397174,
+        "5mm": 427169,
+        "3+3": 692753,
         "guia": 34498,
-        "mosquitero": 86593,
-        "dvh": 652371
+        "mosquitero": 89225,
+        "dvh": 670363
       },
       {
         "medida": "100x200",
-        "3mm": 287171,
-        "4mm": 295518,
-        "5mm": 310686,
-        "3+3": 444958,
+        "3mm": 296657,
+        "4mm": 305455,
+        "5mm": 321386,
+        "3+3": 462414,
         "guia": 45998,
-        "mosquitero": 67034,
-        "dvh": 508688
+        "mosquitero": 69072,
+        "dvh": 521033
       },
       {
         "medida": "120x200",
-        "3mm": 315358,
-        "4mm": 325562,
-        "5mm": 344096,
-        "3+3": 508216,
+        "3mm": 325867,
+        "4mm": 336623,
+        "5mm": 356091,
+        "3+3": 528469,
         "guia": 45998,
-        "mosquitero": 72870,
-        "dvh": 555981
+        "mosquitero": 75085,
+        "dvh": 569984
       },
       {
         "medida": "150x200",
-        "3mm": 354184,
-        "4mm": 363932,
-        "5mm": 387527,
-        "3+3": 596412,
+        "3mm": 366187,
+        "4mm": 376477,
+        "5mm": 401260,
+        "3+3": 620654,
         "guia": 45998,
-        "mosquitero": 81624,
-        "dvh": 620219
+        "mosquitero": 84105,
+        "dvh": 636510
       },
       {
         "medida": "180x200",
-        "3mm": 387383,
-        "4mm": 399225,
-        "5mm": 427866,
-        "3+3": 681514,
+        "3mm": 400662,
+        "4mm": 413163,
+        "5mm": 443245,
+        "3+3": 709654,
         "guia": 45998,
-        "mosquitero": 90378,
-        "dvh": 681390
+        "mosquitero": 93126,
+        "dvh": 699877
       },
       {
         "medida": "200x200",
-        "3mm": 423370,
-        "4mm": 436607,
-        "5mm": 468622,
-        "3+3": 752100,
+        "3mm": 437920,
+        "4mm": 451892,
+        "5mm": 485518,
+        "3+3": 783258,
         "guia": 45998,
-        "mosquitero": 96214,
-        "dvh": 736020
+        "mosquitero": 99138,
+        "dvh": 756389
       },
       {
         "medida": "220x200",
-        "3mm": 449498,
-        "4mm": 464128,
-        "5mm": 499508,
-        "3+3": 812824,
+        "3mm": 465017,
+        "4mm": 480460,
+        "5mm": 517622,
+        "3+3": 846702,
         "guia": 45998,
-        "mosquitero": 102050,
-        "dvh": 780791
+        "mosquitero": 105153,
+        "dvh": 802741
       },
       {
         "medida": "240x200",
-        "3mm": 480790,
-        "4mm": 496815,
-        "5mm": 535562,
-        "3+3": 878726,
+        "3mm": 497440,
+        "4mm": 514354,
+        "5mm": 555050,
+        "3+3": 915481,
         "guia": 45998,
-        "mosquitero": 107886,
-        "dvh": 830726
+        "mosquitero": 111165,
+        "dvh": 854419
       },
       {
         "medida": "240x205",
-        "3mm": 504830,
-        "4mm": 521655,
-        "5mm": 562340,
-        "3+3": 922663,
+        "3mm": 522312,
+        "4mm": 540071,
+        "5mm": 582803,
+        "3+3": 961255,
         "guia": 48298,
-        "mosquitero": 113280,
-        "dvh": 872263
+        "mosquitero": 116723,
+        "dvh": 897140
       }
     ]
   },
@@ -2234,693 +2234,693 @@
     "filas": [
       {
         "medida": "40x40",
-        "3mm": 120467,
-        "4mm": 121172,
-        "5mm": 122450,
-        "esmerilado": 128635,
-        "fantasia": 121576,
-        "3+3": 134330,
-        "dvh": 156994
+        "3mm": 124599,
+        "4mm": 125338,
+        "5mm": 126683,
+        "esmerilado": 133183,
+        "fantasia": 125764,
+        "3+3": 139169,
+        "dvh": 161365
       },
       {
         "medida": "50x40",
-        "3mm": 128119,
-        "4mm": 129059,
-        "5mm": 130768,
-        "esmerilado": 139014,
-        "fantasia": 129607,
-        "3+3": 146618,
-        "dvh": 170197
+        "3mm": 132530,
+        "4mm": 133517,
+        "5mm": 135314,
+        "esmerilado": 143981,
+        "fantasia": 134094,
+        "3+3": 151975,
+        "dvh": 174930
       },
       {
         "medida": "60x40",
-        "3mm": 135818,
-        "4mm": 136991,
-        "5mm": 139130,
-        "esmerilado": 149437,
-        "fantasia": 137682,
-        "3+3": 158953,
-        "dvh": 183449
+        "3mm": 140507,
+        "4mm": 141741,
+        "5mm": 143989,
+        "esmerilado": 154822,
+        "fantasia": 142468,
+        "3+3": 164824,
+        "dvh": 188541
       },
       {
         "medida": "70x40",
-        "3mm": 143489,
-        "4mm": 144897,
-        "5mm": 147468,
-        "esmerilado": 159835,
-        "fantasia": 145733,
-        "3+3": 171261,
-        "dvh": 196672
+        "3mm": 148456,
+        "4mm": 149938,
+        "5mm": 152639,
+        "esmerilado": 165638,
+        "fantasia": 150814,
+        "3+3": 177647,
+        "dvh": 202124
       },
       {
         "medida": "80x40",
-        "3mm": 151177,
-        "4mm": 152821,
-        "5mm": 155821,
-        "esmerilado": 170250,
-        "fantasia": 153799,
-        "3+3": 183586,
-        "dvh": 209914
+        "3mm": 156425,
+        "4mm": 158152,
+        "5mm": 161306,
+        "esmerilado": 176472,
+        "fantasia": 159180,
+        "3+3": 190488,
+        "dvh": 215725
       },
       {
         "medida": "90x40",
-        "3mm": 158856,
-        "4mm": 160735,
-        "5mm": 164167,
-        "esmerilado": 180656,
-        "fantasia": 161857,
-        "3+3": 195903,
-        "dvh": 223143
+        "3mm": 164382,
+        "4mm": 166357,
+        "5mm": 169963,
+        "esmerilado": 187296,
+        "fantasia": 167536,
+        "3+3": 203320,
+        "dvh": 229315
       },
       {
         "medida": "100x40",
-        "3mm": 166510,
-        "4mm": 168624,
-        "5mm": 172485,
-        "esmerilado": 191037,
-        "fantasia": 169889,
-        "3+3": 208193,
-        "dvh": 236351
+        "3mm": 172315,
+        "4mm": 174535,
+        "5mm": 178594,
+        "esmerilado": 198094,
+        "fantasia": 175866,
+        "3+3": 216125,
+        "dvh": 242880
       },
       {
         "medida": "40x50",
-        "3mm": 128137,
-        "4mm": 129077,
-        "5mm": 130786,
-        "esmerilado": 139032,
-        "fantasia": 129625,
-        "3+3": 146636,
-        "dvh": 170215
+        "3mm": 132548,
+        "4mm": 133535,
+        "5mm": 135332,
+        "esmerilado": 143999,
+        "fantasia": 134112,
+        "3+3": 151993,
+        "dvh": 174948
       },
       {
         "medida": "50x50",
-        "3mm": 136196,
-        "4mm": 137435,
-        "5mm": 139731,
-        "esmerilado": 150703,
-        "fantasia": 138165,
-        "3+3": 160847,
-        "dvh": 184335
+        "3mm": 140904,
+        "4mm": 142206,
+        "5mm": 144621,
+        "esmerilado": 156152,
+        "fantasia": 142975,
+        "3+3": 166815,
+        "dvh": 189472
       },
       {
         "medida": "60x50",
-        "3mm": 144232,
-        "4mm": 145784,
-        "5mm": 148668,
-        "esmerilado": 162366,
-        "fantasia": 146698,
-        "3+3": 175049,
-        "dvh": 198445
+        "3mm": 149238,
+        "4mm": 150869,
+        "5mm": 153900,
+        "esmerilado": 168298,
+        "fantasia": 151829,
+        "3+3": 181629,
+        "dvh": 203988
       },
       {
         "medida": "70x50",
-        "3mm": 152267,
-        "4mm": 154133,
-        "5mm": 157604,
-        "esmerilado": 174029,
-        "fantasia": 155229,
-        "3+3": 189251,
-        "dvh": 212556
+        "3mm": 157572,
+        "4mm": 159533,
+        "5mm": 163180,
+        "esmerilado": 180445,
+        "fantasia": 160685,
+        "3+3": 196443,
+        "dvh": 218504
       },
       {
         "medida": "80x50",
-        "3mm": 160344,
-        "4mm": 162510,
-        "5mm": 166567,
-        "esmerilado": 185718,
-        "fantasia": 163787,
-        "3+3": 203479,
-        "dvh": 226693
+        "3mm": 165945,
+        "4mm": 168221,
+        "5mm": 172486,
+        "esmerilado": 192615,
+        "fantasia": 169566,
+        "3+3": 211284,
+        "dvh": 233044
       },
       {
         "medida": "90x50",
-        "3mm": 168379,
-        "4mm": 170857,
-        "5mm": 175503,
-        "esmerilado": 197380,
-        "fantasia": 172320,
-        "3+3": 217680,
-        "dvh": 240801
+        "3mm": 174279,
+        "4mm": 176885,
+        "5mm": 181766,
+        "esmerilado": 204762,
+        "fantasia": 178420,
+        "3+3": 226098,
+        "dvh": 247560
       },
       {
         "medida": "100x50",
-        "3mm": 176417,
-        "4mm": 179208,
-        "5mm": 184439,
-        "esmerilado": 209045,
-        "fantasia": 180852,
-        "3+3": 231883,
-        "dvh": 254914
+        "3mm": 182613,
+        "4mm": 185548,
+        "5mm": 191047,
+        "esmerilado": 216908,
+        "fantasia": 187275,
+        "3+3": 240913,
+        "dvh": 262076
       },
       {
         "medida": "40x60",
-        "3mm": 135818,
-        "4mm": 136991,
-        "5mm": 139130,
-        "esmerilado": 149437,
-        "fantasia": 137682,
-        "3+3": 158953,
-        "dvh": 183449
+        "3mm": 140507,
+        "4mm": 141741,
+        "5mm": 143989,
+        "esmerilado": 154822,
+        "fantasia": 142468,
+        "3+3": 164824,
+        "dvh": 188541
       },
       {
         "medida": "50x60",
-        "3mm": 144232,
-        "4mm": 145784,
-        "5mm": 148668,
-        "esmerilado": 162366,
-        "fantasia": 146698,
-        "3+3": 175049,
-        "dvh": 198445
+        "3mm": 149238,
+        "4mm": 150869,
+        "5mm": 153900,
+        "esmerilado": 168298,
+        "fantasia": 151829,
+        "3+3": 181629,
+        "dvh": 203988
       },
       {
         "medida": "60x60",
-        "3mm": 152633,
-        "4mm": 154577,
-        "5mm": 158204,
-        "esmerilado": 175294,
-        "fantasia": 155712,
-        "3+3": 191146,
-        "dvh": 213443
+        "3mm": 157956,
+        "4mm": 159999,
+        "5mm": 163812,
+        "esmerilado": 181775,
+        "fantasia": 161192,
+        "3+3": 198435,
+        "dvh": 219437
       },
       {
         "medida": "70x60",
-        "3mm": 161074,
-        "4mm": 163396,
-        "5mm": 167766,
-        "esmerilado": 188380,
-        "fantasia": 164754,
-        "3+3": 207267,
-        "dvh": 228467
+        "3mm": 166713,
+        "4mm": 169154,
+        "5mm": 173747,
+        "esmerilado": 195413,
+        "fantasia": 170579,
+        "3+3": 215267,
+        "dvh": 234910
       },
       {
         "medida": "80x60",
-        "3mm": 169489,
-        "4mm": 172189,
-        "5mm": 177302,
-        "esmerilado": 201438,
-        "fantasia": 173768,
-        "3+3": 223363,
-        "dvh": 243464
+        "3mm": 175444,
+        "4mm": 178283,
+        "5mm": 183659,
+        "esmerilado": 209027,
+        "fantasia": 179942,
+        "3+3": 232072,
+        "dvh": 250357
       },
       {
         "medida": "90x60",
-        "3mm": 177903,
-        "4mm": 180983,
-        "5mm": 186840,
-        "esmerilado": 214498,
-        "fantasia": 182782,
-        "3+3": 239460,
-        "dvh": 258464
+        "3mm": 184177,
+        "4mm": 187412,
+        "5mm": 193569,
+        "esmerilado": 222639,
+        "fantasia": 189305,
+        "3+3": 248878,
+        "dvh": 265805
       },
       {
         "medida": "100x60",
-        "3mm": 186327,
-        "4mm": 189783,
-        "5mm": 196384,
-        "esmerilado": 227566,
-        "fantasia": 191806,
-        "3+3": 255565,
-        "dvh": 273468
+        "3mm": 192915,
+        "4mm": 196550,
+        "5mm": 203488,
+        "esmerilado": 236261,
+        "fantasia": 198675,
+        "3+3": 265690,
+        "dvh": 281262
       },
       {
         "medida": "40x70",
-        "3mm": 143489,
-        "4mm": 144897,
-        "5mm": 147468,
-        "esmerilado": 159835,
-        "fantasia": 145733,
-        "3+3": 171261,
-        "dvh": 196672
+        "3mm": 148456,
+        "4mm": 149938,
+        "5mm": 152639,
+        "esmerilado": 165638,
+        "fantasia": 150814,
+        "3+3": 177647,
+        "dvh": 202124
       },
       {
         "medida": "50x70",
-        "3mm": 152267,
-        "4mm": 154133,
-        "5mm": 157604,
-        "esmerilado": 174029,
-        "fantasia": 155229,
-        "3+3": 189251,
-        "dvh": 212556
+        "3mm": 157572,
+        "4mm": 159533,
+        "5mm": 163180,
+        "esmerilado": 180445,
+        "fantasia": 160685,
+        "3+3": 196443,
+        "dvh": 218504
       },
       {
         "medida": "60x70",
-        "3mm": 161074,
-        "4mm": 163396,
-        "5mm": 167766,
-        "esmerilado": 188380,
-        "fantasia": 164754,
-        "3+3": 207267,
-        "dvh": 228467
+        "3mm": 166713,
+        "4mm": 169154,
+        "5mm": 173747,
+        "esmerilado": 195413,
+        "fantasia": 170579,
+        "3+3": 215267,
+        "dvh": 234910
       },
       {
         "medida": "70x70",
-        "3mm": 169867,
-        "4mm": 172632,
-        "5mm": 177903,
-        "esmerilado": 202704,
-        "fantasia": 174250,
-        "3+3": 225258,
-        "dvh": 244351
+        "3mm": 175843,
+        "4mm": 178749,
+        "5mm": 184289,
+        "esmerilado": 210357,
+        "fantasia": 180450,
+        "3+3": 234063,
+        "dvh": 251289
       },
       {
         "medida": "80x70",
-        "3mm": 178647,
-        "4mm": 181870,
-        "5mm": 188040,
-        "esmerilado": 217029,
-        "fantasia": 183748,
-        "3+3": 243249,
-        "dvh": 260237
+        "3mm": 184958,
+        "4mm": 188345,
+        "5mm": 194831,
+        "esmerilado": 225300,
+        "fantasia": 190319,
+        "3+3": 252859,
+        "dvh": 267671
       },
       {
         "medida": "90x70",
-        "3mm": 187435,
-        "4mm": 191115,
-        "5mm": 198185,
-        "esmerilado": 231362,
-        "fantasia": 193254,
-        "3+3": 261247,
-        "dvh": 276131
+        "3mm": 194082,
+        "4mm": 197948,
+        "5mm": 205381,
+        "esmerilado": 240252,
+        "fantasia": 200197,
+        "3+3": 271663,
+        "dvh": 284058
       },
       {
         "medida": "100x70",
-        "3mm": 196233,
-        "4mm": 200369,
-        "5mm": 208340,
-        "esmerilado": 245703,
-        "fantasia": 202769,
-        "3+3": 279255,
-        "dvh": 292033
+        "3mm": 203215,
+        "4mm": 207562,
+        "5mm": 215939,
+        "esmerilado": 255212,
+        "fantasia": 210084,
+        "3+3": 290478,
+        "dvh": 300458
       },
       {
         "medida": "40x80",
-        "3mm": 151159,
-        "4mm": 152803,
-        "5mm": 155803,
-        "esmerilado": 170232,
-        "fantasia": 153781,
-        "3+3": 183568,
-        "dvh": 209896
+        "3mm": 156407,
+        "4mm": 158134,
+        "5mm": 161288,
+        "esmerilado": 176454,
+        "fantasia": 159162,
+        "3+3": 190470,
+        "dvh": 215708
       },
       {
         "medida": "60x80",
-        "3mm": 169489,
-        "4mm": 172189,
-        "5mm": 177302,
-        "esmerilado": 201438,
-        "fantasia": 173768,
-        "3+3": 223363,
-        "dvh": 243464
+        "3mm": 175444,
+        "4mm": 178283,
+        "5mm": 183659,
+        "esmerilado": 209027,
+        "fantasia": 179942,
+        "3+3": 232072,
+        "dvh": 250357
       },
       {
         "medida": "70x80",
-        "3mm": 178647,
-        "4mm": 181870,
-        "5mm": 188040,
-        "esmerilado": 217029,
-        "fantasia": 183748,
-        "3+3": 243249,
-        "dvh": 260237
+        "3mm": 184958,
+        "4mm": 188345,
+        "5mm": 194831,
+        "esmerilado": 225300,
+        "fantasia": 190319,
+        "3+3": 252859,
+        "dvh": 267671
       },
       {
         "medida": "80x80",
-        "3mm": 187801,
-        "4mm": 191558,
-        "5mm": 198786,
-        "esmerilado": 232628,
-        "fantasia": 193737,
-        "3+3": 263142,
-        "dvh": 277018
+        "3mm": 194465,
+        "4mm": 198414,
+        "5mm": 206011,
+        "esmerilado": 241582,
+        "fantasia": 200705,
+        "3+3": 273655,
+        "dvh": 284991
       },
       {
         "medida": "90x80",
-        "3mm": 196964,
-        "4mm": 201256,
-        "5mm": 209539,
-        "esmerilado": 248234,
-        "fantasia": 203734,
-        "3+3": 283043,
-        "dvh": 293807
+        "3mm": 203983,
+        "4mm": 208494,
+        "5mm": 217202,
+        "esmerilado": 257873,
+        "fantasia": 211099,
+        "3+3": 294461,
+        "dvh": 302322
       },
       {
         "medida": "100x80",
-        "3mm": 206108,
-        "4mm": 210935,
-        "5mm": 220276,
-        "esmerilado": 263824,
-        "fantasia": 213713,
-        "3+3": 302928,
-        "dvh": 310577
+        "3mm": 213481,
+        "4mm": 218555,
+        "5mm": 228373,
+        "esmerilado": 274144,
+        "fantasia": 221476,
+        "3+3": 315246,
+        "dvh": 319634
       },
       {
         "medida": "40x90",
-        "3mm": 158856,
-        "4mm": 160735,
-        "5mm": 164167,
-        "esmerilado": 180656,
-        "fantasia": 161857,
-        "3+3": 195903,
-        "dvh": 223143
+        "3mm": 164382,
+        "4mm": 166357,
+        "5mm": 169963,
+        "esmerilado": 187296,
+        "fantasia": 167536,
+        "3+3": 203320,
+        "dvh": 229315
       },
       {
         "medida": "50x90",
-        "3mm": 168379,
-        "4mm": 170857,
-        "5mm": 175503,
-        "esmerilado": 197380,
-        "fantasia": 172320,
-        "3+3": 217680,
-        "dvh": 240801
+        "3mm": 174279,
+        "4mm": 176885,
+        "5mm": 181766,
+        "esmerilado": 204762,
+        "fantasia": 178420,
+        "3+3": 226098,
+        "dvh": 247560
       },
       {
         "medida": "60x90",
-        "3mm": 177903,
-        "4mm": 180983,
-        "5mm": 186840,
-        "esmerilado": 214498,
-        "fantasia": 182782,
-        "3+3": 239460,
-        "dvh": 258464
+        "3mm": 184177,
+        "4mm": 187412,
+        "5mm": 193569,
+        "esmerilado": 222639,
+        "fantasia": 189305,
+        "3+3": 248878,
+        "dvh": 265805
       },
       {
         "medida": "70x90",
-        "3mm": 187435,
-        "4mm": 191115,
-        "5mm": 198185,
-        "esmerilado": 231362,
-        "fantasia": 193254,
-        "3+3": 261247,
-        "dvh": 276131
+        "3mm": 194082,
+        "4mm": 197948,
+        "5mm": 205381,
+        "esmerilado": 240252,
+        "fantasia": 200197,
+        "3+3": 271663,
+        "dvh": 284058
       },
       {
         "medida": "80x90",
-        "3mm": 196964,
-        "4mm": 201256,
-        "5mm": 209539,
-        "esmerilado": 248234,
-        "fantasia": 203734,
-        "3+3": 283043,
-        "dvh": 293807
+        "3mm": 203983,
+        "4mm": 208494,
+        "5mm": 217202,
+        "esmerilado": 257873,
+        "fantasia": 211099,
+        "3+3": 294461,
+        "dvh": 302322
       },
       {
         "medida": "90x90",
-        "3mm": 206487,
-        "4mm": 211378,
-        "5mm": 220876,
-        "esmerilado": 265089,
-        "fantasia": 214197,
-        "3+3": 304822,
-        "dvh": 311464
+        "3mm": 213879,
+        "4mm": 219020,
+        "5mm": 229004,
+        "esmerilado": 275475,
+        "fantasia": 221983,
+        "3+3": 317238,
+        "dvh": 320564
       },
       {
         "medida": "100x90",
-        "3mm": 216018,
-        "4mm": 221510,
-        "5mm": 232209,
-        "esmerilado": 281953,
-        "fantasia": 224668,
-        "3+3": 326609,
-        "dvh": 329132
+        "3mm": 223785,
+        "4mm": 229557,
+        "5mm": 240801,
+        "esmerilado": 293088,
+        "fantasia": 232876,
+        "3+3": 340026,
+        "dvh": 338819
       },
       {
         "medida": "40x100",
-        "3mm": 166527,
-        "4mm": 168640,
-        "5mm": 172502,
-        "esmerilado": 191053,
-        "fantasia": 169905,
-        "3+3": 208209,
-        "dvh": 236367
+        "3mm": 172333,
+        "4mm": 174553,
+        "5mm": 178612,
+        "esmerilado": 198112,
+        "fantasia": 175884,
+        "3+3": 216143,
+        "dvh": 242898
       },
       {
         "medida": "50x100",
-        "3mm": 176417,
-        "4mm": 179208,
-        "5mm": 184439,
-        "esmerilado": 209045,
-        "fantasia": 180852,
-        "3+3": 231883,
-        "dvh": 254914
+        "3mm": 182613,
+        "4mm": 185548,
+        "5mm": 191047,
+        "esmerilado": 216908,
+        "fantasia": 187275,
+        "3+3": 240913,
+        "dvh": 262076
       },
       {
         "medida": "60x100",
-        "3mm": 186327,
-        "4mm": 189783,
-        "5mm": 196384,
-        "esmerilado": 227566,
-        "fantasia": 191806,
-        "3+3": 255565,
-        "dvh": 273468
+        "3mm": 192915,
+        "4mm": 196550,
+        "5mm": 203488,
+        "esmerilado": 236261,
+        "fantasia": 198675,
+        "3+3": 265690,
+        "dvh": 281262
       },
       {
         "medida": "70x100",
-        "3mm": 196233,
-        "4mm": 200369,
-        "5mm": 208340,
-        "esmerilado": 245703,
-        "fantasia": 202769,
-        "3+3": 279255,
-        "dvh": 292033
+        "3mm": 203215,
+        "4mm": 207562,
+        "5mm": 215939,
+        "esmerilado": 255212,
+        "fantasia": 210084,
+        "3+3": 290478,
+        "dvh": 300458
       },
       {
         "medida": "80x100",
-        "3mm": 206108,
-        "4mm": 210935,
-        "5mm": 220276,
-        "esmerilado": 263824,
-        "fantasia": 213713,
-        "3+3": 302928,
-        "dvh": 310577
+        "3mm": 213481,
+        "4mm": 218555,
+        "5mm": 228373,
+        "esmerilado": 274144,
+        "fantasia": 221476,
+        "3+3": 315246,
+        "dvh": 319634
       },
       {
         "medida": "90x100",
-        "3mm": 216018,
-        "4mm": 221510,
-        "5mm": 232209,
-        "esmerilado": 281953,
-        "fantasia": 224668,
-        "3+3": 326609,
-        "dvh": 329132
+        "3mm": 223785,
+        "4mm": 229557,
+        "5mm": 240801,
+        "esmerilado": 293088,
+        "fantasia": 232876,
+        "3+3": 340026,
+        "dvh": 338819
       },
       {
         "medida": "100x100",
-        "3mm": 225920,
-        "4mm": 231400,
-        "5mm": 244133,
-        "esmerilado": 299383,
-        "fantasia": 235614,
-        "3+3": 350283,
-        "dvh": 346322
+        "3mm": 234080,
+        "4mm": 239839,
+        "5mm": 253222,
+        "esmerilado": 311295,
+        "fantasia": 244268,
+        "3+3": 364795,
+        "dvh": 356572
       },
       {
         "medida": "40x110",
-        "3mm": 174198,
-        "4mm": 176546,
-        "5mm": 180852,
-        "esmerilado": 201412,
-        "fantasia": 177903,
-        "3+3": 220424,
-        "dvh": 249590
+        "3mm": 180282,
+        "4mm": 182750,
+        "5mm": 187275,
+        "esmerilado": 208886,
+        "fantasia": 184177,
+        "3+3": 228868,
+        "dvh": 256481
       },
       {
         "medida": "50x110",
-        "3mm": 184474,
-        "4mm": 187592,
-        "5mm": 193332,
-        "esmerilado": 220756,
-        "fantasia": 189405,
-        "3+3": 246110,
-        "dvh": 269085
+        "3mm": 190969,
+        "4mm": 194246,
+        "5mm": 200279,
+        "esmerilado": 229103,
+        "fantasia": 196151,
+        "3+3": 255752,
+        "dvh": 276654
       },
       {
         "medida": "60x110",
-        "3mm": 194758,
-        "4mm": 198659,
-        "5mm": 205822,
-        "esmerilado": 240107,
-        "fantasia": 200916,
-        "3+3": 271803,
-        "dvh": 288614
+        "3mm": 201666,
+        "4mm": 205765,
+        "5mm": 213293,
+        "esmerilado": 249330,
+        "fantasia": 208137,
+        "3+3": 282646,
+        "dvh": 296865
       },
       {
         "medida": "70x110",
-        "3mm": 205025,
-        "4mm": 209696,
-        "5mm": 218292,
-        "esmerilado": 259440,
-        "fantasia": 212409,
-        "3+3": 297480,
-        "dvh": 308099
+        "3mm": 212342,
+        "4mm": 217252,
+        "5mm": 226288,
+        "esmerilado": 269537,
+        "fantasia": 220104,
+        "3+3": 309520,
+        "dvh": 317027
       },
       {
         "medida": "80x110",
-        "3mm": 215300,
-        "4mm": 220741,
-        "5mm": 230773,
-        "esmerilado": 278782,
-        "fantasia": 223911,
-        "3+3": 323166,
-        "dvh": 327594
+        "3mm": 223030,
+        "4mm": 228748,
+        "5mm": 239293,
+        "esmerilado": 289755,
+        "fantasia": 232080,
+        "3+3": 336406,
+        "dvh": 337201
       },
       {
         "medida": "90x110",
-        "3mm": 225569,
-        "4mm": 231778,
-        "5mm": 243247,
-        "esmerilado": 298118,
-        "fantasia": 235405,
-        "3+3": 348843,
-        "dvh": 347078
+        "3mm": 233709,
+        "4mm": 240236,
+        "5mm": 252290,
+        "esmerilado": 309965,
+        "fantasia": 244049,
+        "3+3": 363281,
+        "dvh": 357366
       },
       {
         "medida": "100x110",
-        "3mm": 235862,
-        "4mm": 242842,
-        "5mm": 255744,
-        "esmerilado": 317478,
-        "fantasia": 246925,
-        "3+3": 374547,
-        "dvh": 366591
+        "3mm": 244414,
+        "4mm": 251750,
+        "5mm": 265312,
+        "esmerilado": 330199,
+        "fantasia": 256041,
+        "3+3": 390183,
+        "dvh": 377557
       },
       {
         "medida": "40x120",
-        "3mm": 180792,
-        "4mm": 183363,
-        "5mm": 188098,
-        "esmerilado": 210720,
-        "fantasia": 184849,
-        "3+3": 231626,
-        "dvh": 261725
+        "3mm": 187118,
+        "4mm": 189819,
+        "5mm": 194797,
+        "esmerilado": 218574,
+        "fantasia": 191383,
+        "3+3": 240548,
+        "dvh": 268936
       },
       {
         "medida": "50x120",
-        "3mm": 191617,
-        "4mm": 195048,
-        "5mm": 201362,
-        "esmerilado": 231524,
-        "fantasia": 197030,
-        "3+3": 259404,
-        "dvh": 282316
+        "3mm": 198380,
+        "4mm": 201986,
+        "5mm": 208623,
+        "esmerilado": 240326,
+        "fantasia": 204070,
+        "3+3": 269630,
+        "dvh": 290261
       },
       {
         "medida": "60x120",
-        "3mm": 203365,
-        "4mm": 207657,
-        "5mm": 215550,
-        "esmerilado": 253253,
-        "fantasia": 210135,
-        "3+3": 288107,
-        "dvh": 303829
+        "3mm": 210594,
+        "4mm": 215105,
+        "5mm": 223402,
+        "esmerilado": 263031,
+        "fantasia": 217711,
+        "3+3": 299665,
+        "dvh": 312536
       },
       {
         "medida": "70x120",
-        "3mm": 215164,
-        "4mm": 220317,
-        "5mm": 229789,
-        "esmerilado": 275033,
-        "fantasia": 223292,
-        "3+3": 316861,
-        "dvh": 325395
+        "3mm": 222864,
+        "4mm": 228281,
+        "5mm": 238236,
+        "esmerilado": 285791,
+        "fantasia": 231408,
+        "3+3": 329756,
+        "dvh": 334869
       },
       {
         "medida": "80x120",
-        "3mm": 224185,
-        "4mm": 230199,
-        "5mm": 241250,
-        "esmerilado": 294034,
-        "fantasia": 233670,
-        "3+3": 342836,
-        "dvh": 344182
+        "3mm": 232260,
+        "4mm": 238582,
+        "5mm": 250195,
+        "esmerilado": 305677,
+        "fantasia": 242229,
+        "3+3": 356972,
+        "dvh": 354328
       },
       {
         "medida": "90x120",
-        "3mm": 234521,
-        "4mm": 241396,
-        "5mm": 254024,
-        "esmerilado": 314350,
-        "fantasia": 245362,
-        "3+3": 370127,
-        "dvh": 364284
+        "3mm": 243015,
+        "4mm": 250241,
+        "5mm": 263515,
+        "esmerilado": 326922,
+        "fantasia": 254410,
+        "3+3": 385547,
+        "dvh": 375144
       },
       {
         "medida": "100x120",
-        "3mm": 245858,
-        "4mm": 253595,
-        "5mm": 267802,
-        "esmerilado": 335669,
-        "fantasia": 258057,
-        "3+3": 398419,
-        "dvh": 385389
+        "3mm": 254807,
+        "4mm": 262939,
+        "5mm": 277871,
+        "esmerilado": 349203,
+        "fantasia": 267628,
+        "3+3": 415160,
+        "dvh": 396999
       },
       {
         "medida": "40x150",
-        "3mm": 204931,
-        "4mm": 208207,
-        "5mm": 214234,
-        "esmerilado": 243026,
-        "fantasia": 210111,
-        "3+3": 269642,
-        "dvh": 302522
+        "3mm": 212132,
+        "4mm": 215573,
+        "5mm": 221909,
+        "esmerilado": 252172,
+        "fantasia": 217576,
+        "3+3": 280148,
+        "dvh": 310848
       },
       {
         "medida": "50x150",
-        "3mm": 216676,
-        "4mm": 221046,
-        "5mm": 229083,
-        "esmerilado": 267465,
-        "fantasia": 223577,
-        "3+3": 302947,
-        "dvh": 325610
+        "3mm": 224363,
+        "4mm": 228956,
+        "5mm": 237403,
+        "esmerilado": 277746,
+        "fantasia": 231617,
+        "3+3": 315041,
+        "dvh": 334801
       },
       {
         "medida": "60x150",
-        "3mm": 228438,
-        "4mm": 233905,
-        "5mm": 243950,
-        "esmerilado": 291921,
-        "fantasia": 237062,
-        "3+3": 336270,
-        "dvh": 348719
+        "3mm": 236613,
+        "4mm": 242358,
+        "5mm": 252917,
+        "esmerilado": 303338,
+        "fantasia": 245676,
+        "3+3": 349951,
+        "dvh": 358774
       },
       {
         "medida": "70x150",
-        "3mm": 240146,
-        "4mm": 246708,
-        "5mm": 258763,
-        "esmerilado": 316323,
-        "fantasia": 250492,
-        "3+3": 369537,
-        "dvh": 371770
+        "3mm": 248805,
+        "4mm": 255703,
+        "5mm": 268372,
+        "esmerilado": 328873,
+        "fantasia": 259680,
+        "3+3": 384805,
+        "dvh": 382688
       },
       {
         "medida": "80x150",
-        "3mm": 251928,
-        "4mm": 259586,
-        "5mm": 273650,
-        "esmerilado": 340797,
-        "fantasia": 263996,
-        "3+3": 393016,
-        "dvh": 394896
+        "3mm": 261074,
+        "4mm": 269123,
+        "5mm": 283906,
+        "esmerilado": 354484,
+        "fantasia": 273759,
+        "3+3": 409370,
+        "dvh": 406676
       },
       {
         "medida": "90x150",
-        "3mm": 263686,
-        "4mm": 272439,
-        "5mm": 288512,
-        "esmerilado": 365249,
-        "fantasia": 277475,
-        "3+3": 416471,
-        "dvh": 417997
+        "3mm": 273318,
+        "4mm": 282519,
+        "5mm": 299413,
+        "esmerilado": 380070,
+        "fantasia": 287812,
+        "3+3": 433908,
+        "dvh": 430642
       },
       {
         "medida": "100x150",
-        "3mm": 275432,
-        "4mm": 285282,
-        "5mm": 303365,
-        "esmerilado": 389691,
-        "fantasia": 290944,
-        "3+3": 449778,
-        "dvh": 441091
+        "3mm": 285554,
+        "4mm": 295908,
+        "5mm": 314913,
+        "esmerilado": 405648,
+        "fantasia": 301858,
+        "3+3": 468805,
+        "dvh": 454601
       }
     ]
   },
@@ -2980,76 +2980,76 @@
       {
         "modelo": "MODELO 1",
         "3mm": "-",
-        "4mm": 371415,
-        "5mm": 382373,
-        "fantasia": 374894,
-        "esmerilado": 435361,
-        "3+3": 484266,
-        "dvh": 496408
+        "4mm": 383498,
+        "5mm": 395028,
+        "fantasia": 387158,
+        "esmerilado": 450784,
+        "3+3": 502244,
+        "dvh": 510299
       },
       {
         "modelo": "MODELO 1 VR",
         "3mm": "-",
-        "4mm": 407141,
+        "4mm": 420314,
         "5mm": "-",
-        "fantasia": 410621,
-        "esmerilado": 471088,
+        "fantasia": 423974,
+        "esmerilado": 487600,
         "3+3": "-",
         "dvh": "-"
       },
       {
         "modelo": "MODELO 2",
-        "3mm": 376727,
-        "4mm": 382467,
-        "5mm": 392833,
-        "fantasia": 385751,
-        "esmerilado": 443039,
-        "3+3": 489360,
-        "dvh": 531487
+        "3mm": 388808,
+        "4mm": 394848,
+        "5mm": 405755,
+        "fantasia": 398304,
+        "esmerilado": 458585,
+        "3+3": 507326,
+        "dvh": 545580
       },
       {
         "modelo": "MODELO 3",
-        "3mm": 427524,
-        "4mm": 430394,
-        "5mm": 435576,
-        "fantasia": 432035,
-        "esmerilado": 460680,
-        "3+3": 483840,
-        "dvh": 504904
+        "3mm": 440861,
+        "4mm": 443881,
+        "5mm": 449335,
+        "fantasia": 445608,
+        "esmerilado": 475749,
+        "3+3": 500120,
+        "dvh": 519247
       },
       {
         "modelo": "MODELO 3 VR",
-        "3mm": 447532,
+        "3mm": 461479,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 452043,
-        "esmerilado": 480688,
+        "fantasia": 466226,
+        "esmerilado": 496366,
         "3+3": "-",
         "dvh": "-"
       },
       {
         "modelo": "MODELO 4",
-        "3mm": 443000,
-        "4mm": 444546,
-        "5mm": 447433,
-        "fantasia": 445463,
-        "esmerilado": 461375,
-        "3+3": 474242,
-        "dvh": 495624
+        "3mm": 456679,
+        "4mm": 458306,
+        "5mm": 461343,
+        "fantasia": 459272,
+        "esmerilado": 476014,
+        "3+3": 489553,
+        "dvh": 509859
       },
       {
         "modelo": "MODELO 4 VR",
-        "3mm": 454433,
+        "3mm": 468461,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 456896,
-        "esmerilado": 472808,
+        "fantasia": 471053,
+        "esmerilado": 487795,
         "3+3": "-",
         "dvh": "-"
       },
       {
         "modelo": "MODELO 5",
-        "3mm": 465460,
+        "3mm": 479661,
         "4mm": "-",
         "5mm": "-",
         "fantasia": "-",
@@ -3059,87 +3059,87 @@
       },
       {
         "modelo": "MODELO 6",
-        "3mm": 460393,
-        "4mm": 463263,
-        "5mm": 468445,
-        "fantasia": 464904,
-        "esmerilado": 493549,
-        "3+3": 516709,
-        "dvh": 602362
+        "3mm": 474732,
+        "4mm": 477752,
+        "5mm": 483206,
+        "fantasia": 479479,
+        "esmerilado": 509620,
+        "3+3": 533991,
+        "dvh": 617707
       },
       {
         "modelo": "MODELO 7",
-        "3mm": 455862,
-        "4mm": 457407,
-        "5mm": 460295,
-        "fantasia": 458325,
-        "esmerilado": 474236,
-        "3+3": 487103,
-        "dvh": 540780
+        "3mm": 469933,
+        "4mm": 471559,
+        "5mm": 474597,
+        "fantasia": 472526,
+        "esmerilado": 489268,
+        "3+3": 502807,
+        "dvh": 555408
       },
       {
         "modelo": "MODELO 8",
-        "3mm": 405629,
-        "4mm": 411810,
-        "5mm": 423359,
-        "fantasia": 415483,
-        "esmerilado": 479128,
-        "3+3": 530596,
-        "dvh": 616122
+        "3mm": 418660,
+        "4mm": 425164,
+        "5mm": 437317,
+        "fantasia": 429029,
+        "esmerilado": 496000,
+        "3+3": 550156,
+        "dvh": 631376
       },
       {
         "modelo": "MODELO 9",
-        "3mm": 467826,
-        "4mm": 469838,
-        "5mm": 473494,
-        "fantasia": 471031,
-        "esmerilado": 491163,
-        "3+3": 507459,
-        "dvh": 557253
+        "3mm": 482304,
+        "4mm": 484422,
+        "5mm": 488269,
+        "fantasia": 485677,
+        "esmerilado": 506861,
+        "3+3": 524009,
+        "dvh": 572440
       },
       {
         "modelo": "MODELO 10",
-        "3mm": 473286,
-        "4mm": 475307,
-        "5mm": 477612,
-        "fantasia": 476040,
-        "esmerilado": 488773,
-        "3+3": 499056,
-        "dvh": 526180
+        "3mm": 487839,
+        "4mm": 489966,
+        "5mm": 492391,
+        "fantasia": 490738,
+        "esmerilado": 504135,
+        "3+3": 514956,
+        "dvh": 541220
       },
       {
         "modelo": "MODELO 10 VR",
-        "3mm": 538402,
+        "3mm": 554941,
         "4mm": "-",
         "5mm": "-",
-        "fantasia": 541156,
-        "esmerilado": 553889,
+        "fantasia": 557840,
+        "esmerilado": 571237,
         "3+3": "-",
         "dvh": "-"
       },
       {
         "modelo": "MODELO 11",
-        "3mm": 450342,
-        "4mm": 456602,
-        "5mm": 465255,
-        "fantasia": 459358,
-        "esmerilado": 507100,
-        "3+3": 545703,
-        "dvh": 655049
+        "3mm": 464538,
+        "4mm": 471126,
+        "5mm": 480231,
+        "fantasia": 474025,
+        "esmerilado": 524261,
+        "3+3": 564881,
+        "dvh": 670999
       },
       {
         "modelo": "MODELO 12",
-        "3mm": 407887,
-        "4mm": 414148,
-        "5mm": 422801,
-        "fantasia": 416903,
-        "esmerilado": 464645,
-        "3+3": 503248,
-        "dvh": 515710
+        "3mm": 420787,
+        "4mm": 427376,
+        "5mm": 436481,
+        "fantasia": 430274,
+        "esmerilado": 480511,
+        "3+3": 521131,
+        "dvh": 530364
       },
       {
         "modelo": "MODELO C/PANEL",
-        "3mm": 501187,
+        "3mm": 516477,
         "4mm": "-",
         "5mm": "-",
         "fantasia": "-",
@@ -3183,177 +3183,177 @@
     "filas": [
       {
         "medida": "120x60",
-        "4mm": 205841,
-        "dvh": 306301,
-        "3+3": 251990
+        "4mm": 270825,
+        "dvh": 420944,
+        "3+3": 213493
       },
       {
         "medida": "150x60",
-        "4mm": 222833,
-        "dvh": 336456,
-        "3+3": 279619
+        "4mm": 295004,
+        "dvh": 469647,
+        "3+3": 231142
       },
       {
         "medida": "180x60",
-        "4mm": 240198,
-        "dvh": 369217,
-        "3+3": 309753
+        "4mm": 317255,
+        "dvh": 521016,
+        "3+3": 249213
       },
       {
         "medida": "200x60",
-        "4mm": 251984,
-        "dvh": 391270,
-        "3+3": 330045
+        "4mm": 332305,
+        "dvh": 555473,
+        "3+3": 261480
       },
       {
         "medida": "100x80",
-        "4mm": 217036,
-        "dvh": 325247,
-        "3+3": 268413
+        "4mm": 287867,
+        "dvh": 451296,
+        "3+3": 225104
       },
       {
         "medida": "120x80",
-        "4mm": 230215,
-        "dvh": 349903,
-        "3+3": 292936
+        "4mm": 303105,
+        "dvh": 490202,
+        "3+3": 238832
       },
       {
         "medida": "150x80",
-        "4mm": 250382,
-        "dvh": 385731,
-        "3+3": 327045
+        "4mm": 327985,
+        "dvh": 545712,
+        "3+3": 259810
       },
       {
         "medida": "180x80",
-        "4mm": 269557,
-        "dvh": 422112,
-        "3+3": 363212
+        "4mm": 350236,
+        "dvh": 603431,
+        "3+3": 279787
       },
       {
         "medida": "200x80",
-        "4mm": 282553,
-        "dvh": 446585,
-        "3+3": 387562
+        "4mm": 365285,
+        "dvh": 642157,
+        "3+3": 293325
       },
       {
         "medida": "100x100",
-        "4mm": 240973,
-        "dvh": 367298,
-        "3+3": 302100
+        "4mm": 320848,
+        "dvh": 512906,
+        "3+3": 249972
       },
       {
         "medida": "120x100",
-        "4mm": 255361,
-        "dvh": 394373,
-        "3+3": 323520
+        "4mm": 336085,
+        "dvh": 548545,
+        "3+3": 264972
       },
       {
         "medida": "150x100",
-        "4mm": 277931,
-        "dvh": 435007,
-        "3+3": 356234
+        "4mm": 360965,
+        "dvh": 602588,
+        "3+3": 288478
       },
       {
         "medida": "180x100",
-        "4mm": 295310,
-        "dvh": 471411,
-        "3+3": 397727
+        "4mm": 379474,
+        "dvh": 665971,
+        "3+3": 306628
       },
       {
         "medida": "200x100",
-        "4mm": 313131,
-        "dvh": 501919,
-        "3+3": 425052
+        "4mm": 398265,
+        "dvh": 707768,
+        "3+3": 325181
       },
       {
         "medida": "100x110",
-        "4mm": 254041,
-        "dvh": 390025,
-        "3+3": 331029
+        "4mm": 337852,
+        "dvh": 556418,
+        "3+3": 263553
       },
       {
         "medida": "120x110",
-        "4mm": 268419,
-        "dvh": 417080,
-        "3+3": 351858
+        "4mm": 353090,
+        "dvh": 591437,
+        "3+3": 278544
       },
       {
         "medida": "150x110",
-        "4mm": 290998,
-        "dvh": 457723,
-        "3+3": 384731
+        "4mm": 377979,
+        "dvh": 645646,
+        "3+3": 302059
       },
       {
         "medida": "180x110",
-        "4mm": 308367,
-        "dvh": 494116,
-        "3+3": 426646
+        "4mm": 396479,
+        "dvh": 709475,
+        "3+3": 320198
       },
       {
         "medida": "200x110",
-        "4mm": 326197,
-        "dvh": 524633,
-        "3+3": 453465
+        "4mm": 415280,
+        "dvh": 750739,
+        "3+3": 338762
       },
       {
         "medida": "100x120",
-        "4mm": 266836,
-        "dvh": 412469,
-        "3+3": 359313
+        "4mm": 354587,
+        "dvh": 599257,
+        "3+3": 276854
       },
       {
         "medida": "120x120",
-        "4mm": 281511,
-        "dvh": 439821,
-        "3+3": 380780
+        "4mm": 370132,
+        "dvh": 634943,
+        "3+3": 292151
       },
       {
         "medida": "150x120",
-        "4mm": 305773,
-        "dvh": 482067,
-        "3+3": 415623
+        "4mm": 396846,
+        "dvh": 691195,
+        "3+3": 317408
       },
       {
         "medida": "180x120",
-        "4mm": 321390,
-        "dvh": 516789,
-        "3+3": 455090
+        "4mm": 413447,
+        "dvh": 752478,
+        "3+3": 333732
       },
       {
         "medida": "200x120",
-        "4mm": 339544,
-        "dvh": 547629,
-        "3+3": 482219
+        "4mm": 432584,
+        "dvh": 794060,
+        "3+3": 352632
       },
       {
         "medida": "100x150",
-        "4mm": 312978,
-        "dvh": 486533,
-        "3+3": 419713
+        "4mm": 413880,
+        "dvh": 701897,
+        "3+3": 324768
       },
       {
         "medida": "120x150",
-        "4mm": 331137,
-        "dvh": 520328,
-        "3+3": 459251
+        "4mm": 429968,
+        "dvh": 756588,
+        "3+3": 343722
       },
       {
         "medida": "150x150",
-        "4mm": 359592,
-        "dvh": 570988,
-        "3+3": 520760
+        "4mm": 456654,
+        "dvh": 840899,
+        "3+3": 373392
       },
       {
         "medida": "180x150",
-        "4mm": 380291,
-        "dvh": 615258,
-        "3+3": 573392
+        "4mm": 473890,
+        "dvh": 916023,
+        "3+3": 395053
       },
       {
         "medida": "200x150",
-        "4mm": 400389,
-        "dvh": 651081,
-        "3+3": 614780
+        "4mm": 491896,
+        "dvh": 972632,
+        "3+3": 416017
       }
     ],
     "secciones": [
@@ -3362,27 +3362,27 @@
         "filas": [
           {
             "medida": "200x60",
-            "4mm": 369629,
-            "dvh": 531806,
-            "3+3": 462554
+            "4mm": 470847,
+            "dvh": 732704,
+            "3+3": 383347
           },
           {
             "medida": "200x100",
-            "4mm": 454256,
-            "dvh": 680411,
-            "3+3": 609130
+            "4mm": 573082,
+            "dvh": 965371,
+            "3+3": 471382
           },
           {
             "medida": "200x110",
-            "4mm": 483089,
-            "dvh": 725231,
-            "3+3": 653461
+            "4mm": 606596,
+            "dvh": 1031496,
+            "3+3": 501341
           },
           {
             "medida": "200x150",
-            "4mm": 559784,
-            "dvh": 865914,
-            "3+3": 792097
+            "4mm": 700608,
+            "dvh": 1255940,
+            "3+3": 581162
           }
         ]
       }
@@ -3725,38 +3725,38 @@
       {
         "modelo": "MODELO 1 VR",
         "3mm": "-",
-        "4mm": 177788,
-        "fantasia": 181155
+        "4mm": 179536,
+        "fantasia": 183078
       },
       {
         "modelo": "MODELO 2",
         "3mm": "-",
-        "4mm": 164033,
-        "fantasia": 167400
+        "4mm": 163938,
+        "fantasia": 167283
       },
       {
         "modelo": "MODELO 3",
-        "3mm": 187291,
-        "4mm": 190068,
-        "fantasia": 191657
+        "3mm": 187975,
+        "4mm": 190897,
+        "fantasia": 192568
       },
       {
         "modelo": "MODELO 3VR",
-        "3mm": 221477,
+        "3mm": 222161,
         "4mm": "-",
-        "fantasia": 225843
+        "fantasia": 226754
       },
       {
         "modelo": "MODELO 4",
-        "3mm": 203117,
-        "4mm": 204613,
-        "fantasia": 205501
+        "3mm": 203499,
+        "4mm": 205073,
+        "fantasia": 206008
       },
       {
         "modelo": "MODELO 4 VR",
-        "3mm": 220448,
-        "4mm": 221944,
-        "fantasia": 222832
+        "3mm": 220830,
+        "4mm": 222404,
+        "fantasia": 223339
       },
       {
         "modelo": "MODELO 5",
@@ -3812,24 +3812,24 @@
         "tipo": "PLACA",
         "modelo": "FINGER PINO",
         "medida": "060x200",
-        "marco10": 99190,
-        "marco15": 105430,
+        "marco10": 104260,
+        "marco15": 110760,
         "aluminio": "-"
       },
       {
         "tipo": "PLACA",
         "modelo": "FINGER PINO",
         "medida": "070x200",
-        "marco10": 99190,
-        "marco15": 105430,
+        "marco10": 104260,
+        "marco15": 110760,
         "aluminio": "-"
       },
       {
         "tipo": "PLACA",
         "modelo": "FINGER PINO",
         "medida": "080x200",
-        "marco10": 105430,
-        "marco15": 111946,
+        "marco10": 110760,
+        "marco15": 117546,
         "aluminio": "-"
       },
       {
@@ -3886,7 +3886,7 @@
         "medida": "060x200",
         "marco10": "-",
         "marco15": "-",
-        "aluminio": 103350
+        "aluminio": 108550
       },
       {
         "tipo": "PLACA",
@@ -3894,7 +3894,7 @@
         "medida": "070x200",
         "marco10": "-",
         "marco15": "-",
-        "aluminio": 103350
+        "aluminio": 108550
       },
       {
         "tipo": "PLACA",
@@ -3902,7 +3902,7 @@
         "medida": "080x200",
         "marco10": "-",
         "marco15": "-",
-        "aluminio": 107380
+        "aluminio": 112749
       },
       {
         "tipo": "PLACA",
@@ -3932,24 +3932,24 @@
         "tipo": "EMBUTIR",
         "modelo": "FINGER PINO",
         "medida": "060x200",
-        "marco10": 297570,
-        "marco15": 297570,
+        "marco10": 312449,
+        "marco15": 312449,
         "aluminio": "-"
       },
       {
         "tipo": "EMBUTIR",
         "modelo": "FINGER PINO",
         "medida": "070x200",
-        "marco10": 297570,
-        "marco15": 297570,
+        "marco10": 312449,
+        "marco15": 312449,
         "aluminio": "-"
       },
       {
         "tipo": "EMBUTIR",
         "modelo": "FINGER PINO",
         "medida": "080x200",
-        "marco10": 317850,
-        "marco15": 317850,
+        "marco10": 333743,
+        "marco15": 333743,
         "aluminio": "-"
       },
       {
@@ -4041,6 +4041,11 @@
         "precio": "20%"
       },
       {
+        "detalle": "RECARGO Tres Guias",
+        "unidad": "Porcentaje",
+        "precio": "25%"
+      },
+      {
         "detalle": "RECARGO Natural",
         "unidad": "Porcentaje",
         "precio": "70%"
@@ -4068,17 +4073,17 @@
       {
         "detalle": "Superficies - Pano Fijo / Modena",
         "unidad": "Precio",
-        "precio": 24914
+        "precio": 25661
       },
       {
         "detalle": "Superficies - Premarco",
         "unidad": "Precio",
-        "precio": 10197
+        "precio": 10473
       },
       {
         "detalle": "Superficies - Contramarco",
         "unidad": "Precio",
-        "precio": 5788
+        "precio": 6063
       },
       {
         "detalle": "Superficies - Travesano / Herrero",
@@ -4088,7 +4093,7 @@
       {
         "detalle": "Superficies - Travesano / Modena",
         "unidad": "Precio",
-        "precio": 28256
+        "precio": 29103
       },
       {
         "detalle": "Superficies - Perfil Acople",
@@ -4098,7 +4103,7 @@
       {
         "detalle": "Superficies - Varillas",
         "unidad": "Precio",
-        "precio": 25493
+        "precio": 26871
       },
       {
         "detalle": "Superficies - Mosquitero Fijo",
@@ -4188,22 +4193,22 @@
       {
         "detalle": "Extras - Cp8",
         "unidad": "Precio",
-        "precio": 5512
+        "precio": 9646
       },
       {
         "detalle": "Extras - Volcable",
         "unidad": "Precio",
-        "precio": 5512
+        "precio": 9646
       },
       {
         "detalle": "Extras - Brazo De Empuje",
         "unidad": "Precio",
-        "precio": 5512
+        "precio": 9646
       },
       {
         "detalle": "Extras - Cartelprohibido",
         "unidad": "Precio",
-        "precio": 6890
+        "precio": 9646
       },
       {
         "detalle": "Barrales - Recto",
@@ -4238,7 +4243,7 @@
       {
         "detalle": "Herrajes - Bisagra Extra",
         "unidad": "Precio",
-        "precio": 6201
+        "precio": 11024
       },
       {
         "detalle": "Herrajes - Barra Antipanico",
@@ -4248,17 +4253,17 @@
       {
         "detalle": "Herrajes - Picaporte / Herrero",
         "unidad": "Precio",
-        "precio": 6890
+        "precio": 8268
       },
       {
         "detalle": "Herrajes - Picaporte / Modena",
         "unidad": "Precio",
-        "precio": 17914
+        "precio": 19292
       },
       {
         "detalle": "Herrajes - Media Manija",
         "unidad": "Precio",
-        "precio": 15847
+        "precio": 18190
       },
       {
         "detalle": "Herrajes - Cerradura / Herrero",
@@ -4283,47 +4288,47 @@
       {
         "detalle": "Vidrios - 3mm",
         "unidad": "Precio",
-        "precio": 24042
+        "precio": 25244
       },
       {
         "detalle": "Vidrios - 4mm",
         "unidad": "Precio",
-        "precio": 31039
+        "precio": 32591
       },
       {
         "detalle": "Vidrios - 5mm",
         "unidad": "Precio",
-        "precio": 39685
+        "precio": 41669
       },
       {
         "detalle": "Vidrios - 6mm",
         "unidad": "Precio",
-        "precio": 48802
+        "precio": 51242
       },
       {
         "detalle": "Vidrios - Fantasia",
         "unidad": "Precio",
-        "precio": 39456
+        "precio": 41430
       },
       {
         "detalle": "Vidrios - Esmerilado",
         "unidad": "Precio",
-        "precio": 88805
+        "precio": 93245
       },
       {
         "detalle": "Vidrios - 3+3",
         "unidad": "Precio",
-        "precio": 95742
+        "precio": 99572
       },
       {
         "detalle": "Vidrios - 4+4",
         "unidad": "Precio",
-        "precio": 106952
+        "precio": 111231
       },
       {
         "detalle": "Vidrios - 5+5",
         "unidad": "Precio",
-        "precio": 129380
+        "precio": 134556
       },
       {
         "detalle": "Vidrios - Dvh",

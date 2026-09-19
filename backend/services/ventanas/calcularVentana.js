@@ -182,7 +182,14 @@ function calcularModena({
   // =========================
   const esDVH = tipoVidrio === "DVH 4+9+4" || tipoVidrio === "DVH 5+9+5";
 
-  if (!usarPrecioVidrioLista && !esDVH && superficies.vidrios?.[tipoVidrio]) {
+  const precioVidrioCatalogo = Number(d.vidrios?.[tipoVidrio] || 0);
+
+  if (
+    !usarPrecioVidrioLista &&
+    !esDVH &&
+    precioVidrioCatalogo === 0 &&
+    superficies.vidrios?.[tipoVidrio]
+  ) {
     precioVidrio = calcularPrecioVidrioPorM2(medidaUsada, tipoVidrio);
   }
 
