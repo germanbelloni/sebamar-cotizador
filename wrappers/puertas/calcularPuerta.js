@@ -381,13 +381,17 @@ function calcularPuertaWrapper(dataInput) {
     }
 
     if (premarco || contramarco) {
-      const c = Number(superficies.superficies.contramarco || 0) * ml;
+      const cBase = Number(superficies.superficies.contramarco || 0) * ml;
+
+      const colorFactor = getColorFactor(color);
+
+      const c = Math.round(cBase * (1 + colorFactor));
 
       costo += c;
 
       items.push({
         tipo: "contramarco",
-        precio: Math.round(c),
+        precio: c,
       });
 
       audit.add({

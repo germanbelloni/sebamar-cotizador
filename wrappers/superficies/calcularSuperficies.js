@@ -152,6 +152,14 @@ function calcularsuperficiesWrapper(dataInput) {
         },
       });
     }
+
+    const contramarco = items.find((i) => i.tipo === "contramarco");
+
+    if (contramarco) {
+      const original = contramarco.precio;
+
+      contramarco.precio = Math.round(original * (1 + colorFactor));
+    }
   }
 
   const costoBase = items.reduce(

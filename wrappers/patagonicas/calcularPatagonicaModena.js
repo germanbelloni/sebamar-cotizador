@@ -380,15 +380,20 @@ function calcularWrapper(dataInput) {
       valorDespues: costo,
     });
   }
-
   if (premarco || contramarco) {
-    const c = Number(superficies.superficies.contramarco || 0) * ml;
+    const cBase = Number(superficies.superficies.contramarco || 0) * ml;
+
+    const porcentajeColor = Number(
+      colores.find((c) => c.nombre === color)?.valor || 0,
+    );
+
+    const c = Math.round(cBase * (1 + porcentajeColor));
 
     costo += c;
 
     items.push({
       tipo: "contramarco",
-      precio: Math.round(c),
+      precio: c,
     });
 
     audit.add({
@@ -398,6 +403,14 @@ function calcularWrapper(dataInput) {
       valorAntes: costo - c,
       valorAplicado: c,
       valorDespues: costo,
+      metadata: {
+        metrosLineales: ml,
+        precioBase: Number(superficies.superficies.contramarco || 0),
+        color,
+        porcentajeColor,
+        valorBase: cBase,
+        valorColor: c - Math.round(cBase),
+      },
     });
   }
 

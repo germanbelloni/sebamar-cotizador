@@ -390,28 +390,29 @@ function calcularRajaModena(dataInput) {
   }
 
   if (premarco || contramarco) {
-    const c = Number(superficies.superficies.contramarco || 0) * ml;
+    const cBase = Number(superficies.superficies.contramarco || 0) * ml;
+
+    const porcentajeColor = Number(
+      colores.find((c) => c.nombre === color)?.valor || 0,
+    );
+
+    const c = Math.round(cBase * (1 + porcentajeColor));
 
     costo += c;
 
     audit.add({
       etapa: "Contramarco",
-
       tipo: "extra",
-
       origen: "superficies.json",
-
       valorAntes: costo - c,
-
       valorAplicado: c,
-
       valorDespues: costo,
     });
 
     if (c > 0) {
       items.push({
         tipo: "contramarco",
-        precio: Math.round(c),
+        precio: c,
       });
     }
   }
