@@ -165,6 +165,14 @@ export function buildPuertasDescription(config: PuertasConfig) {
     }
   }
 
+  if (config.premarco) {
+    parts.push("premarco");
+  }
+
+  if (config.contramarco) {
+    parts.push("contramarco");
+  }
+
   return parts.join(" ");
 }
 /* ========================= */

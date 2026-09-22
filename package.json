@@ -4,6 +4,7 @@
   "scripts": {
     "backend": "node backend/server.js",
     "frontend": "npm --prefix frontend run dev",
+    "arrancar": "start \"Backend\" cmd /k \"npm run backend\" && start \"Frontend\" cmd /k \"npm run frontend\"",
     "importarjsons": "node backend/scripts/importar.js --publish",
     "generarlistas": "node listas/generar-listas.js todo todos",
     "validarlistas": "node listas/validar-listas.js"

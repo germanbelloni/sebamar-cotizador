@@ -70,6 +70,13 @@ export function buildPortonesDescription(config: PortonesConfig) {
   if (config.extras.dobleTravesano) {
     parts.push("doble travesaño");
   }
+  if (config.premarco) {
+    parts.push("premarco");
+  }
+
+  if (config.contramarco) {
+    parts.push("contramarco");
+  }
 
   return parts.join(" ");
 }
